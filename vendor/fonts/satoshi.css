@@ -1,0 +1,9 @@
+/* Satoshi (variable 300-900) — vendored from fontshare.com to remove the runtime CDN dependency.
+   Licence: ITF Free Font Licence (free for commercial use). */
+@font-face {
+  font-family: 'Satoshi';
+  src: url('./satoshi-variable.woff2') format('woff2');
+  font-weight: 300 900;
+  font-display: swap;
+  font-style: normal;
+}

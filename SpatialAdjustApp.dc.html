@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@1&display=swap" rel="stylesheet">
+<style>
+.sa-app *, .sa-app *::before, .sa-app *::after { box-sizing: border-box; }
+.sa-app { font-family: 'Satoshi', Verdana, Helvetica, Arial, sans-serif; }
+.sa-ps { -webkit-user-select:none; user-select:none; }
+</style>
+</helmet>
+<div class="sa-app" style="width:1600px;height:1000px;display:flex;flex-direction:column;position:relative;background:#fff;color:#080D12;overflow:hidden">
+
+  <div style="flex:none;display:flex;box-shadow:0 1.5872093439102173px 5.2906975746154785px 0 rgba(0,0,0,0.02), 0 6px 20px 0 rgba(0,0,0,0.03);position:relative;z-index:5;background:#fff">
+    <div style="flex:1;display:flex;margin-right:10px;justify-content:space-between">
+      <div style="display:flex;flex-wrap:wrap">
+        <div style="display:flex">
+          <div style="height:64px;background-color:#f5f7f8;display:flex;align-items:center">
+            <img class="sa-ps" src="assets/sa/sa-header-logo.png" alt="" style="height:64px">
+          </div>
+          <div style="display:flex;flex-direction:column;justify-content:center;padding:7px 20px;border-right:1px solid #080D121A;min-width:200px;font-size:14px">
+            <div style="display:flex;align-items:center"><span style="display:flex"><img src="assets/sa/globe.png" alt="" style="height:18px;margin:4px 3px 0 0"></span>Riverbend National</div>
+            <div style="margin-left:22px;margin-top:5px">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;height:29px;padding:0 8px;border:1px solid #a6a6a6;border-radius:3px;background:#fff;font-size:13px;color:#333;min-width:150px">
+                <span>Riverbend National</span><span style="font-size:10px;color:#848484">▼</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap">
+          <div style="display:flex;padding:5px;border-right:1px solid #080D121A">
+            <div style="flex:1;display:flex;align-items:center;padding:0 10px">
+              <div class="sa-ps" style="display:flex;align-items:center;padding:0 10px;border-right:1px solid #080D1233;min-width:60px">
+                <span style="display:inline-flex;width:34px;height:34px;margin-right:5px;border-radius:50%;background:radial-gradient(circle at 50% 45%, #FFD36B 0 38%, #F3B03B 39% 46%, transparent 47%)"></span>101<span style="font-size:11px;margin-left:2px">F</span>
+              </div>
+              <div class="sa-ps" style="display:flex;align-items:center;padding:0 10px;border-right:1px solid #080D1233;min-width:78px">18 %<span style="font-size:11px;margin-left:3px">RH</span></div>
+              <div class="sa-ps" style="display:flex;align-items:center;padding:0 10px;border-right:1px solid #080D1233;min-width:80px">0.34<span style="font-size:11px;margin-left:2px">in</span><span style="font-size:11px;margin-left:2px">ET</span></div>
+              <div style="display:flex;align-items:center;padding:0 10px">0.00<span style="font-size:11px;margin-left:2px">in</span>
+                <span style="font-size:14px;color:#646E73;display:flex;align-items:center"><img src="assets/sa/rain-drop.png" alt="" style="height:16px;margin-top:1px"></span>
+                <span style="font-size:14px;color:#646E73;display:flex;align-items:center;margin-left:25px">⌄</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;padding:0 20px;border-right:1px solid #080D121A">
+            <div style="display:flex;align-items:center;margin-right:8px;padding-right:8px;border-right:1px solid #080D1233">
+              <span style="display:flex"><img src="assets/sa/gauge.png" alt="" style="height:18px;margin:2px 2px 0 0"></span> 33.7%<span style="font-size:11px;margin-left:4px">Avg. Moisture</span>
+            </div>
+            <div style="display:flex;align-items:center;font-size:13px;margin-right:8px;padding-right:8px;border-right:1px solid #080D1233">45.6%<span style="font-size:11px;margin-left:4px">High</span></div>
+            <div style="display:flex;align-items:center;font-size:13px">19.9%<span style="font-size:11px;margin-left:4px">Low</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;align-items:center;height:64px;min-width:375px">
+        <div style="margin-right:6px">{{ pushButton }}</div>
+        <div style="display:flex;align-items:center;padding:5px 10px;border:1px solid #18AD0733;border-radius:4px;margin-right:10px;background-color:#42CE111A;font-size:14px;font-family:'Open Sans','Helvetica Neue',sans-serif;font-weight:600;color:black">
+          <img src="assets/sa/pushed_ico.png" alt="" class="sa-ps" style="height:16px;margin-right:6px"><span class="sa-ps">6</span>
+        </div>
+        <div style="display:flex;align-items:center">
+          <div style="border-right:1px solid lightgray;margin:0 5px;height:28px"></div>
+          <div style="padding:6px 10px;border-radius:5px;font-size:18px;color:#cd2027;line-height:1">⟳</div>
+          <div style="border-right:1px solid lightgray;margin:0 5px;height:28px"></div>
+          <div style="padding:6px 10px;border-radius:5px;font-size:20px;color:#cd2027;line-height:1">⚙</div>
+          <div style="border-right:1px solid lightgray;margin:0 5px;height:28px"></div>
+          <div style="padding:6px 10px;border-radius:5px;font-size:20px;color:#cd2027;line-height:1">⏻</div>
+          <div style="border-right:1px solid lightgray;margin:0 5px;height:28px"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:1;position:relative;min-height:0">
+    <div style="position:absolute;top:5px;right:5px;bottom:5px;left:5px">
+      <div style="width:100%;height:100%;display:flex">
+
+        <div style="flex:1;border:1px solid #080D121A;border-radius:8px;margin:10px 0 5px 5px;position:relative;overflow:hidden">
+          <div style="position:absolute;inset:0;background:#2E3D2A"></div>
+          <div style="position:absolute;inset:0;opacity:0.55;background:radial-gradient(ellipse 40% 22% at 30% 22%, #6E8C4A 0 60%, transparent 61%), radial-gradient(ellipse 30% 30% at 66% 34%, #6E8C4A 0 60%, transparent 61%), radial-gradient(ellipse 44% 18% at 48% 62%, #6E8C4A 0 60%, transparent 61%), radial-gradient(ellipse 26% 26% at 22% 74%, #5F7C40 0 60%, transparent 61%), radial-gradient(ellipse 22% 30% at 80% 72%, #5F7C40 0 60%, transparent 61%), radial-gradient(ellipse 14% 8% at 62% 84%, #3A5670 0 70%, transparent 71%), radial-gradient(ellipse 10% 7% at 18% 40%, #C6B189 0 70%, transparent 71%), radial-gradient(ellipse 8% 6% at 74% 22%, #C6B189 0 70%, transparent 71%)"></div>
+          <div style="position:absolute;inset:0">{{ mapMarkers }}</div>
+
+          <div style="position:absolute;bottom:2rem;left:50%;transform:translate(-50%,0);z-index:450">
+            <div style="padding:4px 1rem;border-radius:4px;background:white;display:flex;justify-content:center;align-items:center">
+              <div style="display:flex;flex-direction:column;padding-top:8px">
+                <div style="display:flex">
+                  <div class="sa-ps" style="min-width:64px;border-radius:4px;padding:5px 10px;color:white;font-weight:bold;text-align:center;margin-right:0.5rem;background-color:#E11837">0-5%</div>
+                  <div class="sa-ps" style="min-width:64px;border-radius:4px;padding:5px 10px;color:white;font-weight:bold;text-align:center;margin-right:0.5rem;background-color:#F3D43B">6-16%</div>
+                  <div class="sa-ps" style="min-width:64px;border-radius:4px;padding:5px 10px;color:white;font-weight:bold;text-align:center;margin-right:0.5rem;background-color:#42CE11">17-30%</div>
+                  <div class="sa-ps" style="min-width:64px;border-radius:4px;padding:5px 10px;color:white;font-weight:bold;text-align:center;margin-right:0.5rem;background-color:#3079F0">&gt; 30%</div>
+                </div>
+                <div style="width:280px;height:14px;margin-top:6px;border-radius:7px;overflow:hidden;display:flex">
+                  <div style="width:16.6%;background:#E11837"></div><div style="width:36.6%;background:#F3D43B"></div><div style="width:46.8%;background:#42CE11"></div>
+                </div>
+              </div>
+              <div style="margin:0 10px;padding:0 14px;border-left:1px solid gray;border-right:1px solid gray;display:flex;align-items:center">
+                <img class="sa-ps" src="assets/sa/sa-variance.svg" alt="" style="height:22px">
+              </div>
+              <div style="display:flex;align-items:center;padding:5px;border-radius:4px;background-color:#D9DFE2">
+                <img class="sa-ps" src="assets/sa/layers.svg" alt="" style="height:16px">
+                <span class="sa-ps" style="margin:0 5px;font-size:12px">LAYERS</span>
+                <img class="sa-ps" src="assets/sa/chevron-down.svg" alt="" style="height:14px">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="flex:1;min-width:800px;max-width:45%;padding:10px 5px 5px 20px;display:flex;flex-direction:column">
+          <div style="flex:1;max-height:30%;border:1px solid #080D121A;border-radius:8px;margin-bottom:20px;position:relative;overflow:hidden">
+            <div style="flex:1;height:100%;display:flex;flex-direction:column;position:relative">
+              <div class="sa-ps" style="background-color:#F5F7F8;border-bottom:1px solid #080D121A;height:52px;flex:none;padding:0 1rem;display:flex;align-items:center">
+                <div style="font-size:20px;margin-right:1rem;color:black">AP</div>
+                <div style="font-size:18px;color:#33393D">33.70 <span style="font-size:14px">Avg. Moisture</span></div>
+              </div>
+              <div style="position:relative;flex:1;overflow:hidden;display:flex">{{ chart }}</div>
+              <div style="position:absolute;top:10px;right:10px;width:300px;display:flex">
+                <div style="flex:1;min-height:33px;display:flex;align-items:center;justify-content:space-between;padding:0 8px;border:1px solid #a6a6a6;border-radius:3px;background:#fff;font-size:13px;color:#333">
+                  <span>4 holes selected</span><span style="font-size:10px;color:#848484">▼</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="flex:1;display:flex;flex-direction:column;min-height:0">
+            <div style="display:flex;align-items:flex-end;margin-bottom:10px;justify-content:space-between">
+              <div style="flex:1;display:flex;flex-direction:column">
+                <div style="display:flex;width:fit-content;border-radius:4px;background-color:#ECEFF1;padding:8px">
+                  <div style="{{ tabAllStyle }}"><span class="sa-ps" style="display:flex;align-items:center"><span style="font-size:18px">148</span><span style="font-size:15px;margin-left:8px">All Stations</span></span></div>
+                  <div style="{{ tabFilteredStyle }}"><span class="sa-ps" style="display:flex;align-items:center"><img src="assets/sa/over-under_ico.png" alt="" style="height:24px;margin-right:5px"><span style="font-size:18px">23</span><span style="font-size:15px;margin-left:8px">Over/Under</span></span></div>
+                </div>
+                <div style="display:flex;margin-top:8px">
+                  <div style="{{ bulkLinkStyle }}">
+                    <span class="sa-ps" style="display:flex;align-items:center"><img src="assets/sa/sa-bulk-adjust.png" alt="" style="height:20px;margin-right:3px"><span>BULK ADJUST</span></span>
+                  </div>
+                  <div style="color:#3079F0;background-color:#ECEFF1;font-size:14px;padding:3px 5px;border-radius:4px">
+                    <span class="sa-ps" style="display:flex;align-items:center"><img src="assets/sa/sa-tbl-filter.png" alt="" style="height:20px;margin-right:3px"><span>% ADJ. OVER 200%, UNDER 10%</span></span>
+                  </div>
+                </div>
+              </div>
+              <span style="font-size:12px;color:grey;padding:0 10px 10px 0">Calculation ET: 0.34 in</span>
+            </div>
+
+            <div style="flex:1;border:1px solid #080D121A;border-radius:8px;position:relative;min-height:0">
+              <div style="flex:1;height:100%;display:flex;flex-direction:column">
+                <div style="flex:none;height:44px;background-color:#F5F7F8;border-bottom:1px solid #080D121A;display:flex;align-items:center;font-size:12px;padding:0 10px;justify-content:space-between;border-radius:4px 4px 0 0">
+                  <div style="flex:1;display:flex;align-items:center;height:100%;border-right:1px solid #080D121A;padding:0 10px;font-size:12px;color:#3079F0">
+                    <span>Riverbend National</span><span style="margin:0 6px;color:#848484">/</span><span>AP</span><span style="margin:0 6px;color:#848484">/</span><span style="color:#333">3</span>
+                  </div>
+                  <div class="sa-ps" style="display:flex;align-items:center;padding-left:10px">
+                    <span style="display:flex;justify-content:center;width:85px">Avg. VWC</span>
+                    <div style="display:flex;align-items:center">
+                      <span style="display:flex;justify-content:center;width:81px">Target VWC</span>
+                      <div>
+                        <div style="display:flex;justify-content:center;width:117px">Adjustment</div>
+                        <div style="display:flex;align-items:center;justify-content:space-around">
+                          <span style="display:flex;justify-content:center;font-size:10px">Current</span>
+                          <span style="display:flex;justify-content:center;font-size:10px">Suggested</span>
+                        </div>
+                      </div>
+                      <span style="display:flex;justify-content:center;width:82px">% Adj.</span>
+                    </div>
+                    <span style="display:flex;justify-content:center;width:70px">Enable</span>
+                  </div>
+                </div>
+                <div style="flex:1;position:relative;min-height:0">
+                  <div style="position:absolute;inset:0;overflow:hidden;border-radius:0 0 4px 4px">{{ rows }}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div style="flex:none;display:flex">
+    <div style="flex:1;display:flex;justify-content:space-between;background-color:#333;padding:16px;font-size:11px;color:white">
+      <div>Copyright © 2026 The Toro Company. All Rights Reserved.</div><div></div>
+      <div style="font-size:12px">Lynx Cloud connected</div>
+    </div>
+  </div>
+
+  {{ dialog }}
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:1000},&quot;dialog&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;none&quot;,&quot;settings&quot;,&quot;bulk&quot;,&quot;push&quot;,&quot;progress&quot;,&quot;soil&quot;,&quot;diagnostics&quot;],&quot;default&quot;:&quot;none&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;settingsTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;calculation&quot;,&quot;threshold&quot;,&quot;profiles&quot;,&quot;preferences&quot;],&quot;default&quot;:&quot;calculation&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showProfilesTab&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;selectedRows&quot;:{&quot;editor&quot;:null,&quot;default&quot;:[],&quot;tsType&quot;:&quot;string[]&quot;},&quot;focusRow&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;tableFilter&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;filtered&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;pushEnabled&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;pushLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Push 6 Changes&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;thresholdValue&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:10,&quot;tsType&quot;:&quot;number&quot;},&quot;thresholdOption&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;zero&quot;,&quot;min&quot;],&quot;default&quot;:&quot;zero&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;maxAmount&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;0.39&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;bulkMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;replace&quot;,&quot;shift&quot;],&quot;default&quot;:&quot;shift&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;bulkValue&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:-5,&quot;tsType&quot;:&quot;number&quot;},&quot;pushState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;running&quot;,&quot;complete&quot;],&quot;default&quot;:&quot;running&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showThresholdBanner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const h = React.createElement;
+
+const STATIONS = [
+  { name: '3AP1', scan: '08-08-25', vwc: 27.6, target: 54, current: 100, suggested: 333, adj: 333, on: true, pushed: false },
+  { name: '3AP2', scan: '08-08-25', vwc: 30.3, target: 69, current: 100, suggested: 333, adj: 333, on: true, pushed: true },
+  { name: '4AP1', scan: '08-08-25', vwc: 26.1, target: 30, current: 100, suggested: 333, adj: 333, on: true, pushed: false },
+  { name: '5AP1', scan: '08-08-25', vwc: 27.9, target: 30, current: 100, suggested: 333, adj: 333, on: false, pushed: false },
+  { name: '6AP1', scan: '08-08-25', vwc: 30.9, target: 31, current: 100, suggested: 293, adj: 293, on: true, pushed: false },
+  { name: '7AP1', scan: '08-06-25', vwc: 50.0, target: 50, current: 100, suggested: 288, adj: 288, on: true, pushed: true, est: true },
+  { name: '9AP1', scan: '08-08-25', vwc: 23.0, target: 18, current: 100, suggested: 121, adj: 121, on: true, pushed: false },
+  { name: '10AP1', scan: '08-08-25', vwc: 34.5, target: 16, current: 100, suggested: 0, adj: 0, on: true, pushed: false },
+  { name: '11AP2', scan: '08-08-25', vwc: 24.0, target: 17, current: 100, suggested: 6, adj: 6, on: true, pushed: false },
+  { name: '6AP2', scan: '08-08-25', vwc: 28.5, target: 32, current: 100, suggested: 333, adj: 333, on: true, pushed: false },
+  { name: '7AP4', scan: '08-08-25', vwc: 27.1, target: 25, current: 100, suggested: 217, adj: 217, on: true, pushed: false },
+  { name: '11AP1', scan: '08-08-25', vwc: 23.3, target: 17, current: 100, suggested: 79, adj: 79, on: true, pushed: false },
+  { name: '11AP3', scan: '08-08-25', vwc: 26.6, target: 19, current: 100, suggested: 4, adj: 4, on: true, pushed: false },
+  { name: '13AP1', scan: '08-08-25', vwc: 45.6, target: 26, current: 100, suggested: 0, adj: 0, on: true, pushed: false },
+  { name: '16AP1', scan: '08-08-25', vwc: 37.1, target: 30, current: 100, suggested: 52, adj: 52, on: true, pushed: true },
+  { name: '16AP2', scan: '08-08-25', vwc: 32.0, target: 28, current: 100, suggested: 154, adj: 154, on: true, pushed: false },
+  { name: '17AP1', scan: '08-08-25', vwc: 43.6, target: 30, current: 100, suggested: 0, adj: 0, on: true, pushed: false },
+  { name: '18AP1', scan: '08-08-25', vwc: 61.7, target: 23, current: 100, suggested: 0, adj: 0, on: true, pushed: false }
+];
+
+const MARKERS = [
+  [22,18,27.6],[31,24,30.3],[44,15,26.1],[58,21,27.9],[68,30,30.9],[74,38,28.5],
+  [63,47,50.0],[52,44,27.1],[40,52,23.0],[29,46,34.5],[20,57,23.3],[26,65,24.0],
+  [34,72,26.6],[47,68,45.6],[58,62,37.1],[66,70,32.0],[78,58,43.6],[82,46,61.7],
+  [15,34,4.2],[88,30,12.8],[46,30,19.4],[70,20,22.1],[36,38,15.0],[55,78,33.4]
+];
+
+function rangeColor(v) {
+  if (v <= 5) return '#E11837';
+  if (v <= 16) return '#F3D43B';
+  if (v <= 30) return '#42CE11';
+  return '#3079F0';
+}
+
+class Component extends DCLogic {
+  numInput(value, width) {
+    return h('div', { style: { display: 'flex', alignItems: 'center', height: '33px', width, border: '1px solid #a6a6a6', borderRadius: '3px', background: 'transparent', padding: '0 6px', fontSize: '13px', color: '#333' } }, String(value));
+  }
+  toggle(on) {
+    return h('div', { style: { width: '40px', height: '22px', borderRadius: '11px', background: on ? '#007ad9' : '#c8c8c8', position: 'relative' } },
+      h('div', { style: { position: 'absolute', top: '3px', left: on ? '21px' : '3px', width: '16px', height: '16px', borderRadius: '50%', background: '#fff' } }));
+  }
+  checkbox(checked) {
+    return h('div', { style: { width: '18px', height: '18px', borderRadius: '3px', border: '1px solid ' + (checked ? '#007ad9' : '#a6a6a6'), background: checked ? '#007ad9' : '#fff', color: '#fff', fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '5px', flex: 'none' } }, checked ? '✓' : '');
+  }
+  radio(on) {
+    return h('div', { style: { width: '18px', height: '18px', borderRadius: '50%', border: '1px solid ' + (on ? '#007ad9' : '#a6a6a6'), background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' } },
+      on ? h('div', { style: { width: '9px', height: '9px', borderRadius: '50%', background: '#007ad9' } }) : null);
+  }
+  select(label, width) {
+    return h('div', { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', minWidth: width || '210px', height: '33px', padding: '0 8px', border: '1px solid #a6a6a6', borderRadius: '3px', background: '#fff', fontSize: '13px', color: '#333' } },
+      h('span', null, label), h('span', { style: { fontSize: '10px', color: '#848484' } }, '▼'));
+  }
+
+  renderRows() {
+    const selected = this.props.selectedRows || [];
+    const focus = this.props.focusRow;
+    return STATIONS.map(s => {
+      const isSel = selected.indexOf(s.name) >= 0;
+      const isFocus = focus === s.name;
+      return h('div', { key: s.name, style: { width: '100%', display: 'flex', borderBottom: '1px solid #080D121A', height: '50px', background: isFocus ? '#FA9A001A' : 'transparent' } },
+        h('div', { style: { flex: 1, padding: '8px 10px', display: 'flex', alignItems: 'center', borderRight: '1px solid #080D121A' } },
+          this.checkbox(isSel),
+          h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', flex: 1, fontSize: '14px' } },
+            h('span', null, s.name), h('span', { style: { fontSize: '12px', color: 'gray' } }, s.scan))),
+        h('div', { style: { padding: '8px 10px', display: 'flex', alignItems: 'center', fontSize: '13px' } },
+          h('div', { style: { width: '85px', padding: '0 10px', display: 'flex', justifyContent: 'center', alignItems: 'center', color: s.est ? 'darkgray' : 'inherit', fontStyle: s.est ? 'italic' : 'normal' } }, s.vwc.toFixed(1) + '%'),
+          h('div', { style: { margin: '0 3px 0 12px' } }, this.numInput(s.target, '50px')),
+          h('span', null, '%'),
+          h('div', { style: { width: '60px', padding: '0 10px', textAlign: 'center' } }, s.current + '%'),
+          h('div', { style: { width: '59px', padding: '0 10px', textAlign: 'center' } }, s.suggested + '%'),
+          h('div', { style: { position: 'relative', display: 'flex', alignItems: 'center' } },
+            h('img', { src: 'assets/sa/' + (s.pushed ? 'pushed_ico.png' : 'push_ico.png'), alt: '', style: { position: 'absolute', right: '20px', top: '9px', height: '15px', zIndex: 1 } }),
+            h('div', { style: { margin: '0 3px 0 10px' } }, this.numInput(s.adj, '55px')),
+            h('span', null, '%')),
+          h('div', { style: { width: '70px', padding: '0 10px', display: 'flex', justifyContent: 'center', alignItems: 'center' } }, this.toggle(s.on))));
+    });
+  }
+
+  renderMarkers() {
+    return MARKERS.map((m, i) => h('div', {
+      key: i,
+      style: { position: 'absolute', left: m[0] + '%', top: m[1] + '%', transform: 'translate(-50%,-50%)', width: '30px', height: '30px', borderRadius: '50%', background: rangeColor(m[2]), opacity: 0.9, border: '1px solid rgba(255,255,255,.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: '10px', fontWeight: 700 }
+    }, m[2].toFixed(0)));
+  }
+
+  renderChart() {
+    const bars = [33.7, 29.0, 26.1, 27.9, 29.7, 42.0, 22.2, 21.7, 34.5, 24.6, 21.8, 45.6, 42.1, 41.4, 34.6, 45.1, 50.4];
+    return h('div', { style: { flex: 1, display: 'flex', alignItems: 'flex-end', gap: '6px', padding: '14px 16px 10px' } },
+      bars.map((b, i) => h('div', { key: i, style: { flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', height: '100%' } },
+        h('div', { style: { height: (b / 62 * 100) + '%', background: rangeColor(b), borderRadius: '2px 2px 0 0', opacity: 0.85 } }))));
+  }
+
+  shell(title, width, body, footer) {
+    return h('div', { style: { position: 'absolute', inset: 0, background: 'rgba(0,0,0,.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 900 } },
+      h('div', { style: { width, maxWidth: '95%', background: '#fff', borderRadius: '8px', boxShadow: '0 12px 40px rgba(0,0,0,.35)', display: 'flex', flexDirection: 'column', overflow: 'hidden', maxHeight: '92%' } },
+        h('div', { style: { padding: '14px 18px', borderBottom: '1px solid #ddd', fontSize: '18px', color: '#666' } }, title),
+        h('div', { style: { padding: '16px 18px', overflow: 'auto', fontSize: '14px', color: '#33393D' } }, body),
+        footer));
+  }
+  darkFooter(primary, cancel) {
+    return h('div', { style: { background: '#000', padding: '.9rem', display: 'flex', justifyContent: 'space-between', gap: '10px' } },
+      h('div', { style: { width: '49%', height: '40px', background: '#000', color: '#fff', border: '1px solid #4C5459', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' } }, cancel),
+      h('div', { style: { width: '49%', minWidth: '178px', height: '40px', background: '#ECEFF1', color: '#080D12', border: '1px solid #4C5459', borderRadius: '3px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 600 } }, primary));
+  }
+  lightFooter(primary, cancel) {
+    return h('div', { style: { padding: '.9rem', display: 'flex', justifyContent: 'space-between', gap: '10px', borderTop: '1px solid #eee' } },
+      h('div', { style: { width: '49%', height: '40px', background: '#fff', color: '#080D12', border: '1px solid #BCC6CC', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' } }, cancel),
+      h('div', { style: { width: '49%', minWidth: '178px', height: '40px', background: '#000', color: '#fff', border: '1px solid #1B1E21', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px', fontWeight: 600 } }, primary));
+  }
+
+  settingsDialog() {
+    const tab = this.props.settingsTab || 'calculation';
+    const items = [
+      ['calculation', 'Calculation', 'Configure calculation preferences'],
+      ['threshold', 'Minimum Threshold', 'Ignore insignificant irrigation adjustments']
+    ];
+    if (tab === 'profiles' || this.props.showProfilesTab) items.push(['profiles', 'Target Profiles', 'Save seasonal and event-based target profiles']);
+    items.push(['preferences', 'Preferences', 'Configure calculation preferences']);
+    const field = (label, control) => h('div', { key: label, style: { marginBottom: '14px' } },
+      h('div', { style: { fontWeight: 'bold', color: '#080D12', marginBottom: '7px' } }, label), control);
+    const panelBox = (kids) => h('div', { style: { border: '1px solid #080D121A', borderRadius: '4px', padding: '10px', background: '#F5F7F8', marginTop: '16px' } }, kids);
+
+    let intro, pane;
+    if (tab === 'threshold') {
+      intro = 'Setting a minimum threshold will prevent very small adjustments from being pushed to Lynx. Set to 0 to disable the minimum threshold.';
+      pane = panelBox([
+        h('div', { key: 'a', style: { fontWeight: 'bold', marginBottom: '7px' } }, 'Minimum Threshold (%)'),
+        h('div', { key: 'b' }, this.numInput(this.props.thresholdValue != null ? this.props.thresholdValue : 10, '120px')),
+        h('div', { key: 'c', style: { marginTop: '14px' } },
+          h('div', { style: { marginBottom: '7px' } }, 'Suggested Percent Adjust values below the minimum threshold will be:'),
+          h('div', { style: { display: 'flex', alignItems: 'center', marginBottom: '6px' } }, this.radio(this.props.thresholdOption !== 'min'), h('span', { style: { marginLeft: '8px' } }, 'Set to zero when pushed to Lynx')),
+          h('div', { style: { display: 'flex', alignItems: 'center' } }, this.radio(this.props.thresholdOption === 'min'), h('span', { style: { marginLeft: '8px' } }, 'Set to the minimum threshold value when pushed to Lynx')),
+          h('div', { style: { paddingLeft: '27px', marginTop: '6px', display: 'flex', alignItems: 'center' } }, this.checkbox(false), h('span', null, 'Exclude Zeros')))]);
+    } else if (tab === 'profiles') {
+      intro = 'Save a full set of station Target VWC values as a named profile, then apply it whenever the season or the event calls for it.';
+      pane = h('div', null,
+        h('div', { style: { border: '1px solid #080D121A', borderRadius: '4px', background: '#F5F7F8', marginTop: '16px', overflow: 'hidden' } },
+          [['Summer Baseline', 'Applied 14 Jun 2026 · 148 stations', true], ['Tournament Week', 'Applied 02 May 2026 · 148 stations', false], ['Overseed Recovery', 'Never applied · 148 stations', false]].map(p =>
+            h('div', { key: p[0], style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '12px 14px', borderBottom: '1px solid #080D121A', background: p[2] ? '#fff' : 'transparent' } },
+              h('div', null, h('div', { style: { fontWeight: 'bold', color: '#080D12' } }, p[0]), h('div', { style: { fontSize: '12px', color: '#A2ADB2' } }, p[1])),
+              h('div', { style: { fontSize: '12px', fontWeight: 700, color: p[2] ? '#18AD07' : '#3079F0' } }, p[2] ? 'ACTIVE' : 'APPLY')))),
+        h('div', { style: { marginTop: '12px', fontSize: '12px', color: '#A2ADB2' } }, 'Concept — this tab is not in the shipping build.'));
+    } else if (tab === 'preferences') {
+      intro = 'Customize language, units, and regional formatting used throughout Spatial Adjust.';
+      pane = h('div', { style: { border: '1px solid #080D121A', borderRadius: '4px', padding: '10px', background: '#F5F7F8', marginTop: '16px', display: 'flex', gap: '20px' } },
+        h('div', { style: { flex: 1 } }, field('Language', this.select('English (US)')), field('Units of Measure', this.select('Imperial'))),
+        h('div', { style: { flex: 1 } }, field('Temperature Scale', this.select('Fahrenheit')), field('Group and Decimal Separator', this.select('1,234.56'))));
+    } else {
+      intro = 'Configure how Spatial Adjust calculates irrigation recommendations.';
+      pane = panelBox([
+        field('Suggested Percent Adjust Calculation', this.select('Option 2')),
+        field('Daily Max Amount (in)', this.numInput(this.props.maxAmount != null ? this.props.maxAmount : '0.39', '140px')),
+        field('Lynx Reference Amount (in)', this.numInput('0.12', '140px')),
+        field('Crop Coefficient (%)', this.numInput('100', '140px'))]);
+    }
+
+    return this.shell('Settings', '900px',
+      h('div', { style: { display: 'flex', flexDirection: 'column' } },
+        h('div', { style: { fontSize: '16px', margin: '5px 0 20px' } }, 'Configure how Spatial Adjust calculates, filters, and applies irrigation adjustments across your course.'),
+        h('div', { style: { display: 'flex', gap: '16px', minHeight: '380px' } },
+          h('div', { style: { flex: '0 0 auto', width: 'max-content', border: '1px solid #080D121A', borderRadius: '4px', display: 'flex', flexDirection: 'column' } },
+            items.map(it => h('div', { key: it[0], style: { display: 'flex', flexDirection: 'column', padding: '10px', borderBottom: '1px solid #080D121A', background: tab === it[0] ? '#F5F7F8' : 'transparent' } },
+              h('span', { style: { fontWeight: 'bold', color: '#080D12', marginBottom: '5px' } }, it[1]),
+              h('span', { style: { fontSize: '12px', color: '#A2ADB2', maxWidth: '260px' } }, it[2])))),
+          h('div', { style: { flex: '1 1 0', display: 'flex', flexDirection: 'column', border: '1px solid #080D121A', borderRadius: '4px', padding: '10px' } },
+            h('span', { style: { color: '#33393D' } }, intro), pane))),
+      this.darkFooter('Save Changes', 'Cancel'));
+  }
+
+  bulkDialog() {
+    const n = (this.props.selectedRows || []).length;
+    return this.shell('Bulk Adjust', '400px',
+      h('div', { style: { display: 'flex', flexDirection: 'column' } },
+        h('div', { style: { fontWeight: 700, marginBottom: '20px' } }, n + ' Stations selected'),
+        h('div', { style: { marginBottom: '3px' } }, 'Adjust Target VWC %'),
+        h('div', { style: { display: 'flex', alignItems: 'center', padding: '7px 0 8px 0', gap: '1rem' } },
+          h('div', { style: { display: 'flex', alignItems: 'center' } }, this.radio(this.props.bulkMode !== 'shift'), h('span', { style: { marginLeft: '5px' } }, 'Replace')),
+          h('div', { style: { display: 'flex', alignItems: 'center' } }, this.radio(this.props.bulkMode === 'shift'), h('span', { style: { marginLeft: '5px' } }, 'Shift'))),
+        h('div', { style: { display: 'flex', alignItems: 'stretch', width: '190px', height: '34px', border: '1px solid #a6a6a6', borderRadius: '3px', overflow: 'hidden' } },
+          h('div', { style: { width: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f4f4f4', borderRight: '1px solid #a6a6a6' } }, '−'),
+          h('div', { style: { flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '14px' } }, (this.props.bulkValue != null ? this.props.bulkValue : -5) + ' %'),
+          h('div', { style: { width: '38px', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f4f4f4', borderLeft: '1px solid #a6a6a6' } }, '+')),
+        h('div', { style: { marginTop: '10px', fontSize: '12px' } }, 'Use replace to overwrite all values, or shift to move them up/down by the entered amount.')),
+      this.lightFooter('Apply to all', 'Cancel'));
+  }
+
+  pushDialog() {
+    const newRows = [['3AP1', 100, 333], ['4AP1', 100, 333], ['9AP1', 100, 121], ['11AP1', 100, 79], ['11AP2', 100, 6, 10], ['11AP3', 100, 4, 10]];
+    const oldRows = [['3AP2', 333, 333], ['7AP1', 288, 288], ['16AP1', 52, 52], ['16AP2', 154, 154], ['17AP1', 0, 0], ['18AP1', 0, 0]];
+    const row = (r, key) => h('tr', { key },
+      h('td', { style: { padding: '10px', border: '1px solid #ddd', borderTop: 'none' } },
+        h('div', { style: { fontWeight: 'bold', color: '#33393D' } }, r[0]),
+        h('div', { style: { fontSize: '13px', color: '#646E73' } }, '% Adjust: ' + r[1] + '%')),
+      h('td', { style: { padding: '10px', border: '1px solid #ddd', borderTop: 'none' } },
+        h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } },
+          h('div', null,
+            h('div', { style: { fontWeight: 'bold', color: '#33393D' } }, r[0]),
+            h('div', { style: { fontSize: '13px', color: '#646E73' } }, '% Adjust: ' + r[2] + '%',
+              r[3] != null ? h('span', { style: { color: '#D93193', marginLeft: '6px' } }, '→ Adjusted to ' + r[3] + '%') : null)),
+          this.checkbox(true))));
+    return this.shell('Push Changes', '750px',
+      h('div', null,
+        h('div', { style: { display: 'flex', alignItems: 'center' } },
+          h('span', { style: { fontSize: '16px', fontWeight: 'bold', marginRight: '10px' } }, 'Last Push'),
+          h('span', { style: { fontSize: '12px' } }, '08-07-25 5:42 AM')),
+        h('div', { style: { margin: '5px 0 12px 0', fontSize: '14px' } }, 'Confirm the changes you want to make and push to Lynx.'),
+        h('div', { style: { margin: '10px 0' } },
+          h('span', { style: { background: '#ECEFF1', borderRadius: '4px', padding: '5px 10px', display: 'flex', alignItems: 'center', width: 'fit-content', fontSize: '12px' } },
+            h('img', { src: 'assets/sa/push_ico.png', style: { height: '14px', marginRight: '4px' } }), h('span', { style: { marginRight: '1rem' } }, '6 Available to Push'),
+            h('img', { src: 'assets/sa/pushed_ico.png', style: { height: '14px', marginRight: '4px' } }), h('span', null, '6 Pushed Today'))),
+        h('div', { style: { display: 'flex', borderRadius: '8px', padding: '7px 10px 7px 8px', background: '#ECEFF1', fontSize: '12px' } },
+          h('div', { style: { display: 'flex', alignItems: 'center', marginRight: '6px' } }, h('img', { src: 'assets/sa/info_ico.png', style: { height: '18px' } })),
+          h('div', null, 'Stations pushed today appear unselected in a separate list to prevent double adjustments. To adjust one again, simply select it.')),
+        this.props.showThresholdBanner ? h('div', { style: { display: 'flex', justifyContent: 'space-between', borderRadius: '8px', padding: '7px 10px 7px 8px', color: '#D93193', background: '#D931931A', marginTop: '10px', fontSize: '12px' } },
+          h('div', { style: { display: 'flex', alignItems: 'center' } },
+            h('div', { style: { display: 'flex', alignItems: 'center', marginRight: '6px' } }, h('img', { src: 'assets/sa/adj-info-ico.png', style: { height: '18px' } })),
+            h('div', null, '2 stations were adjusted by the minimum threshold')),
+          h('div', { style: { color: '#3079F0', fontWeight: 'bold' } }, 'REVIEW THRESHOLD')) : null,
+        h('table', { style: { width: '100%', borderCollapse: 'collapse', marginTop: '16px', fontSize: '13px' } },
+          h('thead', null, h('tr', null,
+            h('th', { style: { padding: '10px', border: '1px solid #ddd', textAlign: 'left', background: '#f4f4f4', width: '50%' } }, 'Current'),
+            h('th', { style: { padding: '10px', border: '1px solid #ddd', textAlign: 'left', background: '#f4f4f4' } }, 'Changes'))),
+          h('tbody', null,
+            h('tr', { key: 'h1', style: { background: '#F5F7F8' } }, h('td', { colSpan: 2, style: { padding: '10px', border: '1px solid #ddd', fontSize: '12px' } }, '6 Available to Push')),
+            newRows.map((r, i) => row(r, 'n' + i)),
+            h('tr', { key: 'h2', style: { background: '#F5F7F8' } }, h('td', { colSpan: 2, style: { padding: '10px', border: '1px solid #ddd', fontSize: '12px' } }, '6 Pushed Today')),
+            oldRows.map((r, i) => row(r, 'o' + i))))),
+      this.darkFooter('Push 6 changes to Lynx', 'Cancel'));
+  }
+
+  progressDialog() {
+    const done = this.props.pushState === 'complete';
+    return this.shell('Pushing Changes To Lynx', '700px',
+      done
+        ? h('div', { style: { display: 'flex', alignItems: 'center', fontSize: '16px', padding: '10px 0' } },
+            h('span', { style: { color: '#5DCC77', fontSize: '20px', marginRight: '8px' } }, '✔'),
+            h('span', null, 'All selected changes successfully pushed to Lynx.'))
+        : h('div', { style: { padding: '10px 0' } },
+            h('div', { style: { height: '24px', borderRadius: '3px', background: '#eaeaea', overflow: 'hidden', position: 'relative' } },
+              h('div', { style: { width: '64%', height: '100%', background: '#007ad9' } }),
+              h('div', { style: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#fff' } }, '64%')),
+            h('div', { style: { marginTop: '5px', fontSize: '14px' } }, 'Pushing Percent Adjustments to Lynx (4 of 6)')),
+      h('div', { style: { padding: '.9rem', display: 'flex', justifyContent: 'flex-end' } },
+        done ? h('div', { style: { padding: '10px 24px', background: '#000', color: '#fff', borderRadius: '3px', fontSize: '14px' } }, 'Close') : null));
+  }
+
+  soilDialog() {
+    const rows = [['AP', 3, '3AP1', 100], ['AP', 3, '3AP2', 120], ['AP', 4, '4AP1', 85], ['AP', 6, '6AP1', 100], ['AP', 6, '6AP2', 140], ['AP', 9, '9AP1', 100]];
+    return this.shell('Soil Factor Editor', '1000px',
+      h('table', { style: { width: '100%', borderCollapse: 'collapse', fontSize: '13px' } },
+        h('thead', null,
+          h('tr', null, ['Area', 'Hole', 'Station', 'Soil Factor (%)'].map(c =>
+            h('th', { key: c, style: { padding: '10px', border: '1px solid #ddd', textAlign: 'left', background: '#f4f4f4' } }, c))),
+          h('tr', null, ['Filter area', 'Filter hole', 'Filter station', ''].map((p, i) =>
+            h('th', { key: i, style: { padding: '8px 10px', border: '1px solid #ddd', background: '#f4f4f4' } },
+              p ? h('div', { style: { height: '30px', border: '1px solid #a6a6a6', borderRadius: '3px', background: '#fff', display: 'flex', alignItems: 'center', padding: '0 8px', color: '#a6a6a6', fontWeight: 400 } }, p) : null)))),
+        h('tbody', null, rows.map(r => h('tr', { key: r[2] },
+          h('td', { style: { padding: '10px', border: '1px solid #ddd' } }, r[0]),
+          h('td', { style: { padding: '10px', border: '1px solid #ddd' } }, r[1]),
+          h('td', { style: { padding: '10px', border: '1px solid #ddd' } }, r[2]),
+          h('td', { style: { padding: '10px', border: '1px solid #ddd' } }, this.numInput(r[3] + '%', '110px')))))),
+      this.lightFooter('Save', 'Cancel'));
+  }
+
+  diagDialog() {
+    const box = (title, rows, minW) => h('div', { key: title, style: { display: 'flex', flexDirection: 'column', border: '1px solid lightgray', borderRadius: '8px', padding: '5px', minWidth: minW } },
+      h('span', { style: { fontSize: '16px', fontWeight: 'bold', textDecoration: 'underline', marginBottom: '2px' } }, title),
+      h('table', { style: { marginLeft: '5px', fontSize: '13px' } }, h('tbody', null, rows.map(r =>
+        h('tr', { key: r[0] }, h('td', { style: { paddingRight: '3px' } }, r[0]), h('td', { style: { fontWeight: 'bold' } }, r[1]))))));
+    return this.shell('Spatial Adjust Diagnostics', '700px',
+      h('div', { style: { display: 'flex', flexDirection: 'column', gap: '10px' } },
+        h('div', { style: { display: 'flex', gap: '20px' } },
+          box('TurfRad', [['TR org ID:', '742'], ['TR selected course ID:', '318'], ['SA has org access:', 'true'], ['Org has scan data:', 'true'], ['Last scan date:', '08-08-25']], '247px'),
+          box('Lynx', [['Lynx interconnect:', 'Cloud'], ['Can ping cloud:', 'true'], ['Installation ID:', '20915'], ['Lynx course ID:', '2']], '311px')),
+        h('div', { style: { display: 'flex' } },
+          box('NSN', [['Site longitude:', '-117.160000'], ['Site latitude:', '33.500000'], ['Lynx software version:', '8.5.2'], ['TurfRad ID string:', 'riverbend-742'], ['Lynx installation IDs:', '20915']], '560px'))),
+      h('div', { style: { padding: '.9rem', display: 'flex', justifyContent: 'flex-end' } },
+        h('div', { style: { padding: '10px 24px', background: '#000', color: '#fff', borderRadius: '8px', fontSize: '14px' } }, 'Close')));
+  }
+
+  renderVals() {
+    const p = this.props;
+    const dlg = p.dialog || 'none';
+    const disabled = p.pushEnabled === false;
+    const tabBase = 'border-radius:4px;padding:8px 10px;';
+    const filtered = p.tableFilter === 'filtered';
+
+    let dialog = null;
+    if (dlg === 'settings') dialog = this.settingsDialog();
+    else if (dlg === 'bulk') dialog = this.bulkDialog();
+    else if (dlg === 'push') dialog = this.pushDialog();
+    else if (dlg === 'progress') dialog = this.progressDialog();
+    else if (dlg === 'soil') dialog = this.soilDialog();
+    else if (dlg === 'diagnostics') dialog = this.diagDialog();
+
+    return {
+      rows: this.renderRows(),
+      mapMarkers: this.renderMarkers(),
+      chart: this.renderChart(),
+      dialog,
+      tabAllStyle: tabBase + 'margin-right:8px;' + (filtered ? '' : 'background-color:white;'),
+      tabFilteredStyle: tabBase + (filtered ? 'background-color:white;' : ''),
+      bulkLinkStyle: 'color:#3079F0;background-color:#ECEFF1;font-size:14px;padding:3px 5px;border-radius:4px;margin-right:8px;' + ((p.selectedRows || []).length ? '' : 'opacity:0.6;'),
+      pushButton: h('button', {
+        style: {
+          minWidth: '110px', padding: '5px 10px', border: '1px solid #b30000', borderRadius: '3px',
+          background: '#cd2027', color: '#fff', opacity: disabled ? 0.5 : 1,
+          font: 'inherit', fontSize: '14px', cursor: 'default', display: 'flex', justifyContent: 'center'
+        }
+      }, h('span', { className: 'sa-ps', style: { display: 'flex', alignItems: 'center' } },
+        h('img', { src: 'assets/sa/push_ico.png', alt: '', style: { height: '16px', marginRight: '6px' } }),
+        h('span', null, p.pushLabel || 'Push 6 Changes')))
+    };
+  }
+}
+
+</script>
+</body>
+</html>

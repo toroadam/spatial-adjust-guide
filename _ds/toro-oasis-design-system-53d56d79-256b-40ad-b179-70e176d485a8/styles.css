@@ -1,0 +1,12 @@
+@import './tokens/fonts.css';
+@import './tokens/colors.css';
+@import './tokens/typography.css';
+@import './tokens/spacing.css';
+@import './tokens/figma/fig-tokens.css';
+@import './tokens/figma/fig-typography.css';
+@import './components/oasis/fig-tokens.css';
+@import './components/icons-fluent/fig-tokens.css';
+@import './components/oasis/fig-assets.css';
+body{margin:0;font-family:var(--font-family-base);color:var(--fg-primary);background:var(--surface-page)}
+a{color:var(--status-informative-shade)}
+a:hover{color:var(--status-informative)}

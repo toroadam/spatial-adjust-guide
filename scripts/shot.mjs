@@ -1,0 +1,14 @@
+import { chromium } from 'playwright';
+import { createServer } from 'node:http';
+import { readFile } from 'node:fs/promises';
+import { extname, join, normalize } from 'node:path';
+const MIME={'.html':'text/html','.js':'text/javascript','.css':'text/css','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2','.ttf':'font/ttf'};
+const srv=createServer(async(req,res)=>{try{let p=decodeURIComponent(new URL(req.url,'http://x').pathname);if(p.endsWith('/'))p+='index.html';const f=join('dist',normalize(p).replace(/^(\.\.[/\\])+/,''));const b=await readFile(f);res.writeHead(200,{'Content-Type':MIME[extname(f)]||'application/octet-stream'});res.end(b)}catch{res.writeHead(404);res.end()}});
+await new Promise(r=>srv.listen(0,r)); const {port}=srv.address();
+const b=await chromium.launch(); const page=await(await b.newContext({viewport:{width:1440,height:900}})).newPage();
+await page.route(/^https?:\/\/(?!localhost)/, r=>r.abort());
+await page.goto(`http://localhost:${port}/`,{waitUntil:'networkidle'}); await page.waitForTimeout(1200);
+await page.screenshot({path:'/tmp/shot-home.png'});
+await page.getByText('Dashboard overview',{exact:false}).first().click(); await page.waitForTimeout(2500);
+await page.screenshot({path:'/tmp/shot-guide.png'});
+console.log('captured'); await b.close(); srv.close();

@@ -1,0 +1,8 @@
+:root{
+--text-2xs:10px;--text-xs:12px;--text-sm:14px;--text-md:16px;--text-lg:18px;--text-xl:24px;--text-2xl:32px;--text-3xl:40px;--text-4xl:48px;
+--leading-tight:1;--leading-snug:1.2;--leading-normal:1.4;--leading-relaxed:1.5;
+--tracking-caps:2px;--tracking-tight:-1px;--tracking-button:0.5px;
+--weight-regular:400;--weight-medium:500;--weight-bold:700;
+--font-mono-numerals:"Golos UI";
+}
+/* Golos UI is uniwidth: line length matches across Regular/Medium/Bold, and numerals are monospaced — ideal for tables and dense data. */

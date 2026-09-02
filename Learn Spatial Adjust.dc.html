@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/tokens/colors.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/tokens/typography.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/tokens/figma/fig-tokens.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/tokens/figma/fig-typography.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/components/oasis/fig-tokens.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/components/icons-fluent/fig-tokens.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/components/oasis/fig-assets.css">
+<link rel="stylesheet" href="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/styles.css">
+<script src="_ds/toro-oasis-design-system-53d56d79-256b-40ad-b179-70e176d485a8/_ds_bundle.js"></script>
+<style>
+html { scroll-behavior: smooth; }
+html, body { margin:0; padding:0; background: var(--white); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+.lsa { font-family:'Golos UI', system-ui, sans-serif; color:var(--100); }
+.lsa *, .lsa *::before, .lsa *::after { box-sizing:border-box; }
+.lsa a { color: var(--informative-02); text-decoration:none; }
+.lsa a:hover { color: var(--informative-03); text-decoration:underline; }
+.lsa input { font:inherit; }
+.lsa input:focus { outline:2px solid var(--focus-ring); outline-offset:1px; }
+@keyframes sa-cursor-move {
+  0%   { transform: translate(var(--sx), var(--sy)) scale(1); }
+  42%  { transform: translate(var(--tx), var(--ty)) scale(1); }
+  48%  { transform: translate(var(--tx), var(--ty)) scale(0.82); }
+  56%  { transform: translate(var(--tx), var(--ty)) scale(1); }
+  100% { transform: translate(var(--tx), var(--ty)) scale(1); }
+}
+@keyframes sa-ring-pulse {
+  0%, 41% { transform: translate(var(--tx), var(--ty)) scale(0.3); opacity: 0; }
+  48%     { transform: translate(var(--tx), var(--ty)) scale(0.85); opacity: 0.95; }
+  70%     { transform: translate(var(--tx), var(--ty)) scale(2.1); opacity: 0; }
+  100%    { transform: translate(var(--tx), var(--ty)) scale(2.1); opacity: 0; }
+}
+.lsa .sa-cursor { position:absolute; top:0; left:0; margin:-2px 0 0 -2px; animation: sa-cursor-move 4s cubic-bezier(.33,0,.15,1) infinite; filter: drop-shadow(0 2px 4px rgba(8,13,18,.4)); }
+.lsa .sa-ring { position:absolute; top:0; left:0; width:44px; height:44px; margin:-22px 0 0 -22px; border-radius:50%; border:3px solid var(--base); animation: sa-ring-pulse 4s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .lsa .sa-cursor { animation: none; transform: translate(var(--tx), var(--ty)); }
+  .lsa .sa-ring { animation: none; transform: translate(var(--tx), var(--ty)); opacity: .9; }
+}
+</style>
+</helmet>
+<div class="lsa" style="min-height:100vh;background:var(--white)">
+
+  <header style="position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--20)">
+    <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:24px">
+      <div style="display:flex;align-items:center;gap:14px;cursor:pointer" onClick="{{ goHome }}">
+        <img src="assets/toro-logo.svg" alt="Toro" style="height:34px;width:auto;display:block">
+        <span style="font-size:16px;font-weight:700;letter-spacing:-0.2px">Spatial Adjust</span>
+        <span style="font-size:16px;color:var(--40)">Guide</span>
+      </div>
+      <div style="flex:1"></div>
+      <div style="position:relative;width:320px">
+        <input value="{{ query }}" onChange="{{ onSearch }}" placeholder="Search tasks — threshold, push, 0%…" style="width:100%;height:40px;padding:0 14px;border:none;border-radius:8px;background:var(--05);box-shadow:inset 0 0 0 1px var(--20);color:var(--100);font-size:14px">
+      </div>
+    </div>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <main>
+      <section style="max-width:1180px;margin:0 auto;padding:56px 32px 48px">
+        <div style="max-width:960px">
+          <h1 style="margin:0;font-size:44px;line-height:1.05;font-weight:700;letter-spacing:-1.2px;white-space:nowrap">Spatial Adjust Guides</h1>
+          <p style="margin:16px 0 0;font-size:17px;line-height:1.55;color:var(--60);max-width:640px;text-wrap:pretty">Read the moisture scan, tune the calculation, push the right percent adjustment to Lynx. Each task is walked through step by step on the screen you will actually be using.</p>
+          <div style="display:flex;align-items:center;gap:18px;margin-top:24px">
+            <a href="#tasks" onClick="{{ openOverview }}" style="display:inline-flex;align-items:center;height:42px;padding:0 22px;border-radius:8px;background:var(--100);color:var(--white);font-size:12px;font-weight:700;letter-spacing:1px" style-hover="background:var(--90);color:var(--white);text-decoration:none">START WITH THE DASHBOARD</a>
+            <a href="#tasks" style="font-size:14px;color:var(--60)" style-hover="color:var(--100)">or browse all 24 tasks ↓</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="tasks" style="max-width:1180px;margin:0 auto;padding:48px 32px 120px">
+        <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
+          <div style="padding:64px 0;text-align:center;color:var(--60);font-size:16px">No tasks match that search.</div>
+        </sc-if>
+        <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="3">
+          <div style="padding:40px 0;border-top:1px solid var(--20)">
+            <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:24px">
+              <h2 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-0.6px">{{ cat.title }}</h2>
+              <span style="font-size:14px;color:var(--40)">{{ cat.blurb }}</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+              <sc-for list="{{ cat.tasks }}" as="task" hint-placeholder-count="4">
+                <div onClick="{{ task.open }}" style="{{ task.cardStyle }}" style-hover="background:var(--05)">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                    <span style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--60)">{{ task.minutes }}</span>
+                    <span style="font-size:11px;letter-spacing:2px;color:var(--30)">{{ task.dots }}</span>
+                  </div>
+                  <div style="font-size:17px;font-weight:700;line-height:1.25;letter-spacing:-0.2px;margin-bottom:8px;text-wrap:pretty">{{ task.title }}</div>
+                  <div style="font-size:13px;line-height:1.5;color:var(--60);flex:1;text-wrap:pretty">{{ task.summary }}</div>
+                  <div style="{{ task.ctaStyle }}">{{ task.cta }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+        </sc-for>
+      </section>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isGuide }}" hint-placeholder-val="{{ false }}">
+    <main style="max-width:1216px;margin:0 auto;padding:32px 32px 120px">
+
+      <div onClick="{{ goHome }}" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--informative-02);cursor:pointer;margin-bottom:28px">← All tasks</div>
+
+      <div style="max-width:820px">
+        <div style="font-size:12px;font-weight:700;letter-spacing:2px;color:var(--60);margin-bottom:16px">{{ guide.category }}</div>
+        <h1 style="margin:0;font-size:44px;line-height:1.08;font-weight:700;letter-spacing:-1px;text-wrap:pretty">{{ guide.title }}</h1>
+        <p style="margin:20px 0 0;font-size:19px;line-height:1.55;color:var(--60);text-wrap:pretty">{{ guide.summary }}</p>
+        <div style="display:flex;gap:32px;margin:28px 0 0;padding:16px 0;border-top:1px solid var(--20);border-bottom:1px solid var(--20)">
+          <div><div style="font-size:11px;letter-spacing:1.5px;color:var(--40);font-weight:700">TIME</div><div style="font-size:15px;margin-top:4px">{{ guide.minutes }}</div></div>
+          <div><div style="font-size:11px;letter-spacing:1.5px;color:var(--40);font-weight:700">DIFFICULTY</div><div style="font-size:15px;margin-top:4px">{{ guide.difficultyLabel }}</div></div>
+          <div><div style="font-size:11px;letter-spacing:1.5px;color:var(--40);font-weight:700">WHERE</div><div style="font-size:15px;margin-top:4px">{{ guide.where }}</div></div>
+        </div>
+        <sc-if value="{{ guide.hasNote }}" hint-placeholder-val="{{ false }}">
+          <div style="margin-top:24px;padding:16px 20px;border-radius:8px;background:var(--05);box-shadow:inset 0 0 0 1px var(--20);font-size:14px;line-height:1.6;color:var(--60)"><span style="font-weight:700;color:var(--informative-03)">Concept.</span> {{ guide.note }}</div>
+        </sc-if>
+      </div>
+
+      <section id="walkthrough" style="margin-top:40px;scroll-margin-top:96px">
+        <div style="display:flex;border-radius:8px;box-shadow:inset 0 0 0 1px var(--20);overflow:hidden;background:var(--white)">
+
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--20)">
+            <div style="display:flex;align-items:center;gap:10px;height:38px;padding:0 14px;background:var(--05);border-bottom:1px solid var(--20);flex:none">
+              <span style="width:9px;height:9px;border-radius:50%;background:var(--30)"></span>
+              <span style="width:9px;height:9px;border-radius:50%;background:var(--30)"></span>
+              <span style="width:9px;height:9px;border-radius:50%;background:var(--30)"></span>
+              <span style="margin-left:8px;font-size:12px;color:var(--40);font-family:ui-monospace,monospace">intellidash.toro.com/spatialadjust</span>
+            </div>
+            <div ref="{{ setStageEl }}" style="{{ guide.player.stageStyle }}">
+              <div style="{{ guide.player.appStyle }}">
+                <dc-import name="SpatialAdjustApp" show-profiles-tab="{{ guide.showProfilesTab }}" dialog="{{ guide.player.step.dialog }}" settings-tab="{{ guide.player.step.settingsTab }}" selected-rows="{{ guide.player.step.selectedRows }}" focus-row="{{ guide.player.step.focusRow }}" table-filter="{{ guide.player.step.tableFilter }}" push-enabled="{{ guide.player.step.pushEnabled }}" push-label="{{ guide.player.step.pushLabel }}" threshold-value="{{ guide.player.step.thresholdValue }}" threshold-option="{{ guide.player.step.thresholdOption }}" bulk-mode="{{ guide.player.step.bulkMode }}" bulk-value="{{ guide.player.step.bulkValue }}" push-state="{{ guide.player.step.pushState }}" show-threshold-banner="{{ guide.player.step.showThresholdBanner }}" hint-size="1600px,1000px"></dc-import>
+              </div>
+              {{ guide.player.cursor }}
+            </div>
+          </div>
+
+          <div style="width:360px;flex:none;display:flex;flex-direction:column;background:var(--white)">
+            <div style="padding:22px 24px 18px;border-bottom:1px solid var(--20)">
+              <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--40);margin-bottom:10px">{{ guide.player.counter }}</div>
+              <div style="font-size:20px;font-weight:700;letter-spacing:-0.4px;line-height:1.25;margin-bottom:10px;text-wrap:pretty">{{ guide.player.step.title }}</div>
+              <p style="margin:0;font-size:14px;line-height:1.65;color:var(--60);text-wrap:pretty">{{ guide.player.step.body }}</p>
+            </div>
+
+            <div style="flex:1;min-height:0;overflow-y:auto;padding:10px 14px">
+              <sc-for list="{{ guide.player.rail }}" as="chip" hint-placeholder-count="5">
+                <div onClick="{{ chip.onClick }}" style="{{ chip.style }}" style-hover="background:var(--05)">
+                  <span style="{{ chip.numStyle }}">{{ chip.n }}</span>
+                  <span>{{ chip.label }}</span>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="padding:16px 20px;border-top:1px solid var(--20)">
+              <div style="height:4px;border-radius:2px;background:var(--20);overflow:hidden;margin-bottom:14px">
+                <div style="{{ guide.player.progressStyle }}"></div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <div onClick="{{ guide.player.prev }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">←</div>
+                <div onClick="{{ guide.player.next }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">→</div>
+                <div onClick="{{ guide.player.playAll }}" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;border-radius:8px;background:var(--100);color:var(--white);font-size:13px;font-weight:700;cursor:pointer" style-hover="background:var(--90)">
+                  <span style="font-size:11px">{{ guide.player.playIcon }}</span><span>{{ guide.player.playLabel }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <div style="display:flex;gap:56px;align-items:flex-start;margin-top:80px">
+
+      <aside style="position:sticky;top:104px;width:220px;flex:none">
+        <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--40);margin-bottom:12px">ON THIS PAGE</div>
+        <div style="display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--20);margin-left:-1px">
+          <sc-for list="{{ guide.toc }}" as="item" hint-placeholder-count="5">
+            <a href="{{ item.href }}" style="{{ item.style }}" style-hover="color:var(--100);text-decoration:none">
+              <sc-if value="{{ item.hasNum }}" hint-placeholder-val="{{ false }}">
+                <span style="{{ item.numStyle }}">{{ item.num }}</span>
+              </sc-if>
+              <span>{{ item.label }}</span>
+            </a>
+          </sc-for>
+        </div>
+      </aside>
+
+      <article ref="{{ setFrameEl }}" style="flex:1;min-width:0;max-width:880px">
+
+        <section id="before" style="margin-top:0">
+          <h2 style="margin:0 0 16px;font-size:22px;font-weight:700;letter-spacing:-0.4px">Before you start</h2>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ guide.before }}" as="b" hint-placeholder-count="3">
+              <div style="display:flex;gap:12px;font-size:15px;line-height:1.6;color:var(--60)">
+                <span style="flex:none;width:6px;height:6px;border-radius:50%;background:var(--30);margin-top:9px"></span>
+                <span style="text-wrap:pretty">{{ b }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <sc-for list="{{ guide.steps }}" as="step" hint-placeholder-count="4">
+          <section id="{{ step.id }}" style="margin-top:64px;scroll-margin-top:96px">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--100);color:var(--white);font-size:13px;font-weight:700">{{ step.n }}</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--40);white-space:nowrap">STEP {{ step.n }} OF {{ guide.stepCount }}</span>
+            </div>
+            <h2 style="margin:0 0 14px;font-size:26px;font-weight:700;letter-spacing:-0.5px;text-wrap:pretty">{{ step.title }}</h2>
+            <p style="margin:0;font-size:16px;line-height:1.7;color:var(--60);text-wrap:pretty">{{ step.body }}</p>
+
+            <figure style="margin:28px 0 0">
+              <div style="{{ step.figStyle }}">
+                <div style="{{ step.appStyle }}">
+                  <dc-import name="SpatialAdjustApp" show-profiles-tab="{{ guide.showProfilesTab }}" dialog="{{ step.dialog }}" settings-tab="{{ step.settingsTab }}" selected-rows="{{ step.selectedRows }}" focus-row="{{ step.focusRow }}" table-filter="{{ step.tableFilter }}" push-enabled="{{ step.pushEnabled }}" push-label="{{ step.pushLabel }}" threshold-value="{{ step.thresholdValue }}" threshold-option="{{ step.thresholdOption }}" bulk-mode="{{ step.bulkMode }}" bulk-value="{{ step.bulkValue }}" push-state="{{ step.pushState }}" show-threshold-banner="{{ step.showThresholdBanner }}" hint-size="1600px,1000px"></dc-import>
+                </div>
+              </div>
+              <figcaption style="margin-top:12px;font-size:13px;line-height:1.5;color:var(--40);text-wrap:pretty">{{ step.caption }}</figcaption>
+            </figure>
+
+            <sc-if value="{{ step.hasTip }}" hint-placeholder-val="{{ false }}">
+              <div style="margin-top:24px;padding:16px 20px;border-radius:8px;background:var(--05);box-shadow:inset 0 0 0 1px var(--20);font-size:14px;line-height:1.65;color:var(--60)">
+                <span style="font-weight:700;color:var(--100)">{{ step.tipLabel }}</span> {{ step.tip }}
+              </div>
+            </sc-if>
+          </section>
+        </sc-for>
+
+        <section id="check" style="margin-top:72px;padding-top:40px;border-top:1px solid var(--20)">
+          <h2 style="margin:0 0 16px;font-size:22px;font-weight:700;letter-spacing:-0.4px">How to know it worked</h2>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ guide.verify }}" as="v" hint-placeholder-count="3">
+              <div style="display:flex;gap:12px;font-size:15px;line-height:1.6;color:var(--60)">
+                <span style="flex:none;color:var(--positive-02);font-weight:700;margin-top:1px">✓</span>
+                <span style="text-wrap:pretty">{{ v }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+
+        <section style="margin-top:64px;padding-top:40px;border-top:1px solid var(--20)">
+          <h2 style="margin:0 0 20px;font-size:22px;font-weight:700;letter-spacing:-0.4px">Next</h2>
+          <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
+            <sc-for list="{{ guide.next }}" as="nx" hint-placeholder-count="2">
+              <div onClick="{{ nx.open }}" style="{{ nx.cardStyle }}" style-hover="background:var(--05)">
+                <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--40);margin-bottom:8px">{{ nx.category }}</div>
+                <div style="font-size:17px;font-weight:700;letter-spacing:-0.2px;margin-bottom:6px">{{ nx.title }}</div>
+                <div style="font-size:13px;line-height:1.5;color:var(--60)">{{ nx.summary }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </article>
+      </div>
+    </main>
+  </sc-if>
+
+  <footer style="border-top:1px solid var(--20);padding:32px;text-align:center;font-size:12px;color:var(--40)">
+    Spatial Adjust. Copyright © 2026 The Toro Company.
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const FIGURES = {
+  full:      { w: 940, h: 588, s: 0.5875, x: 0,    y: 0 },
+  toolbarL:  { w: 940, h: 56,  s: 0.87,   x: 0,    y: 0 },
+  toolbarR:  { w: 940, h: 128, s: 2.0,    x: 1130, y: 0 },
+  map:       { w: 940, h: 500, s: 1.175,  x: 15,   y: 85  },
+  panel:     { w: 940, h: 380, s: 1.205,  x: 810,  y: 68 },
+  table:     { w: 940, h: 460, s: 1.205,  x: 815,  y: 448 },
+  tableTop:  { w: 940, h: 300, s: 1.205,  x: 815,  y: 448 },
+  dlgWide:   { w: 940, h: 625, s: 1.0,    x: 330,  y: 188 },
+  dlgTall:   { w: 940, h: 880, s: 1.0,    x: 380,  y: 50  },
+  dlgSmall:  { w: 940, h: 740, s: 1.958,  x: 560,  y: 300 },
+  dlgMid:    { w: 940, h: 290, s: 1.305,  x: 440,  y: 410 },
+  dlgSoil:   { w: 940, h: 500, s: 0.904,  x: 280,  y: 230 },
+  dlgDiag:   { w: 940, h: 520, s: 1.27,   x: 430,  y: 310 }
+};
+
+function fig(kind, k) {
+  const f = FIGURES[kind] || FIGURES.full;
+  const r = k || 1;
+  return {
+    figStyle: 'position:relative;width:100%;max-width:' + f.w + 'px;height:' + Math.round(f.h * r) + 'px;overflow:hidden;border-radius:8px;background:var(--05);box-shadow:inset 0 0 0 1px var(--20)',
+    appStyle: 'position:absolute;top:0;left:0;width:1600px;height:1000px;transform:scale(' + (f.s * r) + ') translate(' + (-f.x) + 'px,' + (-f.y) + 'px);transform-origin:0 0;pointer-events:none'
+  };
+}
+
+const COL = { cb: 835, name: 988, vwc: 1191, target: 1270, current: 1340, sugg: 1400, adj: 1469, en: 1544 };
+const rowY = (n) => 532 + 50 * (n - 1);
+const cell = (c, n) => [COL[c], rowY(n)];
+
+const P = {
+  siteName: [366, 18], courseSel: [356, 49], weather: [520, 32], moisture: [900, 32],
+  push: [1305, 32], pushedCount: [1390, 32], refresh: [1462, 32], gear: [1516, 32],
+  chartSelect: [1425, 105], legendBar: [400, 905], layers: [583, 864], variance: [520, 864],
+  tabAll: [905, 390], tabOver: [1065, 390], bulkLink: [888, 440], filterLink: [1075, 440],
+  menuCalc: [499, 346], menuThresh: [499, 407], menuProfiles: [499, 468], menuPrefs: [499, 529],
+  threshInput: [729, 444], radioZero: [718, 505], radioMin: [718, 535], maxAmount: [760, 430],
+  profileRow: [900, 430], profileApply: [1180, 430],
+  pushReview: [1086, 271], pushFooter: [616, 915], pushRow: [800, 520],
+  bulkShift: [743, 484], bulkValue: [713, 518], bulkApply: [705, 629],
+  soilInput: [1053, 400], diagBox: [640, 470], progressBar: [800, 500], progressClose: [1094, 566]
+};
+
+const TARGETS = {
+  'dashboard-overview': [P.siteName, P.legendBar, P.chartSelect, cell('adj', 1), P.push],
+  'minimum-threshold': [P.gear, P.menuThresh, P.threshInput, P.radioMin, P.pushReview],
+  'suggested-adjustments': [cell('sugg', 1), cell('vwc', 1), cell('sugg', 3), cell('adj', 5), P.soilInput],
+  'bulk-adjustments': [cell('cb', 1), P.bulkApply, P.bulkShift, cell('target', 1)],
+  'push-to-lynx': [P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar, P.progressClose],
+  'station-zero': [cell('sugg', 6), P.threshInput, cell('en', 4), cell('vwc', 5), P.diagBox],
+  'target-profiles': [P.menuProfiles, P.profileRow, P.profileApply, cell('target', 1)]
+};
+
+const VIEW_W = 1180;
+const STAGE_H = 560;
+
+function camera(target, stageW) {
+  const s = stageW / VIEW_W;
+  const viewH = Math.min(1000, STAGE_H / s);
+  const pad = 70;
+  let x = (1600 - VIEW_W) / 2;
+  let y = (1000 - viewH) / 2;
+  if (target[0] < x + pad) x = target[0] - pad;
+  if (target[0] > x + VIEW_W - pad) x = target[0] - VIEW_W + pad;
+  if (target[1] < y + pad) y = target[1] - pad;
+  if (target[1] > y + viewH - pad) y = target[1] - viewH + pad;
+  x = Math.max(0, Math.min(x, 1600 - VIEW_W));
+  y = viewH >= 1000 ? (1000 - viewH) / 2 : Math.max(0, Math.min(y, 1000 - viewH));
+  return { s: s, x: x, y: y };
+}
+
+const GUIDES = {
+  'dashboard-overview': {
+    category: 'GETTING STARTED',
+    title: 'Dashboard overview',
+    minutes: '4 minutes',
+    difficulty: 1,
+    where: '/spatialadjust',
+    summary: 'The whole feature lives on one screen. Learn what each of the four regions tells you, and which numbers are measured versus calculated.',
+    before: [
+      'You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.',
+      'The route is all lowercase — /spatialadjust. /spatialAdjust does not resolve and redirects to the error page.',
+      'The view is desktop and tablet only; phones are turned away by the route guard.'
+    ],
+    steps: [
+      { title: 'Start with the toolbar', fig: 'toolbarL',
+        body: 'The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today\u2019s ET and precipitation — the same ET that drives the calculation.',
+        caption: 'Toolbar, left: site, course selector, weather strip and the course-wide moisture summary.',
+        tipLabel: 'Note.', tip: 'Avg / High / Low moisture are computed across every station in the selected course, not just the ones visible in the table.' },
+      { title: 'Read the map', fig: 'map',
+        body: 'Every station is a pin coloured by its latest measured VWC against the four moisture bands in the legend. Drag the handles on the colour bar to move the band boundaries — the map recolours immediately and the change is saved to your user preferences.',
+        caption: 'Map with the moisture legend. Bands default to 0–5, 6–16, 17–30 and above 30 percent.',
+        tipLabel: 'Variance view.', tip: 'The button beside the legend switches the pins from absolute moisture to variance — how far each station sits from its target rather than its raw reading.' },
+      { title: 'Use the chart for one area at a time', fig: 'panel',
+        body: 'The chart above the table plots the holes you pick in the multiselect. Selecting a row in the table changes the chart header to that area or hole and its average moisture, so the chart and the table always describe the same thing.',
+        caption: 'Chart and table share a selection. The header reads the selected item and its average moisture.' },
+      { title: 'Work in the table', fig: 'table',
+        body: 'The table is a drill-down: course, then areas, then holes, then stations. Breadcrumbs at the top left take you back up. At station level you get the editable columns — Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch.',
+        caption: 'Station-level rows for hole 3 of area AP.',
+        tipLabel: 'Measured or modelled.', tip: 'A greyed, italic Avg. VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day.' },
+      { title: 'Check the counts before you leave', fig: 'toolbarR',
+        body: 'The right of the toolbar is your work queue. Push Changes counts stations with an unpushed edit, and the green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding.',
+        caption: 'Six stations pending, six already pushed today. With nothing pending the button is disabled.' }
+    ],
+    verify: [
+      'The map, chart and table all name the same course.',
+      'Calculation ET under the filter tabs matches the ET shown in the weather strip.',
+      'The station count on the All Stations tab matches the number of pins on the map.'
+    ],
+    next: ['minimum-threshold', 'suggested-adjustments']
+  },
+
+  'minimum-threshold': {
+    category: 'CALCULATIONS',
+    title: 'Set a minimum threshold',
+    minutes: '3 minutes',
+    difficulty: 2,
+    where: 'Settings › Minimum Threshold',
+    summary: 'Stop trivial adjustments reaching Lynx. Set the percentage below which a suggestion is either zeroed or lifted to the threshold value.',
+    before: [
+      'The threshold is a site-level setting. It applies to every user on the site, not just you.',
+      'It is applied at push time, not at calculation time — the table keeps showing the raw suggested value.',
+      'Setting the percentage to 0 disables the feature entirely.'
+    ],
+    steps: [
+      { title: 'Open Settings', fig: 'toolbarR', t: [1465, 32],
+        body: 'The gear button at the right of the toolbar opens the settings dialog. It opens on whichever tab you last arrived at, so it may not open on Calculation.',
+        caption: 'The gear button in the toolbar\u2019s right-hand button group.' },
+      { title: 'Choose the Minimum Threshold tab', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold', t: [520, 380],
+        body: 'The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.',
+        caption: 'Settings dialog, Minimum Threshold tab.' },
+      { title: 'Enter the percentage', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold', thresholdValue: 10, t: [790, 405],
+        body: 'Type the cutoff as a whole number between 0 and 50. Ten percent is a common starting point: it removes the noise from stations that are already close to target while leaving genuine corrections intact.',
+        caption: 'Threshold set to 10 percent.',
+        tipLabel: 'No server-side check.', tip: 'The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.' },
+      { title: 'Decide what happens below the line', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold', thresholdValue: 10, thresholdOption: 'min', t: [790, 500],
+        body: 'Set to zero skips the station entirely — Lynx receives 0%. Set to the minimum threshold value raises the suggestion up to the threshold instead, so the station still gets a small run. Exclude Zeros, available only on the second option, leaves genuine zeros at zero rather than lifting them.',
+        caption: 'Below-threshold behaviour, with the second option selected.' },
+      { title: 'Save and confirm at push time', fig: 'dlgTall', dialog: 'push', showThresholdBanner: true, t: [1100, 258],
+        body: 'Saving a threshold-only change does not reload the dashboard — the pending push list is simply recalculated. Open Push Changes and the pink banner tells you how many stations the threshold touched, with each affected row showing its original value and the adjusted one.',
+        caption: 'Push dialog. Two stations were lifted to the threshold; the original and adjusted values are shown together.' }
+    ],
+    verify: [
+      'The push dialog names the number of stations the threshold adjusted.',
+      'Rows below the threshold show an arrow and the adjusted percentage in pink.',
+      'Reopening Settings shows the value you saved, not the previous one.'
+    ],
+    next: ['push-to-lynx', 'station-zero']
+  },
+
+  'suggested-adjustments': {
+    category: 'REVIEW & APPLY',
+    title: 'Understand suggested adjustments',
+    minutes: '5 minutes',
+    difficulty: 3,
+    where: 'Table, station level',
+    summary: 'Where the suggested percentage comes from, why it caps out, and when you should override it.',
+    before: [
+      'Suggestions are recalculated whenever Max Amount, Lynx Reference Amount or Crop Coefficient change.',
+      'A station with no current scan and no model estimate shows a dash rather than a number.'
+    ],
+    steps: [
+      { title: 'Find the two adjustment columns', fig: 'tableTop', focusRow: '3AP1',
+        body: 'Current is the percent adjust Lynx holds for the station right now. Suggested is what Spatial Adjust calculated from this morning\u2019s scan. The gap between them is the change you are being asked to make.',
+        caption: 'Current and Suggested sit side by side under the Adjustment heading.' },
+      { title: 'Read it against Avg. VWC and Target VWC', fig: 'tableTop', focusRow: '3AP1',
+        body: 'The calculation starts from the difference between measured moisture and the station target, converts that into an amount of water, adds today\u2019s ET, and expresses the result as a percentage of the Lynx reference amount. A station well under target asks for more water; one over target asks for less.',
+        caption: 'Station 3AP1 measured 27.6 percent against a 54 percent target — the largest deficit on the hole.' },
+      { title: 'Notice where suggestions cluster', fig: 'table',
+        body: 'Several stations show the same suggested value. That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage. If most of your course reads identically, the cap is doing the deciding, not the scan.',
+        caption: 'A run of identical suggestions is the signature of the Max Amount cap.',
+        tipLabel: 'What to do.', tip: 'Raise Daily Max Amount in Settings › Calculation, or accept that the course is being deliberately limited.' },
+      { title: 'Override where you disagree', fig: 'tableTop', focusRow: '11AP2',
+        body: 'The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.',
+        caption: 'Editing % Adj. queues the station; the icon beside the field marks it as pending.' },
+      { title: 'Set a soil factor for persistent offsets', fig: 'dlgSoil', dialog: 'soil',
+        body: 'If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station\u2019s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.',
+        caption: 'Soil Factor Editor, opened with Shift + Alt on the toolbar gear.' }
+    ],
+    verify: [
+      'Every station you edited shows the pending push icon beside the % Adj. field.',
+      'The Push Changes count in the toolbar matches the number of rows you changed.',
+      'Stations you left alone still show Suggested and Current unchanged.'
+    ],
+    next: ['bulk-adjustments', 'push-to-lynx']
+  },
+
+  'bulk-adjustments': {
+    category: 'STATION MANAGEMENT',
+    title: 'Apply a bulk adjustment',
+    minutes: '2 minutes',
+    difficulty: 2,
+    where: 'Table toolbar › Bulk Adjust',
+    summary: 'Change the Target VWC of many stations at once, either by replacing every value or by shifting them all by the same amount.',
+    before: [
+      'Bulk Adjust edits Target VWC, not the percent adjustment.',
+      'The button stays disabled until at least one row checkbox is ticked.'
+    ],
+    steps: [
+      { title: 'Select the stations', fig: 'table', selectedRows: ['3AP1', '3AP2', '4AP1', '6AP1', '6AP2'],
+        body: 'Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take a whole hole in one click.',
+        caption: 'Five stations selected. The Bulk Adjust link above the table becomes active.' },
+      { title: 'Open Bulk Adjust', fig: 'dlgSmall', dialog: 'bulk', selectedRows: ['3AP1', '3AP2', '4AP1', '6AP1', '6AP2'],
+        body: 'The link sits above the table beside the threshold filter. The dialog opens with the count of stations you selected at the top — check it before going further.',
+        caption: 'Bulk Adjust dialog. The count confirms your selection.' },
+      { title: 'Choose replace or shift', fig: 'dlgSmall', dialog: 'bulk', bulkMode: 'shift', bulkValue: -5, selectedRows: ['3AP1', '3AP2', '4AP1', '6AP1', '6AP2'],
+        body: 'Replace overwrites every selected station with the value you enter. Shift moves each station up or down by that amount, keeping the differences between them. Shift is the safer choice when the stations were individually tuned.',
+        caption: 'Shift by −5 percent, preserving the relative targets.' },
+      { title: 'Apply to all', fig: 'table', selectedRows: ['3AP1', '3AP2', '4AP1', '6AP1', '6AP2'],
+        body: 'Apply to all writes the new targets and closes the dialog. The suggested percentages recalculate against the new targets straight away, so the Suggested column will move.',
+        caption: 'Targets updated; suggestions recalculated against them.',
+        tipLabel: 'On failure.', tip: 'A bulk adjust error means some values may already have been written. Check the column before retrying rather than applying twice.' }
+    ],
+    verify: [
+      'Target VWC changed on every station you selected and on none that you did not.',
+      'The Suggested column moved to reflect the new targets.',
+      'The Push Changes count in the toolbar reflects the new pending edits.'
+    ],
+    next: ['push-to-lynx', 'suggested-adjustments']
+  },
+
+  'push-to-lynx': {
+    category: 'REVIEW & APPLY',
+    title: 'Push changes to Lynx',
+    minutes: '4 minutes',
+    difficulty: 2,
+    where: 'Toolbar › Push Changes',
+    summary: 'Review every pending adjustment, drop the ones you do not want, and send the rest to the controller.',
+    before: [
+      'Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.',
+      'Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same head twice.'
+    ],
+    steps: [
+      { title: 'Check the pending count', fig: 'toolbarR',
+        body: 'The button reads the number of stations with an unpushed edit. Beside it the green counter shows how many have already gone out today. If Push Changes is greyed out there is nothing queued.',
+        caption: 'Six changes pending, six already pushed today.' },
+      { title: 'Review the two lists', fig: 'dlgTall', dialog: 'push', showThresholdBanner: false,
+        body: 'The dialog puts the current value on the left and the change on the right. Available to Push comes first, with everything ticked; Pushed Today follows, unticked. Tick a pushed station only if you genuinely mean to adjust it a second time today.',
+        caption: 'Push dialog. Current on the left, the proposed change on the right.' },
+      { title: 'Look for threshold adjustments', fig: 'dlgTall', dialog: 'push', showThresholdBanner: true,
+        body: 'If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.',
+        caption: 'Two stations were adjusted by the minimum threshold before sending.' },
+      { title: 'Untick anything you are not sure about', fig: 'dlgTall', dialog: 'push', showThresholdBanner: true,
+        body: 'The footer button counts only the ticked rows. Unticking is not the same as reverting — the station keeps its edited value in the table and will be offered again next time.',
+        caption: 'The footer button always names the number of changes that will be sent.' },
+      { title: 'Send and watch the progress', fig: 'dlgMid', dialog: 'progress', pushState: 'running',
+        body: 'Spatial Adjust first re-reads the current adjustments from Lynx for comparison, then writes station by station, then verifies. Failed stations are retried automatically before the run is declared finished.',
+        caption: 'Push in progress, station four of six.' },
+      { title: 'Confirm the result', fig: 'dlgMid', dialog: 'progress', pushState: 'complete',
+        body: 'A successful run confirms every selected change reached Lynx. A failure names the number of stations that could not be updated — check the Lynx connection and push those again rather than the whole set.',
+        caption: 'All selected changes pushed successfully.' }
+    ],
+    verify: [
+      'The Push Changes button is disabled and the pending count is zero.',
+      'The green pushed-today counter increased by the number you sent.',
+      'Pushed rows in the table now show the pushed icon rather than the pending one.'
+    ],
+    next: ['station-zero', 'target-profiles']
+  },
+
+  'station-zero': {
+    category: 'TROUBLESHOOTING',
+    title: 'Why is this station 0%?',
+    minutes: '3 minutes',
+    difficulty: 3,
+    where: 'Table, station level',
+    summary: 'A zero suggestion is usually correct. Four checks, in order, tell you whether it is.',
+    before: [
+      'Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash.'
+    ],
+    steps: [
+      { title: 'Check whether the station is already wet', fig: 'tableTop', focusRow: '10AP1',
+        body: 'This is the common answer. When measured VWC is comfortably above the station target, the required amount is zero and so is the suggestion. Station 10AP1 read 34.5 percent against a target of 16 — it does not need water today.',
+        caption: 'Measured 34.5 percent against a 16 percent target. Zero is the right answer.' },
+      { title: 'Check the minimum threshold', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold', thresholdValue: 10,
+        body: 'If the threshold is set to zero the suggestion at push time, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.',
+        caption: 'Set to zero when pushed to Lynx converts small adjustments into zeros.' },
+      { title: 'Check whether the station is disabled', fig: 'table', focusRow: '5AP1',
+        body: 'A station with the Enable switch off is excluded from adjustment entirely. Disabling an area or hole cascades down, so a station can be off because something above it was turned off.',
+        caption: 'Station 5AP1 is disabled; the switch on its row is grey.' },
+      { title: 'Check the scan date', fig: 'tableTop', focusRow: '7AP1',
+        body: 'A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, shown in grey italics with a calculator icon. If the whole course is stale, TurfRad has not delivered new scans — the feature has no new data to work from.',
+        caption: 'A modelled value: grey, italic, and dated two days ago.' },
+      { title: 'Confirm the data path', fig: 'dlgDiag', dialog: 'diagnostics',
+        body: 'If nothing above explains it, open the diagnostics dialog by clicking the Spatial Adjust logo. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.',
+        caption: 'Diagnostics dialog, opened from the toolbar logo.' }
+    ],
+    verify: [
+      'You can name which of the four causes applies to the station.',
+      'Last scan date in diagnostics is today, or you know why it is not.',
+      'The station\u2019s Enable switch is in the state you intend.'
+    ],
+    next: ['minimum-threshold', 'suggested-adjustments']
+  },
+
+  'target-profiles': {
+    category: 'TARGET PROFILES',
+    title: 'Apply a target profile',
+    minutes: '2 minutes',
+    difficulty: 1,
+    where: 'Settings › Target Profiles',
+    summary: 'Save a full set of station targets under a name, then switch the whole course between seasonal and event strategies in one action.',
+    note: 'Target Profiles is a design concept. The tab exists in the codebase as a placeholder and is not reachable in the shipping build — the screens below show the proposed behaviour.',
+    before: [
+      'A profile stores one Target VWC per station. It does not store percent adjustments or enable states.',
+      'Applying a profile changes targets on every station, which recalculates every suggestion.'
+    ],
+    steps: [
+      { title: 'Open the Target Profiles tab', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit.',
+        caption: 'Proposed Target Profiles tab in the settings dialog.' },
+      { title: 'Read the profile list', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'Each profile shows when it was last applied and how many stations it covers. The active profile is the one whose targets are currently loaded; changing an individual station target after applying leaves the profile intact but no longer exactly matched.',
+        caption: 'Three profiles: one active, one seasonal, one never applied.' },
+      { title: 'Apply and confirm', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'Applying overwrites the Target VWC of every station the profile covers. Because that is a recalculation input, the dashboard reloads and the Suggested column changes across the course.',
+        caption: 'Applying a profile is a course-wide change.',
+        tipLabel: 'Before a tournament.', tip: 'Apply the profile the evening before, review the suggestions the next morning, then push. Applying and pushing in the same minute leaves no time to sanity-check.' },
+      { title: 'Save your current targets as a new profile', fig: 'table',
+        body: 'Once the course is tuned the way you want it, save the state as a profile so you can return to it. Name it for the condition rather than the date — the reason you set those targets is what you will be looking for later.',
+        caption: 'The station targets currently in the table are what a new profile would capture.' }
+    ],
+    verify: [
+      'The applied profile is marked active in the list.',
+      'Target VWC in the table matches the profile you applied.',
+      'Suggested percentages have recalculated against the new targets.'
+    ],
+    next: ['suggested-adjustments', 'push-to-lynx']
+  }
+};
+
+const CATEGORIES = [
+  { title: 'Getting Started', blurb: 'What the feature does and how the screen is laid out.', tasks: [
+    { key: 'dashboard-overview', title: 'Dashboard overview', minutes: '4 MIN', difficulty: 1, summary: 'The four regions of the screen and what each one is telling you.' },
+    { title: 'Understand Spatial Adjust', minutes: '3 MIN', difficulty: 1, summary: 'Where moisture scans come from and what the feature does with them.' },
+    { title: 'Map navigation', minutes: '3 MIN', difficulty: 1, summary: 'Pan, zoom, layers, and switching between moisture and variance.' },
+    { title: 'Understanding VWC', minutes: '4 MIN', difficulty: 2, summary: 'Measured, modelled and target volumetric water content.' }
+  ]},
+  { title: 'Calculations', blurb: 'The inputs that decide every suggested percentage.', tasks: [
+    { key: 'minimum-threshold', title: 'Set a minimum threshold', minutes: '3 MIN', difficulty: 2, summary: 'Keep trivial adjustments from reaching Lynx.' },
+    { title: 'Calculation settings', minutes: '4 MIN', difficulty: 3, summary: 'Max Amount, Lynx Reference Amount and Crop Coefficient.' },
+    { title: 'Calculation methods', minutes: '5 MIN', difficulty: 3, summary: 'How the two available algorithms differ.' },
+    { title: 'Preferences', minutes: '2 MIN', difficulty: 1, summary: 'Language, units, temperature scale and number formatting.' }
+  ]},
+  { title: 'Target Profiles', blurb: 'Concept — saved sets of station targets.', tasks: [
+    { key: 'target-profiles', title: 'Apply a target profile', minutes: '2 MIN', difficulty: 1, summary: 'Switch the whole course between saved strategies.' },
+    { title: 'Creating profiles', minutes: '3 MIN', difficulty: 2, summary: 'Capture the current targets under a name.' },
+    { title: 'Updating profiles', minutes: '2 MIN', difficulty: 2, summary: 'Amend a profile without reapplying it.' },
+    { title: 'Managing seasonal profiles', minutes: '4 MIN', difficulty: 2, summary: 'A profile per season and per event.' }
+  ]},
+  { title: 'Station Management', blurb: 'Editing targets and enabling stations.', tasks: [
+    { key: 'bulk-adjustments', title: 'Apply a bulk adjustment', minutes: '2 MIN', difficulty: 2, summary: 'Replace or shift the targets of many stations at once.' },
+    { title: 'Editing station targets', minutes: '3 MIN', difficulty: 1, summary: 'Change one station\u2019s Target VWC and see the effect.' },
+    { title: 'Enable and disable stations', minutes: '2 MIN', difficulty: 1, summary: 'Cascading enable state across areas, holes and stations.' },
+    { title: 'Station details', minutes: '3 MIN', difficulty: 2, summary: 'Per-sprinkler readings under a multi-head station.' }
+  ]},
+  { title: 'Review & Apply', blurb: 'From suggestion to controller.', tasks: [
+    { key: 'suggested-adjustments', title: 'Understand suggested adjustments', minutes: '5 MIN', difficulty: 3, summary: 'Where the number comes from and why it caps out.' },
+    { key: 'push-to-lynx', title: 'Push changes to Lynx', minutes: '4 MIN', difficulty: 2, summary: 'Review, deselect, send and verify.' },
+    { title: 'Reviewing changes', minutes: '3 MIN', difficulty: 2, summary: 'Reading the two lists in the push dialog.' },
+    { title: 'Verify results', minutes: '3 MIN', difficulty: 2, summary: 'Confirming Lynx accepted every adjustment.' }
+  ]},
+  { title: 'Troubleshooting', blurb: 'When the numbers are not what you expect.', tasks: [
+    { key: 'station-zero', title: 'Why is this station 0%?', minutes: '3 MIN', difficulty: 3, summary: 'Four checks, in order, for a zero suggestion.' },
+    { title: 'Threshold questions', minutes: '3 MIN', difficulty: 2, summary: 'Why the table and the push dialog disagree.' },
+    { title: 'Calculation questions', minutes: '4 MIN', difficulty: 3, summary: 'Identical suggestions, missing values, stale scans.' },
+    { title: 'Push failures', minutes: '3 MIN', difficulty: 3, summary: 'Reading the failure count and retrying safely.' }
+  ]}
+];
+
+const DIFFICULTY_LABEL = { 1: 'Introductory', 2: 'Intermediate', 3: 'Advanced' };
+
+class Component extends DCLogic {
+  state = { guideKey: null, query: '', frameW: 940, stageW: 856, playerStep: 0, prevStep: 0, playing: false, activeToc: 'walkthrough' };
+
+  setStageEl = (el) => {
+    if (this._sro) { this._sro.disconnect(); this._sro = null; }
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const measure = () => {
+      const w = el.clientWidth;
+      if (w && Math.abs(w - this.state.stageW) > 1) this.setState({ stageW: w });
+    };
+    this._sro = new ResizeObserver(measure);
+    this._sro.observe(el);
+    measure();
+  };
+
+  setPlayerStep = (i) => {
+    this.stopTimer();
+    this.setState(s => ({ playerStep: i, prevStep: s.playerStep, playing: false }));
+  };
+
+  stopTimer() { if (this._t) { clearInterval(this._t); this._t = null; } }
+
+  togglePlayAll = () => {
+    if (this.state.playing) { this.stopTimer(); this.setState({ playing: false }); return; }
+    const g = GUIDES[this.state.guideKey];
+    if (!g) return;
+    const n = g.steps.length;
+    this.setState({ playing: true, playerStep: 0, prevStep: 0 });
+    this.stopTimer();
+    this._t = setInterval(() => {
+      this.setState(s => {
+        const next = s.playerStep + 1;
+        if (next >= n) { this.stopTimer(); return { playing: false }; }
+        return { playerStep: next, prevStep: s.playerStep };
+      });
+    }, 4200);
+  };
+
+  setFrameEl = (el) => {
+    if (this._ro) { this._ro.disconnect(); this._ro = null; }
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const measure = () => {
+      const w = el.clientWidth;
+      if (w && Math.abs(w - this.state.frameW) > 1) this.setState({ frameW: w });
+    };
+    this._ro = new ResizeObserver(measure);
+    this._ro.observe(el);
+    measure();
+  };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const g = GUIDES[this.state.guideKey];
+      if (!g) return;
+      const ids = ['walkthrough', 'before'].concat(g.steps.map((s, i) => 'step-' + (i + 1))).concat(['check']);
+      let cur = ids[0];
+      for (let i = 0; i < ids.length; i++) {
+        const el = document.getElementById(ids[i]);
+        if (el && el.getBoundingClientRect().top <= 140) cur = ids[i];
+      }
+      if (cur !== this.state.activeToc) this.setState({ activeToc: cur });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+
+  componentWillUnmount() {
+    if (this._ro) this._ro.disconnect();
+    if (this._sro) this._sro.disconnect();
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    this.stopTimer();
+  }
+
+  open(key) {
+    this.stopTimer();
+    this.setState({ guideKey: key, playerStep: 0, prevStep: 0, playing: false, activeToc: 'walkthrough' });
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+  }
+
+  buildCard(t) {
+    const live = !!(t.key && GUIDES[t.key]);
+    return {
+      title: t.title,
+      minutes: t.minutes,
+      summary: t.summary,
+      dots: '●'.repeat(t.difficulty) + '○'.repeat(3 - t.difficulty),
+      cta: live ? 'Start →' : 'Coming soon',
+      ctaStyle: 'margin-top:16px;font-size:12px;font-weight:700;letter-spacing:1px;color:' + (live ? 'var(--informative-02)' : 'var(--30)'),
+      cardStyle: 'display:flex;flex-direction:column;padding:20px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--20);min-height:190px;transition:background .15s;cursor:' + (live ? 'pointer' : 'default') + ';opacity:' + (live ? '1' : '0.6'),
+      open: live ? () => this.open(t.key) : () => {}
+    };
+  }
+
+  renderVals() {
+    const q = (this.state.query || '').trim().toLowerCase();
+    const key = this.state.guideKey;
+
+    const categories = CATEGORIES.map(c => {
+      const tasks = c.tasks.filter(t => !q || (t.title + ' ' + t.summary + ' ' + c.title).toLowerCase().indexOf(q) >= 0);
+      return { title: c.title, blurb: c.blurb, tasks: tasks.map(t => this.buildCard(t)), count: tasks.length };
+    }).filter(c => c.count > 0);
+
+    let guide = null;
+    if (key && GUIDES[key]) {
+      const g = GUIDES[key];
+      const ratio = Math.min(1, (this.state.frameW || 880) / 940);
+      const steps = g.steps.map((s, i) => {
+        const f = fig(s.fig, ratio);
+        return {
+          id: 'step-' + (i + 1),
+          n: i + 1,
+          figKind: s.fig,
+          target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],
+          title: s.title,
+          body: s.body,
+          caption: s.caption,
+          figStyle: f.figStyle,
+          appStyle: f.appStyle,
+          dialog: s.dialog || 'none',
+          settingsTab: s.settingsTab || 'calculation',
+          selectedRows: s.selectedRows || [],
+          focusRow: s.focusRow || '',
+          tableFilter: s.tableFilter || 'all',
+          pushEnabled: s.pushEnabled !== false,
+          pushLabel: s.pushLabel || 'Push 6 Changes',
+          thresholdValue: s.thresholdValue != null ? s.thresholdValue : 10,
+          thresholdOption: s.thresholdOption || 'zero',
+          bulkMode: s.bulkMode || 'replace',
+          bulkValue: s.bulkValue != null ? s.bulkValue : -5,
+          pushState: s.pushState || 'running',
+          showThresholdBanner: !!s.showThresholdBanner,
+          hasTip: !!s.tip,
+          tipLabel: s.tipLabel || '',
+          tip: s.tip || ''
+        };
+      });
+      const pi = Math.min(this.state.playerStep, steps.length - 1);
+      const prevI = Math.min(this.state.prevStep != null ? this.state.prevStep : pi, steps.length - 1);
+      const cur = steps[pi];
+      const stageW = this.state.stageW || 856;
+      const cam = camera(cur.target, stageW);
+      const toStage = (t) => [Math.round((t[0] - cam.x) * cam.s), Math.round((t[1] - cam.y) * cam.s)];
+      const end = toStage(cur.target);
+      const start = prevI === pi ? [Math.round(stageW * 0.72), Math.round(STAGE_H * 0.9)] : toStage(steps[prevI].target);
+      const cursorVars = { '--sx': start[0] + 'px', '--sy': start[1] + 'px', '--tx': end[0] + 'px', '--ty': end[1] + 'px' };
+      const player = {
+        stageStyle: 'position:relative;width:100%;height:' + Math.round(Math.min(STAGE_H, 1000 * cam.s)) + 'px;overflow:hidden;background:#0d1216',
+        appStyle: 'position:absolute;top:0;left:0;width:1600px;height:1000px;transform:scale(' + cam.s + ') translate(' + (-cam.x) + 'px,' + (-cam.y) + 'px);transform-origin:0 0;pointer-events:none;transition:transform .85s cubic-bezier(.4,0,.2,1)',
+        step: cur,
+        playing: this.state.playing,
+        playLabel: this.state.playing ? 'Pause' : 'Play all steps',
+        playIcon: this.state.playing ? '❙❙' : '▶',
+        progressStyle: 'height:100%;background:var(--base);border-radius:2px;transition:width .3s;width:' + Math.round((pi + 1) / steps.length * 100) + '%',
+        cursor: React.createElement('div', { key: 'c' + pi, style: Object.assign({ position: 'absolute', inset: 0, pointerEvents: 'none' }, cursorVars) },
+          React.createElement('div', { className: 'sa-ring' }),
+          React.createElement('div', { className: 'sa-cursor' },
+            React.createElement('svg', { width: 24, height: 28, viewBox: '0 0 22 26' },
+              React.createElement('path', { d: 'M2 1 L2 20 L7 15.5 L10.5 24 L14 22.4 L10.6 14.2 L17 14 Z', fill: '#fff', stroke: '#080D12', strokeWidth: 1.6, strokeLinejoin: 'round' })))),
+        rail: steps.map((s, i) => ({
+          n: s.n,
+          label: s.title,
+          numStyle: 'display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;flex:none;border-radius:50%;font-size:11px;font-weight:700;'
+            + (i === pi ? 'background:var(--base);color:var(--white);' : i < pi ? 'background:var(--20);color:var(--60);' : 'background:var(--white);color:var(--40);box-shadow:inset 0 0 0 1px var(--20);'),
+          style: 'display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;font-size:13px;line-height:1.35;cursor:pointer;text-wrap:pretty;'
+            + (i === pi ? 'background:var(--05);color:var(--100);font-weight:700;' : 'color:var(--60);'),
+          onClick: () => this.setPlayerStep(i)
+        })),
+        prev: () => this.setPlayerStep(Math.max(0, pi - 1)),
+        next: () => this.setPlayerStep(Math.min(steps.length - 1, pi + 1)),
+        playAll: this.togglePlayAll,
+        counter: 'Step ' + (pi + 1) + ' of ' + steps.length
+      };
+      const active = this.state.activeToc;
+      const tocRaw = [{ id: 'walkthrough', num: '', label: 'Walkthrough' }, { id: 'before', num: '', label: 'Before you start' }]
+        .concat(steps.map(s => ({ id: s.id, num: String(s.n), label: s.title })))
+        .concat([{ id: 'check', num: '', label: 'How to know it worked' }]);
+      const toc = tocRaw.map(t => {
+        const on = active === t.id;
+        return {
+          href: '#' + t.id,
+          num: t.num,
+          label: t.label,
+          hasNum: !!t.num,
+          style: 'display:flex;gap:8px;align-items:baseline;font-size:13px;line-height:1.45;padding:4px 0 4px 12px;border-left:2px solid ' + (on ? 'var(--base)' : 'transparent') + ';color:' + (on ? 'var(--100)' : 'var(--60)') + ';font-weight:' + (on ? '700' : '400') + ';transition:color .15s,border-color .15s',
+          numStyle: 'font-weight:700;flex:none;color:' + (on ? 'var(--base)' : 'var(--40)')
+        };
+      });
+      const next = (g.next || []).map(k => {
+        const ng = GUIDES[k];
+        return {
+          category: ng.category, title: ng.title, summary: ng.summary,
+          cardStyle: 'padding:20px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--20);cursor:pointer;transition:background .15s',
+          open: () => this.open(k)
+        };
+      });
+      guide = {
+        category: g.category, title: g.title, summary: g.summary, minutes: g.minutes,
+        difficultyLabel: DIFFICULTY_LABEL[g.difficulty], where: g.where,
+        hasNote: !!g.note, note: g.note || '',
+        before: g.before, verify: g.verify, player, showProfilesTab: key === 'target-profiles',
+        steps, stepCount: steps.length, toc, next
+      };
+    }
+
+    return {
+      isHome: !guide,
+      isGuide: !!guide,
+      guide: guide || { toc: [], steps: [], before: [], verify: [], next: [], player: { rail: [], step: {} } },
+      categories,
+      noResults: categories.length === 0,
+      query: this.state.query,
+      onSearch: (e) => this.setState({ query: e.target.value }),
+      goHome: () => { this.stopTimer(); this.setState({ guideKey: null, playing: false }); },
+      setFrameEl: this.setFrameEl,
+      setStageEl: this.setStageEl,
+      openOverview: () => this.open('dashboard-overview')
+    };
+  }
+}
+
+</script>
+</body>
+</html>
