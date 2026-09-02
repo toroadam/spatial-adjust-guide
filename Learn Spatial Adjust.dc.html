@@ -54,7 +54,7 @@ html, body { margin:0; padding:0; background: var(--white); }
 
   <header style="position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--20)">
     <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:24px">
-      <div style="display:flex;align-items:center;gap:14px;cursor:pointer" onClick="{{ goHome }}">
+      <div style="display:flex;align-items:center;gap:14px;cursor:pointer" onClick="{{ goHome }}" role="button" tabindex="0" aria-label="Spatial Adjust Guides — back to all tasks">
         <img src="assets/toro-logo.svg" alt="Toro" style="height:34px;width:auto;display:block">
         <span style="font-size:16px;font-weight:700;letter-spacing:-0.2px">Spatial Adjust</span>
         <span style="font-size:16px;color:var(--40)">Guide</span>
@@ -91,10 +91,10 @@ html, body { margin:0; padding:0; background: var(--white); }
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
               <sc-for list="{{ cat.tasks }}" as="task" hint-placeholder-count="4">
-                <div onClick="{{ task.open }}" style="{{ task.cardStyle }}" style-hover="background:var(--05)">
+                <div onClick="{{ task.open }}" role="{{ task.role }}" tabindex="{{ task.tabIndex }}" aria-disabled="{{ task.ariaDisabled }}" aria-label="{{ task.ariaLabel }}" style="{{ task.cardStyle }}" style-hover="background:var(--05)">
                   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
                     <span style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--60)">{{ task.minutes }}</span>
-                    <span style="font-size:11px;letter-spacing:2px;color:var(--30)">{{ task.dots }}</span>
+                    <span aria-hidden="true" style="font-size:11px;letter-spacing:2px;color:var(--30)">{{ task.dots }}</span><span class="lsa-sr-only">{{ task.difficultyLabel }}</span>
                   </div>
                   <div style="font-size:17px;font-weight:700;line-height:1.25;letter-spacing:-0.2px;margin-bottom:8px;text-wrap:pretty">{{ task.title }}</div>
                   <div style="font-size:13px;line-height:1.5;color:var(--60);flex:1;text-wrap:pretty">{{ task.summary }}</div>
@@ -111,7 +111,7 @@ html, body { margin:0; padding:0; background: var(--white); }
   <sc-if value="{{ isGuide }}" hint-placeholder-val="{{ false }}">
     <main style="max-width:1216px;margin:0 auto;padding:32px 32px 120px">
 
-      <div onClick="{{ goHome }}" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--informative-02);cursor:pointer;margin-bottom:28px">← All tasks</div>
+      <div onClick="{{ goHome }}" role="button" tabindex="0" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--informative-02);cursor:pointer;margin-bottom:28px">← All tasks</div>
 
       <div style="max-width:820px">
         <div style="font-size:12px;font-weight:700;letter-spacing:2px;color:var(--60);margin-bottom:16px">{{ guide.category }}</div>
@@ -130,7 +130,7 @@ html, body { margin:0; padding:0; background: var(--white); }
       <section id="walkthrough" style="margin-top:40px;scroll-margin-top:96px">
         <div style="display:flex;border-radius:8px;box-shadow:inset 0 0 0 1px var(--20);overflow:hidden;background:var(--white)">
 
-          <div style="flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--20)">
+          <div class="lsa-stage-frame" style="flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--20)">
             <div style="display:flex;align-items:center;gap:10px;height:38px;padding:0 14px;background:var(--05);border-bottom:1px solid var(--20);flex:none">
               <span style="width:9px;height:9px;border-radius:50%;background:var(--30)"></span>
               <span style="width:9px;height:9px;border-radius:50%;background:var(--30)"></span>
@@ -154,7 +154,7 @@ html, body { margin:0; padding:0; background: var(--white); }
 
             <div style="flex:1;min-height:0;overflow-y:auto;padding:10px 14px">
               <sc-for list="{{ guide.player.rail }}" as="chip" hint-placeholder-count="5">
-                <div onClick="{{ chip.onClick }}" style="{{ chip.style }}" style-hover="background:var(--05)">
+                <div onClick="{{ chip.onClick }}" role="button" tabindex="0" style="{{ chip.style }}" style-hover="background:var(--05)">
                   <span style="{{ chip.numStyle }}">{{ chip.n }}</span>
                   <span>{{ chip.label }}</span>
                 </div>
@@ -162,13 +162,16 @@ html, body { margin:0; padding:0; background: var(--white); }
             </div>
 
             <div style="padding:16px 20px;border-top:1px solid var(--20)">
+              <!-- Step changes are conveyed visually by the camera moving; this makes the
+                   same change perceivable to screen-reader users. -->
+              <div class="lsa-sr-only" aria-live="polite" aria-atomic="true">{{ guide.player.announcement }}</div>
               <div style="height:4px;border-radius:2px;background:var(--20);overflow:hidden;margin-bottom:14px">
                 <div style="{{ guide.player.progressStyle }}"></div>
               </div>
               <div style="display:flex;align-items:center;gap:8px">
-                <div onClick="{{ guide.player.prev }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">←</div>
-                <div onClick="{{ guide.player.next }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">→</div>
-                <div onClick="{{ guide.player.playAll }}" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;border-radius:8px;background:var(--100);color:var(--white);font-size:13px;font-weight:700;cursor:pointer" style-hover="background:var(--90)">
+                <div onClick="{{ guide.player.prev }}" role="button" tabindex="0" aria-label="Previous step" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">←</div>
+                <div onClick="{{ guide.player.next }}" role="button" tabindex="0" aria-label="Next step" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">→</div>
+                <div onClick="{{ guide.player.playAll }}" role="button" tabindex="0" aria-label="{{ guide.player.playLabel }}" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;border-radius:8px;background:var(--100);color:var(--white);font-size:13px;font-weight:700;cursor:pointer" style-hover="background:var(--90)">
                   <span style="font-size:11px">{{ guide.player.playIcon }}</span><span>{{ guide.player.playLabel }}</span>
                 </div>
               </div>
@@ -217,7 +220,7 @@ html, body { margin:0; padding:0; background: var(--white); }
             <h2 style="margin:0 0 14px;font-size:26px;font-weight:700;letter-spacing:-0.5px;text-wrap:pretty">{{ step.title }}</h2>
             <p style="margin:0;font-size:16px;line-height:1.7;color:var(--60);text-wrap:pretty">{{ step.body }}</p>
 
-            <figure style="margin:28px 0 0">
+            <figure class="lsa-step-figure" style="margin:28px 0 0">
               <div style="{{ step.figStyle }}">
                 <div style="{{ step.appStyle }}">
                   <dc-import name="SpatialAdjustApp" show-profiles-tab="{{ guide.showProfilesTab }}" dialog="{{ step.dialog }}" settings-tab="{{ step.settingsTab }}" selected-rows="{{ step.selectedRows }}" focus-row="{{ step.focusRow }}" table-filter="{{ step.tableFilter }}" push-enabled="{{ step.pushEnabled }}" push-label="{{ step.pushLabel }}" threshold-value="{{ step.thresholdValue }}" threshold-option="{{ step.thresholdOption }}" bulk-mode="{{ step.bulkMode }}" bulk-value="{{ step.bulkValue }}" push-state="{{ step.pushState }}" show-threshold-banner="{{ step.showThresholdBanner }}" hint-size="1600px,1000px"></dc-import>
@@ -250,7 +253,7 @@ html, body { margin:0; padding:0; background: var(--white); }
           <h2 style="margin:0 0 20px;font-size:22px;font-weight:700;letter-spacing:-0.4px">Next</h2>
           <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
             <sc-for list="{{ guide.next }}" as="nx" hint-placeholder-count="2">
-              <div onClick="{{ nx.open }}" style="{{ nx.cardStyle }}" style-hover="background:var(--05)">
+              <div onClick="{{ nx.open }}" role="button" tabindex="0" style="{{ nx.cardStyle }}" style-hover="background:var(--05)">
                 <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--40);margin-bottom:8px">{{ nx.category }}</div>
                 <div style="font-size:17px;font-weight:700;letter-spacing:-0.2px;margin-bottom:6px">{{ nx.title }}</div>
                 <div style="font-size:13px;line-height:1.5;color:var(--60)">{{ nx.summary }}</div>
@@ -726,6 +729,15 @@ class Component extends DCLogic {
       minutes: t.minutes,
       summary: t.summary,
       dots: '●'.repeat(t.difficulty) + '○'.repeat(3 - t.difficulty),
+      // The dots are decorative (aria-hidden); this carries the same meaning as text.
+      difficultyLabel: 'Difficulty ' + t.difficulty + ' of 3',
+      // Unbuilt guides must not be reachable by keyboard or announced as actionable.
+      role: live ? 'button' : 'group',
+      tabIndex: live ? 0 : -1,
+      ariaDisabled: live ? 'false' : 'true',
+      ariaLabel: live
+        ? t.title + ' — ' + t.minutes + ', difficulty ' + t.difficulty + ' of 3'
+        : t.title + ' — coming soon, not yet available',
       cta: live ? 'Start →' : 'Coming soon',
       ctaStyle: 'margin-top:16px;font-size:12px;font-weight:700;letter-spacing:1px;color:' + (live ? 'var(--informative-02)' : 'var(--30)'),
       cardStyle: 'display:flex;flex-direction:column;padding:20px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--20);min-height:190px;transition:background .15s;cursor:' + (live ? 'pointer' : 'default') + ';opacity:' + (live ? '1' : '0.6'),
@@ -810,7 +822,10 @@ class Component extends DCLogic {
         prev: () => this.setPlayerStep(Math.max(0, pi - 1)),
         next: () => this.setPlayerStep(Math.min(steps.length - 1, pi + 1)),
         playAll: this.togglePlayAll,
-        counter: 'Step ' + (pi + 1) + ' of ' + steps.length
+        counter: 'Step ' + (pi + 1) + ' of ' + steps.length,
+        // Announced via aria-live when the step changes, since the camera move that
+        // conveys this visually is invisible to assistive tech.
+        announcement: 'Step ' + (pi + 1) + ' of ' + steps.length + ': ' + (steps[pi] ? steps[pi].title : '')
       };
       const active = this.state.activeToc;
       const tocRaw = [{ id: 'walkthrough', num: '', label: 'Walkthrough' }, { id: 'before', num: '', label: 'Before you start' }]

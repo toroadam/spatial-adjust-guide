@@ -57,13 +57,24 @@ The Core Design files stay the source of truth. To pick up new authoring:
 
 Both were used to verify the port: fingerprints across all 7 guides are **identical** between the original export and the built bundle.
 
+## Accessibility and responsive behaviour
+
+Delivered under an internal work item. `src/a11y.css` and `src/a11y.js` are injected by the build and live outside the Core Design export so a re-export can't discard them.
+
+- **Keyboard.** The export built its controls from `<div onClick>`, which browsers give no keyboard behaviour — only 3 elements on the whole page were focusable against 26 with click handlers. Controls now carry `role="button"` and `tabindex`, and a delegated listener supplies Enter/Space activation. Verified end to end by `npm run test:keyboard`, which tabs to a card, opens it with Enter, and advances a step with Space.
+- **Screen readers.** Cards have accessible names including duration and difficulty; the difficulty dots are `aria-hidden` with a text equivalent; step changes are announced through an `aria-live` region, since the camera move that conveys them is purely visual.
+- **Stub cards** are `role="group"`, `aria-disabled`, and out of the tab order.
+- **Contrast.** Guide chrome is at zero axe violations (was 66 on the catalog, 28 in a guide).
+- **Responsive.** Zero horizontal overflow from 375px to 1920px, verified without `overflow:hidden` masking. Below 768px the fixed 1600×1000 stage is replaced with a short explanation and the written steps take the full width — at phone size the stage would need ~23% scale to fit, which is unreadable.
+
+### Deliberately not fixed
+
+Eleven contrast failures remain inside `.sa-app`. That component is a faithful reproduction of the real IntelliDash screen, so correcting its colours would make the guides misrepresent the product. **These are a finding against IntelliDash itself, not against this site.**
+
 ## Known gaps
 
-Tracked as an internal work item, an internal work item, an internal work item:
-
-- **Desktop-only.** Fixed 1600×1000 stage and a 1180px viewport, no breakpoints. Breaks on phones.
-- **Accessibility.** Player controls are `<div onClick>` rather than buttons; no ARIA on the TOC, accordions, or player; the camera conveys focus purely visually.
-- **17 of 24 cards are stubs.** They render a greyed "Coming soon" label, but are still in the tab order and aren't announced as unavailable to assistive tech.
+- **17 of 24 guides are unwritten.** The cards render a "Coming soon" state; which to write next is the question an internal work item exists to answer.
+- **No instrumentation** (an internal work item), so there's no data on which guides get used or completed.
 
 ## Data
 

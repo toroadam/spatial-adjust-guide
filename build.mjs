@@ -36,6 +36,15 @@ const STATIC_DIRS = ['assets', '_ds', 'vendor'];
 // The others are lint config, build metadata, and docs, referenced by nothing.
 const DS_EXCLUDE = ['_ds_bundle.js', '_ds_manifest.json', '_adherence.oxlintrc.json', 'readme.md'];
 
+// Accessibility markup that must survive a Core Design re-export. Each entry is a literal
+// the built page is required to contain; the build fails if one goes missing.
+const A11Y_GUARDS = [
+  ['role="button"', 'keyboard-operable controls'],
+  ['aria-live="polite"', 'step-change announcements for screen readers'],
+  ['class="lsa-stage-frame"', 'stage hook used by the small-screen fallback'],
+  ['{{ task.ariaLabel }}', 'accessible names on guide cards'],
+];
+
 const CDN_MAP = {
   'https://unpkg.com/react@18.3.1/umd/react.production.min.js': 'vendor/react.production.min.js',
   'https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js': 'vendor/react-dom.production.min.js',
@@ -88,18 +97,59 @@ async function main() {
   if (!dsBundleTag.test(html)) throw new Error('_ds_bundle.js script tag not found — check the export');
   html = html.replace(dsBundleTag, '');
 
+  // The a11y work lives in the source template, but a Core Design re-export would silently
+  // drop it and regress every keyboard user. Fail loudly instead.
+  for (const [marker, what] of A11Y_GUARDS) {
+    if (!html.includes(marker)) {
+      throw new Error(
+        `Accessibility markup missing from the export: ${what}\n` +
+        `  expected to find: ${marker}\n` +
+        `  A re-export from Core Design has likely overwritten it. See README > Re-exporting.`,
+      );
+    }
+  }
+
+  // <html> had no lang, so screen readers guess the pronunciation language.
+  html = html.replace(/<html(?![^>]*\blang=)/i, '<html lang="en"');
+
   // Give the page a real title and description; the export had neither. This must happen
   // BEFORE the bootstrap is inserted: the inlined component source contains its own </head>,
   // and a string-pattern replace would otherwise match that one and corrupt the JS literal.
+  const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
+  const a11yJs = await readFile(join(ROOT, 'src', 'a11y.js'), 'utf8');
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
+<style>\n${a11yCss}\n</style>
 </head>`);
 
   // The bootstrap has to land before the support.js tag, not merely before </head>.
+  // Runs after the runtime so it can observe the rendered tree. Injected BEFORE the
+  // bootstrap for the same reason as the <head> block: the inlined component source
+  // contains its own </body>, and a string replace would match that one instead.
+  html = html.replace('</body>', `<script>\n${a11yJs}\n</script>\n</body>`);
+
   const supportTag = '<script src="./support.js"></script>';
   if (!html.includes(supportTag)) throw new Error('support.js script tag not found in entry document');
   html = html.replace(supportTag, `${bootstrap(componentSources)}\n${supportTag}`);
+
+  // Every inline <script> must parse. Injecting into this document is error-prone because
+  // the bootstrap embeds a whole HTML file as a JS string literal — a naive replace on
+  // </head> or </body> matches *inside* that literal and produces a broken page that still
+  // looks fine on disk. new Function() checks syntax without executing, and has caught this
+  // exact mistake twice.
+  for (const [, body] of html.matchAll(/<script(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)) {
+    if (!body.trim()) continue;
+    try {
+      new Function(body);
+    } catch (err) {
+      throw new Error(
+        `Generated an inline <script> that does not parse: ${err.message}\n` +
+        `  This usually means an injection matched inside the inlined component string.\n` +
+        `  Inject before the bootstrap is inserted.`,
+      );
+    }
+  }
 
   await writeFile(join(DIST, 'index.html'), html);
   await cp(join(ROOT, 'support.js'), join(DIST, 'support.js'));

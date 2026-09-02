@@ -1,0 +1,148 @@
+/* Accessibility and responsive layer for the Spatial Adjust guides.
+   Injected by build.mjs. Kept separate from the Core Design export so a re-export
+   doesn't discard it — see README. */
+
+/* ---------- visually hidden, still announced ---------- */
+.lsa-sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  clip-path: inset(50%);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* ---------- visible focus ----------
+   The export styles hover only, so keyboard users had no indication of position. */
+.lsa :focus-visible,
+.lsa [role="button"]:focus-visible,
+.lsa a:focus-visible,
+.lsa input:focus-visible {
+  outline: 3px solid var(--informative-03, #2165db);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+/* Don't show the ring for pointer users. */
+.lsa :focus:not(:focus-visible) { outline: none; }
+
+/* Skip link, revealed on focus. */
+.lsa-skip {
+  position: absolute; left: 8px; top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--100, #080d12); color: var(--white, #fff);
+  font-weight: 700; font-size: 13px; border-radius: 0 0 8px 8px;
+  transition: top .15s;
+}
+.lsa-skip:focus { top: 0; }
+
+/* ---------- contrast (WCAG 2.1 AA) ----------
+   The export uses --40 (2.29:1) and --30 for body text and --informative-02 (4.1:1)
+   for links, all below the 4.5:1 threshold. These selectors match the inline styles
+   the runtime emits, so only *text* colour is corrected — borders and backgrounds
+   using the same tokens are deliberately left alone.
+
+   Both spaced and unspaced forms are matched: the value is authored as "color:var(--40)"
+   but the DOM serialises it as "color: var(--40)", and an attribute selector is literal.
+
+   NOTE: contrast failures *inside* .sa-app are deliberately not corrected. That component
+   is a faithful reproduction of the real IntelliDash screen; changing its colours would
+   make the guides misrepresent the product. Those are a finding against IntelliDash. */
+.lsa [style*="color:var(--40)"],
+.lsa [style*="color: var(--40)"],
+.lsa [style*="color:var(--30)"],
+.lsa [style*="color: var(--30)"] { color: rgb(100, 110, 115) !important; }  /* 5.2:1 on white */
+
+.lsa [style*="color:var(--informative-02)"],
+.lsa [style*="color: var(--informative-02)"] { color: rgb(28, 88, 193) !important; } /* 6.1:1 */
+
+.lsa a { color: rgb(28, 88, 193); }
+
+/* The runtime emits some computed colours as literals rather than tokens. */
+.lsa :not(.sa-app):not(.sa-app *) > [style*="color: grey"],
+.lsa :not(.sa-app):not(.sa-app *) > [style*="color:grey"] { color: rgb(89, 89, 89) !important; }
+
+/* Cards for unbuilt guides: the export already dims them to 0.6 opacity, which drags
+   their text under threshold. Restore legibility while keeping them visibly secondary. */
+.lsa [aria-disabled="true"] { opacity: 1; }
+.lsa [aria-disabled="true"] [style*="color:var(--100)"] { color: rgb(76, 84, 89) !important; }
+
+/* ---------- reduced motion ----------
+   The export only disabled scroll-behavior. The camera pan/zoom and the auto-advancing
+   player are the larger motion sources. */
+@media (prefers-reduced-motion: reduce) {
+  .lsa *, .lsa *::before, .lsa *::after {
+    transition-duration: .001ms !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ---------- responsive ----------
+   The app stage is a fixed 1600x1000 canvas. Down to tablet the camera scales it
+   acceptably; below that it would need ~23% scale to fit, which is unreadable. So on
+   phones the stage is replaced with an honest explanation and the written guide —
+   which is genuinely useful on its own — takes the full width. */
+/* Hidden by default; revealed by the phone breakpoint below. Declared BEFORE that media
+   query so source order doesn't defeat it. */
+.lsa-small-screen-note {
+  display: none;
+  margin: 20px 0;
+  padding: 16px 18px;
+  border-radius: 8px;
+  background: var(--05, #f5f7f8);
+  box-shadow: inset 0 0 0 1px var(--20, #d9dfe2);
+  font-size: 14px;
+  line-height: 1.5;
+  color: rgb(76, 84, 89);
+}
+.lsa-small-screen-note strong { color: var(--100, #080d12); display: block; margin-bottom: 4px; }
+
+/* Card grids are authored with a fixed 4- and 2-column track count, which cannot fit a
+   phone. Collapse to one column, and to two on small tablets. */
+@media (max-width: 1023px) {
+  .lsa [style*="grid-template-columns:repeat(4,1fr)"],
+  .lsa [style*="grid-template-columns: repeat(4, 1fr)"] {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 767px) {
+  .lsa [style*="grid-template-columns:repeat(4,1fr)"],
+  .lsa [style*="grid-template-columns: repeat(4, 1fr)"],
+  .lsa [style*="grid-template-columns:repeat(2,1fr)"],
+  .lsa [style*="grid-template-columns: repeat(2, 1fr)"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .lsa-stage-frame,
+  .lsa-step-figure { display: none !important; }
+
+  .lsa-small-screen-note { display: block; }
+
+  /* With the stage hidden, the row that held it must stack rather than keep laying its
+     remaining children out side by side in a phone-width box. */
+  .lsa-stage-row,
+  .lsa-content-row {
+    flex-direction: column !important;
+    display: block !important;
+  }
+  .lsa-stage-row > *,
+  .lsa-content-row > * { width: 100% !important; max-width: 100% !important; }
+
+  /* The "On this page" sidebar duplicates the step list that follows it; on a phone it
+     costs a screenful before the content starts. The in-page step list remains. */
+  .lsa-content-row > nav,
+  .lsa-content-row > aside { display: none !important; }
+
+  /* Display headings are authored at desktop sizes (h1 is 44px); a single word can then
+     exceed a phone's content box and force the whole page to scroll sideways. */
+  .lsa h1 { font-size: 32px !important; line-height: 1.1 !important; }
+  .lsa h2 { font-size: 22px !important; }
+  .lsa h1, .lsa h2, .lsa h3, .lsa p, .lsa li { overflow-wrap: break-word; }
+
+  /* Guard against any remaining fixed widths pushing the page sideways. Deliberately not
+     using overflow-x:hidden on body — that would silently clip content instead of
+     revealing that the layout is still wrong. */
+  .lsa, .lsa * { max-width: 100%; }
+}
+

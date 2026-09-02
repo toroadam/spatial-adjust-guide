@@ -9,9 +9,14 @@
     "serve": "node scripts/serve.mjs dist 8124",
     "start": "npm run build && npm run serve",
     "test": "npm run build && node scripts/test.mjs",
-    "test:guides": "node scripts/compare-guides.mjs http://localhost:8124/"
+    "test:guides": "node scripts/compare-guides.mjs http://localhost:8124/",
+    "test:a11y": "node scripts/a11y.mjs http://localhost:8124/",
+    "test:keyboard": "node scripts/keyboard.mjs http://localhost:8124/",
+    "test:responsive": "node scripts/responsive.mjs http://localhost:8124/"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.13.0",
+    "axe-core": "^4.13.0",
     "playwright": "^1.62.1"
   },
   "dependencies": {
