@@ -12,9 +12,14 @@ const ctx = await browser.newContext();
 const page = await ctx.newPage();
 
 const external = new Set(), errors = new Set(), failed = new Set(), blocked = new Set();
+// "External" means a different origin than the page itself — so this works unchanged
+// against localhost, file://, and the deployed site.
+const selfOrigin = url.startsWith('file:') ? null : new URL(url).origin;
 page.on('request', (r) => {
   const u = r.url();
-  if (!u.startsWith('http://localhost') && !u.startsWith('file://') && !u.startsWith('data:') && !u.startsWith('blob:')) external.add(u);
+  if (u.startsWith('data:') || u.startsWith('blob:') || u.startsWith('file://')) return;
+  if (selfOrigin && u.startsWith(selfOrigin)) return;
+  external.add(u);
 });
 page.on('requestfailed', (r) => failed.add(`${r.url()} :: ${r.failure()?.errorText}`));
 page.on('pageerror', (e) => errors.add(String(e).slice(0, 200)));
