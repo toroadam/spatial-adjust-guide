@@ -35,8 +35,8 @@ const rail = page.locator('[role="button"]').filter({ hasText: /Check the counts
 if (await rail.count()) await rail.last().click().catch(() => {});
 await page.waitForTimeout(500);
 
-// 3. "Was this step clear?" — the Yes path stays in-page
-const fbYes = page.locator('.lsa-fb-btn[data-v="yes"]');
+// 3. "Was this helpful?" at the bottom of the page — the Yes path stays in-page
+const fbYes = page.locator('.lsa-helpful-btn[data-v="yes"]');
 const hadFeedbackWidget = (await fbYes.count()) > 0;
 if (hadFeedbackWidget) { await fbYes.first().click(); await page.waitForTimeout(300); }
 

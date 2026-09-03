@@ -106,7 +106,7 @@ By default the transport is **`local`**: events are buffered in `localStorage` a
 
 That's sufficient for moderated sessions. **It does not collect from remote users.** For that, set `TRANSPORT = 'beacon'` and `SA_ENDPOINT` at the top of `src/analytics.js`, and add that origin to the allowlist in `scripts/smoke.mjs` — otherwise the smoke test will correctly fail the build for reaching a third party. Choosing that endpoint is an open decision.
 
-**Feedback** (`src/feedback.js`) routes to prefilled GitHub issues — no backend, no third-party script. "Was this step clear?" sits under the player and attaches the guide and step automatically. Activating any unwritten card records demand and offers to file a request in the reader's own words.
+**Feedback** (`src/feedback.js`) routes to prefilled GitHub issues — no backend, no third-party script. "Was this helpful?" sits at the very bottom of the page and attaches the guide and step reached automatically. It deliberately does *not* sit beside the step player: that crowded the controls, and the sticky "On this page" tracker uses an offset calibrated to that panel. Activating any unwritten card records demand and offers to file a request in the reader's own words.
 
 Note that unwritten cards are **real buttons**, not disabled ones: activating one requests the guide. Marking them `aria-disabled` would contradict the fact that they do something.
 
@@ -115,6 +115,12 @@ Note that unwritten cards are **real buttons**, not disabled ones: activating on
 - **Analytics endpoint undecided**, so telemetry is local-only and collects nothing from remote users.
 - **No manual screen-reader pass** (VoiceOver/NVDA). Automated checks and keyboard driving aren't a substitute.
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
+
+## Two export defaults corrected by transforms
+
+The export ships a shortcut hint of its own (`← → step · space play · esc back`), so the build must not add a second one — it did briefly, and the duplicate was visible right below the original.
+
+The export also sticks the "On this page" tracker at `top: 742px`. That offset suits the walkthrough stage but strands the tracker near the bottom of the window for the rest of the guide, where it is least useful. A transform re-pins it to `top: 89px`, just below the 65px sticky header, and `src/a11y.css` caps its height so the 28-step guide's list scrolls rather than running off screen.
 
 ## Data
 

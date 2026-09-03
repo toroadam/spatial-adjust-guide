@@ -38,8 +38,8 @@
     var t = ev.target;
     if (!t || typeof t.closest !== 'function') return;
 
-    var fb = t.closest('.lsa-fb-btn');
-    if (fb) { ev.preventDefault(); onStepFeedback(fb); return; }
+    var fb = t.closest('.lsa-helpful-btn');
+    if (fb) { ev.preventDefault(); onHelpful(fb); return; }
 
     var stub = t.closest('.lsa [data-stub="true"]');
     if (stub) { ev.preventDefault(); ev.stopPropagation(); onStubRequest(stub); }
@@ -53,23 +53,23 @@
     if (stub) { ev.preventDefault(); ev.stopPropagation(); onStubRequest(stub); }
   }, true);
 
-  function onStepFeedback(btn) {
+  function onHelpful(btn) {
     var verdict = btn.getAttribute('data-v');
     var c = context();
     track('feedback_submitted', { verdict: verdict, guide: c.guide, step: c.step });
 
-    var wrap = btn.closest('.lsa-fb');
+    var wrap = btn.closest('.lsa-helpful');
     if (verdict === 'yes') {
       if (wrap) { wrap.setAttribute('data-done', '1'); wrap.textContent = 'Thanks — noted.'; }
       return;
     }
     // "No" is the useful case, so collect the detail rather than swallow it.
     var note = window.prompt(
-      'What was unclear about this step?\n\nThis opens a prefilled GitHub issue you can review before submitting.', '');
+      'What was missing or unclear?\n\nThis opens a prefilled GitHub issue you can review before submitting.', '');
     if (note === null) return;
     var body =
-      '**What was unclear**\n' + (note || '(not stated)') + '\n\n' +
-      '---\n- Guide: ' + c.guide + '\n- Step: ' + (c.step || 'n/a') +
+      '**What was missing or unclear**\n' + (note || '(not stated)') + '\n\n' +
+      '---\n- Guide: ' + c.guide + '\n- Step reached: ' + (c.step || 'n/a') +
       '\n- Viewport: ' + c.viewport + '\n- URL: ' + c.url + '\n';
     window.open(issueUrl('Guide feedback: ' + c.guide, body, 'guide-feedback'), '_blank', 'noopener');
     if (wrap) { wrap.setAttribute('data-done', '1'); wrap.textContent = 'Thanks — opening a report.'; }
@@ -95,17 +95,21 @@
   }
 
   // ---- widget injection -------------------------------------------------------
-  function buildStepFeedback() {
-    var anchor = document.querySelector('.lsa [aria-live]');
-    if (!anchor || !anchor.parentElement) return;
-    var host = anchor.parentElement;
-    if (host.querySelector('.lsa-fb')) return;
+  // Placed at the very bottom of the page content, not beside the player. It used to sit
+  // in the player panel, which crowded the controls and — because the "On this page"
+  // sidebar is sticky at an offset calibrated to that panel's height — pushed the section
+  // tracker out of alignment.
+  function buildHelpful() {
+    var host = document.querySelector('.lsa article') || document.querySelector('.lsa main');
+    if (!host || host.querySelector('.lsa-helpful')) return;
     var wrap = document.createElement('div');
-    wrap.className = 'lsa-fb';
+    wrap.className = 'lsa-helpful';
     wrap.innerHTML =
-      '<span class="lsa-fb-q">Was this step clear?</span>' +
-      '<button type="button" class="lsa-fb-btn" data-v="yes">Yes</button>' +
-      '<button type="button" class="lsa-fb-btn" data-v="no">No</button>';
+      '<span class="lsa-helpful-q">Was this helpful?</span>' +
+      '<button type="button" class="lsa-helpful-btn" data-v="yes" aria-label="Yes, this was helpful">' +
+        '<span aria-hidden="true">&#128077;</span></button>' +
+      '<button type="button" class="lsa-helpful-btn" data-v="no" aria-label="No, this was not helpful">' +
+        '<span aria-hidden="true">&#128078;</span></button>';
     host.appendChild(wrap);
   }
 
@@ -115,7 +119,7 @@
   function schedule() {
     if (pending) return;
     pending = true;
-    requestAnimationFrame(function () { pending = false; buildStepFeedback(); });
+    requestAnimationFrame(function () { pending = false; buildHelpful(); });
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule);

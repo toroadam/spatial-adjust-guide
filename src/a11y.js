@@ -75,25 +75,7 @@
     }
   }
 
-  // 5. The export registers genuinely useful shortcuts on window — left/right to step,
-  //    Space to play all, Escape to close, "/" to jump to search — but nothing tells
-  //    anyone they exist. Surface them next to the player controls they operate.
-  function addShortcutHint() {
-    var live = document.querySelector('.lsa [aria-live]');
-    if (!live || !live.parentElement) return;
-    var host = live.parentElement;
-    if (host.querySelector('.lsa-keys')) return;
-    var hint = document.createElement('div');
-    hint.className = 'lsa-keys';
-    // aria-hidden: the shortcuts are announced to screen-reader users by the controls
-    // themselves, and repeating them here would just add noise to every step change.
-    hint.setAttribute('aria-hidden', 'true');
-    hint.innerHTML =
-      '<kbd>←</kbd><kbd>→</kbd> step &nbsp;·&nbsp; <kbd>space</kbd> play &nbsp;·&nbsp; <kbd>esc</kbd> close';
-    host.appendChild(hint);
-  }
-
-  // 6. Record search use. The event was defined but never fired, so "did anyone search?"
+  // 5. Record search use. The event was defined but never fired, so "did anyone search?"
   //    was unanswerable. Debounced so a query counts once, not once per keystroke.
   var searchTimer = null;
   document.addEventListener('input', function (e) {
@@ -106,7 +88,7 @@
     }, 800);
   });
 
-  function enhance() { addSkipLink(); addSmallScreenNote(); tagContentRow(); addShortcutHint(); }
+  function enhance() { addSkipLink(); addSmallScreenNote(); tagContentRow(); }
 
   // The runtime renders asynchronously and re-renders on navigation, so re-apply.
   // Coalesced with rAF: these functions insert into the tree they're observing, which

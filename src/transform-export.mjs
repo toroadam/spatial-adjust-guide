@@ -87,6 +87,18 @@ export function transformGuide(src) {
       + '<span class="lsa-sr-only">{{ task.difficultyLabel }}</span>',
   });
 
+  // --- "On this page" tracker sticky offset ------------------------------------
+  // The export sticks the section tracker 742px from the top of the viewport. That offset
+  // only makes sense while the walkthrough stage is on screen; by the time the tracker's
+  // own row is reached the stage has scrolled away, so the tracker ends up stranded near
+  // the bottom of the window for the whole length of the guide — which is where it is least
+  // useful and looks broken. The site header is sticky at 65px, so park it just below that.
+  s = edit(s, {
+    name: 'section tracker sticky offset',
+    pattern: /<aside style="position:sticky;top:742px;/,
+    replace: '<aside class="lsa-toc" style="position:sticky;top:89px;',
+  });
+
   // --- step announcements -----------------------------------------------------
   // The camera move that conveys a step change is invisible to assistive tech.
   s = edit(s, {
