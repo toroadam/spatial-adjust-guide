@@ -67,9 +67,17 @@
 
   function enhance() { addSkipLink(); addSmallScreenNote(); tagContentRow(); }
 
-  // The runtime renders asynchronously, and re-renders on navigation, so re-apply.
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', enhance);
-  else enhance();
-  new MutationObserver(function () { enhance(); })
-    .observe(document.documentElement, { childList: true, subtree: true });
+  // The runtime renders asynchronously and re-renders on navigation, so re-apply.
+  // Coalesced with rAF: these functions insert into the tree they're observing, which
+  // would otherwise re-enter the callback synchronously on every insertion.
+  var pending = false;
+  function schedule() {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(function () { pending = false; enhance(); });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule);
+  else schedule();
+  new MutationObserver(schedule).observe(document.documentElement, { childList: true, subtree: true });
 })();

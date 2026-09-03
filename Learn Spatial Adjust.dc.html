@@ -91,7 +91,7 @@ html, body { margin:0; padding:0; background: var(--white); }
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
               <sc-for list="{{ cat.tasks }}" as="task" hint-placeholder-count="4">
-                <div onClick="{{ task.open }}" role="{{ task.role }}" tabindex="{{ task.tabIndex }}" aria-disabled="{{ task.ariaDisabled }}" aria-label="{{ task.ariaLabel }}" style="{{ task.cardStyle }}" style-hover="background:var(--05)">
+                <div onClick="{{ task.open }}" role="{{ task.role }}" tabindex="{{ task.tabIndex }}" data-stub="{{ task.stub }}" data-title="{{ task.title }}" aria-label="{{ task.ariaLabel }}" style="{{ task.cardStyle }}" style-hover="background:var(--05)">
                   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
                     <span style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--60)">{{ task.minutes }}</span>
                     <span aria-hidden="true" style="font-size:11px;letter-spacing:2px;color:var(--30)">{{ task.dots }}</span><span class="lsa-sr-only">{{ task.difficultyLabel }}</span>
@@ -662,6 +662,15 @@ class Component extends DCLogic {
   setPlayerStep = (i) => {
     this.stopTimer();
     this.setState(s => ({ playerStep: i, prevStep: s.playerStep, playing: false }));
+    if (typeof window !== 'undefined' && window.__saTrack) {
+      const g = GUIDES[this.state.guideKey];
+      const total = g ? g.steps.length : 0;
+      window.__saTrack('step_advanced', { key: this.state.guideKey, step: i + 1, total: total });
+      // Reaching the last step is the closest available proxy for completion.
+      if (total && i === total - 1) {
+        window.__saTrack('guide_completed', { key: this.state.guideKey, steps: total });
+      }
+    }
   };
 
   stopTimer() { if (this._t) { clearInterval(this._t); this._t = null; } }
@@ -670,6 +679,9 @@ class Component extends DCLogic {
     if (this.state.playing) { this.stopTimer(); this.setState({ playing: false }); return; }
     const g = GUIDES[this.state.guideKey];
     if (!g) return;
+    if (typeof window !== 'undefined' && window.__saTrack) {
+      window.__saTrack('play_all_used', { key: this.state.guideKey, steps: g.steps.length });
+    }
     const n = g.steps.length;
     this.setState({ playing: true, playerStep: 0, prevStep: 0 });
     this.stopTimer();
@@ -719,7 +731,14 @@ class Component extends DCLogic {
   open(key) {
     this.stopTimer();
     this.setState({ guideKey: key, playerStep: 0, prevStep: 0, playing: false, activeToc: 'walkthrough' });
-    if (typeof window !== 'undefined') window.scrollTo(0, 0);
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+      // Optional chaining on purpose: instrumentation must never break the guide.
+      if (window.__saTrack) window.__saTrack('guide_opened', {
+        key: key,
+        steps: GUIDES[key] ? GUIDES[key].steps.length : 0
+      });
+    }
   }
 
   buildCard(t) {
@@ -731,13 +750,16 @@ class Component extends DCLogic {
       dots: '●'.repeat(t.difficulty) + '○'.repeat(3 - t.difficulty),
       // The dots are decorative (aria-hidden); this carries the same meaning as text.
       difficultyLabel: 'Difficulty ' + t.difficulty + ' of 3',
-      // Unbuilt guides must not be reachable by keyboard or announced as actionable.
-      role: live ? 'button' : 'group',
-      tabIndex: live ? 0 : -1,
-      ariaDisabled: live ? 'false' : 'true',
+      // Both states are genuinely actionable: a written guide opens, an unwritten one
+      // lets the reader request it. So both are real buttons — marking the stubs
+      // aria-disabled would contradict the fact that activating them does something.
+      // The 'stub' flag drives styling and the request handler.
+      stub: live ? 'false' : 'true',
+      role: 'button',
+      tabIndex: 0,
       ariaLabel: live
         ? t.title + ' — ' + t.minutes + ', difficulty ' + t.difficulty + ' of 3'
-        : t.title + ' — coming soon, not yet available',
+        : t.title + ' — not written yet. Activate to request it.',
       cta: live ? 'Start →' : 'Coming soon',
       ctaStyle: 'margin-top:16px;font-size:12px;font-weight:700;letter-spacing:1px;color:' + (live ? 'var(--informative-02)' : 'var(--30)'),
       cardStyle: 'display:flex;flex-direction:column;padding:20px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--20);min-height:190px;transition:background .15s;cursor:' + (live ? 'pointer' : 'default') + ';opacity:' + (live ? '1' : '0.6'),

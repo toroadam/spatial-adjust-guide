@@ -71,10 +71,31 @@ Delivered under an internal work item. `src/a11y.css` and `src/a11y.js` are inje
 
 Eleven contrast failures remain inside `.sa-app`. That component is a faithful reproduction of the real IntelliDash screen, so correcting its colours would make the guides misrepresent the product. **These are a finding against IntelliDash itself, not against this site.**
 
+## Instrumentation and feedback
+
+Delivered under an internal work item. See [`docs/test-protocol.md`](docs/test-protocol.md) for the moderated session plan.
+
+**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `guide_requested`, `search_used`, `feedback_submitted`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
+
+By default the transport is **`local`**: events are buffered in `localStorage` and **nothing leaves the device**, which keeps the zero-external-origins property the smoke test enforces. In the browser console:
+
+| | |
+|---|---|
+| `__saReport()` | summary — guides opened, stub demand, event counts |
+| `__saExport()` | download the raw events as JSON |
+| `__saClear()` | reset before a session |
+
+That's sufficient for moderated sessions. **It does not collect from remote users.** For that, set `TRANSPORT = 'beacon'` and `SA_ENDPOINT` at the top of `src/analytics.js`, and add that origin to the allowlist in `scripts/smoke.mjs` — otherwise the smoke test will correctly fail the build for reaching a third party. Choosing that endpoint is an open decision.
+
+**Feedback** (`src/feedback.js`) routes to prefilled GitHub issues — no backend, no third-party script. "Was this step clear?" sits under the player and attaches the guide and step automatically. Activating any unwritten card records demand and offers to file a request in the reader's own words.
+
+Note that unwritten cards are **real buttons**, not disabled ones: activating one requests the guide. Marking them `aria-disabled` would contradict the fact that they do something.
+
 ## Known gaps
 
-- **17 of 24 guides are unwritten.** The cards render a "Coming soon" state; which to write next is the question an internal work item exists to answer.
-- **No instrumentation** (an internal work item), so there's no data on which guides get used or completed.
+- **17 of 24 guides are unwritten.** Which to write next is what an internal work item exists to answer.
+- **No manual screen-reader pass** (VoiceOver/NVDA). Automated checks and keyboard driving aren't a substitute.
+- **No remote telemetry** until an endpoint is chosen, as above.
 
 ## Data
 

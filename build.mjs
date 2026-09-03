@@ -116,7 +116,13 @@ async function main() {
   // BEFORE the bootstrap is inserted: the inlined component source contains its own </head>,
   // and a string-pattern replace would otherwise match that one and corrupt the JS literal.
   const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
-  const a11yJs = await readFile(join(ROOT, 'src', 'a11y.js'), 'utf8');
+  // Order matters: analytics defines window.__saTrack, which feedback and the guide logic
+  // both call. a11y last so it observes a fully wired tree.
+  const injectedJs = [];
+  for (const name of ['analytics.js', 'feedback.js', 'a11y.js']) {
+    injectedJs.push(`/* --- src/${name} --- */\n` + await readFile(join(ROOT, 'src', name), 'utf8'));
+  }
+  const a11yJs = injectedJs.join('\n');
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">

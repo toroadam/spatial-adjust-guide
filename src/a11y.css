@@ -62,10 +62,17 @@
 .lsa :not(.sa-app):not(.sa-app *) > [style*="color: grey"],
 .lsa :not(.sa-app):not(.sa-app *) > [style*="color:grey"] { color: rgb(89, 89, 89) !important; }
 
-/* Cards for unbuilt guides: the export already dims them to 0.6 opacity, which drags
-   their text under threshold. Restore legibility while keeping them visibly secondary. */
-.lsa [aria-disabled="true"] { opacity: 1; }
-.lsa [aria-disabled="true"] [style*="color:var(--100)"] { color: rgb(76, 84, 89) !important; }
+/* Cards for unbuilt guides. The export dims them with an inline opacity:0.6, which blends
+   every colour inside toward the background and drags all of it under threshold — and
+   because these are now genuinely enabled buttons (activating one requests the guide),
+   that text has to pass. !important is required to beat the inline style.
+   They stay visually secondary via a tinted background rather than transparency. */
+.lsa [data-stub="true"] {
+  opacity: 1 !important;
+  background: var(--05, #f5f7f8) !important;
+}
+.lsa [data-stub="true"] [style*="color:var(--100)"],
+.lsa [data-stub="true"] [style*="color: var(--100)"] { color: rgb(76, 84, 89) !important; }
 
 /* ---------- reduced motion ----------
    The export only disabled scroll-behavior. The camera pan/zoom and the auto-advancing
@@ -146,3 +153,27 @@
   .lsa, .lsa * { max-width: 100%; }
 }
 
+
+/* ---------- in-product feedback (an internal work item) ---------- */
+.lsa-fb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--20, #d9dfe2);
+  font-size: 12px;
+}
+.lsa-fb-q { color: rgb(100, 110, 115); }
+.lsa-fb-btn {
+  font: inherit;
+  font-weight: 700;
+  padding: 5px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--white, #fff);
+  box-shadow: inset 0 0 0 1px var(--30, #bcc6cc);
+  color: rgb(76, 84, 89);
+  cursor: pointer;
+}
+.lsa-fb-btn:hover { background: var(--05, #f5f7f8); }

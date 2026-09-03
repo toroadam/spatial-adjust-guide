@@ -25,9 +25,17 @@ for (let i = 0; i < 25 && !card; i++) {
 }
 results.reachedCardByTab = card;
 
-// 2. Stub cards must never receive focus.
-results.stubFocusable = await page.evaluate(() =>
-  [...document.querySelectorAll('[aria-disabled="true"]')].some((e) => e.tabIndex >= 0));
+// 2. Unwritten guides are requestable, so they ARE focusable buttons — but their
+//    accessible name must say they aren't written, and none may claim to be disabled.
+results.stubs = await page.evaluate(() => {
+  const stubs = [...document.querySelectorAll('.lsa [data-stub="true"]')];
+  return {
+    count: stubs.length,
+    allFocusable: stubs.length > 0 && stubs.every((e) => e.tabIndex >= 0),
+    allNamedAsUnwritten: stubs.every((e) => /not written yet/i.test(e.getAttribute('aria-label') || '')),
+    anyFalselyDisabled: stubs.some((e) => e.getAttribute('aria-disabled') === 'true'),
+  };
+});
 
 // 3. Activate with Enter.
 if (card) {
@@ -59,7 +67,10 @@ results.focusVisible = await page.evaluate(() => {
 
 const pass =
   !!results.reachedCardByTab &&
-  results.stubFocusable === false &&
+  results.stubs.count === 17 &&
+  results.stubs.allFocusable &&
+  results.stubs.allNamedAsUnwritten &&
+  !results.stubs.anyFalselyDisabled &&
   results.openedGuideViaEnter &&
   results.advancedStepByKeyboard.changed &&
   results.focusVisible;
