@@ -16,6 +16,7 @@
 
 import { readFile, writeFile, mkdir, rm, cp } from 'node:fs/promises';
 import { join } from 'node:path';
+import { transformGuide } from './src/transform-export.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -97,14 +98,19 @@ async function main() {
   if (!dsBundleTag.test(html)) throw new Error('_ds_bundle.js script tag not found — check the export');
   html = html.replace(dsBundleTag, '');
 
-  // The a11y work lives in the source template, but a Core Design re-export would silently
-  // drop it and regress every keyboard user. Fail loudly instead.
+  // Apply the accessibility and instrumentation transforms to the raw export. These were
+  // once hand-edits in the .dc.html files, which a re-export silently wiped; doing it here
+  // makes re-exports free. Each transform asserts its own anchor, so a shape change fails
+  // the build rather than quietly dropping keyboard support.
+  html = transformGuide(html);
+
+  // Belt and braces: confirm the transforms actually produced what the runtime needs.
   for (const [marker, what] of A11Y_GUARDS) {
     if (!html.includes(marker)) {
       throw new Error(
-        `Accessibility markup missing from the export: ${what}\n` +
+        `Accessibility markup missing after transforms: ${what}\n` +
         `  expected to find: ${marker}\n` +
-        `  A re-export from Core Design has likely overwritten it. See README > Re-exporting.`,
+        `  Check src/transform-export.mjs against the current export.`,
       );
     }
   }

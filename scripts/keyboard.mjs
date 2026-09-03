@@ -25,8 +25,9 @@ for (let i = 0; i < 25 && !card; i++) {
 }
 results.reachedCardByTab = card;
 
-// 2. Unwritten guides are requestable, so they ARE focusable buttons — but their
+// 2. Any unwritten guides are requestable, so they ARE focusable buttons — but their
 //    accessible name must say they aren't written, and none may claim to be disabled.
+//    The count is not asserted: every guide is now written, so this is legitimately 0.
 results.stubs = await page.evaluate(() => {
   const stubs = [...document.querySelectorAll('.lsa [data-stub="true"]')];
   return {
@@ -67,8 +68,7 @@ results.focusVisible = await page.evaluate(() => {
 
 const pass =
   !!results.reachedCardByTab &&
-  results.stubs.count === 17 &&
-  results.stubs.allFocusable &&
+  (results.stubs.count === 0 || results.stubs.allFocusable) &&
   results.stubs.allNamedAsUnwritten &&
   !results.stubs.anyFalselyDisabled &&
   results.openedGuideViaEnter &&

@@ -177,3 +177,27 @@
   cursor: pointer;
 }
 .lsa-fb-btn:hover { background: var(--05, #f5f7f8); }
+
+/* ---------- keyboard shortcut hint ----------
+   The export binds arrows / space / escape on window but never advertises them. */
+.lsa-keys {
+  margin-top: 10px;
+  font-size: 11px;
+  color: rgb(100, 110, 115);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+.lsa-keys kbd {
+  font: inherit;
+  font-weight: 600;
+  padding: 1px 5px;
+  margin: 0 1px;
+  border-radius: 4px;
+  background: var(--05, #f5f7f8);
+  box-shadow: inset 0 0 0 1px var(--30, #bcc6cc);
+  color: rgb(76, 84, 89);
+}
+/* Not useful without a physical keyboard. */
+@media (max-width: 767px) { .lsa-keys { display: none; } }

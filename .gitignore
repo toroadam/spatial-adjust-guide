@@ -12,3 +12,9 @@ uploads/
 _ds/**/_ds_bundle.js
 _ds/**/_ds_manifest.json
 _ds/**/_adherence.oxlintrc.json
+
+# Local-only: maps real customer values to fictional ones for import sanitization.
+# Never commit — it contains the real values by definition.
+sanitize.local.json
+# Raw Core Design exports land here before sanitization; never tracked.
+_incoming/

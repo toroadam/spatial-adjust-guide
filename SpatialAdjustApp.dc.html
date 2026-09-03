@@ -15,7 +15,7 @@
 .sa-ps { -webkit-user-select:none; user-select:none; }
 </style>
 </helmet>
-<div class="sa-app" style="width:1600px;height:1000px;display:flex;flex-direction:column;position:relative;background:#fff;color:#080D12;overflow:hidden">
+<div class="sa-app" style="width:1920px;height:1080px;display:flex;flex-direction:column;position:relative;background:#fff;color:#080D12;overflow:hidden">
 
   <div style="flex:none;display:flex;box-shadow:0 1.5872093439102173px 5.2906975746154785px 0 rgba(0,0,0,0.02), 0 6px 20px 0 rgba(0,0,0,0.03);position:relative;z-index:5;background:#fff">
     <div style="flex:1;display:flex;margin-right:10px;justify-content:space-between">
@@ -26,11 +26,7 @@
           </div>
           <div style="display:flex;flex-direction:column;justify-content:center;padding:7px 20px;border-right:1px solid #080D121A;min-width:200px;font-size:14px">
             <div style="display:flex;align-items:center"><span style="display:flex"><img src="assets/sa/globe.png" alt="" style="height:18px;margin:4px 3px 0 0"></span>Riverbend National</div>
-            <div style="margin-left:22px;margin-top:5px">
-              <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;height:29px;padding:0 8px;border:1px solid #a6a6a6;border-radius:3px;background:#fff;font-size:13px;color:#333;min-width:150px">
-                <span>Riverbend National</span><span style="font-size:10px;color:#848484">▼</span>
-              </div>
-            </div>
+            {{ courseSelector }}
           </div>
         </div>
         <div style="display:flex;flex-wrap:wrap">
@@ -83,37 +79,15 @@
           <div style="position:absolute;inset:0;opacity:0.55;background:radial-gradient(ellipse 40% 22% at 30% 22%, #6E8C4A 0 60%, transparent 61%), radial-gradient(ellipse 30% 30% at 66% 34%, #6E8C4A 0 60%, transparent 61%), radial-gradient(ellipse 44% 18% at 48% 62%, #6E8C4A 0 60%, transparent 61%), radial-gradient(ellipse 26% 26% at 22% 74%, #5F7C40 0 60%, transparent 61%), radial-gradient(ellipse 22% 30% at 80% 72%, #5F7C40 0 60%, transparent 61%), radial-gradient(ellipse 14% 8% at 62% 84%, #3A5670 0 70%, transparent 71%), radial-gradient(ellipse 10% 7% at 18% 40%, #C6B189 0 70%, transparent 71%), radial-gradient(ellipse 8% 6% at 74% 22%, #C6B189 0 70%, transparent 71%)"></div>
           <div style="position:absolute;inset:0">{{ mapMarkers }}</div>
 
-          <div style="position:absolute;bottom:2rem;left:50%;transform:translate(-50%,0);z-index:450">
-            <div style="padding:4px 1rem;border-radius:4px;background:white;display:flex;justify-content:center;align-items:center">
-              <div style="display:flex;flex-direction:column;padding-top:8px">
-                <div style="display:flex">
-                  <div class="sa-ps" style="min-width:64px;border-radius:4px;padding:5px 10px;color:white;font-weight:bold;text-align:center;margin-right:0.5rem;background-color:#E11837">0-5%</div>
-                  <div class="sa-ps" style="min-width:64px;border-radius:4px;padding:5px 10px;color:white;font-weight:bold;text-align:center;margin-right:0.5rem;background-color:#F3D43B">6-16%</div>
-                  <div class="sa-ps" style="min-width:64px;border-radius:4px;padding:5px 10px;color:white;font-weight:bold;text-align:center;margin-right:0.5rem;background-color:#42CE11">17-30%</div>
-                  <div class="sa-ps" style="min-width:64px;border-radius:4px;padding:5px 10px;color:white;font-weight:bold;text-align:center;margin-right:0.5rem;background-color:#3079F0">&gt; 30%</div>
-                </div>
-                <div style="width:280px;height:14px;margin-top:6px;border-radius:7px;overflow:hidden;display:flex">
-                  <div style="width:16.6%;background:#E11837"></div><div style="width:36.6%;background:#F3D43B"></div><div style="width:46.8%;background:#42CE11"></div>
-                </div>
-              </div>
-              <div style="margin:0 10px;padding:0 14px;border-left:1px solid gray;border-right:1px solid gray;display:flex;align-items:center">
-                <img class="sa-ps" src="assets/sa/sa-variance.svg" alt="" style="height:22px">
-              </div>
-              <div style="display:flex;align-items:center;padding:5px;border-radius:4px;background-color:#D9DFE2">
-                <img class="sa-ps" src="assets/sa/layers.svg" alt="" style="height:16px">
-                <span class="sa-ps" style="margin:0 5px;font-size:12px">LAYERS</span>
-                <img class="sa-ps" src="assets/sa/chevron-down.svg" alt="" style="height:14px">
-              </div>
-            </div>
-          </div>
+          <div style="position:absolute;bottom:2rem;left:50%;transform:translate(-50%,0);z-index:450">{{ mapOverlay }}</div>
         </div>
 
         <div style="flex:1;min-width:800px;max-width:45%;padding:10px 5px 5px 20px;display:flex;flex-direction:column">
           <div style="flex:1;max-height:30%;border:1px solid #080D121A;border-radius:8px;margin-bottom:20px;position:relative;overflow:hidden">
             <div style="flex:1;height:100%;display:flex;flex-direction:column;position:relative">
               <div class="sa-ps" style="background-color:#F5F7F8;border-bottom:1px solid #080D121A;height:52px;flex:none;padding:0 1rem;display:flex;align-items:center">
-                <div style="font-size:20px;margin-right:1rem;color:black">AP</div>
-                <div style="font-size:18px;color:#33393D">33.70 <span style="font-size:14px">Avg. Moisture</span></div>
+                <div style="font-size:20px;margin-right:1rem;color:black">{{ chartTitle }}</div>
+                <div style="font-size:18px;color:#33393D">{{ chartAvg }} <span style="font-size:14px">Avg. Moisture</span></div>
               </div>
               <div style="position:relative;flex:1;overflow:hidden;display:flex">{{ chart }}</div>
               <div style="position:absolute;top:10px;right:10px;width:300px;display:flex">
@@ -147,7 +121,7 @@
               <div style="flex:1;height:100%;display:flex;flex-direction:column">
                 <div style="flex:none;height:44px;background-color:#F5F7F8;border-bottom:1px solid #080D121A;display:flex;align-items:center;font-size:12px;padding:0 10px;justify-content:space-between;border-radius:4px 4px 0 0">
                   <div style="flex:1;display:flex;align-items:center;height:100%;border-right:1px solid #080D121A;padding:0 10px;font-size:12px;color:#3079F0">
-                    <span>Riverbend National</span><span style="margin:0 6px;color:#848484">/</span><span>AP</span><span style="margin:0 6px;color:#848484">/</span><span style="color:#333">3</span>
+{{ breadcrumb }}
                   </div>
                   <div class="sa-ps" style="display:flex;align-items:center;padding-left:10px">
                     <span style="display:flex;justify-content:center;width:85px">Avg. VWC</span>
@@ -188,7 +162,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1600,&quot;height&quot;:1000},&quot;dialog&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;none&quot;,&quot;settings&quot;,&quot;bulk&quot;,&quot;push&quot;,&quot;progress&quot;,&quot;soil&quot;,&quot;diagnostics&quot;],&quot;default&quot;:&quot;none&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;settingsTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;calculation&quot;,&quot;threshold&quot;,&quot;profiles&quot;,&quot;preferences&quot;],&quot;default&quot;:&quot;calculation&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showProfilesTab&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;selectedRows&quot;:{&quot;editor&quot;:null,&quot;default&quot;:[],&quot;tsType&quot;:&quot;string[]&quot;},&quot;focusRow&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;tableFilter&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;filtered&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;pushEnabled&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;pushLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Push 6 Changes&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;thresholdValue&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:10,&quot;tsType&quot;:&quot;number&quot;},&quot;thresholdOption&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;zero&quot;,&quot;min&quot;],&quot;default&quot;:&quot;zero&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;maxAmount&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;0.39&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;bulkMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;replace&quot;,&quot;shift&quot;],&quot;default&quot;:&quot;shift&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;bulkValue&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:-5,&quot;tsType&quot;:&quot;number&quot;},&quot;pushState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;running&quot;,&quot;complete&quot;],&quot;default&quot;:&quot;running&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showThresholdBanner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1920,&quot;height&quot;:1080},&quot;dialog&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;none&quot;,&quot;settings&quot;,&quot;bulk&quot;,&quot;push&quot;,&quot;progress&quot;,&quot;soil&quot;,&quot;diagnostics&quot;,&quot;cascade&quot;],&quot;default&quot;:&quot;none&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;settingsTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;calculation&quot;,&quot;threshold&quot;,&quot;profiles&quot;,&quot;preferences&quot;],&quot;default&quot;:&quot;calculation&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showProfilesTab&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;multiCourse&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;algorithm&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;delta&quot;,&quot;simple&quot;],&quot;default&quot;:&quot;delta&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;tableLevel&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;station&quot;,&quot;holes&quot;,&quot;areas&quot;],&quot;default&quot;:&quot;station&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;crumb&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;chartTitle&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;AP&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;chartAvg&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;33.70&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;mapMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;moisture&quot;,&quot;variance&quot;],&quot;default&quot;:&quot;moisture&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;layersOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;expandStation&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;cascadeState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;enable&quot;,&quot;disable&quot;],&quot;default&quot;:&quot;disable&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;cascadeZone&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;area&quot;,&quot;hole&quot;],&quot;default&quot;:&quot;hole&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;selectedRows&quot;:{&quot;editor&quot;:null,&quot;default&quot;:[],&quot;tsType&quot;:&quot;string[]&quot;},&quot;focusRow&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;tableFilter&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;all&quot;,&quot;filtered&quot;],&quot;default&quot;:&quot;all&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;pushEnabled&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;pushLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Push 6 Changes&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;thresholdValue&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:10,&quot;tsType&quot;:&quot;number&quot;},&quot;thresholdOption&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;zero&quot;,&quot;min&quot;],&quot;default&quot;:&quot;zero&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;maxAmount&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;0.39&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;bulkMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;replace&quot;,&quot;shift&quot;],&quot;default&quot;:&quot;shift&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;bulkValue&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:-5,&quot;tsType&quot;:&quot;number&quot;},&quot;pushState&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;fetching&quot;,&quot;running&quot;,&quot;verifying&quot;,&quot;retry&quot;,&quot;error&quot;,&quot;complete&quot;],&quot;default&quot;:&quot;running&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;showThresholdBanner&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
 const h = React.createElement;
 
 const STATIONS = [
@@ -196,7 +170,7 @@ const STATIONS = [
   { name: '3AP2', scan: '08-08-25', vwc: 30.3, target: 69, current: 100, suggested: 333, adj: 333, on: true, pushed: true },
   { name: '4AP1', scan: '08-08-25', vwc: 26.1, target: 30, current: 100, suggested: 333, adj: 333, on: true, pushed: false },
   { name: '5AP1', scan: '08-08-25', vwc: 27.9, target: 30, current: 100, suggested: 333, adj: 333, on: false, pushed: false },
-  { name: '6AP1', scan: '08-08-25', vwc: 30.9, target: 31, current: 100, suggested: 293, adj: 293, on: true, pushed: false },
+  { name: '6AP1', scan: '08-08-25', vwc: 30.9, target: 31, current: 100, suggested: 293, adj: 293, on: true, pushed: false, kids: [[31.4, '08-08-25', false], [30.4, '08-06-25', true]] },
   { name: '7AP1', scan: '08-06-25', vwc: 50.0, target: 50, current: 100, suggested: 288, adj: 288, on: true, pushed: true, est: true },
   { name: '9AP1', scan: '08-08-25', vwc: 23.0, target: 18, current: 100, suggested: 121, adj: 121, on: true, pushed: false },
   { name: '10AP1', scan: '08-08-25', vwc: 34.5, target: 16, current: 100, suggested: 0, adj: 0, on: true, pushed: false },
@@ -246,15 +220,70 @@ class Component extends DCLogic {
       h('span', null, label), h('span', { style: { fontSize: '10px', color: '#848484' } }, '▼'));
   }
 
+  triState(state) {
+    return h('div', { style: { width: '18px', height: '18px', borderRadius: '3px', border: '1px solid ' + (state ? '#007ad9' : '#a6a6a6'), background: state ? '#007ad9' : '#fff', color: '#fff', fontSize: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '5px', flex: 'none' } }, state === 'partial' ? '–' : state ? '✓' : '');
+  }
+
+  holeAgg() {
+    const map = {};
+    STATIONS.forEach(s => {
+      const n = parseInt(s.name, 10);
+      if (!map[n]) map[n] = { n, vwc: 0, target: 0, count: 0, scan: s.scan, est: false };
+      const g = map[n];
+      g.vwc += s.vwc; g.target += s.target; g.count++;
+      if (s.est) g.est = true;
+      if (s.scan > g.scan) g.scan = s.scan;
+    });
+    return Object.keys(map).map(k => map[k]).sort((a, b) => a.n - b.n).map(g => ({
+      name: String(g.n), vwc: g.vwc / g.count, target: g.target / g.count, scan: g.scan, est: g.est
+    }));
+  }
+
+  areaAgg() {
+    const n = STATIONS.length;
+    const vwc = STATIONS.reduce((a, s) => a + s.vwc, 0) / n;
+    const target = STATIONS.reduce((a, s) => a + s.target, 0) / n;
+    return [{ name: 'AP', vwc, target, scan: '08-08-25', est: true }];
+  }
+
+  aggRows(items) {
+    return items.map(it => h('div', { key: it.name, style: { width: '100%', display: 'flex', borderBottom: '1px solid #080D121A', height: '50px' } },
+      h('div', { style: { flex: 1, padding: '8px 10px', display: 'flex', alignItems: 'center', borderRight: '1px solid #080D121A' } },
+        this.triState(false),
+        h('div', { style: { flex: 1, fontSize: '14px' } }, it.name)),
+      h('div', { style: { padding: '8px 10px', display: 'flex', alignItems: 'center', fontSize: '13px' } },
+        h('div', { style: { width: '85px', padding: '0 10px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '4px', color: it.est ? 'darkgray' : 'inherit' } },
+          h('span', { style: { fontStyle: it.est ? 'italic' : 'normal' } }, it.vwc.toFixed(1) + '%')),
+        h('div', { style: { width: '81px', textAlign: 'center' } }, it.target.toFixed(1) + '%'),
+        h('div', { style: { width: '199px', textAlign: 'center', color: 'gray' } }, it.scan),
+        h('div', { style: { width: '70px', padding: '0 10px', display: 'flex', justifyContent: 'center', alignItems: 'center' } }, this.toggle(true)))));
+  }
+
+  sprinklerRows(s) {
+    return (s.kids || []).map((k, i) => h('div', { key: s.name + '-' + i, style: { width: '100%', display: 'flex', borderBottom: '1px solid #080D121A', height: '40px', background: '#FAFBFC' } },
+      h('div', { style: { flex: 1, padding: '8px 10px 8px 42px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRight: '1px solid #080D121A', fontSize: '12px', color: 'gray' } },
+        h('span', null, s.name + '-' + (i + 1)), h('span', null, k[1])),
+      h('div', { style: { padding: '8px 10px', display: 'flex', alignItems: 'center', fontSize: '13px' } },
+        h('div', { style: { width: '85px', padding: '0 10px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '4px', color: k[2] ? 'darkgray' : 'inherit', fontStyle: k[2] ? 'italic' : 'normal' } },
+          k[0].toFixed(1) + '%'),
+        h('div', { style: { width: '348px' } }))));
+  }
+
   renderRows() {
+    const level = this.props.tableLevel || 'station';
+    if (level === 'areas') return this.aggRows(this.areaAgg());
+    if (level === 'holes') return this.aggRows(this.holeAgg());
     const selected = this.props.selectedRows || [];
     const focus = this.props.focusRow;
-    return STATIONS.map(s => {
+    const expand = this.props.expandStation;
+    const out = [];
+    STATIONS.forEach(s => {
       const isSel = selected.indexOf(s.name) >= 0;
       const isFocus = focus === s.name;
-      return h('div', { key: s.name, style: { width: '100%', display: 'flex', borderBottom: '1px solid #080D121A', height: '50px', background: isFocus ? '#FA9A001A' : 'transparent' } },
+      out.push(h('div', { key: s.name, style: { width: '100%', display: 'flex', borderBottom: '1px solid #080D121A', height: '50px', background: isFocus ? '#FA9A001A' : 'transparent' } },
         h('div', { style: { flex: 1, padding: '8px 10px', display: 'flex', alignItems: 'center', borderRight: '1px solid #080D121A' } },
           this.checkbox(isSel),
+          s.kids ? h('span', { style: { marginRight: '6px', fontSize: '11px', color: '#646E73', transform: expand === s.name ? 'rotate(90deg)' : 'none' } }, '❯') : null,
           h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', flex: 1, fontSize: '14px' } },
             h('span', null, s.name), h('span', { style: { fontSize: '12px', color: 'gray' } }, s.scan))),
         h('div', { style: { padding: '8px 10px', display: 'flex', alignItems: 'center', fontSize: '13px' } },
@@ -267,8 +296,55 @@ class Component extends DCLogic {
             h('img', { src: 'assets/sa/' + (s.pushed ? 'pushed_ico.png' : 'push_ico.png'), alt: '', style: { position: 'absolute', right: '20px', top: '9px', height: '15px', zIndex: 1 } }),
             h('div', { style: { margin: '0 3px 0 10px' } }, this.numInput(s.adj, '55px')),
             h('span', null, '%')),
-          h('div', { style: { width: '70px', padding: '0 10px', display: 'flex', justifyContent: 'center', alignItems: 'center' } }, this.toggle(s.on))));
+          h('div', { style: { width: '70px', padding: '0 10px', display: 'flex', justifyContent: 'center', alignItems: 'center' } }, this.toggle(s.on)))));
+      if (s.kids && expand === s.name) this.sprinklerRows(s).forEach(r => out.push(r));
     });
+    return out;
+  }
+
+  renderMapOverlay() {
+    const variance = this.props.mapMode === 'variance';
+    const open = !!this.props.layersOpen;
+    const band = (label, color, key) => h('div', { key, className: 'sa-ps', style: { minWidth: '64px', borderRadius: '4px', padding: '5px 10px', color: 'white', fontWeight: 'bold', textAlign: 'center', marginRight: '0.5rem', backgroundColor: color } }, label);
+    const legend = variance
+      ? h('div', { style: { display: 'flex', flexDirection: 'column', paddingTop: '8px' } },
+          h('div', { style: { display: 'flex' } }, band('< -5%', '#E11837', 'a'), band('-5 to 5%', '#42CE11', 'b'), band('> 5%', '#3079F0', 'c')),
+          h('div', { style: { width: '280px', height: '14px', marginTop: '6px', borderRadius: '7px', overflow: 'hidden', display: 'flex' } },
+            h('div', { style: { width: '33%', background: '#E11837' } }), h('div', { style: { width: '34%', background: '#42CE11' } }), h('div', { style: { width: '33%', background: '#3079F0' } })))
+      : h('div', { style: { display: 'flex', flexDirection: 'column', paddingTop: '8px' } },
+          h('div', { style: { display: 'flex' } }, band('0-5%', '#E11837', 'a'), band('6-16%', '#F3D43B', 'b'), band('17-30%', '#42CE11', 'c'), band('> 30%', '#3079F0', 'd')),
+          h('div', { style: { width: '280px', height: '14px', marginTop: '6px', borderRadius: '7px', overflow: 'hidden', display: 'flex' } },
+            h('div', { style: { width: '16.6%', background: '#E11837' } }), h('div', { style: { width: '36.6%', background: '#F3D43B' } }), h('div', { style: { width: '46.8%', background: '#42CE11' } })));
+    const layerOpt = (label, on, key) => h('div', { key, style: { display: 'flex', alignItems: 'center', gap: '8px', padding: '6px 4px', fontSize: '13px' } }, this.radio(on), h('span', null, label));
+    return h('div', { style: { padding: '4px 1rem', borderRadius: '4px', background: 'white', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative' } },
+      legend,
+      h('div', { style: { margin: '0 10px', padding: '0 14px', borderLeft: '1px solid gray', borderRight: '1px solid gray', display: 'flex', alignItems: 'center' } },
+        h('img', { className: 'sa-ps', src: 'assets/sa/' + (variance ? 'sa-variance-close.svg' : 'sa-variance.svg'), alt: '', style: { height: '22px' } })),
+      h('div', { style: { display: 'flex', alignItems: 'center', padding: '5px', borderRadius: '4px', backgroundColor: '#D9DFE2' } },
+        h('img', { className: 'sa-ps', src: 'assets/sa/layers.svg', alt: '', style: { height: '16px' } }),
+        h('span', { className: 'sa-ps', style: { margin: '0 5px', fontSize: '12px' } }, 'LAYERS'),
+        h('img', { className: 'sa-ps', src: 'assets/sa/chevron-down.svg', alt: '', style: { height: '14px', transform: open ? 'rotate(180deg)' : 'none' } })),
+      open ? h('div', { style: { position: 'absolute', bottom: 'calc(100% + 8px)', right: 0, width: '210px', background: '#fff', borderRadius: '4px', boxShadow: '0 6px 20px rgba(0,0,0,.25)', padding: '10px 12px' } },
+        h('div', { className: 'sa-ps', style: { fontSize: '12px', fontWeight: 700, marginBottom: '4px' } }, 'LAYERS'),
+        layerOpt('All Stations', true, 'l1'),
+        layerOpt('Enabled Stations', false, 'l2')) : null);
+  }
+
+  cascadeDialog() {
+    const enable = this.props.cascadeState === 'enable';
+    const state = enable ? 'Enable' : 'Disable';
+    const zone = this.props.cascadeZone === 'area' ? 'area' : 'hole';
+    const body = zone === 'area'
+      ? [state + ' this area and all child holes and stations?', 'This will ' + state.toLowerCase() + ' the selected area and every hole and station beneath it.']
+      : [state + ' this hole and all child stations?', 'This will ' + state.toLowerCase() + ' the selected hole and every station beneath it.'];
+    return this.shell('Cascade ' + state, '550px',
+      h('div', { style: { minHeight: '260px' } },
+        h('div', { style: { fontWeight: 'bold', color: '#080D12', marginBottom: '18px' } }, body[0]),
+        h('div', null, body[1]),
+        h('div', { style: { display: 'flex', alignItems: 'center', gap: '8px', marginTop: '28px' } },
+          this.checkbox(false),
+          h('span', { style: { fontSize: '13px' } }, 'Don\u2019t ask to confirm cascading enable/disable changes again'))),
+      this.lightFooter('Cancel', 'CONTINUE'));
   }
 
   renderMarkers() {
@@ -341,11 +417,13 @@ class Component extends DCLogic {
         h('div', { style: { flex: 1 } }, field('Language', this.select('English (US)')), field('Units of Measure', this.select('Imperial'))),
         h('div', { style: { flex: 1 } }, field('Temperature Scale', this.select('Fahrenheit')), field('Group and Decimal Separator', this.select('1,234.56'))));
     } else {
+      const simple = this.props.algorithm === 'simple';
+      const dim = (el) => h('div', { style: { opacity: simple ? 0.45 : 1 } }, el);
       intro = 'Configure how Spatial Adjust calculates irrigation recommendations.';
       pane = panelBox([
-        field('Suggested Percent Adjust Calculation', this.select('Option 2')),
-        field('Daily Max Amount (in)', this.numInput(this.props.maxAmount != null ? this.props.maxAmount : '0.39', '140px')),
-        field('Lynx Reference Amount (in)', this.numInput('0.12', '140px')),
+        field('Suggested Percent Adjust Calculation', this.select(simple ? 'Simple' : 'Option 2')),
+        field('Daily Max Amount (in)', dim(this.numInput(this.props.maxAmount != null ? this.props.maxAmount : '0.39', '140px'))),
+        field('Lynx Reference Amount (in)', dim(this.numInput('0.12', '140px'))),
         field('Crop Coefficient (%)', this.numInput('100', '140px'))]);
     }
 
@@ -409,7 +487,7 @@ class Component extends DCLogic {
         this.props.showThresholdBanner ? h('div', { style: { display: 'flex', justifyContent: 'space-between', borderRadius: '8px', padding: '7px 10px 7px 8px', color: '#D93193', background: '#D931931A', marginTop: '10px', fontSize: '12px' } },
           h('div', { style: { display: 'flex', alignItems: 'center' } },
             h('div', { style: { display: 'flex', alignItems: 'center', marginRight: '6px' } }, h('img', { src: 'assets/sa/adj-info-ico.png', style: { height: '18px' } })),
-            h('div', null, '2 stations were adjusted by the minimum threshold')),
+            h('div', null, '2 stations will be adjusted according to the minimum threshold rules.')),
           h('div', { style: { color: '#3079F0', fontWeight: 'bold' } }, 'REVIEW THRESHOLD')) : null,
         h('table', { style: { width: '100%', borderCollapse: 'collapse', marginTop: '16px', fontSize: '13px' } },
           h('thead', null, h('tr', null,
@@ -424,19 +502,38 @@ class Component extends DCLogic {
   }
 
   progressDialog() {
-    const done = this.props.pushState === 'complete';
-    return this.shell('Pushing Changes To Lynx', '700px',
-      done
-        ? h('div', { style: { display: 'flex', alignItems: 'center', fontSize: '16px', padding: '10px 0' } },
-            h('span', { style: { color: '#5DCC77', fontSize: '20px', marginRight: '8px' } }, '✔'),
-            h('span', null, 'All selected changes successfully pushed to Lynx.'))
-        : h('div', { style: { padding: '10px 0' } },
-            h('div', { style: { height: '24px', borderRadius: '3px', background: '#eaeaea', overflow: 'hidden', position: 'relative' } },
-              h('div', { style: { width: '64%', height: '100%', background: '#007ad9' } }),
-              h('div', { style: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#fff' } }, '64%')),
-            h('div', { style: { marginTop: '5px', fontSize: '14px' } }, 'Pushing Percent Adjustments to Lynx (4 of 6)')),
+    const st = this.props.pushState || 'running';
+    const STEPS = {
+      fetching: [12, 'Retrieving latest Percent Adjustments from Lynx for comparison'],
+      running: [64, 'Pushing Percent Adjustments to Lynx (4 of 6)'],
+      verifying: [82, 'Verifying adjustments sent to Lynx'],
+      retry: [46, 'Push Changes failed for 2 station(s). Retrying']
+    };
+    let body;
+    if (st === 'complete') {
+      body = h('div', { style: { display: 'flex', alignItems: 'center', fontSize: '16px', padding: '10px 0' } },
+        h('span', { style: { color: '#5DCC77', fontSize: '20px', marginRight: '8px' } }, '✔'),
+        h('span', null, 'All selected changes successfully pushed to Lynx.'));
+    } else if (st === 'error') {
+      body = h('div', { style: { padding: '10px 0' } },
+        h('div', { style: { height: '24px', borderRadius: '3px', background: '#eaeaea', overflow: 'hidden', position: 'relative' } },
+          h('div', { style: { width: '100%', height: '100%', background: '#cd2027' } }),
+          h('div', { style: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#fff' } }, '100%')),
+        h('div', { style: { marginTop: '5px', fontSize: '14px' } }, '2 stations could not be updated in Lynx.'),
+        h('div', { style: { display: 'flex', gap: '6px', marginTop: '12px', padding: '8px 10px', borderRadius: '8px', background: '#E118371A', color: '#B3122C', fontSize: '13px' } },
+          h('span', null, 'Unable to Push Changes for 2 Station(s). Check the connection to Lynx and try again.')));
+    } else {
+      const s = STEPS[st] || STEPS.running;
+      body = h('div', { style: { padding: '10px 0' } },
+        h('div', { style: { height: '24px', borderRadius: '3px', background: '#eaeaea', overflow: 'hidden', position: 'relative' } },
+          h('div', { style: { width: s[0] + '%', height: '100%', background: '#007ad9' } }),
+          h('div', { style: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '12px', color: '#fff' } }, s[0] + '%')),
+        h('div', { style: { marginTop: '5px', fontSize: '14px' } }, s[1]));
+    }
+    const closeable = st === 'complete' || st === 'error';
+    return this.shell('Pushing Changes To Lynx', '700px', body,
       h('div', { style: { padding: '.9rem', display: 'flex', justifyContent: 'flex-end' } },
-        done ? h('div', { style: { padding: '10px 24px', background: '#000', color: '#fff', borderRadius: '3px', fontSize: '14px' } }, 'Close') : null));
+        closeable ? h('div', { style: { padding: '10px 24px', background: '#000', color: '#fff', borderRadius: '3px', fontSize: '14px' } }, 'Close') : null));
   }
 
   soilDialog() {
@@ -468,7 +565,7 @@ class Component extends DCLogic {
           box('TurfRad', [['TR org ID:', '742'], ['TR selected course ID:', '318'], ['SA has org access:', 'true'], ['Org has scan data:', 'true'], ['Last scan date:', '08-08-25']], '247px'),
           box('Lynx', [['Lynx interconnect:', 'Cloud'], ['Can ping cloud:', 'true'], ['Installation ID:', '20915'], ['Lynx course ID:', '2']], '311px')),
         h('div', { style: { display: 'flex' } },
-          box('NSN', [['Site longitude:', '-117.160000'], ['Site latitude:', '33.500000'], ['Lynx software version:', '8.5.2'], ['TurfRad ID string:', 'riverbend-742'], ['Lynx installation IDs:', '20915']], '560px'))),
+          box('NSN', [['Site longitude:', '-117.16'], ['Site latitude:', '33.50'], ['Lynx software version:', '8.5.2'], ['TurfRad ID string:', 'riverbend-742'], ['Lynx installation IDs:', '20915']], '560px'))),
       h('div', { style: { padding: '.9rem', display: 'flex', justifyContent: 'flex-end' } },
         h('div', { style: { padding: '10px 24px', background: '#000', color: '#fff', borderRadius: '8px', fontSize: '14px' } }, 'Close')));
   }
@@ -480,8 +577,18 @@ class Component extends DCLogic {
     const tabBase = 'border-radius:4px;padding:8px 10px;';
     const filtered = p.tableFilter === 'filtered';
 
+    const level = p.tableLevel || 'station';
+    const crumbs = p.crumb ? p.crumb.split('/').map(c => c.trim()) : (level === 'holes' ? ['Riverbend National', 'AP'] : ['Riverbend National']);
+    const breadcrumb = crumbs.map((c, i) => {
+      const last = i === crumbs.length - 1;
+      return h('span', { key: i, style: { display: 'flex', alignItems: 'center' } },
+        i > 0 ? h('span', { style: { margin: '0 6px', color: '#848484' } }, '/') : null,
+        h('span', { style: { color: last && crumbs.length > 1 ? '#333' : '#3079F0' } }, c));
+    });
+
     let dialog = null;
-    if (dlg === 'settings') dialog = this.settingsDialog();
+    if (dlg === 'cascade') dialog = this.cascadeDialog();
+    else if (dlg === 'settings') dialog = this.settingsDialog();
     else if (dlg === 'bulk') dialog = this.bulkDialog();
     else if (dlg === 'push') dialog = this.pushDialog();
     else if (dlg === 'progress') dialog = this.progressDialog();
@@ -491,15 +598,24 @@ class Component extends DCLogic {
     return {
       rows: this.renderRows(),
       mapMarkers: this.renderMarkers(),
+      mapOverlay: this.renderMapOverlay(),
       chart: this.renderChart(),
+      breadcrumb,
+      // The course selector only renders on sites with more than one Lynx course
+      // (sa-main-toolbar.component.html:10 — *ngIf="lynxCoursesList?.length > 1").
+      courseSelector: p.multiCourse
+        ? h('div', { style: { marginLeft: '22px', marginTop: '5px' } }, this.select('Riverbend National', '150px'))
+        : null,
+      chartTitle: p.chartTitle || 'AP',
+      chartAvg: p.chartAvg || '33.70',
       dialog,
       tabAllStyle: tabBase + 'margin-right:8px;' + (filtered ? '' : 'background-color:white;'),
       tabFilteredStyle: tabBase + (filtered ? 'background-color:white;' : ''),
       bulkLinkStyle: 'color:#3079F0;background-color:#ECEFF1;font-size:14px;padding:3px 5px;border-radius:4px;margin-right:8px;' + ((p.selectedRows || []).length ? '' : 'opacity:0.6;'),
       pushButton: h('button', {
         style: {
-          minWidth: '110px', padding: '5px 10px', border: '1px solid #b30000', borderRadius: '3px',
-          background: '#cd2027', color: '#fff', opacity: disabled ? 0.5 : 1,
+          minWidth: '110px', padding: '5px 10px', border: '1px solid ' + (disabled ? '#4d4d4d' : '#000'), borderRadius: '3px',
+          background: disabled ? '#4d4d4d' : '#000', color: '#fff',
           font: 'inherit', fontSize: '14px', cursor: 'default', display: 'flex', justifyContent: 'center'
         }
       }, h('span', { className: 'sa-ps', style: { display: 'flex', alignItems: 'center' } },

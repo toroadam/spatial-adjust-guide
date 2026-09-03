@@ -13,7 +13,9 @@
     "test:a11y": "node scripts/a11y.mjs http://localhost:8124/",
     "test:keyboard": "node scripts/keyboard.mjs http://localhost:8124/",
     "test:responsive": "node scripts/responsive.mjs http://localhost:8124/",
-    "test:instrumentation": "node scripts/instrumentation.mjs http://localhost:8124/"
+    "test:instrumentation": "node scripts/instrumentation.mjs http://localhost:8124/",
+    "import": "node scripts/import-export.mjs",
+    "test:routing": "node scripts/routing.mjs http://localhost:8124/"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",

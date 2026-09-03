@@ -54,7 +54,7 @@ html, body { margin:0; padding:0; background: var(--white); }
 
   <header style="position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--20)">
     <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;gap:24px">
-      <div style="display:flex;align-items:center;gap:14px;cursor:pointer" onClick="{{ goHome }}" role="button" tabindex="0" aria-label="Spatial Adjust Guides — back to all tasks">
+      <div style="display:flex;align-items:center;gap:14px;cursor:pointer" onClick="{{ goHome }}">
         <img src="assets/toro-logo.svg" alt="Toro" style="height:34px;width:auto;display:block">
         <span style="font-size:16px;font-weight:700;letter-spacing:-0.2px">Spatial Adjust</span>
         <span style="font-size:16px;color:var(--40)">Guide</span>
@@ -79,26 +79,26 @@ html, body { margin:0; padding:0; background: var(--white); }
         </div>
       </section>
 
-      <section id="tasks" style="max-width:1180px;margin:0 auto;padding:48px 32px 120px">
+      <section id="tasks" style="max-width:1180px;margin:0 auto;padding:24px 32px 120px">
         <sc-if value="{{ noResults }}" hint-placeholder-val="{{ false }}">
           <div style="padding:64px 0;text-align:center;color:var(--60);font-size:16px">No tasks match that search.</div>
         </sc-if>
         <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="3">
           <div style="padding:40px 0;border-top:1px solid var(--20)">
-            <div style="display:flex;align-items:baseline;gap:16px;margin-bottom:24px">
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px">
               <h2 style="margin:0;font-size:28px;font-weight:700;letter-spacing:-0.6px">{{ cat.title }}</h2>
               <span style="font-size:14px;color:var(--40)">{{ cat.blurb }}</span>
             </div>
             <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
               <sc-for list="{{ cat.tasks }}" as="task" hint-placeholder-count="4">
-                <div onClick="{{ task.open }}" role="{{ task.role }}" tabindex="{{ task.tabIndex }}" data-stub="{{ task.stub }}" data-title="{{ task.title }}" aria-label="{{ task.ariaLabel }}" style="{{ task.cardStyle }}" style-hover="background:var(--05)">
+                <div onClick="{{ task.open }}" style="{{ task.cardStyle }}" style-hover="background:var(--05)">
                   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
                     <span style="font-size:11px;font-weight:700;letter-spacing:1px;color:var(--60)">{{ task.minutes }}</span>
-                    <span aria-hidden="true" style="font-size:11px;letter-spacing:2px;color:var(--30)">{{ task.dots }}</span><span class="lsa-sr-only">{{ task.difficultyLabel }}</span>
+                    <span style="font-size:11px;letter-spacing:2px;color:var(--30)">{{ task.dots }}</span>
                   </div>
                   <div style="font-size:17px;font-weight:700;line-height:1.25;letter-spacing:-0.2px;margin-bottom:8px;text-wrap:pretty">{{ task.title }}</div>
                   <div style="font-size:13px;line-height:1.5;color:var(--60);flex:1;text-wrap:pretty">{{ task.summary }}</div>
-                  <div style="{{ task.ctaStyle }}">{{ task.cta }}</div>
+                  <div style="{{ task.ctaStyle }}" style-hover="background:var(--100);color:var(--white)">{{ task.cta }}</div>
                 </div>
               </sc-for>
             </div>
@@ -111,7 +111,7 @@ html, body { margin:0; padding:0; background: var(--white); }
   <sc-if value="{{ isGuide }}" hint-placeholder-val="{{ false }}">
     <main style="max-width:1216px;margin:0 auto;padding:32px 32px 120px">
 
-      <div onClick="{{ goHome }}" role="button" tabindex="0" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--informative-02);cursor:pointer;margin-bottom:28px">← All tasks</div>
+      <div onClick="{{ goHome }}" style="display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--informative-02);cursor:pointer;margin-bottom:28px">← All tasks</div>
 
       <div style="max-width:820px">
         <div style="font-size:12px;font-weight:700;letter-spacing:2px;color:var(--60);margin-bottom:16px">{{ guide.category }}</div>
@@ -130,7 +130,7 @@ html, body { margin:0; padding:0; background: var(--white); }
       <section id="walkthrough" style="margin-top:40px;scroll-margin-top:96px">
         <div style="display:flex;border-radius:8px;box-shadow:inset 0 0 0 1px var(--20);overflow:hidden;background:var(--white)">
 
-          <div class="lsa-stage-frame" style="flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--20)">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;border-right:1px solid var(--20)">
             <div style="display:flex;align-items:center;gap:10px;height:38px;padding:0 14px;background:var(--05);border-bottom:1px solid var(--20);flex:none">
               <span style="width:9px;height:9px;border-radius:50%;background:var(--30)"></span>
               <span style="width:9px;height:9px;border-radius:50%;background:var(--30)"></span>
@@ -139,7 +139,7 @@ html, body { margin:0; padding:0; background: var(--white); }
             </div>
             <div ref="{{ setStageEl }}" style="{{ guide.player.stageStyle }}">
               <div style="{{ guide.player.appStyle }}">
-                <dc-import name="SpatialAdjustApp" show-profiles-tab="{{ guide.showProfilesTab }}" dialog="{{ guide.player.step.dialog }}" settings-tab="{{ guide.player.step.settingsTab }}" selected-rows="{{ guide.player.step.selectedRows }}" focus-row="{{ guide.player.step.focusRow }}" table-filter="{{ guide.player.step.tableFilter }}" push-enabled="{{ guide.player.step.pushEnabled }}" push-label="{{ guide.player.step.pushLabel }}" threshold-value="{{ guide.player.step.thresholdValue }}" threshold-option="{{ guide.player.step.thresholdOption }}" bulk-mode="{{ guide.player.step.bulkMode }}" bulk-value="{{ guide.player.step.bulkValue }}" push-state="{{ guide.player.step.pushState }}" show-threshold-banner="{{ guide.player.step.showThresholdBanner }}" hint-size="1600px,1000px"></dc-import>
+                <dc-import name="SpatialAdjustApp" show-profiles-tab="{{ guide.showProfilesTab }}" dialog="{{ guide.player.step.dialog }}" settings-tab="{{ guide.player.step.settingsTab }}" selected-rows="{{ guide.player.step.selectedRows }}" focus-row="{{ guide.player.step.focusRow }}" table-filter="{{ guide.player.step.tableFilter }}" push-enabled="{{ guide.player.step.pushEnabled }}" push-label="{{ guide.player.step.pushLabel }}" threshold-value="{{ guide.player.step.thresholdValue }}" threshold-option="{{ guide.player.step.thresholdOption }}" bulk-mode="{{ guide.player.step.bulkMode }}" bulk-value="{{ guide.player.step.bulkValue }}" push-state="{{ guide.player.step.pushState }}" show-threshold-banner="{{ guide.player.step.showThresholdBanner }}" map-mode="{{ guide.player.step.mapMode }}" layers-open="{{ guide.player.step.layersOpen }}" table-level="{{ guide.player.step.tableLevel }}" expand-station="{{ guide.player.step.expandStation }}" algorithm="{{ guide.player.step.algorithm }}" cascade-state="{{ guide.player.step.cascadeState }}" cascade-zone="{{ guide.player.step.cascadeZone }}" hint-size="1920px,1080px"></dc-import>
               </div>
               {{ guide.player.cursor }}
             </div>
@@ -154,7 +154,7 @@ html, body { margin:0; padding:0; background: var(--white); }
 
             <div style="flex:1;min-height:0;overflow-y:auto;padding:10px 14px">
               <sc-for list="{{ guide.player.rail }}" as="chip" hint-placeholder-count="5">
-                <div onClick="{{ chip.onClick }}" role="button" tabindex="0" style="{{ chip.style }}" style-hover="background:var(--05)">
+                <div onClick="{{ chip.onClick }}" style="{{ chip.style }}" style-hover="background:var(--05)">
                   <span style="{{ chip.numStyle }}">{{ chip.n }}</span>
                   <span>{{ chip.label }}</span>
                 </div>
@@ -162,19 +162,17 @@ html, body { margin:0; padding:0; background: var(--white); }
             </div>
 
             <div style="padding:16px 20px;border-top:1px solid var(--20)">
-              <!-- Step changes are conveyed visually by the camera moving; this makes the
-                   same change perceivable to screen-reader users. -->
-              <div class="lsa-sr-only" aria-live="polite" aria-atomic="true">{{ guide.player.announcement }}</div>
               <div style="height:4px;border-radius:2px;background:var(--20);overflow:hidden;margin-bottom:14px">
                 <div style="{{ guide.player.progressStyle }}"></div>
               </div>
               <div style="display:flex;align-items:center;gap:8px">
-                <div onClick="{{ guide.player.prev }}" role="button" tabindex="0" aria-label="Previous step" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">←</div>
-                <div onClick="{{ guide.player.next }}" role="button" tabindex="0" aria-label="Next step" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">→</div>
-                <div onClick="{{ guide.player.playAll }}" role="button" tabindex="0" aria-label="{{ guide.player.playLabel }}" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;border-radius:8px;background:var(--100);color:var(--white);font-size:13px;font-weight:700;cursor:pointer" style-hover="background:var(--90)">
+                <div onClick="{{ guide.player.prev }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">←</div>
+                <div onClick="{{ guide.player.next }}" style="display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--30);cursor:pointer;font-size:14px" style-hover="background:var(--05)">→</div>
+                <div onClick="{{ guide.player.playAll }}" style="flex:1;display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;border-radius:8px;background:var(--100);color:var(--white);font-size:13px;font-weight:700;cursor:pointer" style-hover="background:var(--90)">
                   <span style="font-size:11px">{{ guide.player.playIcon }}</span><span>{{ guide.player.playLabel }}</span>
                 </div>
               </div>
+              <div style="margin-top:10px;font-size:11px;color:var(--40);letter-spacing:0.2px">← → step · space play · esc back</div>
             </div>
           </div>
 
@@ -183,7 +181,7 @@ html, body { margin:0; padding:0; background: var(--white); }
 
       <div style="display:flex;gap:56px;align-items:flex-start;margin-top:80px">
 
-      <aside style="position:sticky;top:104px;width:220px;flex:none">
+      <aside style="position:sticky;top:742px;width:220px;flex:none">
         <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--40);margin-bottom:12px">ON THIS PAGE</div>
         <div style="display:flex;flex-direction:column;gap:6px;border-left:1px solid var(--20);margin-left:-1px">
           <sc-for list="{{ guide.toc }}" as="item" hint-placeholder-count="5">
@@ -220,10 +218,10 @@ html, body { margin:0; padding:0; background: var(--white); }
             <h2 style="margin:0 0 14px;font-size:26px;font-weight:700;letter-spacing:-0.5px;text-wrap:pretty">{{ step.title }}</h2>
             <p style="margin:0;font-size:16px;line-height:1.7;color:var(--60);text-wrap:pretty">{{ step.body }}</p>
 
-            <figure class="lsa-step-figure" style="margin:28px 0 0">
+            <figure style="margin:28px 0 0">
               <div style="{{ step.figStyle }}">
                 <div style="{{ step.appStyle }}">
-                  <dc-import name="SpatialAdjustApp" show-profiles-tab="{{ guide.showProfilesTab }}" dialog="{{ step.dialog }}" settings-tab="{{ step.settingsTab }}" selected-rows="{{ step.selectedRows }}" focus-row="{{ step.focusRow }}" table-filter="{{ step.tableFilter }}" push-enabled="{{ step.pushEnabled }}" push-label="{{ step.pushLabel }}" threshold-value="{{ step.thresholdValue }}" threshold-option="{{ step.thresholdOption }}" bulk-mode="{{ step.bulkMode }}" bulk-value="{{ step.bulkValue }}" push-state="{{ step.pushState }}" show-threshold-banner="{{ step.showThresholdBanner }}" hint-size="1600px,1000px"></dc-import>
+                  <dc-import name="SpatialAdjustApp" show-profiles-tab="{{ guide.showProfilesTab }}" dialog="{{ step.dialog }}" settings-tab="{{ step.settingsTab }}" selected-rows="{{ step.selectedRows }}" focus-row="{{ step.focusRow }}" table-filter="{{ step.tableFilter }}" push-enabled="{{ step.pushEnabled }}" push-label="{{ step.pushLabel }}" threshold-value="{{ step.thresholdValue }}" threshold-option="{{ step.thresholdOption }}" bulk-mode="{{ step.bulkMode }}" bulk-value="{{ step.bulkValue }}" push-state="{{ step.pushState }}" show-threshold-banner="{{ step.showThresholdBanner }}" map-mode="{{ step.mapMode }}" layers-open="{{ step.layersOpen }}" table-level="{{ step.tableLevel }}" expand-station="{{ step.expandStation }}" algorithm="{{ step.algorithm }}" cascade-state="{{ step.cascadeState }}" cascade-zone="{{ step.cascadeZone }}" hint-size="1920px,1080px"></dc-import>
                 </div>
               </div>
               <figcaption style="margin-top:12px;font-size:13px;line-height:1.5;color:var(--40);text-wrap:pretty">{{ step.caption }}</figcaption>
@@ -242,7 +240,7 @@ html, body { margin:0; padding:0; background: var(--white); }
           <div style="display:flex;flex-direction:column;gap:10px">
             <sc-for list="{{ guide.verify }}" as="v" hint-placeholder-count="3">
               <div style="display:flex;gap:12px;font-size:15px;line-height:1.6;color:var(--60)">
-                <span style="flex:none;color:var(--positive-02);font-weight:700;margin-top:1px">✓</span>
+                <span style="flex:none;color:var(--positive-03);font-weight:700;margin-top:1px">✓</span>
                 <span style="text-wrap:pretty">{{ v }}</span>
               </div>
             </sc-for>
@@ -253,7 +251,7 @@ html, body { margin:0; padding:0; background: var(--white); }
           <h2 style="margin:0 0 20px;font-size:22px;font-weight:700;letter-spacing:-0.4px">Next</h2>
           <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:16px">
             <sc-for list="{{ guide.next }}" as="nx" hint-placeholder-count="2">
-              <div onClick="{{ nx.open }}" role="button" tabindex="0" style="{{ nx.cardStyle }}" style-hover="background:var(--05)">
+              <div onClick="{{ nx.open }}" style="{{ nx.cardStyle }}" style-hover="background:var(--05)">
                 <div style="font-size:11px;font-weight:700;letter-spacing:1.5px;color:var(--40);margin-bottom:8px">{{ nx.category }}</div>
                 <div style="font-size:17px;font-weight:700;letter-spacing:-0.2px;margin-bottom:6px">{{ nx.title }}</div>
                 <div style="font-size:13px;line-height:1.5;color:var(--60)">{{ nx.summary }}</div>
@@ -274,19 +272,20 @@ html, body { margin:0; padding:0; background: var(--white); }
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{}">
 const FIGURES = {
-  full:      { w: 940, h: 588, s: 0.5875, x: 0,    y: 0 },
+  full:      { w: 940, h: 529, s: 0.4896, x: 0,    y: 0 },
   toolbarL:  { w: 940, h: 56,  s: 0.87,   x: 0,    y: 0 },
-  toolbarR:  { w: 940, h: 128, s: 2.0,    x: 1130, y: 0 },
-  map:       { w: 940, h: 500, s: 1.175,  x: 15,   y: 85  },
-  panel:     { w: 940, h: 380, s: 1.205,  x: 810,  y: 68 },
-  table:     { w: 940, h: 460, s: 1.205,  x: 815,  y: 448 },
-  tableTop:  { w: 940, h: 300, s: 1.205,  x: 815,  y: 448 },
-  dlgWide:   { w: 940, h: 625, s: 1.0,    x: 330,  y: 188 },
-  dlgTall:   { w: 940, h: 880, s: 1.0,    x: 380,  y: 50  },
-  dlgSmall:  { w: 940, h: 740, s: 1.958,  x: 560,  y: 300 },
-  dlgMid:    { w: 940, h: 290, s: 1.305,  x: 440,  y: 410 },
-  dlgSoil:   { w: 940, h: 500, s: 0.904,  x: 280,  y: 230 },
-  dlgDiag:   { w: 940, h: 520, s: 1.27,   x: 430,  y: 310 }
+  toolbarR:  { w: 940, h: 128, s: 2.0,    x: 1450, y: 0 },
+  map:       { w: 940, h: 842, s: 0.899,  x: 10,   y: 85  },
+  panel:     { w: 940, h: 340, s: 1.128,  x: 1072, y: 80 },
+  table:     { w: 940, h: 520, s: 1.122,  x: 1072, y: 380 },
+  tableTop:  { w: 940, h: 320, s: 1.122,  x: 1072, y: 470 },
+  dlgWide:   { w: 940, h: 600, s: 1.0,    x: 490,  y: 240 },
+  dlgTall:   { w: 940, h: 940, s: 1.0,    x: 540,  y: 55  },
+  dlgSmall:  { w: 940, h: 700, s: 1.9,    x: 745,  y: 355 },
+  dlgMid:    { w: 940, h: 300, s: 1.28,   x: 595,  y: 450 },
+  dlgSoil:   { w: 940, h: 520, s: 0.9,    x: 440,  y: 265 },
+  dlgDiag:   { w: 940, h: 520, s: 1.25,   x: 590,  y: 350 },
+  dlgCascade:{ w: 940, h: 620, s: 1.45,   x: 640,  y: 270 }
 };
 
 function fig(kind, k) {
@@ -294,25 +293,30 @@ function fig(kind, k) {
   const r = k || 1;
   return {
     figStyle: 'position:relative;width:100%;max-width:' + f.w + 'px;height:' + Math.round(f.h * r) + 'px;overflow:hidden;border-radius:8px;background:var(--05);box-shadow:inset 0 0 0 1px var(--20)',
-    appStyle: 'position:absolute;top:0;left:0;width:1600px;height:1000px;transform:scale(' + (f.s * r) + ') translate(' + (-f.x) + 'px,' + (-f.y) + 'px);transform-origin:0 0;pointer-events:none'
+    appStyle: 'position:absolute;top:0;left:0;width:1920px;height:1080px;transform:scale(' + (f.s * r) + ') translate(' + (-f.x) + 'px,' + (-f.y) + 'px);transform-origin:0 0;pointer-events:none'
   };
 }
 
-const COL = { cb: 835, name: 988, vwc: 1191, target: 1270, current: 1340, sugg: 1400, adj: 1469, en: 1544 };
-const rowY = (n) => 532 + 50 * (n - 1);
+const COL = { cb: 1096, name: 1125, vwc: 1511, target: 1590, current: 1660, sugg: 1720, adj: 1789, en: 1864 };
+const rowY = (n) => 556 + 50 * (n - 1);
 const cell = (c, n) => [COL[c], rowY(n)];
 
 const P = {
-  siteName: [366, 18], courseSel: [356, 49], weather: [520, 32], moisture: [900, 32],
-  push: [1305, 32], pushedCount: [1390, 32], refresh: [1462, 32], gear: [1516, 32],
-  chartSelect: [1425, 105], legendBar: [400, 905], layers: [583, 864], variance: [520, 864],
-  tabAll: [905, 390], tabOver: [1065, 390], bulkLink: [888, 440], filterLink: [1075, 440],
-  menuCalc: [499, 346], menuThresh: [499, 407], menuProfiles: [499, 468], menuPrefs: [499, 529],
-  threshInput: [729, 444], radioZero: [718, 505], radioMin: [718, 535], maxAmount: [760, 430],
-  profileRow: [900, 430], profileApply: [1180, 430],
-  pushReview: [1086, 271], pushFooter: [616, 915], pushRow: [800, 520],
-  bulkShift: [743, 484], bulkValue: [713, 518], bulkApply: [705, 629],
-  soilInput: [1053, 400], diagBox: [640, 470], progressBar: [800, 500], progressClose: [1094, 566]
+  siteName: [366, 32], courseSel: [356, 49], weather: [520, 32], moisture: [900, 32],
+  push: [1625, 32], pushedCount: [1730, 32], refresh: [1793, 32], gear: [1836, 32],
+  chartSelect: [1749, 113], legendBar: [435, 978], layers: [724, 955], variance: [643, 955],
+  tabAll: [1148, 414], tabOver: [1297, 414], bulkLink: [1137, 464], filterLink: [1330, 464],
+  menuCalc: [666, 393], menuThresh: [666, 451], menuProfiles: [659, 519], menuPrefs: [666, 508],
+  threshInput: [864, 484], radioZero: [813, 550], radioMin: [813, 575], maxAmount: [912, 530],
+  profileRow: [1099, 462], profileApply: [1348, 521],
+  pushReview: [1246, 264], pushFooter: [1144, 1002], pushRow: [960, 358],
+  bulkShift: [875, 524], bulkValue: [873, 558], bulkApply: [1055, 669],
+  soilInput: [1213, 440], diagBox: [752, 455], progressBar: [960, 540], progressClose: [1254, 606],
+  logo: [130, 32], mapCenter: [533, 553], mapPin: [240, 254], varianceBtn: [643, 955], layersBtn: [724, 955],
+  refAmount: [912, 601], cropCoeff: [912, 672], saveChanges: [1182, 794], algoSelect: [1106, 459],
+  prefLanguage: [940, 465], prefUnits: [940, 538], excludeZeros: [840, 600],
+  holeRow3: [1125, 556], holeEnable: [1864, 556], cascadeContinue: [827, 713], cascadeCheckbox: [712, 495],
+  chevron5: [1113, 756], kid1: [1125, 801], kid2: [1125, 841], pushOldRow: [960, 685], diagLynx: [1053, 424]
 };
 
 const TARGETS = {
@@ -325,22 +329,26 @@ const TARGETS = {
   'target-profiles': [P.menuProfiles, P.profileRow, P.profileApply, cell('target', 1)]
 };
 
-const VIEW_W = 1180;
+const APP_W = 1920;
+const APP_H = 1080;
+const VIEW_W = 1420;
 const STAGE_H = 560;
 
-function camera(target, stageW) {
-  const s = stageW / VIEW_W;
-  const viewH = Math.min(1000, STAGE_H / s);
-  const pad = 70;
-  let x = (1600 - VIEW_W) / 2;
-  let y = (1000 - viewH) / 2;
-  if (target[0] < x + pad) x = target[0] - pad;
-  if (target[0] > x + VIEW_W - pad) x = target[0] - VIEW_W + pad;
+// Each step's figure crop doubles as its camera framing, so the view always
+// aligns to a real panel or dialog edge instead of slicing through a column.
+function camera(target, stageW, figKind) {
+  const fr = FIGURES[figKind] || FIGURES.full;
+  const frameW = Math.min(APP_W, Math.round(fr.w / fr.s));
+  const frameH = Math.round(fr.h / fr.s);
+  const s = stageW / frameW;
+  const viewH = Math.min(APP_H, STAGE_H / s);
+  const pad = 60;
+  let x = Math.max(0, Math.min(fr.x, APP_W - frameW));
+  let y = fr.y + (frameH - viewH) / 2;
   if (target[1] < y + pad) y = target[1] - pad;
   if (target[1] > y + viewH - pad) y = target[1] - viewH + pad;
-  x = Math.max(0, Math.min(x, 1600 - VIEW_W));
-  y = viewH >= 1000 ? (1000 - viewH) / 2 : Math.max(0, Math.min(y, 1000 - viewH));
-  return { s: s, x: x, y: y };
+  y = viewH >= APP_H ? 0 : Math.max(0, Math.min(y, APP_H - viewH));
+  return { s: s, x: x, y: y, h: Math.min(STAGE_H, Math.round(APP_H * s)) };
 }
 
 const GUIDES = {
@@ -603,42 +611,492 @@ const GUIDES = {
   }
 };
 
+Object.assign(GUIDES, {
+  'understand-spatial-adjust': {
+    category: 'GETTING STARTED', title: 'Understand Spatial Adjust', minutes: '3 minutes', difficulty: 1, where: '/spatialadjust',
+    summary: 'What the feature actually does: turn yesterday\u2019s moisture scan into today\u2019s percent adjustment, and write it to Lynx.',
+    before: [
+      'Spatial Adjust is a feature of IntelliDash, not a separate product. Reaching it means logging into IntelliDash.',
+      'Access is granted per user, and the view is admitted only on desktop and tablet.'
+    ],
+    steps: [
+      { title: 'It lives inside IntelliDash', fig: 'toolbarL',
+        body: 'The route is /spatialadjust, all lowercase, inside the IntelliDash site. A camelCase URL does not resolve — it redirects to the generic error page. Access is checked per user before the view loads.',
+        caption: 'The Spatial Adjust header, inside IntelliDash.' },
+      { title: 'TurfRad supplies the measurement', fig: 'tableTop', focusRow: '3AP1',
+        body: 'Each station\u2019s Avg. VWC comes from a TurfRad moisture scan — the mean volumetric water content measured across the station, with the date it was captured beside the station name.',
+        caption: 'Measured moisture and its scan date, per station.' },
+      { title: 'You supply the target', fig: 'tableTop', focusRow: '4AP1',
+        body: 'Target VWC is the moisture you want that station to hold. It is yours to set, station by station, between 0 and 50 percent. The gap between measured and target is what the calculation works on.',
+        caption: 'Target VWC is an editable input, not a reading.' },
+      { title: 'Spatial Adjust does the arithmetic', fig: 'table',
+        body: 'The difference between target and measured moisture becomes an amount of water, today\u2019s ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.',
+        caption: 'The Suggested column is the output of that chain.',
+        tipLabel: 'In one line.', tip: 'Suggested % = the applied amount \u00f7 the Lynx reference amount \u00d7 100, rounded.' },
+      { title: 'Lynx runs the water', fig: 'toolbarR',
+        body: 'Spatial Adjust never waters anything. It writes a percent adjust value onto each station in Lynx, and Lynx applies that percentage to the station\u2019s programmed run time. Nothing changes until you push.',
+        caption: 'Push Changes is the only thing that writes to the controller.' }
+    ],
+    verify: ['You can name the three inputs: measured VWC, target VWC and today\u2019s ET.', 'You know that nothing reaches Lynx until Push Changes is used.'],
+    next: ['dashboard-overview', 'understanding-vwc']
+  },
+
+  'map-navigation': {
+    category: 'GETTING STARTED', title: 'Map navigation', minutes: '3 minutes', difficulty: 1, where: 'Map panel',
+    summary: 'Read the pins, move the moisture bands, switch to variance, and filter what the map shows.',
+    before: ['Band boundaries and the variance view are saved to your own user preferences, not to the site.'],
+    steps: [
+      { title: 'Pins are coloured by measured moisture', fig: 'map',
+        body: 'Every station is a pin placed at its real coordinates and filled with the colour of the moisture band its latest reading falls into. Four bands by default: 0\u20135, 6\u201316, 17\u201330, and above 30 percent.',
+        caption: 'The course, coloured by measured moisture.' },
+      { title: 'Move the band boundaries', fig: 'map',
+        body: 'The colour bar under the legend has draggable handles. Move one and the map recolours as you drag — useful when your course sits mostly inside one band and everything looks the same colour.',
+        caption: 'Dragging a handle changes the boundary and saves it to your preferences.' },
+      { title: 'Switch to variance', fig: 'map', mapMode: 'variance',
+        body: 'The button beside the legend toggles between VWC and variance. Variance colours each pin by how far it sits from its own target instead of by its raw reading, which is the view you want when targets differ across the course.',
+        caption: 'Variance view: three bands, centred on target.' },
+      { title: 'Filter with Layers', fig: 'map', layersOpen: true,
+        body: 'Layers chooses which stations are drawn: all of them, or only the enabled ones. Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.',
+        caption: 'Layers, with All Stations and Enabled Stations.' },
+      { title: 'Map and table stay in sync', fig: 'full', focusRow: '6AP1',
+        body: 'Selecting a station in the table highlights it on the map, and selecting a pin selects the row. Use whichever is faster to find the head you mean.',
+        caption: 'One selection, shown in both panels.' }
+    ],
+    verify: ['You can recolour the map by moving a band handle.', 'You can switch between moisture and variance.', 'Layers hides disabled stations.'],
+    next: ['understanding-vwc', 'dashboard-overview']
+  },
+
+  'understanding-vwc': {
+    category: 'GETTING STARTED', title: 'Understanding VWC', minutes: '4 minutes', difficulty: 2, where: 'Table, Avg. VWC and Target VWC',
+    summary: 'Three different numbers wear the label VWC. Knowing which one you are reading explains most surprises.',
+    before: ['VWC is volumetric water content, expressed as a percentage of soil volume.'],
+    steps: [
+      { title: 'Measured: the scan mean', fig: 'tableTop', focusRow: '3AP1',
+        body: 'When the scan date is today, Avg. VWC is the mean moisture TurfRad measured across that station. It is a measurement, and it is the number the calculation prefers.',
+        caption: 'A current scan: black text, today\u2019s date.' },
+      { title: 'Modelled: the fallback', fig: 'tableTop', focusRow: '7AP1',
+        body: 'When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since. It is shown in grey italics so you can tell it apart at a glance.',
+        caption: 'Station 7AP1 has no current scan; the value shown is modelled.' },
+      { title: 'Target: your input', fig: 'tableTop', focusRow: '9AP1',
+        body: 'Target VWC is a whole number from 0 to 50 that you set per station. Higher targets ask for more water. It is the only VWC on the row you can type into.',
+        caption: 'Target VWC accepts 0 to 50, integers only.' },
+      { title: 'The delta is what drives the suggestion', fig: 'table',
+        body: 'Subtract the working VWC from the target and you have the deficit the calculation must close. Add today\u2019s ET, cap it at the daily maximum, and express it against the Lynx reference amount.',
+        caption: 'Target minus measured, per station, is the whole idea.' },
+      { title: 'Aggregate rows average their children', fig: 'table', tableLevel: 'holes',
+        body: 'At hole and area level the same two columns show averages rather than readings, and the scan date column shows the most recent scan beneath that row. An italic average means at least one child is modelled.',
+        caption: 'Hole rows: average measured, average target, latest scan.' }
+    ],
+    verify: ['You can tell a measured value from a modelled one without checking the date.', 'You know Target VWC is capped at 50.'],
+    next: ['suggested-adjustments', 'calculation-settings']
+  },
+
+  'calculation-settings': {
+    category: 'CALCULATIONS', title: 'Calculation settings', minutes: '4 minutes', difficulty: 3, where: 'Settings \u203a Calculation',
+    summary: 'Three numbers decide every suggestion on the course: the daily maximum, the Lynx reference amount, and the crop coefficient.',
+    before: [
+      'These are site-level settings — they apply to every user on the site.',
+      'Changing any of them recalculates every suggestion and reloads the dashboard.'
+    ],
+    steps: [
+      { title: 'Open Settings on the Calculation tab', fig: 'dlgWide', dialog: 'settings', settingsTab: 'calculation',
+        body: 'The gear button opens the dialog on Calculation by default. If you last arrived through Review Threshold it opens on Minimum Threshold instead — the tab is sticky for the rest of the session.',
+        caption: 'Settings dialog, Calculation tab.' },
+      { title: 'Daily Max Amount caps the water', fig: 'dlgWide', dialog: 'settings', settingsTab: 'calculation',
+        body: 'The most water Spatial Adjust will ask for in one day, in your own units, up to a hard ceiling of 15. Every station whose deficit exceeds this lands on the same suggested percentage, which is why identical numbers appear in runs.',
+        caption: 'Daily Max Amount, edited in the units your preferences specify.',
+        tipLabel: 'Stored in millimetres.', tip: 'The backend keeps these amounts in millimetres and the dialog converts on the way in and out — two decimals imperial, one metric.' },
+      { title: 'Lynx Reference Amount is what 100% means', fig: 'dlgWide', dialog: 'settings', settingsTab: 'calculation',
+        body: 'This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.',
+        caption: 'Lynx Reference Amount, ceiling of 10.',
+        tipLabel: 'Worked example.', tip: 'A 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent — the ceiling you see repeated across a dry course.' },
+      { title: 'Crop Coefficient scales today\u2019s ET', fig: 'dlgWide', dialog: 'settings', settingsTab: 'calculation',
+        body: 'A whole-number percentage from 0 to 200 applied to the day\u2019s ET before it enters the calculation. Below 100 the course is treated as using less water than reference ET suggests; above 100, more.',
+        caption: 'Crop Coefficient: 0 to 200, integers.' },
+      { title: 'Saving recalculates the whole course', fig: 'full',
+        body: 'Save Changes sends the settings, asks the server to recalculate adjustments, and reloads the dashboard so that area and hole averages are rebuilt. Expect the Suggested column to move on every row.',
+        caption: 'After a recalculation the dashboard reloads with new suggestions.' }
+    ],
+    verify: ['You can state what 100 percent adjust means on your site in inches or millimetres.', 'You know which setting produces a run of identical suggestions.'],
+    next: ['calculation-methods', 'suggested-adjustments']
+  },
+
+  'calculation-methods': {
+    category: 'CALCULATIONS', title: 'Calculation methods', minutes: '5 minutes', difficulty: 3, where: 'Settings \u203a Calculation',
+    summary: 'Two algorithms can produce the suggested percentage. They use different inputs and behave differently.',
+    before: [
+      'The algorithm selector is deliberately hidden in production unless the site is already set to Simple.',
+      'The default is the delta-plus-today\u2019s-ET method.'
+    ],
+    steps: [
+      { title: 'Find the selector', fig: 'dlgWide', dialog: 'settings', settingsTab: 'calculation',
+        body: 'Suggested Percent Adjust Calculation is the first field on the Calculation tab. On a production site it only appears when the persisted algorithm is already Simple, so most users never see it.',
+        caption: 'The algorithm dropdown, above the three amounts.' },
+      { title: 'Delta plus today\u2019s ET — the default', fig: 'table',
+        body: 'The server computes it per station: target minus working VWC gives a deficit, the deficit becomes an amount of water, today\u2019s ET adjusted by the crop coefficient is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount.',
+        caption: 'Every suggestion in this column came from that chain.' },
+      { title: 'Simple — ratio of target to measured', fig: 'dlgWide', dialog: 'settings', settingsTab: 'calculation', algorithm: 'simple',
+        body: 'Simple multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds. It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected.',
+        caption: 'With Simple selected, the two amount fields are disabled.',
+        tipLabel: 'Consequence.', tip: 'Because Simple scales the current Lynx value, a station sitting at 0 percent adjust stays at 0 no matter how dry it is.' },
+      { title: 'The cap is what makes them look different', fig: 'table',
+        body: 'The default method flattens everything above the daily maximum onto one number. Simple has no ceiling, so its suggestions spread out — and can go far higher than you intend on a station that reads very dry.',
+        caption: 'Runs of identical values are a signature of the capped method.' },
+      { title: 'Switching is a course-wide change', fig: 'full',
+        body: 'Saving a different algorithm recalculates every station and reloads the dashboard. Review the whole Suggested column before pushing anything after a switch.',
+        caption: 'Compare the column before and after switching, not one row.' }
+    ],
+    verify: ['You can say which algorithm your site uses.', 'You know why Max Amount is greyed out under Simple.'],
+    next: ['calculation-settings', 'calculation-questions']
+  },
+
+  'preferences': {
+    category: 'CALCULATIONS', title: 'Preferences', minutes: '2 minutes', difficulty: 1, where: 'Settings \u203a Preferences',
+    summary: 'Language, units, temperature and number formatting. These belong to you, not to the site.',
+    before: ['Preferences are stored against your user account; the calculation settings on the other tabs are stored against the site.'],
+    steps: [
+      { title: 'Open the Preferences tab', fig: 'dlgWide', dialog: 'settings', settingsTab: 'preferences',
+        body: 'Preferences is the last entry in the settings rail. Nothing here changes a single suggested percentage — it changes how numbers are presented to you.',
+        caption: 'Settings dialog, Preferences tab.' },
+      { title: 'Units of Measure changes what you type', fig: 'dlgWide', dialog: 'settings', settingsTab: 'preferences',
+        body: 'The stored amounts are millimetres. Switching to imperial converts them to inches for editing, with two decimal places and a hundredth-of-an-inch step; metric gets one decimal place and a tenth-of-a-millimetre step.',
+        caption: 'Units of Measure drives the labels and precision on the Calculation tab.',
+        tipLabel: 'Worth knowing.', tip: 'Changing the unit system does not change the underlying values — only the number you see and the increment you nudge it by.' },
+      { title: 'Language applies immediately', fig: 'dlgWide', dialog: 'settings', settingsTab: 'preferences',
+        body: 'Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit.',
+        caption: 'Language, units, temperature scale and separator.' },
+      { title: 'Temperature and separator affect the toolbar', fig: 'toolbarL',
+        body: 'Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.',
+        caption: 'The weather strip follows your temperature scale.' }
+    ],
+    verify: ['Amount fields on the Calculation tab show the unit you chose.', 'The weather strip shows your temperature scale.'],
+    next: ['calculation-settings', 'dashboard-overview']
+  },
+
+  'creating-profiles': {
+    category: 'TARGET PROFILES', title: 'Creating profiles', minutes: '3 minutes', difficulty: 2, where: 'Settings \u203a Target Profiles',
+    summary: 'Capture the station targets you have tuned, under a name you will recognise next season.',
+    note: 'Target Profiles is a design concept. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build.',
+    before: ['A profile stores one Target VWC per station and nothing else — no percent adjustments, no enable states.'],
+    steps: [
+      { title: 'Tune the targets first', fig: 'table',
+        body: 'A profile is a snapshot, so the work happens in the table before you save anything. Get the course reading the way you want it, hole by hole, and only then capture it.',
+        caption: 'The Target VWC column is what a profile would capture.' },
+      { title: 'Open the Target Profiles tab', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.',
+        caption: 'Proposed Target Profiles tab.' },
+      { title: 'Name it for the condition', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'Name a profile for the reason the targets are what they are — Summer Baseline, Tournament Week, Overseed Recovery. A date tells you when; a condition tells you why, which is what you will be searching for.',
+        caption: 'Three profiles, one active.' },
+      { title: 'Check the station count', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'The count beside each profile says how many stations it covers. A profile captured while the course was partly disabled covers fewer stations than the course has, and applying it later leaves the rest untouched.',
+        caption: 'Coverage is part of what a profile is.' }
+    ],
+    verify: ['The new profile appears in the list with today\u2019s date and the full station count.', 'The targets in the table are unchanged by saving.'],
+    next: ['target-profiles', 'seasonal-profiles']
+  },
+
+  'updating-profiles': {
+    category: 'TARGET PROFILES', title: 'Updating profiles', minutes: '2 minutes', difficulty: 2, where: 'Settings \u203a Target Profiles',
+    summary: 'Fold this week\u2019s adjustments back into a saved profile without applying it to the course.',
+    note: 'Target Profiles is a design concept. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build.',
+    before: ['Updating a profile rewrites what it stores. It does not change any station until the profile is applied.'],
+    steps: [
+      { title: 'Notice the drift', fig: 'table',
+        body: 'After a fortnight of individual target edits, the course no longer matches the profile you applied. The profile is still valid, it is simply out of date.',
+        caption: 'Individually edited targets drift away from the profile.' },
+      { title: 'Open the profile', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'The active profile is the one whose targets were last loaded. Editing a station target after applying leaves the profile intact but no longer exactly matched.',
+        caption: 'The active profile, ready to be updated.' },
+      { title: 'Update rather than create', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'Overwrite the stored targets with the current ones when the drift is an improvement. Create a new profile instead when the change is for one event — a new name is cheaper than losing a good baseline.',
+        caption: 'Updating overwrites the stored targets in place.',
+        tipLabel: 'Rule of thumb.', tip: 'Update when the course has genuinely moved on. Create when the change is temporary.' },
+      { title: 'Confirm nothing moved', fig: 'table',
+        body: 'Updating a profile writes to the profile, not to the stations. The Suggested column should be exactly as it was — if it moved, something applied rather than updated.',
+        caption: 'Suggestions unchanged: the update touched only the stored profile.' }
+    ],
+    verify: ['The profile\u2019s last-updated date is today.', 'No station target or suggestion changed.'],
+    next: ['seasonal-profiles', 'target-profiles']
+  },
+
+  'seasonal-profiles': {
+    category: 'TARGET PROFILES', title: 'Managing seasonal profiles', minutes: '4 minutes', difficulty: 2, where: 'Settings \u203a Target Profiles',
+    summary: 'A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.',
+    note: 'Target Profiles is a design concept. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build.',
+    before: ['Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch.'],
+    steps: [
+      { title: 'Keep the list short', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'Three or four profiles covers most courses: a summer baseline, a shoulder-season set, a tournament set, and a recovery set for after aeration or overseed.',
+        caption: 'A short list stays readable a year later.' },
+      { title: 'Apply the evening before', fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
+        body: 'Applying rewrites every target and recalculates every suggestion. Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan.',
+        caption: 'Apply, then review the next morning\u2019s suggestions.' },
+      { title: 'Read the new suggestions before pushing', fig: 'table',
+        body: 'A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.',
+        caption: 'New targets, new suggestions — review before pushing.' },
+      { title: 'Push once you agree with them', fig: 'dlgTall', dialog: 'push', showThresholdBanner: false,
+        body: 'The push dialog is the same as any other day. The difference is the size of the change set: a profile switch usually queues most of the course at once.',
+        caption: 'A profile switch queues a large push. Review it as one.' }
+    ],
+    verify: ['The intended profile is marked active.', 'You reviewed the recalculated suggestions before pushing.'],
+    next: ['push-to-lynx', 'target-profiles']
+  },
+
+  'editing-station-targets': {
+    category: 'STATION MANAGEMENT', title: 'Editing station targets', minutes: '3 minutes', difficulty: 1, where: 'Table, Target VWC column',
+    summary: 'Change one station\u2019s target and watch what it does to the suggestion.',
+    before: ['Target VWC accepts whole numbers from 0 to 50.', 'A target change recalculates that station\u2019s suggestion; it does not push anything.'],
+    steps: [
+      { title: 'Drill down to the station', fig: 'table', tableLevel: 'holes',
+        body: 'The table drills from course to areas, then holes, then stations. Breadcrumbs at the top left take you back up a level. The flat All Stations tab is faster when you already know the station name.',
+        caption: 'Hole rows for area AP. Clicking one shows its stations.' },
+      { title: 'Type the new target', fig: 'tableTop', focusRow: '9AP1',
+        body: 'The Target VWC field takes a whole number between 0 and 50. Raising it increases the deficit and therefore the suggestion; lowering it does the opposite.',
+        caption: 'Target VWC on station 9AP1.' },
+      { title: 'Read the new suggestion', fig: 'tableTop', focusRow: '9AP1',
+        body: 'The Suggested column recalculates against the new target. If it lands on the same number as its neighbours, the daily maximum is capping it rather than the target deciding it.',
+        caption: 'Suggested follows the target you just set.' },
+      { title: 'Override the percentage if you need to', fig: 'tableTop', focusRow: '11AP2',
+        body: 'The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push and leaves the suggestion visible underneath for comparison.',
+        caption: 'The pending icon marks a station queued for push.',
+        tipLabel: 'Which to change.', tip: 'Edit the target when the station should always be wetter or drier. Edit % Adj. when today is unusual.' }
+    ],
+    verify: ['The target shows the value you typed.', 'The suggestion recalculated.', 'The station appears in the Push Changes count only if you edited % Adj.'],
+    next: ['bulk-adjustments', 'suggested-adjustments']
+  },
+
+  'enable-disable-stations': {
+    category: 'STATION MANAGEMENT', title: 'Enable and disable stations', minutes: '2 minutes', difficulty: 1, where: 'Table, Enable column',
+    summary: 'Take a station, hole or area out of adjustment — and understand what cascading does before you confirm it.',
+    before: ['A disabled station is excluded from adjustment entirely; it is not sent a zero, it is simply not sent.'],
+    steps: [
+      { title: 'Toggle a single station', fig: 'tableTop', focusRow: '5AP1',
+        body: 'The switch in the Enable column takes effect on that station alone. Station 5AP1 is off here, which is why it has no pending adjustment however dry it reads.',
+        caption: 'A disabled station: the switch on its row is grey.' },
+      { title: 'Toggling a parent cascades', fig: 'table', tableLevel: 'holes',
+        body: 'Hole and area rows carry the same switch, and turning one off turns off everything beneath it. That is usually what you want when a hole is out of play.',
+        caption: 'Hole rows carry their own Enable switch.' },
+      { title: 'Confirm the cascade', fig: 'dlgCascade', dialog: 'cascade', cascadeState: 'disable', cascadeZone: 'hole',
+        body: 'Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it. Continue applies it; Cancel leaves everything as it was.',
+        caption: 'The cascade confirmation names exactly what will change.' },
+      { title: 'Silence the prompt once you trust it', fig: 'dlgCascade', dialog: 'cascade', cascadeState: 'enable', cascadeZone: 'area',
+        body: 'The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues.',
+        caption: 'The same dialog for an area-level enable.',
+        tipLabel: 'Careful.', tip: 'With the prompt suppressed, an area-level toggle silently changes every hole and station under it.' },
+      { title: 'Check the result on the map', fig: 'map', layersOpen: true,
+        body: 'Switch Layers to Enabled Stations to see only the heads still in adjustment. Anything that disappeared is out — deliberately or otherwise.',
+        caption: 'Layers filtered to enabled stations only.' }
+    ],
+    verify: ['The stations you meant to disable show a grey switch.', 'The Push Changes count dropped by the pending edits you just excluded.'],
+    next: ['station-zero', 'bulk-adjustments']
+  },
+
+  'station-details': {
+    category: 'STATION MANAGEMENT', title: 'Station details', minutes: '3 minutes', difficulty: 2, where: 'Table, station rows',
+    summary: 'Some stations drive more than one sprinkler. Expand the row to see what each head actually measured.',
+    before: ['Only stations with more than one paired sprinkler can be expanded — the rest have nothing underneath.'],
+    steps: [
+      { title: 'Spot the expandable rows', fig: 'tableTop', focusRow: '6AP1',
+        body: 'A chevron beside the station name means the station has more than one sprinkler paired to it. Without the chevron, the row is the whole story.',
+        caption: 'Station 6AP1 has a chevron: more than one sprinkler.' },
+      { title: 'Expand the station', fig: 'table', expandStation: '6AP1', focusRow: '6AP1',
+        body: 'Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture. Nothing else is editable at sprinkler level — the target and the adjustment belong to the station.',
+        caption: 'Two sprinklers under 6AP1, each with its own reading.' },
+      { title: 'The parent value is an average', fig: 'table', expandStation: '6AP1',
+        body: 'The station\u2019s Avg. VWC is the mean of its sprinklers. Two heads reading 31.4 and 30.4 give a station average of 30.9 — and a station that looks fine can still hide one dry head.',
+        caption: 'Mean of the children, shown on the parent row.',
+        tipLabel: 'Why it matters.', tip: 'A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.' },
+      { title: 'Watch for a modelled child', fig: 'table', expandStation: '6AP1',
+        body: 'A child whose scan is older shows a modelled value in grey italics, and the parent average is then part measurement and part model. The parent row is marked the same way so you are not misled.',
+        caption: 'The second sprinkler was last scanned two days ago.' }
+    ],
+    verify: ['You can expand a multi-sprinkler station.', 'You can tell which child readings are modelled.'],
+    next: ['understanding-vwc', 'station-zero']
+  },
+
+  'reviewing-changes': {
+    category: 'REVIEW & APPLY', title: 'Reviewing changes', minutes: '3 minutes', difficulty: 2, where: 'Push Changes dialog',
+    summary: 'Read the push dialog properly before you send: two lists, two columns, and one count that matters.',
+    before: ['Everything in the dialog is still reversible. Nothing is written until you use the footer button.'],
+    steps: [
+      { title: 'Open Push Changes', fig: 'toolbarR',
+        body: 'The button carries the number of stations with an unpushed edit. It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.',
+        caption: 'Six changes pending.' },
+      { title: 'Read Current against Changes', fig: 'dlgTall', dialog: 'push', showThresholdBanner: false,
+        body: 'The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.',
+        caption: 'Current on the left, the proposed change on the right.' },
+      { title: 'Treat the two lists differently', fig: 'dlgTall', dialog: 'push', showThresholdBanner: false,
+        body: 'Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. Tick a pushed station only when you mean to.',
+        caption: 'Pushed Today arrives unselected by design.' },
+      { title: 'Check for threshold rewrites', fig: 'dlgTall', dialog: 'push', showThresholdBanner: true,
+        body: 'When a minimum threshold is set, the banner counts the stations it will rewrite and the affected rows show both the original and the value that will actually be sent.',
+        caption: 'Two stations will be rewritten by the threshold rules.' },
+      { title: 'Trust the footer count', fig: 'dlgTall', dialog: 'push', showThresholdBanner: true,
+        body: 'The footer button names the number of ticked rows, and that is exactly what will be sent. Unticking a row is not the same as reverting it — the edit stays in the table for next time.',
+        caption: 'The footer count is the contract.' }
+    ],
+    verify: ['The footer count matches the rows you ticked.', 'No station in Pushed Today is ticked unless you meant it.'],
+    next: ['verify-results', 'push-failures']
+  },
+
+  'verify-results': {
+    category: 'REVIEW & APPLY', title: 'Verify results', minutes: '3 minutes', difficulty: 2, where: 'Push progress dialog',
+    summary: 'A push is four phases, not one. Knowing them tells you whether a slow run is working or stuck.',
+    before: ['Verification is automatic. You do not have to check Lynx by hand to know whether a push landed.'],
+    steps: [
+      { title: 'It reads Lynx first', fig: 'dlgMid', dialog: 'progress', pushState: 'fetching',
+        body: 'Before writing anything, Spatial Adjust retrieves the current percent adjustments from Lynx so it has something to compare against afterwards. On a large course this is the slowest phase.',
+        caption: 'Phase one: retrieving current values for comparison.' },
+      { title: 'Then it writes, station by station', fig: 'dlgMid', dialog: 'progress', pushState: 'running',
+        body: 'Stations are written in sequence with a short pause between each, and the progress line names which one it is on. A stalled counter here means the connection, not the calculation.',
+        caption: 'Phase two: writing, four of six.' },
+      { title: 'Then it verifies', fig: 'dlgMid', dialog: 'progress', pushState: 'verifying',
+        body: 'Spatial Adjust re-reads the station list and compares each value it sent against what Lynx now reports. Anything that does not match is treated as failed rather than assumed good.',
+        caption: 'Phase three: comparing what Lynx reports against what was sent.' },
+      { title: 'Failures are retried automatically', fig: 'dlgMid', dialog: 'progress', pushState: 'retry',
+        body: 'Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error.',
+        caption: 'Phase four: retrying the stations that did not verify.' },
+      { title: 'Read the outcome', fig: 'dlgMid', dialog: 'progress', pushState: 'complete',
+        body: 'A clean run confirms that every selected change reached Lynx and verified. Back on the dashboard the pending count is zero and the pushed-today counter has grown by what you sent.',
+        caption: 'All selected changes pushed and verified.' }
+    ],
+    verify: ['The dialog reported success rather than a failure count.', 'The pending count is zero and the pushed-today counter increased.'],
+    next: ['push-failures', 'dashboard-overview']
+  },
+
+  'threshold-questions': {
+    category: 'TROUBLESHOOTING', title: 'Threshold questions', minutes: '3 minutes', difficulty: 2, where: 'Settings \u203a Minimum Threshold',
+    summary: 'Why the table and the push dialog disagree, and what the second option really does.',
+    before: ['The threshold is applied when you push, not when the suggestion is calculated.'],
+    steps: [
+      { title: 'The table shows the raw suggestion', fig: 'tableTop', focusRow: '11AP2',
+        body: 'Station 11AP2 suggests 6 percent. With a 10 percent threshold set, the table still shows 6 — the threshold has not been applied yet, because nothing has been pushed.',
+        caption: 'The raw suggested value, untouched by the threshold.' },
+      { title: 'The push dialog shows what will be sent', fig: 'dlgTall', dialog: 'push', showThresholdBanner: true,
+        body: 'Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected. This is the disagreement, and it is intentional.',
+        caption: 'Original and rewritten values, shown together.' },
+      { title: 'Choose what below-threshold means', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold', thresholdValue: 10, thresholdOption: 'min',
+        body: 'Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold so the station still gets a short run. They are opposite behaviours from the same number.',
+        caption: 'Two options, opposite outcomes.' },
+      { title: 'Exclude Zeros protects genuine zeros', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold', thresholdValue: 10, thresholdOption: 'min',
+        body: 'Available only under the second option: a station whose suggestion is a true zero stays at zero instead of being lifted to the threshold. Without it, a station that needs no water gets a small run anyway.',
+        caption: 'Exclude Zeros is enabled only for the second option.' },
+      { title: 'Zero disables the feature', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold', thresholdValue: 0,
+        body: 'A threshold of zero turns the whole thing off and the option group is disabled with it. If the push dialog shows no banner, check this first — the setting is site-level and someone else may have cleared it.',
+        caption: 'A threshold of 0 disables the feature.',
+        tipLabel: 'Sticky tab.', tip: 'Once you have opened Settings via Review Threshold, the gear button keeps opening on the Minimum Threshold tab for the rest of the session.' }
+    ],
+    verify: ['You can explain why the table and the push dialog differ.', 'You know which option needs Exclude Zeros.'],
+    next: ['minimum-threshold', 'station-zero']
+  },
+
+  'calculation-questions': {
+    category: 'TROUBLESHOOTING', title: 'Calculation questions', minutes: '4 minutes', difficulty: 3, where: 'Table and Settings',
+    summary: 'Identical suggestions, missing values and stale scans — three things that look like bugs and are not.',
+    before: ['All three have the same first check: is the number a measurement, a model, or nothing at all?'],
+    steps: [
+      { title: 'Identical suggestions across many stations', fig: 'table',
+        body: 'When the required amount exceeds the daily maximum, every station above the cap lands on the same percentage. A run of identical numbers means the cap is deciding, not the scan.',
+        caption: 'A run of identical values is the cap, not a fault.' },
+      { title: 'Work out your own ceiling', fig: 'dlgWide', dialog: 'settings', settingsTab: 'calculation',
+        body: 'The maximum possible suggestion is the daily maximum divided by the Lynx reference amount. Change either number and the ceiling moves — which is the honest fix if the ceiling is too low for your course.',
+        caption: 'Max Amount over Lynx Reference Amount sets the ceiling.',
+        tipLabel: 'Example.', tip: 'A 10 mm cap against a 3 mm reference gives 333 percent. Raising the cap to 12 mm gives 400.' },
+      { title: 'A dash instead of a number', fig: 'tableTop', focusRow: '7AP1',
+        body: 'A dash means there is nothing to show: no current scan and no modelled value either. It is not zero, and it is not an error in the calculation — the station has no data to calculate from.',
+        caption: 'Where a value is absent the column shows a dash, not a zero.' },
+      { title: 'Grey italics mean modelled', fig: 'tableTop', focusRow: '7AP1',
+        body: 'A greyed, italic average means the value came from the model rather than a scan taken that day. The calculation still runs, but it is running on an estimate.',
+        caption: 'A modelled value: grey and italic.' },
+      { title: 'If the whole course is stale, check the source', fig: 'dlgDiag', dialog: 'diagnostics',
+        body: 'The diagnostics dialog reports whether the organisation has TurfRad access, whether it has scan data at all, and the last scan date. A course-wide problem is almost always here rather than in your settings.',
+        caption: 'Diagnostics: TurfRad access, scan data, last scan date.' }
+    ],
+    verify: ['You can explain a run of identical suggestions.', 'You can tell a dash from a zero.', 'You know today\u2019s last scan date.'],
+    next: ['calculation-settings', 'station-zero']
+  },
+
+  'push-failures': {
+    category: 'TROUBLESHOOTING', title: 'Push failures', minutes: '3 minutes', difficulty: 3, where: 'Push progress dialog',
+    summary: 'Read the failure count, understand what has already been tried, and re-push only what failed.',
+    before: ['By the time you see a failure, Spatial Adjust has already retried the affected stations twice.'],
+    steps: [
+      { title: 'Read the count, not the colour', fig: 'dlgMid', dialog: 'progress', pushState: 'error',
+        body: 'The message names how many stations could not be updated. The rest of the push succeeded — a failure is partial, and the stations that verified are already live in Lynx.',
+        caption: 'Two stations could not be updated. The other four are done.' },
+      { title: 'Know what has already been tried', fig: 'dlgMid', dialog: 'progress', pushState: 'retry',
+        body: 'Failed stations are re-pushed automatically, up to two further attempts. Pushing again by hand immediately afterwards is a fourth attempt at the same connection, which rarely behaves differently.',
+        caption: 'The automatic retry pass, before the failure is reported.' },
+      { title: 'Check the connection to Lynx', fig: 'dlgDiag', dialog: 'diagnostics',
+        body: 'Diagnostics reports the Lynx interconnect, whether the cloud can be pinged, and the installation and course identifiers. If the ping is failing, no amount of re-pushing will help.',
+        caption: 'Diagnostics: Lynx interconnect, ping, installation ID.',
+        tipLabel: 'Also worth checking.', tip: 'When the connection drops, a banner appears above the toolbar and percent adjust values can be neither read nor written.' },
+      { title: 'Re-push only the failures', fig: 'dlgTall', dialog: 'push', showThresholdBanner: false,
+        body: 'The stations that failed are still pending, so reopening Push Changes offers exactly them. Untick anything that already went out rather than sending the whole set a second time.',
+        caption: 'The failed stations are still queued; the successful ones are not.' }
+    ],
+    verify: ['You know how many stations failed and which they were.', 'Diagnostics confirms Lynx is reachable before you retry.', 'The retry contained only the failed stations.'],
+    next: ['verify-results', 'reviewing-changes']
+  }
+});
+
+Object.assign(TARGETS, {
+  'understand-spatial-adjust': [P.logo, cell('vwc', 1), cell('target', 3), cell('sugg', 4), P.push],
+  'map-navigation': [P.mapCenter, P.legendBar, P.varianceBtn, P.layersBtn, P.mapPin],
+  'understanding-vwc': [cell('vwc', 1), cell('vwc', 6), cell('target', 7), cell('sugg', 2), cell('target', 2)],
+  'calculation-settings': [P.gear, P.maxAmount, P.refAmount, P.cropCoeff, P.saveChanges],
+  'calculation-methods': [P.algoSelect, cell('sugg', 3), P.algoSelect, cell('sugg', 5), P.saveChanges],
+  'preferences': [P.menuPrefs, P.prefUnits, P.prefLanguage, P.weather],
+  'creating-profiles': [cell('target', 2), P.menuProfiles, P.profileRow, P.profileRow],
+  'updating-profiles': [cell('target', 4), P.profileRow, P.profileApply, cell('sugg', 4)],
+  'seasonal-profiles': [P.profileRow, P.profileApply, cell('sugg', 1), P.pushFooter],
+  'editing-station-targets': [P.holeRow3, cell('target', 7), cell('sugg', 7), cell('adj', 9)],
+  'enable-disable-stations': [cell('en', 4), P.holeEnable, P.cascadeContinue, P.cascadeCheckbox, P.layersBtn],
+  'station-details': [P.chevron5, P.kid1, cell('vwc', 5), P.kid2],
+  'reviewing-changes': [P.push, P.pushRow, P.pushOldRow, P.pushReview, P.pushFooter],
+  'verify-results': [P.progressBar, P.progressBar, P.progressBar, P.progressBar, P.progressClose],
+  'threshold-questions': [cell('sugg', 9), P.pushReview, P.radioMin, P.excludeZeros, P.threshInput],
+  'calculation-questions': [cell('sugg', 2), P.maxAmount, cell('vwc', 6), cell('vwc', 6), P.diagBox],
+  'push-failures': [P.progressBar, P.progressBar, P.diagLynx, P.pushFooter]
+});
+
 const CATEGORIES = [
-  { title: 'Getting Started', blurb: 'What the feature does and how the screen is laid out.', tasks: [
+  { title: 'Getting Started', blurb: 'What the feature does and how the screen is laid out.', terms: 'getting started map vwc moisture scan turfrad lynx intellidash route dashboard layers variance', tasks: [
     { key: 'dashboard-overview', title: 'Dashboard overview', minutes: '4 MIN', difficulty: 1, summary: 'The four regions of the screen and what each one is telling you.' },
-    { title: 'Understand Spatial Adjust', minutes: '3 MIN', difficulty: 1, summary: 'Where moisture scans come from and what the feature does with them.' },
-    { title: 'Map navigation', minutes: '3 MIN', difficulty: 1, summary: 'Pan, zoom, layers, and switching between moisture and variance.' },
-    { title: 'Understanding VWC', minutes: '4 MIN', difficulty: 2, summary: 'Measured, modelled and target volumetric water content.' }
+    { key: 'understand-spatial-adjust', title: 'Understand Spatial Adjust', minutes: '3 MIN', difficulty: 1, summary: 'Where moisture scans come from and what the feature does with them.' },
+    { key: 'map-navigation', title: 'Map navigation', minutes: '3 MIN', difficulty: 1, summary: 'Pan, zoom, layers, and switching between moisture and variance.' },
+    { key: 'understanding-vwc', title: 'Understanding VWC', minutes: '4 MIN', difficulty: 2, summary: 'Measured, modelled and target volumetric water content.' }
   ]},
-  { title: 'Calculations', blurb: 'The inputs that decide every suggested percentage.', tasks: [
+  { title: 'Calculations', blurb: 'The inputs that decide every suggested percentage.', terms: 'threshold minimum max amount reference crop coefficient algorithm simple et units imperial metric language preferences 333', tasks: [
     { key: 'minimum-threshold', title: 'Set a minimum threshold', minutes: '3 MIN', difficulty: 2, summary: 'Keep trivial adjustments from reaching Lynx.' },
-    { title: 'Calculation settings', minutes: '4 MIN', difficulty: 3, summary: 'Max Amount, Lynx Reference Amount and Crop Coefficient.' },
-    { title: 'Calculation methods', minutes: '5 MIN', difficulty: 3, summary: 'How the two available algorithms differ.' },
-    { title: 'Preferences', minutes: '2 MIN', difficulty: 1, summary: 'Language, units, temperature scale and number formatting.' }
+    { key: 'calculation-settings', title: 'Calculation settings', minutes: '4 MIN', difficulty: 3, summary: 'Max Amount, Lynx Reference Amount and Crop Coefficient.' },
+    { key: 'calculation-methods', title: 'Calculation methods', minutes: '5 MIN', difficulty: 3, summary: 'How the two available algorithms differ.' },
+    { key: 'preferences', title: 'Preferences', minutes: '2 MIN', difficulty: 1, summary: 'Language, units, temperature scale and number formatting.' }
   ]},
-  { title: 'Target Profiles', blurb: 'Concept — saved sets of station targets.', tasks: [
+  { title: 'Target Profiles', blurb: 'Concept — saved sets of station targets.', terms: 'profile summer seasonal tournament overseed target concept apply create update', tasks: [
     { key: 'target-profiles', title: 'Apply a target profile', minutes: '2 MIN', difficulty: 1, summary: 'Switch the whole course between saved strategies.' },
-    { title: 'Creating profiles', minutes: '3 MIN', difficulty: 2, summary: 'Capture the current targets under a name.' },
-    { title: 'Updating profiles', minutes: '2 MIN', difficulty: 2, summary: 'Amend a profile without reapplying it.' },
-    { title: 'Managing seasonal profiles', minutes: '4 MIN', difficulty: 2, summary: 'A profile per season and per event.' }
+    { key: 'creating-profiles', title: 'Creating profiles', minutes: '3 MIN', difficulty: 2, summary: 'Capture the current targets under a name.' },
+    { key: 'updating-profiles', title: 'Updating profiles', minutes: '2 MIN', difficulty: 2, summary: 'Amend a profile without reapplying it.' },
+    { key: 'seasonal-profiles', title: 'Managing seasonal profiles', minutes: '4 MIN', difficulty: 2, summary: 'A profile per season and per event.' }
   ]},
-  { title: 'Station Management', blurb: 'Editing targets and enabling stations.', tasks: [
+  { title: 'Station Management', blurb: 'Editing targets and enabling stations.', terms: 'bulk adjust shift replace enable disable cascade sprinkler station details target vwc', tasks: [
     { key: 'bulk-adjustments', title: 'Apply a bulk adjustment', minutes: '2 MIN', difficulty: 2, summary: 'Replace or shift the targets of many stations at once.' },
-    { title: 'Editing station targets', minutes: '3 MIN', difficulty: 1, summary: 'Change one station\u2019s Target VWC and see the effect.' },
-    { title: 'Enable and disable stations', minutes: '2 MIN', difficulty: 1, summary: 'Cascading enable state across areas, holes and stations.' },
-    { title: 'Station details', minutes: '3 MIN', difficulty: 2, summary: 'Per-sprinkler readings under a multi-head station.' }
+    { key: 'editing-station-targets', title: 'Editing station targets', minutes: '3 MIN', difficulty: 1, summary: 'Change one station\u2019s Target VWC and see the effect.' },
+    { key: 'enable-disable-stations', title: 'Enable and disable stations', minutes: '2 MIN', difficulty: 1, summary: 'Cascading enable state across areas, holes and stations.' },
+    { key: 'station-details', title: 'Station details', minutes: '3 MIN', difficulty: 2, summary: 'Per-sprinkler readings under a multi-head station.' }
   ]},
-  { title: 'Review & Apply', blurb: 'From suggestion to controller.', tasks: [
+  { title: 'Review & Apply', blurb: 'From suggestion to controller.', terms: 'push lynx review verify suggested adjustment soil factor pending pushed today', tasks: [
     { key: 'suggested-adjustments', title: 'Understand suggested adjustments', minutes: '5 MIN', difficulty: 3, summary: 'Where the number comes from and why it caps out.' },
     { key: 'push-to-lynx', title: 'Push changes to Lynx', minutes: '4 MIN', difficulty: 2, summary: 'Review, deselect, send and verify.' },
-    { title: 'Reviewing changes', minutes: '3 MIN', difficulty: 2, summary: 'Reading the two lists in the push dialog.' },
-    { title: 'Verify results', minutes: '3 MIN', difficulty: 2, summary: 'Confirming Lynx accepted every adjustment.' }
+    { key: 'reviewing-changes', title: 'Reviewing changes', minutes: '3 MIN', difficulty: 2, summary: 'Reading the two lists in the push dialog.' },
+    { key: 'verify-results', title: 'Verify results', minutes: '3 MIN', difficulty: 2, summary: 'Confirming Lynx accepted every adjustment.' }
   ]},
-  { title: 'Troubleshooting', blurb: 'When the numbers are not what you expect.', tasks: [
+  { title: 'Troubleshooting', blurb: 'When the numbers are not what you expect.', terms: '0% zero threshold stale scan dash failure retry connection diagnostics identical cap', tasks: [
     { key: 'station-zero', title: 'Why is this station 0%?', minutes: '3 MIN', difficulty: 3, summary: 'Four checks, in order, for a zero suggestion.' },
-    { title: 'Threshold questions', minutes: '3 MIN', difficulty: 2, summary: 'Why the table and the push dialog disagree.' },
-    { title: 'Calculation questions', minutes: '4 MIN', difficulty: 3, summary: 'Identical suggestions, missing values, stale scans.' },
-    { title: 'Push failures', minutes: '3 MIN', difficulty: 3, summary: 'Reading the failure count and retrying safely.' }
+    { key: 'threshold-questions', title: 'Threshold questions', minutes: '3 MIN', difficulty: 2, summary: 'Why the table and the push dialog disagree.' },
+    { key: 'calculation-questions', title: 'Calculation questions', minutes: '4 MIN', difficulty: 3, summary: 'Identical suggestions, missing values, stale scans.' },
+    { key: 'push-failures', title: 'Push failures', minutes: '3 MIN', difficulty: 3, summary: 'Reading the failure count and retrying safely.' }
   ]}
 ];
 
@@ -662,15 +1120,6 @@ class Component extends DCLogic {
   setPlayerStep = (i) => {
     this.stopTimer();
     this.setState(s => ({ playerStep: i, prevStep: s.playerStep, playing: false }));
-    if (typeof window !== 'undefined' && window.__saTrack) {
-      const g = GUIDES[this.state.guideKey];
-      const total = g ? g.steps.length : 0;
-      window.__saTrack('step_advanced', { key: this.state.guideKey, step: i + 1, total: total });
-      // Reaching the last step is the closest available proxy for completion.
-      if (total && i === total - 1) {
-        window.__saTrack('guide_completed', { key: this.state.guideKey, steps: total });
-      }
-    }
   };
 
   stopTimer() { if (this._t) { clearInterval(this._t); this._t = null; } }
@@ -679,9 +1128,6 @@ class Component extends DCLogic {
     if (this.state.playing) { this.stopTimer(); this.setState({ playing: false }); return; }
     const g = GUIDES[this.state.guideKey];
     if (!g) return;
-    if (typeof window !== 'undefined' && window.__saTrack) {
-      window.__saTrack('play_all_used', { key: this.state.guideKey, steps: g.steps.length });
-    }
     const n = g.steps.length;
     this.setState({ playing: true, playerStep: 0, prevStep: 0 });
     this.stopTimer();
@@ -707,6 +1153,29 @@ class Component extends DCLogic {
   };
 
   componentDidMount() {
+    this._onKey = (e) => {
+      const t = e.target;
+      if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) {
+        if (e.key === 'Escape') t.blur();
+        return;
+      }
+      if (!this.state.guideKey) {
+        if (e.key === '/') {
+          const el = document.querySelector('.lsa input');
+          if (el) { e.preventDefault(); el.focus(); }
+        }
+        return;
+      }
+      const g = GUIDES[this.state.guideKey];
+      if (!g) return;
+      const n = g.steps.length;
+      if (e.key === 'ArrowRight') { e.preventDefault(); this.setPlayerStep(Math.min(n - 1, this.state.playerStep + 1)); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); this.setPlayerStep(Math.max(0, this.state.playerStep - 1)); }
+      else if (e.key === ' ') { e.preventDefault(); this.togglePlayAll(); }
+      else if (e.key === 'Escape') { this.stopTimer(); this.setState({ guideKey: null, playing: false }); }
+    };
+    window.addEventListener('keydown', this._onKey);
+
     this._onScroll = () => {
       const g = GUIDES[this.state.guideKey];
       if (!g) return;
@@ -725,20 +1194,14 @@ class Component extends DCLogic {
     if (this._ro) this._ro.disconnect();
     if (this._sro) this._sro.disconnect();
     if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._onKey) window.removeEventListener('keydown', this._onKey);
     this.stopTimer();
   }
 
   open(key) {
     this.stopTimer();
     this.setState({ guideKey: key, playerStep: 0, prevStep: 0, playing: false, activeToc: 'walkthrough' });
-    if (typeof window !== 'undefined') {
-      window.scrollTo(0, 0);
-      // Optional chaining on purpose: instrumentation must never break the guide.
-      if (window.__saTrack) window.__saTrack('guide_opened', {
-        key: key,
-        steps: GUIDES[key] ? GUIDES[key].steps.length : 0
-      });
-    }
+    if (typeof window !== 'undefined') window.scrollTo(0, 0);
   }
 
   buildCard(t) {
@@ -748,20 +1211,9 @@ class Component extends DCLogic {
       minutes: t.minutes,
       summary: t.summary,
       dots: '●'.repeat(t.difficulty) + '○'.repeat(3 - t.difficulty),
-      // The dots are decorative (aria-hidden); this carries the same meaning as text.
-      difficultyLabel: 'Difficulty ' + t.difficulty + ' of 3',
-      // Both states are genuinely actionable: a written guide opens, an unwritten one
-      // lets the reader request it. So both are real buttons — marking the stubs
-      // aria-disabled would contradict the fact that activating them does something.
-      // The 'stub' flag drives styling and the request handler.
-      stub: live ? 'false' : 'true',
-      role: 'button',
-      tabIndex: 0,
-      ariaLabel: live
-        ? t.title + ' — ' + t.minutes + ', difficulty ' + t.difficulty + ' of 3'
-        : t.title + ' — not written yet. Activate to request it.',
-      cta: live ? 'Start →' : 'Coming soon',
-      ctaStyle: 'margin-top:16px;font-size:12px;font-weight:700;letter-spacing:1px;color:' + (live ? 'var(--informative-02)' : 'var(--30)'),
+      cta: live ? 'START' : 'SOON',
+      ctaStyle: 'align-self:flex-start;margin-top:20px;display:inline-flex;align-items:center;height:32px;padding:0 16px;border-radius:8px;font-size:11px;font-weight:700;letter-spacing:1.5px;transition:background .15s,color .15s;'
+        + (live ? 'background:var(--05);color:var(--100);box-shadow:inset 0 0 0 1px var(--20);' : 'background:transparent;color:var(--30);box-shadow:inset 0 0 0 1px var(--20);'),
       cardStyle: 'display:flex;flex-direction:column;padding:20px;border-radius:8px;background:var(--white);box-shadow:inset 0 0 0 1px var(--20);min-height:190px;transition:background .15s;cursor:' + (live ? 'pointer' : 'default') + ';opacity:' + (live ? '1' : '0.6'),
       open: live ? () => this.open(t.key) : () => {}
     };
@@ -772,7 +1224,7 @@ class Component extends DCLogic {
     const key = this.state.guideKey;
 
     const categories = CATEGORIES.map(c => {
-      const tasks = c.tasks.filter(t => !q || (t.title + ' ' + t.summary + ' ' + c.title).toLowerCase().indexOf(q) >= 0);
+      const tasks = c.tasks.filter(t => !q || (t.title + ' ' + t.summary + ' ' + c.title + ' ' + (c.terms || '')).toLowerCase().indexOf(q) >= 0);
       return { title: c.title, blurb: c.blurb, tasks: tasks.map(t => this.buildCard(t)), count: tasks.length };
     }).filter(c => c.count > 0);
 
@@ -805,6 +1257,13 @@ class Component extends DCLogic {
           bulkValue: s.bulkValue != null ? s.bulkValue : -5,
           pushState: s.pushState || 'running',
           showThresholdBanner: !!s.showThresholdBanner,
+          mapMode: s.mapMode || 'moisture',
+          layersOpen: !!s.layersOpen,
+          tableLevel: s.tableLevel || 'station',
+          expandStation: s.expandStation || '',
+          algorithm: s.algorithm || 'delta',
+          cascadeState: s.cascadeState || 'disable',
+          cascadeZone: s.cascadeZone || 'hole',
           hasTip: !!s.tip,
           tipLabel: s.tipLabel || '',
           tip: s.tip || ''
@@ -814,14 +1273,14 @@ class Component extends DCLogic {
       const prevI = Math.min(this.state.prevStep != null ? this.state.prevStep : pi, steps.length - 1);
       const cur = steps[pi];
       const stageW = this.state.stageW || 856;
-      const cam = camera(cur.target, stageW);
+      const cam = camera(cur.target, stageW, cur.figKind);
       const toStage = (t) => [Math.round((t[0] - cam.x) * cam.s), Math.round((t[1] - cam.y) * cam.s)];
       const end = toStage(cur.target);
       const start = prevI === pi ? [Math.round(stageW * 0.72), Math.round(STAGE_H * 0.9)] : toStage(steps[prevI].target);
       const cursorVars = { '--sx': start[0] + 'px', '--sy': start[1] + 'px', '--tx': end[0] + 'px', '--ty': end[1] + 'px' };
       const player = {
-        stageStyle: 'position:relative;width:100%;height:' + Math.round(Math.min(STAGE_H, 1000 * cam.s)) + 'px;overflow:hidden;background:#0d1216',
-        appStyle: 'position:absolute;top:0;left:0;width:1600px;height:1000px;transform:scale(' + cam.s + ') translate(' + (-cam.x) + 'px,' + (-cam.y) + 'px);transform-origin:0 0;pointer-events:none;transition:transform .85s cubic-bezier(.4,0,.2,1)',
+        stageStyle: 'position:relative;width:100%;height:' + cam.h + 'px;overflow:hidden;background:#0d1216',
+        appStyle: 'position:absolute;top:0;left:0;width:1920px;height:1080px;transform:scale(' + cam.s + ') translate(' + (-cam.x) + 'px,' + (-cam.y) + 'px);transform-origin:0 0;pointer-events:none;transition:transform .85s cubic-bezier(.4,0,.2,1)',
         step: cur,
         playing: this.state.playing,
         playLabel: this.state.playing ? 'Pause' : 'Play all steps',
@@ -844,10 +1303,7 @@ class Component extends DCLogic {
         prev: () => this.setPlayerStep(Math.max(0, pi - 1)),
         next: () => this.setPlayerStep(Math.min(steps.length - 1, pi + 1)),
         playAll: this.togglePlayAll,
-        counter: 'Step ' + (pi + 1) + ' of ' + steps.length,
-        // Announced via aria-live when the step changes, since the camera move that
-        // conveys this visually is invisible to assistive tech.
-        announcement: 'Step ' + (pi + 1) + ' of ' + steps.length + ': ' + (steps[pi] ? steps[pi].title : '')
+        counter: 'Step ' + (pi + 1) + ' of ' + steps.length
       };
       const active = this.state.activeToc;
       const tocRaw = [{ id: 'walkthrough', num: '', label: 'Walkthrough' }, { id: 'before', num: '', label: 'Before you start' }]
@@ -876,7 +1332,8 @@ class Component extends DCLogic {
         category: g.category, title: g.title, summary: g.summary, minutes: g.minutes,
         difficultyLabel: DIFFICULTY_LABEL[g.difficulty], where: g.where,
         hasNote: !!g.note, note: g.note || '',
-        before: g.before, verify: g.verify, player, showProfilesTab: key === 'target-profiles',
+        before: g.before, verify: g.verify, player,
+        showProfilesTab: key === 'target-profiles' || key === 'creating-profiles' || key === 'updating-profiles' || key === 'seasonal-profiles',
         steps, stepCount: steps.length, toc, next
       };
     }
