@@ -266,10 +266,40 @@
 /* aria-selected drives the visual state, so the two can never disagree. */
 .lsa-lang-opt[aria-selected="true"] { font-weight: 600; background: var(--05, #f5f7f8); }
 
-/* The header is tight on phones; drop the name and keep the flag plus the accessible
-   name, which carries the language as text for anyone who cannot see the glyph. */
+/* ---------- header at phone widths ----------
+   The export styles the header row and the brand inline with desktop values — padding
+   0 32px, gap 24px, and no min-width on the brand — so at 390px the brand's 169px of
+   content is squeezed into a 118px flex box and overflows ~50px to the right. Nothing
+   occupied that spill zone before, so it read as fine; putting a control there turned it
+   into a visible collision, and the control's width also squeezed the search field from
+   ~150px down to 76px.
+
+   Reclaiming the space rather than just moving the selector out of the way: trim the
+   desktop padding and gap, and drop the decorative "Guide" word. The brand's accessible
+   name comes from its aria-label ("Spatial Adjust Guides — back to all tasks"), so
+   hiding that span costs nothing to a screen reader.
+
+   Inline styles need !important to override; these are all scoped to the media query so
+   the desktop layout is untouched. .lsa-hdr and .lsa-brand are tagged by
+   src/i18n-selector.js on mount. */
 @media (max-width: 767px) {
-  .lsa-lang { margin-left: 10px; }
-  .lsa-lang-btn { min-width: 0; padding: 6px 8px; }
+  .lsa-hdr {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+    gap: 10px !important;
+  }
+  .lsa-brand { gap: 8px !important; flex: 0 0 auto !important; }
+  .lsa-brand img { height: 26px !important; }
+  /* The trailing "Guide" span — decorative, and the first thing to overflow. */
+  .lsa-brand > span:last-of-type { display: none !important; }
+
+  /* Flag only. The accessible name still carries the language as text for anyone who
+     cannot see the glyph. 40px keeps it a comfortable touch target. */
+  .lsa-lang { margin-left: 0; }
+  .lsa-lang-btn { min-width: 0; padding: 8px 10px; min-height: 40px; }
   .lsa-lang-name { display: none; }
+  .lsa-lang-caret { display: none; }
+  /* Anchor the menu to the right so an 11-row list cannot push off-screen. */
+  .lsa-lang-menu { left: auto; right: 0; min-width: 190px; }
+  .lsa-lang-opt { padding: 11px 12px; }
 }
