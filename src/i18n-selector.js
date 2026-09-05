@@ -34,6 +34,17 @@
     if (!brand || !brand.parentNode) return;
     if (brand.parentNode.querySelector('.' + ROOT_CLASS)) return;   // already mounted
 
+    // Tag the header row and the brand so a11y.css can reach them at phone widths. The
+    // export styles both inline with desktop values (padding 0 32px, gap 24px) and gives
+    // the brand no min-width, so its content overflows its own flex box on a narrow screen
+    // — 169px of content in a 118px box, with "Guide" spilling ~50px to the right. That was
+    // invisible while nothing occupied the spill zone; adding a control here made it a
+    // collision. Tagging in JS rather than with :has() keeps this off a modern-CSS
+    // dependency, and rather than in transform-export.mjs because these are runtime
+    // layout concerns, not export-shape ones.
+    brand.parentNode.classList.add('lsa-hdr');
+    brand.classList.add('lsa-brand');
+
     var current = loc.meta();
     var wrap = document.createElement('div');
     wrap.className = ROOT_CLASS;
