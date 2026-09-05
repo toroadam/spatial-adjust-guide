@@ -122,10 +122,11 @@ async function main() {
   // BEFORE the bootstrap is inserted: the inlined component source contains its own </head>,
   // and a string-pattern replace would otherwise match that one and corrupt the JS literal.
   const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
-  // Order matters: analytics defines window.__saTrack, which feedback and the guide logic
-  // both call. a11y last so it observes a fully wired tree.
+  // Order matters: analytics defines window.__saTrack, which feedback, i18n and the guide
+  // logic all call. i18n defines window.__saLocale and must precede i18n-selector, which
+  // renders from it. a11y last so it observes a fully wired tree.
   const injectedJs = [];
-  for (const name of ['analytics.js', 'feedback.js', 'a11y.js']) {
+  for (const name of ['analytics.js', 'i18n.js', 'i18n-selector.js', 'feedback.js', 'a11y.js']) {
     injectedJs.push(`/* --- src/${name} --- */\n` + await readFile(join(ROOT, 'src', name), 'utf8'));
   }
   const a11yJs = injectedJs.join('\n');

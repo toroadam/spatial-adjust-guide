@@ -201,3 +201,75 @@
   overflow-y: auto;
   overscroll-behavior: contain;
 }
+
+/* ---------- language selector ----------
+   Sits beside the brand control in the top-left of the sticky 65px header. Focus rings come
+   from the .lsa :focus-visible rule at the top of this file, so nothing is restated here.
+
+   The menu is width-constrained rather than sized to content: native language names range
+   from "ไทย" to "Nederlands", and letting the box track the longest one makes the header
+   jump as the selection changes. */
+.lsa-lang { position: relative; display: inline-flex; align-items: center; margin-left: 18px; }
+
+.lsa-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  min-width: 132px;
+  border: 1px solid rgb(100, 110, 115);
+  border-radius: 6px;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1;
+  color: inherit;
+  cursor: pointer;
+  transition: background .12s, box-shadow .12s;
+}
+.lsa-lang-btn:hover { background: var(--05, #f5f7f8); }
+
+.lsa-lang-flag { font-size: 15px; line-height: 1; }
+.lsa-lang-name { flex: 1 1 auto; text-align: left; white-space: nowrap; }
+.lsa-lang-caret { font-size: 10px; opacity: .7; }
+
+.lsa-lang-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  z-index: 60;             /* above the sticky header, which the runtime raises */
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  min-width: 100%;
+  max-height: min(420px, calc(100vh - 96px));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #fff;
+  border: 1px solid rgb(100, 110, 115);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .16);
+}
+.lsa-lang-menu[hidden] { display: none; }
+
+.lsa-lang-opt {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 5px;
+  font-size: 13px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.lsa-lang-opt:hover { background: var(--05, #f5f7f8); }
+/* aria-selected drives the visual state, so the two can never disagree. */
+.lsa-lang-opt[aria-selected="true"] { font-weight: 600; background: var(--05, #f5f7f8); }
+
+/* The header is tight on phones; drop the name and keep the flag plus the accessible
+   name, which carries the language as text for anyone who cannot see the glyph. */
+@media (max-width: 767px) {
+  .lsa-lang { margin-left: 10px; }
+  .lsa-lang-btn { min-width: 0; padding: 6px 8px; }
+  .lsa-lang-name { display: none; }
+}
