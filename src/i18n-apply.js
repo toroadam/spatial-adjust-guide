@@ -23,7 +23,14 @@
 (function () {
   'use strict';
 
-  var SKIP = '.sa-app, script, style, noscript';
+  // .sa-app — the reproduced IntelliDash screen — is deliberately INCLUDED. It used to be skipped
+  // on the reasoning that the component is a faithful reproduction of the product. But the real
+  // IntelliDash is localised, so an English screen inside German prose is the inaccurate version,
+  // and it left every guide naming controls ("open Settings") that the screenshot beside it then
+  // labelled differently. Roughly half those labels are taken verbatim from IntelliDash's own
+  // shipped catalogues by scripts/app-strings.mjs, so the reproduction shows the words the product
+  // actually shows. Colours inside .sa-app are still left alone — see README > Deliberately not fixed.
+  var SKIP = 'script, style, noscript';
   var ATTRS = ['aria-label', 'placeholder', 'title', 'alt'];
 
   var catalogues = {};       // locale -> { string: translation }

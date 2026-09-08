@@ -184,8 +184,11 @@ async function main() {
   // Only the string map ships: the harvested contexts and metadata are there for whoever is
   // translating, and would otherwise be bandwidth every reader pays for and nobody reads.
   // glossary.json is a translator's reference too, and is deliberately not shipped.
+  // Matched by locale-code shape rather than by excluding known names: src/i18n/ also holds the
+  // glossary and the manual screen-label table, and a name-based blocklist silently ships the next
+  // helper file somebody drops in there as if it were a language.
   const localeFiles = (await readdir(join(ROOT, 'src', 'i18n')))
-    .filter((f) => f.endsWith('.json') && f !== 'glossary.json' && f !== 'en-us.json');
+    .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json');
   if (localeFiles.length) await mkdir(join(DIST, 'i18n'), { recursive: true });
   let shipped = 0;
   for (const file of localeFiles) {

@@ -30,6 +30,21 @@
   var STORAGE_KEY = 'sa-guides-gate';
   var ROOT_CLASS = 'lsa-gate';
 
+  // ---- sign-in log (OFF by default) -------------------------------------------
+  // Set this to a URL and every successful sign-in POSTs { email, at, locale } to it, so you can
+  // see who opened the guides and when. A Google Apps Script web app bound to a Sheet is the
+  // cheapest thing that works — setup is in README > Sign-in gate > Logging who signs in.
+  //
+  // Deliberately empty, because switching it on is a decision and not a config tweak:
+  //   - it sends real email addresses off the reader's device, which is PII. src/analytics.js
+  //     states it collects none, and that claim has to stay true — so this path is separate from
+  //     the analytics queue and never enters it.
+  //   - the footer text below tells the reader their address is not sent anywhere. That sentence
+  //     changes automatically when this is set, so the gate cannot end up lying to them.
+  //   - scripts/smoke.mjs fails the build on any external origin. Add this host to its allowlist
+  //     in the same commit, or CI will catch you.
+  var SIGNIN_LOG_ENDPOINT = '';
+
   function track() { if (window.__saTrack) window.__saTrack.apply(null, arguments); }
 
   // ---- validation -------------------------------------------------------------
@@ -134,8 +149,13 @@
 
     var foot = document.createElement('p');
     foot.className = 'lsa-gate-foot';
-    foot.textContent = 'Your address is checked in your browser and stored on this device only. '
-      + 'It is not sent anywhere.';
+    // Two different true statements. Which one shows is driven by the constant, not by a human
+    // remembering to update the copy when they wire up the endpoint.
+    foot.textContent = SIGNIN_LOG_ENDPOINT
+      ? 'Your address is checked in your browser. Toro records which addresses open these pilot '
+        + 'guides, and when.'
+      : 'Your address is checked in your browser and stored on this device only. '
+        + 'It is not sent anywhere.';
     panel.appendChild(foot);
 
     wrap.appendChild(panel);
@@ -158,10 +178,33 @@
 
       try { localStorage.setItem(STORAGE_KEY, 'open'); } catch (e) { /* private mode */ }
       track('gate_opened', { domain: domainOf(email) });
+      logSignIn(email);
       open();
     });
 
     return wrap;
+  }
+
+  // Kept out of the analytics queue on purpose: that queue is documented as PII-free and is read
+  // back by __saReport() in moderated sessions. A sign-in log is a different thing with a different
+  // consent story, so it travels on its own and fails silently — a reader must never be blocked
+  // from the guides because a logging endpoint is down.
+  function logSignIn(email) {
+    if (!SIGNIN_LOG_ENDPOINT) return;
+    var body = JSON.stringify({
+      email: email,
+      at: new Date().toISOString(),
+      locale: (window.__saLocale && window.__saLocale.get()) || 'en-us',
+    });
+    try {
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(SIGNIN_LOG_ENDPOINT, new Blob([body], { type: 'text/plain' }));
+      } else {
+        // text/plain avoids a CORS preflight, which an Apps Script web app will not answer.
+        fetch(SIGNIN_LOG_ENDPOINT, { method: 'POST', body: body, mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain' } }).catch(function () {});
+      }
+    } catch (e) { /* never block sign-in on a logging failure */ }
   }
 
   // ---- focus containment ------------------------------------------------------
