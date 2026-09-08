@@ -154,7 +154,41 @@ puts the same bypass in eleven places and rots as scripts are added. Reaching lo
 already having the files, so nothing is given away. Append **`?gate=1`** to drop the bypass and get
 the deployed behaviour, storage and all; that is how `npm run test:gate` drives it.
 
-**Privacy.** The address is compared in the browser and written to `localStorage` on that device.
+### Logging who signs in
+
+Off by default. `SIGNIN_LOG_ENDPOINT` at the top of `src/gate.js` is empty; set it to a URL and every
+successful sign-in POSTs `{ email, at, locale }` to it.
+
+The cheapest thing that works, with no infrastructure to run:
+
+1. New Google Sheet → **Extensions › Apps Script**, and paste:
+
+   ```js
+   function doPost(e) {
+     const d = JSON.parse(e.postData.contents);
+     SpreadsheetApp.getActiveSpreadsheet().getActiveSheet()
+       .appendRow([new Date(d.at), d.email, d.locale]);
+     return ContentService.createTextOutput('ok');
+   }
+   ```
+
+2. **Deploy › New deployment › Web app**, execute as *Me*, access *Anyone*. Copy the `/exec` URL.
+3. Put it in `SIGNIN_LOG_ENDPOINT`, and add `script.google.com` to the allowlist in
+   `scripts/smoke.mjs` — otherwise the build correctly fails for reaching a third party.
+
+Three things to know before you switch it on, none of which are blockers but all of which are
+decisions:
+
+- **It sends real email addresses off the reader's device.** `src/analytics.js` states it collects
+  no PII and that has to stay true, so this path is deliberately separate from the analytics queue
+  and never enters it.
+- **The gate's footer text changes automatically** when the constant is set, from "not sent
+  anywhere" to saying Toro records which addresses open the guides. That is wired to the constant
+  rather than to somebody remembering, so the gate cannot end up lying to a reader.
+- **The Sheet is world-writable in practice.** Access *Anyone* means anyone who learns the URL can
+  append rows. For a pilot roster that is usually fine; it is not an audit log.
+
+**Privacy.** With logging off, the address is compared in the browser and written to `localStorage` on that device.
 It is never transmitted. The instrumentation records only the domain — `src/analytics.js` states it
 collects no PII, and logging the address would quietly make that untrue.
 
@@ -198,9 +232,21 @@ makes the key set and the match set the same set. Re-run it after any Core Desig
 "open Settings" while the product's German build says "Einstellungen" sends the reader looking for
 a control that does not exist under that name.
 
-`.sa-app` is skipped. That component reproduces the real IntelliDash screen, and the product
-renders its own translations there — so the framed screenshot stays in English while the prose
-around it does not. That is a known and deliberate seam.
+**The reproduced screen is translated too.** `.sa-app` used to be skipped on the reasoning that it
+is a faithful reproduction of the product — but the real IntelliDash is localised, so an English
+screen inside German prose was the inaccurate version, and it left guides naming controls ("open
+Settings") that the screenshot beside them labelled differently.
+
+`scripts/app-strings.mjs` resolves those labels against **IntelliDash's own shipped catalogues**
+first, so about half of them are the product's actual translation rather than a new one — and they
+are the half a reader is most likely to go hunting for on their own screen. Station identifiers,
+timestamps and the fictional site name pass through untouched by design. The remainder live in
+`src/i18n/app-manual.json`. Colours inside `.sa-app` are still left alone — see *Deliberately not
+fixed*.
+
+Where a screen label collides with a guide string (currently just "Apply to all"), the product's
+wording wins: it is the button the reader actually clicks. Compounds are regenerated from it so the
+step list and the step heading cannot disagree.
 
 ### Coverage
 

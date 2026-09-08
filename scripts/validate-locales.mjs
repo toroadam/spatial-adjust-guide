@@ -9,10 +9,17 @@
 import { readFile, readdir } from 'node:fs/promises';
 
 const dir = 'src/i18n';
-const source = JSON.parse(await readFile(`${dir}/en-us.json`, 'utf8')).strings;
+const sourceCat = JSON.parse(await readFile(`${dir}/en-us.json`, 'utf8'));
+const source = sourceCat.strings;
+// Labels reproduced from the IntelliDash screen. For these the product's own shipped catalogue is
+// the source of truth, not the English: if IntelliDash renders "Avg. VWC" as "Humedad media" in
+// Spanish, the reproduction showing anything else would be the wrong one. So the protected-token
+// and identical-to-English rules do not apply to them — a station ID, a timestamp and the
+// fictional site name are all supposed to come through untouched.
+const SCREEN = new Set(sourceCat._screenStrings || []);
 const only = process.argv.slice(2);
 const locales = (await readdir(dir))
-  .filter((f) => f.endsWith('.json') && !['glossary.json', 'en-us.json'].includes(f))
+  .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json')
   .map((f) => f.replace('.json', ''))
   .filter((l) => !only.length || only.includes(l));
 
@@ -71,7 +78,7 @@ for (const locale of locales) {
       // a Latin letter and a CJK/Thai character, so the target side is checked with an explicit
       // "not adjacent to another Latin letter" test instead.
       const bounded = new RegExp(`(?<![A-Za-z])${tok.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![A-Za-z])`);
-      if (bounded.test(en) && !bounded.test(tr) && !(EXEMPT[locale]?.(en, tr, tok))) {
+      if (bounded.test(en) && !bounded.test(tr) && !SCREEN.has(en) && !(EXEMPT[locale]?.(en, tr, tok))) {
         issues.droppedToken.push(`${en.slice(0, 45)} :: lost "${tok}"`);
       }
     }
@@ -79,7 +86,9 @@ for (const locale of locales) {
       const a = (en.split(ch).length - 1), b = (tr.split(ch).length - 1);
       if (a !== b) issues.structuralDrift.push(`${en.slice(0, 40)} :: ${ch} ${a}→${b}`);
     }
-    if (en === tr && !MAY_MATCH.test(en) && en.length > SHORT) issues.untranslated.push(en.slice(0, 55));
+    if (en === tr && !MAY_MATCH.test(en) && en.length > SHORT && !SCREEN.has(en)) {
+      issues.untranslated.push(en.slice(0, 55));
+    }
   }
 
   // A compound must contain the standalone translation of its own tail, or the two disagree on

@@ -10,7 +10,7 @@ import { chromium } from 'playwright';
 
 const url = (process.argv[2] || 'http://localhost:8124/').replace(/\/$/, '');
 const shipped = (await readdir('src/i18n'))
-  .filter((f) => f.endsWith('.json') && !['glossary.json', 'en-us.json'].includes(f))
+  .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json')
   .map((f) => f.replace('.json', ''));
 
 const source = JSON.parse(await readFile('src/i18n/en-us.json', 'utf8')).strings;

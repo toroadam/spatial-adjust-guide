@@ -51,6 +51,9 @@ const add = (value, context) => {
 // faithful reproduction of the real IntelliDash screen, and the product renders its own
 // translations there — see README > Localisation status.
 const harvest = (context) => page.evaluate(() => {
+    // .sa-app is harvested separately by scripts/app-strings.mjs, which resolves most of its
+    // labels from IntelliDash's own catalogues rather than translating them afresh. Excluding it
+    // here keeps this catalogue to the guides' own prose.
   const skip = (el) => !el || !!el.closest('.sa-app, script, style, noscript');
   const found = { text: [], attrs: [] };
 
