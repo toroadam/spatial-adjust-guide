@@ -255,6 +255,109 @@ export function transformGuide(src) {
       + 'scan from the toolbar rather than waiting for one.',
   });
 
+  // --- two guides for features the corpus never covered ------------------------
+  // An audit of IntelliDash's 108 user-facing Spatial Adjust strings against the 24 guides found
+  // four features with no coverage. Two of them are covered here. Both were previously
+  // unwritable because the reproduction had no control to point a figure at — the Over/Under
+  // options dialog and the scan-data banner are added by src/transform-app.mjs, which is what
+  // makes these guides possible.
+  //
+  // They live in a transform rather than in the export for the usual reason: a re-export would
+  // discard them. They should be authored properly in Core Design at the next content pass, at
+  // which point these two edits should be deleted rather than left to collide.
+
+  s = edit(s, {
+    name: 'new guide bodies',
+    pattern: /(Object\.assign\(GUIDES, \{\n)/,
+    replace: `$1  'request-scan-data': {
+    category: 'TROUBLESHOOTING', title: 'Get fresh scan data', minutes: '3 minutes', difficulty: 2,
+    where: 'Toolbar',
+    summary: 'A stale course is not something you have to wait out. Request a new TurfRad scan, and reload when it lands.',
+    before: [
+      'When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics.'
+    ],
+    steps: [
+      { title: 'Read the scan date before anything else', fig: 'tableTop', t: [900, 32],
+        body: 'Every station row carries the date its reading was captured. One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.',
+        caption: 'Scan dates sit beside the station name in the table.' },
+      { title: 'Request the latest scan', fig: 'toolbarR', t: [1793, 32],
+        body: 'The circular-arrow button in the toolbar’s right-hand group is Request latest scan data. It asks TurfRad for a new scan; it does not reload the dashboard, and it does not change a single calculation setting.',
+        caption: 'Request latest scan data, between the pushed-today counter and the gear.',
+        tipLabel: 'Note.', tip: 'This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.' },
+      { title: 'It queues, it does not block', fig: 'toolbarR', t: [1793, 32],
+        body: 'The request is queued and you are told so: retrieval may take several minutes, and you are notified when it is ready. You can carry on reading the table while it runs — nothing is frozen and nothing is lost if you navigate away.',
+        caption: 'A queued request confirms immediately; the data arrives later.' },
+      { title: 'Reload when the banner appears', fig: 'full', dialog: 'dataready', t: [960, 120],
+        body: 'When the scan lands, a banner says so. Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings. Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.',
+        caption: 'The banner offers Reload Data or Dismiss.',
+        tipLabel: 'Careful.', tip: 'Dismissing is not declining. The next reload picks the new scan up.' },
+      { title: 'If the request will not queue', fig: 'dlgDiag', dialog: 'diagnostics', t: [752, 455],
+        body: 'A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all — a course-wide problem is almost always there rather than in your settings.',
+        caption: 'Diagnostics: TurfRad access, scan data, last scan date.' }
+    ],
+    verify: [
+      'You know the toolbar can request a scan, not only display the last one.',
+      'You can tell Request latest scan data from Reload Data.',
+      'You know Dismiss leaves the dashboard on the data it already had.'
+    ]
+  },
+  'filter-adjustments': {
+    category: 'REVIEW & APPLY', title: 'Filter by % Adj.', minutes: '3 minutes', difficulty: 2,
+    where: 'Table toolbar',
+    summary: 'The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.',
+    before: [
+      'The filter reads the suggested percentage, and only for stations that are enabled. A disabled station never appears in it however extreme its number.'
+    ],
+    steps: [
+      { title: 'Read the two tabs', fig: 'tableTop', t: [1148, 414],
+        body: 'All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches. Until you set a filter that count is a dash and the tab does nothing — it is not broken, there is simply nothing to show yet.',
+        caption: 'Two tabs: All Stations, and the Over/Under count.' },
+      { title: 'Open the options', fig: 'tableTop', t: [1330, 464],
+        body: 'The link to the right of the table toolbar states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.',
+        caption: 'The link doubles as a readout of the current thresholds.' },
+      { title: 'Set the two ends independently', fig: 'dlgSmall', dialog: 'filter', t: [960, 470],
+        body: 'Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10. Each has its own checkbox, so you can run one end without the other — Over alone to find the stations asking for far too much, Under alone to find the ones asking for almost nothing.',
+        caption: 'Over/Under Options. Each threshold has its own checkbox.' },
+      { title: 'It catches both extremes, not a band', fig: 'table', tableFilter: 'filtered', t: [1297, 414],
+        body: 'A station is caught if its suggestion is above the Over value OR below the Under value. With 200 and 10 set you get everything over 200 percent and everything under 10 percent — and nothing in between. It is an outlier finder. Reading it as “between 10 and 200” gives you exactly the stations it is not showing you.',
+        caption: 'The filtered tab: the extremes at both ends, not the middle.',
+        tipLabel: 'Why it matters.', tip: 'These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.' },
+      { title: 'Exclude Zeros belongs to Under', fig: 'dlgSmall', dialog: 'filter', t: [960, 520],
+        body: 'Exclude Zeros is greyed out until Under is enabled, because a zero is below any under-threshold and the option means nothing without one. Tick it and genuine zeros drop out of the filter, leaving the stations that asked for a little rather than the ones that asked for nothing. Your thresholds are saved to your own user preferences, not to the site.',
+        caption: 'Exclude Zeros is disabled until Under is on.',
+        tipLabel: 'Not the same setting.', tip: 'Settings › Minimum Threshold has its own Exclude Zeros. That one changes what gets written to Lynx at push time. This one only changes which rows you are looking at.' }
+    ],
+    verify: [
+      'You can state that the filter is an OR across both ends, not a range.',
+      'You know the Over/Under count reads as a dash until a filter is set.',
+      'You know which Exclude Zeros changes the push and which only changes the view.'
+    ]
+  },
+`,
+  });
+
+  s = edit(s, {
+    name: 'new guide cursor targets',
+    pattern: /(Object\.assign\(TARGETS, \{\n)/,
+    replace: `$1  'request-scan-data': [P.moisture, P.refresh, P.refresh, P.refresh, P.diagBox],
+  'filter-adjustments': [P.tabAll, P.filterLink, P.filterLink, P.tabOver, P.filterLink],
+`,
+  });
+
+  s = edit(s, {
+    name: 'catalogue entry: request-scan-data',
+    pattern: /(\{ key: 'push-failures', title: 'Push failures', minutes: '3 MIN', difficulty: 3, summary: 'Reading the failure count and retrying safely\.' \})/,
+    replace: `$1,
+    { key: 'request-scan-data', title: 'Get fresh scan data', minutes: '3 MIN', difficulty: 2, summary: 'Request a new TurfRad scan rather than waiting for one.' }`,
+  });
+
+  s = edit(s, {
+    name: 'catalogue entry: filter-adjustments',
+    pattern: /(\{ key: 'verify-results', title: 'Verify results', minutes: '3 MIN', difficulty: 2, summary: 'Confirming Lynx accepted every adjustment\.' \})/,
+    replace: `$1,
+    { key: 'filter-adjustments', title: 'Filter by % Adj.', minutes: '3 MIN', difficulty: 2, summary: 'Find the outliers at both ends before you push.' }`,
+  });
+
   // --- "On this page" tracker sticky offset ------------------------------------
   // The export sticks the section tracker 742px from the top of the viewport. That offset
   // only makes sense while the walkthrough stage is on screen; by the time the tracker's

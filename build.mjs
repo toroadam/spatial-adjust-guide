@@ -17,6 +17,7 @@
 import { readFile, writeFile, mkdir, rm, cp, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { transformGuide } from './src/transform-export.mjs';
+import { transformApp } from './src/transform-app.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -87,7 +88,10 @@ async function main() {
   const componentSources = {};
   for (const name of COMPONENTS) {
     const src = await readFile(join(ROOT, `${name}.dc.html`), 'utf8');
-    componentSources[`./${encodeURIComponent(name)}.dc.html`] = src.replace(FONT_CDN, FONT_LOCAL);
+    // The reproduction gets its own transform pass, for the same reason the guide document does:
+    // hand-edits to a Core Design export do not survive a re-export.
+    const transformed = name === 'SpatialAdjustApp' ? transformApp(src) : src;
+    componentSources[`./${encodeURIComponent(name)}.dc.html`] = transformed.replace(FONT_CDN, FONT_LOCAL);
   }
 
   let html = await readFile(join(ROOT, ENTRY), 'utf8');

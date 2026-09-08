@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 901,
-    "words": 9356
+    "strings": 960,
+    "words": 10408
   },
   "strings": {
     "/spatialadjust": "/spatialadjust",
@@ -28,6 +28,7 @@
     "A dash means there is nothing to show: no current scan and no modelled value either. It is not zero, and it is not an error in the calculation — the station has no data to calculate from.": "A dash means there is nothing to show: no current scan and no modelled value either. It is not zero, and it is not an error in the calculation — the station has no data to calculate from.",
     "A disabled station is excluded from adjustment entirely; it is not sent a zero, it is simply not sent.": "A disabled station is excluded from adjustment entirely; it is not sent a zero, it is simply not sent.",
     "A disabled station: the switch on its row is grey.": "A disabled station: the switch on its row is grey.",
+    "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all — a course-wide problem is almost always there rather than in your settings.": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all — a course-wide problem is almost always there rather than in your settings.",
     "A greyed, italic average means the value came from the model rather than a scan taken that day. The calculation still runs, but it is running on an estimate.": "A greyed, italic average means the value came from the model rather than a scan taken that day. The calculation still runs, but it is running on an estimate.",
     "A greyed, italic Avg. VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day.": "A greyed, italic Avg. VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day.",
     "A modelled value: grey and italic.": "A modelled value: grey and italic.",
@@ -39,12 +40,15 @@
     "A profile stores one Target VWC per station. It does not store percent adjustments or enable states.": "A profile stores one Target VWC per station. It does not store percent adjustments or enable states.",
     "A profile switch queues a large push. Review it as one.": "A profile switch queues a large push. Review it as one.",
     "A push is four phases, not one. Knowing them tells you whether a slow run is working or stuck.": "A push is four phases, not one. Knowing them tells you whether a slow run is working or stuck.",
+    "A queued request confirms immediately; the data arrives later.": "A queued request confirms immediately; the data arrives later.",
     "A run of identical suggestions is the signature of the Max Amount cap.": "A run of identical suggestions is the signature of the Max Amount cap.",
     "A run of identical values is the cap, not a fault.": "A run of identical values is the cap, not a fault.",
     "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, shown in grey italics with a calculator icon. If the whole course is stale, TurfRad has not delivered new scans yet. Use Request latest scan data in the toolbar to queue a retrieval — it takes several minutes and notifies you when it lands, then Reload Data on the banner brings it in.": "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, shown in grey italics with a calculator icon. If the whole course is stale, TurfRad has not delivered new scans yet. Use Request latest scan data in the toolbar to queue a retrieval — it takes several minutes and notifies you when it lands, then Reload Data on the banner brings it in.",
     "A short list stays readable a year later.": "A short list stays readable a year later.",
     "A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.": "A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.",
+    "A stale course is not something you have to wait out. Request a new TurfRad scan, and reload when it lands.": "A stale course is not something you have to wait out. Request a new TurfRad scan, and reload when it lands.",
     "A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.": "A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.",
+    "A station is caught if its suggestion is above the Over value OR below the Under value. With 200 and 10 set you get everything over 200 percent and everything under 10 percent — and nothing in between. It is an outlier finder. Reading it as “between 10 and 200” gives you exactly the stations it is not showing you.": "A station is caught if its suggestion is above the Over value OR below the Under value. With 200 and 10 set you get everything over 200 percent and everything under 10 percent — and nothing in between. It is an outlier finder. Reading it as “between 10 and 200” gives you exactly the stations it is not showing you.",
     "A station with no current scan and no model estimate shows a dash rather than a number.": "A station with no current scan and no model estimate shows a dash rather than a number.",
     "A station with the Enable switch off is excluded from adjustment entirely. Disabling an area or hole cascades down, so a station can be off because something above it was turned off.": "A station with the Enable switch off is excluded from adjustment entirely. Disabling an area or hole cascades down, so a station can be off because something above it was turned off.",
     "A successful run confirms every selected change reached Lynx. A failure names the number of stations that could not be updated — check the Lynx connection and push those again rather than the whole set.": "A successful run confirms every selected change reached Lynx. A failure names the number of stations that could not be updated — check the Lynx connection and push those again rather than the whole set.",
@@ -60,6 +64,8 @@
     "Aggregate rows average their children": "Aggregate rows average their children",
     "All selected changes pushed and verified.": "All selected changes pushed and verified.",
     "All selected changes pushed successfully.": "All selected changes pushed successfully.",
+    "All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches. Until you set a filter that count is a dash and the tab does nothing — it is not broken, there is simply nothing to show yet.": "All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches. Until you set a filter that count is a dash and the tab does nothing — it is not broken, there is simply nothing to show yet.",
+    "All tasks": "All tasks",
     "All three have the same first check: is the number a measurement, a model, or nothing at all?": "All three have the same first check: is the number a measurement, a model, or nothing at all?",
     "Also worth checking.": "Also worth checking.",
     "Amend a profile without reapplying it.": "Amend a profile without reapplying it.",
@@ -135,6 +141,9 @@
     "Confirm the result": "Confirm the result",
     "Confirming Lynx accepted every adjustment.": "Confirming Lynx accepted every adjustment.",
     "Consequence.": "Consequence.",
+    "Contact": "Contact",
+    "Contact NSN": "Contact NSN",
+    "Copyright Policy": "Copyright Policy",
     "Coverage is part of what a profile is.": "Coverage is part of what a profile is.",
     "Creating profiles": "Creating profiles",
     "Creating profiles — 3 MIN, difficulty 2 of 3": "Creating profiles — 3 MIN, difficulty 2 of 3",
@@ -157,6 +166,7 @@
     "Difficulty 1 of 3": "Difficulty 1 of 3",
     "Difficulty 2 of 3": "Difficulty 2 of 3",
     "Difficulty 3 of 3": "Difficulty 3 of 3",
+    "Dismissing is not declining. The next reload picks the new scan up.": "Dismissing is not declining. The next reload picks the new scan up.",
     "Dragging a handle changes the boundary and saves it to your preferences.": "Dragging a handle changes the boundary and saves it to your preferences.",
     "Drill down to the station": "Drill down to the station",
     "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture. Nothing else is editable at sprinkler level — the target and the adjustment belong to the station.": "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture. Nothing else is editable at sprinkler level — the target and the adjustment belong to the station.",
@@ -172,22 +182,32 @@
     "Enter the percentage": "Enter the percentage",
     "Every station is a pin coloured by its latest measured VWC against the four moisture bands in the legend. Drag the handles on the colour bar to move the band boundaries — the map recolours immediately and the change is saved to your user preferences.": "Every station is a pin coloured by its latest measured VWC against the four moisture bands in the legend. Drag the handles on the colour bar to move the band boundaries — the map recolours immediately and the change is saved to your user preferences.",
     "Every station is a pin placed at its real coordinates and filled with the colour of the moisture band its latest reading falls into. Four bands by default: 0–5, 6–19, 20–30, and above 30 percent.": "Every station is a pin placed at its real coordinates and filled with the colour of the moisture band its latest reading falls into. Four bands by default: 0–5, 6–19, 20–30, and above 30 percent.",
+    "Every station row carries the date its reading was captured. One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.": "Every station row carries the date its reading was captured. One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.",
     "Every station you edited shows the pending push icon beside the % Adj. field.": "Every station you edited shows the pending push icon beside the % Adj. field.",
     "Every suggestion in this column came from that chain.": "Every suggestion in this column came from that chain.",
     "Everything in the dialog is still reversible. Nothing is written until you use the footer button.": "Everything in the dialog is still reversible. Nothing is written until you use the footer button.",
     "Example.": "Example.",
+    "Exclude Zeros belongs to Under": "Exclude Zeros belongs to Under",
+    "Exclude Zeros is disabled until Under is on.": "Exclude Zeros is disabled until Under is on.",
     "Exclude Zeros is enabled only for the second option.": "Exclude Zeros is enabled only for the second option.",
+    "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under-threshold and the option means nothing without one. Tick it and genuine zeros drop out of the filter, leaving the stations that asked for a little rather than the ones that asked for nothing. Your thresholds are saved to your own user preferences, not to the site.": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under-threshold and the option means nothing without one. Tick it and genuine zeros drop out of the filter, leaving the stations that asked for a little rather than the ones that asked for nothing. Your thresholds are saved to your own user preferences, not to the site.",
     "Exclude Zeros protects genuine zeros": "Exclude Zeros protects genuine zeros",
     "Expand the station": "Expand the station",
     "Failed stations are re-pushed automatically, up to two further attempts. Pushing again by hand immediately afterwards is a fourth attempt at the same connection, which rarely behaves differently.": "Failed stations are re-pushed automatically, up to two further attempts. Pushing again by hand immediately afterwards is a fourth attempt at the same connection, which rarely behaves differently.",
     "Failures are retried automatically": "Failures are retried automatically",
+    "Filter by % Adj.": "Filter by % Adj.",
+    "Filter by % Adj. — 3 MIN, difficulty 2 of 3": "Filter by % Adj. — 3 MIN, difficulty 2 of 3",
     "Filter with Layers": "Filter with Layers",
+    "Find the outliers at both ends before you push.": "Find the outliers at both ends before you push.",
     "Find the selector": "Find the selector",
     "Find the two adjustment columns": "Find the two adjustment columns",
     "Five stations selected. The Bulk Adjust link above the table becomes active.": "Five stations selected. The Bulk Adjust link above the table becomes active.",
     "Fold this week’s adjustments back into a saved profile without applying it to the course.": "Fold this week’s adjustments back into a saved profile without applying it to the course.",
+    "Footer": "Footer",
     "Four checks, in order, for a zero suggestion.": "Four checks, in order, for a zero suggestion.",
     "From suggestion to controller.": "From suggestion to controller.",
+    "Get fresh scan data": "Get fresh scan data",
+    "Get fresh scan data — 3 MIN, difficulty 2 of 3": "Get fresh scan data — 3 MIN, difficulty 2 of 3",
     "Getting Started": "Getting Started",
     "GETTING STARTED": "GETTING STARTED",
     "Grey italics mean modelled": "Grey italics mean modelled",
@@ -203,6 +223,7 @@
     "Identical suggestions, missing values, stale scans.": "Identical suggestions, missing values, stale scans.",
     "If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.": "If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.",
     "If nothing above explains it, open the diagnostics dialog by clicking the Spatial Adjust logo. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.": "If nothing above explains it, open the diagnostics dialog by clicking the Spatial Adjust logo. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.",
+    "If the request will not queue": "If the request will not queue",
     "If the whole course is stale, check the source": "If the whole course is stale, check the source",
     "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.": "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.",
     "In one line.": "In one line.",
@@ -210,8 +231,10 @@
     "intellidash.toro.com/spatialadjust": "intellidash.toro.com/spatialadjust",
     "Intermediate": "Intermediate",
     "Introductory": "Introductory",
+    "It catches both extremes, not a band": "It catches both extremes, not a band",
     "It is applied at push time, not at calculation time — the table keeps showing the raw suggested value.": "It is applied at push time, not at calculation time — the table keeps showing the raw suggested value.",
     "It lives inside IntelliDash": "It lives inside IntelliDash",
+    "It queues, it does not block": "It queues, it does not block",
     "It reads Lynx first": "It reads Lynx first",
     "Keep the list short": "Keep the list short",
     "Keep trivial adjustments from reaching Lynx.": "Keep trivial adjustments from reaching Lynx.",
@@ -227,7 +250,9 @@
     "Layers filtered to enabled stations only.": "Layers filtered to enabled stations only.",
     "Layers hides disabled stations.": "Layers hides disabled stations.",
     "Layers, with All Stations and Enabled Stations.": "Layers, with All Stations and Enabled Stations.",
+    "Legal": "Legal",
     "Look for threshold adjustments": "Look for threshold adjustments",
+    "Lynx Cloud": "Lynx Cloud",
     "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.": "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.",
     "Lynx Reference Amount is what 100% means": "Lynx Reference Amount is what 100% means",
     "Lynx Reference Amount, ceiling of 10.": "Lynx Reference Amount, ceiling of 10.",
@@ -258,9 +283,11 @@
     "No station in Pushed Today is ticked unless you meant it.": "No station in Pushed Today is ticked unless you meant it.",
     "No station target or suggestion changed.": "No station target or suggestion changed.",
     "No, this was not helpful": "No, this was not helpful",
+    "Not the same setting.": "Not the same setting.",
     "Note.": "Note.",
     "Notice the drift": "Notice the drift",
     "Notice where suggestions cluster": "Notice where suggestions cluster",
+    "NSN support portal": "NSN support portal",
     "OF": "OF",
     "On failure.": "On failure.",
     "ON THIS PAGE": "ON THIS PAGE",
@@ -273,6 +300,7 @@
     "Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected. This is the disagreement, and it is intentional.": "Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected. This is the disagreement, and it is intentional.",
     "Open Settings": "Open Settings",
     "Open Settings on the Calculation tab": "Open Settings on the Calculation tab",
+    "Open the options": "Open the options",
     "Open the Preferences tab": "Open the Preferences tab",
     "Open the profile": "Open the profile",
     "Open the Target Profiles tab": "Open the Target Profiles tab",
@@ -282,6 +310,8 @@
     "Option 2 flattens everything above the daily maximum onto one number. Option 1 has no ceiling, so its suggestions spread out — and can go far higher than you intend on a station that reads very dry.": "Option 2 flattens everything above the daily maximum onto one number. Option 1 has no ceiling, so its suggestions spread out — and can go far higher than you intend on a station that reads very dry.",
     "or browse all 24 tasks ↓": "or browse all 24 tasks ↓",
     "Original and rewritten values, shown together.": "Original and rewritten values, shown together.",
+    "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10. Each has its own checkbox, so you can run one end without the other — Over alone to find the stations asking for far too much, Under alone to find the ones asking for almost nothing.": "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10. Each has its own checkbox, so you can run one end without the other — Over alone to find the stations asking for far too much, Under alone to find the ones asking for almost nothing.",
+    "Over/Under Options. Each threshold has its own checkbox.": "Over/Under Options. Each threshold has its own checkbox.",
     "Override the percentage if you need to": "Override the percentage if you need to",
     "Override where you disagree": "Override where you disagree",
     "Overwrite the stored targets with the current ones when the drift is an improvement. Create a new profile instead when the change is for one event — a new name is cheaper than losing a good baseline.": "Overwrite the stored targets with the current ones when the drift is an improvement. Create a new profile instead when the change is for one event — a new name is cheaper than losing a good baseline.",
@@ -298,6 +328,8 @@
     "Preferences are stored against your user account; the calculation settings on the other tabs are stored against the site.": "Preferences are stored against your user account; the calculation settings on the other tabs are stored against the site.",
     "Preferences is the last entry in the settings rail. Nothing here changes a single suggested percentage — it changes how numbers are presented to you.": "Preferences is the last entry in the settings rail. Nothing here changes a single suggested percentage — it changes how numbers are presented to you.",
     "Previous step": "Previous step",
+    "Privacy Policy": "Privacy Policy",
+    "Product": "Product",
     "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit.": "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit.",
     "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.",
     "Proposed Target Profiles tab in the settings dialog.": "Proposed Target Profiles tab in the settings dialog.",
@@ -329,11 +361,17 @@
     "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.": "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.",
     "Read the profile list": "Read the profile list",
     "Read the push dialog properly before you send: two lists, two columns, and one count that matters.": "Read the push dialog properly before you send: two lists, two columns, and one count that matters.",
+    "Read the scan date before anything else": "Read the scan date before anything else",
+    "Read the two tabs": "Read the two tabs",
     "Reading the failure count and retrying safely.": "Reading the failure count and retrying safely.",
     "Reading the two lists in the push dialog.": "Reading the two lists in the push dialog.",
+    "Reload when the banner appears": "Reload when the banner appears",
     "Reopening Settings shows the value you saved, not the previous one.": "Reopening Settings shows the value you saved, not the previous one.",
     "Replace or shift the targets of many stations at once.": "Replace or shift the targets of many stations at once.",
     "Replace overwrites every selected station with the value you enter. Shift moves each station up or down by that amount, keeping the differences between them. Shift is the safer choice when the stations were individually tuned.": "Replace overwrites every selected station with the value you enter. Shift moves each station up or down by that amount, keeping the differences between them. Shift is the safer choice when the stations were individually tuned.",
+    "Request a new TurfRad scan rather than waiting for one.": "Request a new TurfRad scan rather than waiting for one.",
+    "Request latest scan data, between the pushed-today counter and the gear.": "Request latest scan data, between the pushed-today counter and the gear.",
+    "Request the latest scan": "Request the latest scan",
     "Review & Apply": "Review & Apply",
     "REVIEW & APPLY": "REVIEW & APPLY",
     "Review every pending adjustment, drop the ones you do not want, and send the rest to the controller.": "Review every pending adjustment, drop the ones you do not want, and send the rest to the controller.",
@@ -352,19 +390,23 @@
     "Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit.": "Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit.",
     "Saving a threshold-only change does not reload the dashboard — the pending push list is simply recalculated. Open Push Changes and the pink banner tells you how many stations the threshold touched, with each affected row showing its original value and the adjusted one.": "Saving a threshold-only change does not reload the dashboard — the pending push list is simply recalculated. Open Push Changes and the pink banner tells you how many stations the threshold touched, with each affected row showing its original value and the adjusted one.",
     "Saving recalculates the whole course": "Saving recalculates the whole course",
+    "Scan dates sit beside the station name in the table.": "Scan dates sit beside the station name in the table.",
     "Search tasks — threshold, push, 0%…": "Search tasks — threshold, push, 0%…",
+    "Sections": "Sections",
     "Select the stations": "Select the stations",
     "Selecting a station in the table highlights it on the map, and selecting a pin selects the row. Use whichever is faster to find the head you mean.": "Selecting a station in the table highlights it on the map, and selecting a pin selects the row. Use whichever is faster to find the head you mean.",
     "Send and watch the progress": "Send and watch the progress",
     "Set a minimum threshold": "Set a minimum threshold",
     "Set a minimum threshold — 3 MIN, difficulty 2 of 3": "Set a minimum threshold — 3 MIN, difficulty 2 of 3",
     "Set a soil factor for persistent offsets": "Set a soil factor for persistent offsets",
+    "Set the two ends independently": "Set the two ends independently",
     "Set to zero skips the station entirely — Lynx receives 0%. Set to the minimum threshold value raises the suggestion up to the threshold instead, so the station still gets a small run. Exclude Zeros, available only on the second option, leaves genuine zeros at zero rather than lifting them.": "Set to zero skips the station entirely — Lynx receives 0%. Set to the minimum threshold value raises the suggestion up to the threshold instead, so the station still gets a small run. Exclude Zeros, available only on the second option, leaves genuine zeros at zero rather than lifting them.",
     "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold so the station still gets a short run. They are opposite behaviours from the same number.": "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold so the station still gets a short run. They are opposite behaviours from the same number.",
     "Set to zero when pushed to Lynx converts small adjustments into zeros.": "Set to zero when pushed to Lynx converts small adjustments into zeros.",
     "Setting the percentage to 0 disables the feature entirely.": "Setting the percentage to 0 disables the feature entirely.",
     "Settings › Calculation": "Settings › Calculation",
     "Settings › Minimum Threshold": "Settings › Minimum Threshold",
+    "Settings › Minimum Threshold has its own Exclude Zeros. That one changes what gets written to Lynx at push time. This one only changes which rows you are looking at.": "Settings › Minimum Threshold has its own Exclude Zeros. That one changes what gets written to Lynx at push time. This one only changes which rows you are looking at.",
     "Settings › Preferences": "Settings › Preferences",
     "Settings › Target Profiles": "Settings › Target Profiles",
     "Settings dialog, Calculation tab.": "Settings dialog, Calculation tab.",
@@ -429,6 +471,8 @@
     "Step 1 of 5: Open Settings": "Step 1 of 5: Open Settings",
     "Step 1 of 5: Open Settings on the Calculation tab": "Step 1 of 5: Open Settings on the Calculation tab",
     "Step 1 of 5: Pins are coloured by measured moisture": "Step 1 of 5: Pins are coloured by measured moisture",
+    "Step 1 of 5: Read the scan date before anything else": "Step 1 of 5: Read the scan date before anything else",
+    "Step 1 of 5: Read the two tabs": "Step 1 of 5: Read the two tabs",
     "Step 1 of 5: Start with the toolbar": "Step 1 of 5: Start with the toolbar",
     "Step 1 of 5: The table shows the raw suggestion": "Step 1 of 5: The table shows the raw suggestion",
     "Step 1 of 5: Toggle a single station": "Step 1 of 5: Toggle a single station",
@@ -450,10 +494,12 @@
     "Step 2 of 5: Daily Max Amount caps the water": "Step 2 of 5: Daily Max Amount caps the water",
     "Step 2 of 5: Modelled: the fallback": "Step 2 of 5: Modelled: the fallback",
     "Step 2 of 5: Move the band boundaries": "Step 2 of 5: Move the band boundaries",
+    "Step 2 of 5: Open the options": "Step 2 of 5: Open the options",
     "Step 2 of 5: Option 2 — delta plus today’s ET, the default": "Step 2 of 5: Option 2 — delta plus today’s ET, the default",
     "Step 2 of 5: Read Current against Changes": "Step 2 of 5: Read Current against Changes",
     "Step 2 of 5: Read it against Avg. VWC and Target VWC": "Step 2 of 5: Read it against Avg. VWC and Target VWC",
     "Step 2 of 5: Read the map": "Step 2 of 5: Read the map",
+    "Step 2 of 5: Request the latest scan": "Step 2 of 5: Request the latest scan",
     "Step 2 of 5: The push dialog shows what will be sent": "Step 2 of 5: The push dialog shows what will be sent",
     "Step 2 of 5: Then it writes, station by station": "Step 2 of 5: Then it writes, station by station",
     "Step 2 of 5: Toggling a parent cascades": "Step 2 of 5: Toggling a parent cascades",
@@ -477,9 +523,11 @@
     "Step 3 of 5: Choose what below-threshold means": "Step 3 of 5: Choose what below-threshold means",
     "Step 3 of 5: Confirm the cascade": "Step 3 of 5: Confirm the cascade",
     "Step 3 of 5: Enter the percentage": "Step 3 of 5: Enter the percentage",
+    "Step 3 of 5: It queues, it does not block": "Step 3 of 5: It queues, it does not block",
     "Step 3 of 5: Lynx Reference Amount is what 100% means": "Step 3 of 5: Lynx Reference Amount is what 100% means",
     "Step 3 of 5: Notice where suggestions cluster": "Step 3 of 5: Notice where suggestions cluster",
     "Step 3 of 5: Option 1 — ratio of target to measured": "Step 3 of 5: Option 1 — ratio of target to measured",
+    "Step 3 of 5: Set the two ends independently": "Step 3 of 5: Set the two ends independently",
     "Step 3 of 5: Switch to variance": "Step 3 of 5: Switch to variance",
     "Step 3 of 5: Target: your input": "Step 3 of 5: Target: your input",
     "Step 3 of 5: Then it verifies": "Step 3 of 5: Then it verifies",
@@ -507,7 +555,9 @@
     "Step 4 of 5: Failures are retried automatically": "Step 4 of 5: Failures are retried automatically",
     "Step 4 of 5: Filter with Layers": "Step 4 of 5: Filter with Layers",
     "Step 4 of 5: Grey italics mean modelled": "Step 4 of 5: Grey italics mean modelled",
+    "Step 4 of 5: It catches both extremes, not a band": "Step 4 of 5: It catches both extremes, not a band",
     "Step 4 of 5: Override where you disagree": "Step 4 of 5: Override where you disagree",
+    "Step 4 of 5: Reload when the banner appears": "Step 4 of 5: Reload when the banner appears",
     "Step 4 of 5: Silence the prompt once you trust it": "Step 4 of 5: Silence the prompt once you trust it",
     "Step 4 of 5: Spatial Adjust does the arithmetic": "Step 4 of 5: Spatial Adjust does the arithmetic",
     "Step 4 of 5: The cap is what makes them look different": "Step 4 of 5: The cap is what makes them look different",
@@ -520,6 +570,8 @@
     "Step 5 of 5: Check the counts before you leave": "Step 5 of 5: Check the counts before you leave",
     "Step 5 of 5: Check the result on the map": "Step 5 of 5: Check the result on the map",
     "Step 5 of 5: Confirm the data path": "Step 5 of 5: Confirm the data path",
+    "Step 5 of 5: Exclude Zeros belongs to Under": "Step 5 of 5: Exclude Zeros belongs to Under",
+    "Step 5 of 5: If the request will not queue": "Step 5 of 5: If the request will not queue",
     "Step 5 of 5: If the whole course is stale, check the source": "Step 5 of 5: If the whole course is stale, check the source",
     "Step 5 of 5: Lynx runs the water": "Step 5 of 5: Lynx runs the water",
     "Step 5 of 5: Map and table stay in sync": "Step 5 of 5: Map and table stay in sync",
@@ -544,11 +596,13 @@
     "Suggested percentages have recalculated against the new targets.": "Suggested percentages have recalculated against the new targets.",
     "Suggestions are recalculated whenever Max Amount, Lynx Reference Amount or Crop Coefficient change.": "Suggestions are recalculated whenever Max Amount, Lynx Reference Amount or Crop Coefficient change.",
     "Suggestions unchanged: the update touched only the stored profile.": "Suggestions unchanged: the update touched only the stored profile.",
+    "Support": "Support",
     "Switch Layers to Enabled Stations to see only the heads still in adjustment. Anything that disappeared is out — deliberately or otherwise.": "Switch Layers to Enabled Stations to see only the heads still in adjustment. Anything that disappeared is out — deliberately or otherwise.",
     "Switch the whole course between saved strategies.": "Switch the whole course between saved strategies.",
     "Switch to variance": "Switch to variance",
     "Switching is a course-wide change": "Switching is a course-wide change",
     "Table and Settings": "Table and Settings",
+    "Table toolbar": "Table toolbar",
     "Table toolbar › Bulk Adjust": "Table toolbar › Bulk Adjust",
     "Table, Avg. VWC and Target VWC": "Table, Avg. VWC and Target VWC",
     "Table, Enable column": "Table, Enable column",
@@ -573,6 +627,7 @@
     "Targets updated; suggestions recalculated against them.": "Targets updated; suggestions recalculated against them.",
     "Temperature and separator affect the toolbar": "Temperature and separator affect the toolbar",
     "Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.": "Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.",
+    "Terms of Use": "Terms of Use",
     "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.": "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.",
     "The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push and leaves the suggestion visible underneath for comparison.": "The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push and leaves the suggestion visible underneath for comparison.",
     "The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.": "The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.",
@@ -582,6 +637,7 @@
     "The applied profile is marked active in the list.": "The applied profile is marked active in the list.",
     "The automatic retry pass, before the failure is reported.": "The automatic retry pass, before the failure is reported.",
     "The backend keeps these amounts in millimetres and the dialog converts on the way in and out — two decimals imperial, one metric.": "The backend keeps these amounts in millimetres and the dialog converts on the way in and out — two decimals imperial, one metric.",
+    "The banner offers Reload Data or Dismiss.": "The banner offers Reload Data or Dismiss.",
     "The button beside the legend switches the pins from absolute moisture to variance — how far each station sits from its target rather than its raw reading.": "The button beside the legend switches the pins from absolute moisture to variance — how far each station sits from its target rather than its raw reading.",
     "The button beside the legend toggles between VWC and variance. Variance colours each pin by how far it sits from its own target instead of by its raw reading, which is the view you want when targets differ across the course.": "The button beside the legend toggles between VWC and variance. Variance colours each pin by how far it sits from its own target instead of by its raw reading, which is the view you want when targets differ across the course.",
     "The button carries the number of stations with an unpushed edit. It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.": "The button carries the number of stations with an unpushed edit. It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.",
@@ -592,6 +648,7 @@
     "The cascade confirmation names exactly what will change.": "The cascade confirmation names exactly what will change.",
     "The chart above the table plots the holes you pick in the multiselect. Selecting a row in the table changes the chart header to that area or hole and its average moisture, so the chart and the table always describe the same thing.": "The chart above the table plots the holes you pick in the multiselect. Selecting a row in the table changes the chart header to that area or hole and its average moisture, so the chart and the table always describe the same thing.",
     "The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues.": "The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues.",
+    "The circular-arrow button in the toolbar’s right-hand group is Request latest scan data. It asks TurfRad for a new scan; it does not reload the dashboard, and it does not change a single calculation setting.": "The circular-arrow button in the toolbar’s right-hand group is Request latest scan data. It asks TurfRad for a new scan; it does not reload the dashboard, and it does not change a single calculation setting.",
     "The colour bar under the legend has draggable handles. Move one and the map recolours as you drag — useful when your course sits mostly inside one band and everything looks the same colour.": "The colour bar under the legend has draggable handles. Move one and the map recolours as you drag — useful when your course sits mostly inside one band and everything looks the same colour.",
     "The count beside each profile says how many stations it covers. A profile captured while the course was partly disabled covers fewer stations than the course has, and applying it later leaves the rest untouched.": "The count beside each profile says how many stations it covers. A profile captured while the course was partly disabled covers fewer stations than the course has, and applying it later leaves the rest untouched.",
     "The course, coloured by measured moisture.": "The course, coloured by measured moisture.",
@@ -603,6 +660,8 @@
     "The difference between target and measured moisture becomes an amount of water, today’s ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.": "The difference between target and measured moisture becomes an amount of water, today’s ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.",
     "The dropdown labels the two methods Option 1 and Option 2, and describes neither.": "The dropdown labels the two methods Option 1 and Option 2, and describes neither.",
     "The failed stations are still queued; the successful ones are not.": "The failed stations are still queued; the successful ones are not.",
+    "The filter reads the suggested percentage, and only for stations that are enabled. A disabled station never appears in it however extreme its number.": "The filter reads the suggested percentage, and only for stations that are enabled. A disabled station never appears in it however extreme its number.",
+    "The filtered tab: the extremes at both ends, not the middle.": "The filtered tab: the extremes at both ends, not the middle.",
     "The footer button always names the number of changes that will be sent.": "The footer button always names the number of changes that will be sent.",
     "The footer button counts only the ticked rows. Unticking is not the same as reverting — the station keeps its edited value in the table and will be offered again next time.": "The footer button counts only the ticked rows. Unticking is not the same as reverting — the station keeps its edited value in the table and will be offered again next time.",
     "The footer button names the number of ticked rows, and that is exactly what will be sent. Unticking a row is not the same as reverting it — the edit stays in the table for next time.": "The footer button names the number of ticked rows, and that is exactly what will be sent. Unticking a row is not the same as reverting it — the edit stays in the table for next time.",
@@ -619,12 +678,15 @@
     "The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.": "The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.",
     "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation — the same ET that drives the calculation.": "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation — the same ET that drives the calculation.",
     "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.": "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.",
+    "The link doubles as a readout of the current thresholds.": "The link doubles as a readout of the current thresholds.",
     "The link sits above the table beside the threshold filter. The dialog opens with the count of stations you selected at the top — check it before going further.": "The link sits above the table beside the threshold filter. The dialog opens with the count of stations you selected at the top — check it before going further.",
+    "The link to the right of the table toolbar states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.": "The link to the right of the table toolbar states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.",
     "The map, chart and table all name the same course.": "The map, chart and table all name the same course.",
     "The maximum possible suggestion is the daily maximum divided by the Lynx reference amount. Change either number and the ceiling moves — which is the honest fix if the ceiling is too low for your course.": "The maximum possible suggestion is the daily maximum divided by the Lynx reference amount. Change either number and the ceiling moves — which is the honest fix if the ceiling is too low for your course.",
     "The message names how many stations could not be updated. The rest of the push succeeded — a failure is partial, and the stations that verified are already live in Lynx.": "The message names how many stations could not be updated. The rest of the push succeeded — a failure is partial, and the stations that verified are already live in Lynx.",
     "The most water Spatial Adjust will ask for in one day, in your own units, up to a hard ceiling of 15. Every station whose deficit exceeds this lands on the same suggested percentage, which is why identical numbers appear in runs.": "The most water Spatial Adjust will ask for in one day, in your own units, up to a hard ceiling of 15. Every station whose deficit exceeds this lands on the same suggested percentage, which is why identical numbers appear in runs.",
     "The new profile appears in the list with today’s date and the full station count.": "The new profile appears in the list with today’s date and the full station count.",
+    "The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.": "The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.",
     "The parent value is an average": "The parent value is an average",
     "The pending count is zero and the pushed-today counter increased.": "The pending count is zero and the pushed-today counter increased.",
     "The pending icon marks a station queued for push.": "The pending icon marks a station queued for push.",
@@ -637,6 +699,7 @@
     "The push dialog names the number of stations the threshold adjusted.": "The push dialog names the number of stations the threshold adjusted.",
     "The push dialog shows what will be sent": "The push dialog shows what will be sent",
     "The raw suggested value, untouched by the threshold.": "The raw suggested value, untouched by the threshold.",
+    "The request is queued and you are told so: retrieval may take several minutes, and you are notified when it is ready. You can carry on reading the table while it runs — nothing is frozen and nothing is lost if you navigate away.": "The request is queued and you are told so: retrieval may take several minutes, and you are notified when it is ready. You can carry on reading the table while it runs — nothing is frozen and nothing is lost if you navigate away.",
     "The retry contained only the failed stations.": "The retry contained only the failed stations.",
     "The right of the toolbar is your work queue. Push Changes counts stations with an unpushed edit, and the green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding.": "The right of the toolbar is your work queue. Push Changes counts stations with an unpushed edit, and the green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding.",
     "The route is /spatialadjust, all lowercase, inside the IntelliDash site. A camelCase URL does not resolve — it redirects to the generic error page. Access is checked per user before the view loads.": "The route is /spatialadjust, all lowercase, inside the IntelliDash site. A camelCase URL does not resolve — it redirects to the generic error page. Access is checked per user before the view loads.",
@@ -675,6 +738,8 @@
     "Then it verifies": "Then it verifies",
     "Then it writes, station by station": "Then it writes, station by station",
     "These are site-level settings — they apply to every user on the site.": "These are site-level settings — they apply to every user on the site.",
+    "These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.": "These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.",
+    "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.": "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.",
     "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.": "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.",
     "This is the common answer. When measured VWC is comfortably above the station target, the required amount is zero and so is the suggestion. Station 10AP1 read 34.5 percent against a target of 16 — it does not need water today.": "This is the common answer. When measured VWC is comfortably above the station target, the required amount is zero and so is the suggestion. Station 10AP1 read 34.5 percent against a target of 16 — it does not need water today.",
     "Three different numbers wear the label VWC. Knowing which one you are reading explains most surprises.": "Three different numbers wear the label VWC. Knowing which one you are reading explains most surprises.",
@@ -689,6 +754,7 @@
     "TIME": "TIME",
     "Toggle a single station": "Toggle a single station",
     "Toggling a parent cascades": "Toggling a parent cascades",
+    "Toolbar": "Toolbar",
     "Toolbar › Push Changes": "Toolbar › Push Changes",
     "Toolbar, left: site, course selector, weather strip and the course-wide moisture summary.": "Toolbar, left: site, course selector, weather strip and the course-wide moisture summary.",
     "Treat the two lists differently": "Treat the two lists differently",
@@ -703,6 +769,7 @@
     "Two stations could not be updated. The other four are done.": "Two stations could not be updated. The other four are done.",
     "Two stations were adjusted by the minimum threshold before sending.": "Two stations were adjusted by the minimum threshold before sending.",
     "Two stations will be rewritten by the threshold rules.": "Two stations will be rewritten by the threshold rules.",
+    "Two tabs: All Stations, and the Over/Under count.": "Two tabs: All Stations, and the Over/Under count.",
     "Type the cutoff as a whole number between 0 and 50. Ten percent is a common starting point: it removes the noise from stations that are already close to target while leaving genuine corrections intact.": "Type the cutoff as a whole number between 0 and 50. Ten percent is a common starting point: it removes the noise from stations that are already close to target while leaving genuine corrections intact.",
     "Type the new target": "Type the new target",
     "Understand Spatial Adjust": "Understand Spatial Adjust",
@@ -735,11 +802,13 @@
     "What the feature does and how the screen is laid out.": "What the feature does and how the screen is laid out.",
     "What to do.": "What to do.",
     "When a minimum threshold is set, the banner counts the stations it will rewrite and the affected rows show both the original and the value that will actually be sent.": "When a minimum threshold is set, the banner counts the stations it will rewrite and the affected rows show both the original and the value that will actually be sent.",
+    "When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics.": "When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics.",
     "When the connection drops, a banner appears above the toolbar and percent adjust values can be neither read nor written.": "When the connection drops, a banner appears above the toolbar and percent adjust values can be neither read nor written.",
     "When the numbers are not what you expect.": "When the numbers are not what you expect.",
     "When the required amount exceeds the daily maximum, every station above the cap lands on the same percentage. A run of identical numbers means the cap is deciding, not the scan.": "When the required amount exceeds the daily maximum, every station above the cap lands on the same percentage. A run of identical numbers means the cap is deciding, not the scan.",
     "When the scan date is today, Avg. VWC is the mean moisture TurfRad measured across that station. It is a measurement, and it is the number the calculation prefers.": "When the scan date is today, Avg. VWC is the mean moisture TurfRad measured across that station. It is a measurement, and it is the number the calculation prefers.",
     "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since. It is shown in grey italics so you can tell it apart at a glance.": "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since. It is shown in grey italics so you can tell it apart at a glance.",
+    "When the scan lands, a banner says so. Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings. Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.": "When the scan lands, a banner says so. Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings. Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.",
     "WHERE": "WHERE",
     "Where a value is absent the column shows a dash, not a zero.": "Where a value is absent the column shows a dash, not a zero.",
     "Where moisture scans come from and what the feature does with them.": "Where moisture scans come from and what the feature does with them.",
@@ -765,15 +834,21 @@
     "You can name which of the four causes applies to the station.": "You can name which of the four causes applies to the station.",
     "You can recolour the map by moving a band handle.": "You can recolour the map by moving a band handle.",
     "You can say which algorithm your site uses.": "You can say which algorithm your site uses.",
+    "You can state that the filter is an OR across both ends, not a range.": "You can state that the filter is an OR across both ends, not a range.",
     "You can state what 100 percent adjust means on your site in inches or millimetres.": "You can state what 100 percent adjust means on your site in inches or millimetres.",
     "You can switch between moisture and variance.": "You can switch between moisture and variance.",
     "You can tell a dash from a zero.": "You can tell a dash from a zero.",
     "You can tell a measured value from a modelled one without checking the date.": "You can tell a measured value from a modelled one without checking the date.",
+    "You can tell Request latest scan data from Reload Data.": "You can tell Request latest scan data from Reload Data.",
     "You can tell which child readings are modelled.": "You can tell which child readings are modelled.",
+    "You know Dismiss leaves the dashboard on the data it already had.": "You know Dismiss leaves the dashboard on the data it already had.",
     "You know how many stations failed and which they were.": "You know how many stations failed and which they were.",
     "You know Target VWC is capped at 50.": "You know Target VWC is capped at 50.",
     "You know that nothing reaches Lynx until Push Changes is used.": "You know that nothing reaches Lynx until Push Changes is used.",
+    "You know the Over/Under count reads as a dash until a filter is set.": "You know the Over/Under count reads as a dash until a filter is set.",
+    "You know the toolbar can request a scan, not only display the last one.": "You know the toolbar can request a scan, not only display the last one.",
     "You know today’s last scan date.": "You know today’s last scan date.",
+    "You know which Exclude Zeros changes the push and which only changes the view.": "You know which Exclude Zeros changes the push and which only changes the view.",
     "You know which option needs Exclude Zeros.": "You know which option needs Exclude Zeros.",
     "You know which setting produces a run of identical suggestions.": "You know which setting produces a run of identical suggestions.",
     "You know why Max Amount is greyed out under Option 1.": "You know why Max Amount is greyed out under Option 1.",
@@ -890,23 +965,7 @@
     "Filter area": "Filter area",
     "Filter hole": "Filter hole",
     "Filter station": "Filter station",
-    "Save": "Save",
-    "Contact": "Contact",
-    "Contact NSN": "Contact NSN",
-    "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.": "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.",
-    "Email": "Email",
-    "Phone": "Phone",
-    "Support portal": "Support portal",
-    "NSN support portal": "NSN support portal",
-    "Footer": "Footer",
-    "All tasks": "All tasks",
-    "Sections": "Sections",
-    "Support": "Support",
-    "Product": "Product",
-    "Legal": "Legal",
-    "Terms of Use": "Terms of Use",
-    "Privacy Policy": "Privacy Policy",
-    "Copyright Policy": "Copyright Policy"
+    "Save": "Save"
   },
   "_contexts": {
     "/spatialadjust": [
@@ -992,6 +1051,9 @@
     "A disabled station: the switch on its row is grey.": [
       "enable-disable-stations"
     ],
+    "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all — a course-wide problem is almost always there rather than in your settings.": [
+      "request-scan-data"
+    ],
     "A greyed, italic average means the value came from the model rather than a scan taken that day. The calculation still runs, but it is running on an estimate.": [
       "calculation-questions"
     ],
@@ -1027,6 +1089,9 @@
       "verify-results",
       "push-failures"
     ],
+    "A queued request confirms immediately; the data arrives later.": [
+      "request-scan-data"
+    ],
     "A run of identical suggestions is the signature of the Max Amount cap.": [
       "suggested-adjustments"
     ],
@@ -1044,8 +1109,14 @@
       "updating-profiles",
       "seasonal-profiles"
     ],
+    "A stale course is not something you have to wait out. Request a new TurfRad scan, and reload when it lands.": [
+      "request-scan-data"
+    ],
     "A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.": [
       "station-details"
+    ],
+    "A station is caught if its suggestion is above the Over value OR below the Under value. With 200 and 10 set you get everything over 200 percent and everything under 10 percent — and nothing in between. It is an outlier finder. Reading it as “between 10 and 200” gives you exactly the stations it is not showing you.": [
+      "filter-adjustments"
     ],
     "A station with no current scan and no model estimate shows a dash rather than a number.": [
       "suggested-adjustments"
@@ -1097,6 +1168,15 @@
     ],
     "All selected changes pushed successfully.": [
       "push-to-lynx"
+    ],
+    "All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches. Until you set a filter that count is a dash and the tab does nothing — it is not broken, there is simply nothing to show yet.": [
+      "filter-adjustments"
+    ],
+    "All tasks": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "All three have the same first check: is the number a measurement, a model, or nothing at all?": [
       "calculation-questions"
@@ -1235,7 +1315,10 @@
       "catalog:attr"
     ],
     "Calculations": [
-      "catalog"
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "CALCULATIONS": [
       "dashboard-overview",
@@ -1250,7 +1333,8 @@
       "creating-profiles"
     ],
     "Careful.": [
-      "enable-disable-stations"
+      "enable-disable-stations",
+      "request-scan-data"
     ],
     "Cascading enable state across areas, holes and stations.": [
       "catalog"
@@ -1348,6 +1432,24 @@
     "Consequence.": [
       "calculation-methods"
     ],
+    "Contact": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
+    ],
+    "Contact NSN": [
+      "catalog",
+      "catalog:attr",
+      "dashboard-overview",
+      "dashboard-overview:attr"
+    ],
+    "Copyright Policy": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
+    ],
     "Coverage is part of what a profile is.": [
       "creating-profiles"
     ],
@@ -1404,7 +1506,8 @@
       "push-failures"
     ],
     "Diagnostics: TurfRad access, scan data, last scan date.": [
-      "calculation-questions"
+      "calculation-questions",
+      "request-scan-data"
     ],
     "DIFFICULTY": [
       "dashboard-overview",
@@ -1420,6 +1523,9 @@
     ],
     "Difficulty 3 of 3": [
       "catalog"
+    ],
+    "Dismissing is not declining. The next reload picks the new scan up.": [
+      "request-scan-data"
     ],
     "Dragging a handle changes the boundary and saves it to your preferences.": [
       "map-navigation"
@@ -1468,6 +1574,9 @@
     "Every station is a pin placed at its real coordinates and filled with the colour of the moisture band its latest reading falls into. Four bands by default: 0–5, 6–19, 20–30, and above 30 percent.": [
       "map-navigation"
     ],
+    "Every station row carries the date its reading was captured. One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.": [
+      "request-scan-data"
+    ],
     "Every station you edited shows the pending push icon beside the % Adj. field.": [
       "suggested-adjustments"
     ],
@@ -1480,8 +1589,17 @@
     "Example.": [
       "calculation-questions"
     ],
+    "Exclude Zeros belongs to Under": [
+      "filter-adjustments"
+    ],
+    "Exclude Zeros is disabled until Under is on.": [
+      "filter-adjustments"
+    ],
     "Exclude Zeros is enabled only for the second option.": [
       "threshold-questions"
+    ],
+    "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under-threshold and the option means nothing without one. Tick it and genuine zeros drop out of the filter, leaving the stations that asked for a little rather than the ones that asked for nothing. Your thresholds are saved to your own user preferences, not to the site.": [
+      "filter-adjustments"
     ],
     "Exclude Zeros protects genuine zeros": [
       "threshold-questions"
@@ -1495,8 +1613,18 @@
     "Failures are retried automatically": [
       "verify-results"
     ],
+    "Filter by % Adj.": [
+      "catalog",
+      "filter-adjustments"
+    ],
+    "Filter by % Adj. — 3 MIN, difficulty 2 of 3": [
+      "catalog:attr"
+    ],
     "Filter with Layers": [
       "map-navigation"
+    ],
+    "Find the outliers at both ends before you push.": [
+      "catalog"
     ],
     "Find the selector": [
       "calculation-methods"
@@ -1510,14 +1638,30 @@
     "Fold this week’s adjustments back into a saved profile without applying it to the course.": [
       "updating-profiles"
     ],
+    "Footer": [
+      "catalog:attr",
+      "dashboard-overview:attr",
+      "understand-spatial-adjust:attr",
+      "map-navigation:attr"
+    ],
     "Four checks, in order, for a zero suggestion.": [
       "catalog"
     ],
     "From suggestion to controller.": [
       "catalog"
     ],
+    "Get fresh scan data": [
+      "catalog",
+      "request-scan-data"
+    ],
+    "Get fresh scan data — 3 MIN, difficulty 2 of 3": [
+      "catalog:attr"
+    ],
     "Getting Started": [
-      "catalog"
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "GETTING STARTED": [
       "dashboard-overview",
@@ -1571,6 +1715,9 @@
     "If nothing above explains it, open the diagnostics dialog by clicking the Spatial Adjust logo. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.": [
       "station-zero"
     ],
+    "If the request will not queue": [
+      "request-scan-data"
+    ],
     "If the whole course is stale, check the source": [
       "calculation-questions"
     ],
@@ -1601,11 +1748,17 @@
       "map-navigation",
       "preferences"
     ],
+    "It catches both extremes, not a band": [
+      "filter-adjustments"
+    ],
     "It is applied at push time, not at calculation time — the table keeps showing the raw suggested value.": [
       "minimum-threshold"
     ],
     "It lives inside IntelliDash": [
       "understand-spatial-adjust"
+    ],
+    "It queues, it does not block": [
+      "request-scan-data"
     ],
     "It reads Lynx first": [
       "verify-results"
@@ -1658,8 +1811,20 @@
     "Layers, with All Stations and Enabled Stations.": [
       "map-navigation"
     ],
+    "Legal": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
+    ],
     "Look for threshold adjustments": [
       "push-to-lynx"
+    ],
+    "Lynx Cloud": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.": [
       "push-to-lynx"
@@ -1764,14 +1929,24 @@
       "understand-spatial-adjust:attr",
       "map-navigation:attr"
     ],
+    "Not the same setting.": [
+      "filter-adjustments"
+    ],
     "Note.": [
-      "dashboard-overview"
+      "dashboard-overview",
+      "request-scan-data"
     ],
     "Notice the drift": [
       "updating-profiles"
     ],
     "Notice where suggestions cluster": [
       "suggested-adjustments"
+    ],
+    "NSN support portal": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "OF": [
       "dashboard-overview",
@@ -1815,6 +1990,9 @@
     "Open Settings on the Calculation tab": [
       "calculation-settings"
     ],
+    "Open the options": [
+      "filter-adjustments"
+    ],
     "Open the Preferences tab": [
       "preferences"
     ],
@@ -1842,6 +2020,12 @@
     ],
     "Original and rewritten values, shown together.": [
       "threshold-questions"
+    ],
+    "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10. Each has its own checkbox, so you can run one end without the other — Over alone to find the stations asking for far too much, Under alone to find the ones asking for almost nothing.": [
+      "filter-adjustments"
+    ],
+    "Over/Under Options. Each threshold has its own checkbox.": [
+      "filter-adjustments"
     ],
     "Override the percentage if you need to": [
       "editing-station-targets"
@@ -1897,6 +2081,18 @@
       "understand-spatial-adjust:attr",
       "map-navigation:attr",
       "understanding-vwc:attr"
+    ],
+    "Privacy Policy": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
+    ],
+    "Product": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit.": [
       "target-profiles"
@@ -2001,11 +2197,20 @@
       "reviewing-changes",
       "push-failures"
     ],
+    "Read the scan date before anything else": [
+      "request-scan-data"
+    ],
+    "Read the two tabs": [
+      "filter-adjustments"
+    ],
     "Reading the failure count and retrying safely.": [
       "catalog"
     ],
     "Reading the two lists in the push dialog.": [
       "catalog"
+    ],
+    "Reload when the banner appears": [
+      "request-scan-data"
     ],
     "Reopening Settings shows the value you saved, not the previous one.": [
       "minimum-threshold"
@@ -2016,8 +2221,20 @@
     "Replace overwrites every selected station with the value you enter. Shift moves each station up or down by that amount, keeping the differences between them. Shift is the safer choice when the stations were individually tuned.": [
       "bulk-adjustments"
     ],
-    "Review & Apply": [
+    "Request a new TurfRad scan rather than waiting for one.": [
       "catalog"
+    ],
+    "Request latest scan data, between the pushed-today counter and the gear.": [
+      "request-scan-data"
+    ],
+    "Request the latest scan": [
+      "request-scan-data"
+    ],
+    "Review & Apply": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "REVIEW & APPLY": [
       "dashboard-overview",
@@ -2081,11 +2298,20 @@
     "Saving recalculates the whole course": [
       "calculation-settings"
     ],
+    "Scan dates sit beside the station name in the table.": [
+      "request-scan-data"
+    ],
     "Search tasks — threshold, push, 0%…": [
       "catalog:attr",
       "dashboard-overview:attr",
       "understand-spatial-adjust:attr",
       "map-navigation:attr"
+    ],
+    "Sections": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "Select the stations": [
       "bulk-adjustments"
@@ -2108,6 +2334,9 @@
     "Set a soil factor for persistent offsets": [
       "suggested-adjustments"
     ],
+    "Set the two ends independently": [
+      "filter-adjustments"
+    ],
     "Set to zero skips the station entirely — Lynx receives 0%. Set to the minimum threshold value raises the suggestion up to the threshold instead, so the station still gets a small run. Exclude Zeros, available only on the second option, leaves genuine zeros at zero rather than lifting them.": [
       "minimum-threshold"
     ],
@@ -2127,6 +2356,9 @@
     "Settings › Minimum Threshold": [
       "minimum-threshold",
       "threshold-questions"
+    ],
+    "Settings › Minimum Threshold has its own Exclude Zeros. That one changes what gets written to Lynx at push time. This one only changes which rows you are looking at.": [
+      "filter-adjustments"
     ],
     "Settings › Preferences": [
       "preferences"
@@ -2247,7 +2479,10 @@
       "catalog:attr"
     ],
     "Station Management": [
-      "catalog"
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "STATION MANAGEMENT": [
       "bulk-adjustments",
@@ -2348,6 +2583,12 @@
     "Step 1 of 5: Pins are coloured by measured moisture": [
       "map-navigation"
     ],
+    "Step 1 of 5: Read the scan date before anything else": [
+      "request-scan-data"
+    ],
+    "Step 1 of 5: Read the two tabs": [
+      "filter-adjustments"
+    ],
     "Step 1 of 5: Start with the toolbar": [
       "dashboard-overview"
     ],
@@ -2417,6 +2658,9 @@
     "Step 2 of 5: Move the band boundaries": [
       "map-navigation"
     ],
+    "Step 2 of 5: Open the options": [
+      "filter-adjustments"
+    ],
     "Step 2 of 5: Option 2 — delta plus today’s ET, the default": [
       "calculation-methods"
     ],
@@ -2428,6 +2672,9 @@
     ],
     "Step 2 of 5: Read the map": [
       "dashboard-overview"
+    ],
+    "Step 2 of 5: Request the latest scan": [
+      "request-scan-data"
     ],
     "Step 2 of 5: The push dialog shows what will be sent": [
       "threshold-questions"
@@ -2504,6 +2751,9 @@
     "Step 3 of 5: Enter the percentage": [
       "minimum-threshold"
     ],
+    "Step 3 of 5: It queues, it does not block": [
+      "request-scan-data"
+    ],
     "Step 3 of 5: Lynx Reference Amount is what 100% means": [
       "calculation-settings"
     ],
@@ -2512,6 +2762,9 @@
     ],
     "Step 3 of 5: Option 1 — ratio of target to measured": [
       "calculation-methods"
+    ],
+    "Step 3 of 5: Set the two ends independently": [
+      "filter-adjustments"
     ],
     "Step 3 of 5: Switch to variance": [
       "map-navigation"
@@ -2600,8 +2853,14 @@
     "Step 4 of 5: Grey italics mean modelled": [
       "calculation-questions"
     ],
+    "Step 4 of 5: It catches both extremes, not a band": [
+      "filter-adjustments"
+    ],
     "Step 4 of 5: Override where you disagree": [
       "suggested-adjustments"
+    ],
+    "Step 4 of 5: Reload when the banner appears": [
+      "request-scan-data"
     ],
     "Step 4 of 5: Silence the prompt once you trust it": [
       "enable-disable-stations"
@@ -2641,6 +2900,12 @@
     ],
     "Step 5 of 5: Confirm the data path": [
       "station-zero"
+    ],
+    "Step 5 of 5: Exclude Zeros belongs to Under": [
+      "filter-adjustments"
+    ],
+    "Step 5 of 5: If the request will not queue": [
+      "request-scan-data"
     ],
     "Step 5 of 5: If the whole course is stale, check the source": [
       "calculation-questions"
@@ -2717,6 +2982,12 @@
     "Suggestions unchanged: the update touched only the stored profile.": [
       "updating-profiles"
     ],
+    "Support": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
+    ],
     "Switch Layers to Enabled Stations to see only the heads still in adjustment. Anything that disappeared is out — deliberately or otherwise.": [
       "enable-disable-stations"
     ],
@@ -2731,6 +3002,9 @@
     ],
     "Table and Settings": [
       "calculation-questions"
+    ],
+    "Table toolbar": [
+      "filter-adjustments"
     ],
     "Table toolbar › Bulk Adjust": [
       "bulk-adjustments"
@@ -2758,7 +3032,10 @@
       "understanding-vwc"
     ],
     "Target Profiles": [
-      "catalog"
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "TARGET PROFILES": [
       "target-profiles",
@@ -2810,6 +3087,12 @@
     "Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.": [
       "preferences"
     ],
+    "Terms of Use": [
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
+    ],
     "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.": [
       "suggested-adjustments"
     ],
@@ -2836,6 +3119,9 @@
     ],
     "The backend keeps these amounts in millimetres and the dialog converts on the way in and out — two decimals imperial, one metric.": [
       "calculation-settings"
+    ],
+    "The banner offers Reload Data or Dismiss.": [
+      "request-scan-data"
     ],
     "The button beside the legend switches the pins from absolute moisture to variance — how far each station sits from its target rather than its raw reading.": [
       "dashboard-overview"
@@ -2866,6 +3152,9 @@
     ],
     "The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues.": [
       "enable-disable-stations"
+    ],
+    "The circular-arrow button in the toolbar’s right-hand group is Request latest scan data. It asks TurfRad for a new scan; it does not reload the dashboard, and it does not change a single calculation setting.": [
+      "request-scan-data"
     ],
     "The colour bar under the legend has draggable handles. Move one and the map recolours as you drag — useful when your course sits mostly inside one band and everything looks the same colour.": [
       "map-navigation"
@@ -2899,6 +3188,12 @@
     ],
     "The failed stations are still queued; the successful ones are not.": [
       "push-failures"
+    ],
+    "The filter reads the suggested percentage, and only for stations that are enabled. A disabled station never appears in it however extreme its number.": [
+      "filter-adjustments"
+    ],
+    "The filtered tab: the extremes at both ends, not the middle.": [
+      "filter-adjustments"
     ],
     "The footer button always names the number of changes that will be sent.": [
       "push-to-lynx"
@@ -2951,8 +3246,14 @@
     "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.": [
       "minimum-threshold"
     ],
+    "The link doubles as a readout of the current thresholds.": [
+      "filter-adjustments"
+    ],
     "The link sits above the table beside the threshold filter. The dialog opens with the count of stations you selected at the top — check it before going further.": [
       "bulk-adjustments"
+    ],
+    "The link to the right of the table toolbar states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.": [
+      "filter-adjustments"
     ],
     "The map, chart and table all name the same course.": [
       "dashboard-overview"
@@ -2968,6 +3269,9 @@
     ],
     "The new profile appears in the list with today’s date and the full station count.": [
       "creating-profiles"
+    ],
+    "The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.": [
+      "filter-adjustments"
     ],
     "The parent value is an average": [
       "station-details"
@@ -3004,6 +3308,9 @@
     ],
     "The raw suggested value, untouched by the threshold.": [
       "threshold-questions"
+    ],
+    "The request is queued and you are told so: retrieval may take several minutes, and you are notified when it is ready. You can carry on reading the table while it runs — nothing is frozen and nothing is lost if you navigate away.": [
+      "request-scan-data"
     ],
     "The retry contained only the failed stations.": [
       "push-failures"
@@ -3122,6 +3429,12 @@
     "These are site-level settings — they apply to every user on the site.": [
       "calculation-settings"
     ],
+    "These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.": [
+      "filter-adjustments"
+    ],
+    "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.": [
+      "request-scan-data"
+    ],
     "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.": [
       "calculation-settings"
     ],
@@ -3174,6 +3487,9 @@
     "Toggling a parent cascades": [
       "enable-disable-stations"
     ],
+    "Toolbar": [
+      "request-scan-data"
+    ],
     "Toolbar › Push Changes": [
       "push-to-lynx"
     ],
@@ -3184,7 +3500,10 @@
       "reviewing-changes"
     ],
     "Troubleshooting": [
-      "catalog"
+      "catalog",
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation"
     ],
     "TROUBLESHOOTING": [
       "minimum-threshold",
@@ -3219,6 +3538,9 @@
     ],
     "Two stations will be rewritten by the threshold rules.": [
       "reviewing-changes"
+    ],
+    "Two tabs: All Stations, and the Over/Under count.": [
+      "filter-adjustments"
     ],
     "Type the cutoff as a whole number between 0 and 50. Ten percent is a common starting point: it removes the noise from stations that are already close to target while leaving genuine corrections intact.": [
       "minimum-threshold"
@@ -3333,6 +3655,9 @@
     "When a minimum threshold is set, the banner counts the stations it will rewrite and the affected rows show both the original and the value that will actually be sent.": [
       "reviewing-changes"
     ],
+    "When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics.": [
+      "request-scan-data"
+    ],
     "When the connection drops, a banner appears above the toolbar and percent adjust values can be neither read nor written.": [
       "push-failures"
     ],
@@ -3347,6 +3672,9 @@
     ],
     "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since. It is shown in grey italics so you can tell it apart at a glance.": [
       "understanding-vwc"
+    ],
+    "When the scan lands, a banner says so. Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings. Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.": [
+      "request-scan-data"
     ],
     "WHERE": [
       "dashboard-overview",
@@ -3382,7 +3710,8 @@
       "catalog:attr"
     ],
     "Why it matters.": [
-      "station-details"
+      "station-details",
+      "filter-adjustments"
     ],
     "Why the table and the push dialog disagree, and what the second option really does.": [
       "threshold-questions"
@@ -3435,6 +3764,9 @@
     "You can say which algorithm your site uses.": [
       "calculation-methods"
     ],
+    "You can state that the filter is an OR across both ends, not a range.": [
+      "filter-adjustments"
+    ],
     "You can state what 100 percent adjust means on your site in inches or millimetres.": [
       "calculation-settings"
     ],
@@ -3447,8 +3779,14 @@
     "You can tell a measured value from a modelled one without checking the date.": [
       "understanding-vwc"
     ],
+    "You can tell Request latest scan data from Reload Data.": [
+      "request-scan-data"
+    ],
     "You can tell which child readings are modelled.": [
       "station-details"
+    ],
+    "You know Dismiss leaves the dashboard on the data it already had.": [
+      "request-scan-data"
     ],
     "You know how many stations failed and which they were.": [
       "push-failures"
@@ -3459,8 +3797,17 @@
     "You know that nothing reaches Lynx until Push Changes is used.": [
       "understand-spatial-adjust"
     ],
+    "You know the Over/Under count reads as a dash until a filter is set.": [
+      "filter-adjustments"
+    ],
+    "You know the toolbar can request a scan, not only display the last one.": [
+      "request-scan-data"
+    ],
     "You know today’s last scan date.": [
       "calculation-questions"
+    ],
+    "You know which Exclude Zeros changes the push and which only changes the view.": [
+      "filter-adjustments"
     ],
     "You know which option needs Exclude Zeros.": [
       "threshold-questions"

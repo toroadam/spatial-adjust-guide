@@ -58,11 +58,12 @@ const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
 
 const report = {};
 let totalIssues = 0;
+let advisory = 0;
 
 for (const locale of locales) {
   const data = JSON.parse(await readFile(`${dir}/${locale}.json`, 'utf8'));
   const t = data.strings;
-  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [] };
+  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [], screenLabelDrift: [] };
 
   for (const [en, tr] of Object.entries(t)) {
     if (!tr || !String(tr).trim()) { issues.empty.push(en.slice(0, 50)); continue; }
@@ -91,6 +92,21 @@ for (const locale of locales) {
     }
   }
 
+  // Prose that names a reproduced screen label must use the label's own translation. A guide
+  // saying "open Toutes les stations" while the tab reads "Toutes les voies" sends the reader
+  // hunting for a control that is not there — which is the exact failure the guides exist to
+  // prevent, and it happened in four locales before this check existed.
+  for (const [en, tr] of Object.entries(t)) {
+    if (SCREEN.has(en)) continue;                       // the label itself, not prose about it
+    for (const label of SCREEN) {
+      if (label.length < 8) continue;                   // too short to quote unambiguously
+      if (!en.includes(label)) continue;                // this prose does not name that control
+      if (!tr.includes(t[label])) {
+        issues.screenLabelDrift.push(`${en.slice(0, 40)} :: should name "${t[label]}"`);
+      }
+    }
+  }
+
   // A compound must contain the standalone translation of its own tail, or the two disagree on
   // screen: the step list says one thing and the step heading says another.
   for (const [en, tr] of Object.entries(t)) {
@@ -104,12 +120,21 @@ for (const locale of locales) {
   }
 
   const counts = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, v.length]));
-  const n = Object.values(counts).reduce((a, b) => a + b, 0);
+  // screenLabelDrift is ADVISORY, not a gate. It reports prose that names a reproduced control
+  // using different words from the control itself — real signal, but there are hundreds of them:
+  // the guide prose was written independently of IntelliDash's shipped labels, so "Bulk Adjust"
+  // is "Sammelanpassung" in the prose and "Massenanpassung" on screen. Worth a dedicated pass;
+  // failing the build on it would just mean nobody runs the validator.
+  const n = Object.entries(counts)
+    .filter(([k]) => k !== 'screenLabelDrift')
+    .reduce((a, [, v]) => a + v, 0);
   totalIssues += n;
+  advisory += counts.screenLabelDrift;
   report[locale] = { total: n, ...counts, samples: Object.fromEntries(
     Object.entries(issues).filter(([, v]) => v.length).map(([k, v]) => [k, v.slice(0, 4)])) };
 }
 
 console.log(JSON.stringify(report, null, 2));
 console.log(totalIssues === 0 ? '\nVALIDATE: PASS' : `\nVALIDATE: ${totalIssues} issue(s) across ${locales.length} locale(s)`);
+if (advisory) console.log(`VALIDATE: ${advisory} advisory screen-label mismatch(es) — prose naming a control differently from the control. Not a gate; see README > Known gaps.`);
 process.exit(totalIssues === 0 ? 0 : 1);

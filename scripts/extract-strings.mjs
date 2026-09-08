@@ -22,6 +22,8 @@ const GUIDES = [
   'bulk-adjustments', 'editing-station-targets', 'enable-disable-stations', 'station-details',
   'suggested-adjustments', 'push-to-lynx', 'reviewing-changes', 'verify-results',
   'station-zero', 'threshold-questions', 'calculation-questions', 'push-failures',
+  // Added by src/transform-export.mjs rather than present in the export — see the note there.
+  'request-scan-data', 'filter-adjustments',
 ];
 
 // Never translated, and each for a different reason:
