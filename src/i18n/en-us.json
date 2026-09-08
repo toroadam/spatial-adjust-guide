@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 885,
+    "strings": 894,
     "words": 9356
   },
   "strings": {
@@ -890,7 +890,16 @@
     "Filter area": "Filter area",
     "Filter hole": "Filter hole",
     "Filter station": "Filter station",
-    "Save": "Save"
+    "Save": "Save",
+    "Contact": "Contact",
+    "Contact NSN": "Contact NSN",
+    "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.": "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.",
+    "Email": "Email",
+    "Phone": "Phone",
+    "Support portal": "Support portal",
+    "NSN support portal": "NSN support portal",
+    "Footer": "Footer",
+    "All tasks": "All tasks"
   },
   "_contexts": {
     "/spatialadjust": [

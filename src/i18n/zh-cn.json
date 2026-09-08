@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "zh-cn",
-    "strings": 885,
+    "strings": 894,
     "identicalToEnglish": 7,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -894,6 +894,15 @@
     "Filter area": "筛选区域",
     "Filter hole": "筛选球洞",
     "Filter station": "筛选站点",
-    "Save": "保存"
+    "Save": "保存",
+    "Contact": "联系",
+    "Contact NSN": "联系 NSN",
+    "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.": "Toro National Support Network。有关 Spatial Adjust、IntelliDash 或推送到 Lynx 失败的帮助，请联系我们。",
+    "Email": "电子邮件",
+    "Phone": "电话",
+    "Support portal": "支持门户",
+    "NSN support portal": "NSN 支持门户",
+    "Footer": "页脚",
+    "All tasks": "所有任务"
   }
 }

@@ -176,6 +176,14 @@
   // rather than guessing from a timeout.
   window.__saI18nApply = {
     activeLocale: function () { return active; },
+    // For controls this file injects rather than translates in place — src/contact.js builds its
+    // own labels, so it needs to ask for a string rather than wait to be walked. Falls back to the
+    // English it was given, which is the same failure mode as a missing catalogue entry.
+    translate: function (s) {
+      var loc = window.__saLocale && window.__saLocale.get();
+      var map = loc && catalogues[loc];
+      return (map && map[s]) || s;
+    },
     loaded: function (locale) { return !!catalogues[locale]; },
     apply: function () { schedule(); },
   };

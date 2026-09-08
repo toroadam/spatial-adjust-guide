@@ -305,6 +305,34 @@ UI fields — matching what a Thai user actually reads on screen.
 What this does not give you is judgement about whether the prose is good, idiomatic, or says the
 right thing to a superintendent. Nothing here substitutes for that.
 
+## Contact and footer
+
+`src/contact.js` and `src/contact.css` add a **Contact** button in the header and a matching link
+in the footer, both opening one NSN details modal. Injected by the build, outside the Core Design
+export, and mounted from the same coalesced `MutationObserver` the rest of the runtime hooks need.
+
+The header now reads **brand … search, Contact, Language** — the two site-wide controls sit hard
+right, where neither competes with the brand or the search field for the reader's attention.
+`src/i18n-selector.js` pins the language selector to the end of the row and the contact button
+inserts itself immediately before it.
+
+**The details are sourced, not invented.** `NSNTech@toro.com` and `https://my.toronsn.com/Support`
+both come from IntelliDash's own setup-wizard FAQ. `NSN.phone` at the top of `src/contact.js` is
+**deliberately empty**: there is no support telephone number anywhere in the IntelliDash source, and
+a plausible-looking number on a support page is worse than none — somebody rings it mid-push. Fill
+it in and the row renders itself.
+
+Everything it shows goes through the same catalogues as the rest of the site, so the control is not
+an English-only island in a site that ships eleven languages. Two things this shook out that are
+worth knowing:
+
+- `.lsa-contact-label` was doing double duty on the header button and the modal's row labels, so the
+  phone-width rule that hides the button text also blanked every label in the modal. The button's
+  label is now `.lsa-contact-btn-label`.
+- The dc-runtime adopts the footer anchors and repaints them `#3079f0` — 4.1:1 on white, below AA at
+  13px. Corrected with the same `!important` pattern `a11y.css` already uses for runtime-applied
+  colours. The buttons in the same row are untouched by the runtime and need nothing.
+
 ## Known gaps
 
 - **Analytics endpoint undecided**, so telemetry is local-only and collects nothing from remote users. The event layer itself is complete and exercised — flipping `TRANSPORT` to `'beacon'` and setting `SA_ENDPOINT` in `src/analytics.js`, plus adding that origin to the allowlist in `scripts/smoke.mjs`, is the whole change. Until then a gated pilot in ten languages tells you nothing about who read what.

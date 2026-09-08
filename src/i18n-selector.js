@@ -87,8 +87,11 @@
 
     wrap.appendChild(btn);
     wrap.appendChild(menu);
-    // After the brand, so the reading and tab order is: home, then language.
-    brand.parentNode.insertBefore(wrap, brand.nextSibling);
+    // Pinned to the end of the header row, hard right. src/contact.js then inserts the contact
+    // button immediately before this, so the pair reads "contact, language" at the right edge —
+    // which is where both belong: neither is navigation, and neither should sit between the brand
+    // and the search field competing with them.
+    brand.parentNode.appendChild(wrap);
     syncLabels();
   }
 

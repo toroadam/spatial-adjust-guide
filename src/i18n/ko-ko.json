@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "ko-ko",
-    "strings": 885,
+    "strings": 894,
     "identicalToEnglish": 7,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -894,6 +894,15 @@
     "Filter area": "구역 필터",
     "Filter hole": "홀 필터",
     "Filter station": "스테이션 필터",
-    "Save": "저장"
+    "Save": "저장",
+    "Contact": "문의",
+    "Contact NSN": "NSN 문의",
+    "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.": "Toro National Support Network. Spatial Adjust, IntelliDash 또는 Lynx 전송 실패에 대한 지원을 받으십시오.",
+    "Email": "이메일",
+    "Phone": "전화",
+    "Support portal": "지원 포털",
+    "NSN support portal": "NSN 지원 포털",
+    "Footer": "바닥글",
+    "All tasks": "모든 작업"
   }
 }

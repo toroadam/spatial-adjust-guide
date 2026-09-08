@@ -85,6 +85,9 @@
     'gate_shown',
     'gate_opened',
     'gate_rejected',
+
+    // Contact modal — tells you whether readers are reaching for support from the guides at all.
+    'contact_opened',
   ];
 
   function track(name, props) {
