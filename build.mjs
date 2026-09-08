@@ -115,6 +115,30 @@ async function main() {
     }
   }
 
+  // Splash markup, injected into the document rather than created by src/splash.js, so it is on
+  // screen at first paint instead of after the body scripts run — which is the wait it exists to
+  // cover. aria-hidden because it is decorative; splash.js sets aria-busy on <html>, and that is
+  // what actually announces the state.
+  //
+  // This has to happen BEFORE anything is injected into <head>. src/gate-boot.js mentions "<body>"
+  // in a comment and ships as an inline script, so a match run after that injection lands inside
+  // the script and corrupts it — which is precisely what happened, and what the inline-script
+  // parse check below caught. Asserting a single match keeps it honest if the export changes.
+  const bodyTags = html.match(/<body[^>]*>/g) || [];
+  if (bodyTags.length !== 1) {
+    throw new Error(`expected exactly one <body> in the raw export, found ${bodyTags.length}`);
+  }
+  html = html.replace(bodyTags[0], bodyTags[0] + `
+<div class="lsa-splash" aria-hidden="true">
+  <img class="lsa-splash-mark" src="assets/toro-logo.svg" alt="">
+  <p class="lsa-splash-title">Spatial Adjust Guides</p>
+  <div class="lsa-splash-bar"><i></i></div>
+  <div class="lsa-skel-grid">
+    <div class="lsa-skel-card"></div><div class="lsa-skel-card"></div>
+    <div class="lsa-skel-card"></div><div class="lsa-skel-card"></div>
+  </div>
+</div>`);
+
   // <html> had no lang, so screen readers guess the pronunciation language.
   html = html.replace(/<html(?![^>]*\blang=)/i, '<html lang="en"');
 
@@ -124,6 +148,7 @@ async function main() {
   const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
   const gateCss = await readFile(join(ROOT, 'src', 'gate.css'), 'utf8');
   const contactCss = await readFile(join(ROOT, 'src', 'contact.css'), 'utf8');
+  const splashCss = await readFile(join(ROOT, 'src', 'splash.css'), 'utf8');
   // Resolved in <head>, synchronously, so the gate decision is made before the first paint
   // rather than after — see the header of src/gate-boot.js.
   const gateBoot = await readFile(join(ROOT, 'src', 'gate-boot.js'), 'utf8');
@@ -134,14 +159,14 @@ async function main() {
   // which reads the resolved locale, and i18n-selector, which renders from it. a11y last so it
   // observes a fully wired tree.
   const injectedJs = [];
-  for (const name of ['analytics.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'a11y.js']) {
+  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'a11y.js']) {
     injectedJs.push(`/* --- src/${name} --- */\n` + await readFile(join(ROOT, 'src', name), 'utf8'));
   }
   const a11yJs = injectedJs.join('\n');
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
-<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n</style>
+<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n${splashCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 

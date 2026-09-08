@@ -305,6 +305,29 @@ UI fields — matching what a Thai user actually reads on screen.
 What this does not give you is judgement about whether the prose is good, idiomatic, or says the
 right thing to a superintendent. Nothing here substitutes for that.
 
+## Boot splash and skeletons
+
+`src/splash.js` and `src/splash.css`. The markup is written into `<body>` by `build.mjs` rather than
+created in JS, because this file runs at the end of `<body>` — creating the splash here would mean
+showing it *after* the wait it exists to cover.
+
+The splash clears when `#dc-root` has actually painted content, not when it merely exists: the
+runtime mounts an empty root before rendering, so "root exists" is not "content is ready". A 9s hard
+ceiling removes it regardless, because a runtime failure must leave the reader looking at whatever
+did render rather than at a loading screen implying something is still coming.
+
+**It also holds for a minimum of 650ms**, and that is a deliberate cost. Everything the runtime needs
+is inlined by the build — no CDN, no fetch — so on a warm load it paints in about 30ms and the
+splash flashed past faster than the eye resolves, which reads as a glitch rather than a load. 650ms
+is the shortest hold that still reads as intentional. It is real added latency on fast connections;
+lower `MIN_VISIBLE` in `src/splash.js` if that trade stops being worth it.
+
+`<html aria-busy="true">` is set while it is up, so assistive tech announces a wait rather than an
+apparently empty page. The skeleton cards and the progress bar share one keyframe family so they
+pulse together, and `prefers-reduced-motion` drops the travel while keeping the bar visible.
+
+It sits below the gate in the stacking order — a locked reader sees the gate, not this.
+
 ## Contact and footer
 
 `src/contact.js` and `src/contact.css` add a **Contact** button in the header and a matching link

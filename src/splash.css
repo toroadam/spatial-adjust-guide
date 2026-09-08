@@ -1,0 +1,68 @@
+/* Boot splash and skeleton placeholders. Injected by build.mjs, outside the Core Design export.
+
+   The problem this solves: the dc-runtime loads React, resolves the inlined component, mounts and
+   only then paints. On a fast connection that is a flicker; on a slow one it is several seconds of
+   blank white page with no indication anything is happening — and this is a site people open in a
+   maintenance shed on patchy wifi. */
+
+/* ---------- splash ---------- */
+.lsa-splash {
+  position: fixed; inset: 0;
+  z-index: 2147481000;                 /* below the gate: a locked reader sees the gate, not this */
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 22px;
+  background: var(--white, #fff);
+  font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+.lsa-splash[hidden] { display: none; }
+
+/* Fades out rather than vanishing, so the swap to real content does not read as a flash. */
+.lsa-splash.is-going { opacity: 0; transition: opacity .28s ease-out; pointer-events: none; }
+
+.lsa-splash-mark { height: 34px; width: auto; }
+.lsa-splash-title { font-size: 15px; font-weight: 600; color: var(--100, #080d12); margin: 0; }
+.lsa-splash-sub { font-size: 13px; color: rgb(100, 110, 115); margin: -14px 0 0; }
+
+.lsa-splash-bar {
+  width: 190px; height: 3px; border-radius: 2px;
+  background: var(--10, #e3e8ea);
+  overflow: hidden;
+}
+.lsa-splash-bar i {
+  display: block; height: 100%; width: 40%; border-radius: 2px;
+  background: var(--informative-03, #2165db);
+}
+
+/* ---------- skeleton ---------- */
+.lsa-skel-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%; max-width: 1116px; padding: 0 32px;
+  box-sizing: border-box;
+}
+.lsa-skel-card {
+  height: 168px; border-radius: 10px;
+  border: 1px solid var(--10, #e3e8ea);
+  background: var(--05, #f5f7f8);
+}
+
+/* One keyframe drives both the bar and the cards, so they pulse together rather than beating
+   against each other at slightly different rates. */
+@media (prefers-reduced-motion: no-preference) {
+  .lsa-splash-bar i { animation: lsa-slide 1.15s ease-in-out infinite; }
+  .lsa-skel-card { animation: lsa-pulse 1.6s ease-in-out infinite; }
+  .lsa-skel-card:nth-child(2) { animation-delay: .12s; }
+  .lsa-skel-card:nth-child(3) { animation-delay: .24s; }
+  .lsa-skel-card:nth-child(4) { animation-delay: .36s; }
+  @keyframes lsa-slide { 0% { transform: translateX(-110%); } 100% { transform: translateX(360%); } }
+  @keyframes lsa-pulse { 0%, 100% { opacity: 1; } 50% { opacity: .55; } }
+}
+/* With motion reduced the bar still shows progress is happening, just without travel. */
+@media (prefers-reduced-motion: reduce) {
+  .lsa-splash-bar i { width: 100%; opacity: .5; }
+}
+
+@media (max-width: 767px) {
+  .lsa-skel-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 0 12px; }
+  .lsa-skel-card { height: 140px; }
+}

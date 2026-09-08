@@ -88,6 +88,11 @@
 
     // Contact modal — tells you whether readers are reaching for support from the guides at all.
     'contact_opened',
+
+    // How long readers actually wait for the runtime to paint. The whole point of the splash is
+    // the slow-connection case, and without this there is no way to know whether it is 200ms or
+    // four seconds in a maintenance shed.
+    'splash_dismissed',
   ];
 
   function track(name, props) {
