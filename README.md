@@ -261,10 +261,9 @@ right thing to a superintendent. Nothing here substitutes for that.
 
 ## Known gaps
 
-- **Analytics endpoint undecided**, so telemetry is local-only and collects nothing from remote users.
+- **Analytics endpoint undecided**, so telemetry is local-only and collects nothing from remote users. The event layer itself is complete and exercised — flipping `TRANSPORT` to `'beacon'` and setting `SA_ENDPOINT` in `src/analytics.js`, plus adding that origin to the allowlist in `scripts/smoke.mjs`, is the whole change. Until then a gated pilot in ten languages tells you nothing about who read what.
 - **No manual screen-reader pass** (VoiceOver/NVDA). Automated checks and keyboard driving aren't a substitute.
 - **No translation has been reviewed by a native speaker**, and none is planned. Mechanically validated only — see Review status.
-- **One source sentence is garbled** — "If the threshold is set to zero the suggestion at push time…" is missing words in the Core Design export, so every translator had to guess at it. Fix belongs upstream or in a `transform-export.mjs` correction.
 - **The sign-in gate is client-side** and the repository is public, so it restricts the audience, not the content. See the section above for what would have to change.
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
 

@@ -212,6 +212,22 @@ export function transformGuide(src) {
     replace: 'Four bands by default: 0–5, 6–19, 20–30, and above 30 percent.',
   });
 
+  // 4. A sentence with words missing. "If the threshold is set to zero the suggestion at
+  //    push time" has no subject and no verb where it needs them, and the reader has to guess
+  //    which of the two below-threshold options is being described. Its siblings name the
+  //    option exactly — "Set to zero when pushed to Lynx converts small adjustments into
+  //    zeros" — so the intended meaning is not in doubt, only the grammar. Repaired using the
+  //    product's own label so the sentence points at a control the reader can find.
+  //
+  //    This one matters more than a typo: it is the paragraph explaining why the table and
+  //    the push dialog disagree, and it was translated into ten languages, each translator
+  //    guessing differently at it.
+  s = edit(s, {
+    name: 'below-threshold option sentence has no subject',
+    pattern: /If the threshold is set to zero the suggestion at push time, a small but genuine adjustment/,
+    replace: 'With Set to zero when pushed to Lynx selected, a small but genuine adjustment',
+  });
+
   // --- "On this page" tracker sticky offset ------------------------------------
   // The export sticks the section tracker 742px from the top of the viewport. That offset
   // only makes sense while the walkthrough stage is on screen; by the time the tracker's
