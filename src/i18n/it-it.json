@@ -1,10 +1,12 @@
 {
   "_meta": {
-    "note": "Machine translation, not reviewed by a native speaker of the turf-irrigation domain. Terminology follows IntelliDash's own catalogues via src/i18n/glossary.json. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
+    "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "it-it",
     "strings": 776,
     "identicalToEnglish": 7,
-    "reviewed": false
+    "machineValidated": true,
+    "nativeSpeakerReviewed": false,
+    "nativeReviewPlanned": false
   },
   "strings": {
     "/spatialadjust": "/spatialadjust",
@@ -278,9 +280,9 @@
     "Open the Preferences tab": "Aprire la scheda Preferenze",
     "Open the profile": "Aprire il profilo",
     "Open the Target Profiles tab": "Aprire la scheda Profili di obiettivi",
-    "Option 1 — ratio of target to measured": "Opzione 1: rapporto fra obiettivo e valore misurato",
+    "Option 1 — ratio of target to measured": "Opzione 1 — rapporto fra obiettivo e valore misurato",
     "Option 1 multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds. It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected.": "L'Opzione 1 moltiplica la regolazione percentuale attualmente presente in Lynx per l'obiettivo diviso l'umidità misurata, e arrotonda. Non usa ET, né quantità di riferimento, né limite massimo, perciò Quantità massima e Quantità di riferimento Lynx restano disattivate finché è selezionata.",
-    "Option 2 — delta plus today’s ET, the default": "Opzione 2: differenza più l'ET di oggi, quella predefinita",
+    "Option 2 — delta plus today’s ET, the default": "Opzione 2 — differenza più l'ET di oggi, quella predefinita",
     "Option 2 flattens everything above the daily maximum onto one number. Option 1 has no ceiling, so its suggestions spread out — and can go far higher than you intend on a station that reads very dry.": "L'Opzione 2 appiattisce su un unico numero tutto ciò che supera il massimo giornaliero. L'Opzione 1 non ha tetto, quindi i suoi suggerimenti si distribuiscono, e possono salire molto più di quanto vorreste su una stazione con una lettura molto asciutta.",
     "or browse all 24 tasks ↓": "oppure sfogliate tutte le 24 attività ↓",
     "Original and rewritten values, shown together.": "Valori originali e riscritti, mostrati insieme.",

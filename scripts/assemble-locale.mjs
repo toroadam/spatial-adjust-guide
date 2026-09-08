@@ -39,13 +39,18 @@ const ordered = Object.fromEntries(Object.keys(source).map((k) => [k, merged[k]]
 const out = `src/i18n/${locale}.json`;
 await writeFile(out, JSON.stringify({
   _meta: {
-    note: 'Machine translation, not reviewed by a native speaker of the turf-irrigation domain. '
-        + 'Terminology follows IntelliDash\'s own catalogues via src/i18n/glossary.json. '
-        + 'Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.',
+    note: 'Machine translation. Terminology follows IntelliDash\'s own shipped catalogues via '
+        + 'src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, '
+        + 'product names, structural characters and compound/standalone agreement. NOT reviewed by a '
+        + 'native speaker: no native review is planned for this project, so treat this as the final '
+        + 'state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after '
+        + 'any Core Design re-export.',
     locale,
     strings: Object.keys(ordered).length,
     identicalToEnglish: identical.length,
-    reviewed: false,
+    machineValidated: false,       // set by scripts/validate-locales.mjs once it passes
+    nativeSpeakerReviewed: false,
+    nativeReviewPlanned: false,
   },
   strings: ordered,
 }, null, 2) + '\n');
