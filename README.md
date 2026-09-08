@@ -311,6 +311,16 @@ right thing to a superintendent. Nothing here substitutes for that.
 - **No manual screen-reader pass** (VoiceOver/NVDA). Automated checks and keyboard driving aren't a substitute.
 - **No translation has been reviewed by a native speaker**, and none is planned. Mechanically validated only — see Review status.
 - **The sign-in gate is client-side** and the repository is public, so it restricts the audience, not the content. See the section above for what would have to change.
+- **Four product features have no guide, because the reproduction cannot show them.** An audit of
+  IntelliDash's 108 user-facing Spatial Adjust strings against the guide corpus found no coverage
+  for: the **Over/Under % Adj. filter** (an outlier finder — `> over || < under`, so it surfaces
+  both extremes at once, not a band; Over 0–300 default 200, Under 0–100 default 10, stored per
+  user), **Request latest scan data / Reload Data**, the **update banner**, and the
+  **discard-changes confirmation** added in an internal work item. `SpatialAdjustApp.dc.html` renders none of
+  those controls — no refresh button, no banner, no filter dialog — so a step-by-step guide would
+  have to point its figure at an unrelated panel. Covering them properly means extending the
+  reproduction in Core Design first. The cursor targets `refresh`, `filterLink`, `tabOver` and
+  `tabAll` already exist and are referenced by nothing, which suggests this was always the plan.
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
 
 ## Two export defaults corrected by transforms
