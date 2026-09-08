@@ -3,7 +3,7 @@
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
     "strings": 776,
-    "words": 9309
+    "words": 9306
   },
   "strings": {
     "/spatialadjust": "/spatialadjust",
@@ -203,7 +203,6 @@
     "Identical suggestions, missing values, stale scans.": "Identical suggestions, missing values, stale scans.",
     "If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.": "If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.",
     "If nothing above explains it, open the diagnostics dialog by clicking the Spatial Adjust logo. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.": "If nothing above explains it, open the diagnostics dialog by clicking the Spatial Adjust logo. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.",
-    "If the threshold is set to zero the suggestion at push time, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.": "If the threshold is set to zero the suggestion at push time, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.",
     "If the whole course is stale, check the source": "If the whole course is stale, check the source",
     "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.": "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.",
     "In one line.": "In one line.",
@@ -753,6 +752,7 @@
     "Why the table and the push dialog disagree, and what the second option really does.": "Why the table and the push dialog disagree, and what the second option really does.",
     "Why the table and the push dialog disagree.": "Why the table and the push dialog disagree.",
     "With Option 1 selected, the two amount fields are disabled.": "With Option 1 selected, the two amount fields are disabled.",
+    "With Set to zero when pushed to Lynx selected, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.": "With Set to zero when pushed to Lynx selected, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.",
     "With the prompt suppressed, an area-level toggle silently changes every hole and station under it.": "With the prompt suppressed, an area-level toggle silently changes every hole and station under it.",
     "Work in the table": "Work in the table",
     "Work out your own ceiling": "Work out your own ceiling",
@@ -1444,9 +1444,6 @@
       "push-to-lynx"
     ],
     "If nothing above explains it, open the diagnostics dialog by clicking the Spatial Adjust logo. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.": [
-      "station-zero"
-    ],
-    "If the threshold is set to zero the suggestion at push time, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.": [
       "station-zero"
     ],
     "If the whole course is stale, check the source": [
@@ -3270,6 +3267,9 @@
     ],
     "With Option 1 selected, the two amount fields are disabled.": [
       "calculation-methods"
+    ],
+    "With Set to zero when pushed to Lynx selected, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.": [
+      "station-zero"
     ],
     "With the prompt suppressed, an area-level toggle silently changes every hole and station under it.": [
       "enable-disable-stations"

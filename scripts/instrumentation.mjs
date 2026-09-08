@@ -17,6 +17,15 @@ const errors = [];
 page.on('pageerror', (e) => errors.push(String(e).slice(0, 160)));
 page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0, 160)); });
 
+// src/analytics.js keeps a closed event list and rejects anything not on it with a console
+// WARNING, not an error — so a caller emitting an event nobody added to EVENTS records nothing
+// and no test notices. That is exactly how the entire gate and locale instrumentation came to be
+// silently discarded. Warnings are cheap to watch; this one is not optional.
+const rejected = new Set();
+page.on('console', (m) => {
+  if (m.type() === 'warning' && /unknown event/.test(m.text())) rejected.add(m.text().slice(0, 120));
+});
+
 await page.goto(url, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1500);
 
@@ -62,6 +71,7 @@ const result = {
   hadFeedbackWidget,
   hadStub,
   externalSeen,
+  rejectedEvents: [...rejected],
   errors: [...new Set(errors)],
 };
 
@@ -71,6 +81,7 @@ const pass =
   report.guidesOpened.length > 0 &&
   (!hadStub || uniq.includes('stub_clicked')) &&
   (!hadFeedbackWidget || uniq.includes('feedback_submitted')) &&
+  rejected.size === 0 &&
   errors.length === 0;
 
 console.log(JSON.stringify(result, null, 2));

@@ -69,6 +69,22 @@
     'search_used',
     'feedback_submitted',
     'returned_home',
+
+    // Language. Without these there is no way to tell whether the locale negotiation does
+    // anything, or whether per-locale demand is real or an artefact of everyone being
+    // defaulted to English. locale_resolved carries a `translated` flag, so demand for a
+    // language nobody can read yet is measurable too.
+    'locale_resolved',
+    'locale_changed',
+    'locale_applied',
+    'locale_catalogue_missing',
+    'locale_catalogue_failed',
+
+    // Sign-in gate. gate_rejected records the DOMAIN only, never the address — see the note
+    // at the top of this file about collecting no PII.
+    'gate_shown',
+    'gate_opened',
+    'gate_rejected',
   ];
 
   function track(name, props) {
