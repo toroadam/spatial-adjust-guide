@@ -19,6 +19,11 @@
 (function () {
   'use strict';
 
+  // Locales a translated catalogue actually exists for. Everything else in LOCALES can be
+  // *chosen* — the choice is recorded and reported — but the words on the page are still
+  // English until its code is added here. See README > Localisation status.
+  var CONTENT_LOCALES = ['en-us', 'de-de', 'es-es', 'fr-fr', 'it-it', 'ja-jp', 'ko-ko', 'nl-nl', 'pt-pt', 'th-th', 'zh-cn'];
+
   var STORAGE_KEY = 'sa-guides-locale';
   var URL_PARAM = 'lang';
   var DEFAULT = 'en-us';
@@ -132,8 +137,22 @@
 
   function applyDocumentLang(code) {
     var l = byCode[code] || byCode[DEFAULT];
+
+    // The reader's choice, recorded whether or not it can be served, so the selector,
+    // the instrumentation and any future catalogue lookup all read it from one place.
+    document.documentElement.setAttribute('data-sa-locale', l.code);
+
+    // <html lang> describes the language of the CONTENT, not the language the reader asked
+    // for, and those are not the same thing here: choosing Deutsch currently changes the
+    // selector label and nothing else, because no catalogue exists yet. Emitting lang="de-DE"
+    // over English text makes a screen reader pronounce every word with German phonetics —
+    // strictly worse than not offering the choice, and a WCAG 3.1.1 failure into the bargain.
+    // So the tag follows what is actually served; add codes to CONTENT_LOCALES as catalogues
+    // land and this starts telling the truth on its own.
+    //
     // Emit the corrected tag, never the raw code — see the ko-ko note in the header.
-    document.documentElement.setAttribute('lang', l.htmlLang);
+    var served = CONTENT_LOCALES.indexOf(l.code) === -1 ? byCode[DEFAULT] : l;
+    document.documentElement.setAttribute('lang', served.htmlLang);
   }
 
   // Runs at top level, not on DOMContentLoaded, so the document language is correct as
@@ -174,12 +193,19 @@
     isSupported: isSupported,
     match: function (tag) { var h = matchTag(tag); return h ? h.code : null; },
     resolvedFrom: function () { return resolvedFrom; },
+    // Whether the chosen locale has a catalogue behind it, or is a recorded preference only.
+    isTranslated: function (code) { return CONTENT_LOCALES.indexOf(code || current) !== -1; },
   };
 
   // How readers arrive at their language: 'url', 'stored', 'navigator' or 'default'.
   // Without this there is no way to tell whether detection is doing anything, or whether
   // per-locale demand is real or an artefact of everyone being defaulted to English.
   if (window.__saTrack) {
-    window.__saTrack('locale_resolved', { locale: current, via: resolvedFrom });
+    window.__saTrack('locale_resolved', {
+      locale: current,
+      via: resolvedFrom,
+      // Demand for a language nobody can read yet is the signal worth having.
+      translated: CONTENT_LOCALES.indexOf(current) !== -1,
+    });
   }
 })();

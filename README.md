@@ -70,6 +70,8 @@ Adding a new imported component still means adding its name to `COMPONENTS` in `
 | `npm run test:keyboard` | Drives the interface: tab to a card, Enter to open, Space on Next, and asserts the live region changed. |
 | `npm run test:routing` | Deep links, Back/Forward, and an unknown key falling back to the catalog. |
 | `npm run test:a11y` | axe-core on the catalog and inside a guide, plus a keyboard-reachability probe. |
+| `npm run test:i18n` | Per shipped locale: that the words on screen actually change, that `<html lang>` agrees with what is served, and that a locale with no catalogue degrades to English rather than to a half-translated page. |
+| `npm run test:gate` | Drives the sign-in gate: that it hides the guides from `innerText`, rejects an outside domain and a lookalike (`nottoro.com`), admits a subdomain, persists the unlock across a reload, re-locks when storage is cleared, and is axe-clean. |
 
 The fingerprint harness verified the original port: output was **identical** between the Core Design export and the built bundle.
 
@@ -110,10 +112,135 @@ That's sufficient for moderated sessions. **It does not collect from remote user
 
 Note that unwritten cards are **real buttons**, not disabled ones: activating one requests the guide. Marking them `aria-disabled` would contradict the fact that they do something.
 
+## Sign-in gate
+
+Delivered under an internal work item. `src/gate-boot.js`, `src/gate.js` and `src/gate.css` are injected by
+the build, outside the Core Design export, for the same reason the a11y layer is.
+
+**This is a courtesy barrier, not access control, and should not be presented as one.** The rule
+ships to the browser, the guide content sits in the same document, and the repository is public —
+so `curl`, View Source, or a local rebuild all walk straight past it. It exists to point the pilot
+at its intended audience and make entry deliberate. Nothing that would matter if it leaked should
+be published behind it.
+
+A real gate needs a server, and the two routes that were on the table both failed on access:
+Cloudflare isn't available at Toro, and publishing GitHub Pages privately requires the repo to sit
+in a **GitHub Enterprise Cloud organisation** — this one is a personal repo with no org. If the
+content ever needs actual protection, that is the decision to revisit, not this file.
+
+**The rule** is domain-based with room for named exceptions, both at the top of `src/gate.js`:
+
+```js
+var ALLOW_DOMAINS = ['toro.com'];   // subdomains count; the check is anchored on the dot
+var ALLOW_EMAILS = [];              // exact addresses, for anyone off-tenant
+```
+
+Adding one person is a line in `ALLOW_EMAILS`. Widening to a whole organisation should be a
+conscious edit to `ALLOW_DOMAINS`, not something that happens by accident.
+
+**Why the decision is made in `<head>.`** `src/gate-boot.js` resolves the flag synchronously and
+records it on `<html>`; `src/gate.css` keys off that attribute. Deciding in `src/gate.js` alone —
+which runs at the end of `<body>` with the other modules — would paint the whole catalogue and
+then cover it, showing the reader exactly what they haven't been admitted to. The page behind is
+hidden with `visibility`, not `display`, so the runtime measures the geometry it would have
+measured anyway; the sticky "On this page" tracker calibrates against a fixed offset and would
+otherwise compute against a collapsed page.
+
+**Bypassed on `localhost` and `file://`.** Eleven Playwright scripts drive the built page and
+assert against rendered text, and `innerText` skips a `visibility:hidden` subtree — so a gate that
+was live locally would turn the whole suite red. Seeding the unlock into eleven browser contexts
+puts the same bypass in eleven places and rots as scripts are added. Reaching localhost means
+already having the files, so nothing is given away. Append **`?gate=1`** to drop the bypass and get
+the deployed behaviour, storage and all; that is how `npm run test:gate` drives it.
+
+**Privacy.** The address is compared in the browser and written to `localStorage` on that device.
+It is never transmitted. The instrumentation records only the domain — `src/analytics.js` states it
+collects no PII, and logging the address would quietly make that untrue.
+
+**Not localised.** The prompt is English — as is everything else on the site. See
+**Localisation status** below.
+
+## Localisation status
+
+Delivered under an internal work item (selection) and an internal work item (content). The selector, the negotiation and
+the runtime translation layer are complete. **Catalogues exist for some locales and not others,
+and the site tells the truth about which** — see the table below.
+
+What is built (`src/i18n.js`, `src/i18n-selector.js`):
+
+- the eleven-locale registry, sourced from IntelliDash's own `addLangs()` call rather than its
+  `LanguageCode` enum — see the header of `src/i18n.js` for why those differ;
+- BCP-47 negotiation with a primary-subtag fallback, so `de-AT`, `pt-BR` and `zh-TW` land on a
+  catalogue instead of dropping to English;
+- precedence of `?lang=` over stored choice over `navigator.languages` over `en-us`;
+- the selector itself, as an accessible listbox.
+
+### How translation is applied
+
+The content lives inside the Core Design export's own component scope, and the runtime re-renders
+on every state change — neither is reachable from our code. So `src/i18n-apply.js` translates the
+**DOM**, keyed on the exact English string. Two things make that survivable:
+
+- every node it touches keeps its English original on the node (`__saEn`), so switching locale
+  twice does not compound and a runtime-recreated node still matches; and
+- re-application rides the same coalesced `MutationObserver` pattern as `src/feedback.js`, so a
+  re-render is self-healing — the runtime paints English, the observer fires, it is translated
+  again within a frame.
+
+`scripts/extract-strings.mjs` harvests the source catalogue from the **rendered page**, walking all
+24 guides and every step. That is deliberate: a key harvested from source is not necessarily what
+the runtime paints, and a key that never matches is a silent no-op. Harvesting what is on screen
+makes the key set and the match set the same set. Re-run it after any Core Design re-export.
+
+`src/i18n/glossary.json` holds terminology lifted from **IntelliDash's own shipped catalogues**
+(`site/src/assets/i18n/*.json`, read-only) via `scripts/build-glossary.mjs`. A guide that says
+"open Settings" while the product's German build says "Einstellungen" sends the reader looking for
+a control that does not exist under that name.
+
+`.sa-app` is skipped. That component reproduces the real IntelliDash screen, and the product
+renders its own translations there — so the framed screenshot stays in English while the prose
+around it does not. That is a known and deliberate seam.
+
+### Coverage
+
+| Locale | Catalogue | Coverage |
+|---|---|---|
+| `en-us` | source | — |
+| `de-de` `es-es` `fr-fr` `it-it` | ✅ 776 strings | 97.8% / 97.9% / 95.7% / 97.9% |
+| `ja-jp` `ko-ko` `nl-nl` `pt-pt` | ✅ 776 strings | 97.6% / 97.5% / 97.9% / 97.9% |
+| `th-th` `zh-cn` | ✅ 776 strings | 97.8% / 97.5% |
+
+All eleven locales now serve translated content. Coverage is measured by `npm run test:i18n` against a
+rendered guide; the residual few per cent are strings that are legitimately identical — URLs, station
+identifiers, `N MIN`, the copyright line — plus the `.sa-app` seam described above.
+
+Regenerate a locale with `npm run translate -- --locale <code>`, then
+`node scripts/assemble-locale.mjs <code> .translate/<code>`, then add the code to `CONTENT_LOCALES`.
+`scripts/translate.mjs` chunks the catalogue, feeds each chunk the glossary, matches results back by
+echoed source rather than by position, and resumes where a failed run stopped. It writes fragments
+only — `assemble-locale.mjs` is still the gate, so machine output faces the same completeness check as
+anything hand-written.
+
+**No catalogue means English, and the page says so.** `<html lang>` reports the language actually
+**served**, not the one chosen; the chosen locale goes on `<html data-sa-locale>`. Emitting
+`lang="fr-FR"` over English text makes a screen reader pronounce every word with French phonetics —
+worse than not offering the choice, and a WCAG 3.1.1 failure. Adding a code to `CONTENT_LOCALES` at
+the top of `src/i18n.js` is what flips a locale on, and the tag corrects itself.
+
+The `locale_resolved` event carries a `translated` flag for the same reason: demand for a language
+nobody can read yet is the signal worth having.
+
+**Every catalogue in this repo is unreviewed machine translation.** `_meta.reviewed` is `false` in
+each file. These are guides for irrigation decisions on real turf; a native reviewer with
+turf-industry vocabulary should pass over them before they go to customers.
+
 ## Known gaps
 
 - **Analytics endpoint undecided**, so telemetry is local-only and collects nothing from remote users.
 - **No manual screen-reader pass** (VoiceOver/NVDA). Automated checks and keyboard driving aren't a substitute.
+- **No translation has been reviewed by a native speaker.** Every catalogue is machine output.
+- **One source sentence is garbled** — "If the threshold is set to zero the suggestion at push time…" is missing words in the Core Design export, so every translator had to guess at it. Fix belongs upstream or in a `transform-export.mjs` correction.
+- **The sign-in gate is client-side** and the repository is public, so it restricts the audience, not the content. See the section above for what would have to change.
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
 
 ## Two export defaults corrected by transforms

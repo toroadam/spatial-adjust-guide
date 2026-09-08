@@ -15,12 +15,17 @@
     "test:responsive": "node scripts/responsive.mjs http://localhost:8124/",
     "test:instrumentation": "node scripts/instrumentation.mjs http://localhost:8124/",
     "import": "node scripts/import-export.mjs",
-    "test:routing": "node scripts/routing.mjs http://localhost:8124/"
+    "test:routing": "node scripts/routing.mjs http://localhost:8124/",
+    "test:gate": "node scripts/gate.mjs http://localhost:8124/",
+    "test:i18n": "node scripts/i18n.mjs http://localhost:8124/",
+    "translate": "node scripts/translate.mjs"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.72.0",
     "@axe-core/playwright": "^4.13.0",
     "axe-core": "^4.13.0",
-    "playwright": "^1.62.1"
+    "playwright": "^1.62.1",
+    "zod": "^4.0.0"
   },
   "dependencies": {
     "react": "18.3.1",
