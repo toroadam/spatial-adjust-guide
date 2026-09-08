@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "de-de",
-    "strings": 885,
+    "strings": 894,
     "identicalToEnglish": 7,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -894,6 +894,15 @@
     "Filter area": "Fläche filtern",
     "Filter hole": "Loch filtern",
     "Filter station": "Station filtern",
-    "Save": "Speichern"
+    "Save": "Speichern",
+    "Contact": "Kontakt",
+    "Contact NSN": "NSN kontaktieren",
+    "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.": "Toro National Support Network. Für Hilfe bei Spatial Adjust, IntelliDash oder einer fehlgeschlagenen Übertragung an Lynx.",
+    "Email": "E-Mail",
+    "Phone": "Telefon",
+    "Support portal": "Support-Portal",
+    "NSN support portal": "NSN-Support-Portal",
+    "Footer": "Fußzeile",
+    "All tasks": "Alle Aufgaben"
   }
 }

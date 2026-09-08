@@ -123,6 +123,7 @@ async function main() {
   // and a string-pattern replace would otherwise match that one and corrupt the JS literal.
   const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
   const gateCss = await readFile(join(ROOT, 'src', 'gate.css'), 'utf8');
+  const contactCss = await readFile(join(ROOT, 'src', 'contact.css'), 'utf8');
   // Resolved in <head>, synchronously, so the gate decision is made before the first paint
   // rather than after — see the header of src/gate-boot.js.
   const gateBoot = await readFile(join(ROOT, 'src', 'gate-boot.js'), 'utf8');
@@ -133,14 +134,14 @@ async function main() {
   // which reads the resolved locale, and i18n-selector, which renders from it. a11y last so it
   // observes a fully wired tree.
   const injectedJs = [];
-  for (const name of ['analytics.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'feedback.js', 'a11y.js']) {
+  for (const name of ['analytics.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'a11y.js']) {
     injectedJs.push(`/* --- src/${name} --- */\n` + await readFile(join(ROOT, 'src', name), 'utf8'));
   }
   const a11yJs = injectedJs.join('\n');
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
-<style>\n${a11yCss}\n${gateCss}\n</style>
+<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 
