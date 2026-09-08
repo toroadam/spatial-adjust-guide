@@ -14,7 +14,7 @@
 // Keeping support.js untouched preserves the Core Design -> web round-trip: re-exporting
 // from Core Design means dropping the new .dc.html files in and rebuilding.
 
-import { readFile, writeFile, mkdir, rm, cp } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rm, cp, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { transformGuide } from './src/transform-export.mjs';
 
@@ -122,18 +122,26 @@ async function main() {
   // BEFORE the bootstrap is inserted: the inlined component source contains its own </head>,
   // and a string-pattern replace would otherwise match that one and corrupt the JS literal.
   const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
-  // Order matters: analytics defines window.__saTrack, which feedback, i18n and the guide
-  // logic all call. i18n defines window.__saLocale and must precede i18n-selector, which
-  // renders from it. a11y last so it observes a fully wired tree.
+  const gateCss = await readFile(join(ROOT, 'src', 'gate.css'), 'utf8');
+  // Resolved in <head>, synchronously, so the gate decision is made before the first paint
+  // rather than after — see the header of src/gate-boot.js.
+  const gateBoot = await readFile(join(ROOT, 'src', 'gate-boot.js'), 'utf8');
+  // Order matters: analytics defines window.__saTrack, which gate, feedback, i18n and the
+  // guide logic all call. gate follows it so the gate's own events are recorded, and comes
+  // before the rest so the prompt is up before anything else starts wiring itself to a page
+  // the reader cannot see. i18n defines window.__saLocale and must precede both i18n-apply,
+  // which reads the resolved locale, and i18n-selector, which renders from it. a11y last so it
+  // observes a fully wired tree.
   const injectedJs = [];
-  for (const name of ['analytics.js', 'i18n.js', 'i18n-selector.js', 'feedback.js', 'a11y.js']) {
+  for (const name of ['analytics.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'feedback.js', 'a11y.js']) {
     injectedJs.push(`/* --- src/${name} --- */\n` + await readFile(join(ROOT, 'src', name), 'utf8'));
   }
   const a11yJs = injectedJs.join('\n');
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
-<style>\n${a11yCss}\n</style>
+<style>\n${a11yCss}\n${gateCss}\n</style>
+<script>\n${gateBoot}\n</script>
 </head>`);
 
   // The bootstrap has to land before the support.js tag, not merely before </head>.
@@ -172,9 +180,25 @@ async function main() {
       filter: (src) => !DS_EXCLUDE.some((name) => src.endsWith(`/${name}`)),
     });
   }
+  // Translation catalogues, one file per locale, fetched on demand by src/i18n-apply.js.
+  // Only the string map ships: the harvested contexts and metadata are there for whoever is
+  // translating, and would otherwise be bandwidth every reader pays for and nobody reads.
+  // glossary.json is a translator's reference too, and is deliberately not shipped.
+  const localeFiles = (await readdir(join(ROOT, 'src', 'i18n')))
+    .filter((f) => f.endsWith('.json') && f !== 'glossary.json' && f !== 'en-us.json');
+  if (localeFiles.length) await mkdir(join(DIST, 'i18n'), { recursive: true });
+  let shipped = 0;
+  for (const file of localeFiles) {
+    const data = JSON.parse(await readFile(join(ROOT, 'src', 'i18n', file), 'utf8'));
+    if (!data.strings) throw new Error(`${file} has no "strings" map — regenerate it`);
+    await writeFile(join(DIST, 'i18n', file), JSON.stringify({ strings: data.strings }));
+    shipped++;
+  }
+
   await writeFile(join(DIST, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
-  console.log(`built dist/ — entry index.html, ${COMPONENTS.length} component(s) inlined, 0 external origins`);
+  console.log(`built dist/ — entry index.html, ${COMPONENTS.length} component(s) inlined, `
+    + `${shipped} locale catalogue(s), 0 external origins`);
 }
 
 await main();

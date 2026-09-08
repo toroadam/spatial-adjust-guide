@@ -64,6 +64,11 @@
     var menu = document.createElement('ul');
     menu.className = 'lsa-lang-menu';
     menu.setAttribute('role', 'listbox');
+    // A listbox needs its own accessible name — the trigger's name doesn't carry over to it,
+    // so without this a screen reader announces an unnamed list of eleven options and axe
+    // reports aria-input-field-name. Not aria-labelledby the trigger: that trigger's name is
+    // "Language: Deutsch", which would announce the current value as the list's purpose.
+    menu.setAttribute('aria-label', 'Language');
     menu.hidden = true;
 
     loc.locales.forEach(function (l) {

@@ -250,7 +250,14 @@
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, .16);
 }
-.lsa-lang-menu[hidden] { display: none; }
+/* Open state is driven by the trigger's aria-expanded, not by the menu's `hidden` property.
+   The dc-runtime adopts injected nodes into its own template system — this <ul> comes back
+   from a re-render carrying data-dc-tpl — and drops `hidden` in the process, which left the
+   menu permanently open over the hero while the trigger still reported aria-expanded="false".
+   aria-expanded survives because it is an attribute the runtime round-trips, and keying off it
+   means the visual state and the announced state cannot disagree. */
+.lsa-lang-menu { display: none; }
+.lsa-lang-btn[aria-expanded="true"] + .lsa-lang-menu { display: block; }
 
 .lsa-lang-opt {
   display: flex;
