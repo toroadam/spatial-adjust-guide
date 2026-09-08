@@ -384,7 +384,22 @@ worth knowing:
 - **No manual screen-reader pass** (VoiceOver/NVDA). Automated checks and keyboard driving aren't a substitute.
 - **No translation has been reviewed by a native speaker**, and none is planned. Mechanically validated only — see Review status.
 - **The sign-in gate is client-side** and the repository is public, so it restricts the audience, not the content. See the section above for what would have to change.
-- **Four product features have no guide, because the reproduction cannot show them.** An audit of
+- **Two of the four uncovered features now have guides.** `request-scan-data` and
+  `filter-adjustments` were written after `src/transform-app.mjs` added the two controls the
+  reproduction was missing: the Over/Under Options dialog and the scan-data banner. Both ride the
+  existing `dialog` prop — `<dc-import>` only forwards attributes matching the component's
+  *original* schema, so a transform-added prop arrives `undefined` however correctly it is declared
+  and bound, whereas a new **value** on an already-bound enum passes straight through.
+- **308 places where the guide prose names a control differently from the control.** The prose was
+  written independently of IntelliDash's shipped labels, so German prose says "Sammelanpassung"
+  where the reproduced screen says "Massenanpassung" — a reader hunting that button will not find
+  it. `npm run test:validate` reports these as an **advisory** count rather than failing on them:
+  they are real, but failing the build on 308 findings means nobody runs the validator. Worth a
+  dedicated pass. The five worst instances (the Over/Under readout in four locales, and French
+  "All Stations") are already reconciled.
+- **Two features still have no guide:** the update banner's dismiss-without-reload path in context,
+  and the discard-changes confirmation from an internal work item.
+- **Superseded note.** An audit of
   IntelliDash's 108 user-facing Spatial Adjust strings against the guide corpus found no coverage
   for: the **Over/Under % Adj. filter** (an outlier finder — `> over || < under`, so it surfaces
   both extremes at once, not a band; Over 0–300 default 200, Under 0–100 default 10, stored per

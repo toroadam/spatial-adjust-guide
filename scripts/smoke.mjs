@@ -76,7 +76,7 @@ const result = {
 const pass =
   home.dcRoot &&
   home.renderedChars > 20000 &&
-  home.cards === 24 &&
+  home.cards === 26 &&
   guide?.stageMounted === true &&
   external.size === 0 &&
   errors.size === 0;
