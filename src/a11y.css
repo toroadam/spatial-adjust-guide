@@ -167,6 +167,23 @@
   font-size: 14px;
   color: rgb(100, 110, 115);
 }
+/* On a guide the widget lands inside <article>, which is already the content column, so it
+   inherits the right alignment. On the catalogue there is no article — it is appended straight to
+   <main>, which is full-bleed, so it rendered flush against the viewport edge while every other
+   thing on the page started 162px in. Constrained to the same container the header uses
+   (1180px, 32px gutters) and scoped to that case only, so the guide layout is untouched. */
+.lsa main > .lsa-helpful {
+  box-sizing: border-box;
+  max-width: 1180px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+@media (max-width: 767px) {
+  .lsa main > .lsa-helpful { padding-left: 12px; padding-right: 12px; }
+}
+
 .lsa-helpful[data-done] { color: rgb(76, 84, 89); }
 .lsa-helpful-q { margin-right: 2px; }
 .lsa-helpful-btn {
