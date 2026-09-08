@@ -87,6 +87,131 @@ export function transformGuide(src) {
       + '<span class="lsa-sr-only">{{ task.difficultyLabel }}</span>',
   });
 
+  // --- off-stage cursor on calculation-settings step 1 -------------------------
+  // Every guide is mapped: seven in the `const TARGETS` literal and the other seventeen in
+  // an `Object.assign(TARGETS, {...})` further down. One entry places the cursor outside
+  // its own figure. Step 1 targets `P.gear` at x=1836, but the step's crop is `dlgWide`,
+  // which frames x 490-1430. camera() only pans vertically to keep a target in view, so the
+  // gear resolves to tx=1133 on a 792px stage and the cursor is drawn off the right edge.
+  //
+  // The figure for this step already shows the dialog open on Calculation, so the gear has
+  // been clicked by the time it renders. `P.menuCalc` is the Calculation tab inside that
+  // dialog — in frame, and what "on the Calculation tab" actually refers to.
+  s = edit(s, {
+    name: 'calculation-settings step 1 cursor in frame',
+    pattern: /('calculation-settings': \[)P\.gear(, P\.maxAmount, P\.refAmount, P\.cropCoeff, P\.saveChanges\])/,
+    replace: '$1P.menuCalc$2',
+  });
+
+  // --- factual corrections, verified against the IntelliDash source ------------
+  // Text claims that a reader would act on and that the product contradicts. Each was
+  // checked against the shipping code, not against the recreation. These belong in Core
+  // Design at source; until they are fixed there, they are corrected here so the published
+  // site is not wrong, and each anchor fails the build if the sentence changes upstream.
+  // See docs/text-corrections.md for the evidence behind every one.
+
+  // 1. Algorithm naming. The guide calls the two methods "Simple" and "the default method",
+  //    which are the enum names (SaAlgorithm.Simple / DeltaPlusTodayEt). The dropdown is
+  //    built from ALGO_SIMPLE and ALGO_DELTA_PLUS_TODAY_ET, which render as "Option 1" and
+  //    "Option 2" in en-us.json and in all ten other locales. A reader hunting the dropdown
+  //    for "Simple" finds nothing. The descriptive names are kept as prose, because
+  //    "Option 1 multiplies the percent adjust Lynx holds" is unreadable on its own, but
+  //    every mention is now tied to the label actually on screen.
+  s = edit(s, {
+    name: 'algorithm names: before list',
+    pattern: /'The algorithm selector is deliberately hidden in production unless the site is already set to Simple\.',\n      'The default is the delta-plus-today\\u2019s-ET method\.'/,
+    replace: `'The dropdown labels the two methods Option 1 and Option 2, and describes neither.',\n      'The selector is hidden in production unless the site is already set to Option 1.',\n      'The default is Option 2, the delta-plus-today’s-ET method.'`,
+  });
+
+  s = edit(s, {
+    name: 'algorithm names: selector step',
+    pattern: /the persisted algorithm is already Simple, so most users never see it\./,
+    replace: 'the persisted algorithm is already Option 1, so most users never see it. '
+      + 'The dropdown offers only Option 1 and Option 2; nothing in the product says what either one does.',
+  });
+
+  s = edit(s, {
+    name: 'algorithm names: delta step title',
+    pattern: /title: 'Delta plus today\\u2019s ET — the default'/,
+    replace: `title: 'Option 2 — delta plus today’s ET, the default'`,
+  });
+
+  s = edit(s, {
+    name: 'algorithm names: simple step title',
+    pattern: /title: 'Simple — ratio of target to measured'/,
+    replace: `title: 'Option 1 — ratio of target to measured'`,
+  });
+
+  s = edit(s, {
+    name: 'algorithm names: simple step body',
+    pattern: /body: 'Simple multiplies the percent adjust Lynx currently holds/,
+    replace: `body: 'Option 1 multiplies the percent adjust Lynx currently holds`,
+  });
+
+  s = edit(s, {
+    name: 'algorithm names: simple step caption',
+    pattern: /caption: 'With Simple selected, the two amount fields are disabled\.'/,
+    replace: `caption: 'With Option 1 selected, the two amount fields are disabled.'`,
+  });
+
+  s = edit(s, {
+    name: 'algorithm names: simple step tip',
+    pattern: /tip: 'Because Simple scales the current Lynx value/,
+    replace: `tip: 'Because Option 1 scales the current Lynx value`,
+  });
+
+  s = edit(s, {
+    name: 'algorithm names: cap comparison',
+    pattern: /body: 'The default method flattens everything above the daily maximum onto one number\. Simple has no ceiling/,
+    replace: `body: 'Option 2 flattens everything above the daily maximum onto one number. Option 1 has no ceiling`,
+  });
+
+  s = edit(s, {
+    name: 'algorithm names: verify list',
+    pattern: /'You know why Max Amount is greyed out under Simple\.'/,
+    replace: `'You know why Max Amount is greyed out under Option 1.'`,
+  });
+
+  // 2. Unit-of-measure safety claim. The guide reassures the reader that switching units
+  //    changes only the displayed number. It does not. sa-settings-dlg converts mm to the
+  //    user's unit in setSettingsToUserUnits(), which runs once when settings load. The
+  //    Units of Measure dropdown is a plain [(ngModel)] on userPrefs.unitsSystem with no
+  //    change handler, so nothing re-converts the amounts already on the Calculation tab.
+  //    onSave() then calls setSettingsToSaveUnits() unconditionally, which reads the new
+  //    unitsSystem and applies convertInchesToMm to a value still expressed in millimetres.
+  //    Metric to imperial therefore multiplies the stored Max Amount and Lynx Reference
+  //    Amount by 25.4. This is a reassurance on a setting that feeds irrigation output, so
+  //    it is the most consequential wrong sentence in the guides.
+  s = edit(s, {
+    name: 'unit switch: display conversion timing',
+    pattern: /body: 'The stored amounts are millimetres\. Switching to imperial converts them to inches for editing, with two decimal places and a hundredth-of-an-inch step; metric gets one decimal place and a tenth-of-a-millimetre step\.'/,
+    replace: `body: 'The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places and a hundredth-of-an-inch step; metric gets one decimal place and a tenth-of-a-millimetre step. That conversion runs when the dialog opens, not when you change the setting.'`,
+  });
+
+  s = edit(s, {
+    name: 'unit switch: safety claim',
+    pattern: /tipLabel: 'Worth knowing\.', tip: 'Changing the unit system does not change the underlying values — only the number you see and the increment you nudge it by\.'/,
+    replace: `tipLabel: 'Check after switching.', tip: 'Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab — they are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.'`,
+  });
+
+  // 3. Moisture band defaults. The guide gives the middle boundary as 16, which is the
+  //    Colliers dataset's saved user preference, not the product default. sa-dash-map
+  //    falls back to `value?.range2Boundary || 19` when the user has none, so a fresh
+  //    account sees 0-5, 6-19, 20-30, above 30. The boundaries stay user-configurable and
+  //    the guide already says so; only the stated default was wrong. The two sentences use
+  //    different dash encodings in the export, so they need separate anchors.
+  s = edit(s, {
+    name: 'moisture band defaults: dashboard caption',
+    pattern: /Bands default to 0–5, 6–16, 17–30 and above 30 percent\./,
+    replace: 'Bands default to 0–5, 6–19, 20–30 and above 30 percent.',
+  });
+
+  s = edit(s, {
+    name: 'moisture band defaults: map-navigation body',
+    pattern: /Four bands by default: 0\\u20135, 6\\u201316, 17\\u201330, and above 30 percent\./,
+    replace: 'Four bands by default: 0–5, 6–19, 20–30, and above 30 percent.',
+  });
+
   // --- "On this page" tracker sticky offset ------------------------------------
   // The export sticks the section tracker 742px from the top of the viewport. That offset
   // only makes sense while the walkthrough stage is on screen; by the time the tracker's
