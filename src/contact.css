@@ -29,10 +29,14 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 28px 24px;
-  max-width: 900px;
+  /* Same container as the header and the feedback block — 1180px with 32px gutters — so the
+     columns start on the page's content edge instead of floating in from a narrower box of their
+     own. box-sizing matters here: the footer already contributes 32px of its own padding. */
+  box-sizing: border-box;
+  max-width: 1180px;
   margin: 0 auto 28px;
   text-align: left;
-  padding-bottom: 26px;
+  padding: 0 32px 26px;
   border-bottom: 1px solid var(--10, #e3e8ea);
 }
 .lsa-foot-col { min-width: 0; }

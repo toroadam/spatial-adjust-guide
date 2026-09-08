@@ -316,6 +316,13 @@ right, where neither competes with the brand or the search field for the reader'
 `src/i18n-selector.js` pins the language selector to the end of the row and the contact button
 inserts itself immediately before it.
 
+Header, page content, the "Was this helpful?" block and the footer all share one container —
+1180px with 32px gutters — so every left edge on the page lines up at the same x. The feedback
+widget did not: on a guide it lands inside `<article>` and inherits the content column, but the
+catalogue has no article, so it was appended straight to a full-bleed `<main>` and sat flush against
+the viewport edge while everything else started 162px in. Scoped to `.lsa main > .lsa-helpful` so
+the guide layout is untouched.
+
 The footer is a four-column block — **Sections, Support, Product, Legal** — above the copyright
 line. The six section links are buttons rather than anchors: the app owns the hash for its own
 routing (`#/guide-key`), so a plain `#section` fragment reads as an unknown guide key and bounces
