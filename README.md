@@ -316,11 +316,26 @@ right, where neither competes with the brand or the search field for the reader'
 `src/i18n-selector.js` pins the language selector to the end of the row and the contact button
 inserts itself immediately before it.
 
-**The details are sourced, not invented.** `NSNTech@toro.com` and `https://my.toronsn.com/Support`
-both come from IntelliDash's own setup-wizard FAQ. `NSN.phone` at the top of `src/contact.js` is
-**deliberately empty**: there is no support telephone number anywhere in the IntelliDash source, and
-a plausible-looking number on a support page is worse than none — somebody rings it mid-push. Fill
-it in and the row renders itself.
+The footer is a four-column block — **Sections, Support, Product, Legal** — above the copyright
+line. The six section links are buttons rather than anchors: the app owns the hash for its own
+routing (`#/guide-key`), so a plain `#section` fragment reads as an unknown guide key and bounces
+the reader to the catalogue. They navigate home, then scroll the matching heading into view, matched
+on the *translated* heading text so they work in every locale.
+
+**Every destination is sourced from IntelliDash, not invented:**
+
+| | |
+|---|---|
+| `NSNTech@toro.com` | setup-wizard FAQ |
+| `1-800-ASK-TORO` | `TORO.HELP_LINE` |
+| `my.toronsn.com/Support` | setup-wizard FAQ |
+| `intelli360.toro.com` | `intelli360SiteUrl`, environment.toro-prod |
+| `lynxcloud.toro.com` | the same environment file |
+| the three legal URLs | `TORO.*_LINK` — identical in all eleven locale files, every one pointing at `/en/`, so there is nothing to localise |
+
+**There is no Lynx Drive URL anywhere in the IntelliDash source.** The Product column links Lynx
+Cloud instead, which is the nearest thing that actually exists. If Lynx Drive has an information
+page, it needs to be supplied — it cannot be derived.
 
 Everything it shows goes through the same catalogues as the rest of the site, so the control is not
 an English-only island in a site that ships eleven languages. Two things this shook out that are

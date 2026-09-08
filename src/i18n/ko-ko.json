@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "ko-ko",
-    "strings": 894,
+    "strings": 901,
     "identicalToEnglish": 7,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -903,6 +903,13 @@
     "Support portal": "지원 포털",
     "NSN support portal": "NSN 지원 포털",
     "Footer": "바닥글",
-    "All tasks": "모든 작업"
+    "All tasks": "모든 작업",
+    "Sections": "섹션",
+    "Support": "지원",
+    "Product": "제품",
+    "Legal": "법적 고지",
+    "Terms of Use": "이용약관",
+    "Privacy Policy": "개인정보처리방침",
+    "Copyright Policy": "저작권 정책"
   }
 }

@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "th-th",
-    "strings": 894,
+    "strings": 901,
     "identicalToEnglish": 7,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -903,6 +903,13 @@
     "Support portal": "พอร์ทัลสนับสนุน",
     "NSN support portal": "พอร์ทัลสนับสนุน NSN",
     "Footer": "ส่วนท้าย",
-    "All tasks": "งานทั้งหมด"
+    "All tasks": "งานทั้งหมด",
+    "Sections": "หมวด",
+    "Support": "การสนับสนุน",
+    "Product": "ผลิตภัณฑ์",
+    "Legal": "ข้อกฎหมาย",
+    "Terms of Use": "ข้อกำหนดการใช้งาน",
+    "Privacy Policy": "นโยบายความเป็นส่วนตัว",
+    "Copyright Policy": "นโยบายลิขสิทธิ์"
   }
 }
