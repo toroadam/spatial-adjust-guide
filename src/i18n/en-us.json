@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 894,
+    "strings": 901,
     "words": 9356
   },
   "strings": {
@@ -899,7 +899,14 @@
     "Support portal": "Support portal",
     "NSN support portal": "NSN support portal",
     "Footer": "Footer",
-    "All tasks": "All tasks"
+    "All tasks": "All tasks",
+    "Sections": "Sections",
+    "Support": "Support",
+    "Product": "Product",
+    "Legal": "Legal",
+    "Terms of Use": "Terms of Use",
+    "Privacy Policy": "Privacy Policy",
+    "Copyright Policy": "Copyright Policy"
   },
   "_contexts": {
     "/spatialadjust": [

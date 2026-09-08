@@ -21,9 +21,27 @@
   // rings it during a failed push. Fill it in and the row appears on its own.
   var NSN = {
     email: 'NSNTech@toro.com',
-    phone: '',
+    phone: '1-800-ASK-TORO',                       // TORO.HELP_LINE
     portal: 'https://my.toronsn.com/Support',
   };
+
+  // Product and legal destinations, all lifted from IntelliDash rather than guessed:
+  //   intelli360SiteUrl  — site/src/environments/environment.toro-prod.ts
+  //   lynxcloud          — the same environment file
+  //   the three legal URLs — TORO.*_LINK in site/src/assets/i18n. They are identical in all
+  //   eleven locale files (every one points at /en/), so there is nothing to localise here.
+  var LINKS = {
+    intellidash: 'https://intelli360.toro.com',
+    lynx: 'https://lynxcloud.toro.com/#/login',
+    terms: 'https://www.toro.com/en/legal/terms-of-use',
+    privacy: 'https://www.toro.com/en/legal/privacy-policy',
+    copyright: 'https://www.toro.com/en/legal/dmca-copyright-policy',
+  };
+
+  // The six catalogue sections, by their English heading. The headings are already in the
+  // catalogues, so these links translate for free rather than needing six new strings.
+  var SECTIONS = ['Getting Started', 'Calculations', 'Target Profiles',
+                  'Station Management', 'Review & Apply', 'Troubleshooting'];
 
   var ROOT = 'lsa-contact';
   var DLG = 'lsa-contact-dlg';
@@ -171,18 +189,53 @@
     if (lang) hdr.insertBefore(btn, lang); else hdr.appendChild(btn);
   }
 
+  function extLink(text, href) {
+    var a = document.createElement('a');
+    a.className = 'lsa-foot-link';
+    a.href = href;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.textContent = text;
+    return a;
+  }
+
+  function column(headingKey, nodes) {
+    var col = document.createElement('div');
+    col.className = 'lsa-foot-col';
+    var h = document.createElement('h2');
+    h.className = 'lsa-foot-head';
+    h.textContent = t(headingKey);
+    col.appendChild(h);
+    var ul = document.createElement('ul');
+    ul.className = 'lsa-foot-list';
+    nodes.forEach(function (n) {
+      var li = document.createElement('li');
+      li.appendChild(n);
+      ul.appendChild(li);
+    });
+    col.appendChild(ul);
+    return col;
+  }
+
   function mountFooter() {
     var foot = document.querySelector('.lsa footer');
-    if (!foot || foot.querySelector('.lsa-foot-links')) return;
+    if (!foot || foot.querySelector('.lsa-foot')) return;
 
     var nav = document.createElement('nav');
-    nav.className = 'lsa-foot-links';
+    nav.className = 'lsa-foot';
     nav.setAttribute('aria-label', t('Footer'));
 
-    var all = document.createElement('a');
-    all.className = 'lsa-foot-link';
-    all.href = '#/';
-    all.textContent = t('All tasks');
+    // --- sections. Buttons, not anchors: the app owns the hash for its own routing
+    // (#/guide-key), so a plain #section fragment would be read as an unknown guide key and
+    // bounce the reader to the catalogue. These navigate home and then scroll.
+    var sections = SECTIONS.map(function (name) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'lsa-foot-link lsa-foot-section';
+      b.setAttribute('data-section', name);
+      b.textContent = t(name);
+      return b;
+    });
 
     var contact = document.createElement('button');
     contact.type = 'button';
@@ -190,17 +243,51 @@
     contact.setAttribute('aria-haspopup', 'dialog');
     contact.textContent = t('Contact NSN');
 
-    var portal = document.createElement('a');
-    portal.className = 'lsa-foot-link';
-    portal.href = NSN.portal;
-    portal.target = '_blank';
-    portal.rel = 'noopener noreferrer';
-    portal.textContent = t('NSN support portal');
+    var allTasks = document.createElement('a');
+    allTasks.className = 'lsa-foot-link';
+    allTasks.href = '#/';
+    allTasks.textContent = t('All tasks');
 
-    nav.appendChild(all); nav.appendChild(contact); nav.appendChild(portal);
+    nav.appendChild(column('Sections', sections));
+    nav.appendChild(column('Support', [
+      contact,
+      extLink(t('NSN support portal'), NSN.portal),
+      allTasks,
+    ]));
+    nav.appendChild(column('Product', [
+      extLink('IntelliDash', LINKS.intellidash),
+      extLink('Lynx Cloud', LINKS.lynx),
+    ]));
+    nav.appendChild(column('Legal', [
+      extLink(t('Terms of Use'), LINKS.terms),
+      extLink(t('Privacy Policy'), LINKS.privacy),
+      extLink(t('Copyright Policy'), LINKS.copyright),
+    ]));
+
     // Above the copyright line, which stays the last thing on the page.
     foot.insertBefore(nav, foot.firstChild);
   }
+
+  // Section links: go to the catalogue, then scroll the matching heading into view. Matching on
+  // the rendered heading text rather than an id because the headings come from the Core Design
+  // export and have none — and adding ids there would be a transform that this does not need.
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest && ev.target.closest('.lsa-foot-section');
+    if (!btn) return;
+    ev.preventDefault();
+    var want = btn.getAttribute('data-section');
+    var translated = t(want);
+    if (location.hash && location.hash !== '#/') location.hash = '#/';
+    // The catalogue has to render before the heading exists to scroll to.
+    setTimeout(function () {
+      var head = [].slice.call(document.querySelectorAll('.lsa h2'))
+        .filter(function (h) {
+          var txt = (h.textContent || '').trim();
+          return txt === translated || txt === want;
+        })[0];
+      if (head && head.scrollIntoView) head.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 260);
+  });
 
   var pending = false;
   function schedule() {

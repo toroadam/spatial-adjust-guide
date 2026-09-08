@@ -21,17 +21,33 @@
 /* The language selector follows the button, so only the first of the pair needs the auto margin. */
 .lsa-contact-btn + .lsa-lang { margin-left: 0; }
 
-/* ---------- footer links ---------- */
-.lsa-foot-links {
-  display: flex; flex-wrap: wrap; gap: 8px 28px;
-  align-items: center; justify-content: center;
-  margin-bottom: 18px;
+/* ---------- footer ----------
+   The export's footer is a centred one-line copyright with 32px padding. A single centred row of
+   links under it read as an afterthought, so this is a real four-column block that sits above the
+   copyright and left-aligns its own content while the copyright stays centred. */
+.lsa-foot {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px 24px;
+  max-width: 900px;
+  margin: 0 auto 28px;
+  text-align: left;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--10, #e3e8ea);
 }
+.lsa-foot-col { min-width: 0; }
+.lsa-foot-head {
+  margin: 0 0 10px;
+  font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--100, #080d12);
+}
+.lsa-foot-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 7px; }
 .lsa-foot-link {
   font: inherit; font-size: 13px;
   background: none; border: 0; padding: 0;
   cursor: pointer; text-decoration: none;
 }
+.lsa-foot-link { text-align: left; }
 /* !important, and scoped tighter, for the same reason as the contrast block in a11y.css: the
    dc-runtime adopts these anchors (they come back carrying data-dc-tpl) and repaints them
    #3079f0, which is 4.1:1 on white and fails AA at 13px. The buttons in the same row are left
@@ -92,5 +108,6 @@ a.lsa-contact-value:focus-visible { outline: 3px solid var(--informative-03, #21
   .lsa-contact-panel { padding: 20px; }
   .lsa-contact-row { flex-direction: column; gap: 2px; }
   .lsa-contact-label { flex: none; }
-  .lsa-foot-links { gap: 8px 18px; }
+  /* Two columns at phone widths — four would give each link about 80px and wrap every label. */
+  .lsa-foot { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; }
 }
