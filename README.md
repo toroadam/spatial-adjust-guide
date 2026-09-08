@@ -70,6 +70,7 @@ Adding a new imported component still means adding its name to `COMPONENTS` in `
 | `npm run test:keyboard` | Drives the interface: tab to a card, Enter to open, Space on Next, and asserts the live region changed. |
 | `npm run test:routing` | Deep links, Back/Forward, and an unknown key falling back to the catalog. |
 | `npm run test:a11y` | axe-core on the catalog and inside a guide, plus a keyboard-reachability probe. |
+| `npm run test:validate` | Mechanical validation of every catalogue against the English source: numbers, product names, structural characters, empties, and `Step N of M:` agreement with the standalone translation of its own tail. |
 | `npm run test:i18n` | Per shipped locale: that the words on screen actually change, that `<html lang>` agrees with what is served, and that a locale with no catalogue degrades to English rather than to a half-translated page. |
 | `npm run test:gate` | Drives the sign-in gate: that it hides the guides from `innerText`, rejects an outside domain and a lookalike (`nottoro.com`), admits a subdomain, persists the unlock across a reload, re-locks when storage is cleared, and is axe-clean. |
 
@@ -230,15 +231,39 @@ the top of `src/i18n.js` is what flips a locale on, and the tag corrects itself.
 The `locale_resolved` event carries a `translated` flag for the same reason: demand for a language
 nobody can read yet is the signal worth having.
 
-**Every catalogue in this repo is unreviewed machine translation.** `_meta.reviewed` is `false` in
-each file. These are guides for irrigation decisions on real turf; a native reviewer with
-turf-industry vocabulary should pass over them before they go to customers.
+### Review status
+
+**These are machine translations and no native-speaker review is planned.** That is a decision, not
+an outstanding task — `_meta.nativeReviewPlanned` is `false` in every catalogue so nobody later reads
+the gap as work in progress. What they *have* had is `npm run test:validate`
+(`scripts/validate-locales.mjs`), which mechanically checks the class of error that survives a
+fluent-sounding translation:
+
+- every number in the source survives into the target (a decimal comma is not read as a changed value);
+- product names, station identifiers, URLs and `MIN` are still present where the source had them;
+- structural characters — `←` `→` `…` `›` `÷` `×` — are not lost, so an instruction or a formula cannot silently break;
+- no empty values, and no long string returned identical to English;
+- every `Step N of M: X` contains the standalone translation of `X`, so the step list and the step heading cannot disagree.
+
+It deliberately does **not** flag `—` or `%`: Romance languages routinely render an em dash as a
+colon, and Chinese spells `% Adj.` out as 调整百分比 rather than using the glyph. Both are correct, and
+flagging them would bury the real defects.
+
+The pass found and fixed one genuine defect (Italian compounds using an em dash where their own
+standalone translations used a colon) and confirmed two behaviours that look like defects and are
+not, now encoded as documented exemptions in the validator: German couples the product name into
+compounds with hyphens (`Spatial-Adjust-Konto`, required *Durchkopplung*), and Thai keeps the Latin
+acronym where VWC is the subject of a sentence but uses IntelliDash's own shipped Thai for the named
+UI fields — matching what a Thai user actually reads on screen.
+
+What this does not give you is judgement about whether the prose is good, idiomatic, or says the
+right thing to a superintendent. Nothing here substitutes for that.
 
 ## Known gaps
 
 - **Analytics endpoint undecided**, so telemetry is local-only and collects nothing from remote users.
 - **No manual screen-reader pass** (VoiceOver/NVDA). Automated checks and keyboard driving aren't a substitute.
-- **No translation has been reviewed by a native speaker.** Every catalogue is machine output.
+- **No translation has been reviewed by a native speaker**, and none is planned. Mechanically validated only — see Review status.
 - **One source sentence is garbled** — "If the threshold is set to zero the suggestion at push time…" is missing words in the Core Design export, so every translator had to guess at it. Fix belongs upstream or in a `transform-export.mjs` correction.
 - **The sign-in gate is client-side** and the repository is public, so it restricts the audience, not the content. See the section above for what would have to change.
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.

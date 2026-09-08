@@ -18,7 +18,8 @@
     "test:routing": "node scripts/routing.mjs http://localhost:8124/",
     "test:gate": "node scripts/gate.mjs http://localhost:8124/",
     "test:i18n": "node scripts/i18n.mjs http://localhost:8124/",
-    "translate": "node scripts/translate.mjs"
+    "translate": "node scripts/translate.mjs",
+    "test:validate": "node scripts/validate-locales.mjs"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.72.0",
