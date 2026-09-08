@@ -1,0 +1,106 @@
+/* Sign-in gate for the Spatial Adjust guides. Injected by build.mjs, kept out of the
+   Core Design export so a re-export doesn't discard it — see README. */
+
+/* ---------- hide the page behind the gate ----------
+   Everything except the gate itself. #dc-root does not exist in the static HTML — the
+   runtime creates it — so this keys off the body's own children instead and lets the
+   hiding inherit down, which works whatever shape the export renders into.
+
+   visibility, not display: hidden boxes are still laid out, so the runtime measures the
+   same geometry it would have without the gate. The sticky "On this page" tracker
+   calibrates against a fixed offset (see src/a11y.js), and collapsing the layout under it
+   would have it computing positions against a page that isn't there. */
+html[data-sa-gate="locked"] body > *:not(.lsa-gate) { visibility: hidden; }
+
+/* Nothing behind the gate should scroll while it is up. */
+html[data-sa-gate="locked"], html[data-sa-gate="locked"] body { overflow: hidden; }
+
+/* ---------- the gate ---------- */
+.lsa-gate {
+  position: fixed; inset: 0;
+  z-index: 2147483000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: var(--05, #f5f7f8);
+  font-family: 'Satoshi', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.lsa-gate-panel {
+  width: 100%; max-width: 420px;
+  background: var(--white, #fff);
+  border: 1px solid var(--10, #e3e8ea);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(8, 13, 18, .12);
+}
+
+.lsa-gate-mark { height: 28px; width: auto; margin-bottom: 20px; }
+
+.lsa-gate-title {
+  margin: 0 0 8px;
+  font-size: 22px; font-weight: 700; line-height: 1.25;
+  color: var(--100, #080d12);
+}
+
+/* rgb(100,110,115) is the corrected body colour from a11y.css — 5.2:1 on white. The
+   token the export would use here (--40) is 2.29:1 and fails AA. */
+.lsa-gate-lede { margin: 0 0 24px; font-size: 14px; line-height: 1.5; color: rgb(100, 110, 115); }
+
+.lsa-gate-label {
+  display: block; margin-bottom: 6px;
+  font-size: 13px; font-weight: 600; color: var(--100, #080d12);
+}
+
+.lsa-gate-input {
+  width: 100%; box-sizing: border-box;
+  padding: 11px 12px;
+  font-size: 15px; font-family: inherit;
+  color: var(--100, #080d12);
+  background: var(--white, #fff);
+  border: 1px solid var(--20, #c8d1d5);
+  border-radius: 8px;
+}
+.lsa-gate-input:focus-visible {
+  outline: 3px solid var(--informative-03, #2165db);
+  outline-offset: 2px;
+}
+/* aria-invalid drives the visual state, so the two can never disagree. */
+.lsa-gate-input[aria-invalid="true"] { border-color: rgb(176, 32, 36); }
+
+.lsa-gate-submit {
+  width: 100%; margin-top: 16px;
+  padding: 12px 16px; min-height: 44px;
+  font-size: 15px; font-weight: 700; font-family: inherit;
+  color: var(--white, #fff);
+  background: var(--informative-03, #2165db);   /* 5.9:1 against white text */
+  border: 0; border-radius: 8px;
+  cursor: pointer;
+}
+.lsa-gate-submit:hover { background: rgb(26, 78, 176); }
+.lsa-gate-submit:focus-visible { outline: 3px solid var(--100, #080d12); outline-offset: 2px; }
+
+/* Reserves its line whether or not it is populated, so submitting a bad address doesn't
+   shift the button out from under the pointer that is on its way to it. */
+.lsa-gate-error {
+  min-height: 20px; margin-top: 10px;
+  font-size: 13px; line-height: 20px;
+  color: rgb(176, 32, 36);       /* 5.9:1 on white */
+}
+
+.lsa-gate-foot {
+  margin: 20px 0 0; padding-top: 16px;
+  border-top: 1px solid var(--10, #e3e8ea);
+  font-size: 12px; line-height: 1.5; color: rgb(100, 110, 115);
+}
+
+@media (max-width: 480px) {
+  .lsa-gate { padding: 0; align-items: stretch; }
+  .lsa-gate-panel { max-width: none; border: 0; border-radius: 0; padding: 24px 20px; padding-top: 48px; }
+}
+
+/* The gate is a solid panel already; honour a reduced-motion preference by not animating
+   its arrival at all rather than shortening a transition. */
+@media (prefers-reduced-motion: no-preference) {
+  .lsa-gate-panel { animation: lsa-gate-in .18s ease-out; }
+  @keyframes lsa-gate-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+}
