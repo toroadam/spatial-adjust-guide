@@ -69,6 +69,10 @@ if (!write) {
   const enCat = JSON.parse(await readFile(enPath, 'utf8'));
   let added = 0;
   for (const s of harvested) if (!(s in enCat.strings)) { enCat.strings[s] = s; added++; }
+  // Recorded here, not by hand: scripts/extract-strings.mjs rewrites en-us.json wholesale, so a
+  // manually-set list survives exactly until the next re-export and then silently vanishes —
+  // taking the validator's screen-string exemptions with it.
+  enCat._screenStrings = [...harvested].sort();
   enCat._meta.strings = Object.keys(enCat.strings).length;
   await writeFile(enPath, JSON.stringify(enCat, null, 2) + '\n');
   console.log(`en-us.json: +${added} screen strings (${enCat._meta.strings} total)`);

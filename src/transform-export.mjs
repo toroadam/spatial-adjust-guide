@@ -228,6 +228,33 @@ export function transformGuide(src) {
     replace: 'With Set to zero when pushed to Lynx selected, a small but genuine adjustment',
   });
 
+  // 5. Stale scans are not something the reader has to sit and wait for. Both of these told them
+  //    the course simply "has no new data to work from", which is only true until they press the
+  //    button. sa-main-toolbar has a "Request latest scan data" control that queues a TurfRad
+  //    retrieval — it toasts "Retrieval may take several minutes. We'll notify you when it's
+  //    ready", raises an update banner when the data lands, and offers Reload Data on it.
+  //
+  //    This is the one gap in the guides that is not merely missing but misleading: it tells a
+  //    superintendent staring at a stale course that nothing can be done, on the morning they most
+  //    need a fresh scan. There is no step-by-step guide for the workflow because the reproduced
+  //    screen in SpatialAdjustApp.dc.html has no refresh button, no update banner and no filter
+  //    dialog to point a figure at — see README > Known gaps.
+  s = edit(s, {
+    name: 'stale scans: name the refresh control',
+    pattern: /If the whole course is stale, TurfRad has not delivered new scans — the feature has no new data to work from\./,
+    replace: 'If the whole course is stale, TurfRad has not delivered new scans yet. '
+      + 'Use Request latest scan data in the toolbar to queue a retrieval — it takes several '
+      + 'minutes and notifies you when it lands, then Reload Data on the banner brings it in.',
+  });
+
+  s = edit(s, {
+    name: 'stale scans: diagnostics step names the next action',
+    pattern: /A course-wide problem is almost always here rather than in your settings\./,
+    replace: 'A course-wide problem is almost always here rather than in your settings. '
+      + 'If TurfRad access and scan data are both fine and only the date is old, request a fresh '
+      + 'scan from the toolbar rather than waiting for one.',
+  });
+
   // --- "On this page" tracker sticky offset ------------------------------------
   // The export sticks the section tracker 742px from the top of the viewport. That offset
   // only makes sense while the walkthrough stage is on screen; by the time the tracker's
