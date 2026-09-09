@@ -49,6 +49,48 @@ const fbYes = page.locator('.lsa-helpful-btn[data-v="yes"]');
 const hadFeedbackWidget = (await fbYes.count()) > 0;
 if (hadFeedbackWidget) { await fbYes.first().click(); await page.waitForTimeout(300); }
 
+// 3b. the "No" path opens the collection dialog. Driven in full because the draft is the whole
+// point of an internal work item: a note must survive a cancel, which window.prompt could not do.
+// On a SECOND guide: answering Yes above replaces the widget with its confirmation, so the
+// thumbs-down no longer exists on that page. Reached by clicking through the catalogue rather
+// than by setting location.hash — a same-document hash change does not reliably drive the
+// runtime's router from Playwright, and silently left this whole block unexercised.
+await page.locator('.lsa [role="button"]').filter({ hasText: /All tasks/ }).first().click().catch(() => {});
+await page.waitForTimeout(1800);
+await page.getByText('Map navigation', { exact: false }).first().click().catch(() => {});
+await page.waitForTimeout(2000);
+const fbNo = page.locator('.lsa-helpful-btn[data-v="no"]');
+let draftSurvivedCancel = null;
+let detailSubmitted = null;
+if (await fbNo.count()) {
+  await fbNo.first().click();
+  await page.waitForTimeout(300);
+  const input = page.locator('.lsa-fb-input');
+  const dialogOpened = (await input.count()) > 0;
+  if (dialogOpened) {
+    await input.fill('automated test note');
+    await page.waitForTimeout(150);
+    // Cancel, not submit: this is the case that used to lose everything typed.
+    await page.locator('.lsa-fb-cancel').click();
+    await page.waitForTimeout(200);
+    const stored = await page.evaluate(() => {
+      try { return JSON.parse(localStorage.getItem('sa.feedback.draft') || 'null'); } catch (e) { return null; }
+    });
+    // Reopening must show the note back, not an empty box.
+    await fbNo.first().click();
+    await page.waitForTimeout(300);
+    const restored = await page.locator('.lsa-fb-input').inputValue().catch(() => '');
+    draftSurvivedCancel = !!(stored && stored.note === 'automated test note') && restored === 'automated test note';
+
+    await page.locator('.lsa-fb-send').click();
+    await page.waitForTimeout(300);
+    detailSubmitted = (await events()).includes('feedback_detailed');
+    // Submitting clears the draft — a sent note left in storage would come back next time.
+    const afterSend = await page.evaluate(() => localStorage.getItem('sa.feedback.draft'));
+    if (afterSend !== null) detailSubmitted = false;
+  }
+}
+
 // 4. back to the catalog, then activate a stub card to record demand
 await page.locator('.lsa [role="button"]').filter({ hasText: /All tasks/ }).first().click().catch(() => {});
 await page.waitForTimeout(1800);
@@ -69,6 +111,8 @@ const result = {
   guidesOpened: report.guidesOpened,
   stubDemand: report.stubDemand,
   hadFeedbackWidget,
+  draftSurvivedCancel,
+  detailSubmitted,
   hadStub,
   externalSeen,
   rejectedEvents: [...rejected],
@@ -81,6 +125,9 @@ const pass =
   report.guidesOpened.length > 0 &&
   (!hadStub || uniq.includes('stub_clicked')) &&
   (!hadFeedbackWidget || uniq.includes('feedback_submitted')) &&
+  // null means the path was not reachable in this run; false means it was and it broke.
+  draftSurvivedCancel !== false &&
+  detailSubmitted !== false &&
   rejected.size === 0 &&
   errors.length === 0;
 

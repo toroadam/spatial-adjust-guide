@@ -1,0 +1,90 @@
+/* Feedback collection dialog — the "No" path of "Was this helpful?" and the unwritten-guide
+   request. Injected by build.mjs, outside the Core Design export so a re-export doesn't discard
+   it. Deliberately parallel to contact.css rather than sharing its classes: contact.js's focus
+   trap collects only buttons and links, so reusing its shell would let Tab escape this textarea. */
+
+.lsa-fb-dlg {
+  position: fixed; inset: 0; z-index: 2147482000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+  background: rgba(8, 13, 18, .45);
+}
+.lsa-fb-panel {
+  width: 100%; max-width: 480px;
+  background: var(--white, #fff);
+  border-radius: 12px;
+  padding: 24px 26px 26px;
+  box-shadow: 0 12px 40px rgba(8, 13, 18, .22);
+}
+.lsa-fb-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.lsa-fb-title { margin: 0; font-size: 19px; font-weight: 700; color: var(--100, #080d12); }
+.lsa-fb-close {
+  font: inherit; font-size: 26px; line-height: 1;
+  color: rgb(100, 110, 115);         /* 5.2:1 on white */
+  background: none; border: 0; padding: 0 4px; cursor: pointer;
+}
+.lsa-fb-close:hover { color: var(--100, #080d12); }
+.lsa-fb-close:focus-visible { outline: 3px solid var(--informative-03, #2165db); outline-offset: 2px; border-radius: 4px; }
+
+/* The guide or requested title. Its own line rather than interpolated into the heading, so the
+   catalogue carries no format placeholder for a translator to reassemble. */
+.lsa-fb-subject {
+  margin: 6px 0 0;
+  font-size: 14px; font-weight: 600;
+  color: var(--100, #080d12);
+}
+
+.lsa-fb-label {
+  display: block;
+  margin: 18px 0 6px;
+  font-size: 14px; font-weight: 600;
+  color: var(--100, #080d12);
+}
+.lsa-fb-input {
+  display: block; box-sizing: border-box; width: 100%;
+  font: inherit; font-size: 14px; line-height: 1.5;
+  padding: 10px 12px;
+  color: var(--100, #080d12);
+  background: var(--white, #fff);
+  border: 1px solid var(--20, #c8d1d5);
+  border-radius: 8px;
+  resize: vertical;
+}
+.lsa-fb-input:focus-visible { outline: 3px solid var(--informative-03, #2165db); outline-offset: 1px; }
+
+.lsa-fb-hint { margin: 8px 0 0; font-size: 13px; line-height: 1.45; color: rgb(100, 110, 115); }
+
+.lsa-fb-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.lsa-fb-cancel, .lsa-fb-send {
+  font: inherit; font-size: 14px; font-weight: 600;
+  padding: 9px 18px; min-height: 40px;
+  border-radius: 8px; cursor: pointer;
+}
+.lsa-fb-cancel {
+  color: var(--100, #080d12);
+  background: var(--white, #fff);
+  border: 1px solid var(--20, #c8d1d5);
+}
+.lsa-fb-cancel:hover { background: var(--05, #f5f7f8); }
+.lsa-fb-send {
+  color: var(--white, #fff);
+  background: rgb(28, 88, 193);      /* 6.1:1 against white text */
+  border: 1px solid rgb(28, 88, 193);
+}
+.lsa-fb-send:hover { background: rgb(22, 71, 156); }
+.lsa-fb-cancel:focus-visible, .lsa-fb-send:focus-visible {
+  outline: 3px solid var(--informative-03, #2165db); outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lsa-fb-panel { animation: lsa-fb-in .16s ease-out; }
+  @keyframes lsa-fb-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+}
+
+@media (max-width: 767px) {
+  .lsa-fb-panel { padding: 20px; }
+  /* Full-width stacked buttons: side by side at 390px leaves each about 120px and wraps the
+     labels in the longer locales. */
+  .lsa-fb-actions { flex-direction: column-reverse; }
+  .lsa-fb-cancel, .lsa-fb-send { width: 100%; }
+}

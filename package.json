@@ -17,6 +17,7 @@
     "import": "node scripts/import-export.mjs",
     "test:routing": "node scripts/routing.mjs http://localhost:8124/",
     "test:gate": "node scripts/gate.mjs http://localhost:8124/",
+    "test:splash": "node scripts/splash.mjs http://localhost:8124/",
     "test:i18n": "node scripts/i18n.mjs http://localhost:8124/",
     "translate": "node scripts/translate.mjs",
     "test:validate": "node scripts/validate-locales.mjs"

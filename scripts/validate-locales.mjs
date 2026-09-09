@@ -17,6 +17,13 @@ const source = sourceCat.strings;
 // and identical-to-English rules do not apply to them — a station ID, a timestamp and the
 // fictional site name are all supposed to come through untouched.
 const SCREEN = new Set(sourceCat._screenStrings || []);
+// IntelliDash's own shipped catalogues, harvested by scripts/build-glossary.mjs. This is what
+// gives a screen label PROVENANCE: a label present here has a product translation to be
+// faithful to. A label absent from it — "Calculation", "Soil Factor Editor" — exists only in
+// the reproduction, so its "translation" is one this pipeline invented. Checking prose against
+// an invented rendering asserts a source of truth that does not exist, and reported 34 defects
+// that no reader could act on.
+const glossary = JSON.parse(await readFile(`${dir}/glossary.json`, 'utf8'));
 const only = process.argv.slice(2);
 const locales = (await readdir(dir))
   .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json')
@@ -35,7 +42,11 @@ const STRUCTURAL = ['←', '→', '…', '›', '÷', '×'];
 // Legitimately identical across languages — a URL, a trademark line, a duration code. Short strings
 // are exempt too: "Concept.", "START" and "2 minutes" are real words in several target languages,
 // and a long string coming back identical is the suspicious case, not a short one.
-const MAY_MATCH = /^(\/spatialadjust|intellidash\.toro\.com\/spatialadjust|[2-5] MIN|Spatial Adjust\. Copyright .*)$/;
+// Also covers the contact details, which entered the catalogue when scripts/extract-strings.mjs
+// began driving the contact modal. A support address and a portal URL are supposed to come
+// back byte-identical, and both are long enough to clear the SHORT exemption — so without
+// this they would fail the untranslated GATE for doing exactly the right thing.
+const MAY_MATCH = /^(\/spatialadjust|intellidash\.toro\.com\/spatialadjust|[2-5] MIN|Spatial Adjust\. Copyright .*|[^\s@]+@[^\s@]+\.[a-z]{2,}|https?:\/\/\S+)$/;
 const SHORT = 14;
 
 // Per-locale exemptions, each with the reason it is correct rather than a defect. Without these the
@@ -56,6 +67,23 @@ const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
   // Compare numerically so a decimal comma is not read as a changed value.
   .map((n) => n.replace(',', '.'));
 
+// A named control is "present" if it appears allowing for case and whitespace. Both differences
+// are things the reader's eye passes over and correct prose legitimately introduces: Dutch
+// lowercases and inflects an adjective mid-sentence ("de voorgestelde percentages" for a label
+// reading "Voorgesteld"), and IntelliDash's own es-es AVG_VWC ships a double space
+// ("Promedio de  CVA") that prose can only match by reproducing the typo. Demanding a verbatim
+// match reported 49 findings whose "fix" would have been to write worse prose.
+const present = (haystack, needle) => {
+  const flat = (s) => s.toLowerCase().replace(/[\s\u00a0]+/g, ' ');
+  return flat(haystack).includes(flat(needle));
+};
+
+// Longest match wins. "Suggested" is a substring of "Suggested Percent Adjust Calculation", so
+// prose naming the FIELD was also being required to name the COLUMN — two different controls that
+// merely share a word. Requiring both forces a sentence to quote a label it is not about, which is
+// how a findability check starts producing worse prose than it found.
+const shadowed = (label, named) => named.some((other) => other !== label && other.includes(label));
+
 const report = {};
 let totalIssues = 0;
 let advisory = 0;
@@ -68,7 +96,12 @@ for (const locale of locales) {
   for (const [en, tr] of Object.entries(t)) {
     if (!tr || !String(tr).trim()) { issues.empty.push(en.slice(0, 50)); continue; }
 
-    const want = numbersOf(en), got = numbersOf(tr);
+    // Where the translation IS IntelliDash's own shipped rendering, the product decides and this
+    // file does not get a vote. The help line is the case: TORO.HELP_LINE is a different number in
+    // every region, so "1-800-ASK-TORO" becomes "00-800-8040-8040" in German and the digits of the
+    // English are legitimately absent. Same principle as the _screenStrings exemption above.
+    const productOwned = (glossary[locale] || {})[en] === tr;
+    const want = productOwned ? [] : numbersOf(en), got = numbersOf(tr);
     // Multiset comparison: order can legitimately change, presence cannot.
     const missing = want.filter((n) => { const i = got.indexOf(n); if (i === -1) return true; got.splice(i, 1); return false; });
     if (missing.length) issues.missingNumber.push(`${en.slice(0, 45)} :: lost ${missing.join(',')}`);
@@ -98,10 +131,11 @@ for (const locale of locales) {
   // prevent, and it happened in four locales before this check existed.
   for (const [en, tr] of Object.entries(t)) {
     if (SCREEN.has(en)) continue;                       // the label itself, not prose about it
-    for (const label of SCREEN) {
-      if (label.length < 8) continue;                   // too short to quote unambiguously
-      if (!en.includes(label)) continue;                // this prose does not name that control
-      if (!tr.includes(t[label])) {
+    const named = [...SCREEN].filter((label) => label.length >= 8
+      && en.includes(label) && (label in (glossary[locale] || {})));
+    for (const label of named) {
+      if (shadowed(label, named)) continue;             // a longer label covers this one
+      if (!present(tr, t[label])) {
         issues.screenLabelDrift.push(`${en.slice(0, 40)} :: should name "${t[label]}"`);
       }
     }
