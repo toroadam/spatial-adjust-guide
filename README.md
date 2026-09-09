@@ -97,7 +97,7 @@ Each guide has its own address (`#/minimum-threshold`), so a guide can be linked
 
 Delivered under an internal work item. See [`docs/test-protocol.md`](docs/test-protocol.md) for the moderated session plan.
 
-**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `guide_requested`, `search_used`, `feedback_submitted`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
+**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `guide_requested`, `search_used`, `feedback_submitted`, `feedback_detailed`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
 
 By default the transport is **`local`**: events are buffered in `localStorage` and **nothing leaves the device**, which keeps the zero-external-origins property the smoke test enforces. In the browser console:
 
@@ -109,7 +109,50 @@ By default the transport is **`local`**: events are buffered in `localStorage` a
 
 That's sufficient for moderated sessions. **It does not collect from remote users.** For that, set `TRANSPORT = 'beacon'` and `SA_ENDPOINT` at the top of `src/analytics.js`, and add that origin to the allowlist in `scripts/smoke.mjs` — otherwise the smoke test will correctly fail the build for reaching a third party. Choosing that endpoint is an open decision.
 
-**Feedback** (`src/feedback.js`) routes to prefilled GitHub issues — no backend, no third-party script. "Was this helpful?" sits at the very bottom of the page and attaches the guide and step reached automatically. It deliberately does *not* sit beside the step player: that crowded the controls, and the sticky "On this page" tracker uses an offset calibrated to that panel. Activating any unwritten card records demand and offers to file a request in the reader's own words.
+**Feedback** (`src/feedback.js`) routes to a **Microsoft Form** — no backend, no third-party
+script, no Azure administrator, and responses land in an Excel workbook in the form owner's
+OneDrive. That is a queryable store inside Toro's own tenant, which is the reason it is Forms and
+not Google Sheets or a Cloudflare Function: both of those sit outside the tooling Toro permits,
+which is what ruled out the original an internal work item hosting plan too.
+
+"Was this helpful?" sits at the very bottom of the page and attaches the guide and step reached
+automatically. It deliberately does *not* sit beside the step player: that crowded the controls,
+and the sticky "On this page" tracker uses an offset calibrated to that panel. Thumbs-up confirms
+in place; thumbs-down opens a dialog that collects the detail. Activating any unwritten card
+records demand and offers the same dialog.
+
+**Configure it in one place:** the `FORM` object at the top of `src/feedback.js`. Empty by default,
+and the feature degrades rather than breaks when it is — the same convention as `NSN.phone` in
+`src/contact.js` and `SIGNIN_LOG_ENDPOINT` in `src/gate.js`. With no form configured the dialog
+still collects, still keeps the draft and still records the event locally; it simply does not open
+a tab, and nothing claims to have been sent that was not.
+
+To fill it in:
+
+1. Create a form at <https://forms.office.com> with six questions, all **text**, in this order:
+   **Kind**, **Guide**, **Step**, **What would have helped**, **Locale**, **URL**. Only *Kind* and
+   *Guide* need to be required; the reader never sees the prefilled ones as blanks to fill.
+2. **Collect responses → Copy link.** The GUID after `id=` is `FORM.id`.
+3. Open **Prefill answers**, put a recognisable placeholder in each question, and copy that link.
+   Each question appears as `r<number>=placeholder`. Map each number onto the matching key in
+   `FORM.fields` — `kind`, `guide`, `step`, `note`, `locale`, `url`.
+4. Rebuild. Only fields with a configured id are appended, so a half-filled `FORM.fields`
+   degrades to a shorter prefill rather than a broken URL.
+
+Those `r<number>` ids are **positional and opaque**: reordering or deleting a question renumbers
+them and silently sends answers into the wrong columns. If the form's questions change, re-read
+the prefill link rather than assuming.
+
+**Drafts survive.** The note is written to `localStorage` on every keystroke under
+`sa.feedback.draft`, restored when the dialog reopens for the same guide, and cleared on send.
+Cancelling, pressing Escape and clicking the backdrop all keep it; only sending discards it. This
+is why the dialog replaced `window.prompt()`, along with two other reasons: prompt text never
+enters the DOM, so it was invisible to the catalogue harvester and shipped English to all eleven
+locales, and its focus behaviour is the browser's rather than ours.
+
+`scripts/instrumentation.mjs` drives the whole path — types a note, cancels, asserts it is in
+storage, reopens, asserts it is restored, sends, and asserts the draft is gone. It does this on a
+*second* guide, because answering on the first replaces that widget with its confirmation.
 
 Note that unwritten cards are **real buttons**, not disabled ones: activating one requests the guide. Marking them `aria-disabled` would contradict the fact that they do something.
 
@@ -129,6 +172,15 @@ Cloudflare isn't available at Toro, and publishing GitHub Pages privately requir
 in a **GitHub Enterprise Cloud organisation** — this one is a personal repo with no org. If the
 content ever needs actual protection, that is the decision to revisit, not this file.
 
+**Settled 2026-09-08: this is the answer, not a stopgap.** A third route was raised and closed —
+Azure Static Web Apps with Entra ID auth would gate at the platform rather than the repository, so
+it needs no GHEC organisation, and its managed Functions would also have served the feedback
+endpoint. It was declined as disproportionate for a pilot this size, because obtaining an Azure
+subscription and a Toro-owned pipeline means going through an administrator. Note the shape of
+that: all three rejected routes failed on **access**, not on technology. an internal work item is closed as
+NOT DOING and its three Cloudflare features are cancelled. A real gate wants a fresh Epic Request
+against whatever platform is permitted at the time, not those.
+
 **The rule** is domain-based with room for named exceptions, both at the top of `src/gate.js`:
 
 ```js
@@ -146,6 +198,17 @@ then cover it, showing the reader exactly what they haven't been admitted to. Th
 hidden with `visibility`, not `display`, so the runtime measures the geometry it would have
 measured anyway; the sticky "On this page" tracker calibrates against a fixed offset and would
 otherwise compute against a collapsed page.
+
+**Covered by `npm run test:splash`** (`scripts/splash.mjs`), added 2026-09-08 — it had none, while
+the gate, routing, i18n and feedback layers each did. Every interesting property of a splash is a
+timing or lifecycle property, and each fails silently: one that never leaves reads as a slow site,
+one that leaves too early flashes, and one that is hidden rather than removed stays reachable by
+Tab and by a screen reader. The script asserts the markup is in the *served document* (checked
+without a browser, since build-time injection is the point), that `aria-busy` is set while it is up
+and cleared after, that the hold is honoured, that the node leaves the DOM, and that exactly one
+`splash_dismissed` event fires carrying its measured `ms`. It drives both branches of
+`contentReady()` — the runtime painting, and the gate covering the page, where the splash must
+still leave or a gated reader sits behind two overlays.
 
 **Bypassed on `localhost` and `file://`.** Eleven Playwright scripts drive the built page and
 assert against rendered text, and `innerText` skips a `visibility:hidden` subtree — so a gate that
@@ -390,13 +453,82 @@ worth knowing:
   existing `dialog` prop — `<dc-import>` only forwards attributes matching the component's
   *original* schema, so a transform-added prop arrives `undefined` however correctly it is declared
   and bound, whereas a new **value** on an already-bound enum passes straight through.
-- **308 places where the guide prose names a control differently from the control.** The prose was
-  written independently of IntelliDash's shipped labels, so German prose says "Sammelanpassung"
-  where the reproduced screen says "Massenanpassung" — a reader hunting that button will not find
-  it. `npm run test:validate` reports these as an **advisory** count rather than failing on them:
-  they are real, but failing the build on 308 findings means nobody runs the validator. Worth a
-  dedicated pass. The five worst instances (the Over/Under readout in four locales, and French
-  "All Stations") are already reconciled.
+- **136 places where the guide prose names a control differently from the control**, down from 308.
+  `npm run test:validate` reports these as an **advisory** count rather than failing on them.
+
+  The count fell for four reasons, three of them corrections to the check itself, which was
+  asserting standards that did not exist:
+  - **Provenance** (−36). Findings named a label IntelliDash does not ship: `Calculation` and
+    `Soil Factor Editor` have no key with that value in any locale, and
+    `CASE_SENSITIVE.ENABLED_STATIONS` is simply absent from `pt-pt`. Their "translations" were
+    produced by this pipeline, so prose was being measured against an invented rendering. The
+    check now requires the label to be in `src/i18n/glossary.json` for that locale.
+  - **Case and whitespace** (−49). These were grammar. Dutch inflects and lowercases an adjective
+    mid-sentence — "de voorgestelde percentages" for a label reading `Voorgesteld` — and
+    IntelliDash's own `es-es` `AVG_VWC` ships a double space (`"Promedio de  CVA"`) that prose
+    could only match by reproducing the typo.
+  - **Longest match wins** (−1 finding, but several bogus constraints). `Suggested` is a substring
+    of `Suggested Percent Adjust Calculation`, so prose about the *field* was also required to
+    name the *column* — two different controls sharing a word.
+  - **87 findings actually fixed** across seven locales, which is the real work.
+
+  **The root cause was a contradiction in the translator's own prompt.** `scripts/translate.mjs`
+  told the model to keep `VWC` untranslated *and* to follow the glossary, and in `es`/`fr`/`ko`/`th`
+  IntelliDash's label drops the acronym. The glossary itself was never wrong: it agrees with the
+  reproduced screen labels 89/89 across seven locales.
+
+  **What was fixed**, by swapping the prose's paraphrase for the shipped label — surgical term
+  edits rather than whole-sentence rewrites, so the reviewed prose survives:
+
+  | Locale | Fixed | The swap |
+  |---|---|---|
+  | `de-de` | 23 | „Änderungen übertragen“ → **„Änderungen senden“**; „Sammelanpassung“ → **„Massenanpassung“** |
+  | `fr-fr` | 28 | « Envoyer les modifications » → **« Transmettre changements »**; « Toutes les stations » → **« Toutes les voies »** (the product says *voies*, not *stations*) |
+  | `zh-cn` | 13 | 建议值 → **“建议的”** |
+  | `th-th` | 8 | ตัวเลือกที่ 2 → **ตัวเลือก 2** (the shipped label carries no classifier) |
+  | `es-es` | 6 | «Ajuste masivo» → **«Ajuste por lote»** |
+  | `it-it` | 4 | «Applica a tutti» → **«Applica a tutte»** |
+  | `pt-pt` | 3 | «Guardar alterações» → **«Salvar alterações»** |
+
+  `node scripts/retranslate-drift.mjs --all` now reports an empty queue. The 136 that remain are
+  **deferred by design**, not unfixed:
+
+  | | Findings | Why it is not a copy-edit |
+  |---|---|---|
+  | VWC family | 123 | Matching the label drops the `VWC` token and trips the `droppedToken` **gate**, so it needs an `EXEMPT` entry beside it — `validate-locales.mjs` already carries one for `th-th` for exactly this reason |
+  | `Preferences` / `Settings` | 9 | IntelliDash ships both as "Einstellungen" in German, so matching the label makes prose ambiguous where it is currently clear. Case tolerance already absorbed most of this bucket |
+  | Mixed sentences | 4 | Name a deferred label *and* a mechanical one, so they are held back rather than rewritten as a side effect |
+
+- **The contact modal was shipping in English to all ten non-English locales** — now fixed.
+  `scripts/extract-strings.mjs` drives the contact modal and the feedback dialog before
+  harvesting, the way it already opened the language menu, so text that only exists once a dialog
+  is open finally reaches the catalogue. That surfaced twelve keys, including the modal's lede and
+  its `Email` / `Phone` / `Support portal` row labels, which had never been translated while every
+  string around them was. All twelve are now in all ten catalogues; every locale is complete at
+  972/972.
+
+  Regenerating rather than merging would have been a mistake: `en-us.json` is harvest **plus**
+  `scripts/app-strings.mjs`, so overwriting it with the raw harvest drops the 107 screen labels.
+  The safe operation is to diff and add.
+
+- **IntelliDash ships a per-region support number, and the modal was ignoring it.**
+  `TORO.HELP_LINE` is `00-800-8040-8040` in German, `900-973-219` in Spanish, `800-791-226` in
+  Italian — but `src/contact.js` rendered the raw `1-800-ASK-TORO` because only the row *label*
+  went through `t()`, never the value. A German superintendent mid-failed-push was being shown a
+  US number. The value is now translated and the `tel:` href is built from the translated string,
+  so the link dials what the row displays. `pt-pt` and `zh-cn` have no `HELP_LINE` in IntelliDash's
+  catalogue, so they keep the US number by default.
+
+  This needed one exemption: `validate-locales.mjs` compares the numbers in a string against its
+  translation, and a regional number legitimately shares no digits with `1-800-ASK-TORO`. The
+  number check is now skipped when the translation *is* IntelliDash's own shipped rendering — the
+  same principle as the `_screenStrings` exemption.
+
+- **The guide-request dialog's strings cannot be harvested,** so they are absent from the
+  catalogue and would render in English. All 26 guides are now written, so no catalogue card
+  carries `data-stub="true"` and the dialog is unreachable — the harvester prints a note when it
+  finds no stub rather than failing. If an unwritten guide is ever added back, re-run the harvest
+  before relying on those two strings.
 - **Two features still have no guide:** the update banner's dismiss-without-reload path in context,
   and the discard-changes confirmation from an internal work item.
 - **Superseded note.** An audit of
