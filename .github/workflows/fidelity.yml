@@ -1,0 +1,48 @@
+name: Screen fidelity
+
+# Deliberately a SEPARATE workflow from deploy.yml, not a step inside it.
+#
+# The gate is red right now, and correctly so: the four Target Profiles guides depict a
+# three-card list when the product ships a five-slot table with Last Updated, Update from
+# Current and Apply Profile. Wiring it into deploy would hold the whole site hostage to that
+# one reconciliation. As its own workflow it puts a visible red X on the commit — loud enough
+# to act on, cheap enough not to block a docs typo from shipping.
+#
+# Fold it into deploy.yml as a blocking step once the profile guides are reconciled, and the
+# gate is expected green. Leaving it advisory forever would make it furniture.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  fidelity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # No browser and no credentials. The gate reads src/i18n/product-labels.json, a fixture
+      # harvested from a live instance by a human running `npm run fidelity:harvest`. Toro SSO
+      # enforces MFA and cannot be driven headlessly, so CI diffs against the committed fixture
+      # rather than logging in. The fixture carries product labels only — values are scrubbed at
+      # harvest time because this repository is public.
+      - name: Fidelity gate (product -> reproduction)
+        run: npm run test:fidelity
+
+      # Runs even when the gate fails, so the provenance breakdown is in the log next to the
+      # failure rather than needing a second run to see it.
+      - name: Provenance report
+        if: always()
+        run: node scripts/fidelity.mjs --report

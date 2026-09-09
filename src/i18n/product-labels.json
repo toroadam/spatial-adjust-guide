@@ -1,0 +1,108 @@
+{
+  "harvestedAt": "2026-09-09T23:19:09.962Z",
+  "source": "IntelliDash dev instance /spatialadjust",
+  "surfaces": {
+    "toolbar": {
+      "siteNamePresent": true,
+      "weatherLabels": [
+        "F",
+        "RH",
+        "\"",
+        "ET",
+        "\""
+      ],
+      "moistureLabels": [
+        "AVG. VWC",
+        "HIGH",
+        "LOW"
+      ],
+      "pushButton": "Push N Changes",
+      "meta": {
+        "iconButtons": [
+          "sync",
+          "cog",
+          "sign-out-alt"
+        ]
+      }
+    },
+    "settings": {
+      "dialogTitle": "Settings",
+      "dialogHeader": "Configure how Spatial Adjust calculates, filters, and applies irrigation adjustments across your course.",
+      "menu": [
+        {
+          "title": "Calculation",
+          "description": "Configure calculation preferences"
+        },
+        {
+          "title": "Minimum Threshold",
+          "description": "Ignore insignificant irrigation adjustments"
+        },
+        {
+          "title": "Target Profiles",
+          "description": "Save seasonal and event-based target profiles"
+        },
+        {
+          "title": "Preferences",
+          "description": "Configure calculation preferences"
+        }
+      ]
+    }
+  },
+  "tabs": {
+    "Calculation": {
+      "present": true,
+      "header": "",
+      "columns": [],
+      "controls": [
+        "Configure how Spatial Adjust calculates irrigation recommendations.",
+        "-",
+        "+",
+        "-",
+        "+",
+        "-",
+        "+"
+      ]
+    },
+    "Minimum Threshold": {
+      "present": true,
+      "header": "",
+      "columns": [],
+      "controls": [
+        "Setting a minimum threshold will prevent very small adjustments from being pushed to Lynx. Set to 0 to disable the minimum threshold.",
+        "-",
+        "+",
+        "Set to zero when pushed to Lynx",
+        "Set to the minimum threshold value when pushed to Lynx",
+        "Exclude Zeros"
+      ]
+    },
+    "Target Profiles": {
+      "present": true,
+      "header": "Save, manage, and apply target profiles for seasonal and event-based irrigation strategies.",
+      "columns": [
+        "Target Profile",
+        "Last Updated",
+        "Stations",
+        "Update from Current",
+        "Apply Profile"
+      ],
+      "controls": [
+        "Save, manage, and apply target profiles for seasonal and event-based irrigation strategies."
+      ]
+    },
+    "Preferences": {
+      "present": true,
+      "header": "",
+      "columns": [],
+      "controls": [
+        "Configure how Spatial Adjust calculates irrigation recommendations.",
+        "-",
+        "+",
+        "-",
+        "+",
+        "-",
+        "+"
+      ]
+    }
+  }
+}
