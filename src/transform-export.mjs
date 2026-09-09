@@ -255,6 +255,62 @@ export function transformGuide(src) {
       + 'scan from the toolbar rather than waiting for one.',
   });
 
+  // 6. The "same ET" claim, which is wrong on both algorithms. The guide tells the reader that
+  //    the weather strip's ET is "the same ET that drives the calculation", and asks them to
+  //    verify a guide by checking Calculation ET against it. Neither holds:
+  //
+  //      site/src/app/spatial-adjust/services/sa-algorithm.service.ts:41
+  //        calculateSuggestedPercentAdjust(..., currentEt: number = null)
+  //
+  //    `currentEt` is accepted and never read. Neither branch of the switch uses it, and the
+  //    only caller — sa-dashboard.component.ts:576 — passes four arguments, so it is always
+  //    null. Option 1 (`calculateSimple`) is targetVwc / actualVwc × the percent adjust Lynx
+  //    holds: no ET term at all. Option 2 (`calculateDeltaPlusTodayEt`) does not calculate
+  //    anything client-side — it looks up a server-computed `suggestedPercentAdjust` by station
+  //    name. So on Option 1 no ET enters the number, and on Option 2 the ET that did is the
+  //    server's, applied before the page ever loaded.
+  //
+  //    This matters because the second one is a VERIFY step: it asks the reader to confirm they
+  //    succeeded by comparing two figures that are not required to agree. A reader whose numbers
+  //    differ concludes they did something wrong and starts undoing correct work.
+  s = edit(s, {
+    name: 'ET claim: verify step comparing Calculation ET to the weather strip',
+    pattern: /Calculation ET under the filter tabs matches the ET shown in the weather strip\./,
+    replace: 'Calculation ET under the filter tabs is the figure the calculation used. '
+      + 'The weather strip reports current conditions separately, so do not expect the two to agree.',
+  });
+
+  s = edit(s, {
+    name: 'ET claim: weather strip described as driving the calculation',
+    pattern: /today\\u2019s ET and precipitation — the same ET that drives the calculation\./,
+    replace: 'today\\u2019s ET and precipitation. It reports conditions; it is not where the '
+      + 'suggested percentages come from. Option 1 uses no ET at all, and Option 2\\u2019s figure is '
+      + 'calculated before the page loads.',
+  });
+
+  // 7. When "Pushed Today" lets go. The guide correctly says a pushed station is held back for
+  //    the rest of the day, but never says when the day ends, and the rule is not the one a
+  //    reader would assume:
+  //
+  //      site/src/app/spatial-adjust/utils/spatial-adjust.util.ts:11  isStationPushable()
+  //        -> site/src/app/common/utils/date.util.ts:81  isUtcDateAtLeastOneDayAgoLocally()
+  //           localDate.startOf('day') < localToday.startOf('day')
+  //
+  //    Both sides are floored to the start of the day in the COURSE's local offset, so a station
+  //    becomes available again at local midnight — not 24 hours after it was pushed. Push at
+  //    11:58 PM and it is selectable two minutes later. Worth one sentence because the natural
+  //    assumption is a rolling day, and acting on that assumption double-adjusts a head.
+  //
+  //    Note also SPATIAL_ADJUST.PUSHED_IN_LAST_N ("Pushed in last 24H"), which is present in all
+  //    eleven IntelliDash catalogues and referenced by no code. If it is ever wired up it will
+  //    state the wrong rule.
+  s = edit(s, {
+    name: 'pushed-today reset boundary',
+    pattern: /is there to stop you adjusting the same head twice in a day\./,
+    replace: 'is there to stop you adjusting the same head twice in a day. '
+      + 'That hold releases at midnight where the course is, not 24 hours after the push.',
+  });
+
   // --- two guides for features the corpus never covered ------------------------
   // An audit of IntelliDash's 108 user-facing Spatial Adjust strings against the 24 guides found
   // four features with no coverage. Two of them are covered here. Both were previously

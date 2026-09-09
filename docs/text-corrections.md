@@ -117,6 +117,75 @@ only the stated default was wrong.
 
 ---
 
+## 4. The weather strip is not what drives the calculation
+
+**Claimed:** the strip shows "today's ET and precipitation — the same ET that drives the
+calculation", and a verify step tells the reader to confirm that "Calculation ET under the filter
+tabs matches the ET shown in the weather strip".
+
+**Actual:** the ET on screen reaches the suggested percentages on neither algorithm.
+
+```ts
+// site/src/app/spatial-adjust/services/sa-algorithm.service.ts:41
+calculateSuggestedPercentAdjust(suggestedPctAdjustments, station, actualVwc,
+                                lynxCurrentPercentAdjust = null, currentEt: number = null) {
+    switch (this.saSettings?.saAlgorithm ?? SaAlgorithm.DeltaPlusTodayEt) {
+        case SaAlgorithm.Simple:
+            return this.calculateSimple(station.targetVwcPercent, actualVwc, lynxCurrentPercentAdjust);
+        case SaAlgorithm.DeltaPlusTodayEt:
+            return this.calculateDeltaPlusTodayEt(station.name, suggestedPctAdjustments);
+    }
+}
+```
+
+`currentEt` is declared and **never read** — neither branch touches it. The only caller passes
+four arguments, so it is always `null`:
+
+```ts
+// site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts:576
+station.suggestedAdjAmtPercent = this.saAlgorithmService.calculateSuggestedPercentAdjust(
+    this.suggestedPctAdjustments, station, averageMoisture, adjustment.percentAdjustPercent);
+```
+
+**Option 1** (`calculateSimple`) is `targetVwc / actualVwc × the percent adjust Lynx holds`. No ET
+term at all. **Option 2** (`calculateDeltaPlusTodayEt`) performs no calculation client-side — it
+looks up a server-computed `suggestedPercentAdjust` by station name. So whatever ET informed
+Option 2 was applied server-side before the page loaded, and cannot be checked against the strip.
+
+**Why this one mattered more than a wrong sentence.** The second claim is a *verify* step — the
+instruction a reader follows to confirm they succeeded. It asks them to compare two figures that
+are not required to agree. A reader whose numbers differ concludes they made a mistake and starts
+undoing correct work. Corrected in `src/transform-export.mjs` as transform 6.
+
+## 5. "Pushed Today" releases at local midnight, not 24 hours after the push
+
+**Claimed:** nothing incorrect — the guides say a pushed station is held back so you do not adjust
+the same head "twice in a day", which is accurate. The omission is *when the day ends*, and the
+rule is not the one a reader would assume.
+
+**Actual:**
+
+```ts
+// site/src/app/spatial-adjust/utils/spatial-adjust.util.ts:11
+static isStationPushable(utcDate, utcOffsetInSeconds) {
+    return DateUtils.isUtcDateAtLeastOneDayAgoLocally(dateObj, utcOffsetInSeconds);
+}
+
+// site/src/app/common/utils/date.util.ts:81
+const localDate  = DateTime.fromJSDate(utcDate, { zone: 'utc' }).plus({ seconds: offsetSeconds }).startOf('day');
+const localToday = DateTime.utc().plus({ seconds: offsetSeconds }).startOf('day');
+return localDate < localToday;
+```
+
+Both sides are floored to the start of the day in the **course's** offset, so the hold releases at
+local midnight. A station pushed at 11:58 PM is selectable again two minutes later. The natural
+reading of "twice in a day" is a rolling 24 hours, and acting on that assumption double-adjusts a
+head. One sentence added in `src/transform-export.mjs` as transform 7.
+
+Worth flagging separately: `SPATIAL_ADJUST.PUSHED_IN_LAST_N` — **"Pushed in last 24H"** — is
+present in all eleven IntelliDash catalogues and referenced by no code. If it is ever wired up it
+will state the wrong rule.
+
 ## Checked and found correct — no change made
 
 **Push recovery.** The guides say Spatial Adjust re-reads the station list, compares each

@@ -3,7 +3,7 @@
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
     "strings": 972,
-    "words": 10799
+    "words": 10848
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -134,7 +134,7 @@
     "Area": "Area",
     "At hole and area level the same two columns show averages rather than readings, and the scan date column shows the most recent scan beneath that row. An italic average means at least one child is modelled.": "At hole and area level the same two columns show averages rather than readings, and the scan date column shows the most recent scan beneath that row. An italic average means at least one child is modelled.",
     "Available only under the second option: a station whose suggestion is a true zero stays at zero instead of being lifted to the threshold. Without it, a station that needs no water gets a small run anyway.": "Available only under the second option: a station whose suggestion is a true zero stays at zero instead of being lifted to the threshold. Without it, a station that needs no water gets a small run anyway.",
-    "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. Tick a pushed station only when you mean to.": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. Tick a pushed station only when you mean to.",
+    "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to.": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to.",
     "Avg / High / Low moisture are computed across every station in the selected course, not just the ones visible in the table.": "Avg / High / Low moisture are computed across every station in the selected course, not just the ones visible in the table.",
     "Avg. Moisture": "Avg. Moisture",
     "Avg. VWC": "Avg. VWC",
@@ -151,7 +151,7 @@
     "Bulk Adjust edits Target VWC, not the percent adjustment.": "Bulk Adjust edits Target VWC, not the percent adjustment.",
     "By the time you see a failure, Spatial Adjust has already retried the affected stations twice.": "By the time you see a failure, Spatial Adjust has already retried the affected stations twice.",
     "Calculation": "Calculation",
-    "Calculation ET under the filter tabs matches the ET shown in the weather strip.": "Calculation ET under the filter tabs matches the ET shown in the weather strip.",
+    "Calculation ET under the filter tabs is the figure the calculation used. The weather strip reports current conditions separately, so do not expect the two to agree.": "Calculation ET under the filter tabs is the figure the calculation used. The weather strip reports current conditions separately, so do not expect the two to agree.",
     "Calculation ET: 0.34 in": "Calculation ET: 0.34 in",
     "Calculation methods": "Calculation methods",
     "Calculation methods — 5 MIN, difficulty 3 of 3": "Calculation methods — 5 MIN, difficulty 3 of 3",
@@ -793,7 +793,7 @@
     "The intended profile is marked active.": "The intended profile is marked active.",
     "The interactive walkthrough needs a wider screen.": "The interactive walkthrough needs a wider screen.",
     "The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.": "The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.",
-    "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation — the same ET that drives the calculation.": "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation — the same ET that drives the calculation.",
+    "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation. It reports conditions; it is not where the suggested percentages come from. Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.": "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation. It reports conditions; it is not where the suggested percentages come from. Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.",
     "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.": "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.",
     "The link doubles as a readout of the current thresholds.": "The link doubles as a readout of the current thresholds.",
     "The link sits above the table beside the threshold filter. The dialog opens with the count of stations you selected at the top — check it before going further.": "The link sits above the table beside the threshold filter. The dialog opens with the count of stations you selected at the top — check it before going further.",
@@ -1262,9 +1262,6 @@
     "Available only under the second option: a station whose suggestion is a true zero stays at zero instead of being lifted to the threshold. Without it, a station that needs no water gets a small run anyway.": [
       "threshold-questions"
     ],
-    "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. Tick a pushed station only when you mean to.": [
-      "reviewing-changes"
-    ],
     "Avg / High / Low moisture are computed across every station in the selected course, not just the ones visible in the table.": [
       "dashboard-overview"
     ],
@@ -1300,9 +1297,6 @@
     ],
     "By the time you see a failure, Spatial Adjust has already retried the affected stations twice.": [
       "push-failures"
-    ],
-    "Calculation ET under the filter tabs matches the ET shown in the weather strip.": [
-      "dashboard-overview"
     ],
     "Calculation methods": [
       "catalog",
@@ -3279,9 +3273,6 @@
     "The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.": [
       "reviewing-changes"
     ],
-    "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation — the same ET that drives the calculation.": [
-      "dashboard-overview"
-    ],
     "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.": [
       "minimum-threshold"
     ],
@@ -3880,6 +3871,17 @@
     ],
     "Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash.": [
       "station-zero"
+    ],
+    "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to.": [
+      "reviewing-changes"
+    ],
+    "Calculation ET under the filter tabs is the figure the calculation used. The weather strip reports current conditions separately, so do not expect the two to agree.": [
+      "dashboard-overview",
+      "chrome"
+    ],
+    "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation. It reports conditions; it is not where the suggested percentages come from. Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.": [
+      "dashboard-overview",
+      "chrome"
     ]
   },
   "_screenStrings": [
