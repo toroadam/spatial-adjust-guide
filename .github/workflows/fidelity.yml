@@ -58,3 +58,13 @@ jobs:
       - name: Provenance report
         if: always()
         run: node scripts/fidelity.mjs --report
+
+      # Product-side locale audit. Needs an IntelliDash checkout, which is in Azure DevOps and
+      # not reachable here, so in CI this prints a note and exits zero. It is listed anyway so
+      # the command is discoverable, and because it is the step to run locally before handing
+      # findings to IntelliDash Software: the guides ship in eleven languages and roughly half
+      # the Spatial Adjust keys are missing from every non-English catalogue, which no change
+      # to this repository can fix.
+      - name: Product locale audit (advisory, needs a checkout)
+        if: always()
+        run: npm run test:product-locales
