@@ -115,5 +115,15 @@ export function transformApp(src) {
       + `\n    else if (dlg === 'dataready') dialog = this.scanReadyBanner();`,
   });
 
+  // The reproduced Target Profiles pane carries its own footnote, and it said "Concept". Same
+  // correction as transform 8 in src/transform-export.mjs, and the same reason: the tab is
+  // implemented on a feature branch, not a concept. Kept short because it sits inside the
+  // figure rather than in the prose around it.
+  s = edit(s, {
+    name: 'target profiles pane footnote',
+    pattern: /Concept — this tab is not in the shipping build\./,
+    replace: 'In development — not in the shipping build yet.',
+  });
+
   return s;
 }
