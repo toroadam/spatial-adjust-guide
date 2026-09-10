@@ -24,7 +24,14 @@
 //   node scripts/fidelity.mjs                  # gate + summary; non-zero exit on a miss
 //   node scripts/fidelity.mjs --report         # adds the full provenance classification
 //   node scripts/fidelity.mjs --id <path>      # override the IntelliDash checkout
+//
+// PROVENANCE HAS FOUR OUTCOMES, not three. The first version had three and put a third of the
+// corpus in the wrong one. Sample data — station identifiers, timestamps, the sanitizer's
+// fictional course name — can never have product provenance because it is not a label, and
+// counting it as unverified inflated the advisory total from 16 to 55 while putting a course
+// name into a report that ships in a public repository.
 import { readFile } from 'node:fs/promises';
+import { loadCatalogue, scanHardcodedLiterals, isPureSampleData } from './product-provenance.mjs';
 
 const argv = process.argv.slice(2);
 const arg = (n, d) => { const i = argv.indexOf(`--${n}`); return i === -1 ? d : argv[i + 1]; };
@@ -63,12 +70,14 @@ const corpusNorm = new Set(CORPUS.map(norm));
 // Optional on purpose. The GATE needs only the fixture, so it runs in CI where no IntelliDash
 // checkout exists. Only the advisory provenance report needs the product's i18n, and it
 // degrades to "unverified" rather than failing the build over a missing sibling repository.
-const idByNorm = new Map();
+let idByNorm = new Map();
+let literals = new Map();
+let templateCount = 0;
 try {
-  const idEn = flatten(JSON.parse(await readFile(`${ID}/assets/i18n/en-us.json`, 'utf8')));
-  const keyOf = {};   // English value -> key, first writer wins (matches scripts/app-strings.mjs)
-  for (const [k, v] of Object.entries(idEn)) if (!(v.trim() in keyOf)) keyOf[v.trim()] = k;
-  for (const [v, k] of Object.entries(keyOf)) if (!idByNorm.has(norm(v))) idByNorm.set(norm(v), k);
+  idByNorm = await loadCatalogue(ID);
+  const scan = await scanHardcodedLiterals(ID);
+  literals = scan.byNorm;
+  templateCount = scan.templateCount;
 } catch {
   console.error(`note: no IntelliDash checkout at ${ID} — provenance report degraded, gate unaffected.`);
 }
@@ -118,10 +127,14 @@ for (const { label, where } of liveLabels) {
 
 // ---- REPORT: reproduction -> product -----------------------------------------------------------
 const liveByNorm = new Set(liveLabels.map((l) => norm(l.label)));
-const provenance = { keyed: [], liveOnly: [], unverified: [] };
+const provenance = { data: [], keyed: [], literal: [], liveOnly: [], unverified: [] };
 for (const label of SCREEN) {
   const n = norm(label);
+  // Data first: a station id is not a label, so asking where it came from is the wrong question.
+  if (isPureSampleData(label)) { provenance.data.push({ label }); continue; }
   if (idByNorm.has(n)) { provenance.keyed.push({ label, key: idByNorm.get(n) }); continue; }
+  // Hardcoded in a template: English on every reader's screen. A product bug, not a guide one.
+  if (literals.has(n)) { provenance.literal.push({ label, at: literals.get(n) }); continue; }
   if (liveByNorm.has(n)) { provenance.liveOnly.push({ label }); continue; }
   provenance.unverified.push({ label });
 }
@@ -160,16 +173,25 @@ if (structural.length) {
 }
 
 console.log(`\nPROVENANCE  reproduction -> product   (advisory, never gates)`);
+if (templateCount) console.log(`          ${idByNorm.size} catalogue entries · ${literals.size} hardcoded literal(s) across ${templateCount} template(s)`);
+console.log(`  sample data (not a label)     ${provenance.data.length}`);
 console.log(`  keyed in IntelliDash i18n     ${provenance.keyed.length}`);
-console.log(`  live-only (hardcoded literal) ${provenance.liveOnly.length}`);
-console.log(`  unverified (surface unharvested, or concept UI) ${provenance.unverified.length}`);
+console.log(`  hardcoded in a template       ${provenance.literal.length}   <- English in all 11 locales`);
+console.log(`  observed live, unkeyed        ${provenance.liveOnly.length}`);
+console.log(`  unverified (surface unharvested) ${provenance.unverified.length}`);
 if (reportOnly) {
+  if (provenance.literal.length) {
+    console.log('\n  --- hardcoded in IntelliDash source: a product bug ---');
+    for (const p of provenance.literal) {
+      console.log(`    ${JSON.stringify(p.label)}\n        ${p.at.file}:${p.at.line}  (${p.at.kind})`);
+    }
+  }
   if (provenance.liveOnly.length) {
-    console.log('\n  --- hardcoded in the product: English in every locale ---');
+    console.log('\n  --- observed live but unkeyed: hardcoded on an unscanned surface ---');
     for (const p of provenance.liveOnly) console.log(`    ${JSON.stringify(p.label)}`);
   }
   if (provenance.unverified.length) {
-    console.log('\n  --- unverified: no i18n key and not observed live ---');
+    console.log('\n  --- unverified: no key, no literal, never observed ---');
     for (const p of provenance.unverified) console.log(`    ${JSON.stringify(p.label)}`);
   }
 }

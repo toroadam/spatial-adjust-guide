@@ -38,11 +38,23 @@ jobs:
       # enforces MFA and cannot be driven headlessly, so CI diffs against the committed fixture
       # rather than logging in. The fixture carries product labels only — values are scrubbed at
       # harvest time because this repository is public.
+      # Cheap, no fixture and no checkout needed. Runs first because a broken classifier
+      # makes every number below it meaningless — and it silently was once, when an
+      # unanchored pattern read "-5 " inside "-5 to 5%" and called a numeric range a label.
+      - name: Provenance classifier self-check
+        run: npm run test:provenance
+
       - name: Fidelity gate (product -> reproduction)
         run: npm run test:fidelity
 
       # Runs even when the gate fails, so the provenance breakdown is in the log next to the
       # failure rather than needing a second run to see it.
+      #
+      # In CI the provenance columns degrade to zero: resolving a label to an i18n key or a
+      # hardcoded literal needs an IntelliDash checkout, which is in Azure DevOps and not
+      # available here. The GATE is unaffected — it reads only the committed fixture — so the
+      # build still fails on a real divergence. Run it locally with a checkout for the full
+      # classification, including which template hardcodes which label.
       - name: Provenance report
         if: always()
         run: node scripts/fidelity.mjs --report

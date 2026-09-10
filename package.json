@@ -22,7 +22,8 @@
     "translate": "node scripts/translate.mjs",
     "test:validate": "node scripts/validate-locales.mjs",
     "test:fidelity": "node scripts/fidelity.mjs",
-    "fidelity:harvest": "node scripts/fidelity-harvest.mjs"
+    "fidelity:harvest": "node scripts/fidelity-harvest.mjs",
+    "test:provenance": "node scripts/product-provenance.mjs"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.72.0",
