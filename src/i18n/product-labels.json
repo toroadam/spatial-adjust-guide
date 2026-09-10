@@ -1,5 +1,5 @@
 {
-  "harvestedAt": "2026-09-09T23:19:09.962Z",
+  "harvestedAt": "2026-09-10T15:39:24.679Z",
   "source": "IntelliDash dev instance /spatialadjust",
   "surfaces": {
     "toolbar": {
@@ -45,6 +45,41 @@
           "title": "Preferences",
           "description": "Configure calculation preferences"
         }
+      ]
+    },
+    "table": {
+      "columns": [
+        "Course",
+        "Avg. VWC",
+        "Avg. Target VWC",
+        "Last Scan",
+        "Enable"
+      ],
+      "breadcrumb": [
+        "Course"
+      ],
+      "toolbarLinks": [
+        "BULK ADJUST",
+        "% ADJ. OVER N%, UNDER N%"
+      ]
+    },
+    "map": {
+      "legend": [
+        "N-N%",
+        "N-N%",
+        "N-N%",
+        "> N%"
+      ],
+      "controls": [
+        "LAYERS",
+        "All Stations",
+        "Enabled Stations"
+      ]
+    },
+    "filters": {
+      "tabs": [
+        "All Stations",
+        "Over/Under"
       ]
     }
   },
