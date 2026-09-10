@@ -543,5 +543,47 @@ export function transformGuide(src) {
   });
 
 
+  // 8. Target Profiles is not a "design concept" any more, and the guides should stop saying so.
+  //    Documenting ahead of ship is deliberate here — this is a pilot, and the expectation is
+  //    that dev features reach production before the guides do. So the disclaimer is NOT there to
+  //    warn the reader off; it is there to be accurate, and it currently is not:
+  //
+  //      "The tab exists in the codebase as a commented-out placeholder"
+  //
+  //    It is commented out on develop (an internal commit, an internal work item) but implemented on
+  //    an unmerged feature branch under an internal work item — model, icons, styling, i18n key,
+  //    and client plus server API integration as of an internal commit. Calling that a placeholder
+  //    undersells a feature someone is actively building, and it is the kind of claim that ages
+  //    into a lie the moment the branch merges.
+  //
+  //    What the reader gains instead: a heads-up that the shipped tab lists five named slots, so
+  //    a screen that does not look like these figures is expected rather than a fault. The
+  //    figures themselves still disagree with the implementation — three cards with ACTIVE badges
+  //    versus a five-row table with Last Updated, Update from Current and Apply Profile — and no
+  //    disclaimer fixes that. It needs the guides reconciling once an internal work item merges (an internal work item).
+  //    The ticket numbers stay in this comment and out of the prose; a superintendent does not
+  //    care which work item it was.
+  s = edit(s, {
+    name: 'target profiles disclaimer: commented-out placeholder claim',
+    pattern: /Target Profiles is a design concept\. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build\./g,
+    replace: 'Target Profiles is still in development and is not in the shipping build yet. '
+      + 'The screens here show a proposed design; the tab being built lists five named profile '
+      + 'slots, so what you see on your own screen may differ.',
+    expected: 3,
+  });
+
+  s = edit(s, {
+    name: 'target profiles disclaimer: placeholder claim, walkthrough variant',
+    pattern: /Target Profiles is a design concept\. The tab exists in the codebase as a placeholder and is not reachable in the shipping build — the screens below show the proposed behaviour\./,
+    replace: 'Target Profiles is still in development and is not in the shipping build yet — the '
+      + 'screens below show a proposed design, which the tab being built does not yet match.',
+  });
+
+  s = edit(s, {
+    name: 'target profiles catalogue card subtitle',
+    pattern: /Concept — saved sets of station targets\./,
+    replace: 'In development — saved sets of station targets.',
+  });
+
   return s;
 }

@@ -3,7 +3,7 @@
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
     "strings": 972,
-    "words": 10848
+    "words": 10865
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -189,7 +189,6 @@
     "Choose what below-threshold means": "Choose what below-threshold means",
     "Close": "Close",
     "Compare the column before and after switching, not one row.": "Compare the column before and after switching, not one row.",
-    "Concept — saved sets of station targets.": "Concept — saved sets of station targets.",
     "Concept.": "Concept.",
     "Configure calculation preferences": "Configure calculation preferences",
     "Configure how Spatial Adjust calculates irrigation recommendations.": "Configure how Spatial Adjust calculates irrigation recommendations.",
@@ -304,6 +303,7 @@
     "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.": "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.",
     "Ignore insignificant irrigation adjustments": "Ignore insignificant irrigation adjustments",
     "in": "in",
+    "In development — saved sets of station targets.": "In development — saved sets of station targets.",
     "In one line.": "In one line.",
     "Individually edited targets drift away from the profile.": "Individually edited targets drift away from the profile.",
     "intellidash.toro.com/spatialadjust": "intellidash.toro.com/spatialadjust",
@@ -728,8 +728,8 @@
     "Target minus measured, per station, is the whole idea.": "Target minus measured, per station, is the whole idea.",
     "Target Profiles": "Target Profiles",
     "TARGET PROFILES": "TARGET PROFILES",
-    "Target Profiles is a design concept. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build.": "Target Profiles is a design concept. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build.",
-    "Target Profiles is a design concept. The tab exists in the codebase as a placeholder and is not reachable in the shipping build — the screens below show the proposed behaviour.": "Target Profiles is a design concept. The tab exists in the codebase as a placeholder and is not reachable in the shipping build — the screens below show the proposed behaviour.",
+    "Target Profiles is still in development and is not in the shipping build yet — the screens below show a proposed design, which the tab being built does not yet match.": "Target Profiles is still in development and is not in the shipping build yet — the screens below show a proposed design, which the tab being built does not yet match.",
+    "Target Profiles is still in development and is not in the shipping build yet. The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.": "Target Profiles is still in development and is not in the shipping build yet. The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.",
     "Target VWC": "Target VWC",
     "Target VWC accepts 0 to 50, integers only.": "Target VWC accepts 0 to 50, integers only.",
     "Target VWC accepts whole numbers from 0 to 50.": "Target VWC accepts whole numbers from 0 to 50.",
@@ -1413,9 +1413,6 @@
     ],
     "Compare the column before and after switching, not one row.": [
       "calculation-methods"
-    ],
-    "Concept — saved sets of station targets.": [
-      "catalog"
     ],
     "Concept.": [
       "target-profiles",
@@ -3073,14 +3070,6 @@
       "updating-profiles",
       "seasonal-profiles"
     ],
-    "Target Profiles is a design concept. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build.": [
-      "creating-profiles",
-      "updating-profiles",
-      "seasonal-profiles"
-    ],
-    "Target Profiles is a design concept. The tab exists in the codebase as a placeholder and is not reachable in the shipping build — the screens below show the proposed behaviour.": [
-      "target-profiles"
-    ],
     "Target VWC accepts 0 to 50, integers only.": [
       "understanding-vwc"
     ],
@@ -3882,6 +3871,18 @@
     "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation. It reports conditions; it is not where the suggested percentages come from. Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.": [
       "dashboard-overview",
       "chrome"
+    ],
+    "In development — saved sets of station targets.": [
+      "catalog",
+      "chrome"
+    ],
+    "Target Profiles is still in development and is not in the shipping build yet — the screens below show a proposed design, which the tab being built does not yet match.": [
+      "target-profiles"
+    ],
+    "Target Profiles is still in development and is not in the shipping build yet. The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.": [
+      "creating-profiles",
+      "updating-profiles",
+      "seasonal-profiles"
     ]
   },
   "_screenStrings": [
