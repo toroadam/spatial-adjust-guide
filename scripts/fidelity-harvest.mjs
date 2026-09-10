@@ -60,7 +60,13 @@ const SURFACES = [
   },
   {
     key: 'settings',
-    open: '#toro-app-header-toolbar .toro-app-header-toolbar-button:nth-of-type(2)',
+    // Selected by ICON, never by position. `:nth-of-type(2)` counts sibling DIVs regardless of
+    // class, and the toolbar's first child is a separator — so it resolved to the
+    // refresh-scan-data button and this script clicked it on a live instance. Requesting a scan
+    // is not a write, but it was not ours to trigger, and the guard could not catch it because
+    // that button has no accessible name to match against.
+    open: '#toro-app-header-toolbar .toro-app-header-toolbar-button:has(fa-icon[icon="cog"])',
+    expectIcon: 'cog',
     // Idempotent: if an operator left the dialog open, clicking the gear again is blocked by
     // the dialog's own modal mask and the run dies on a timeout.
     isOpen: () => !!document.querySelector('.sa-dlg-mnu-card'),
@@ -77,6 +83,76 @@ const SURFACES = [
   },
 ];
 
+// Surfaces that need NO click at all — they are on screen at load. Free coverage, and no
+// interaction risk whatsoever, which is why they come before anything that opens a dialog.
+SURFACES.push(
+  {
+    key: 'table',
+    open: null,
+    read: () => {
+      // The column titles are not in <th> — the table is div-based — so the header row is found
+      // by looking for the element that contains all of them. Deterministic and self-describing,
+      // where a brittle class selector would silently harvest nothing (and did: an earlier probe
+      // for '#sa-dashboard th' returned an empty list and looked like "no columns exist").
+      const all = [...document.querySelectorAll('#sa-dashboard *')].filter((e) => {
+        const t = e.textContent || '';
+        return /Avg\. VWC/.test(t) && /Last Scan/.test(t) && /Enable/.test(t) && e.children.length <= 10;
+      });
+      const row = all[all.length - 2] || all[all.length - 1];
+      const leaves = row ? [...row.querySelectorAll('*')]
+        .filter((x) => x.children.length === 0 && (x.innerText || '').trim())
+        .map((x) => x.innerText.trim()) : [];
+      return {
+        columns: [...new Set(leaves)],
+        breadcrumb: [...document.querySelectorAll('.sa-breadcrumbs .ui-menuitem-text')]
+          .map((e) => (e.innerText || '').trim()).filter(Boolean),
+        toolbarLinks: [...document.querySelectorAll('.sa-thf-link-text')]
+          // Thresholds are per-user settings, so the Over/Under link carries live numbers.
+          .map((e) => (e.innerText || '').trim().replace(/\d+(?:[.,]\d+)?/g, 'N')),
+      };
+    },
+  },
+  {
+    key: 'map',
+    open: null,
+    read: () => {
+      const leaves = [...document.querySelectorAll('#sa-map-overlay-container *')]
+        .filter((e) => e.children.length === 0 && (e.innerText || '').trim())
+        .map((e) => (e.innerText || '').trim());
+      return {
+        // Band boundaries are user-configurable, so the digits are data. The bands themselves
+        // are what the guides reproduce, and their DEFAULTS were already corrected once
+        // (transform 3) after the guide quoted one course's saved preference as the default.
+        legend: [...new Set(leaves.filter((t) => /%/.test(t)))].map((t) => t.replace(/\d+/g, 'N')),
+        controls: [...new Set(leaves.filter((t) => !/%/.test(t)))],
+      };
+    },
+  },
+  {
+    key: 'filters',
+    open: null,
+    read: () => ({
+      tabs: [...new Set([...document.querySelectorAll('#sa-dashboard *')]
+        .filter((e) => e.children.length === 0 && /All Stations|Over\/Under/i.test(e.innerText || ''))
+        .map((e) => (e.innerText || '').trim()))],
+    }),
+  },
+);
+
+// NOT HARVESTED, deliberately, and this is the honest limit of the fixture:
+//
+//   Push Changes  — the toolbar button's handler is onPushChanges (sa-main-toolbar.component.ts:252),
+//                   which calls saPushChangesService.processItemsWithDelay and WRITES TO LYNX.
+//                   It is the confirm path, not just an opener. Nothing automated goes near it.
+//   Bulk Adjust   — opening is a read and guardedClick would permit it, but its confirm is
+//                   "Apply to all", one mis-selected locator away. The last locator that matched
+//                   loosely picked CONTINUE EDITING over DISCARD CHANGES.
+//   Over/Under    — same shape.
+//
+// These three want supervised capture: a human opens the dialog, then runs the harvest. Worth
+// noting the discard-changes guard fires even when nothing was edited — merely selecting Settings
+// tabs marks the form dirty, which is a product bug in its own right.
+
 // Tabs inside the settings dialog. Selecting a tab is a read; nothing persists until Save
 // Changes, which is never clicked.
 const SETTINGS_TABS = ['Calculation', 'Minimum Threshold', 'Target Profiles', 'Preferences'];
@@ -90,9 +166,19 @@ if (!page) {
     + `  open tabs: ${ctx.pages().map((p) => p.url()).join(', ') || '(none)'}`);
 }
 
-async function guardedClick(selector, why) {
+async function guardedClick(selector, why, expectIcon) {
   const el = page.locator(selector).first();
   if (!(await el.count())) throw new Error(`${why}: selector not found — ${selector}`);
+  // Identity check before the name check. Icon buttons carry no accessible name, so the WRITES
+  // guard cannot see them at all — a selector that drifts onto the wrong icon button sails
+  // straight through. Asserting the icon is the only thing that catches it.
+  if (expectIcon) {
+    const got = await el.locator('fa-icon').first().getAttribute('icon').catch(() => null);
+    if (got !== expectIcon) {
+      throw new Error(`${why}: resolved to icon "${got}", expected "${expectIcon}" — refusing to click.\n`
+        + `  A positional selector here once resolved to refresh-scan-data instead of the gear.`);
+    }
+  }
   const name = ((await el.getAttribute('aria-label')) || (await el.innerText().catch(() => '')) || '').trim();
   if (WRITES.test(name)) throw new Error(`refusing to click "${name}" (${why}) — it may write to Lynx`);
   await el.click({ timeout: 8000 });
@@ -103,7 +189,7 @@ const product = { harvestedAt: null, source: page.url(), surfaces: {}, tabs: {} 
 
 for (const s of SURFACES) {
   const alreadyOpen = s.isOpen ? await page.evaluate(s.isOpen) : false;
-  if (s.open && !alreadyOpen) await guardedClick(s.open, `open ${s.key}`);
+  if (s.open && !alreadyOpen) await guardedClick(s.open, `open ${s.key}`, s.expectIcon);
   else if (alreadyOpen) process.stderr.write(`  ${s.key}: already open, not re-clicking\n`);
   product.surfaces[s.key] = await page.evaluate(s.read);
   process.stderr.write(`  ${s.key}: read\n`);
@@ -137,6 +223,20 @@ for (const label of SETTINGS_TABS) {
 await browser.close();   // detaches CDP; the operator's window stays open
 
 // Stamped after the fact so the harvest itself stays deterministic.
+// A surface that read as empty means a selector drifted, and a fixture full of empty surfaces
+// makes the gate PASS by having nothing to compare — the worst possible failure for a gate.
+// This is exactly what happened when the gear selector hit the wrong button: the settings menu
+// came back empty, four tabs reported absent, and the Target Profiles findings silently vanished.
+const empty = [
+  ...Object.entries(product.surfaces).filter(([, v]) => !Object.values(v).some(
+    (x) => (Array.isArray(x) ? x.length : typeof x === 'string' ? x.trim() : x))).map(([k]) => `surface:${k}`),
+  ...Object.entries(product.tabs).filter(([, v]) => !v.present).map(([k]) => `tab:${k}`),
+];
+if (empty.length) {
+  throw new Error(`harvest produced empty surface(s): ${empty.join(', ')}\n`
+    + `  A selector has drifted. Refusing to write a fixture the gate would pass against.`);
+}
+
 product.harvestedAt = new Date().toISOString();
 await writeFile(out, JSON.stringify(product, null, 2) + '\n');
 console.log(`${out}: ${Object.keys(product.surfaces).length} surface(s), ${Object.keys(product.tabs).length} settings tab(s)`);
