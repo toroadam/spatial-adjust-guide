@@ -24,10 +24,16 @@ const asJson = process.argv.includes('--json');
 
 const cat = JSON.parse(await readFile('src/i18n/en-us.json', 'utf8'));
 // Tokens that count as evidence: words drawn from labels the reproduction actually renders.
-const LABEL_TOKENS = new Set();
-for (const s of cat._screenStrings || []) {
-  for (const w of s.toLowerCase().match(/[a-z]{4,}/g) || []) LABEL_TOKENS.add(w);
-}
+// Whole label PHRASES, not the words inside them. Matching single tokens meant "area", "target",
+// "adjust" and "spatial" all counted as naming a control, so "You supply the target" was held to
+// the Target VWC column and "Spatial Adjust does the arithmetic" to anything with Adjust in it —
+// 52 reported misses, nearly all of them prose. A step names a control when it quotes the
+// control, which is the same rule scripts/validate-locales.mjs uses for drift.
+const LABELS = [...new Set(cat._screenStrings || [])]
+  .map((s) => s.trim())
+  // Short and numeric labels ("AP", "6", "-5 to 5%") match far too much running prose.
+  .filter((s) => s.length >= 6 && /[a-z]{3,}/i.test(s) && !/^\d/.test(s))
+  .sort((a, b) => b.length - a.length);   // longest first: prefer the most specific match
 
 const browser = await chromium.launch();
 // Tall viewport on purpose. The stage is ~598px starting around y=438, so at 900px height its
@@ -55,13 +61,21 @@ const probe = () => page.evaluate(() => {
   // querySelector picked whichever came first — sometimes one scrolled far off-screen (its top
   // measured -509), which is why a third of the steps reported as unmeasurable however tall the
   // viewport was made.
-  const onScreen = (e) => {
+  // MOST VISIBLE, not merely intersecting. Every guide has its own stage frame, and a predicate
+  // that accepts any overlap happily picked one scrolled 84% off the top (rect.top -472), which
+  // put the target point above the viewport and made 32 steps unmeasurable. Scoring by visible
+  // area picks the stage the reader is actually looking at.
+  const visibleArea = (e) => {
     const r = e.getBoundingClientRect();
-    return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight;
+    const w = Math.max(0, Math.min(r.right, window.innerWidth) - Math.max(r.left, 0));
+    const h = Math.max(0, Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0));
+    return w * h;
   };
   const declaring = [...document.querySelectorAll('.lsa-stage-frame *')]
     .filter((e) => e.style && e.style.getPropertyValue('--tx'))
-    .find(onScreen);
+    .map((e) => ({ e, area: visibleArea(e) }))
+    .filter((c) => c.area > 0)
+    .sort((a, b) => b.area - a.area)[0]?.e;
   if (!declaring) return { missing: true, reason: 'no visible element declares --tx' };
   const stageEl = declaring.closest('.lsa-stage-frame');
   const cursor = [...(stageEl || document).querySelectorAll('*')]
@@ -71,9 +85,6 @@ const probe = () => page.evaluate(() => {
   // pairing tx/ty from one with a rect from another put the point somewhere meaningless — which
   // is what left 37 steps reading as off-viewport even after the viewport was made tall enough.
   const stage = stageEl || cursor.closest('.lsa-stage-frame');
-  // Belt and braces alongside the tall viewport: bring the stage fully into view before
-  // measuring, so a long page cannot push the target off-screen and empty the hit-test.
-  stage.scrollIntoView({ block: 'center' });
   const sr = stage.getBoundingClientRect();
   const tx = parseFloat(declaring.style.getPropertyValue('--tx'));
   const ty = parseFloat(declaring.style.getPropertyValue('--ty'));
@@ -87,8 +98,15 @@ const probe = () => page.evaluate(() => {
   // translate. So the variables are in the app's coordinate space and only the app's rect can
   // turn them into a viewport point. Measuring from the stage frame — which also contains the
   // mock browser chrome above the app — offsets every point by the height of that chrome.
+  // PAGE coordinates, not viewport. Scrolling was only ever needed because elementsFromPoint is
+  // viewport-bound, and that was replaced with geometric containment long ago — so where the page
+  // happens to be scrolled is irrelevant. Chasing it with scrollIntoView and scrollBy left 32
+  // steps unmeasurable through several attempts; adding the scroll offset makes the question
+  // disappear instead of being fought.
+  const sx = window.scrollX || window.pageXOffset || 0;
+  const sy = window.scrollY || window.pageYOffset || 0;
   const ar = declaring.getBoundingClientRect();
-  const x = ar.left + tx, y = ar.top + ty;
+  const x = ar.left + sx + tx, y = ar.top + sy + ty;
   const cr = cursor.getBoundingClientRect();
 
   // Geometric containment, NOT document.elementsFromPoint. The reproduction is a static
@@ -99,7 +117,8 @@ const probe = () => page.evaluate(() => {
   const app = (stageEl || document).querySelector('.sa-app');
   let hit = null;
   if (app) {
-    const contains = (r) => x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    const contains = (r) => x >= r.left + sx && x <= r.right + sx
+                         && y >= r.top + sy && y <= r.bottom + sy;
     // Smallest containing element wins: a button's label rather than the panel holding it.
     let best = null, bestArea = Infinity;
     for (const e of app.querySelectorAll('*')) {
@@ -133,7 +152,9 @@ const probe = () => page.evaluate(() => {
     hasApp: !!((stageEl || document).querySelector('.sa-app')),
     // Distinguishes "the point is off-viewport so we measured nothing" from "the cursor really
     // is over empty space". Without it the two are indistinguishable in the report.
-    pointInViewport: x >= 0 && y >= 0 && x <= window.innerWidth && y <= window.innerHeight,
+    // Kept only as a diagnostic. In page coordinates a point is always "measurable"; whether it
+    // hits anything is now a real answer rather than an artefact of where the page was scrolled.
+    pointInViewport: true,
     step: (document.querySelector('.lsa [aria-live]')?.textContent || '').trim(),
   };
 });
@@ -169,8 +190,21 @@ const verdictOf = (r) => {
   // A graphical target cannot be confirmed by text and is not thereby wrong. Reported in its own
   // bucket so the number that matters — cursors on nothing at all — stays readable.
   if (r.hit.graphical) return 'GRAPHICAL-TARGET';
-  const shared = [...tokens(title)].filter((w) => LABEL_TOKENS.has(w) && tokens(r.hit.text).has(w));
-  return shared.length ? 'ON-TARGET' : 'UNCONFIRMED';
+  // Can this step be confirmed at all? "Start with the toolbar", "Read the map" and "Work in the
+  // table" name a REGION, not a labelled control, so there is no label for the cursor to land on
+  // and a mismatch proves nothing. Only steps that name something the reproduction actually
+  // renders can be checked — everything else was inflating UNCONFIRMED to 98 and hiding the few
+  // that matter.
+  const flat = (x) => x.toLowerCase().replace(/\s+/g, ' ');
+  const named = LABELS.filter((l) => flat(title).includes(flat(l)));
+  if (!named.length) return 'NO-LABEL-NAMED';
+  const hitFlat = flat(r.hit.text);
+  if (named.some((l) => hitFlat.includes(flat(l)))) return 'ON-TARGET';
+  // An icon IS the control. "Open Settings" lands on the gear glyph, which is exactly right, but
+  // the glyph carries no word to match. A hit with no letters cannot confirm or refute, so it
+  // goes to the graphical bucket rather than being reported as a miss.
+  if (!/[a-z]/i.test(r.hit.text)) return 'GRAPHICAL-TARGET';
+  return 'MISSED-THE-CONTROL';
 };
 
 for (const r of rows) r.verdict = verdictOf(r);
@@ -188,14 +222,12 @@ if (asJson) {
       console.log(`  [${r.verdict}] ${r.guide}\n      ${r.step}\n      cursor (${Math.round(r.tx)},${Math.round(r.ty)}) in ${r.w}x${r.h}`);
     }
   }
-  const unc = rows.filter((r) => r.verdict === 'UNCONFIRMED');
-  if (unc.length) {
-    console.log('\n--- cursor is on something, but not the control the step names ---');
-    console.log('    (advisory: a step can legitimately point at a region rather than a label)');
-    for (const r of unc.slice(0, 20)) {
-      console.log(`  ${r.guide}\n      step says:   ${r.step}\n      cursor is on: ${JSON.stringify(r.hit.text.slice(0, 70))}`);
+  const missed = rows.filter((r) => r.verdict === 'MISSED-THE-CONTROL');
+  if (missed.length) {
+    console.log('\n--- the step names a control, and the cursor is on something else ---');
+    for (const r of missed) {
+      console.log(`  ${r.guide}\n      step says:    ${r.step}\n      cursor is on: ${JSON.stringify(r.hit.text.slice(0, 70))}`);
     }
-    if (unc.length > 20) console.log(`  … ${unc.length - 20} more`);
   }
 }
 
