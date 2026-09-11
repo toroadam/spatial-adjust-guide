@@ -114,14 +114,47 @@ if (live) {
   for (const [k, v] of Object.entries(live.tabs || {})) collect(v, `tab:${k}`);
 }
 
+// Everything the reproduction actually paints, harvested by scripts/repro-inventory.mjs.
+let renderedNorm = new Set();
+try {
+  const inv = JSON.parse(await readFile(`${dir}/repro-labels.json`, 'utf8'));
+  renderedNorm = new Set(inv.labels.map((l) => norm(l.text)));
+} catch { /* optional: gate falls back to the catalogue alone */ }
+
+// ---- in-flight surfaces --------------------------------------------------------------------
+// The fixture is harvested from a DEV ENVIRONMENT, and dev can be running an unmerged feature
+// branch. Target Profiles is exactly that: implemented on an unmerged feature branch
+// under an internal work item, still WIP, still unmerged, and commented out on develop. Gating the guides on
+// UI that does not ship holds them to a standard no reader can reach — and a permanently red
+// gate is one everybody learns to ignore, which is how the 308 advisory findings sat unactioned.
+//
+// So: shipped-ness is read from the SOURCE rather than assumed. A settings tab whose menu entry
+// is commented out in sa-settings-dlg.component.ts is in flight. Its labels are still reported —
+// they are real work in progress — but they do not fail the build.
+const inFlightTabs = new Set();
+try {
+  const dlg = await readFile(
+    `${ID}/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts`, 'utf8');
+  for (const m of dlg.matchAll(/^\s*\/\/\s*new SaDlgMenuItem\('([^']+)'/gm)) inFlightTabs.add(m[1]);
+} catch { /* no checkout: nothing is known to be in flight, so nothing is excused */ }
+
 // ---- GATE: product -> reproduction -------------------------------------------------------------
 const missing = [];
 const seen = new Set();
+const inFlight = [];
 for (const { label, where } of liveLabels) {
   const n = norm(label);
   if (seen.has(n)) continue;
   seen.add(n);
-  if (screenNorm.has(n) || corpusNorm.has(n)) continue;
+  // Rendered, not merely listed. The map legend chips ("0-5%") are painted by the reproduction
+  // but never entered the translation catalogue, so testing against the catalogue alone reported
+  // them as absent from guides that plainly show them. repro-labels.json is the set that answers
+  // "does the reader see this", which is the question the gate is asking.
+  if (screenNorm.has(n) || corpusNorm.has(n) || renderedNorm.has(n)) continue;
+  // `where` carries the surface, e.g. "tab:Target Profiles" or "settings.menu.description".
+  const tab = [...inFlightTabs].find((t) => where.includes(t)
+    || (where.startsWith('settings.menu') && liveLabels.some((l) => l.label === t)));
+  if (tab) { inFlight.push({ label, where, tab }); continue; }
   missing.push({ label, where });
 }
 
@@ -237,7 +270,9 @@ if (repro) {
 // an action; the question is whether the corpus documents it at all.
 const structural = [];
 const tp = live?.tabs?.['Target Profiles'];
-if (tp?.present) {
+// Only assert structure for a tab that actually ships. Target Profiles is commented out on
+// develop, so demanding the guides document its columns would fail the build over unreleased UI.
+if (tp?.present && !inFlightTabs.has('Target Profiles')) {
   for (const col of tp.columns || []) {
     structural.push({ concept: col, surface: 'Target Profiles column',
       documented: CORPUS.some((g) => norm(g).includes(norm(col))) });
@@ -252,10 +287,24 @@ console.log(`\nGATE  product -> reproduction`);
 if (!live) {
   console.log('  SKIPPED — no fixture');
 } else if (!missing.length) {
-  console.log(`  every observed product label appears in the corpus`);
+  console.log(`  every observed SHIPPED product label appears in the corpus`);
 } else {
   console.log(`  ${missing.length} product label(s) the guides never show:`);
   for (const m of missing) console.log(`    ${JSON.stringify(m.label)}\n        seen on: ${m.where}`);
+}
+
+if (inFlight.length) {
+  console.log(`\nIN FLIGHT  reported, not gated — present in dev, not on develop`);
+  const byTab = new Map();
+  for (const f of inFlight) {
+    if (!byTab.has(f.tab)) byTab.set(f.tab, []);
+    byTab.get(f.tab).push(f.label);
+  }
+  for (const [tab, labels] of byTab) {
+    console.log(`  "${tab}" is commented out in sa-settings-dlg.component.ts, so it does not ship yet.`);
+    console.log(`  ${labels.length} label(s) the guides will need once it merges:`);
+    for (const l of labels.sort()) console.log(`    ${JSON.stringify(l)}`);
+  }
 }
 
 if (structural.length) {
