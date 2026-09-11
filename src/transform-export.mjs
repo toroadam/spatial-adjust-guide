@@ -585,5 +585,31 @@ export function transformGuide(src) {
     replace: 'In development — saved sets of station targets.',
   });
 
+  // 9. The diagnostics dialog does not open by clicking the logo. It needs a modifier chord, and
+  //    the guide sends a reader to click plainly — in the middle of troubleshooting a failed
+  //    push, which is the worst moment to hand someone a gesture that does nothing.
+  //
+  //      site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts:290
+  //        protected onShowDiagnostics(event: MouseEvent) {
+  //            if (!this.hasFailedToLoadLynxData && this.lynxProxyService.currentLynxCloudCourseInfo == null) { return; }
+  //            if (event.shiftKey && event.altKey) { this.showDiagDlg = true; }
+  //        }
+  //
+  //    Two gates, not one: Shift AND Alt held while clicking, and it returns early unless Lynx
+  //    data actually failed to load. The second is worth stating rather than hiding — a reader who
+  //    tries the chord on a healthy dashboard gets nothing and concludes the guide is wrong again.
+  //
+  //    The corpus already documents "Soil Factor Editor, opened with Shift + Alt on the toolbar
+  //    gear", so the authors knew this product hides things behind that chord; this one was just
+  //    written from the wrong assumption. Found by the full-inventory check: eight diagnostics
+  //    labels had no product backing, and trying to harvest them live is what exposed the trigger.
+  s = edit(s, {
+    name: 'diagnostics dialog trigger',
+    pattern: /open the diagnostics dialog by clicking the Spatial Adjust logo\./,
+    replace: 'open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo. '
+      + 'It only opens once Lynx data has failed to load, which is exactly when you would want it — '
+      + 'on a healthy dashboard the chord does nothing.',
+  });
+
   return s;
 }
