@@ -148,5 +148,26 @@ export function transformApp(src) {
     replace: '20-30%',
   });
 
+  // The reproduced algorithm dropdown still rendered the ENUM NAME. Transform 1 in
+  // src/transform-export.mjs fixed this in the prose — "the guide calls the two methods Simple
+  // and the default method, which are the enum names; a reader hunting the dropdown for Simple
+  // finds nothing" — but the dropdown in the figure went on saying it:
+  //
+  //   SpatialAdjustApp.dc.html:424
+  //     field('Suggested Percent Adjust Calculation', this.select(simple ? 'Simple' : 'Option 2'))
+  //
+  // IntelliDash renders SPATIAL_ADJUST.ALGO_SIMPLE as "Option 1"; the Option 2 branch was already
+  // right, so only one side of the ternary was ever wrong. It surfaces in "Calculation methods",
+  // the guide whose whole subject is choosing between the two — text saying Option 1 beside a
+  // figure saying Simple is the worst place for this to survive.
+  //
+  // Found by scripts/repro-inventory.mjs: "Simple" appeared in the rendered inventory with no
+  // product backing. The curated _screenStrings list never contained it, so nothing was looking.
+  s = edit(s, {
+    name: 'algorithm dropdown enum name in the reproduction',
+    pattern: /this\.select\(simple \? 'Simple' : 'Option 2'\)/,
+    replace: "this.select(simple ? 'Option 1' : 'Option 2')",
+  });
+
   return s;
 }
