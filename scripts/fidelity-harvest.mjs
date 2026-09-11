@@ -102,8 +102,20 @@ SURFACES.push(
       const leaves = row ? [...row.querySelectorAll('*')]
         .filter((x) => x.children.length === 0 && (x.innerText || '').trim())
         .map((x) => x.innerText.trim()) : [];
+      // WHICH DRILL LEVEL this table is showing. The product swaps its header on
+      // `tableDataType == TableDataType.Station`: aggregates get Avg. Target VWC and Last Scan,
+      // stations get Target VWC plus Adjustment / Current / Suggested / % Adj. Recording the
+      // level is what stops the gate comparing a course-level harvest against a station-level
+      // figure and blaming the guides for the difference.
+      const cols = [...new Set(leaves)];
+      const level = cols.some((c) => /% Adj\.|Suggested|Adjustment/i.test(c)) ? 'station'
+        : cols.some((c) => /Last Scan|Avg\. Target VWC/i.test(c)) ? 'aggregate' : 'unknown';
       return {
-        columns: [...new Set(leaves)],
+        // Under meta, which the gate's collector skips. As a plain field it was itself harvested
+        // as a product label, and the gate duly reported that the guides never show the word
+        // "aggregate" — the same leak the toolbar's icon names caused.
+        meta: { level },
+        columns: cols,
         breadcrumb: [...document.querySelectorAll('.sa-breadcrumbs .ui-menuitem-text')]
           .map((e) => (e.innerText || '').trim()).filter(Boolean),
         toolbarLinks: [...document.querySelectorAll('.sa-thf-link-text')]
