@@ -278,6 +278,29 @@ if (repro) {
   }
 }
 
+// ---- station-level header, derived from source --------------------------------------------
+// The figures depict the station drill level, and the fixture is harvested at the aggregate
+// level, so the live capture can never verify this header. The product's own template can:
+// the Station branch of sa-dash-table.component.html names its columns as translate keys, and
+// resolving them against the shipped catalogue gives the exact header a reader sees.
+//
+// Deliberately static. Verifying it live would mean drilling the table by clicking rows, and
+// those rows carry Enable toggles — fifteen of them on screen — where a mis-click cascades
+// enablement to every station beneath an area. Not a trade worth making to confirm seven words.
+const stationHeader = { expected: [], missing: [], ok: false };
+try {
+  const tpl = await readFile(
+    `${ID}/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html`, 'utf8');
+  const branch = tpl.slice(tpl.indexOf('tableDataType == TableDataType.Station'));
+  const end = branch.indexOf('id="sa-tc-body"');
+  const keys = [...new Set([...(end > 0 ? branch.slice(0, end) : branch)
+    .matchAll(/'([A-Z0-9_]+(?:\.[A-Z0-9_]+)+)'\s*\|\s*translate/g)].map((m) => m[1]))];
+  const raw = flatten(JSON.parse(await readFile(`${ID}/assets/i18n/en-us.json`, 'utf8')));
+  stationHeader.expected = keys.map((k) => ({ key: k, text: raw[k] })).filter((x) => x.text);
+  stationHeader.missing = stationHeader.expected.filter((x) => !renderedNorm.has(norm(x.text)));
+  stationHeader.ok = stationHeader.expected.length > 0 && stationHeader.missing.length === 0;
+} catch { /* no checkout: skipped, not failed */ }
+
 // ---- structural assertions ---------------------------------------------------------------------
 // A label diff alone would not name these. Each is a concept the product exposes as a column or
 // an action; the question is whether the corpus documents it at all.
@@ -304,6 +327,14 @@ if (!live) {
 } else {
   console.log(`  ${missing.length} product label(s) the guides never show:`);
   for (const m of missing) console.log(`    ${JSON.stringify(m.label)}\n        seen on: ${m.where}`);
+}
+
+if (stationHeader.expected.length) {
+  console.log(`\nSTATION HEADER  the level the figures actually depict, resolved from the product's template`);
+  for (const e of stationHeader.expected) {
+    const has = renderedNorm.has(norm(e.text));
+    console.log(`  ${has ? 'rendered    ' : 'NOT RENDERED'}  ${JSON.stringify(e.text)}   ${e.key}`);
+  }
 }
 
 if (levelMismatch.length) {
@@ -392,6 +423,8 @@ if (reportOnly) {
 }
 
 const undocumented = structural.filter((s) => !s.documented);
-const pass = live ? missing.length === 0 && undocumented.length === 0 : true;
+const pass = live
+  ? missing.length === 0 && undocumented.length === 0 && stationHeader.missing.length === 0
+  : true;
 console.log(`\nFIDELITY: ${pass ? 'PASS' : 'FAIL'}`);
 if (!pass && !reportOnly) process.exit(1);
