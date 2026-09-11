@@ -125,5 +125,28 @@ export function transformApp(src) {
     replace: 'In development — not in the shipping build yet.',
   });
 
+  // The reproduced map legend still carried the OLD band boundaries. Transform 3 in
+  // src/transform-export.mjs corrected the PROSE — "Bands default to 0-5, 6-19, 20-30 and above
+  // 30 percent" — after the guide quoted one course's saved preference as the product default,
+  // but the figure beside that sentence went on rendering 6-16% and 17-30%. The guide contradicted
+  // itself, and both figures contradicted the product: a live harvest of the real map legend
+  // shows 0-5%, 6-19%, 20-30%, > 30%.
+  //
+  // Found by scripts/cursor-target.mjs, not by the label gate. The map legend chips are not in
+  // _screenStrings, so the label diff never looked at them — the animated cursor landing on
+  // "6-16%" during "Move the band boundaries" is what surfaced it. sa-dash-map falls back to
+  // `value?.range2Boundary || 19` when a user has no saved preference, so 19 is the default.
+  s = edit(s, {
+    name: 'map legend band 2 default',
+    pattern: /6-16%/,
+    replace: '6-19%',
+  });
+
+  s = edit(s, {
+    name: 'map legend band 3 default',
+    pattern: /17-30%/,
+    replace: '20-30%',
+  });
+
   return s;
 }
