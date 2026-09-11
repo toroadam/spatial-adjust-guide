@@ -168,11 +168,22 @@ try {
   // placeholders have to survive intact to become a pattern.
   const raw = flatEn(JSON.parse(await readFile(`${ID}/assets/i18n/en-us.json`, 'utf8')));
   for (const [key, value] of Object.entries(raw)) {
-    if (!/\{\{\s*\w+\s*\}\}/.test(value)) continue;
-    const pattern = value.trim()
-      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-      .replace(/\\\{\\\{\s*\w+\s*\\\}\\\}/g, '.+?');
-    paramMatchers.push({ rx: new RegExp(`^${pattern}$`, 'i'), key, template: value });
+    // One product string can render as SEVERAL text nodes. SPATIAL_ADJUST.CASCADE_HOLE is
+    // "<b>{{state}} this hole and all child stations?</b><br><br>This will {{state_lower}} the
+    // selected hole and every station beneath it." — the browser paints that as two nodes, and
+    // comparing whole strings reported both halves as having no product backing. Splitting on
+    // block boundaries and stripping tags gives one matcher per rendered fragment.
+    const segments = value
+      .split(/<br\s*\/?>|<\/p>|<\/div>|<\/li>/i)
+      .map((seg) => seg.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim())
+      .filter(Boolean);
+    for (const seg of segments) {
+      if (!/\{\{\s*\w+\s*\}\}/.test(seg)) continue;
+      const pattern = seg
+        .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+        .replace(/\\\{\\\{\s*\w+\s*\\\}\\\}/g, '.+?');
+      paramMatchers.push({ rx: new RegExp(`^${pattern}$`, 'i'), key, template: seg });
+    }
   }
 } catch { /* no checkout: parameterised matching degrades, gate unaffected */ }
 
