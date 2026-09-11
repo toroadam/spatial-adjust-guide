@@ -187,8 +187,12 @@ async function guardedClick(selector, why, expectIcon) {
 
 const product = { harvestedAt: null, source: page.url(), surfaces: {}, tabs: {} };
 
+// Whether this run opened the Settings dialog itself. Anything we opened, we close.
+let weOpenedSettings = false;
+
 for (const s of SURFACES) {
   const alreadyOpen = s.isOpen ? await page.evaluate(s.isOpen) : false;
+  if (s.key === 'settings' && !alreadyOpen) weOpenedSettings = true;
   if (s.open && !alreadyOpen) await guardedClick(s.open, `open ${s.key}`, s.expectIcon);
   else if (alreadyOpen) process.stderr.write(`  ${s.key}: already open, not re-clicking\n`);
   product.surfaces[s.key] = await page.evaluate(s.read);
@@ -218,6 +222,24 @@ for (const label of SETTINGS_TABS) {
     })),
   };
   process.stderr.write(`  tab "${label}": ${product.tabs[label].present ? 'read' : 'ABSENT'}\n`);
+}
+
+// Put the page back. Leaving the dialog open masks everything beneath it, so the next run finds
+// its own gear click intercepted — which is exactly what happened, and it cost an attempt at the
+// diagnostics dialog before the cause was obvious. A harvest that mutates the operator's screen
+// and walks away is a harvest nobody will run twice.
+if (weOpenedSettings) {
+  const cancel = page.locator('.ui-dialog button').filter({ hasText: /^Cancel$/ }).first();
+  if (await cancel.count()) { await cancel.click().catch(() => {}); await page.waitForTimeout(900); }
+  // Selecting tabs marks the form dirty even with nothing edited (a product bug in the an internal work item
+  // guard), so the discard confirmation appears. DISCARD CHANGES matched by EXACT text: a loose
+  // /continue|discard/ alternation once picked CONTINUE EDITING and did the opposite. Discarding
+  // writes nothing — it is "exit without saving". Save Changes is never touched.
+  const discard = page.locator('.ui-dialog button').filter({ hasText: /^DISCARD CHANGES$/i }).first();
+  if (await discard.count()) { await discard.click().catch(() => {}); await page.waitForTimeout(1200); }
+  const left = await page.locator('.ui-dialog-mask').count();
+  process.stderr.write(left ? `  WARNING: ${left} dialog mask(s) still open — close manually\n`
+                            : '  settings dialog closed, page restored\n');
 }
 
 await browser.close();   // detaches CDP; the operator's window stays open

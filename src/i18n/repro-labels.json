@@ -1,5 +1,5 @@
 {
-  "harvestedAt": "2026-09-11T21:10:58.036Z",
+  "harvestedAt": "2026-09-11T22:11:04.747Z",
   "source": "http://localhost:8124",
   "guides": 26,
   "steps": 122,
@@ -1604,6 +1604,12 @@
       ]
     },
     {
+      "text": "Option 1",
+      "guides": [
+        "Calculation methods"
+      ]
+    },
+    {
       "text": "Option 2",
       "guides": [
         "Calculation methods",
@@ -1924,12 +1930,6 @@
       "text": "Shift",
       "guides": [
         "Apply a bulk adjustment"
-      ]
-    },
-    {
-      "text": "Simple",
-      "guides": [
-        "Calculation methods"
       ]
     },
     {
