@@ -141,7 +141,16 @@ try {
 // ---- GATE: product -> reproduction -------------------------------------------------------------
 const missing = [];
 const seen = new Set();
+// Which drill level the REPRODUCTION depicts, from what it renders. Its header row is static:
+// Target VWC alongside Adjustment / Current / Suggested / % Adj., i.e. always the station branch.
+const reproLevel = [...renderedNorm].some((t) => /% adj\.|suggested|adjustment/.test(t))
+  ? 'station' : 'unknown';
+const fixtureLevel = live?.surfaces?.table?.meta?.level || 'unknown';
+// Columns that exist only on the other drill level. Comparing them is comparing two screens.
+const OTHER_LEVEL_ONLY = /^(course|avg\. target vwc|last scan)$/i;
+
 const inFlight = [];
+const levelMismatch = [];
 for (const { label, where } of liveLabels) {
   const n = norm(label);
   if (seen.has(n)) continue;
@@ -155,6 +164,10 @@ for (const { label, where } of liveLabels) {
   const tab = [...inFlightTabs].find((t) => where.includes(t)
     || (where.startsWith('settings.menu') && liveLabels.some((l) => l.label === t)));
   if (tab) { inFlight.push({ label, where, tab }); continue; }
+  if (where.startsWith('table') && fixtureLevel !== reproLevel && OTHER_LEVEL_ONLY.test(label.trim())) {
+    levelMismatch.push({ label, where });
+    continue;
+  }
   missing.push({ label, where });
 }
 
@@ -291,6 +304,16 @@ if (!live) {
 } else {
   console.log(`  ${missing.length} product label(s) the guides never show:`);
   for (const m of missing) console.log(`    ${JSON.stringify(m.label)}\n        seen on: ${m.where}`);
+}
+
+if (levelMismatch.length) {
+  console.log(`\nDRILL LEVEL  not compared — fixture is "${fixtureLevel}", the figures show "${reproLevel}"`);
+  console.log(`  The product swaps its table header per level (sa-dash-table.component.html:10-15):`);
+  console.log(`  aggregates show Avg. Target VWC and Last Scan; stations show Target VWC with`);
+  console.log(`  Adjustment / Current / Suggested / % Adj. These ${levelMismatch.length} column(s) belong to the`);
+  console.log(`  level the guides do not depict, so they are not a guide defect:`);
+  for (const m of levelMismatch) console.log(`    ${JSON.stringify(m.label)}`);
+  console.log(`  To compare them, harvest the table drilled to the matching level.`);
 }
 
 if (inFlight.length) {
