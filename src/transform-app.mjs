@@ -169,5 +169,16 @@ export function transformApp(src) {
     replace: "this.select(simple ? 'Option 1' : 'Option 2')",
   });
 
+  // The Preferences language dropdown showed "English (US)". IntelliDash's own language list is
+  // LANGUAGE.ENGLISH = "English" — the product does qualify some entries ("Dutch
+  // (Netherlands/Belgium)", "Chinese - Simplified") but English is not one of them, so the
+  // parenthetical is invented. Small, but it is a value a reader compares against their own
+  // dropdown while following the Preferences guide.
+  s = edit(s, {
+    name: 'preferences language option',
+    pattern: /this\.select\('English \(US\)'\)/,
+    replace: "this.select('English')",
+  });
+
   return s;
 }
