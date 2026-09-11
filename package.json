@@ -18,7 +18,6 @@
     "test:routing": "node scripts/routing.mjs http://localhost:8124/",
     "test:gate": "node scripts/gate.mjs http://localhost:8124/",
     "test:splash": "node scripts/splash.mjs http://localhost:8124/",
-    "test:cursor": "node scripts/cursor.mjs http://localhost:8124/",
     "test:cursor-target": "node scripts/cursor-target.mjs http://localhost:8124/",
     "test:i18n": "node scripts/i18n.mjs http://localhost:8124/",
     "translate": "node scripts/translate.mjs",
