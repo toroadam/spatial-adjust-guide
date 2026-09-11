@@ -139,6 +139,81 @@ for (const label of SCREEN) {
   provenance.unverified.push({ label });
 }
 
+// ---- FULL RENDERED INVENTORY -------------------------------------------------------------------
+// _screenStrings is hand-maintained: an inventory of what someone remembered to list, not of what
+// the reproduction shows. A live harvest found 167 rendered labels against 85 listed — half the
+// reproduction was unchecked by construction, which is how the map legend went on rendering
+// "6-16%" for months after the prose beside it was corrected.
+//
+// scripts/repro-inventory.mjs harvests the real set. This classifies it against the product.
+let repro = null;
+try { repro = JSON.parse(await readFile(`${dir}/repro-labels.json`, 'utf8')); } catch { /* optional */ }
+
+// Glyphs and values are not labels. Icon text (⚙ ⟳ ✓ ❯), numeric ranges, percentages and sample
+// figures carry no wording to verify, and reporting them buries the findings that matter.
+const NOT_A_LABEL = /^(\s*[^\p{L}]+\s*|[\d.,\s%+-]+|[<>]\s*-?\d+\s*%?|-?\d+\s*-\s*-?\d+\s*%?)$/u;
+
+// Product strings are parameterised — "{{num}} stations could not be updated in Lynx." — and the
+// reproduction substitutes real values. Comparing literally reports every such string as having
+// no product backing, which was 58 of them before this existed.
+const paramMatchers = [];
+try {
+  const flatEn = (o, pre = '', out = {}) => {
+    for (const [k, v] of Object.entries(o)) {
+      if (v && typeof v === 'object') flatEn(v, `${pre}${k}.`, out); else out[`${pre}${k}`] = String(v);
+    }
+    return out;
+  };
+  // Read directly rather than via loadCatalogue: that returns normalised-label -> key, and the
+  // placeholders have to survive intact to become a pattern.
+  const raw = flatEn(JSON.parse(await readFile(`${ID}/assets/i18n/en-us.json`, 'utf8')));
+  for (const [key, value] of Object.entries(raw)) {
+    if (!/\{\{\s*\w+\s*\}\}/.test(value)) continue;
+    const pattern = value.trim()
+      .replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+      .replace(/\\\{\\\{\s*\w+\s*\\\}\\\}/g, '.+?');
+    paramMatchers.push({ rx: new RegExp(`^${pattern}$`, 'i'), key, template: value });
+  }
+} catch { /* no checkout: parameterised matching degrades, gate unaffected */ }
+
+// Strings this project writes into the figure itself. Not product UI, so absence from the
+// product is expected rather than a finding.
+const GUIDE_CHROME = ['In development', 'not in the shipping build', 'Concept'];
+let manualNorm = new Set();
+try {
+  const manual = JSON.parse(await readFile(`${dir}/app-manual.json`, 'utf8'));
+  manualNorm = new Set(Object.keys(manual).filter((k) => k !== '_meta').map(norm));
+} catch { /* optional */ }
+const reproReport = { checked: 0, keyed: 0, parameterised: 0, live: 0, notALabel: 0,
+  sampleValued: 0, guideChrome: 0, manuallyDecided: 0, unbacked: [] };
+if (repro) {
+  for (const { text, guides: inGuides } of repro.labels) {
+    if (NOT_A_LABEL.test(text)) { reproReport.notALabel++; continue; }
+    reproReport.checked++;
+    const n = norm(text);
+    if (idByNorm.has(n)) { reproReport.keyed++; continue; }
+    if (liveByNorm.has(n)) { reproReport.live++; continue; }
+    const pm = paramMatchers.find((m) => m.rx.test(text.trim()));
+    if (pm) { reproReport.parameterised++; continue; }
+    // Sample values substituted into a real label: "% Adjust: 0%" and "Calculation ET: 0.34 in"
+    // are the product's labels carrying the reproduction's fictional readings. Collapsing digit
+    // runs compares the wording rather than the data, the same trick the product fixture uses.
+    const digitless = norm(text).replace(/\d+(?:[.,]\d+)?/g, 'n');
+    const anyDigitless = [...idByNorm.keys(), ...liveByNorm]
+      .some((k) => k.replace(/\d+(?:[.,]\d+)?/g, 'n') === digitless);
+    if (anyDigitless) { reproReport.sampleValued++; continue; }
+    // Chrome this project authored — disclaimers and captions wrapped around the figure. It is
+    // guide text, not product UI, so the product having no such string is correct.
+    if (GUIDE_CHROME.some((g) => norm(text).includes(norm(g)))) { reproReport.guideChrome++; continue; }
+    // src/i18n/app-manual.json is the existing register of screen labels that are NOT in
+    // IntelliDash's shipped catalogue and were therefore decided by hand. A label listed there is
+    // already an acknowledged judgement call, not a new discovery — separating them is what turns
+    // this list from "53 unverifiable labels" into the handful nobody has looked at.
+    if (manualNorm.has(norm(text))) { reproReport.manuallyDecided++; continue; }
+    reproReport.unbacked.push({ text, guides: inGuides ? inGuides.length : 0 });
+  }
+}
+
 // ---- structural assertions ---------------------------------------------------------------------
 // A label diff alone would not name these. Each is a concept the product exposes as a column or
 // an action; the question is whether the corpus documents it at all.
@@ -169,6 +244,23 @@ if (structural.length) {
   console.log(`\nSTRUCTURAL  Target Profiles columns the product renders`);
   for (const s of structural) {
     console.log(`  ${s.documented ? 'documented    ' : 'NOT DOCUMENTED'}  ${JSON.stringify(s.concept)}`);
+  }
+}
+
+if (repro) {
+  console.log(`\nFULL INVENTORY  every label the reproduction renders, not just the curated list`);
+  console.log(`  harvested ${repro.labels.length} label(s) from ${repro.steps} step(s) across ${repro.guides} guide(s)`);
+  console.log(`  glyphs / values, not labels   ${reproReport.notALabel}`);
+  console.log(`  keyed in IntelliDash i18n     ${reproReport.keyed}`);
+  console.log(`  matched a parameterised key   ${reproReport.parameterised}`);
+  console.log(`  observed live                 ${reproReport.live}`);
+  console.log(`  real label + sample value     ${reproReport.sampleValued}`);
+  console.log(`  guide chrome, not product UI  ${reproReport.guideChrome}`);
+  console.log(`  hand-decided (app-manual.json) ${reproReport.manuallyDecided}`);
+  console.log(`  NO PRODUCT BACKING            ${reproReport.unbacked.length}`);
+  if (reproReport.unbacked.length) {
+    console.log('\n  --- rendered by the guides, found nowhere in the product ---');
+    for (const u of reproReport.unbacked) console.log(`    ${JSON.stringify(u.text)}  [${u.guides} guide(s)]`);
   }
 }
 
