@@ -179,13 +179,15 @@ try {
 // Strings this project writes into the figure itself. Not product UI, so absence from the
 // product is expected rather than a finding.
 const GUIDE_CHROME = ['In development', 'not in the shipping build', 'Concept'];
+// Fictional identifiers, rendered primitives, and the product names PROTECTED already guards.
+const SAMPLE_OR_BRAND = /^(riverbend[\w-]*|true|false|null|-?\d+ to -?\d+%|Toro|IntelliDash|Spatial Adjust|Lynx|TurfRad|VWC|ET)$/i;
 let manualNorm = new Set();
 try {
   const manual = JSON.parse(await readFile(`${dir}/app-manual.json`, 'utf8'));
   manualNorm = new Set(Object.keys(manual).filter((k) => k !== '_meta').map(norm));
 } catch { /* optional */ }
 const reproReport = { checked: 0, keyed: 0, parameterised: 0, live: 0, notALabel: 0,
-  sampleValued: 0, guideChrome: 0, manuallyDecided: 0, unbacked: [] };
+  sampleValued: 0, guideChrome: 0, manuallyDecided: 0, sampleOrBrand: 0, unbacked: [] };
 if (repro) {
   for (const { text, guides: inGuides } of repro.labels) {
     if (NOT_A_LABEL.test(text)) { reproReport.notALabel++; continue; }
@@ -210,7 +212,12 @@ if (repro) {
     // already an acknowledged judgement call, not a new discovery — separating them is what turns
     // this list from "53 unverifiable labels" into the handful nobody has looked at.
     if (manualNorm.has(norm(text))) { reproReport.manuallyDecided++; continue; }
-    reproReport.unbacked.push({ text, guides: inGuides ? inGuides.length : 0 });
+    // Sample data and bare product names. "riverbend-742" is the fictional course id the
+    // sanitiser substitutes, "true" is a rendered boolean, "TurfRad" is a trademark that appears
+    // as its own label. None is wording to verify against a catalogue, and reporting them makes
+    // the list cry wolf about the very placeholders the repo deliberately ships.
+    if (SAMPLE_OR_BRAND.test(text.trim())) { reproReport.sampleOrBrand++; continue; }
+    reproReport.unbacked.push({ text, guides: inGuides || [] });
   }
 }
 
@@ -257,10 +264,23 @@ if (repro) {
   console.log(`  real label + sample value     ${reproReport.sampleValued}`);
   console.log(`  guide chrome, not product UI  ${reproReport.guideChrome}`);
   console.log(`  hand-decided (app-manual.json) ${reproReport.manuallyDecided}`);
+  console.log(`  sample data / product name    ${reproReport.sampleOrBrand}`);
   console.log(`  NO PRODUCT BACKING            ${reproReport.unbacked.length}`);
   if (reproReport.unbacked.length) {
     console.log('\n  --- rendered by the guides, found nowhere in the product ---');
-    for (const u of reproReport.unbacked) console.log(`    ${JSON.stringify(u.text)}  [${u.guides} guide(s)]`);
+    // Grouped by the guides that render them. A surface's labels share a guide set, so this
+    // turns a flat list of 30-odd strings into the handful of actual surfaces behind them —
+    // one unharvestable dialog reads very differently from fifteen separate defects.
+    const groups = new Map();
+    for (const u of reproReport.unbacked) {
+      const k = (u.guides || []).join(', ') || '(unknown)';
+      if (!groups.has(k)) groups.set(k, []);
+      groups.get(k).push(u.text);
+    }
+    for (const [where, texts] of [...groups].sort((a, b) => b[1].length - a[1].length)) {
+      console.log(`\n    ${texts.length} label(s) in: ${where}`);
+      for (const t of texts.sort()) console.log(`      ${JSON.stringify(t.slice(0, 90))}`);
+    }
   }
 }
 
