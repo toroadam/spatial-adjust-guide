@@ -14,16 +14,33 @@
 //
 // Getting a session: launch a headed browser with remote debugging, log in by hand, then run
 // this. It attaches to the existing session rather than trying to authenticate itself.
-import { writeFile } from 'node:fs/promises';
+import { writeFile, readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 
 const argv = process.argv.slice(2);
 const arg = (n, d) => { const i = argv.indexOf(`--${n}`); return i === -1 ? d : argv[i + 1]; };
 const cdp = arg('cdp', 'http://localhost:9222');
 const out = arg('out', 'src/i18n/product-labels.json');
+const id = arg('id', '/Users/adammunir/IntelliDash/site/src');
 
 // Anything matching this is never clicked, whatever else the script asks for.
 const WRITES = /save|apply|push|confirm|delete|remove|send|submit|discard|reset|update from/i;
+
+// Where shipped-ness is decided: a settings tab whose menu entry is commented out here is in
+// flight on dev but not in the product readers have.
+const SETTINGS_DLG = 'app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts';
+// The station drill level's table header. The fixture is harvested at the AGGREGATE level, so a
+// live capture can never see it, and drilling in would mean clicking rows carrying Enable
+// toggles. The product's own template names those columns as translate keys instead.
+const DASH_TABLE = 'app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html';
+const PRODUCT_CATALOGUE = 'assets/i18n/en-us.json';
+const flatten = (o, p = '', out = {}) => {
+  for (const [k, v] of Object.entries(o)) {
+    if (v && typeof v === 'object') flatten(v, `${p}${k}.`, out);
+    else out[`${p}${k}`] = v;
+  }
+  return out;
+};
 
 // Surfaces to visit. Each names the labels it is responsible for, so the gate can report which
 // screen a divergence came from rather than just "somewhere".
@@ -269,6 +286,41 @@ const empty = [
 if (empty.length) {
   throw new Error(`harvest produced empty surface(s): ${empty.join(', ')}\n`
     + `  A selector has drifted. Refusing to write a fixture the gate would pass against.`);
+}
+
+// Which settings tabs the dev instance shows but the SHIPPING branch does not. The fixture is
+// harvested from dev, and dev can be running an unmerged branch — Target Profiles is, under
+// an internal work item. The gate forgives those labels instead of holding the guides to UI no reader can
+// reach, and it must reach the same verdict in CI, which has no IntelliDash checkout. So the
+// fact is recorded HERE, where a checkout exists, and travels in the fixture.
+product.inFlight = { tabs: [], source: SETTINGS_DLG, derivedFrom: null };
+product.stationHeader = { columns: [], source: DASH_TABLE, derivedFrom: null };
+try {
+  const dlg = await readFile(`${id}/${SETTINGS_DLG}`, 'utf8');
+  product.inFlight.tabs = [...dlg.matchAll(/^\s*\/\/\s*new SaDlgMenuItem\('([^']+)'/gm)].map((m) => m[1]);
+  product.inFlight.derivedFrom = 'commented-out SaDlgMenuItem entries in the shipping branch';
+
+  const tpl = await readFile(`${id}/${DASH_TABLE}`, 'utf8');
+  const branch = tpl.slice(tpl.indexOf('tableDataType == TableDataType.Station'));
+  const stop = branch.indexOf('id="sa-tc-body"');
+  const keys = [...new Set([...(stop > 0 ? branch.slice(0, stop) : branch)
+    .matchAll(/'([A-Z0-9_]+(?:\.[A-Z0-9_]+)+)'\s*\|\s*translate/g)].map((m) => m[1]))];
+  const raw = flatten(JSON.parse(await readFile(`${id}/${PRODUCT_CATALOGUE}`, 'utf8')));
+  product.stationHeader.columns = keys.map((k) => ({ key: k, text: raw[k] })).filter((x) => x.text);
+  product.stationHeader.derivedFrom = 'Station branch of the dashboard table template, resolved against the shipped catalogue';
+} catch {
+  // No checkout here. Carry the previous answer forward rather than silently dropping it and
+  // turning six forgiven labels back into build failures.
+  try {
+    const prev = JSON.parse(await readFile(out, 'utf8'));
+    if (prev.inFlight) product.inFlight = prev.inFlight;
+    if (prev.stationHeader) product.stationHeader = prev.stationHeader;
+    if (prev.inFlight || prev.stationHeader) {
+      console.error(`note: no checkout at ${id} — kept the previous inFlight `
+        + `(${prev.inFlight?.tabs.join(', ') || 'empty'}) and station header `
+        + `(${prev.stationHeader?.columns.length || 0} column(s)).`);
+    }
+  } catch { /* no previous fixture either: nothing is known to be in flight */ }
 }
 
 product.harvestedAt = new Date().toISOString();

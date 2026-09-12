@@ -142,5 +142,42 @@
         "+"
       ]
     }
+  },
+  "inFlight": {
+    "tabs": [
+      "Target Profiles"
+    ],
+    "source": "app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+    "derivedFrom": "commented-out SaDlgMenuItem entries in the shipping branch"
+  },
+  "stationHeader": {
+    "columns": [
+      {
+        "key": "SPATIAL_ADJUST.TARGET_VWC",
+        "text": "Target VWC"
+      },
+      {
+        "key": "STRINGS.ADJUSTMENT",
+        "text": "Adjustment"
+      },
+      {
+        "key": "STRINGS.CURRENT",
+        "text": "Current"
+      },
+      {
+        "key": "STRINGS.SUGGESTED",
+        "text": "Suggested"
+      },
+      {
+        "key": "SPATIAL_ADJUST.PERCENT_ADJUST_ABBR",
+        "text": "% Adj."
+      },
+      {
+        "key": "STRINGS.ENABLE",
+        "text": "Enable"
+      }
+    ],
+    "source": "app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+    "derivedFrom": "Station branch of the dashboard table template, resolved against the shipped catalogue"
   }
 }
