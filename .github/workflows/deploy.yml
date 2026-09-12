@@ -41,7 +41,13 @@ jobs:
       #
       # Left advisory it would have become furniture, which is exactly what happened to the 308
       # screen-label findings nobody actioned. It needs no browser, no credentials and no
-      # IntelliDash checkout: it reads the committed fixture.
+      # IntelliDash checkout: it reads the committed fixture. That last claim was written before
+      # it was true — the gate quietly read a checkout for two facts, so it passed on a laptop and
+      # failed here, on the first deploy it guarded. Both facts now travel in the fixture, and the
+      # parity step below is what keeps the claim honest.
+      - name: Gate parity (same verdict with and without a checkout)
+        run: npm run test:parity
+
       - name: Screen-fidelity gate
         run: npm run test:fidelity
 

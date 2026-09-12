@@ -1,15 +1,13 @@
 name: Screen fidelity
 
-# Deliberately a SEPARATE workflow from deploy.yml, not a step inside it.
+# A SEPARATE workflow from deploy.yml so the full picture — provenance breakdown, cursor targets,
+# the advisory product-locale audit — is visible on every commit and pull request, not only on the
+# pushes that deploy. deploy.yml runs the gate on its own as a blocking step; this one is where you
+# come to read WHY.
 #
-# The gate is red right now, and correctly so: the four Target Profiles guides depict a
-# three-card list when the product ships a five-slot table with Last Updated, Update from
-# Current and Apply Profile. Wiring it into deploy would hold the whole site hostage to that
-# one reconciliation. As its own workflow it puts a visible red X on the commit — loud enough
-# to act on, cheap enough not to block a docs typo from shipping.
-#
-# Fold it into deploy.yml as a blocking step once the profile guides are reconciled, and the
-# gate is expected green. Leaving it advisory forever would make it furniture.
+# The gate was advisory while the four Target Profiles guides depicted a three-card list against a
+# product shipping a five-slot table. That tab turned out to be unmerged (an internal work item), so the gate
+# now forgives it by fact rather than by exception, and it blocks deploys.
 
 on:
   push:
@@ -50,6 +48,14 @@ jobs:
       # removed rather than tuned — see the header of scripts/prose-lint.mjs.
       - name: Prose lint
         run: npm run test:prose
+
+      # Runs BEFORE the gate because it checks the gate itself. The in-flight tab set and the
+      # station-level header were once read from an IntelliDash checkout at run time, so the gate
+      # passed locally and failed here — on exactly the labels it exists to forgive, and only
+      # after a green local suite. This asserts the verdict is identical with and without a
+      # checkout, which is the property that makes the gate below mean anything in CI.
+      - name: Gate parity (same verdict with and without a checkout)
+        run: npm run test:parity
 
       - name: Fidelity gate (product -> reproduction)
         run: npm run test:fidelity

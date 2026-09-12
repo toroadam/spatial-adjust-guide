@@ -131,12 +131,36 @@ try {
 // So: shipped-ness is read from the SOURCE rather than assumed. A settings tab whose menu entry
 // is commented out in sa-settings-dlg.component.ts is in flight. Its labels are still reported —
 // they are real work in progress — but they do not fail the build.
-const inFlightTabs = new Set();
+//
+// This fact TRAVELS IN THE FIXTURE, and that is the whole point. Deriving it from a checkout at
+// run time made the gate environment-dependent: it passed on a machine with IntelliDash cloned
+// and failed in CI, which has no checkout and therefore excused nothing — so the first deploy it
+// guarded went red on the six Target Profiles labels it is designed to forgive. A gate whose
+// verdict depends on what else is on the disk is not a gate. The fixture is the contract; the
+// checkout only refreshes it, and disagreement is reported so it cannot rot unnoticed.
+// The FIXTURE is the authority, always — including on a machine that has the checkout. The
+// checkout only reports drift. That is deliberate: when the checkout fed the verdict, the gate
+// passed locally and failed in CI on the six labels it exists to forgive, because CI has no
+// checkout. Parity by construction, not by coincidence.
+const inFlightTabs = new Set(live?.inFlight?.tabs || []);
+if (live && !live.inFlight) {
+  console.error('note: fixture predates the inFlight field — nothing will be excused as in flight.');
+  console.error('  Refresh it: npm run fidelity:harvest');
+}
 try {
   const dlg = await readFile(
     `${ID}/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts`, 'utf8');
-  for (const m of dlg.matchAll(/^\s*\/\/\s*new SaDlgMenuItem\('([^']+)'/gm)) inFlightTabs.add(m[1]);
-} catch { /* no checkout: nothing is known to be in flight, so nothing is excused */ }
+  const source = new Set(
+    [...dlg.matchAll(/^\s*\/\/\s*new SaDlgMenuItem\('([^']+)'/gm)].map((m) => m[1]));
+  // Reported, never applied. A tab that has since shipped, or a newly commented-out one, means
+  // the fixture has rotted — but acting on it here would reintroduce the divergence.
+  const drift = [...new Set([...source, ...inFlightTabs])]
+    .filter((t) => source.has(t) !== inFlightTabs.has(t));
+  if (live?.inFlight && drift.length) {
+    console.error(`note: fixture inFlight disagrees with the checkout on ${drift.join(', ')}`);
+    console.error('  The fixture decides, here and in CI. Refresh it: npm run fidelity:harvest');
+  }
+} catch { /* no checkout: nothing to cross-check against, and nothing depends on it */ }
 
 // ---- GATE: product -> reproduction -------------------------------------------------------------
 const missing = [];
@@ -287,7 +311,14 @@ if (repro) {
 // Deliberately static. Verifying it live would mean drilling the table by clicking rows, and
 // those rows carry Enable toggles — fifteen of them on screen — where a mis-click cascades
 // enablement to every station beneath an area. Not a trade worth making to confirm seven words.
-const stationHeader = { expected: [], missing: [], ok: false };
+//
+// Recorded in the FIXTURE at harvest time, for the same reason the in-flight set is: derived at
+// run time it existed only where a checkout did, so this check silently vanished in CI. It was
+// not that CI disagreed — CI never ran it. The gate was strictly weaker in the one place it
+// actually guards a deploy. The checkout now only reports drift.
+const stationHeader = { expected: live?.stationHeader?.columns || [], missing: [], ok: false };
+stationHeader.missing = stationHeader.expected.filter((x) => !renderedNorm.has(norm(x.text)));
+stationHeader.ok = stationHeader.expected.length > 0 && stationHeader.missing.length === 0;
 try {
   const tpl = await readFile(
     `${ID}/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html`, 'utf8');
@@ -296,10 +327,17 @@ try {
   const keys = [...new Set([...(end > 0 ? branch.slice(0, end) : branch)
     .matchAll(/'([A-Z0-9_]+(?:\.[A-Z0-9_]+)+)'\s*\|\s*translate/g)].map((m) => m[1]))];
   const raw = flatten(JSON.parse(await readFile(`${ID}/assets/i18n/en-us.json`, 'utf8')));
-  stationHeader.expected = keys.map((k) => ({ key: k, text: raw[k] })).filter((x) => x.text);
-  stationHeader.missing = stationHeader.expected.filter((x) => !renderedNorm.has(norm(x.text)));
-  stationHeader.ok = stationHeader.expected.length > 0 && stationHeader.missing.length === 0;
-} catch { /* no checkout: skipped, not failed */ }
+  const fresh = keys.map((k) => ({ key: k, text: raw[k] })).filter((x) => x.text);
+  const was = new Map(stationHeader.expected.map((x) => [x.key, x.text]));
+  const now = new Map(fresh.map((x) => [x.key, x.text]));
+  const drift = [...new Set([...was.keys(), ...now.keys()])]
+    .filter((k) => was.get(k) !== now.get(k))
+    .map((k) => `${k}: ${JSON.stringify(was.get(k) ?? null)} -> ${JSON.stringify(now.get(k) ?? null)}`);
+  if (live?.stationHeader && drift.length) {
+    console.error(`note: fixture stationHeader disagrees with the checkout:\n    ${drift.join('\n    ')}`);
+    console.error('  The fixture decides, here and in CI. Refresh it: npm run fidelity:harvest');
+  }
+} catch { /* no checkout: nothing to cross-check against, and nothing depends on it */ }
 
 // ---- structural assertions ---------------------------------------------------------------------
 // A label diff alone would not name these. Each is a concept the product exposes as a column or
