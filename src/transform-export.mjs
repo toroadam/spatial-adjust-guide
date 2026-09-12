@@ -15,7 +15,8 @@
  *  non-global regex returns the match *and its capture groups*, so any pattern with a
  *  group would report an inflated count. The replace itself stays non-global so it only
  *  touches the first occurrence, which is what `expected: 1` means. */
-function edit(src, { name, pattern, replace, expected = 1 }) {
+function edit(src, { name, pattern, replace, expected = 1, __DISABLED__ = false }) {
+  if (__DISABLED__) return src;   // A/B harness only; never committed enabled
   const counter = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g');
   const found = [...src.matchAll(counter)].length;
   if (found !== expected) {
@@ -255,6 +256,62 @@ export function transformGuide(src) {
       + 'scan from the toolbar rather than waiting for one.',
   });
 
+  // 6. The "same ET" claim, which is wrong on both algorithms. The guide tells the reader that
+  //    the weather strip's ET is "the same ET that drives the calculation", and asks them to
+  //    verify a guide by checking Calculation ET against it. Neither holds:
+  //
+  //      site/src/app/spatial-adjust/services/sa-algorithm.service.ts:41
+  //        calculateSuggestedPercentAdjust(..., currentEt: number = null)
+  //
+  //    `currentEt` is accepted and never read. Neither branch of the switch uses it, and the
+  //    only caller — sa-dashboard.component.ts:576 — passes four arguments, so it is always
+  //    null. Option 1 (`calculateSimple`) is targetVwc / actualVwc × the percent adjust Lynx
+  //    holds: no ET term at all. Option 2 (`calculateDeltaPlusTodayEt`) does not calculate
+  //    anything client-side — it looks up a server-computed `suggestedPercentAdjust` by station
+  //    name. So on Option 1 no ET enters the number, and on Option 2 the ET that did is the
+  //    server's, applied before the page ever loaded.
+  //
+  //    This matters because the second one is a VERIFY step: it asks the reader to confirm they
+  //    succeeded by comparing two figures that are not required to agree. A reader whose numbers
+  //    differ concludes they did something wrong and starts undoing correct work.
+  s = edit(s, {
+    name: 'ET claim: verify step comparing Calculation ET to the weather strip',
+    pattern: /Calculation ET under the filter tabs matches the ET shown in the weather strip\./,
+    replace: 'Calculation ET under the filter tabs is the figure the calculation used. '
+      + 'The weather strip reports current conditions separately, so do not expect the two to agree.',
+  });
+
+  s = edit(s, {
+    name: 'ET claim: weather strip described as driving the calculation',
+    pattern: /today\\u2019s ET and precipitation — the same ET that drives the calculation\./,
+    replace: 'today\\u2019s ET and precipitation. It reports conditions; it is not where the '
+      + 'suggested percentages come from. Option 1 uses no ET at all, and Option 2\\u2019s figure is '
+      + 'calculated before the page loads.',
+  });
+
+  // 7. When "Pushed Today" lets go. The guide correctly says a pushed station is held back for
+  //    the rest of the day, but never says when the day ends, and the rule is not the one a
+  //    reader would assume:
+  //
+  //      site/src/app/spatial-adjust/utils/spatial-adjust.util.ts:11  isStationPushable()
+  //        -> site/src/app/common/utils/date.util.ts:81  isUtcDateAtLeastOneDayAgoLocally()
+  //           localDate.startOf('day') < localToday.startOf('day')
+  //
+  //    Both sides are floored to the start of the day in the COURSE's local offset, so a station
+  //    becomes available again at local midnight — not 24 hours after it was pushed. Push at
+  //    11:58 PM and it is selectable two minutes later. Worth one sentence because the natural
+  //    assumption is a rolling day, and acting on that assumption double-adjusts a head.
+  //
+  //    Note also SPATIAL_ADJUST.PUSHED_IN_LAST_N ("Pushed in last 24H"), which is present in all
+  //    eleven IntelliDash catalogues and referenced by no code. If it is ever wired up it will
+  //    state the wrong rule.
+  s = edit(s, {
+    name: 'pushed-today reset boundary',
+    pattern: /is there to stop you adjusting the same head twice in a day\./,
+    replace: 'is there to stop you adjusting the same head twice in a day. '
+      + 'That hold releases at midnight where the course is, not 24 hours after the push.',
+  });
+
   // --- two guides for features the corpus never covered ------------------------
   // An audit of IntelliDash's 108 user-facing Spatial Adjust strings against the 24 guides found
   // four features with no coverage. Two of them are covered here. Both were previously
@@ -486,6 +543,134 @@ export function transformGuide(src) {
     if (this._applyRoute) window.removeEventListener('popstate', this._applyRoute);`,
   });
 
+
+  // 8. Target Profiles is not a "design concept" any more, and the guides should stop saying so.
+  //    Documenting ahead of ship is deliberate here — this is a pilot, and the expectation is
+  //    that dev features reach production before the guides do. So the disclaimer is NOT there to
+  //    warn the reader off; it is there to be accurate, and it currently is not:
+  //
+  //      "The tab exists in the codebase as a commented-out placeholder"
+  //
+  //    It is commented out on develop (an internal commit, an internal work item) but implemented on
+  //    an unmerged feature branch under an internal work item — model, icons, styling, i18n key,
+  //    and client plus server API integration as of an internal commit. Calling that a placeholder
+  //    undersells a feature someone is actively building, and it is the kind of claim that ages
+  //    into a lie the moment the branch merges.
+  //
+  //    What the reader gains instead: a heads-up that the shipped tab lists five named slots, so
+  //    a screen that does not look like these figures is expected rather than a fault. The
+  //    figures themselves still disagree with the implementation — three cards with ACTIVE badges
+  //    versus a five-row table with Last Updated, Update from Current and Apply Profile — and no
+  //    disclaimer fixes that. It needs the guides reconciling once an internal work item merges (an internal work item).
+  //    The ticket numbers stay in this comment and out of the prose; a superintendent does not
+  //    care which work item it was.
+  s = edit(s, {
+    name: 'target profiles disclaimer: commented-out placeholder claim',
+    pattern: /Target Profiles is a design concept\. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build\./g,
+    replace: 'Target Profiles is still in development and is not in the shipping build yet. '
+      + 'The screens here show a proposed design; the tab being built lists five named profile '
+      + 'slots, so what you see on your own screen may differ.',
+    expected: 3,
+  });
+
+  s = edit(s, {
+    name: 'target profiles disclaimer: placeholder claim, walkthrough variant',
+    pattern: /Target Profiles is a design concept\. The tab exists in the codebase as a placeholder and is not reachable in the shipping build — the screens below show the proposed behaviour\./,
+    replace: 'Target Profiles is still in development and is not in the shipping build yet — the '
+      + 'screens below show a proposed design, which the tab being built does not yet match.',
+  });
+
+  s = edit(s, {
+    name: 'target profiles catalogue card subtitle',
+    pattern: /Concept — saved sets of station targets\./,
+    replace: 'In development — saved sets of station targets.',
+  });
+
+  // 9. The diagnostics dialog does not open by clicking the logo. It needs a modifier chord, and
+  //    the guide sends a reader to click plainly — in the middle of troubleshooting a failed
+  //    push, which is the worst moment to hand someone a gesture that does nothing.
+  //
+  //      site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts:290
+  //        protected onShowDiagnostics(event: MouseEvent) {
+  //            if (!this.hasFailedToLoadLynxData && this.lynxProxyService.currentLynxCloudCourseInfo == null) { return; }
+  //            if (event.shiftKey && event.altKey) { this.showDiagDlg = true; }
+  //        }
+  //
+  //    Two gates, not one: Shift AND Alt held while clicking, and it returns early unless Lynx
+  //    data actually failed to load. The second is worth stating rather than hiding — a reader who
+  //    tries the chord on a healthy dashboard gets nothing and concludes the guide is wrong again.
+  //
+  //    The corpus already documents "Soil Factor Editor, opened with Shift + Alt on the toolbar
+  //    gear", so the authors knew this product hides things behind that chord; this one was just
+  //    written from the wrong assumption. Found by the full-inventory check: eight diagnostics
+  //    labels had no product backing, and trying to harvest them live is what exposed the trigger.
+  s = edit(s, {
+    name: 'diagnostics dialog trigger',
+    pattern: /open the diagnostics dialog by clicking the Spatial Adjust logo\./,
+    replace: 'open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo. '
+      + 'It only opens once Lynx data has failed to load, which is exactly when you would want it — '
+      + 'on a healthy dashboard the chord does nothing.',
+  });
+
+  // 10. Two cursor targets in bulk-adjustments point at the wrong control.
+  //
+  //       'bulk-adjustments': [cell('cb', 1), P.bulkApply, P.bulkShift, cell('target', 1)]
+  //
+  //     Step 2 is titled "Open Bulk Adjust" and targeted P.bulkApply — the Apply button INSIDE
+  //     the dialog, not the link that opens it. The animated cursor landed 327px below the
+  //     BULK ADJUST link, on a station row, while the step told the reader to click the link.
+  //     Step 4, "Apply to all", targeted a table cell rather than that Apply button.
+  //
+  //     Step 3 (P.bulkShift) is correct, so this is not an off-by-one across the array — two
+  //     entries are individually wrong, which is why it survived review. Found by
+  //     scripts/cursor-target.mjs: x matched the link exactly and y was out by 327, which is the
+  //     signature of a wrong target rather than a scaling fault.
+  s = edit(s, {
+    name: 'bulk-adjustments cursor targets',
+    pattern: /'bulk-adjustments': \[cell\('cb', 1\), P\.bulkApply, P\.bulkShift, cell\('target', 1\)\]/,
+    // Step 4 is left as cell('target', 1) DELIBERATELY. Pointing it at P.bulkApply, which is
+    // where the Apply button lives, rendered the cursor at x = -16 — off the left of a 792-wide
+    // stage. P.bulkApply is presumably authored against a different figure crop from the one
+    // step 4 uses, so the coordinate does not survive here. Off-stage is strictly worse than
+    // on-stage-but-imprecise, so the change is reverted rather than kept for tidiness.
+    replace: "'bulk-adjustments': [cell('cb', 1), P.bulkLink, P.bulkShift, cell('target', 1)]",
+  });
+
+  // 11. camera() frames the target vertically and not horizontally. It pans y to keep the target
+  //     in view (the two `pad` tests) but fixes x at the figure's crop origin:
+  //
+  //       let x = Math.max(0, Math.min(fr.x, APP_W - frameW));
+  //       let y = fr.y + (frameH - viewH) / 2;
+  //       if (target[1] < y + pad) y = target[1] - pad;
+  //       if (target[1] > y + viewH - pad) y = target[1] - viewH + pad;
+  //
+  //     So any step whose target sits outside its figure's horizontal crop renders the cursor off
+  //     the stage entirely. Three steps did: "Set the two ends independently" and "Exclude Zeros
+  //     belongs to Under" put it at x = 935 on a 792-wide stage, and "Read the scan date before
+  //     anything else" at x = -162. The reader is told to look at a control and the pointer is
+  //     not on screen.
+  //
+  //     Fixed by making x symmetric with y — same pad, same clamp. This is one structural bug
+  //     rather than three bad coordinates, so it also prevents the next one: any future target
+  //     outside its crop now pans into view instead of vanishing.
+  //
+  //     Found by scripts/cursor-target.mjs. The retired cursor.mjs reported these three too, but
+  //     it modelled the coordinates wrongly, so its finding could not be trusted until the
+  //     corrected check reproduced it.
+  s = edit(s, {
+    name: 'camera frames the target horizontally',
+    pattern: /let x = Math\.max\(0, Math\.min\(fr\.x, APP_W - frameW\)\);/,
+    // MINIMAL pan, with a much smaller margin than y uses. Reusing pad=60 horizontally re-cropped
+    // 42 frames that were never broken, merely to give on-screen targets clearance — and on
+    // "Filter by % Adj." that pushed the Over/Under dialog the step is describing out of view
+    // entirely, trading an invisible cursor for the wrong screen. A frame is only adjusted when
+    // the target genuinely falls outside it, and then only far enough to bring it in.
+    replace: 'const xPad = 8;\n'
+      + '  let x = Math.max(0, Math.min(fr.x, APP_W - frameW));\n'
+      + '  if (target[0] < x + xPad) x = target[0] - xPad;\n'
+      + '  if (target[0] > x + frameW - xPad) x = target[0] - frameW + xPad;\n'
+      + '  x = frameW >= APP_W ? 0 : Math.max(0, Math.min(x, APP_W - frameW));',
+  });
 
   return s;
 }

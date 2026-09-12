@@ -53,6 +53,14 @@ for (const f of (await readdir(fragmentDir)).filter((f) => f.endsWith('.json')))
   Object.assign(done, JSON.parse(await readFile(join(fragmentDir, f), 'utf8')));
 }
 
+// Written by scripts/retranslate-drift.mjs: for a targeted drift re-run, the exact screen
+// labels each string must name. Absent on a normal full translation.
+let requiredTerms = {};
+try {
+  requiredTerms = JSON.parse(await readFile(join('.translate', `${locale}.terms.json`), 'utf8'));
+  console.log(`${locale}: ${Object.keys(requiredTerms).length} string(s) carry required-label constraints`);
+} catch { /* not a drift re-run */ }
+
 const todo = Object.keys(source).filter((k) => !(k in done));
 console.log(`${locale}: ${Object.keys(source).length} strings, ${Object.keys(done).length} already done, ${todo.length} to translate`);
 if (!todo.length) {
@@ -87,6 +95,9 @@ Rules:
   the decimal separator normal for the target language.
 - Preserve typographic characters: curly apostrophes, en dashes, arrows, ellipses.
 - UI labels quoted in the prose must match what the product itself displays — use the glossary.
+  Where the list below gives a rendering, reproduce it verbatim, character for character. It is
+  the text on the reader's own screen; prose that paraphrases it sends them hunting for a control
+  they cannot find, which is the one failure these guides exist to prevent.
 - Match register: these are instructions to a professional. Use the polite/formal register standard
   for software documentation in the target language, and be consistent across every string.
 - A string that is genuinely identical in the target language (a URL, a product name) should be
@@ -113,7 +124,18 @@ async function translateChunk(strings, index) {
     messages: [{
       role: 'user',
       content: `Translate all ${strings.length} strings:\n\n`
-        + strings.map((s, i) => `${i + 1}. ${JSON.stringify(s)}`).join('\n'),
+        + strings.map((s, i) => `${i + 1}. ${JSON.stringify(s)}`).join('\n')
+        // Naming the constraint per string, next to the string, rather than trusting the model to
+        // find the right rows in a 649-entry glossary. This is the rule the previous run lost.
+        + (strings.some((s) => requiredTerms[s]?.length)
+          ? `\n\nThese strings name a control on the reproduced IntelliDash screen. The listed text is
+what the control is labelled in ${LANGUAGE[locale]} and MUST appear verbatim, character for
+character, in your translation of that string. Where this conflicts with keeping a name
+untranslated, this wins — the label is what the reader sees on their own screen.\n`
+            + strings.map((s, i) => (requiredTerms[s]?.length
+              ? `${i + 1}. must contain: ${requiredTerms[s].map((x) => JSON.stringify(x)).join(', ')}`
+              : null)).filter(Boolean).join('\n')
+          : ''),
     }],
     output_config: { format: zodOutputFormat(Schema) },
   });
@@ -131,12 +153,24 @@ async function translateChunk(strings, index) {
   const bySource = new Map(parsed.translations.map((t) => [t.source, t.translation]));
   const out = {};
   const missed = [];
+  const violations = [];
   for (const s of strings) {
     const hit = bySource.get(s);
-    if (hit === undefined) missed.push(s);
-    else out[s] = hit;
+    if (hit === undefined) { missed.push(s); continue; }
+    // A required label that did not survive is the exact defect this run exists to fix, so the
+    // string goes back in the queue instead of into the catalogue.
+    // Same case/whitespace tolerance as validate-locales.mjs — rejecting a correctly inflected
+    // lowercase form would send the model back to write worse prose.
+    const flat = (x) => x.toLowerCase().replace(/[\s\u00a0]+/g, ' ');
+    const absent = (requiredTerms[s] || []).filter((term) => !flat(hit).includes(flat(term)));
+    if (absent.length) {
+      violations.push(`${s.slice(0, 55)} :: missing ${absent.map((a) => JSON.stringify(a)).join(', ')}`);
+      missed.push(s);
+      continue;
+    }
+    out[s] = hit;
   }
-  return { out, missed };
+  return { out, missed, violations };
 }
 
 let completed = 0;
@@ -148,7 +182,8 @@ async function worker() {
     const job = queue.shift();
     if (!job) return;
     try {
-      const { out, missed } = await translateChunk(job.c, job.i);
+      const { out, missed, violations } = await translateChunk(job.c, job.i);
+      for (const v of violations) console.error(`    constraint unmet — ${v}`);
       await writeFile(join(fragmentDir, `chunk-${String(job.i).padStart(3, '0')}.json`),
         JSON.stringify(out, null, 2) + '\n');
       missedAll.push(...missed);

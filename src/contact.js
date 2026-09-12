@@ -124,7 +124,14 @@
 
     panel.appendChild(row('Email', NSN.email, 'mailto:' + NSN.email));
     // Only rendered when a number actually exists — see the note on NSN.phone.
-    if (NSN.phone) panel.appendChild(row('Phone', NSN.phone, 'tel:' + NSN.phone.replace(/[^\d+]/g, '')));
+    // The NUMBER is translated, not merely its label. TORO.HELP_LINE differs by region — Germany
+    // dials 00-800-8040-8040, Spain 900-973-219 — and showing a US number to a German
+    // superintendent mid-failure is the same class of harm as inventing one. The tel: href is
+    // built from the translated value so the link dials what the row displays.
+    if (NSN.phone) {
+      var localPhone = t(NSN.phone);
+      panel.appendChild(row('Phone', localPhone, 'tel:' + localPhone.replace(/[^\d+]/g, '')));
+    }
     panel.appendChild(row('Support portal', NSN.portal, NSN.portal));
 
     wrap.appendChild(panel);

@@ -1,0 +1,2196 @@
+{
+  "harvestedAt": "2026-09-11T22:37:11.444Z",
+  "source": "http://localhost:8124",
+  "guides": 26,
+  "steps": 122,
+  "labels": [
+    {
+      "text": "-5 %",
+      "guides": [
+        "Apply a bulk adjustment"
+      ]
+    },
+    {
+      "text": "-5 to 5%",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "❯",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "/",
+      "guides": [
+        "Editing station targets",
+        "Enable and disable stations",
+        "Understanding VWC"
+      ]
+    },
+    {
+      "text": "%",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "% Adj.",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "% ADJ. OVER 200%, UNDER 10%",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "% Adjust: 0%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "% Adjust: 100%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "% Adjust: 121%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "% Adjust: 154%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "% Adjust: 288%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "% Adjust: 333%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "% Adjust: 52%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "% Adjust: 79%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "→ Adjusted to 10%",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "< -5%",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "> 30%",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "> 5%",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "−",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Filter by % Adj."
+      ]
+    },
+    {
+      "text": "⌄",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "⏻",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "⚙",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "✓",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "✔",
+      "guides": [
+        "Push changes to Lynx",
+        "Verify results"
+      ]
+    },
+    {
+      "text": "⟳",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "0-5%",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "1,234.56",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "10 %",
+      "guides": [
+        "Filter by % Adj."
+      ]
+    },
+    {
+      "text": "2 stations could not be updated in Lynx.",
+      "guides": [
+        "Push failures"
+      ]
+    },
+    {
+      "text": "2 stations will be adjusted according to the minimum threshold rules.",
+      "guides": [
+        "Push changes to Lynx",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "20-30%",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "200 %",
+      "guides": [
+        "Filter by % Adj."
+      ]
+    },
+    {
+      "text": "4 holes selected",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "5 Stations selected",
+      "guides": [
+        "Apply a bulk adjustment"
+      ]
+    },
+    {
+      "text": "6 Available to Push",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "6 Pushed Today",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "6-19%",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "ACTIVE",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Adjust Target VWC %",
+      "guides": [
+        "Apply a bulk adjustment"
+      ]
+    },
+    {
+      "text": "Adjustment",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "All selected changes successfully pushed to Lynx.",
+      "guides": [
+        "Push changes to Lynx",
+        "Verify results"
+      ]
+    },
+    {
+      "text": "All Stations",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Applied 02 May 2026 · 148 stations",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Applied 14 Jun 2026 · 148 stations",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "APPLY",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Apply to all",
+      "guides": [
+        "Apply a bulk adjustment"
+      ]
+    },
+    {
+      "text": "Area",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Avg. Moisture",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Avg. VWC",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "BULK ADJUST",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Calculation",
+      "guides": [
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Calculation ET: 0.34 in",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Can ping cloud:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Cancel",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Understand suggested adjustments",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Cascade Disable",
+      "guides": [
+        "Enable and disable stations"
+      ]
+    },
+    {
+      "text": "Cascade Enable",
+      "guides": [
+        "Enable and disable stations"
+      ]
+    },
+    {
+      "text": "Changes",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "Close",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push changes to Lynx",
+        "Push failures",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Cloud",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Configure calculation preferences",
+      "guides": [
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Configure how Spatial Adjust calculates irrigation recommendations.",
+      "guides": [
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings"
+      ]
+    },
+    {
+      "text": "Configure how Spatial Adjust calculates, filters, and applies irrigation adjustments across your course.",
+      "guides": [
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Confirm the changes you want to make and push to Lynx.",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "CONTINUE",
+      "guides": [
+        "Enable and disable stations"
+      ]
+    },
+    {
+      "text": "Copyright © 2026 The Toro Company. All Rights Reserved.",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Crop Coefficient (%)",
+      "guides": [
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings"
+      ]
+    },
+    {
+      "text": "Current",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Customize language, units, and regional formatting used throughout Spatial Adjust.",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "Daily Max Amount (in)",
+      "guides": [
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings"
+      ]
+    },
+    {
+      "text": "Disable this hole and all child stations?",
+      "guides": [
+        "Enable and disable stations"
+      ]
+    },
+    {
+      "text": "Dismiss",
+      "guides": [
+        "Get fresh scan data"
+      ]
+    },
+    {
+      "text": "Don’t ask to confirm cascading enable/disable changes again",
+      "guides": [
+        "Enable and disable stations"
+      ]
+    },
+    {
+      "text": "Enable",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Enable this area and all child holes and stations?",
+      "guides": [
+        "Enable and disable stations"
+      ]
+    },
+    {
+      "text": "Enabled Stations",
+      "guides": [
+        "Enable and disable stations",
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "English",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "ET",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Exclude Zeros",
+      "guides": [
+        "Filter by % Adj.",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "F",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Fahrenheit",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "Filter % Adj. by setting an Over and/or Under threshold.",
+      "guides": [
+        "Filter by % Adj."
+      ]
+    },
+    {
+      "text": "Filter area",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Filter hole",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Filter station",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Group and Decimal Separator",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "High",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Hole",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Ignore insignificant irrigation adjustments",
+      "guides": [
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Imperial",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "in",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "In development — not in the shipping build yet.",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Installation ID:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Language",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "Last Push",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "Last scan date:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "LAYERS",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Low",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Lynx",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Lynx Cloud connected",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Lynx course ID:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Lynx installation IDs:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Lynx interconnect:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Lynx Reference Amount (in)",
+      "guides": [
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings"
+      ]
+    },
+    {
+      "text": "Lynx software version:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Minimum Threshold",
+      "guides": [
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Minimum Threshold (%)",
+      "guides": [
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Never applied · 148 stations",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "NSN",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Option 1",
+      "guides": [
+        "Calculation methods"
+      ]
+    },
+    {
+      "text": "Option 2",
+      "guides": [
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings"
+      ]
+    },
+    {
+      "text": "Org has scan data:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Over",
+      "guides": [
+        "Filter by % Adj."
+      ]
+    },
+    {
+      "text": "Over/Under",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Over/Under Options",
+      "guides": [
+        "Filter by % Adj."
+      ]
+    },
+    {
+      "text": "Overseed Recovery",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Preferences",
+      "guides": [
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Push 6 Changes",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Push 6 changes to Lynx",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "Push Changes",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "Push Changes failed for 2 station(s). Retrying",
+      "guides": [
+        "Push failures",
+        "Verify results"
+      ]
+    },
+    {
+      "text": "Pushing Changes To Lynx",
+      "guides": [
+        "Push changes to Lynx",
+        "Push failures",
+        "Verify results"
+      ]
+    },
+    {
+      "text": "Pushing Percent Adjustments to Lynx (4 of 6)",
+      "guides": [
+        "Push changes to Lynx",
+        "Verify results"
+      ]
+    },
+    {
+      "text": "Reload Data",
+      "guides": [
+        "Get fresh scan data"
+      ]
+    },
+    {
+      "text": "Replace",
+      "guides": [
+        "Apply a bulk adjustment"
+      ]
+    },
+    {
+      "text": "Retrieving latest Percent Adjustments from Lynx for comparison",
+      "guides": [
+        "Verify results"
+      ]
+    },
+    {
+      "text": "REVIEW THRESHOLD",
+      "guides": [
+        "Push changes to Lynx",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "RH",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "riverbend-742",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "SA has org access:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Save",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Save a full set of station Target VWC values as a named profile, then apply it whenever the season or the event calls for it.",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Save Changes",
+      "guides": [
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Filter by % Adj.",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Save seasonal and event-based target profiles",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Set to the minimum threshold value when pushed to Lynx",
+      "guides": [
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Set to zero when pushed to Lynx",
+      "guides": [
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Setting a minimum threshold will prevent very small adjustments from being pushed to Lynx. Set to 0 to disable the minimum threshold.",
+      "guides": [
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Settings",
+      "guides": [
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Preferences",
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Updating profiles",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Shift",
+      "guides": [
+        "Apply a bulk adjustment"
+      ]
+    },
+    {
+      "text": "Site latitude:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Site longitude:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Soil Factor (%)",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Soil Factor Editor",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Spatial Adjust Diagnostics",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Station",
+      "guides": [
+        "Understand suggested adjustments"
+      ]
+    },
+    {
+      "text": "Stations pushed today appear unselected in a separate list to prevent double adjustments. To adjust one again, simply select it.",
+      "guides": [
+        "Managing seasonal profiles",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Threshold questions"
+      ]
+    },
+    {
+      "text": "Suggested",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Suggested Percent Adjust Calculation",
+      "guides": [
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings"
+      ]
+    },
+    {
+      "text": "Suggested Percent Adjust values below the minimum threshold will be:",
+      "guides": [
+        "Set a minimum threshold",
+        "Threshold questions",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Summer Baseline",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Target Profiles",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Target VWC",
+      "guides": [
+        "Apply a bulk adjustment",
+        "Apply a target profile",
+        "Calculation methods",
+        "Calculation questions",
+        "Calculation settings",
+        "Creating profiles",
+        "Dashboard overview",
+        "Editing station targets",
+        "Enable and disable stations",
+        "Filter by % Adj.",
+        "Get fresh scan data",
+        "Managing seasonal profiles",
+        "Map navigation",
+        "Preferences",
+        "Push changes to Lynx",
+        "Push failures",
+        "Reviewing changes",
+        "Set a minimum threshold",
+        "Station details",
+        "Threshold questions",
+        "Understand Spatial Adjust",
+        "Understand suggested adjustments",
+        "Understanding VWC",
+        "Updating profiles",
+        "Verify results",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Temperature Scale",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "The requested scan data is ready.",
+      "guides": [
+        "Get fresh scan data"
+      ]
+    },
+    {
+      "text": "This will disable the selected hole and every station beneath it.",
+      "guides": [
+        "Enable and disable stations"
+      ]
+    },
+    {
+      "text": "This will enable the selected area and every hole and station beneath it.",
+      "guides": [
+        "Enable and disable stations"
+      ]
+    },
+    {
+      "text": "Tournament Week",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "TR org ID:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "TR selected course ID:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "true",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "TurfRad",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "TurfRad ID string:",
+      "guides": [
+        "Calculation questions",
+        "Get fresh scan data",
+        "Push failures",
+        "Why is this station 0%?"
+      ]
+    },
+    {
+      "text": "Unable to Push Changes for 2 Station(s). Check the connection to Lynx and try again.",
+      "guides": [
+        "Push failures"
+      ]
+    },
+    {
+      "text": "Under",
+      "guides": [
+        "Filter by % Adj."
+      ]
+    },
+    {
+      "text": "Units of Measure",
+      "guides": [
+        "Preferences"
+      ]
+    },
+    {
+      "text": "Use replace to overwrite all values, or shift to move them up/down by the entered amount.",
+      "guides": [
+        "Apply a bulk adjustment"
+      ]
+    },
+    {
+      "text": "Verifying adjustments sent to Lynx",
+      "guides": [
+        "Verify results"
+      ]
+    }
+  ]
+}

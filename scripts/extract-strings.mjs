@@ -91,6 +91,33 @@ await page.waitForTimeout(300);
 await harvest('catalog');
 await page.keyboard.press('Escape').catch(() => {});
 
+// Same reason as the language menu, for the two dialogs that only exist once opened. Without
+// these the contact modal's lede and row labels, and the whole feedback dialog, never reach the
+// catalogue — so they shipped in English to all eleven locales while every other string around
+// them was translated. Driving the UI keeps the key set and the runtime match set the same set,
+// which is the property this harvester exists to preserve; a hand-maintained side list would not.
+await page.click('.lsa-contact-btn').catch(() => {});
+await page.waitForTimeout(300);
+await harvest('chrome');
+await page.keyboard.press('Escape').catch(() => {});
+await page.waitForTimeout(200);
+
+// The unwritten-guide request dialog, reachable from a stub card on the catalogue.
+// Dormant as of 2026-09: all 26 guides are written, so no card carries data-stub="true" and
+// this dialog cannot be reached. Its two strings are therefore absent from the catalogue and
+// would render in English if a stub ever returns. Warned about rather than hand-listed, because
+// a side list of strings the harvester cannot see is exactly the drift this file exists to avoid.
+const stubCard = await page.$('.lsa [data-stub="true"]');
+if (stubCard) {
+  await stubCard.click().catch(() => {});
+  await page.waitForTimeout(300);
+  await harvest('chrome');
+  await page.keyboard.press('Escape').catch(() => {});
+  await page.waitForTimeout(200);
+} else {
+  process.stderr.write('  note: no stub cards on the catalogue — the guide-request dialog\'s strings are not harvestable\n');
+}
+
 // Every guide, every step. Stepping matters: each step's body, caption and tip only enter the
 // DOM when that step is current, so a single snapshot per guide would miss most of the corpus.
 for (const key of GUIDES) {
@@ -108,6 +135,30 @@ for (const key of GUIDES) {
     await harvest(key);
   }
   process.stderr.write(`  ${key}: ${strings.size} unique so far\n`);
+}
+
+// The "Was this helpful?" widget sits at the bottom of a guide, so its dialog can only be
+// opened once a guide is rendered — hence after the loop rather than alongside the catalogue
+// dialogs above. The No path is the one that opens it; Yes stays in page.
+await page.goto(`${url}/#/${GUIDES[0]}`, { waitUntil: 'networkidle' });
+await page.waitForTimeout(1600);
+const noBtn = await page.$('.lsa-helpful-btn[data-v="no"]');
+if (noBtn) {
+  await noBtn.click().catch(() => {});
+  await page.waitForTimeout(300);
+  await harvest('chrome');
+  // Escape cancels the dialog without consuming the widget, so the Yes path is still available.
+  // Worth taking: it is the only way the confirmation text enters the DOM.
+  await page.keyboard.press('Escape').catch(() => {});
+  await page.waitForTimeout(200);
+  const yesBtn = await page.$('.lsa-helpful-btn[data-v="yes"]');
+  if (yesBtn) {
+    await yesBtn.click().catch(() => {});
+    await page.waitForTimeout(250);
+    await harvest('chrome');
+  }
+} else {
+  process.stderr.write('  WARNING: feedback dialog not reached — its strings will be absent\n');
 }
 
 await browser.close();
