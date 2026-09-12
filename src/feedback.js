@@ -23,10 +23,9 @@
   'use strict';
 
   // ---- destination -------------------------------------------------------------
-  // Empty by default, and the feature degrades rather than breaks when it is — the same
-  // convention as NSN.phone in src/contact.js and SIGNIN_LOG_ENDPOINT in src/gate.js. With no
-  // form configured the dialog still collects, still keeps the draft and still records the event
-  // locally; it simply does not open a tab. Nothing claims to have been sent that was not.
+  // Empty by default. With no form configured, submissions fall back to the prefilled GitHub
+  // issue this file used before — see FALLBACK_REPO. The reader always reaches a real
+  // destination; the Form is an upgrade, not a prerequisite.
   //
   // FORM.id is the GUID after `id=` in the form's share link. FORM.fields maps each question to
   // its prefill parameter id, which is the number in `r<number>` — README > Feedback has the
@@ -42,6 +41,13 @@
       url: '',
     },
   };
+
+  // Fallback destination, used only while FORM.id is empty. A prefilled GitHub issue is what this
+  // file did before, and it is worse than a Form — it needs the reader to hold a GitHub account
+  // and files guide feedback as a PUBLIC issue. But it WORKS, and shipping the dialog with
+  // nowhere to send would silently end feedback collection on a pilot whose whole point is
+  // collecting it. Degrading to the old path beats degrading to nothing. Remove once FORM.id is set.
+  var FALLBACK_REPO = 'toroadam/spatial-adjust-guide';
 
   var DRAFT_KEY = 'sa.feedback.draft';
   var DLG = 'lsa-fb-dlg';
@@ -98,8 +104,24 @@
     return url;
   }
 
+  // The pre-Forms destination, kept intact as the fallback.
+  function issueUrl(payload) {
+    var title = (payload.kind === 'Guide request' ? 'Guide request: ' : 'Guide feedback: ') + payload.guide;
+    var body =
+      (payload.kind === 'Guide request'
+        ? '**Requested guide:** ' + payload.guide + '\n\n**What they needed it to answer**\n'
+        : '**What was missing or unclear**\n')
+      + (payload.note || '(not stated)') + '\n\n'
+      + '---\n- Guide: ' + payload.guide + '\n- Step reached: ' + (payload.step || 'n/a')
+      + '\n- Locale: ' + payload.locale + '\n- URL: ' + payload.url + '\n';
+    return 'https://github.com/' + FALLBACK_REPO + '/issues/new'
+      + '?title=' + encodeURIComponent(title)
+      + '&body=' + encodeURIComponent(body)
+      + '&labels=' + encodeURIComponent(payload.kind === 'Guide request' ? 'guide-request' : 'guide-feedback');
+  }
+
   function submit(payload) {
-    var url = formUrl(payload);
+    var url = formUrl(payload) || issueUrl(payload);
     // Recorded whether or not a destination exists: demand data is the point of the widget, and
     // src/analytics.js buffers locally by default anyway.
     track(payload.kind === 'Guide request' ? 'guide_requested' : 'feedback_detailed', {
@@ -108,7 +130,8 @@
       locale: payload.locale,
     });
     clearDraft();
-    if (url) window.open(url, '_blank', 'noopener');
+    // Always a real destination: the Form when configured, the issue path until then.
+    window.open(url, '_blank', 'noopener');
   }
 
   // ---- dialog ------------------------------------------------------------------
