@@ -635,5 +635,35 @@ export function transformGuide(src) {
     replace: "'bulk-adjustments': [cell('cb', 1), P.bulkLink, P.bulkShift, cell('target', 1)]",
   });
 
+  // 11. camera() frames the target vertically and not horizontally. It pans y to keep the target
+  //     in view (the two `pad` tests) but fixes x at the figure's crop origin:
+  //
+  //       let x = Math.max(0, Math.min(fr.x, APP_W - frameW));
+  //       let y = fr.y + (frameH - viewH) / 2;
+  //       if (target[1] < y + pad) y = target[1] - pad;
+  //       if (target[1] > y + viewH - pad) y = target[1] - viewH + pad;
+  //
+  //     So any step whose target sits outside its figure's horizontal crop renders the cursor off
+  //     the stage entirely. Three steps did: "Set the two ends independently" and "Exclude Zeros
+  //     belongs to Under" put it at x = 935 on a 792-wide stage, and "Read the scan date before
+  //     anything else" at x = -162. The reader is told to look at a control and the pointer is
+  //     not on screen.
+  //
+  //     Fixed by making x symmetric with y — same pad, same clamp. This is one structural bug
+  //     rather than three bad coordinates, so it also prevents the next one: any future target
+  //     outside its crop now pans into view instead of vanishing.
+  //
+  //     Found by scripts/cursor-target.mjs. The retired cursor.mjs reported these three too, but
+  //     it modelled the coordinates wrongly, so its finding could not be trusted until the
+  //     corrected check reproduced it.
+  s = edit(s, {
+    name: 'camera frames the target horizontally',
+    pattern: /let x = Math\.max\(0, Math\.min\(fr\.x, APP_W - frameW\)\);/,
+    replace: 'let x = Math.max(0, Math.min(fr.x, APP_W - frameW));\n'
+      + '  if (target[0] < x + pad) x = target[0] - pad;\n'
+      + '  if (target[0] > x + frameW - pad) x = target[0] - frameW + pad;\n'
+      + '  x = frameW >= APP_W ? 0 : Math.max(0, Math.min(x, APP_W - frameW));',
+  });
+
   return s;
 }
