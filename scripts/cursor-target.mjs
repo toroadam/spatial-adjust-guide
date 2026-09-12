@@ -50,6 +50,8 @@ await page.waitForTimeout(1200);
 const guides = await page.evaluate(() =>
   [...document.querySelectorAll('.lsa [data-title]')].map((e) => e.getAttribute('data-title')));
 
+await page.addInitScript((labels) => { window.__ctNeedles = labels; }, LABELS);
+
 const probe = () => page.evaluate(() => {
   // Find the cursor by the ANIMATION THAT MOVES IT, not by which element declares --tx/--ty.
   // Those variables are declared on the app-screen wrapper and inherited; the element that
@@ -141,7 +143,29 @@ const probe = () => page.evaluate(() => {
     }
   }
 
+  // For a step that names a control, where IS that control? Reporting the delta turns "the
+  // cursor is on the wrong thing" into "move it here", and distinguishes a genuinely misplaced
+  // target from a label whose control simply carries different words.
+  const locate = (needle) => {
+    const flat = (x) => x.toLowerCase().replace(/\s+/g, ' ');
+    let best = null, bestArea = Infinity;
+    for (const e of (app ? app.querySelectorAll('*') : [])) {
+      if (e.children.length) continue;
+      if (!flat(e.innerText || '').includes(flat(needle))) continue;
+      const r = e.getBoundingClientRect();
+      if (!r.width || !r.height) continue;
+      const area = r.width * r.height;
+      if (area < bestArea) {
+        best = { x: Math.round(r.left + r.width / 2 + sx - (ar.left + sx)),
+                 y: Math.round(r.top + r.height / 2 + sy - (ar.top + sy)) };
+        bestArea = area;
+      }
+    }
+    return best;
+  };
+
   return {
+    locateFor: (window.__ctNeedles || []).map((n) => ({ needle: n, at: locate(n) })).filter((x) => x.at),
     tx, ty, w: Math.round(sr.width), h: Math.round(sr.height),
     // Measured from the rendered rect against the stage rect, both in viewport pixels.
     // In-bounds is measured against the APP, which is what the coordinates are relative to.
@@ -173,8 +197,21 @@ for (const g of guides) {
     const next = page.locator('div', { hasText: /^→$/ }).last();
     if (!(await next.count())) break;
     await next.click({ timeout: 3000 }).catch(() => {});
-    await page.waitForTimeout(420);
-    if ((await probe()).step === before) break;
+    // Wait for the step to ACTUALLY change, rather than guessing at 420ms. A fixed sleep meant
+    // some steps were sampled mid-transition and others after the next had begun, so three
+    // identical runs disagreed (10-12 graphical, 1-2 missed, 3-4 on-target). A checker whose
+    // numbers move on rerun cannot be used to judge anything.
+    let changed = false;
+    for (let w = 0; w < 24; w++) {
+      await page.waitForTimeout(120);
+      const now = await page.evaluate(() =>
+        (document.querySelector('.lsa [aria-live]')?.textContent || '').trim());
+      if (now && now !== before) { changed = true; break; }
+    }
+    if (!changed) break;
+    // The cursor is animated into place by @keyframes sa-cursor-move; --tx/--ty are set at the
+    // start but the surrounding figure (dialogs, selected rows) settles over the same beat.
+    await page.waitForTimeout(500);
   }
 }
 await browser.close();
@@ -196,7 +233,13 @@ const verdictOf = (r) => {
   // renders can be checked — everything else was inflating UNCONFIRMED to 98 and hiding the few
   // that matter.
   const flat = (x) => x.toLowerCase().replace(/\s+/g, ' ');
-  const named = LABELS.filter((l) => flat(title).includes(flat(l)));
+  // CASE-SENSITIVE. When a guide refers to a control it capitalises it the way the product does
+  // — "Open Bulk Adjust". When the same word appears in prose it is lowercase: "check the station
+  // count", "Units of Measure changes what you type", "choose replace or shift". Matching
+  // case-insensitively made every one of those look like a step naming a control and missing it.
+  // The distinction removes all five false positives and keeps the one real miss.
+  const squash = (x) => x.replace(/\s+/g, ' ');
+  const named = LABELS.filter((l) => squash(title).includes(squash(l)));
   if (!named.length) return 'NO-LABEL-NAMED';
   const hitFlat = flat(r.hit.text);
   if (named.some((l) => hitFlat.includes(flat(l)))) return 'ON-TARGET';
@@ -226,7 +269,19 @@ if (asJson) {
   if (missed.length) {
     console.log('\n--- the step names a control, and the cursor is on something else ---');
     for (const r of missed) {
-      console.log(`  ${r.guide}\n      step says:    ${r.step}\n      cursor is on: ${JSON.stringify(r.hit.text.slice(0, 70))}`);
+      const flat = (x) => x.toLowerCase().replace(/\s+/g, ' ');
+      const title = r.step.includes(':') ? r.step.slice(r.step.indexOf(':') + 1) : r.step;
+      const squash = (x) => x.replace(/\s+/g, ' ');
+      const named = LABELS.filter((l) => squash(title).includes(squash(l)));
+      const where = (r.locateFor || []).find((f) => named.some((n) => flat(n) === flat(f.needle)));
+      console.log(`  ${r.guide}\n      step says:    ${r.step}`);
+      console.log(`      cursor at (${Math.round(r.tx)},${Math.round(r.ty)}) is on: ${JSON.stringify(r.hit.text.slice(0, 60))}`);
+      if (where) {
+        const dx = where.at.x - Math.round(r.tx), dy = where.at.y - Math.round(r.ty);
+        console.log(`      ${JSON.stringify(where.needle)} is at (${where.at.x},${where.at.y}) — off by (${dx > 0 ? '+' : ''}${dx},${dy > 0 ? '+' : ''}${dy})`);
+      } else {
+        console.log(`      the named control was not found on this screen at all`);
+      }
     }
   }
 }
