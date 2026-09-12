@@ -22,6 +22,7 @@
     "test:i18n": "node scripts/i18n.mjs http://localhost:8124/",
     "translate": "node scripts/translate.mjs",
     "test:validate": "node scripts/validate-locales.mjs",
+    "test:prose": "node scripts/prose-lint.mjs",
     "test:fidelity": "node scripts/fidelity.mjs",
     "fidelity:harvest": "node scripts/fidelity-harvest.mjs",
     "fidelity:inventory": "node scripts/repro-inventory.mjs http://localhost:8124/",
