@@ -611,5 +611,29 @@ export function transformGuide(src) {
       + 'on a healthy dashboard the chord does nothing.',
   });
 
+  // 10. Two cursor targets in bulk-adjustments point at the wrong control.
+  //
+  //       'bulk-adjustments': [cell('cb', 1), P.bulkApply, P.bulkShift, cell('target', 1)]
+  //
+  //     Step 2 is titled "Open Bulk Adjust" and targeted P.bulkApply — the Apply button INSIDE
+  //     the dialog, not the link that opens it. The animated cursor landed 327px below the
+  //     BULK ADJUST link, on a station row, while the step told the reader to click the link.
+  //     Step 4, "Apply to all", targeted a table cell rather than that Apply button.
+  //
+  //     Step 3 (P.bulkShift) is correct, so this is not an off-by-one across the array — two
+  //     entries are individually wrong, which is why it survived review. Found by
+  //     scripts/cursor-target.mjs: x matched the link exactly and y was out by 327, which is the
+  //     signature of a wrong target rather than a scaling fault.
+  s = edit(s, {
+    name: 'bulk-adjustments cursor targets',
+    pattern: /'bulk-adjustments': \[cell\('cb', 1\), P\.bulkApply, P\.bulkShift, cell\('target', 1\)\]/,
+    // Step 4 is left as cell('target', 1) DELIBERATELY. Pointing it at P.bulkApply, which is
+    // where the Apply button lives, rendered the cursor at x = -16 — off the left of a 792-wide
+    // stage. P.bulkApply is presumably authored against a different figure crop from the one
+    // step 4 uses, so the coordinate does not survive here. Off-stage is strictly worse than
+    // on-stage-but-imprecise, so the change is reverted rather than kept for tidiness.
+    replace: "'bulk-adjustments': [cell('cb', 1), P.bulkLink, P.bulkShift, cell('target', 1)]",
+  });
+
   return s;
 }
