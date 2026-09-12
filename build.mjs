@@ -152,6 +152,7 @@ async function main() {
   const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
   const gateCss = await readFile(join(ROOT, 'src', 'gate.css'), 'utf8');
   const contactCss = await readFile(join(ROOT, 'src', 'contact.css'), 'utf8');
+  const feedbackCss = await readFile(join(ROOT, 'src', 'feedback.css'), 'utf8');
   const splashCss = await readFile(join(ROOT, 'src', 'splash.css'), 'utf8');
   // Resolved in <head>, synchronously, so the gate decision is made before the first paint
   // rather than after — see the header of src/gate-boot.js.
@@ -170,7 +171,7 @@ async function main() {
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
-<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n${splashCss}\n</style>
+<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 

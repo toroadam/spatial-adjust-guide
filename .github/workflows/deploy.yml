@@ -35,6 +35,16 @@ jobs:
       # it renders. A regression that reintroduces a CDN dependency fails here.
       - run: npm test
 
+      # Blocking as of 2026-09-12. It ran as its own advisory workflow while the Target Profiles
+      # figures were red; that is resolved — those labels belong to an unmerged feature branch and
+      # are now reported rather than gated — so the gate is green and can hold the deploy.
+      #
+      # Left advisory it would have become furniture, which is exactly what happened to the 308
+      # screen-label findings nobody actioned. It needs no browser, no credentials and no
+      # IntelliDash checkout: it reads the committed fixture.
+      - name: Screen-fidelity gate
+        run: npm run test:fidelity
+
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3

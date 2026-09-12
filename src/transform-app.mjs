@@ -115,5 +115,70 @@ export function transformApp(src) {
       + `\n    else if (dlg === 'dataready') dialog = this.scanReadyBanner();`,
   });
 
+  // The reproduced Target Profiles pane carries its own footnote, and it said "Concept". Same
+  // correction as transform 8 in src/transform-export.mjs, and the same reason: the tab is
+  // implemented on a feature branch, not a concept. Kept short because it sits inside the
+  // figure rather than in the prose around it.
+  s = edit(s, {
+    name: 'target profiles pane footnote',
+    pattern: /Concept — this tab is not in the shipping build\./,
+    replace: 'In development — not in the shipping build yet.',
+  });
+
+  // The reproduced map legend still carried the OLD band boundaries. Transform 3 in
+  // src/transform-export.mjs corrected the PROSE — "Bands default to 0-5, 6-19, 20-30 and above
+  // 30 percent" — after the guide quoted one course's saved preference as the product default,
+  // but the figure beside that sentence went on rendering 6-16% and 17-30%. The guide contradicted
+  // itself, and both figures contradicted the product: a live harvest of the real map legend
+  // shows 0-5%, 6-19%, 20-30%, > 30%.
+  //
+  // Found by scripts/cursor-target.mjs, not by the label gate. The map legend chips are not in
+  // _screenStrings, so the label diff never looked at them — the animated cursor landing on
+  // "6-16%" during "Move the band boundaries" is what surfaced it. sa-dash-map falls back to
+  // `value?.range2Boundary || 19` when a user has no saved preference, so 19 is the default.
+  s = edit(s, {
+    name: 'map legend band 2 default',
+    pattern: /6-16%/,
+    replace: '6-19%',
+  });
+
+  s = edit(s, {
+    name: 'map legend band 3 default',
+    pattern: /17-30%/,
+    replace: '20-30%',
+  });
+
+  // The reproduced algorithm dropdown still rendered the ENUM NAME. Transform 1 in
+  // src/transform-export.mjs fixed this in the prose — "the guide calls the two methods Simple
+  // and the default method, which are the enum names; a reader hunting the dropdown for Simple
+  // finds nothing" — but the dropdown in the figure went on saying it:
+  //
+  //   SpatialAdjustApp.dc.html:424
+  //     field('Suggested Percent Adjust Calculation', this.select(simple ? 'Simple' : 'Option 2'))
+  //
+  // IntelliDash renders SPATIAL_ADJUST.ALGO_SIMPLE as "Option 1"; the Option 2 branch was already
+  // right, so only one side of the ternary was ever wrong. It surfaces in "Calculation methods",
+  // the guide whose whole subject is choosing between the two — text saying Option 1 beside a
+  // figure saying Simple is the worst place for this to survive.
+  //
+  // Found by scripts/repro-inventory.mjs: "Simple" appeared in the rendered inventory with no
+  // product backing. The curated _screenStrings list never contained it, so nothing was looking.
+  s = edit(s, {
+    name: 'algorithm dropdown enum name in the reproduction',
+    pattern: /this\.select\(simple \? 'Simple' : 'Option 2'\)/,
+    replace: "this.select(simple ? 'Option 1' : 'Option 2')",
+  });
+
+  // The Preferences language dropdown showed "English (US)". IntelliDash's own language list is
+  // LANGUAGE.ENGLISH = "English" — the product does qualify some entries ("Dutch
+  // (Netherlands/Belgium)", "Chinese - Simplified") but English is not one of them, so the
+  // parenthetical is invented. Small, but it is a value a reader compares against their own
+  // dropdown while following the Preferences guide.
+  s = edit(s, {
+    name: 'preferences language option',
+    pattern: /this\.select\('English \(US\)'\)/,
+    replace: "this.select('English')",
+  });
+
   return s;
 }
