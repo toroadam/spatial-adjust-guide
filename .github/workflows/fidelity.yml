@@ -75,6 +75,12 @@ jobs:
       # The animated cursor must land on the control each step names. Gates on cursors that miss
       # the stage entirely; a cursor on the wrong labelled control is reported but advisory,
       # because a step can legitimately point at a region rather than a label.
+      # The only step here that needs a browser. npm ci installs the Playwright package but not
+      # its binaries, so without this the step dies before it checks a single cursor — which it
+      # did, silently reducing this workflow to a red X nobody could act on.
+      - name: Install Chromium for the cursor check
+        run: npx playwright install --with-deps chromium
+
       - name: Cursor target check
         run: |
           npm run build
