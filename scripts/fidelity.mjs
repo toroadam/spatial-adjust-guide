@@ -423,8 +423,28 @@ if (reportOnly) {
 }
 
 const undocumented = structural.filter((s) => !s.documented);
+// ---- fixture staleness ---------------------------------------------------------------------
+// A snapshot goes stale silently. IntelliDash changes, the fixture does not, and the gate keeps
+// passing against last quarter's labels — which is worse than no gate, because it reads as
+// verified. Age is therefore part of the verdict, not a footnote.
+//
+// Warn at 30 days, fail at 90. Failing sooner would block deploys for a reason unrelated to the
+// change in hand; never failing would let the fixture rot indefinitely, which is the outcome
+// this whole exercise exists to prevent.
+let staleDays = null;
+if (live?.harvestedAt) {
+  staleDays = Math.floor((Date.now() - Date.parse(live.harvestedAt)) / 86400000);
+  if (staleDays >= 90) {
+    console.log(`\nFIXTURE STALE  harvested ${staleDays} days ago — refresh with: npm run fidelity:harvest`);
+    console.log(`  Past 90 days the gate is asserting against labels nobody has checked since.`);
+  } else if (staleDays >= 30) {
+    console.log(`\nfixture is ${staleDays} days old; refresh with npm run fidelity:harvest when convenient`);
+  }
+}
+
 const pass = live
   ? missing.length === 0 && undocumented.length === 0 && stationHeader.missing.length === 0
+    && !(staleDays !== null && staleDays >= 90)
   : true;
 console.log(`\nFIDELITY: ${pass ? 'PASS' : 'FAIL'}`);
 if (!pass && !reportOnly) process.exit(1);

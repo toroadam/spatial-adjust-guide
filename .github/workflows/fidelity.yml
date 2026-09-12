@@ -59,6 +59,16 @@ jobs:
         if: always()
         run: node scripts/fidelity.mjs --report
 
+      # The animated cursor must land on the control each step names. Gates on cursors that miss
+      # the stage entirely; a cursor on the wrong labelled control is reported but advisory,
+      # because a step can legitimately point at a region rather than a label.
+      - name: Cursor target check
+        run: |
+          npm run build
+          node scripts/serve.mjs dist 8124 &
+          sleep 3
+          node scripts/cursor-target.mjs http://localhost:8124/
+
       # Product-side locale audit. Needs an IntelliDash checkout, which is in Azure DevOps and
       # not reachable here, so in CI this prints a note and exits zero. It is listed anyway so
       # the command is discoverable, and because it is the step to run locally before handing
