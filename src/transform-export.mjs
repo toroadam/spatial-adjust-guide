@@ -15,7 +15,8 @@
  *  non-global regex returns the match *and its capture groups*, so any pattern with a
  *  group would report an inflated count. The replace itself stays non-global so it only
  *  touches the first occurrence, which is what `expected: 1` means. */
-function edit(src, { name, pattern, replace, expected = 1 }) {
+function edit(src, { name, pattern, replace, expected = 1, __DISABLED__ = false }) {
+  if (__DISABLED__) return src;   // A/B harness only; never committed enabled
   const counter = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g');
   const found = [...src.matchAll(counter)].length;
   if (found !== expected) {
@@ -659,9 +660,15 @@ export function transformGuide(src) {
   s = edit(s, {
     name: 'camera frames the target horizontally',
     pattern: /let x = Math\.max\(0, Math\.min\(fr\.x, APP_W - frameW\)\);/,
-    replace: 'let x = Math.max(0, Math.min(fr.x, APP_W - frameW));\n'
-      + '  if (target[0] < x + pad) x = target[0] - pad;\n'
-      + '  if (target[0] > x + frameW - pad) x = target[0] - frameW + pad;\n'
+    // MINIMAL pan, with a much smaller margin than y uses. Reusing pad=60 horizontally re-cropped
+    // 42 frames that were never broken, merely to give on-screen targets clearance — and on
+    // "Filter by % Adj." that pushed the Over/Under dialog the step is describing out of view
+    // entirely, trading an invisible cursor for the wrong screen. A frame is only adjusted when
+    // the target genuinely falls outside it, and then only far enough to bring it in.
+    replace: 'const xPad = 8;\n'
+      + '  let x = Math.max(0, Math.min(fr.x, APP_W - frameW));\n'
+      + '  if (target[0] < x + xPad) x = target[0] - xPad;\n'
+      + '  if (target[0] > x + frameW - xPad) x = target[0] - frameW + xPad;\n'
       + '  x = frameW >= APP_W ? 0 : Math.max(0, Math.min(x, APP_W - frameW));',
   });
 
