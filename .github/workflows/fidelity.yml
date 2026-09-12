@@ -44,6 +44,13 @@ jobs:
       - name: Provenance classifier self-check
         run: npm run test:provenance
 
+      # Grammar classes that bulk term replacement breaks and validate-locales cannot see:
+      # Korean particle agreement after the nouns this project substituted, French elision, and
+      # stray double spaces. Rules that could not tell correct prose from broken prose were
+      # removed rather than tuned — see the header of scripts/prose-lint.mjs.
+      - name: Prose lint
+        run: npm run test:prose
+
       - name: Fidelity gate (product -> reproduction)
         run: npm run test:fidelity
 
