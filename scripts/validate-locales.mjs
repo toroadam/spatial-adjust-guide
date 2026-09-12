@@ -24,6 +24,26 @@ const SCREEN = new Set(sourceCat._screenStrings || []);
 // an invented rendering asserts a source of truth that does not exist, and reported 34 defects
 // that no reader could act on.
 const glossary = JSON.parse(await readFile(`${dir}/glossary.json`, 'utf8'));
+
+// Labels the product renders from HARDCODED LITERALS rather than its catalogue. The Settings
+// dialog builds its menu as `new SaDlgMenuItem('Calculation', ...)` and paints it with
+// {{ item.title }} — no translate pipe — so those words are English on every reader's screen in
+// all eleven locales, whatever the catalogue happens to contain for the same string.
+//
+// Trusting the glossary here actively misleads. STRINGS.PREFERENCES is "อ้างอิง" in Thai, which
+// means "reference" and is a product mistranslation; demanding the guides match it would have
+// told Thai readers to look for a tab labelled "reference" when their screen says "Preferences".
+// Seven findings said exactly that.
+const hardcoded = new Set();
+try {
+  const dlg = await readFile(
+    '/Users/adammunir/IntelliDash/site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts',
+    'utf8');
+  for (const m of dlg.matchAll(/new SaDlgMenuItem\('([^']+)',\s*'([^']+)'/g)) {
+    hardcoded.add(m[1]);
+    hardcoded.add(m[2]);
+  }
+} catch { /* no checkout: nothing known to be hardcoded */ }
 const only = process.argv.slice(2);
 const locales = (await readdir(dir))
   .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json')
@@ -61,6 +81,19 @@ const EXEMPT = {
   // because that is the label a Thai user reads on the actual screen. Matching the product beats
   // matching the English.
   'th-th': (en, tr, tok) => tok === 'VWC' && /ปริมาตรน้ำ/.test(tr),
+  // Ruled 2026-09-12: when prose NAMES a control it uses the product's shipped label; when it
+  // discusses the CONCEPT it keeps VWC. These four locales ship a Target/Avg. VWC label with no
+  // acronym in it — "CVA objetivo", "Teneur en eau volumétrique cible", "목표 체적 수분 함량",
+  // "平均体積含水率" — so prose that names the control correctly cannot contain the token, and the
+  // droppedToken GATE would fail it for being right. The guides exist so a reader can find the
+  // control on their own screen; a findable label beats a preserved acronym.
+  //
+  // Bare VWC as a concept is untouched and still guarded: only the compound control names were
+  // changed, so a translation that drops the acronym everywhere still fails.
+  'es-es': (en, tr, tok) => tok === 'VWC' && /CVA/.test(tr),
+  'fr-fr': (en, tr, tok) => tok === 'VWC' && /Teneur en eau volumétrique|Hv\b/.test(tr),
+  'ko-ko': (en, tr, tok) => tok === 'VWC' && /체적 수분 함량/.test(tr),
+  'ja-jp': (en, tr, tok) => tok === 'VWC' && /体積含水率/.test(tr),
 };
 
 const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
@@ -73,8 +106,13 @@ const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
 // reading "Voorgesteld"), and IntelliDash's own es-es AVG_VWC ships a double space
 // ("Promedio de  CVA") that prose can only match by reproducing the typo. Demanding a verbatim
 // match reported 49 findings whose "fix" would have been to write worse prose.
+// Spaces adjacent to CJK characters are dropped before comparing. Chinese, Japanese and Thai do
+// not use the space as a word separator, so "平均 VWC" and "平均VWC" are the same label to a
+// reader — and the product ships one form while the prose uses the other. Treating them as
+// different reported seven Chinese findings that no reader could perceive.
+const stripCjkSpaces = (s) => s.replace(/(?<=[\u3000-\u9fff\uff00-\uffef\u0e00-\u0e7f])\s+|\s+(?=[\u3000-\u9fff\uff00-\uffef\u0e00-\u0e7f])/g, '');
 const present = (haystack, needle) => {
-  const flat = (s) => s.toLowerCase().replace(/[\s\u00a0]+/g, ' ');
+  const flat = (s) => stripCjkSpaces(s.toLowerCase().replace(/[\s\u00a0]+/g, ' '));
   return flat(haystack).includes(flat(needle));
 };
 
@@ -132,7 +170,8 @@ for (const locale of locales) {
   for (const [en, tr] of Object.entries(t)) {
     if (SCREEN.has(en)) continue;                       // the label itself, not prose about it
     const named = [...SCREEN].filter((label) => label.length >= 8
-      && en.includes(label) && (label in (glossary[locale] || {})));
+      && en.includes(label) && (label in (glossary[locale] || {}))
+      && !hardcoded.has(label));
     for (const label of named) {
       if (shadowed(label, named)) continue;             // a longer label covers this one
       if (!present(tr, t[label])) {

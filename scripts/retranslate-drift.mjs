@@ -43,8 +43,13 @@ if (!one && !argv.includes('--all')) throw new Error('usage: retranslate-drift.m
 // reading "Voorgesteld"), and IntelliDash's own es-es AVG_VWC ships a double space
 // ("Promedio de  CVA") that prose can only match by reproducing the typo. Demanding a verbatim
 // match reported 49 findings whose "fix" would have been to write worse prose.
+// Spaces adjacent to CJK characters are dropped before comparing. Chinese, Japanese and Thai do
+// not use the space as a word separator, so "平均 VWC" and "平均VWC" are the same label to a
+// reader — and the product ships one form while the prose uses the other. Treating them as
+// different reported seven Chinese findings that no reader could perceive.
+const stripCjkSpaces = (s) => s.replace(/(?<=[\u3000-\u9fff\uff00-\uffef\u0e00-\u0e7f])\s+|\s+(?=[\u3000-\u9fff\uff00-\uffef\u0e00-\u0e7f])/g, '');
 const present = (haystack, needle) => {
-  const flat = (s) => s.toLowerCase().replace(/[\s\u00a0]+/g, ' ');
+  const flat = (s) => stripCjkSpaces(s.toLowerCase().replace(/[\s\u00a0]+/g, ' '));
   return flat(haystack).includes(flat(needle));
 };
 
