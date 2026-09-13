@@ -3,8 +3,8 @@
 // The guides ship in eleven languages and their fidelity claim is per-locale: a Dutch reader is
 // told the button says something, and their screen has to agree. That claim can fail for a
 // reason the guides cannot fix — the PRODUCT's catalogue is missing the key, or ships it
-// untranslated, or ships it with a typo. an internal work item lists five such bugs found by hand this
-// session; this finds that whole class repeatably.
+// untranslated, or ships it with a typo. Five such bugs were found by hand this session;
+// this finds that whole class repeatably.
 //
 // SCOPED TO THE LABELS THE GUIDES ACTUALLY USE, and that scoping is the point. IntelliDash
 // ships 1,014 keys; the reproduction resolves about fifty. Auditing all 1,014 produces a flood
