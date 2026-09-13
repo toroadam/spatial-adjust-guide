@@ -109,11 +109,18 @@ By default the transport is **`local`**: events are buffered in `localStorage` a
 
 That's sufficient for moderated sessions. **It does not collect from remote users.** For that, set `TRANSPORT = 'beacon'` and `SA_ENDPOINT` at the top of `src/analytics.js`, and add that origin to the allowlist in `scripts/smoke.mjs` — otherwise the smoke test will correctly fail the build for reaching a third party. Choosing that endpoint is an open decision.
 
-**Feedback** (`src/feedback.js`) routes to a **Microsoft Form** — no backend, no third-party
-script, no Azure administrator, and responses land in an Excel workbook in the form owner's
-OneDrive. That is a queryable store inside Toro's own tenant, which is the reason it is Forms and
-not Google Sheets or a Cloudflare Function: both of those sit outside the tooling Toro permits,
-which is what ruled out the original hosting plan too.
+**Feedback** (`src/feedback.js`) opens a **prefilled GitHub issue** on the repository that hosts
+the site, with the guide, step, locale and URL already filled in. That is the active destination
+for the pilot, chosen with its costs accepted rather than hidden: the reader needs a GitHub
+account, and the issue is public on a personal repository. In exchange it is a real queue — with
+history, labels, assignment and search — that costs nothing to run.
+
+A **Microsoft Form** stays wired as an optional override: set `FORM.id` (and the six `r<number>`
+prefill ids) at the top of `src/feedback.js` and every submission routes there instead, with no
+other change. Its responses land in an Excel workbook in the form owner's OneDrive — a queryable
+store inside Toro's own tenant, which is the reason it is Forms and not Google Sheets or a
+Cloudflare Function: both of those sit outside the tooling Toro permits, which is what ruled out
+the original hosting plan too.
 
 "Was this helpful?" sits at the very bottom of the page and attaches the guide and step reached
 automatically. It deliberately does *not* sit beside the step player: that crowded the controls,

@@ -1,15 +1,21 @@
 // In-product feedback for the Spatial Adjust guides.
 //
-// The site is static, so there is no server to accept a form post. Submissions are routed to a
-// Microsoft Form instead: it needs no backend, no third-party script and no Azure administrator,
-// and its responses land in an Excel workbook in the owner's OneDrive — a queryable store that
-// stays inside Toro's own tenant. That last point is why it is Forms rather than Google Sheets or
-// a Cloudflare Function: both of those sit outside the tooling Toro permits, which is what ruled
-// out the original hosting plan too.
+// The site is static, so there is no server to accept a form post. For the pilot, submissions
+// open a PREFILLED GITHUB ISSUE on the repository that hosts the site. That is a deliberate
+// choice with its costs stated rather than hidden:
 //
-// This replaces a prefilled GitHub issue. That path had two problems worth recording:
-// it required the reader to hold a GitHub account, and it filed guide feedback as a PUBLIC issue
-// on a personal repository — a more exposed destination than anything discussed to replace it.
+//   - it needs the reader to hold a GitHub account;
+//   - the issue is PUBLIC, on a personal repository.
+//
+// Both were weighed and accepted: the pilot audience is internal, the volume is small, and an
+// issue tracker is a real queue with history, assignment and search that costs nothing to run.
+//
+// A Microsoft Form remains wired as an optional override (see FORM). It needs no backend and its
+// responses land in an Excel workbook in the owner's OneDrive, inside Toro's own tenant — which
+// is why it is Forms rather than Google Sheets or a Cloudflare Function, both of which sit
+// outside the tooling Toro permits, the same constraint that ruled out the original hosting plan.
+// Set FORM.id and submissions switch over with no other change. Until then, issues are the
+// destination, not a degraded fallback.
 //
 // The collection UI is a real in-page dialog rather than window.prompt(). Three reasons:
 //   - prompt() text never enters the DOM, so it was invisible to the catalogue harvester in
@@ -23,9 +29,11 @@
   'use strict';
 
   // ---- destination -------------------------------------------------------------
-  // Empty by default. With no form configured, submissions fall back to the prefilled GitHub
-  // issue this file used before — see FALLBACK_REPO. The reader always reaches a real
-  // destination; the Form is an upgrade, not a prerequisite.
+  // Where feedback goes. The issue repo is the ACTIVE destination for the pilot.
+  var ISSUE_REPO = 'toroadam/spatial-adjust-guide';
+
+  // Optional override. Leave id empty to keep using GitHub issues; set it and every submission
+  // routes to the Microsoft Form instead, with no other change needed.
   //
   // FORM.id is the GUID after `id=` in the form's share link. FORM.fields maps each question to
   // its prefill parameter id, which is the number in `r<number>` — README > Feedback has the
@@ -41,13 +49,6 @@
       url: '',
     },
   };
-
-  // Fallback destination, used only while FORM.id is empty. A prefilled GitHub issue is what this
-  // file did before, and it is worse than a Form — it needs the reader to hold a GitHub account
-  // and files guide feedback as a PUBLIC issue. But it WORKS, and shipping the dialog with
-  // nowhere to send would silently end feedback collection on a pilot whose whole point is
-  // collecting it. Degrading to the old path beats degrading to nothing. Remove once FORM.id is set.
-  var FALLBACK_REPO = 'toroadam/spatial-adjust-guide';
 
   var DRAFT_KEY = 'sa.feedback.draft';
   var DLG = 'lsa-fb-dlg';
@@ -114,7 +115,7 @@
       + (payload.note || '(not stated)') + '\n\n'
       + '---\n- Guide: ' + payload.guide + '\n- Step reached: ' + (payload.step || 'n/a')
       + '\n- Locale: ' + payload.locale + '\n- URL: ' + payload.url + '\n';
-    return 'https://github.com/' + FALLBACK_REPO + '/issues/new'
+    return 'https://github.com/' + ISSUE_REPO + '/issues/new'
       + '?title=' + encodeURIComponent(title)
       + '&body=' + encodeURIComponent(body)
       + '&labels=' + encodeURIComponent(payload.kind === 'Guide request' ? 'guide-request' : 'guide-feedback');

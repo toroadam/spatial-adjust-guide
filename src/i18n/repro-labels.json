@@ -1,5 +1,5 @@
 {
-  "harvestedAt": "2026-09-11T22:37:11.444Z",
+  "harvestedAt": "2026-09-13T03:33:59.521Z",
   "source": "http://localhost:8124",
   "guides": 26,
   "steps": 122,
@@ -474,6 +474,15 @@
       ]
     },
     {
+      "text": "02 May 2026",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
       "text": "1,234.56",
       "guides": [
         "Preferences"
@@ -483,6 +492,15 @@
       "text": "10 %",
       "guides": [
         "Filter by % Adj."
+      ]
+    },
+    {
+      "text": "14 Jun 2026",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
       ]
     },
     {
@@ -628,15 +646,6 @@
       ]
     },
     {
-      "text": "ACTIVE",
-      "guides": [
-        "Apply a target profile",
-        "Creating profiles",
-        "Managing seasonal profiles",
-        "Updating profiles"
-      ]
-    },
-    {
       "text": "Adjust Target VWC %",
       "guides": [
         "Apply a bulk adjustment"
@@ -712,25 +721,7 @@
       ]
     },
     {
-      "text": "Applied 02 May 2026 · 148 stations",
-      "guides": [
-        "Apply a target profile",
-        "Creating profiles",
-        "Managing seasonal profiles",
-        "Updating profiles"
-      ]
-    },
-    {
-      "text": "Applied 14 Jun 2026 · 148 stations",
-      "guides": [
-        "Apply a target profile",
-        "Creating profiles",
-        "Managing seasonal profiles",
-        "Updating profiles"
-      ]
-    },
-    {
-      "text": "APPLY",
+      "text": "Apply Profile",
       "guides": [
         "Apply a target profile",
         "Creating profiles",
@@ -1416,6 +1407,15 @@
       ]
     },
     {
+      "text": "Last Updated",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
       "text": "LAYERS",
       "guides": [
         "Apply a bulk adjustment",
@@ -1583,15 +1583,6 @@
         "Set a minimum threshold",
         "Threshold questions",
         "Why is this station 0%?"
-      ]
-    },
-    {
-      "text": "Never applied · 148 stations",
-      "guides": [
-        "Apply a target profile",
-        "Creating profiles",
-        "Managing seasonal profiles",
-        "Updating profiles"
       ]
     },
     {
@@ -1852,15 +1843,6 @@
       ]
     },
     {
-      "text": "Save a full set of station Target VWC values as a named profile, then apply it whenever the season or the event calls for it.",
-      "guides": [
-        "Apply a target profile",
-        "Creating profiles",
-        "Managing seasonal profiles",
-        "Updating profiles"
-      ]
-    },
-    {
       "text": "Save Changes",
       "guides": [
         "Apply a target profile",
@@ -1879,6 +1861,15 @@
     },
     {
       "text": "Save seasonal and event-based target profiles",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Save, manage, and apply target profiles for seasonal and event-based irrigation strategies.",
       "guides": [
         "Apply a target profile",
         "Creating profiles",
@@ -1978,6 +1969,15 @@
       ]
     },
     {
+      "text": "Stations",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
       "text": "Stations pushed today appear unselected in a separate list to prevent double adjustments. To adjust one again, simply select it.",
       "guides": [
         "Managing seasonal profiles",
@@ -2037,6 +2037,15 @@
     },
     {
       "text": "Summer Baseline",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
+      ]
+    },
+    {
+      "text": "Target Profile",
       "guides": [
         "Apply a target profile",
         "Creating profiles",
@@ -2178,6 +2187,15 @@
       "text": "Units of Measure",
       "guides": [
         "Preferences"
+      ]
+    },
+    {
+      "text": "Update from Current",
+      "guides": [
+        "Apply a target profile",
+        "Creating profiles",
+        "Managing seasonal profiles",
+        "Updating profiles"
       ]
     },
     {

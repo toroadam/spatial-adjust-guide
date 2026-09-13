@@ -24,6 +24,25 @@ function edit(src, { name, pattern, replace, expected = 1 }) {
 // The prop schema lives in an HTML-escaped JSON attribute, so additions have to be escaped to match.
 const Q = '&quot;';
 
+// The replacement markup for the Target Profiles pane, kept out of the transform above so the
+// anchor stays readable. `numInput` is reused for the name field: it renders a bordered box
+// containing the value, which is what pInputText looks like at this scale.
+const TP_COLS = "'2.1fr 1.2fr 0.8fr 1.5fr 1.1fr'";
+
+const TARGET_PROFILES_TABLE = [
+  "h('div', { style: { border: '1px solid #080D121A', borderRadius: '4px', background: '#fff', marginTop: '16px', overflow: 'hidden' } },",
+  `  h('div', { style: { display: 'grid', gridTemplateColumns: ${TP_COLS}, alignItems: 'center', padding: '10px 14px', background: '#F5F7F8', borderBottom: '1px solid #080D121A', fontWeight: 'bold', color: '#080D12', fontSize: '13px' } },`,
+  "    h('div', null, 'Target Profile'), h('div', null, 'Last Updated'), h('div', null, 'Stations'),",
+  "    h('div', null, 'Update from Current'), h('div', null, 'Apply Profile')),",
+  "  [['Summer Baseline', '14 Jun 2026', '148'], ['Tournament Week', '02 May 2026', '148'], ['Overseed Recovery', '--', '--']].map(p =>",
+  `    h('div', { key: p[0], style: { display: 'grid', gridTemplateColumns: ${TP_COLS}, alignItems: 'center', padding: '8px 14px', borderBottom: '1px solid #080D121A' } },`,
+  "      h('div', null, this.numInput(p[0], '170px')),",
+  "      h('div', { style: { fontSize: '13px', color: '#080D12' } }, p[1]),",
+  "      h('div', { style: { fontSize: '13px', color: '#080D12' } }, p[2]),",
+  "      h('div', null, h('div', { style: { width: '22px', height: '22px', borderRadius: '3px', border: '1px solid #a6a6a6', background: '#fff' } })),",
+  "      h('div', null, h('div', { style: { width: '22px', height: '22px', borderRadius: '3px', border: '1px solid #a6a6a6', background: '#fff', opacity: p[2] === '--' ? 0.45 : 1 } }))))),",
+].join('\n        ');
+
 export function transformApp(src) {
   let s = src;
 
@@ -123,6 +142,46 @@ export function transformApp(src) {
     name: 'target profiles pane footnote',
     pattern: /Concept — this tab is not in the shipping build\./,
     replace: 'In development — not in the shipping build yet.',
+  });
+
+  // The Target Profiles pane depicted a concept, not the product.
+  //
+  // It drew three cards — a bold name, an "Applied 14 Jun 2026 · 148 stations" subtitle, and an
+  // ACTIVE or APPLY badge on the right. None of that exists. The implementation on the feature
+  // branch renders a five-column TABLE:
+  //
+  //   Target Profile | Last Updated | Stations | Update from Current | Apply Profile
+  //
+  // with the name in an editable text input, and the last two columns as icon buttons rather
+  // than a single badge. Those are two separate actions — write current values INTO a profile,
+  // and push a profile OUT to the stations — and the card design collapsed them into one, which
+  // is the part a reader would get wrong. The product also renders '--' rather than prose when a
+  // profile has never been populated: `stationCount < 1 ? '--' : stationCount`, and Last Updated
+  // is blanked to '--' on the same condition, so "Never applied · 148 stations" was impossible.
+  //
+  // Read from the branch template rather than guessed, and verified identical on the newer
+  // queue branch, so this is the design as it stands and not a snapshot of an older iteration.
+  // The tab is still commented out on the shipping branch — the footnote above says so — but
+  // depicting the real table is strictly better than depicting an invention, and the pilot's
+  // stated expectation is that these features reach production before the guides do.
+  //
+  // Apply is disabled when a profile holds no stations, matching [ngClass] "disabled" on the
+  // branch. The icons carry no text on purpose: anything written here would enter the label
+  // inventory as a product string the product does not have.
+  // The pane's intro was written for the guide, not taken from the product. The tab renders
+  // SPATIAL_ADJUST.SETTINGS_TARGET_PROFILES_HEADER, and that key resolves — on the feature
+  // branch's own catalogue — to the sentence below. It was one of the six product labels the
+  // fidelity gate listed as never shown by the guides.
+  s = edit(s, {
+    name: 'target profiles pane intro matches the product header key',
+    pattern: /Save a full set of station Target VWC values as a named profile, then apply it whenever the season or the event calls for it\./,
+    replace: 'Save, manage, and apply target profiles for seasonal and event-based irrigation strategies.',
+  });
+
+  s = edit(s, {
+    name: 'target profiles: card list becomes the real five-column table',
+    pattern: /h\('div', \{ style: \{ border: '1px solid #080D121A', borderRadius: '4px', background: '#F5F7F8', marginTop: '16px', overflow: 'hidden' \} \},[\s\S]*?'ACTIVE' : 'APPLY'\)\)\)\),/,
+    replace: TARGET_PROFILES_TABLE,
   });
 
   // The reproduced map legend still carried the OLD band boundaries. Transform 3 in
