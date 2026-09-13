@@ -78,7 +78,7 @@ The fingerprint harness verified the original port: output was **identical** bet
 
 ## Accessibility and responsive behaviour
 
-Delivered under an internal work item. `src/a11y.css` and `src/a11y.js` are injected by the build and live outside the Core Design export so a re-export can't discard them.
+`src/a11y.css` and `src/a11y.js` are injected by the build and live outside the Core Design export so a re-export can't discard them.
 
 - **Keyboard.** The export built its controls from `<div onClick>`, which browsers give no keyboard behaviour — only 3 elements on the whole page were focusable against 26 with click handlers (now 29 focusable). Controls now carry `role="button"` and `tabindex`, and a delegated listener supplies Enter/Space activation. Verified end to end by `npm run test:keyboard`, which tabs to a card, opens it with Enter, and advances a step with Space.
 - **Screen readers.** Cards have accessible names including duration and difficulty; the difficulty dots are `aria-hidden` with a text equivalent; step changes are announced through an `aria-live` region, since the camera move that conveys them is purely visual.
@@ -95,7 +95,7 @@ Each guide has its own address (`#/minimum-threshold`), so a guide can be linked
 
 ## Instrumentation and feedback
 
-Delivered under an internal work item. See [`docs/test-protocol.md`](docs/test-protocol.md) for the moderated session plan.
+See [`docs/test-protocol.md`](docs/test-protocol.md) for the moderated session plan.
 
 **Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `guide_requested`, `search_used`, `feedback_submitted`, `feedback_detailed`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
 

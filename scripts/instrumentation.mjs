@@ -1,4 +1,5 @@
-// Proves the event layer records what an internal work item needs to answer, by driving the real UI.
+// Proves the event layer records what the moderated test protocol needs to answer, by driving
+// the real UI.
 // Usage: node scripts/instrumentation.mjs <url>
 import { chromium } from 'playwright';
 

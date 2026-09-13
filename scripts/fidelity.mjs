@@ -72,11 +72,13 @@ const corpusNorm = new Set(CORPUS.map(norm));
 // degrades to "unverified" rather than failing the build over a missing sibling repository.
 let idByNorm = new Map();
 let literals = new Map();
+let translateKeys = new Map();
 let templateCount = 0;
 try {
   idByNorm = await loadCatalogue(ID);
   const scan = await scanHardcodedLiterals(ID);
   literals = scan.byNorm;
+  translateKeys = scan.keyedByNorm;
   templateCount = scan.templateCount;
 } catch {
   console.error(`note: no IntelliDash checkout at ${ID} — provenance report degraded, gate unaffected.`);
@@ -267,7 +269,7 @@ try {
   const manual = JSON.parse(await readFile(`${dir}/app-manual.json`, 'utf8'));
   manualNorm = new Set(Object.keys(manual).filter((k) => k !== '_meta').map(norm));
 } catch { /* optional */ }
-const reproReport = { checked: 0, keyed: 0, parameterised: 0, live: 0, notALabel: 0,
+const reproReport = { checked: 0, keyed: 0, hardcoded: 0, untranslated: [], parameterised: 0, live: 0, notALabel: 0,
   sampleValued: 0, guideChrome: 0, manuallyDecided: 0, sampleOrBrand: 0, unbacked: [] };
 if (repro) {
   for (const { text, guides: inGuides } of repro.labels) {
@@ -275,6 +277,21 @@ if (repro) {
     reproReport.checked++;
     const n = norm(text);
     if (idByNorm.has(n)) { reproReport.keyed++; continue; }
+    // Hardcoded in a template is still PRODUCT text — the reproduction showing it is correct.
+    // Omitting this check reported 15 verbatim product labels (the whole diagnostics dialog:
+    // "Can ping cloud:", "Lynx course ID:", …) as "found nowhere in the product", which is
+    // the one thing this section is supposed to mean. Counted separately from keyed because
+    // the distinction matters to IntelliDash: a hardcoded literal has no i18n key, so it
+    // renders English in all eleven locales.
+    if (literals.has(n)) { reproReport.hardcoded++; continue; }
+    // Piped through translate, but the catalogue has no such key — so ngx-translate emits the
+    // key itself and the string renders English in every locale. The reproduction showing it
+    // is CORRECT; the defect is in the product, and it is worth naming rather than burying in
+    // a count, so these are listed under PRODUCT FINDINGS below.
+    if (translateKeys.has(n)) {
+      reproReport.untranslated.push({ text, at: translateKeys.get(n) });
+      continue;
+    }
     if (liveByNorm.has(n)) { reproReport.live++; continue; }
     const pm = paramMatchers.find((m) => m.rx.test(text.trim()));
     if (pm) { reproReport.parameterised++; continue; }
@@ -411,6 +428,8 @@ if (repro) {
   console.log(`  harvested ${repro.labels.length} label(s) from ${repro.steps} step(s) across ${repro.guides} guide(s)`);
   console.log(`  glyphs / values, not labels   ${reproReport.notALabel}`);
   console.log(`  keyed in IntelliDash i18n     ${reproReport.keyed}`);
+  console.log(`  hardcoded in a template       ${reproReport.hardcoded}   <- English in all 11 locales`);
+  console.log(`  translate key not in catalogue ${reproReport.untranslated.length}  <- also English in all 11`);
   console.log(`  matched a parameterised key   ${reproReport.parameterised}`);
   console.log(`  observed live                 ${reproReport.live}`);
   console.log(`  real label + sample value     ${reproReport.sampleValued}`);
@@ -418,6 +437,13 @@ if (repro) {
   console.log(`  hand-decided (app-manual.json) ${reproReport.manuallyDecided}`);
   console.log(`  sample data / product name    ${reproReport.sampleOrBrand}`);
   console.log(`  NO PRODUCT BACKING            ${reproReport.unbacked.length}`);
+  if (reproReport.untranslated.length) {
+    console.log('\n  --- PRODUCT FINDINGS: piped through translate, but no such catalogue key ---');
+    console.log('      These render English in all eleven locales. Nothing to fix in the guides.');
+    for (const u of reproReport.untranslated) {
+      console.log(`      ${JSON.stringify(u.text)}\n          ${u.at.file}:${u.at.line}`);
+    }
+  }
   if (reproReport.unbacked.length) {
     console.log('\n  --- rendered by the guides, found nowhere in the product ---');
     // Grouped by the guides that render them. A surface's labels share a guide set, so this

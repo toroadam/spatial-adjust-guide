@@ -1,6 +1,6 @@
 # Spatial Adjust Guides — user test protocol
 
-Supports an internal work item. The point is to decide things, not to collect compliments. Four questions:
+The point is to decide things, not to collect compliments. Four questions:
 
 1. **Which of the 17 unwritten guides should be written next?**
 2. **Does the step-player-plus-camera format actually teach?** It's the central bet of the system, built 7 times and validated zero.

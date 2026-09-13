@@ -135,10 +135,13 @@ export function extractLiterals(source, file) {
   lines.forEach((line, i) => {
     const lineNo = i + 1;
 
-    // `{{ 'Some Text' }}` with no translate pipe.
+    // `{{ 'Some Text' }}`. Without a translate pipe it is hardcoded. WITH one, the literal is
+    // being used as an i18n KEY — which is fine only if the catalogue defines it. When it does
+    // not, ngx-translate emits the key verbatim, so the string renders in English in every
+    // locale while looking perfectly translated in the template. Captured as its own kind so
+    // the caller can tell those two cases apart.
     for (const m of line.matchAll(/\{\{\s*'([^']+)'\s*([^}]*)\}\}/g)) {
-      if (TRANSLATED.test(m[2] ?? '')) continue;
-      push(m[1], 'interpolated', lineNo);
+      push(m[1], TRANSLATED.test(m[2] ?? '') ? 'translate-key' : 'interpolated', lineNo);
     }
 
     // Plain text attributes. A binding (`[attr]=`) is excluded by requiring the bare name.
@@ -161,7 +164,8 @@ export function extractLiterals(source, file) {
  */
 export async function scanHardcodedLiterals(idSrc = DEFAULT_ID_SRC) {
   const templates = await walk(idSrc);
-  const byNorm = new Map();
+  const byNorm = new Map();        // hardcoded: no translate pipe at all
+  const keyedByNorm = new Map();   // used as a translate key; may or may not exist in the catalogue
   for (const file of templates) {
     let source;
     try {
@@ -171,10 +175,12 @@ export async function scanHardcodedLiterals(idSrc = DEFAULT_ID_SRC) {
     }
     for (const lit of extractLiterals(source, file.replace(`${idSrc}/`, ''))) {
       const n = norm(lit.label);
-      if (n && !byNorm.has(n)) byNorm.set(n, lit);
+      if (!n) continue;
+      const target = lit.kind === 'translate-key' ? keyedByNorm : byNorm;
+      if (!target.has(n)) target.set(n, lit);
     }
   }
-  return { byNorm, templateCount: templates.length };
+  return { byNorm, keyedByNorm, templateCount: templates.length };
 }
 
 // ---- self-check ---------------------------------------------------------------------------------
@@ -214,17 +220,28 @@ const NORM_CASES = [
   ['Avg  VWC', 'Avg VWC'],
 ];
 
+// [markup, hardcoded count, translate-key count]. Asserting the KIND, not just the total,
+// because the two mean opposite things to a reader: a hardcoded literal is a product string with
+// no key at all, while a translate-key is keyed and only renders English if the catalogue happens
+// to be missing it. Counting them together would let one silently become the other.
 const LITERAL_CASES = [
-  // a translate pipe means the string is keyed, so it is not a hardcoded literal
-  [`<p>{{ 'STRINGS.CLOSE' | translate }}</p>`, 0],
-  [`<p-header>{{ 'Soil Factor Editor' }}</p-header>`, 1],
-  [`<input placeholder="Filter area">`, 1],
+  // key-shaped and piped: an ordinary, correctly translated string. Neither kind.
+  [`<p>{{ 'STRINGS.CLOSE' | translate }}</p>`, 0, 0],
+  // Prose piped through translate is the literal being USED as a key. Real: the diagnostics
+  // dialog title and the push progress header both do this, and neither key exists in any of
+  // IntelliDash's eleven catalogues, so both render English everywhere.
+  [`<p-header>{{ 'Spatial Adjust Diagnostics' | translate }}</p-header>`, 0, 1],
+  [`<p-header>{{ 'Pushing Changes To Lynx' | translate | titlecase }}</p-header>`, 0, 1],
+  // No pipe at all: hardcoded, unreachable by translation.
+  [`<p-header>{{ 'Soil Factor Editor' }}</p-header>`, 1, 0],
+  [`<td class="sa-ddt-label">{{ 'Can ping cloud:' }}</td>`, 1, 0],
+  [`<input placeholder="Filter area">`, 1, 0],
   // a binding is not a plain attribute
-  [`<input [placeholder]="something">`, 0],
+  [`<input [placeholder]="something">`, 0, 0],
   // key-shaped strings are keys someone forgot to pipe, not labels
-  [`<p>{{ 'SPATIAL_ADJUST.AVG_VWC' }}</p>`, 0],
+  [`<p>{{ 'SPATIAL_ADJUST.AVG_VWC' }}</p>`, 0, 0],
   // technical strings are not user-visible text
-  [`<img src="x" title="data:image/jpg;base64,">`, 0],
+  [`<img src="x" title="data:image/jpg;base64,">`, 0, 0],
 ];
 
 if (import.meta.url === `file://${process.argv[1]}`) {
@@ -239,9 +256,13 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   for (const [a, b] of NORM_CASES) {
     check(norm(a) === norm(b), `norm(${JSON.stringify(a)}) should equal norm(${JSON.stringify(b)})`);
   }
-  for (const [markup, want] of LITERAL_CASES) {
-    const got = extractLiterals(markup, 'test.html').length;
-    check(got === want, `extractLiterals(${JSON.stringify(markup)}) should find ${want}, found ${got}`);
+  for (const [markup, wantHard, wantKey] of LITERAL_CASES) {
+    const found = extractLiterals(markup, 'test.html');
+    const hard = found.filter((f) => f.kind !== 'translate-key').length;
+    const keyed = found.filter((f) => f.kind === 'translate-key').length;
+    check(hard === wantHard && keyed === wantKey,
+      `extractLiterals(${JSON.stringify(markup)}) should find ${wantHard} hardcoded / ${wantKey} `
+      + `translate-key, found ${hard} / ${keyed}`);
   }
 
   const total = CASES.length + NORM_CASES.length + LITERAL_CASES.length;
