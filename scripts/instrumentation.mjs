@@ -50,7 +50,7 @@ const hadFeedbackWidget = (await fbYes.count()) > 0;
 if (hadFeedbackWidget) { await fbYes.first().click(); await page.waitForTimeout(300); }
 
 // 3b. the "No" path opens the collection dialog. Driven in full because the draft is the whole
-// point of an internal work item: a note must survive a cancel, which window.prompt could not do.
+// point of the feedback rework: a note must survive a cancel, which window.prompt could not do.
 // On a SECOND guide: answering Yes above replaces the widget with its confirmation, so the
 // thumbs-down no longer exists on that page. Reached by clicking through the catalogue rather
 // than by setting location.hash — a same-document hash change does not reliably drive the

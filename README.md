@@ -113,7 +113,7 @@ That's sufficient for moderated sessions. **It does not collect from remote user
 script, no Azure administrator, and responses land in an Excel workbook in the form owner's
 OneDrive. That is a queryable store inside Toro's own tenant, which is the reason it is Forms and
 not Google Sheets or a Cloudflare Function: both of those sit outside the tooling Toro permits,
-which is what ruled out the original an internal work item hosting plan too.
+which is what ruled out the original hosting plan too.
 
 "Was this helpful?" sits at the very bottom of the page and attaches the guide and step reached
 automatically. It deliberately does *not* sit beside the step player: that crowded the controls,
@@ -158,7 +158,7 @@ Note that unwritten cards are **real buttons**, not disabled ones: activating on
 
 ## Sign-in gate
 
-Delivered under an internal work item. `src/gate-boot.js`, `src/gate.js` and `src/gate.css` are injected by
+`src/gate-boot.js`, `src/gate.js` and `src/gate.css` are injected by
 the build, outside the Core Design export, for the same reason the a11y layer is.
 
 **This is a courtesy barrier, not access control, and should not be presented as one.** The rule
@@ -177,7 +177,7 @@ Azure Static Web Apps with Entra ID auth would gate at the platform rather than 
 it needs no GHEC organisation, and its managed Functions would also have served the feedback
 endpoint. It was declined as disproportionate for a pilot this size, because obtaining an Azure
 subscription and a Toro-owned pipeline means going through an administrator. Note the shape of
-that: all three rejected routes failed on **access**, not on technology. an internal work item is closed as
+that: all three rejected routes failed on **access**, not on technology. That work is closed as
 NOT DOING and its three Cloudflare features are cancelled. A real gate wants a fresh Epic Request
 against whatever platform is permitted at the time, not those.
 
@@ -260,7 +260,7 @@ collects no PII, and logging the address would quietly make that untrue.
 
 ## Localisation status
 
-Delivered under an internal work item (selection) and an internal work item (content). The selector, the negotiation and
+The selector, the negotiation and
 the runtime translation layer are complete. **Catalogues exist for some locales and not others,
 and the site tells the truth about which** — see the table below.
 
@@ -530,13 +530,13 @@ worth knowing:
   finds no stub rather than failing. If an unwritten guide is ever added back, re-run the harvest
   before relying on those two strings.
 - **Two features still have no guide:** the update banner's dismiss-without-reload path in context,
-  and the discard-changes confirmation from an internal work item.
+  and the discard-changes confirmation.
 - **Superseded note.** An audit of
   IntelliDash's 108 user-facing Spatial Adjust strings against the guide corpus found no coverage
   for: the **Over/Under % Adj. filter** (an outlier finder — `> over || < under`, so it surfaces
   both extremes at once, not a band; Over 0–300 default 200, Under 0–100 default 10, stored per
   user), **Request latest scan data / Reload Data**, the **update banner**, and the
-  **discard-changes confirmation** added in an internal work item. `SpatialAdjustApp.dc.html` renders none of
+  **discard-changes confirmation**. `SpatialAdjustApp.dc.html` renders none of
   those controls — no refresh button, no banner, no filter dialog — so a step-by-step guide would
   have to point its figure at an unrelated panel. Covering them properly means extending the
   reproduction in Core Design first. The cursor targets `refresh`, `filterLink`, `tabOver` and

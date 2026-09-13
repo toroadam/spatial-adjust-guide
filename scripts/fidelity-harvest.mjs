@@ -214,7 +214,11 @@ async function guardedClick(selector, why, expectIcon) {
   await page.waitForTimeout(1200);
 }
 
-const product = { harvestedAt: null, source: page.url(), surfaces: {}, tabs: {} };
+// The host is a Toro-internal dev instance and this fixture is committed to a PUBLIC
+// repository, so the origin is dropped and only the path is recorded. The path is all the
+// gate ever prints, and all a reader needs to know which screen was captured.
+const product = { harvestedAt: null,
+  source: `IntelliDash dev instance ${new URL(page.url()).pathname}`, surfaces: {}, tabs: {} };
 
 // Whether this run opened the Settings dialog itself. Anything we opened, we close.
 let weOpenedSettings = false;
@@ -260,8 +264,8 @@ for (const label of SETTINGS_TABS) {
 if (weOpenedSettings) {
   const cancel = page.locator('.ui-dialog button').filter({ hasText: /^Cancel$/ }).first();
   if (await cancel.count()) { await cancel.click().catch(() => {}); await page.waitForTimeout(900); }
-  // Selecting tabs marks the form dirty even with nothing edited (a product bug in the an internal work item
-  // guard), so the discard confirmation appears. DISCARD CHANGES matched by EXACT text: a loose
+  // Selecting tabs marks the form dirty even with nothing edited (a product bug in the
+  // dirty-check guard), so the discard confirmation appears. DISCARD CHANGES matched by EXACT text: a loose
   // /continue|discard/ alternation once picked CONTINUE EDITING and did the opposite. Discarding
   // writes nothing — it is "exit without saving". Save Changes is never touched.
   const discard = page.locator('.ui-dialog button').filter({ hasText: /^DISCARD CHANGES$/i }).first();
@@ -289,8 +293,8 @@ if (empty.length) {
 }
 
 // Which settings tabs the dev instance shows but the SHIPPING branch does not. The fixture is
-// harvested from dev, and dev can be running an unmerged branch — Target Profiles is, under
-// an internal work item. The gate forgives those labels instead of holding the guides to UI no reader can
+// harvested from dev, and dev can be running an unmerged branch — Target Profiles is one.
+// The gate forgives those labels instead of holding the guides to UI no reader can
 // reach, and it must reach the same verdict in CI, which has no IntelliDash checkout. So the
 // fact is recorded HERE, where a checkout exists, and travels in the fixture.
 product.inFlight = { tabs: [], source: SETTINGS_DLG, derivedFrom: null };

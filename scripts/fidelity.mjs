@@ -123,8 +123,8 @@ try {
 
 // ---- in-flight surfaces --------------------------------------------------------------------
 // The fixture is harvested from a DEV ENVIRONMENT, and dev can be running an unmerged feature
-// branch. Target Profiles is exactly that: implemented on an unmerged feature branch
-// under an internal work item, still WIP, still unmerged, and commented out on develop. Gating the guides on
+// branch. Target Profiles is exactly that: implemented on a feature branch, still unmerged, and
+// commented out on the shipping branch. Gating the guides on
 // UI that does not ship holds them to a standard no reader can reach — and a permanently red
 // gate is one everybody learns to ignore, which is how the 308 advisory findings sat unactioned.
 //
