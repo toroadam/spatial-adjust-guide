@@ -6,7 +6,7 @@ name: Screen fidelity
 # come to read WHY.
 #
 # The gate was advisory while the four Target Profiles guides depicted a three-card list against a
-# product shipping a five-slot table. That tab turned out to be unmerged (an internal work item), so the gate
+# product shipping a five-slot table. That tab turned out to be unmerged, so the gate
 # now forgives it by fact rather than by exception, and it blocks deploys.
 
 on:

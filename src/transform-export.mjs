@@ -551,9 +551,9 @@ export function transformGuide(src) {
   //
   //      "The tab exists in the codebase as a commented-out placeholder"
   //
-  //    It is commented out on develop (an internal commit, an internal work item) but implemented on
-  //    an unmerged feature branch under an internal work item — model, icons, styling, i18n key,
-  //    and client plus server API integration as of an internal commit. Calling that a placeholder
+  //    It is commented out on the shipping branch but fully implemented on a feature branch —
+  //    model, icons, styling, i18n key, and client plus server API integration. Calling that a
+  //    placeholder
   //    undersells a feature someone is actively building, and it is the kind of claim that ages
   //    into a lie the moment the branch merges.
   //
@@ -561,9 +561,9 @@ export function transformGuide(src) {
   //    a screen that does not look like these figures is expected rather than a fault. The
   //    figures themselves still disagree with the implementation — three cards with ACTIVE badges
   //    versus a five-row table with Last Updated, Update from Current and Apply Profile — and no
-  //    disclaimer fixes that. It needs the guides reconciling once an internal work item merges (an internal work item).
-  //    The ticket numbers stay in this comment and out of the prose; a superintendent does not
-  //    care which work item it was.
+  //    disclaimer fixes that. It needs the guides reconciling once that branch merges.
+  //    Tracker IDs are deliberately absent: this repository is public, and a superintendent
+  //    does not care which work item it was.
   s = edit(s, {
     name: 'target profiles disclaimer: commented-out placeholder claim',
     pattern: /Target Profiles is a design concept\. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build\./g,

@@ -5,16 +5,16 @@
 // and its responses land in an Excel workbook in the owner's OneDrive — a queryable store that
 // stays inside Toro's own tenant. That last point is why it is Forms rather than Google Sheets or
 // a Cloudflare Function: both of those sit outside the tooling Toro permits, which is what ruled
-// out the original an internal work item hosting plan too.
+// out the original hosting plan too.
 //
-// This replaces a prefilled GitHub issue (an internal work item). That path had two problems worth recording:
+// This replaces a prefilled GitHub issue. That path had two problems worth recording:
 // it required the reader to hold a GitHub account, and it filed guide feedback as a PUBLIC issue
 // on a personal repository — a more exposed destination than anything discussed to replace it.
 //
 // The collection UI is a real in-page dialog rather than window.prompt(). Three reasons:
 //   - prompt() text never enters the DOM, so it was invisible to the catalogue harvester in
 //     scripts/extract-strings.mjs and shipped in English to all eleven locales;
-//   - prompt() cannot hold a draft, so cancelling discarded everything typed (an internal work item);
+//   - prompt() cannot hold a draft, so cancelling discarded everything typed;
 //   - prompt() is unstyleable and its focus behaviour is the browser's, not ours.
 //
 // All handling is delegated from document rather than bound per element: the runtime re-renders
