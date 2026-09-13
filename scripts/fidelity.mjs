@@ -263,6 +263,11 @@ try {
 // product is expected rather than a finding.
 const GUIDE_CHROME = ['In development', 'not in the shipping build', 'Concept'];
 // Fictional identifiers, rendered primitives, and the product names PROTECTED already guards.
+//
+// This deliberately does NOT restate what counts as sample data. isPureSampleData is the shared,
+// self-checked predicate for that, and the inventory loop below consults it directly — two
+// overlapping notions of "this is a value, not a label" is how the seeded Target Profile names
+// stayed classified as product defects after they had already been listed as sample data.
 const SAMPLE_OR_BRAND = /^(riverbend[\w-]*|true|false|null|-?\d+ to -?\d+%|Toro|IntelliDash|Spatial Adjust|Lynx|TurfRad|VWC|ET)$/i;
 let manualNorm = new Set();
 try {
@@ -273,7 +278,11 @@ const reproReport = { checked: 0, keyed: 0, hardcoded: 0, untranslated: [], para
   sampleValued: 0, guideChrome: 0, manuallyDecided: 0, sampleOrBrand: 0, unbacked: [] };
 if (repro) {
   for (const { text, guides: inGuides } of repro.labels) {
-    if (NOT_A_LABEL.test(text)) { reproReport.notALabel++; continue; }
+    // NOT_A_LABEL catches pure glyphs and numeric runs; isPureSampleData catches the seeded
+    // values that read like prose — the fictional course, the Target Profile names a
+    // superintendent would supply, the dates in Last Updated. Both mean "this is data", and
+    // sharing the second predicate keeps this loop and the provenance loop from disagreeing.
+    if (NOT_A_LABEL.test(text) || isPureSampleData(text)) { reproReport.notALabel++; continue; }
     reproReport.checked++;
     const n = norm(text);
     if (idByNorm.has(n)) { reproReport.keyed++; continue; }

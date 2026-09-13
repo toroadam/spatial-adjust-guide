@@ -44,6 +44,14 @@ const SAMPLE_DATA_PATTERNS = [
   '[\\d\\s:.\\-\\/]+(?:AM|PM)?',      // timestamps and bare numeric runs
   '-?\\d+ to \\d+%',                   // numeric ranges: -5 to 5%
   'Riverbend National',                // the sanitizer's fictional course name
+  // Seeded Target Profile names. A superintendent names their own profiles, so these are user
+  // data in the same sense the course name is — the product ships no such strings, and
+  // translating them would be wrong. Listed by name rather than by pattern because a pattern for
+  // "looks like a profile name" would swallow real labels.
+  'Summer Baseline|Tournament Week|Overseed Recovery',
+  // Dates as the Last Updated column renders them: 14 Jun 2026. The numeric-run alternative above
+  // cannot match these because of the month name.
+  '\\d{1,2} (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \\d{4}',
   '% Adjust: \\d+%',                    // per-station sample values
   '\\u2192 Adjusted to \\d+%',
   '% ADJ\\. OVER \\d+%, UNDER \\d+%',
@@ -198,6 +206,12 @@ const CASES = [
   ['AP', true],
   ['08-07-25 5:42 AM', true],
   ['Riverbend National', true],
+  // seeded Target Profile names and the dates the Last Updated column renders
+  ['Summer Baseline', true],
+  ['Tournament Week', true],
+  ['Overseed Recovery', true],
+  ['14 Jun 2026', true],
+  ['02 May 2026', true],
   ['% Adjust: 121%', true],
   ['→ Adjusted to 10%', true],
   ['% ADJ. OVER 200%, UNDER 10%', true],
