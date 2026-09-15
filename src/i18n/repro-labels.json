@@ -1,19 +1,19 @@
 {
-  "harvestedAt": "2026-09-13T03:33:59.521Z",
+  "harvestedAt": "2026-09-15T16:51:16.661Z",
   "source": "http://localhost:8124",
   "guides": 26,
   "steps": 122,
   "labels": [
     {
-      "text": "-5 %",
+      "text": "-10 to 10%",
       "guides": [
-        "Apply a bulk adjustment"
+        "Map navigation"
       ]
     },
     {
-      "text": "-5 to 5%",
+      "text": "-5 %",
       "guides": [
-        "Map navigation"
+        "Apply a bulk adjustment"
       ]
     },
     {
@@ -248,7 +248,73 @@
       ]
     },
     {
-      "text": "< -5%",
+      "text": "+0",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+1",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+14",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+16",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+2",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+20",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+3",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+32",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+5",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "+7",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "< -11%",
+      "guides": [
+        "Map navigation"
+      ]
+    },
+    {
+      "text": "> 10%",
       "guides": [
         "Map navigation"
       ]
@@ -282,12 +348,6 @@
         "Updating profiles",
         "Verify results",
         "Why is this station 0%?"
-      ]
-    },
-    {
-      "text": "> 5%",
-      "guides": [
-        "Map navigation"
       ]
     },
     {
