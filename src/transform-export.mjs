@@ -672,5 +672,36 @@ export function transformGuide(src) {
       + '  x = frameW >= APP_W ? 0 : Math.max(0, Math.min(x, APP_W - frameW));',
   });
 
+  // --- click marker ------------------------------------------------------------
+  // The click ring was a hard red. Red is Toro's brand colour (--base, rgb(225,24,55)), but in
+  // THIS product it also carries meaning: the map paints a station's pin red when its reading
+  // falls in the highest moisture band, and "Why is this station 0%?" is an entire guide about
+  // red pins. A red ring pulsing over a map of red and green pins reads as product state rather
+  // than as "the cursor clicked here", which is the one thing it exists to say.
+  //
+  // Blue carries no state in Spatial Adjust, and the design system already reserves
+  // --informative-02 for informative rather than alarming — it is the focus-ring colour, so it
+  // reads as interface chrome. Lighter too: a soft fill, a thinner stroke, and the peak opacity
+  // dropped from 0.95 to 0.5 so the pulse sits over the control it points at instead of hiding it.
+  s = edit(s, {
+    name: 'click ring: red brand colour becomes a light blue pulse',
+    pattern: /border:3px solid var\(--base\);/,
+    replace: 'border:2px solid var(--informative-02); background:rgba(48,121,240,.14);',
+  });
+
+  s = edit(s, {
+    name: 'click ring: softer peak opacity',
+    pattern: /(scale\(0\.85\); opacity: )0\.95(; \})/,
+    replace: '$10.5$2',
+  });
+
+  // Reduced motion renders the ring statically, so it holds its peak indefinitely rather than for
+  // a few frames. At .9 that was a solid disc parked on the control.
+  s = edit(s, {
+    name: 'click ring: softer static opacity under reduced motion',
+    pattern: /(\.lsa \.sa-ring \{ animation: none; transform: translate\(var\(--tx\), var\(--ty\)\); opacity: )\.9(; \})/,
+    replace: '$1.5$2',
+  });
+
   return s;
 }

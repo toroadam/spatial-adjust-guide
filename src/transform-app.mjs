@@ -207,6 +207,73 @@ export function transformApp(src) {
     replace: '20-30%',
   });
 
+  // The legend was corrected above; the PIN COLOURING was not, and the two then disagreed with
+  // each other inside the same figure. rangeColor switched yellow to green at 16, so a station
+  // reading 17, 18 or 19 painted green while the legend directly beneath it said 6-19% is yellow.
+  // The product's boundary is range2Boundary, which falls back to 19 — the same 19 the legend
+  // already claims.
+  s = edit(s, {
+    name: 'map pins: yellow/green boundary matches the legend and the product',
+    pattern: /if \(v <= 16\) return '#F3D43B';/,
+    replace: "if (v <= 19) return '#F3D43B';",
+  });
+
+  // Variance had no palette of its own. The figure reused the MOISTURE colours and invented the
+  // boundaries, so the variance view was wrong three times over: wrong colours, wrong numbers,
+  // and — worst — the pins did not change at all when the mode switched, because renderMarkers
+  // always called rangeColor on the raw reading.
+  //
+  // That last one matters because it contradicts the step it illustrates. "Switch to variance"
+  // tells the reader that variance "colours each pin by how far it sits from its own target
+  // instead of by its raw reading", and then shows them a map where nothing recolours.
+  //
+  // The product's own values (ToroEnums.SaVarianceColor, and the -11 / 10 fallbacks in
+  // sa-dash-map.component.ts):
+  //     < -11   #FDB034 orange     -10 to 10   #009EB2 teal     > 10   #D64E9A pink
+  s = edit(s, {
+    name: 'map: variance gets the product palette',
+    pattern: /function rangeColor\(v\) \{/,
+    replace: '// Variance is a reading measured against its own target, so it needs the sample data to carry\n'
+      + '// a target. The reproduction uses a nominal 30% for every station: it is invented, exactly as\n'
+      + '// the readings themselves are, and it spreads the sample across all three bands so the\n'
+      + '// recolouring is visible rather than theoretical.\n'
+      + 'const NOMINAL_TARGET = 30;\n'
+      + 'function varianceColor(v) {\n'
+      + "  if (v <= -11) return '#FDB034';\n"   // inclusive: the product band is `from: -100, to: -11`
+      + "  if (v <= 10) return '#009EB2';\n"
+      + "  return '#D64E9A';\n"
+      + '}\n\n'
+      + 'function rangeColor(v) {',
+  });
+
+  s = edit(s, {
+    name: 'map pins: recolour when the mode switches to variance',
+    pattern: /background: rangeColor\(m\[2\]\), opacity: 0\.9/,
+    replace: "background: this.props.mapMode === 'variance' ? varianceColor(m[2] - NOMINAL_TARGET) : rangeColor(m[2]), opacity: 0.9",
+  });
+
+  // The number in the pin has to follow the colour. Colouring by variance while printing the raw
+  // reading would leave a pin labelled 50 painted for +20, which is unreadable.
+  s = edit(s, {
+    name: 'map pins: label shows the variance figure in variance mode',
+    pattern: /\}, m\[2\]\.toFixed\(0\)\)\);/,
+    replace: "}, this.props.mapMode === 'variance'\n"
+      + "      ? (m[2] - NOMINAL_TARGET > 0 ? '+' : '') + (m[2] - NOMINAL_TARGET).toFixed(0)\n"
+      + '      : m[2].toFixed(0)));',
+  });
+
+  s = edit(s, {
+    name: 'map legend: variance bands use the product palette and boundaries',
+    pattern: /band\('< -5%', '#E11837', 'a'\), band\('-5 to 5%', '#42CE11', 'b'\), band\('> 5%', '#3079F0', 'c'\)/,
+    replace: "band('< -11%', '#FDB034', 'a'), band('-10 to 10%', '#009EB2', 'b'), band('> 10%', '#D64E9A', 'c')",
+  });
+
+  s = edit(s, {
+    name: 'map legend: variance gradient bar matches its bands',
+    pattern: /h\('div', \{ style: \{ width: '33%', background: '#E11837' \} \}\), h\('div', \{ style: \{ width: '34%', background: '#42CE11' \} \}\), h\('div', \{ style: \{ width: '33%', background: '#3079F0' \} \}\)/,
+    replace: "h('div', { style: { width: '33%', background: '#FDB034' } }), h('div', { style: { width: '34%', background: '#009EB2' } }), h('div', { style: { width: '33%', background: '#D64E9A' } })",
+  });
+
   // The reproduced algorithm dropdown still rendered the ENUM NAME. Transform 1 in
   // src/transform-export.mjs fixed this in the prose — "the guide calls the two methods Simple
   // and the default method, which are the enum names; a reader hunting the dropdown for Simple
