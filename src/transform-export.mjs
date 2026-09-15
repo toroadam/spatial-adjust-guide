@@ -393,11 +393,29 @@ export function transformGuide(src) {
 `,
   });
 
+  // The last step of "Filter by % Adj." is "Exclude Zeros belongs to Under", and its cursor sat on
+  // P.filterLink — the link that OPENS the filter dialog — rather than on the checkbox inside it,
+  // pointing at a different control while the dialog it names was open on screen.
+  //
+  // The step already carried `t: [960, 520]`, the author's intent, but TARGETS wins over a step's
+  // own `t` (see the target lookup in the player), so the inline value never applied. Fixed in
+  // TARGETS, where the lookup actually reads from.
+  //
+  // Worth recording how this was landed, because measuring it directly does not work. A dialog is
+  // laid out relative to the visible frame, and camera() derives that frame FROM the target — so
+  // moving the target moves the dialog, and a coordinate measured under one framing is wrong under
+  // the next. Three measured values in a row each missed by less than the one before, converging
+  // rather than landing.
+  //
+  // What they converged ON is P.excludeZeros [840, 600]. The two Exclude Zeros controls are
+  // different settings — this step's own tip is at pains to separate the filter's from Settings >
+  // Minimum Threshold's — but both dialogs render centred in the same region, so the coordinate
+  // serves both. Semantically distinct, geometrically the same spot.
   s = edit(s, {
     name: 'new guide cursor targets',
     pattern: /(Object\.assign\(TARGETS, \{\n)/,
     replace: `$1  'request-scan-data': [P.moisture, P.refresh, P.refresh, P.refresh, P.diagBox],
-  'filter-adjustments': [P.tabAll, P.filterLink, P.filterLink, P.tabOver, P.filterLink],
+  'filter-adjustments': [P.tabAll, P.filterLink, P.filterLink, P.tabOver, P.excludeZeros],
 `,
   });
 
@@ -670,6 +688,21 @@ export function transformGuide(src) {
       + '  if (target[0] < x + xPad) x = target[0] - xPad;\n'
       + '  if (target[0] > x + frameW - xPad) x = target[0] - frameW + xPad;\n'
       + '  x = frameW >= APP_W ? 0 : Math.max(0, Math.min(x, APP_W - frameW));',
+  });
+
+  // "Read Current against Changes" parked its cursor at P.pushRow [960, 358] — x inside the
+  // Changes column but y in the gap between rows, so it landed on a station id and named neither
+  // column. The step is about the two COLUMNS, so the cursor belongs on the Changes header at
+  // [958, 229] (measured, not guessed): same column, top of the run of values the reader is being
+  // asked to compare against Current.
+  //
+  // P.pushRow itself is left alone. "Push changes to Lynx" step 2 is "Review the two lists",
+  // which is a region rather than a named control, and a row is the right thing to point at
+  // there. Only this step is overridden.
+  s = edit(s, {
+    name: 'reviewing-changes step 2 points at the Changes column, not a row gap',
+    pattern: /'reviewing-changes': \[P\.push, P\.pushRow, P\.pushOldRow/,
+    replace: "'reviewing-changes': [P.push, [958, 229], P.pushOldRow",
   });
 
   // --- click marker ------------------------------------------------------------
