@@ -602,6 +602,8 @@ export function transformGuide(src) {
     name: 'target profiles catalogue card subtitle',
     pattern: /Concept — saved sets of station targets\./,
     replace: 'In development — saved sets of station targets.',
+    // The catalogue section is now authored as "Targets", so this legacy subtitle may be absent.
+    expected: 0,
   });
 
   // 9. The diagnostics dialog does not open by clicking the logo. It needs a modifier chord, and

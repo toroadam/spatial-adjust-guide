@@ -43,6 +43,10 @@ const TARGET_PROFILES_TABLE = [
   "      h('div', null, h('div', { style: { width: '22px', height: '22px', borderRadius: '3px', border: '1px solid #a6a6a6', background: '#fff', opacity: p[2] === '--' ? 0.45 : 1 } }))))),",
 ].join('\n        ');
 
+// Drawn aerial for the map figure. See the transform that installs it for why this is drawn
+// rather than captured.
+const MAP_AERIAL = '<svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position:absolute;inset:0;width:100%;height:100%" aria-hidden="true" focusable="false"><defs><filter id="sa-turf" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="7" result="n"/><feColorMatrix in="n" type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope="0.5"/></feComponentTransfer></filter><filter id="sa-canopy" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.22" numOctaves="4" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter><filter id="sa-edge" x="-15%" y="-15%" width="130%" height="130%"><feTurbulence type="fractalNoise" baseFrequency="0.5" numOctaves="3" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" xChannelSelector="R" yChannelSelector="G"/><feGaussianBlur stdDeviation="0.25"/></filter><pattern id="sa-mow" width="4.5" height="4.5" patternUnits="userSpaceOnUse" patternTransform="rotate(28)"><rect width="4.5" height="4.5" fill="#000" fill-opacity="0"/><rect width="2.25" height="4.5" fill="#fff" fill-opacity="0.038"/></pattern><radialGradient id="sa-vig" cx="50%" cy="46%" r="72%"><stop offset="62%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.34"/></radialGradient><clipPath id="sa-turfclip"><path d="M8 26 C14 14 30 9 44 12 C56 14 62 20 60 27 C58 35 44 38 30 37 C18 36 6 34 8 26Z"/><path d="M54 24 C62 17 78 18 84 26 C90 34 86 46 76 49 C64 52 54 46 52 38 C51 32 51 27 54 24Z"/><path d="M20 58 C32 51 56 50 72 55 C82 58 84 66 76 70 C62 76 34 76 22 70 C15 66 15 61 20 58Z"/><path d="M6 68 C16 62 32 64 37 72 C42 81 36 92 24 94 C12 96 3 89 3 80 C3 74 3 71 6 68Z"/><path d="M66 60 C78 56 92 62 93 72 C94 84 84 92 74 90 C64 88 60 78 61 70 C62 65 63 62 66 60Z"/></clipPath></defs><rect width="100" height="100" fill="#1F2B1C"/><g filter="url(#sa-canopy)" opacity="0.9"><path d="M0 0 H100 V13 C82 19 60 8 40 15 C24 21 10 18 0 22Z" fill="#16200F"/><path d="M0 84 C12 79 22 88 34 92 C48 97 70 94 86 97 C93 98 97 99 100 100 H0Z" fill="#16200F"/><path d="M92 20 C98 24 99 40 96 54 C94 64 99 74 100 80 V14Z" fill="#16200F"/></g><g filter="url(#sa-edge)"><path d="M8 26 C14 14 30 9 44 12 C56 14 62 20 60 27 C58 35 44 38 30 37 C18 36 6 34 8 26Z" fill="#4E6A38"/><path d="M54 24 C62 17 78 18 84 26 C90 34 86 46 76 49 C64 52 54 46 52 38 C51 32 51 27 54 24Z" fill="#52703B"/><path d="M20 58 C32 51 56 50 72 55 C82 58 84 66 76 70 C62 76 34 76 22 70 C15 66 15 61 20 58Z" fill="#4E6A38"/><path d="M6 68 C16 62 32 64 37 72 C42 81 36 92 24 94 C12 96 3 89 3 80 C3 74 3 71 6 68Z" fill="#476133"/><path d="M66 60 C78 56 92 62 93 72 C94 84 84 92 74 90 C64 88 60 78 61 70 C62 65 63 62 66 60Z" fill="#476133"/></g><g clip-path="url(#sa-turfclip)"><rect width="100" height="100" fill="url(#sa-mow)"/></g><g filter="url(#sa-edge)"><ellipse cx="31" cy="21" rx="7" ry="4.6" fill="#688747"/><ellipse cx="70" cy="33" rx="6" ry="5" fill="#688747"/><ellipse cx="47" cy="62" rx="7.5" ry="4.2" fill="#688747"/><ellipse cx="22" cy="78" rx="5.6" ry="4.6" fill="#688747"/><ellipse cx="79" cy="74" rx="5.2" ry="5" fill="#688747"/></g><g filter="url(#sa-edge)"><path d="M14 38 C17 35 22 36 23 39 C24 43 19 45 16 44 C13 43 12 40 14 38Z" fill="#C8B68E"/><path d="M71 20 C74 17 79 18 80 21 C81 24 77 26 74 25 C71 24 70 22 71 20Z" fill="#C8B68E"/><path d="M60 52 C63 50 67 51 67 54 C67 57 63 58 61 56 C59 55 58 53 60 52Z" fill="#C8B68E"/></g><path d="M55 82 C62 78 72 79 74 84 C76 90 68 94 60 92 C53 90 50 85 55 82Z" fill="#33566E" filter="url(#sa-edge)"/><path d="M55 82 C62 78 72 79 74 84" fill="none" stroke="#7FA8B8" stroke-opacity="0.35" stroke-width="0.5"/><path d="M2 14 C18 24 30 30 44 34 C58 38 62 48 58 58 C54 68 40 74 30 84 C24 90 20 96 18 100" fill="none" stroke="#D8D2C4" stroke-opacity="0.22" stroke-width="0.7"/><rect width="100" height="100" filter="url(#sa-turf)" opacity="0.3" style="mix-blend-mode:overlay"/><rect width="100" height="100" fill="url(#sa-vig)"/></svg>';
+
 export function transformApp(src) {
   let s = src;
 
@@ -199,6 +203,36 @@ export function transformApp(src) {
     name: 'map legend band 2 default',
     pattern: /6-16%/,
     replace: '6-19%',
+  });
+
+  // The map read as flat shapes on a flat field: a solid #2E3D2A rectangle under eight
+  // radial-gradient ellipses at 0.55 opacity. The product's map is Leaflet over Google satellite
+  // imagery, so the figure was not stylised — it was a different kind of picture entirely, and the
+  // first thing a reader compares against their own screen is the map.
+  //
+  // What it is NOT: a screenshot. The real map is a customer's course — their layout, their
+  // station coordinates, their readings — and this repository is public. It is also Google's
+  // imagery, which may not be redistributed, and the build asserts zero external origins so live
+  // tiles are not an option either. Drawing an aerial rather than capturing one satisfies all
+  // three without asking anyone's permission.
+  //
+  // Everything here is deterministic SVG with a fixed turbulence seed: organic turf outlines
+  // instead of ellipses, fractal noise for grass mottling, mown stripes clipped to the turf,
+  // tree canopy pushed to the frame edges, soft bunker and water shapes, a cart path, and a
+  // vignette. No text nodes anywhere in it — a label here would enter the screen inventory as a
+  // product string the product does not have.
+  //
+  // The fairway centres are kept where they were, so the 24 pins still sit on turf.
+  s = edit(s, {
+    name: 'map ground: flat gradient ellipses become a drawn aerial',
+    pattern: /<div style="position:absolute;inset:0;opacity:0\.55;background:radial-gradient\([^"]*"><\/div>/,
+    replace: MAP_AERIAL,
+  });
+
+  s = edit(s, {
+    name: 'map base colour under the drawn aerial',
+    pattern: /<div style="position:absolute;inset:0;background:#2E3D2A"><\/div>/,
+    replace: '<div style="position:absolute;inset:0;background:#1F2B1C"></div>',
   });
 
   s = edit(s, {
