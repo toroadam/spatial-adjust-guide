@@ -119,7 +119,9 @@
     var cur = loc.meta();
     document.querySelectorAll('.' + ROOT_CLASS).forEach(function (wrap) {
       var btn = wrap.querySelector('.lsa-lang-btn');
+      var flag = btn && btn.querySelector('.lsa-lang-flag');
       var name = wrap.querySelector('.lsa-lang-name');
+      if (flag) flag.textContent = cur.flag;
       if (name) name.textContent = cur.nativeName;
       // The language is in the name as text, never carried by the flag alone.
       if (btn) btn.setAttribute('aria-label', 'Language: ' + cur.nativeName);

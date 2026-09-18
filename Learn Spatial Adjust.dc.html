@@ -1065,8 +1065,16 @@ const CATEGORIES = [
   { title: 'Getting Started', blurb: 'What the feature does and how the screen is laid out.', terms: 'getting started map vwc moisture scan turfrad lynx intellidash route dashboard layers variance', tasks: [
     { key: 'dashboard-overview', title: 'Dashboard overview', minutes: '4 MIN', difficulty: 1, summary: 'The four regions of the screen and what each one is telling you.' },
     { key: 'understand-spatial-adjust', title: 'Understand Spatial Adjust', minutes: '3 MIN', difficulty: 1, summary: 'Where moisture scans come from and what the feature does with them.' },
-    { key: 'map-navigation', title: 'Map navigation', minutes: '3 MIN', difficulty: 1, summary: 'Pan, zoom, layers, and switching between moisture and variance.' },
-    { key: 'understanding-vwc', title: 'Understanding VWC', minutes: '4 MIN', difficulty: 2, summary: 'Measured, modelled and target volumetric water content.' }
+    { key: 'map-navigation', title: 'Map navigation', minutes: '3 MIN', difficulty: 1, summary: 'Pan, zoom, layers, and switching between moisture and variance.' }
+  ]},
+  { title: 'Targets', blurb: 'What targets mean, and how to set and manage them.', terms: 'target vwc profile seasonal apply create update bulk adjust shift replace station', tasks: [
+    { key: 'understanding-vwc', title: 'Understanding VWC', minutes: '4 MIN', difficulty: 2, summary: 'Measured, modelled and target volumetric water content.' },
+    { key: 'editing-station-targets', title: 'Editing station targets', minutes: '3 MIN', difficulty: 1, summary: 'Change one station\u2019s Target VWC and see the effect.' },
+    { key: 'bulk-adjustments', title: 'Apply a bulk adjustment', minutes: '2 MIN', difficulty: 2, summary: 'Replace or shift the targets of many stations at once.' },
+    { key: 'target-profiles', title: 'Apply a target profile', minutes: '2 MIN', difficulty: 1, summary: 'Switch the whole course between saved strategies.' },
+    { key: 'creating-profiles', title: 'Creating profiles', minutes: '3 MIN', difficulty: 2, summary: 'Capture the current targets under a name.' },
+    { key: 'updating-profiles', title: 'Updating profiles', minutes: '2 MIN', difficulty: 2, summary: 'Amend a profile without reapplying it.' },
+    { key: 'seasonal-profiles', title: 'Managing seasonal profiles', minutes: '4 MIN', difficulty: 2, summary: 'A profile per season and per event.' }
   ]},
   { title: 'Calculations', blurb: 'The inputs that decide every suggested percentage.', terms: 'threshold minimum max amount reference crop coefficient algorithm simple et units imperial metric language preferences 333', tasks: [
     { key: 'minimum-threshold', title: 'Set a minimum threshold', minutes: '3 MIN', difficulty: 2, summary: 'Keep trivial adjustments from reaching Lynx.' },
@@ -1074,15 +1082,7 @@ const CATEGORIES = [
     { key: 'calculation-methods', title: 'Calculation methods', minutes: '5 MIN', difficulty: 3, summary: 'How the two available algorithms differ.' },
     { key: 'preferences', title: 'Preferences', minutes: '2 MIN', difficulty: 1, summary: 'Language, units, temperature scale and number formatting.' }
   ]},
-  { title: 'Target Profiles', blurb: 'Concept — saved sets of station targets.', terms: 'profile summer seasonal tournament overseed target concept apply create update', tasks: [
-    { key: 'target-profiles', title: 'Apply a target profile', minutes: '2 MIN', difficulty: 1, summary: 'Switch the whole course between saved strategies.' },
-    { key: 'creating-profiles', title: 'Creating profiles', minutes: '3 MIN', difficulty: 2, summary: 'Capture the current targets under a name.' },
-    { key: 'updating-profiles', title: 'Updating profiles', minutes: '2 MIN', difficulty: 2, summary: 'Amend a profile without reapplying it.' },
-    { key: 'seasonal-profiles', title: 'Managing seasonal profiles', minutes: '4 MIN', difficulty: 2, summary: 'A profile per season and per event.' }
-  ]},
-  { title: 'Station Management', blurb: 'Editing targets and enabling stations.', terms: 'bulk adjust shift replace enable disable cascade sprinkler station details target vwc', tasks: [
-    { key: 'bulk-adjustments', title: 'Apply a bulk adjustment', minutes: '2 MIN', difficulty: 2, summary: 'Replace or shift the targets of many stations at once.' },
-    { key: 'editing-station-targets', title: 'Editing station targets', minutes: '3 MIN', difficulty: 1, summary: 'Change one station\u2019s Target VWC and see the effect.' },
+  { title: 'Station Management', blurb: 'Managing station state and detail rows.', terms: 'enable disable cascade sprinkler station details', tasks: [
     { key: 'enable-disable-stations', title: 'Enable and disable stations', minutes: '2 MIN', difficulty: 1, summary: 'Cascading enable state across areas, holes and stations.' },
     { key: 'station-details', title: 'Station details', minutes: '3 MIN', difficulty: 2, summary: 'Per-sprinkler readings under a multi-head station.' }
   ]},
