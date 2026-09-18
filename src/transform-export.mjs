@@ -312,6 +312,80 @@ export function transformGuide(src) {
       + 'That hold releases at midnight where the course is, not 24 hours after the push.',
   });
 
+  // 12. "Verify results" teaches the four push phases in the wrong order, and opens on the one
+  //     that is wrong. Its first step is titled "It reads Lynx first" and its body begins
+  //     "Before writing anything". The product writes first:
+  //
+  //       sa-main-toolbar.component.ts:266   onPushChanges() -> processItemsWithDelay(...)
+  //                                          no read of any kind precedes it
+  //       sa-push-changes.service.ts:134     progressInfo starts at step: PushChangesStep.Pushing
+  //       sa-push-changes.service.ts:161-168 the push loop's own complete: handler is what emits
+  //                                          PushChangesStep.Fetching and then calls
+  //                                          requestSpatialAdjustData() — AFTER every station
+  //
+  //     So retrieving is phase two, and it is a read-BACK, not a baseline read. The guide's
+  //     account is not merely misordered, it misstates the purpose of the phase: there is nothing
+  //     to "compare against afterwards" because the comparison happens moments later, against the
+  //     values just written. The first two steps swap places and their phase numbers with them;
+  //     three, four and five keep the numbers they had, so the sequence now reads
+  //     write -> read back -> compare -> retry.
+  //
+  //     The reproduction encoded the same error as a number: it drew the retrieving phase at 12%,
+  //     which is what a phase-one read would show. It is 88%. Corrected in src/transform-app.mjs
+  //     under "push progress: invented phase percentages become the computed ones", in the same
+  //     pass, because a corrected caption beside an uncorrected figure is the failure this whole
+  //     exercise exists to prevent.
+  //
+  //     The "slowest phase" claim moves with the correction rather than being dropped. It is true
+  //     of writing and was never established for the read: the push loop delays 100ms between
+  //     stations (sa-main-toolbar.component.ts:266), so the write phase alone costs at least
+  //     stationCount * 100ms, and on a 148-station course that is fifteen seconds of floor.
+  s = edit(s, {
+    name: 'verify-results push phase order',
+    pattern: /\{ title: 'It reads Lynx first', fig: 'dlgMid', dialog: 'progress', pushState: 'fetching',\n(\s*)body: 'Before writing anything, Spatial Adjust retrieves the current percent adjustments from Lynx so it has something to compare against afterwards\. On a large course this is the slowest phase\.',\n\s*caption: 'Phase one: retrieving current values for comparison\.' \},\n\s*\{ title: 'Then it writes, station by station', fig: 'dlgMid', dialog: 'progress', pushState: 'running',\n\s*body: 'Stations are written in sequence with a short pause between each, and the progress line names which one it is on\. A stalled counter here means the connection, not the calculation\.',\n\s*caption: 'Phase two: writing, four of six\.' \},/,
+    replace: (_m, i) =>
+      `{ title: 'It writes first, station by station', fig: 'dlgMid', dialog: 'progress', pushState: 'running',\n`
+      + `${i}body: 'Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on. On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation.',\n`
+      + `${i}caption: 'Phase one: writing, four of six.' },\n`
+      + `${i.slice(0, -2)}{ title: 'Then it reads Lynx back', fig: 'dlgMid', dialog: 'progress', pushState: 'fetching',\n`
+      + `${i}body: 'With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx. This is a read-back, not a baseline — it is collecting what Lynx actually holds now so the next phase has something to check the push against.',\n`
+      + `${i}caption: 'Phase two: reading back what Lynx now holds.' },`,
+  });
+
+  //     The remaining two captions carry phase numbers that the swap above does not touch, so
+  //     they are correct already — three is still comparing, four is still retrying. What is
+  //     missing from four is the progress bar's behaviour, which is the most alarming thing in
+  //     the whole sequence and is nowhere in the corpus:
+  //
+  //       sa-push-changes.service.ts:92-94
+  //         this.currentStepCount = 0;
+  //         this.calculateTotalSteps(unchangedStations.length);
+  //         this.updateProgressPercent(this.currentStepCount, PushChangesStep.Retrying, ...);
+  //
+  //     The bar does not resume from 99% — it resets to 0% and the total is recomputed for the
+  //     failed stations alone. A reader who has just watched a push reach 99% sees it collapse to
+  //     zero, and the guide's own reassurance that a retry "is information rather than an error"
+  //     is precisely what that reader will stop believing. Saying so is the difference between
+  //     the reassurance landing and reading as false.
+  s = edit(s, {
+    name: 'retry resets the progress bar',
+    pattern: /so a retry is information rather than an error\./,
+    replace: 'so a retry is information rather than an error. '
+      + 'The bar restarts at zero for the retry pass and counts only the failed stations, '
+      + 'so a drop from nearly complete back to nothing is the retry beginning, not the push collapsing.',
+  });
+
+  //     "Push failures" shows the same retry figure one step after telling the reader that four
+  //     of six stations are already live, so it hits the zero bar with even less warning. It gets
+  //     the fact in its caption rather than a second copy of the explanation, because its own
+  //     `next` list sends the reader to "Verify results" for the phase-by-phase account.
+  s = edit(s, {
+    name: 'push-failures retry caption states the reset',
+    pattern: /caption: 'The automatic retry pass, before the failure is reported\.' \},/,
+    replace: "caption: 'The automatic retry pass, before the failure is reported. "
+      + "The bar restarts at zero and counts only the stations being retried.' },",
+  });
+
   // --- two guides for features the corpus never covered ------------------------
   // An audit of IntelliDash's 108 user-facing Spatial Adjust strings against the 24 guides found
   // four features with no coverage. Two of them are covered here. Both were previously

@@ -318,6 +318,26 @@ Where a screen label collides with a guide string (currently just "Apply to all"
 wording wins: it is the button the reader actually clicks. Compounds are regenerated from it so the
 step list and the step heading cannot disagree.
 
+**A prose correction is a translation job, and the six-string case is the common one.**
+Catalogues are keyed on the exact English, so editing a sentence orphans its ten translations
+silently — the runtime finds no key and paints English. `scripts/translate.mjs` computes its
+`todo` as the source keys with no fragment yet, which for an empty `.translate/<locale>/` is all
+972 strings: the right behaviour for a new locale, and entirely the wrong one after a six-word fix.
+
+`scripts/seed-translate-fragments.mjs` closes that gap. It seeds `.translate/<locale>/` from the
+catalogue already in `src/i18n/`, keeping every key the source still asks for and dropping the ones
+whose English has moved on, so `todo` resolves to exactly the strings that changed:
+
+```sh
+node scripts/seed-translate-fragments.mjs           # all ten; prints the todo for each
+node scripts/translate.mjs --locale de-de           # de-de: 972 strings, 966 already done, 6 to translate
+node scripts/assemble-locale.mjs de-de .translate/de-de
+```
+
+Dropping the superseded keys is not an optimisation — carrying them would fail
+`assemble-locale.mjs`'s unknown-key check, which is the same guard that stops a partial catalogue
+shipping. `scripts/retranslate-drift.mjs` uses the same seeding trick for its own narrower case.
+
 ### Coverage
 
 | Locale | Catalogue | Coverage |
@@ -548,6 +568,15 @@ worth knowing:
   have to point its figure at an unrelated panel. Covering them properly means extending the
   reproduction in Core Design first. The cursor targets `refresh`, `filterLink`, `tabOver` and
   `tabAll` already exist and are referenced by nothing, which suggests this was always the plan.
+- **Six strings in "Verify results" and "Push failures" are awaiting translation.** Correcting
+  the push phase order changed their English, and the catalogues are keyed on the exact English,
+  so the ten non-English locales render those six in English until the pipeline is re-run. The
+  work is staged, not outstanding: `src/i18n/en-us.json` is re-keyed and still 972, and
+  `.translate/<locale>/` is seeded, so each locale reports "966 already done, 6 to translate".
+  Running it needs `ANTHROPIC_API_KEY` or an `ant auth login` profile. Correct English beside a
+  correct figure was judged better than a fluent translation of the wrong phase order, which is
+  what those ten locales had before.
+
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
 
 ## Two export defaults corrected by transforms
