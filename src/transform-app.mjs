@@ -308,6 +308,101 @@ export function transformApp(src) {
     replace: "h('div', { style: { width: '33%', background: '#FDB034' } }), h('div', { style: { width: '34%', background: '#009EB2' } }), h('div', { style: { width: '33%', background: '#D64E9A' } })",
   });
 
+  // Every row in Push Changes was drawn ticked, including the six under "6 Pushed Today" — and
+  // the dialog carries a banner, three lines above the table, that says they are not:
+  //
+  //   SpatialAdjustApp.dc.html:486
+  //     'Stations pushed today appear unselected in a separate list to prevent double
+  //      adjustments. To adjust one again, simply select it.'
+  //
+  // So the figure contradicted a sentence printed inside the same figure. The product is on the
+  // banner's side:
+  //
+  //   sa-confirm-push-dlg.component.ts:24    this.oldChanges.forEach(s => s.submitChange = false);
+  //   sa-confirm-push-dlg.component.html:132 <i *ngIf="item.submitChange" class="pi pi-check">
+  //
+  // oldChanges are cleared on load and the tick is conditional, so the Pushed Today rows render
+  // empty. This is not cosmetic: the guard against adjusting the same head twice in a day is the
+  // whole reason that section is split out, and a reader who has been shown twelve ticked rows
+  // has been taught that pushing again sends all twelve. "Re-push only the failures" in
+  // push-failures tells them to "untick anything that already went out", which reads as
+  // busywork beside a figure where everything is ticked and as the point beside a correct one.
+  //
+  // row() gains the state as a parameter rather than deriving it, because the two sections are
+  // rendered by the same function and only the call site knows which list it is walking.
+  s = edit(s, {
+    name: 'push dialog: Pushed Today rows are not preselected',
+    pattern: /const row = \(r, key\) => h\('tr', \{ key \},/,
+    replace: "const row = (r, key, checked) => h('tr', { key },",
+  });
+
+  s = edit(s, {
+    name: 'push dialog: row tick follows its section',
+    pattern: /this\.checkbox\(true\)\)\)\);/,
+    replace: 'this.checkbox(checked))));',
+  });
+
+  s = edit(s, {
+    name: 'push dialog: available-to-push rows stay ticked',
+    pattern: /newRows\.map\(\(r, i\) => row\(r, 'n' \+ i\)\)/,
+    replace: "newRows.map((r, i) => row(r, 'n' + i, true))",
+  });
+
+  s = edit(s, {
+    name: 'push dialog: pushed-today rows render unticked',
+    pattern: /oldRows\.map\(\(r, i\) => row\(r, 'o' \+ i\)\)/,
+    replace: "oldRows.map((r, i) => row(r, 'o' + i, false))",
+  });
+
+  // The push progress bar showed four percentages, and all four were invented. They are not
+  // decoration: "Verify results" is a five-step guide whose entire subject is the four phases,
+  // and the bar is the only thing in the figure that changes between its steps.
+  //
+  // IntelliDash computes the number, it does not choose it:
+  //
+  //   sa-push-changes.service.ts:195
+  //     this.progressInfo.percentComplete = Math.round(processedCount / this.totalProcessSteps * 100);
+  //
+  //   :218  stepsForVerification = max(1, round(n * .05))
+  //   :220  totalProcessSteps    = n + stepsForVerification + stepsForRetry
+  //
+  // The reproduction's scenario is six stations ("Push 6 Changes", "4 of 6", "2 station(s)"), so
+  // n=6 gives stepsForVerification=1, stepsForRetry=1 and totalProcessSteps=8. Every phase falls
+  // out of that:
+  //
+  //   pushing, 4 of 6   currentStepCount 4          round(4/8*100)  = 50   (was 64)
+  //   retrieving        6 + round(1/2) = 7          round(7/8*100)  = 88   (was 12)
+  //   verifying         7 + round(1/2) = 8          100, clamped    = 99   (was 82)
+  //   retrying          reset to 0 (see below)                      = 0    (was 46)
+  //
+  // THE 12 IS THE INTERESTING ONE, because it is not a typo — it encodes a wrong mental model of
+  // the push, and the guide prose encodes the same one. "It reads Lynx first / Before writing
+  // anything" is how "Verify results" opens, and 12% is what you would draw if you believed it.
+  // The product does the opposite: onPushChanges goes straight to processItemsWithDelay with no
+  // prior read (sa-main-toolbar.component.ts:266), progressInfo is constructed with
+  // step: PushChangesStep.Pushing (:134), and the only requestSpatialAdjustData() in the push
+  // path fires from the push loop's own complete: handler (:168) — AFTER every station is
+  // written. Retrieving is phase two of four, not phase one, which is exactly why it sits at 88.
+  // The prose is corrected alongside this as transform 12 in src/transform-export.mjs; correcting
+  // one without the other would leave a figure contradicting its own caption.
+  //
+  // The 0 is the second finding. On a retry the bar does not resume — it RESETS:
+  //
+  //   :92   this.currentStepCount = 0;
+  //   :93   this.calculateTotalSteps(unchangedStations.length);
+  //   :94   this.updateProgressPercent(this.currentStepCount, PushChangesStep.Retrying, ...);
+  //
+  // A superintendent watching a push reach 99% and drop to 0% will read that as the whole run
+  // collapsing, when the product is retrying two stations out of six and the guide correctly
+  // says a retry "is information rather than an error". Drawing it at 46% hid the one moment in
+  // the sequence a reader most needs to have been warned about.
+  s = edit(s, {
+    name: 'push progress: invented phase percentages become the computed ones',
+    pattern: /fetching: \[12, ('Retrieving latest Percent Adjustments from Lynx for comparison')\],\n(\s*)running: \[64, ('Pushing Percent Adjustments to Lynx \(4 of 6\)')\],\n\s*verifying: \[82, ('Verifying adjustments sent to Lynx')\],\n\s*retry: \[46, ('Push Changes failed for 2 station\(s\)\. Retrying')\]/,
+    replace: (_m, retrieving, indent, pushing, verifying, retrying) =>
+      `fetching: [88, ${retrieving}],\n${indent}running: [50, ${pushing}],\n${indent}verifying: [99, ${verifying}],\n${indent}retry: [0, ${retrying}]`,
+  });
+
   // The reproduced algorithm dropdown still rendered the ENUM NAME. Transform 1 in
   // src/transform-export.mjs fixed this in the prose — "the guide calls the two methods Simple
   // and the default method, which are the enum names; a reader hunting the dropdown for Simple

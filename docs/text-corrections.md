@@ -186,6 +186,116 @@ Worth flagging separately: `SPATIAL_ADJUST.PUSHED_IN_LAST_N` — **"Pushed in la
 present in all eleven IntelliDash catalogues and referenced by no code. If it is ever wired up it
 will state the wrong rule.
 
+## 6. The four push phases were taught in the wrong order
+
+**Claimed:** *"It reads Lynx first ... Before writing anything, Spatial Adjust retrieves the
+current percent adjustments from Lynx so it has something to compare against afterwards."* —
+`verify-results`, step 1 of 5, captioned "Phase one: retrieving current values for comparison."
+
+**Actual:** it writes first. Nothing is read before the push begins.
+
+```ts
+// sa-main-toolbar.component.ts:266 — the push button handler, in full, after the guards
+this.saPushChangesService.processItemsWithDelay(pendingChanges, 100);
+
+// sa-push-changes.service.ts:134 — the first progress event the dialog ever receives
+this.progressInfo = new SaPushProgressInfo({
+    step: PushChangesStep.Pushing,
+    percentComplete: 0,
+    ...
+});
+
+// sa-push-changes.service.ts:161-168 — Fetching is emitted by the push loop's own
+// complete: handler, i.e. after every station has been written
+complete: () => {
+    this.currentStepCount += Math.round(this.stepsForVerification / 2)
+    this.updateProgressPercent(this.currentStepCount, PushChangesStep.Fetching);
+    setTimeout(() => {
+        this.lynxProxyService.requestSpatialAdjustData();
+```
+
+The real order is **write → read back → compare → retry**. The guide also misstated the
+*purpose* of the retrieve: there is nothing to "compare against afterwards", because the
+comparison happens seconds later against the values just written. It is a read-back, not a
+baseline.
+
+**Correction:** the first two steps are swapped and renumbered in `src/transform-export.mjs` as
+transform 12. The "slowest phase" remark moves to the write phase rather than being dropped — the
+push loop delays 100 ms between stations, so writing alone costs at least `stationCount × 100 ms`,
+about fifteen seconds on a 148-station course.
+
+**The reproduction carried the same error as a number.** `SpatialAdjustApp.dc.html:507` drew the
+retrieving phase at **12%** — which is what a phase-one read would show. IntelliDash computes it:
+
+```ts
+// sa-push-changes.service.ts:195
+this.progressInfo.percentComplete = Math.round(processedCount / this.totalProcessSteps * 100);
+// :218  stepsForVerification = max(1, round(n * .05))
+// :220  totalProcessSteps    = n + stepsForVerification + stepsForRetry
+```
+
+The reproduction's scenario is six stations, so `totalProcessSteps` is 8 and every phase follows:
+
+| Phase | Steps counted | Real | Reproduction drew |
+|---|---|---|---|
+| Pushing, 4 of 6 | 4 / 8 | **50%** | 64% |
+| Retrieving | 6 + round(1/2) = 7 / 8 | **88%** | 12% |
+| Verifying | 8 / 8, clamped at `:197` | **99%** | 82% |
+| Retrying | reset to 0 | **0%** | 46% |
+
+Corrected in `src/transform-app.mjs` in the same pass. Fixing the caption without the figure
+would have left a step whose picture contradicts its own words.
+
+## 7. The progress bar resets to zero on a retry, and no guide said so
+
+**Claimed:** nothing — this is an omission, not a wrong sentence. `verify-results` step 4 says a
+retry "is information rather than an error", and stops there.
+
+**Actual:** the bar does not resume from 99%. It restarts at zero and recomputes its total for the
+failed stations alone.
+
+```ts
+// sa-push-changes.service.ts:92-94
+this.currentStepCount = 0;
+this.calculateTotalSteps(unchangedStations.length);
+this.updateProgressPercent(this.currentStepCount, PushChangesStep.Retrying, unchangedStations);
+```
+
+A superintendent who has watched a push climb to 99% sees it collapse to 0%. That is the moment
+the guide's reassurance is tested, and an unexplained collapse is exactly what makes a reader stop
+believing it. One sentence added as transform 12's second edit.
+
+## 8. The push dialog drew twelve ticked rows beside a banner saying six were not
+
+**Claimed:** the figure. Every row in Push Changes rendered ticked, in both sections.
+
+**Contradicted by the same figure.** Three lines above the table, in the dialog's own info banner:
+
+> Stations pushed today appear unselected in a separate list to prevent double adjustments.
+> To adjust one again, simply select it.
+
+**Actual:** the product clears them on load, and the tick is conditional.
+
+```ts
+// sa-confirm-push-dlg.component.ts:24
+this.oldChanges.forEach(s => s.submitChange = false);
+```
+
+```html
+<!-- sa-confirm-push-dlg.component.html:132 -->
+<span class="checkmark"><i *ngIf="item.submitChange" class="pi pi-check checkmark-icon"></i></span>
+```
+
+The split into two sections exists to stop a head being adjusted twice in a day — the same guard
+section 5 above is about. A reader shown twelve ticked rows has been taught that pushing again
+sends all twelve. It also makes nonsense of `push-failures`, which tells them to "untick anything
+that already went out": busywork beside a figure where everything is ticked, and the point beside
+a correct one.
+
+**Correction:** `row()` takes the ticked state from its call site in `src/transform-app.mjs`, so
+the Available to Push rows stay ticked and the Pushed Today rows render empty. No prose changed,
+so no catalogue key moved.
+
 ## Checked and found correct — no change made
 
 **Push recovery.** The guides say Spatial Adjust re-reads the station list, compares each
