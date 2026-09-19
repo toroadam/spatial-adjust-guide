@@ -308,6 +308,89 @@ export function transformApp(src) {
     replace: "h('div', { style: { width: '33%', background: '#FDB034' } }), h('div', { style: { width: '34%', background: '#009EB2' } }), h('div', { style: { width: '33%', background: '#D64E9A' } })",
   });
 
+  // The estimated-value marker was half-drawn: the reproduction dims and italicises the number
+  // but never draws the icon that sits beside it, in any of the three places the table renders
+  // one. The criterion on PERS-344 reads "calculator icons replace the mock's grey italics" and
+  // that is not what the product does — GREY ITALICS ARE CORRECT, the icon is additional:
+  //
+  //   sa-table-card.component.less:107   &.sa-vwc-estimated { color: darkgray; font-style: italic; }
+  //   sa-table-card.component.html:31    <fa-icon *ngIf="..." icon="calculator"></fa-icon>
+  //
+  // Both are applied to the same cell, so nothing is being replaced and the existing styling is
+  // left alone. What matters is that the icon is the only marker carried into the push dialog
+  // (sa-confirm-push-dlg.component.html:81 and :117), where there is no dimming at all — so a
+  // reader who has only ever seen italics has not been shown the thing they must recognise at
+  // the one moment it decides whether they push an estimate to the course.
+  //
+  // PARENT ROWS DIFFER FROM STATION ROWS, and the reproduction had them the same. The two classes
+  // are applied on different conditions (sa-table-card.component.html:29): sa-vwc-estimated on
+  // tableItem?.isEstimated, sa-parent on hasEstimatedChildren || someStationPairIsEstimated, and
+  // sa-parent styles only the fa-icon (less:112-115), never the number. An Area or Hole row is an
+  // aggregate — its own reading cannot be estimated, only its children's — so it shows a normal
+  // number with a grey icon, not a grey italic number. areaAgg() hardcodes est: true, so the
+  // reproduction was dimming a figure the product prints plainly.
+  //
+  // The glyph is drawn rather than borrowed. FontAwesome is not bundled, the build asserts zero
+  // external origins, and copying a Font Awesome Free path carries a CC BY attribution
+  // requirement this repository has nowhere sensible to honour. It is a shape, not a likeness.
+  s = edit(s, {
+    name: 'estimated marker: a drawn calculator glyph',
+    pattern: /(\n  aggRows\(items\) \{)/,
+    replace: `
+  // Marks a reading the algorithm modelled rather than measured. \`dim\` is the sa-parent case:
+  // the icon greys but the number it sits beside does not.
+  calcIcon(dim) {
+    return h('svg', { viewBox: '0 0 12 16', width: '9', height: '12', 'aria-hidden': 'true', focusable: 'false',
+      style: { flex: 'none', color: dim ? 'darkgray' : 'inherit' } },
+      h('rect', { x: 0.6, y: 0.6, width: 10.8, height: 14.8, rx: 1.6, fill: 'none', stroke: 'currentColor', strokeWidth: 1.2 }),
+      h('rect', { x: 2.6, y: 2.6, width: 6.8, height: 3, rx: 0.6, fill: 'currentColor' }),
+      [0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => h('circle', { key: i, cx: 3 + (i % 3) * 3, cy: 8.4 + Math.floor(i / 3) * 2.6, r: 0.85, fill: 'currentColor' })));
+  }
+$1`,
+  });
+
+  // Area and Hole rows: aggregates, so the number is printed plainly and only the icon greys.
+  s = edit(s, {
+    name: 'estimated marker: aggregate rows get the icon, not the italics',
+    pattern: /gap: '4px', color: it\.est \? 'darkgray' : 'inherit' \} \},\n(\s*)h\('span', \{ style: \{ fontStyle: it\.est \? 'italic' : 'normal' \} \}, it\.vwc\.toFixed\(1\) \+ '%'\)\)/,
+    replace: (_m, i) =>
+      `gap: '4px' } },\n${i}h('span', null, it.vwc.toFixed(1) + '%'), it.est ? this.calcIcon(true) : null)`,
+  });
+
+  // Sprinkler rows: a real reading of their own, so they keep the dimming and gain the icon.
+  s = edit(s, {
+    name: 'estimated marker: sprinkler rows',
+    pattern: /(color: k\[2\] \? 'darkgray' : 'inherit', fontStyle: k\[2\] \? 'italic' : 'normal' \} \},\n\s*)k\[0\]\.toFixed\(1\) \+ '%'\)/,
+    replace: "$1k[0].toFixed(1) + '%', k[2] ? this.calcIcon(false) : null)",
+  });
+
+  // Station rows: same, and they need the gap the other two cells already had.
+  s = edit(s, {
+    name: 'estimated marker: station rows',
+    pattern: /alignItems: 'center', color: s\.est \? 'darkgray' : 'inherit', fontStyle: s\.est \? 'italic' : 'normal' \} \}, s\.vwc\.toFixed\(1\) \+ '%'\)/,
+    replace: "alignItems: 'center', gap: '4px', color: s.est ? 'darkgray' : 'inherit', fontStyle: s.est ? 'italic' : 'normal' } }, s.vwc.toFixed(1) + '%', s.est ? this.calcIcon(false) : null)",
+  });
+
+  // The push icon was drawn on every station row. The product gates it on the station being
+  // enabled (sa-table-card.component.html:51):
+  //
+  //   <img *ngIf="isEnabled && pushIcon && !(saShowCurrentOnly && !isScanCurrent && !isEstimated)"
+  //
+  // The reproduction's `on` is that enabled state — it is what the row's toggle renders — and
+  // 5AP1 ships disabled, so exactly one row was claiming a disabled station had something
+  // waiting to go to Lynx. That is the row "Enable and disable stations" exists to talk about.
+  //
+  // Only the isEnabled clause is reproduced. The third clause turns on environment.saShowCurrentOnly
+  // and swaps the whole adjust input for a "--" placeholder, and nothing in this repository
+  // establishes that flag's production value — reproducing a branch on a guess would put a
+  // control on screen that may not be there, which is the failure this transform file exists to
+  // prevent.
+  s = edit(s, {
+    name: 'push icon follows the station enabled state',
+    pattern: /h\('img', \{ src: 'assets\/sa\/' \+ \(s\.pushed \? 'pushed_ico\.png' : 'push_ico\.png'\), alt: '', style: \{ position: 'absolute', right: '20px', top: '9px', height: '15px', zIndex: 1 \} \}\)/,
+    replace: "s.on ? h('img', { src: 'assets/sa/' + (s.pushed ? 'pushed_ico.png' : 'push_ico.png'), alt: '', style: { position: 'absolute', right: '20px', top: '9px', height: '15px', zIndex: 1 } }) : null",
+  });
+
   // Every row in Push Changes was drawn ticked, including the six under "6 Pushed Today" — and
   // the dialog carries a banner, three lines above the table, that says they are not:
   //
