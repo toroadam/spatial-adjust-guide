@@ -296,6 +296,74 @@ a correct one.
 the Available to Push rows stay ticked and the Pushed Today rows render empty. No prose changed,
 so no catalogue key moved.
 
+## 9. The estimated-value marker was half-drawn, and the audit described it backwards
+
+**Claimed** by the audit finding, not by the guides: *"calculator icons replace the mock's grey
+italics."*
+
+**Actual:** nothing is replaced. The product applies **both**, to the same cell.
+
+```less
+// sa-table-card.component.less:107
+&.sa-vwc-estimated { color: darkgray; font-style: italic; }
+```
+
+```html
+<!-- sa-table-card.component.html:29-31 -->
+<div id="sa-avg-vwc" [ngClass]="{'sa-vwc-estimated': tableItem?.isEstimated,
+                                 'sa-parent': tableItem?.hasEstimatedChildren || someStationPairIsEstimated}">
+    {{ avgVwc }}<span>%</span>
+    <fa-icon *ngIf="tableItem?.isEstimated || tableItem?.hasEstimatedChildren || someStationPairIsEstimated"
+             icon="calculator"></fa-icon>
+</div>
+```
+
+So the reproduction's grey italics were right all along and the icon was simply missing, in all
+three places the table draws one. That matters because **the icon is the only marker carried into
+the push dialog** (`sa-confirm-push-dlg.component.html:81` and `:117`), where there is no dimming
+at all — a reader who has only ever been shown italics has not been shown the thing they have to
+recognise at the one moment it decides whether they push a modelled value to the course.
+
+**Parent rows differ from station rows, and the reproduction had them identical.** The two classes
+are applied on different conditions, and `sa-parent` styles only the icon, never the number
+(`less:112-115`). An Area or Hole row is an aggregate — its own reading cannot be estimated, only
+its children's — so it renders a **plain number beside a grey icon**. `areaAgg()` hardcodes
+`est: true` and `holeAgg()` sets it when any child station is estimated, so the reproduction was
+dimming and italicising a figure the product prints plainly.
+
+**Correction:** `calcIcon(dim)` added in `src/transform-app.mjs` and called from all three cells,
+with `dim` distinguishing the aggregate case. Verified in the built site: on
+`enable-disable-stations` step 2 the hole-7 row renders `38.5%` at `font-style: normal` in
+`rgb(8,13,18)` beside an icon at `rgb(169,169,169)`; on the station table only `7AP1` carries one.
+The glyph is drawn rather than borrowed — Font Awesome is not bundled, the build asserts zero
+external origins, and a Font Awesome Free path carries a CC BY attribution requirement this
+repository has nowhere sensible to honour.
+
+## 10. The push icon was drawn on disabled stations
+
+**Claimed:** the figure. Every station row drew a push or pushed icon.
+
+**Actual:** the product gates it on the station being enabled.
+
+```html
+<!-- sa-table-card.component.html:51 -->
+<img *ngIf="isEnabled && pushIcon && !(environment.saShowCurrentOnly
+            && !tableItem?.isScanCurrent && !tableItem?.isEstimated)" [src]="..." alt="">
+```
+
+The reproduction's `on` is that enabled state — it is what the row's toggle renders — and `5AP1`
+ships disabled. So exactly one row was telling the reader a disabled station had an adjustment
+waiting to go to Lynx, which is the precise claim `enable-disable-stations` exists to correct.
+
+**Correction:** the icon follows `s.on` in `src/transform-app.mjs`. Verified: of eighteen station
+rows, `5AP1` is now the only one without an icon, and no row carries two.
+
+**Only the `isEnabled` clause is reproduced.** The third clause turns on
+`environment.saShowCurrentOnly` and swaps the whole adjust input for a `--` placeholder. Nothing
+in this repository establishes that flag's production value, and reproducing a branch on a guess
+would put a control on screen that may not be there — the failure the transform layer exists to
+prevent.
+
 ## Checked and found correct — no change made
 
 **Push recovery.** The guides say Spatial Adjust re-reads the station list, compares each
