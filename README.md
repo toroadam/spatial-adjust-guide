@@ -97,7 +97,7 @@ Each guide has its own address (`#/minimum-threshold`), so a guide can be linked
 
 See [`docs/test-protocol.md`](docs/test-protocol.md) for the moderated session plan.
 
-**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `guide_requested`, `search_used`, `feedback_submitted`, `feedback_detailed`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
+**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `search_used`, `feedback_opened`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
 
 By default the transport is **`local`**: events are buffered in `localStorage` and **nothing leaves the device**, which keeps the zero-external-origins property the smoke test enforces. In the browser console:
 
@@ -109,40 +109,46 @@ By default the transport is **`local`**: events are buffered in `localStorage` a
 
 That's sufficient for moderated sessions. **It does not collect from remote users.** For that, set `TRANSPORT = 'beacon'` and `SA_ENDPOINT` at the top of `src/analytics.js`, and add that origin to the allowlist in `scripts/smoke.mjs` — otherwise the smoke test will correctly fail the build for reaching a third party. Choosing that endpoint is an open decision.
 
-**Feedback** (`src/feedback.js`) opens a **prefilled GitHub issue** on the repository that hosts
-the site, with the guide, step, locale and URL already filled in. That is the active destination
-for the pilot, chosen with its costs accepted rather than hidden: the reader needs a GitHub
-account, and the issue is public on a personal repository. In exchange it is a real queue — with
-history, labels, assignment and search — that costs nothing to run.
+**Feedback** (`src/feedback.js`) is a floating **Feedback** button, bottom right, on every page
+once the reader is past the sign-in gate. It opens a small non-modal panel with a **Microsoft
+Form embedded in it**: the reader types and submits inside the panel and never leaves the site.
+The page, step, locale and URL are prefilled into the form, and the panel shows the page and step
+back to the reader. Responses land in an Excel workbook in the form owner's OneDrive — a
+queryable store inside Toro's own tenant, and private, unlike an issue on a public repository.
 
-A **Microsoft Form** stays wired as an optional override: set `FORM.id` (and the six `r<number>`
-prefill ids) at the top of `src/feedback.js` and every submission routes there instead, with no
-other change. Its responses land in an Excel workbook in the form owner's OneDrive — a queryable
-store inside Toro's own tenant, which is the reason it is Forms and not Google Sheets or a
-Cloudflare Function: both of those sit outside the tooling Toro permits, which is what ruled out
-the original hosting plan too.
+**Until a form is configured the button does not appear at all.** A button that opens nothing is
+worse than no button.
 
-"Was this helpful?" sits at the very bottom of the page and attaches the guide and step reached
-automatically. It deliberately does *not* sit beside the step player: that crowded the controls,
-and the sticky "On this page" tracker uses an offset calibrated to that panel. Thumbs-up confirms
-in place; thumbs-down opens a dialog that collects the detail. Activating any unwritten card
-records demand and offers the same dialog.
+Why a form, and why embedded (decided 2026-09-23):
 
-**Configure it in one place:** the `FORM` object at the top of `src/feedback.js`. Empty by default,
-and the feature degrades rather than breaks when it is — the same convention as `NSN.phone` in
-`src/contact.js` and `SIGNIN_LOG_ENDPOINT` in `src/gate.js`. With no form configured the dialog
-still collects, still keeps the draft and still records the event locally; it simply does not open
-a tab, and nothing claims to have been sent that was not.
+- The previous destination was a prefilled GitHub issue opened in a new tab. It sent readers to
+  GitHub, needed an account, and made every comment public on a personal repository.
+- Filing issues directly from the page would need a GitHub token in the page, and the repository
+  is public — anyone could read it and write to the repo. Holding the token needs a relay, which
+  is a server, and the hosts for one were ruled out (see Sign-in gate).
+- Google Sheets and Cloudflare Functions sit outside the tooling Toro permits, which is what
+  ruled out the original hosting plan too.
 
-To fill it in:
+The button replaced a "Was this helpful?" row at the foot of each guide. That row sat below the
+"Next" cards where few readers scroll, its thumbs-up collected a click and nothing else, and the
+catalogue had no way to comment at all. The panel is non-modal so the step being commented on
+stays in view; on phones the button is icon-only and the panel spans the width. Under the form
+is a "Form not loading? Open it in a new tab." link — an escape hatch for browsers that block
+third-party frames, not the path. Activating any unwritten card records demand and opens the same
+panel as a guide request.
 
-1. Create a form at <https://forms.office.com> with six questions, all **text**, in this order:
-   **Kind**, **Guide**, **Step**, **What would have helped**, **Locale**, **URL**. Only *Kind* and
-   *Guide* need to be required; the reader never sees the prefilled ones as blanks to fill.
+**Configure it in one place:** the `FORM` object at the top of `src/feedback.js`.
+
+1. Create a form at <https://forms.office.com>. Set **Who can respond** to **Anyone can respond**
+   — a form restricted to Toro accounts asks for a Microsoft sign-in, which does not work reliably
+   inside a frame. Add six questions, all **text**, in this order:
+   **What was missing, wrong or unclear?** (required — the only one the reader answers), then
+   **Kind**, **Page**, **Step**, **Locale**, **URL**. Putting the comment first means the reader
+   sees it first; the rest arrive already filled in.
 2. **Collect responses → Copy link.** The GUID after `id=` is `FORM.id`.
-3. Open **Prefill answers**, put a recognisable placeholder in each question, and copy that link.
-   Each question appears as `r<number>=placeholder`. Map each number onto the matching key in
-   `FORM.fields` — `kind`, `guide`, `step`, `note`, `locale`, `url`.
+3. Open **Prefill answers**, put a recognisable placeholder in each of the last five questions,
+   and copy that link. Each appears as `r<number>=placeholder`. Map each number onto the matching
+   key in `FORM.fields` — `kind`, `guide` (the Page question), `step`, `locale`, `url`.
 4. Rebuild. Only fields with a configured id are appended, so a half-filled `FORM.fields`
    degrades to a shorter prefill rather than a broken URL.
 
@@ -150,16 +156,15 @@ Those `r<number>` ids are **positional and opaque**: reordering or deleting a qu
 them and silently sends answers into the wrong columns. If the form's questions change, re-read
 the prefill link rather than assuming.
 
-**Drafts survive.** The note is written to `localStorage` on every keystroke under
-`sa.feedback.draft`, restored when the dialog reopens for the same guide, and cleared on send.
-Cancelling, pressing Escape and clicking the backdrop all keep it; only sending discards it. This
-is why the dialog replaced `window.prompt()`, along with two other reasons: prompt text never
-enters the DOM, so it was invisible to the catalogue harvester and shipped English to all eleven
-locales, and its focus behaviour is the browser's rather than ours.
+**What cannot be measured from here.** Submission happens inside the form, on another origin, so
+the site records `feedback_opened` and nothing after it; the form's own response count is the
+other half of that funnel. The form's questions are in whatever language they were written in —
+Microsoft Forms renders its own buttons in the reader's language, but not the question text.
 
-`scripts/instrumentation.mjs` drives the whole path — types a note, cancels, asserts it is in
-storage, reopens, asserts it is restored, sends, and asserts the draft is gone. It does this on a
-*second* guide, because answering on the first replaces that widget with its confirmation.
+`scripts/instrumentation.mjs` injects a stub form (`window.__saFeedbackForm`) and answers every
+`forms.office.com` request locally, then asserts the button appears, the frame is prefilled with
+the page and step, Escape closes the panel and returns focus, and — on a page with no stub — that
+the button is absent.
 
 Note that unwritten cards are **real buttons**, not disabled ones: activating one requests the guide. Marking them `aria-disabled` would contradict the fact that they do something.
 
@@ -429,12 +434,9 @@ right, where neither competes with the brand or the search field for the reader'
 `src/i18n-selector.js` pins the language selector to the end of the row and the contact button
 inserts itself immediately before it.
 
-Header, page content, the "Was this helpful?" block and the footer all share one container —
-1180px with 32px gutters — so every left edge on the page lines up at the same x. The feedback
-widget did not: on a guide it lands inside `<article>` and inherits the content column, but the
-catalogue has no article, so it was appended straight to a full-bleed `<main>` and sat flush against
-the viewport edge while everything else started 162px in. Scoped to `.lsa main > .lsa-helpful` so
-the guide layout is untouched.
+Header, page content and the footer all share one container — 1180px with 32px gutters — so
+every left edge on the page lines up at the same x. The floating Feedback button sits outside that
+grid on purpose, fixed to the bottom-right corner of the viewport.
 
 The footer is a four-column block — **Sections, Support, Product, Legal** — above the copyright
 line. The six section links are buttons rather than anchors: the app owns the hash for its own
@@ -527,7 +529,7 @@ worth knowing:
   | Mixed sentences | 4 | Name a deferred label *and* a mechanical one, so they are held back rather than rewritten as a side effect |
 
 - **The contact modal was shipping in English to all ten non-English locales** — now fixed.
-  `scripts/extract-strings.mjs` drives the contact modal and the feedback dialog before
+  `scripts/extract-strings.mjs` drives the contact modal and the feedback panel before
   harvesting, the way it already opened the language menu, so text that only exists once a dialog
   is open finally reaches the catalogue. That surfaced twelve keys, including the modal's lede and
   its `Email` / `Phone` / `Support portal` row labels, which had never been translated while every
@@ -551,6 +553,9 @@ worth knowing:
   number check is now skipped when the translation *is* IntelliDash's own shipped rendering — the
   same principle as the `_screenStrings` exemption.
 
+- **Feedback is switched off until a Microsoft Form is configured.** The floating button is built
+  and tested, but `FORM.id` in `src/feedback.js` is empty, so the button does not render. See
+  Instrumentation and feedback for the six-question form it expects.
 - **The guide-request dialog's strings cannot be harvested,** so they are absent from the
   catalogue and would render in English. All 26 guides are now written, so no catalogue card
   carries `data-stub="true"` and the dialog is unreachable — the harvester prints a note when it
