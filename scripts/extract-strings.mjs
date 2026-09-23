@@ -137,28 +137,23 @@ for (const key of GUIDES) {
   process.stderr.write(`  ${key}: ${strings.size} unique so far\n`);
 }
 
-// The "Was this helpful?" widget sits at the bottom of a guide, so its dialog can only be
-// opened once a guide is rendered — hence after the loop rather than alongside the catalogue
-// dialogs above. The No path is the one that opens it; Yes stays in page.
+// The Feedback button only exists when a Microsoft Form is configured, and its panel only enters
+// the DOM when the button is pressed — so a stub form is injected and the panel opened here rather
+// than found by the walk above. Requests to the form are answered locally; nothing is posted.
+await page.addInitScript(() => {
+  window.__saFeedbackForm = { id: 'harvest', fields: {} };
+});
+await page.route('https://forms.office.com/**', (r) => r.fulfill({ contentType: 'text/html', body: '' }));
 await page.goto(`${url}/#/${GUIDES[0]}`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1600);
-const noBtn = await page.$('.lsa-helpful-btn[data-v="no"]');
-if (noBtn) {
-  await noBtn.click().catch(() => {});
+const fab = await page.$('.lsa-fb-fab');
+if (fab) {
+  await harvest('chrome');
+  await fab.click().catch(() => {});
   await page.waitForTimeout(300);
   await harvest('chrome');
-  // Escape cancels the dialog without consuming the widget, so the Yes path is still available.
-  // Worth taking: it is the only way the confirmation text enters the DOM.
-  await page.keyboard.press('Escape').catch(() => {});
-  await page.waitForTimeout(200);
-  const yesBtn = await page.$('.lsa-helpful-btn[data-v="yes"]');
-  if (yesBtn) {
-    await yesBtn.click().catch(() => {});
-    await page.waitForTimeout(250);
-    await harvest('chrome');
-  }
 } else {
-  process.stderr.write('  WARNING: feedback dialog not reached — its strings will be absent\n');
+  process.stderr.write('  WARNING: feedback button not found — its strings will be absent\n');
 }
 
 await browser.close();
