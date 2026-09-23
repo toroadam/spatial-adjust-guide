@@ -568,15 +568,6 @@ worth knowing:
   have to point its figure at an unrelated panel. Covering them properly means extending the
   reproduction in Core Design first. The cursor targets `refresh`, `filterLink`, `tabOver` and
   `tabAll` already exist and are referenced by nothing, which suggests this was always the plan.
-- **Six strings in "Verify results" and "Push failures" are awaiting translation.** Correcting
-  the push phase order changed their English, and the catalogues are keyed on the exact English,
-  so the ten non-English locales render those six in English until the pipeline is re-run. The
-  work is staged, not outstanding: `src/i18n/en-us.json` is re-keyed and still 972, and
-  `.translate/<locale>/` is seeded, so each locale reports "966 already done, 6 to translate".
-  Running it needs `ANTHROPIC_API_KEY` or an `ant auth login` profile. Correct English beside a
-  correct figure was judged better than a fluent translation of the wrong phase order, which is
-  what those ten locales had before.
-
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
 
 ## Two export defaults corrected by transforms
