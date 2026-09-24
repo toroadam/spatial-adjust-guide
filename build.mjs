@@ -164,8 +164,25 @@ async function main() {
   // which reads the resolved locale, and i18n-selector, which renders from it. a11y last so it
   // observes a fully wired tree.
   const injectedJs = [];
+  // The feedback endpoint is the Power Automate trigger URL, whose sig= parameter lets anyone
+  // holding it post to the list. The built page has to carry it — a browser cannot post without
+  // it — but the repository does not: it comes from the SA_FEEDBACK_ENDPOINT environment variable,
+  // set from a GitHub Actions secret on deploy. Unset, it is empty and the Feedback button is not
+  // rendered, which is what local builds and the tests see.
+  const feedbackEndpoint = (process.env.SA_FEEDBACK_ENDPOINT || '').trim();
+  // The injected scripts are later spliced into the page with String.replace and a replacement
+  // string, which expands `$&`-style sequences — a `$` here would be silently rewritten. Trigger
+  // URLs contain none, so refuse one rather than ship a corrupted endpoint.
+  if (feedbackEndpoint.includes('$')) throw new Error('SA_FEEDBACK_ENDPOINT contains "$", which the page splice would corrupt');
   for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'a11y.js']) {
-    injectedJs.push(`/* --- src/${name} --- */\n` + await readFile(join(ROOT, 'src', name), 'utf8'));
+    let src = await readFile(join(ROOT, 'src', name), 'utf8');
+    if (name === 'feedback.js') {
+      if (!src.includes('__SA_FEEDBACK_ENDPOINT__')) throw new Error('src/feedback.js lost its __SA_FEEDBACK_ENDPOINT__ placeholder');
+      // A function, not a string: a replacement string would expand any `$` in the URL.
+      const safe = JSON.stringify(feedbackEndpoint).slice(1, -1).replace(/'/g, "\\'");
+      src = src.replace('__SA_FEEDBACK_ENDPOINT__', () => safe);
+    }
+    injectedJs.push(`/* --- src/${name} --- */\n` + src);
   }
   const a11yJs = injectedJs.join('\n');
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>

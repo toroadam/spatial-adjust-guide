@@ -33,7 +33,11 @@ jobs:
 
       # Builds dist/, then boots it with every external host blocked and asserts
       # it renders. A regression that reintroduces a CDN dependency fails here.
+      # The feedback endpoint is injected here, from a secret, so it never enters the repo —
+      # see the comment above the injection loop in build.mjs.
       - run: npm test
+        env:
+          SA_FEEDBACK_ENDPOINT: ${{ secrets.SA_FEEDBACK_ENDPOINT }}
 
       # Blocking as of 2026-09-12. It ran as its own advisory workflow while the Target Profiles
       # figures were red; that is resolved — those labels belong to an unmerged feature branch and

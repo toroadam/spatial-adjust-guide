@@ -138,8 +138,14 @@ stays in view. Send is disabled while the comment is empty; comments are capped 
 characters. On phones the button is icon-only and the panel spans the width. Activating any
 unwritten card records demand and opens the same panel as a guide request.
 
-**Configure it in one place:** `ENDPOINT` at the top of `src/feedback.js` — the flow trigger's
-HTTP POST URL.
+**Configuring the endpoint.** The flow trigger's HTTP POST URL is **not in the repository**: its
+`sig=` parameter lets anyone holding it post to the list. `build.mjs` substitutes it into
+`src/feedback.js` from the `SA_FEEDBACK_ENDPOINT` environment variable, which the deploy workflow
+sets from the repository secret of the same name. The built page still carries it — a browser
+cannot post without it — but git history does not. Unset, as in local builds and the tests, the
+button is not rendered; to try the real thing locally, run
+`SA_FEEDBACK_ENDPOINT='<url>' npm run build`. To rotate it, regenerate the URL in Power Automate
+and run `gh secret set SA_FEEDBACK_ENDPOINT`, then re-run the deploy.
 
 **The request.** A form-encoded POST (`application/x-www-form-urlencoded`) with six fields:
 `kind` (`Feedback` or `Guide request`), `page`, `step`, `comment`, `locale`, `url`. Form-encoded
@@ -160,7 +166,7 @@ flow trigger does not answer — and because the flow reads each field directly 
 
 **The URL is a capability.** Whoever has it can post to the list, and it ships in this public
 page. The flow truncates what it stores, and if the URL is ever abused, regenerate it in Power
-Automate and update `ENDPOINT`.
+Automate and update the secret as above.
 
 **Drafts survive.** The note is written to `localStorage` on every keystroke under
 `sa.feedback.draft`, restored when the panel reopens on the same page, and cleared only once the
@@ -559,9 +565,6 @@ worth knowing:
   number check is now skipped when the translation *is* IntelliDash's own shipped rendering — the
   same principle as the `_screenStrings` exemption.
 
-- **Feedback is switched off until the Power Automate flow exists.** The floating button is built
-  and tested, but `ENDPOINT` in `src/feedback.js` is empty, so the button does not render. See
-  Instrumentation and feedback for the flow it expects.
 - **The guide-request dialog's strings cannot be harvested,** so they are absent from the
   catalogue and would render in English. All 26 guides are now written, so no catalogue card
   carries `data-stub="true"` and the dialog is unreachable — the harvester prints a note when it
