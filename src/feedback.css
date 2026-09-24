@@ -1,23 +1,39 @@
-/* Feedback collection dialog — the "No" path of "Was this helpful?" and the unwritten-guide
-   request. Injected by build.mjs, outside the Core Design export so a re-export doesn't discard
-   it. Deliberately parallel to contact.css rather than sharing its classes: contact.js's focus
-   trap collects only buttons and links, so reusing its shell would let Tab escape this textarea. */
+/* Feedback — a floating button, bottom right, and the non-modal panel it opens. The same panel
+   serves the unwritten-guide request. Injected by build.mjs, outside the Core Design export so a
+   re-export doesn't discard it. Deliberately parallel to contact.css rather than sharing its
+   classes: contact.js's focus trap collects only buttons and links, and this panel has a textarea.
+
+   z-index sits just below the contact dialog (2147482000) so that dialog still covers this panel,
+   and far below the sign-in gate, which hides it anyway. */
+
+.lsa-fb-fab {
+  position: fixed; right: 24px; bottom: 24px; z-index: 2147481000;
+  display: inline-flex; align-items: center; gap: 8px;
+  font: inherit; font-size: 14px; font-weight: 600; line-height: 1;
+  padding: 12px 18px 12px 15px; min-height: 44px;
+  color: var(--white, #fff);
+  background: rgb(28, 88, 193);      /* 6.1:1 against white text */
+  border: 0; border-radius: 999px;
+  box-shadow: 0 6px 20px rgba(8, 13, 18, .22);
+  cursor: pointer;
+}
+.lsa-fb-fab:hover { background: rgb(22, 71, 156); }
+.lsa-fb-fab:focus-visible { outline: 3px solid var(--informative-03, #2165db); outline-offset: 3px; }
+.lsa-fb-fab svg { flex: none; }
 
 .lsa-fb-dlg {
-  position: fixed; inset: 0; z-index: 2147482000;
-  display: flex; align-items: center; justify-content: center;
-  padding: 24px;
-  background: rgba(8, 13, 18, .45);
-}
-.lsa-fb-panel {
-  width: 100%; max-width: 480px;
+  position: fixed; right: 24px; bottom: 80px; z-index: 2147481000;
+  box-sizing: border-box;
+  width: 380px; max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 104px); overflow-y: auto;
   background: var(--white, #fff);
+  border: 1px solid var(--20, #c8d1d5);
   border-radius: 12px;
-  padding: 24px 26px 26px;
+  padding: 20px 22px 22px;
   box-shadow: 0 12px 40px rgba(8, 13, 18, .22);
 }
 .lsa-fb-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-.lsa-fb-title { margin: 0; font-size: 19px; font-weight: 700; color: var(--100, #080d12); }
+.lsa-fb-title { margin: 0; font-size: 17px; font-weight: 700; color: var(--100, #080d12); }
 .lsa-fb-close {
   font: inherit; font-size: 26px; line-height: 1;
   color: rgb(100, 110, 115);         /* 5.2:1 on white */
@@ -26,17 +42,19 @@
 .lsa-fb-close:hover { color: var(--100, #080d12); }
 .lsa-fb-close:focus-visible { outline: 3px solid var(--informative-03, #2165db); outline-offset: 2px; border-radius: 4px; }
 
-/* The guide or requested title. Its own line rather than interpolated into the heading, so the
+/* The page or requested title. Its own line rather than interpolated into the heading, so the
    catalogue carries no format placeholder for a translator to reassemble. */
 .lsa-fb-subject {
   margin: 6px 0 0;
   font-size: 14px; font-weight: 600;
   color: var(--100, #080d12);
 }
+/* "Step 2 of 5: Read the map" — the live region's own wording, sent exactly as shown. */
+.lsa-fb-step { margin: 2px 0 0; font-size: 13px; line-height: 1.4; color: rgb(100, 110, 115); }
 
 .lsa-fb-label {
   display: block;
-  margin: 18px 0 6px;
+  margin: 16px 0 6px;
   font-size: 14px; font-weight: 600;
   color: var(--100, #080d12);
 }
@@ -52,9 +70,11 @@
 }
 .lsa-fb-input:focus-visible { outline: 3px solid var(--informative-03, #2165db); outline-offset: 1px; }
 
-.lsa-fb-hint { margin: 8px 0 0; font-size: 13px; line-height: 1.45; color: rgb(100, 110, 115); }
+.lsa-fb-error:empty { display: none; }
+.lsa-fb-error { margin: 8px 0 0; font-size: 13px; line-height: 1.45; color: rgb(185, 28, 28); }   /* 6.5:1 on white */
+.lsa-fb-done { margin: 12px 0 0; font-size: 14px; line-height: 1.5; color: var(--100, #080d12); }
 
-.lsa-fb-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+.lsa-fb-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
 .lsa-fb-cancel, .lsa-fb-send {
   font: inherit; font-size: 14px; font-weight: 600;
   padding: 9px 18px; min-height: 40px;
@@ -71,18 +91,26 @@
   background: rgb(28, 88, 193);      /* 6.1:1 against white text */
   border: 1px solid rgb(28, 88, 193);
 }
-.lsa-fb-send:hover { background: rgb(22, 71, 156); }
+.lsa-fb-send:hover:not(:disabled) { background: rgb(22, 71, 156); }
+.lsa-fb-send:disabled { opacity: .45; cursor: not-allowed; }
 .lsa-fb-cancel:focus-visible, .lsa-fb-send:focus-visible {
   outline: 3px solid var(--informative-03, #2165db); outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .lsa-fb-panel { animation: lsa-fb-in .16s ease-out; }
+  .lsa-fb-dlg { animation: lsa-fb-in .16s ease-out; }
   @keyframes lsa-fb-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 }
 
 @media (max-width: 767px) {
-  .lsa-fb-panel { padding: 20px; }
+  /* Icon only: the label costs ~90px of a 390px screen, over content, on every page. The label is
+     visually hidden rather than removed, so the button keeps its accessible name. */
+  .lsa-fb-fab { right: 16px; bottom: 16px; padding: 13px; }
+  .lsa-fb-fab-label {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+  .lsa-fb-dlg { right: 12px; left: 12px; bottom: 76px; width: auto; max-width: none; padding: 18px; }
   /* Full-width stacked buttons: side by side at 390px leaves each about 120px and wraps the
      labels in the longer locales. */
   .lsa-fb-actions { flex-direction: column-reverse; }
