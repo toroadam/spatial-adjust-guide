@@ -1,6 +1,7 @@
-/* Feedback — a floating button, bottom right, and the non-modal panel it opens, which embeds the
-   Microsoft Form. The same panel serves the unwritten-guide request. Injected by build.mjs, outside the Core Design export so a
-   re-export doesn't discard it.
+/* Feedback — a floating button, bottom right, and the non-modal panel it opens. The same panel
+   serves the unwritten-guide request. Injected by build.mjs, outside the Core Design export so a
+   re-export doesn't discard it. Deliberately parallel to contact.css rather than sharing its
+   classes: contact.js's focus trap collects only buttons and links, and this panel has a textarea.
 
    z-index sits just below the contact dialog (2147482000) so that dialog still covers this panel,
    and far below the sign-in gate, which hides it anyway. */
@@ -23,7 +24,7 @@
 .lsa-fb-dlg {
   position: fixed; right: 24px; bottom: 80px; z-index: 2147481000;
   box-sizing: border-box;
-  width: 460px; max-width: calc(100vw - 48px);
+  width: 380px; max-width: calc(100vw - 48px);
   max-height: calc(100vh - 104px); overflow-y: auto;
   background: var(--white, #fff);
   border: 1px solid var(--20, #c8d1d5);
@@ -41,30 +42,60 @@
 .lsa-fb-close:hover { color: var(--100, #080d12); }
 .lsa-fb-close:focus-visible { outline: 3px solid var(--informative-03, #2165db); outline-offset: 2px; border-radius: 4px; }
 
-/* The guide or requested title. Its own line rather than interpolated into the heading, so the
+/* The page or requested title. Its own line rather than interpolated into the heading, so the
    catalogue carries no format placeholder for a translator to reassemble. */
 .lsa-fb-subject {
   margin: 6px 0 0;
   font-size: 14px; font-weight: 600;
   color: var(--100, #080d12);
 }
-/* "Step 2 of 5: Read the map" — the live region's own wording, attached to the issue as shown. */
+/* "Step 2 of 5: Read the map" — the live region's own wording, sent exactly as shown. */
 .lsa-fb-step { margin: 2px 0 0; font-size: 13px; line-height: 1.4; color: rgb(100, 110, 115); }
 
-/* The form draws its own questions and thank-you page. Height is capped to the viewport so the
-   panel never runs off a short laptop screen; the form scrolls inside its own frame. */
-.lsa-fb-frame {
-  display: block; box-sizing: border-box;
-  width: 100%; height: min(560px, calc(100vh - 250px)); min-height: 320px;
-  margin-top: 14px;
-  border: 1px solid var(--20, #c8d1d5); border-radius: 8px;
-  background: var(--05, #f5f7f8);
+.lsa-fb-label {
+  display: block;
+  margin: 16px 0 6px;
+  font-size: 14px; font-weight: 600;
+  color: var(--100, #080d12);
 }
-.lsa-fb-alt {
-  display: inline-block; margin-top: 10px;
-  font-size: 13px; color: rgb(28, 88, 193);   /* 6.1:1 on white */
+.lsa-fb-input {
+  display: block; box-sizing: border-box; width: 100%;
+  font: inherit; font-size: 14px; line-height: 1.5;
+  padding: 10px 12px;
+  color: var(--100, #080d12);
+  background: var(--white, #fff);
+  border: 1px solid var(--20, #c8d1d5);
+  border-radius: 8px;
+  resize: vertical;
 }
-.lsa-fb-alt:focus-visible { outline: 3px solid var(--informative-03, #2165db); outline-offset: 2px; border-radius: 2px; }
+.lsa-fb-input:focus-visible { outline: 3px solid var(--informative-03, #2165db); outline-offset: 1px; }
+
+.lsa-fb-error:empty { display: none; }
+.lsa-fb-error { margin: 8px 0 0; font-size: 13px; line-height: 1.45; color: rgb(185, 28, 28); }   /* 6.5:1 on white */
+.lsa-fb-done { margin: 12px 0 0; font-size: 14px; line-height: 1.5; color: var(--100, #080d12); }
+
+.lsa-fb-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+.lsa-fb-cancel, .lsa-fb-send {
+  font: inherit; font-size: 14px; font-weight: 600;
+  padding: 9px 18px; min-height: 40px;
+  border-radius: 8px; cursor: pointer;
+}
+.lsa-fb-cancel {
+  color: var(--100, #080d12);
+  background: var(--white, #fff);
+  border: 1px solid var(--20, #c8d1d5);
+}
+.lsa-fb-cancel:hover { background: var(--05, #f5f7f8); }
+.lsa-fb-send {
+  color: var(--white, #fff);
+  background: rgb(28, 88, 193);      /* 6.1:1 against white text */
+  border: 1px solid rgb(28, 88, 193);
+}
+.lsa-fb-send:hover:not(:disabled) { background: rgb(22, 71, 156); }
+.lsa-fb-send:disabled { opacity: .45; cursor: not-allowed; }
+.lsa-fb-cancel:focus-visible, .lsa-fb-send:focus-visible {
+  outline: 3px solid var(--informative-03, #2165db); outline-offset: 2px;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .lsa-fb-dlg { animation: lsa-fb-in .16s ease-out; }
@@ -80,5 +111,8 @@
     clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
   }
   .lsa-fb-dlg { right: 12px; left: 12px; bottom: 76px; width: auto; max-width: none; padding: 18px; }
-  .lsa-fb-frame { height: calc(100vh - 260px); }
+  /* Full-width stacked buttons: side by side at 390px leaves each about 120px and wraps the
+     labels in the longer locales. */
+  .lsa-fb-actions { flex-direction: column-reverse; }
+  .lsa-fb-cancel, .lsa-fb-send { width: 100%; }
 }

@@ -97,7 +97,7 @@ Each guide has its own address (`#/minimum-threshold`), so a guide can be linked
 
 See [`docs/test-protocol.md`](docs/test-protocol.md) for the moderated session plan.
 
-**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `search_used`, `feedback_opened`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
+**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `search_used`, `feedback_opened`, `feedback_sent`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
 
 By default the transport is **`local`**: events are buffered in `localStorage` and **nothing leaves the device**, which keeps the zero-external-origins property the smoke test enforces. In the browser console:
 
@@ -110,61 +110,67 @@ By default the transport is **`local`**: events are buffered in `localStorage` a
 That's sufficient for moderated sessions. **It does not collect from remote users.** For that, set `TRANSPORT = 'beacon'` and `SA_ENDPOINT` at the top of `src/analytics.js`, and add that origin to the allowlist in `scripts/smoke.mjs` — otherwise the smoke test will correctly fail the build for reaching a third party. Choosing that endpoint is an open decision.
 
 **Feedback** (`src/feedback.js`) is a floating **Feedback** button, bottom right, on every page
-once the reader is past the sign-in gate. It opens a small non-modal panel with a **Microsoft
-Form embedded in it**: the reader types and submits inside the panel and never leaves the site.
-The page, step, locale and URL are prefilled into the form, and the panel shows the page and step
-back to the reader. Responses land in an Excel workbook in the form owner's OneDrive — a
-queryable store inside Toro's own tenant, and private, unlike an issue on a public repository.
+once the reader is past the sign-in gate. It opens a small non-modal panel showing the page and
+step the reader is on; they type a comment and press **Send**. The comment is POSTed, with the
+page, step, locale and URL attached, to a **Power Automate flow** in Toro's tenant, which adds it
+to a **SharePoint list**. The reader never leaves the site and never sees where it went. The panel
+says "sent" only once the flow has answered, and the flow answers only after the SharePoint step,
+so "sent" means stored. A failed send says so and keeps the note, in the box and as a draft.
 
-**Until a form is configured the button does not appear at all.** A button that opens nothing is
-worse than no button.
+**Until an endpoint is configured the button does not appear at all.** A button that sends
+nowhere is worse than no button.
 
-Why a form, and why embedded (decided 2026-09-23):
+Why a flow (decided 2026-09-23):
 
 - The previous destination was a prefilled GitHub issue opened in a new tab. It sent readers to
   GitHub, needed an account, and made every comment public on a personal repository.
 - Filing issues directly from the page would need a GitHub token in the page, and the repository
-  is public — anyone could read it and write to the repo. Holding the token needs a relay, which
-  is a server, and the hosts for one were ruled out (see Sign-in gate).
-- Google Sheets and Cloudflare Functions sit outside the tooling Toro permits, which is what
-  ruled out the original hosting plan too.
+  is public — anyone could read it and write to the repo.
+- An embedded Microsoft Form kept readers on the site, but put Microsoft's form — with the context
+  as visible prefilled questions — inside the panel.
+- Cloudflare, Google Sheets and Azure are ruled out on Toro's tooling (see Sign-in gate). Power
+  Automate runs inside the tenant; its HTTP trigger needs a Premium licence, which the owner has.
 
 The button replaced a "Was this helpful?" row at the foot of each guide. That row sat below the
 "Next" cards where few readers scroll, its thumbs-up collected a click and nothing else, and the
 catalogue had no way to comment at all. The panel is non-modal so the step being commented on
-stays in view; on phones the button is icon-only and the panel spans the width. Under the form
-is a "Form not loading? Open it in a new tab." link — an escape hatch for browsers that block
-third-party frames, not the path. Activating any unwritten card records demand and opens the same
-panel as a guide request.
+stays in view. Send is disabled while the comment is empty; comments are capped at 4,000
+characters. On phones the button is icon-only and the panel spans the width. Activating any
+unwritten card records demand and opens the same panel as a guide request.
 
-**Configure it in one place:** the `FORM` object at the top of `src/feedback.js`.
+**Configure it in one place:** `ENDPOINT` at the top of `src/feedback.js` — the flow trigger's
+HTTP POST URL.
 
-1. Create a form at <https://forms.office.com>. Set **Who can respond** to **Anyone can respond**
-   — a form restricted to Toro accounts asks for a Microsoft sign-in, which does not work reliably
-   inside a frame. Add six questions, all **text**, in this order:
-   **What was missing, wrong or unclear?** (required — the only one the reader answers), then
-   **Kind**, **Page**, **Step**, **Locale**, **URL**. Putting the comment first means the reader
-   sees it first; the rest arrive already filled in.
-2. **Collect responses → Copy link.** The GUID after `id=` is `FORM.id`.
-3. Open **Prefill answers**, put a recognisable placeholder in each of the last five questions,
-   and copy that link. Each appears as `r<number>=placeholder`. Map each number onto the matching
-   key in `FORM.fields` — `kind`, `guide` (the Page question), `step`, `locale`, `url`.
-4. Rebuild. Only fields with a configured id are appended, so a half-filled `FORM.fields`
-   degrades to a shorter prefill rather than a broken URL.
+**The request.** A form-encoded POST (`application/x-www-form-urlencoded`) with six fields:
+`kind` (`Feedback` or `Guide request`), `page`, `step`, `comment`, `locale`, `url`. Form-encoded
+rather than JSON because it is a CORS *simple request* — no preflight `OPTIONS` call, which the
+flow trigger does not answer — and because the flow reads each field directly with
+`triggerFormDataValue('comment')`, with no Parse JSON step or schema to keep in sync.
 
-Those `r<number>` ids are **positional and opaque**: reordering or deleting a question renumbers
-them and silently sends answers into the wrong columns. If the form's questions change, re-read
-the prefill link rather than assuming.
+**The flow**, in order:
 
-**What cannot be measured from here.** Submission happens inside the form, on another origin, so
-the site records `feedback_opened` and nothing after it; the form's own response count is the
-other half of that funnel. The form's questions are in whatever language they were written in —
-Microsoft Forms renders its own buttons in the reader's language, but not the question text.
+1. **When an HTTP request is received**, with *Who can trigger the flow?* set to **Anyone** — the
+   readers are anonymous browsers.
+2. **SharePoint → Create item** on the *Guide feedback* list: Title
+   `triggerFormDataValue('page')`, Comment `take(triggerFormDataValue('comment'), 4000)`, and Step,
+   Kind, Locale and PageURL from the matching fields.
+3. **Response**, status `200`, header `Access-Control-Allow-Origin: https://toroadam.github.io`.
+   Without that header the browser hides the response, and the panel reports a failure even
+   though the item was stored. It comes last so a SharePoint failure reaches the reader as one.
 
-`scripts/instrumentation.mjs` injects a stub form (`window.__saFeedbackForm`) and answers every
-`forms.office.com` request locally, then asserts the button appears, the frame is prefilled with
-the page and step, Escape closes the panel and returns focus, and — on a page with no stub — that
-the button is absent.
+**The URL is a capability.** Whoever has it can post to the list, and it ships in this public
+page. The flow truncates what it stores, and if the URL is ever abused, regenerate it in Power
+Automate and update `ENDPOINT`.
+
+**Drafts survive.** The note is written to `localStorage` on every keystroke under
+`sa.feedback.draft`, restored when the panel reopens on the same page, and cleared only once the
+flow confirms the send. Cancelling, Escape and a failed send all keep it.
+
+`scripts/instrumentation.mjs` injects a stub endpoint (`window.__saFeedbackEndpoint`) and answers
+it locally, then drives the whole path: Send disabled while empty, a note surviving a cancel,
+the posted fields carrying the page and step, "sent" shown only after the answer, a provoked
+failure that keeps the note, Escape returning focus — and, on a page with no stub, that the button
+is absent.
 
 Note that unwritten cards are **real buttons**, not disabled ones: activating one requests the guide. Marking them `aria-disabled` would contradict the fact that they do something.
 
@@ -553,9 +559,9 @@ worth knowing:
   number check is now skipped when the translation *is* IntelliDash's own shipped rendering — the
   same principle as the `_screenStrings` exemption.
 
-- **Feedback is switched off until a Microsoft Form is configured.** The floating button is built
-  and tested, but `FORM.id` in `src/feedback.js` is empty, so the button does not render. See
-  Instrumentation and feedback for the six-question form it expects.
+- **Feedback is switched off until the Power Automate flow exists.** The floating button is built
+  and tested, but `ENDPOINT` in `src/feedback.js` is empty, so the button does not render. See
+  Instrumentation and feedback for the flow it expects.
 - **The guide-request dialog's strings cannot be harvested,** so they are absent from the
   catalogue and would render in English. All 26 guides are now written, so no catalogue card
   carries `data-stub="true"` and the dialog is unreachable — the harvester prints a note when it

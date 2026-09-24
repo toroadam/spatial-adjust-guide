@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 969,
-    "words": 10951
+    "strings": 971,
+    "words": 10959
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -203,6 +203,7 @@
     "Contact NSN": "Contact NSN",
     "Copyright © 2026 The Toro Company. All Rights Reserved.": "Copyright © 2026 The Toro Company. All Rights Reserved.",
     "Copyright Policy": "Copyright Policy",
+    "Could not send. Check your connection and try again.": "Could not send. Check your connection and try again.",
     "Coverage is part of what a profile is.": "Coverage is part of what a profile is.",
     "Creating profiles": "Creating profiles",
     "Creating profiles — 3 MIN, difficulty 2 of 3": "Creating profiles — 3 MIN, difficulty 2 of 3",
@@ -264,7 +265,6 @@
     "Failed stations are re-pushed automatically, up to two further attempts. Pushing again by hand immediately afterwards is a fourth attempt at the same connection, which rarely behaves differently.": "Failed stations are re-pushed automatically, up to two further attempts. Pushing again by hand immediately afterwards is a fourth attempt at the same connection, which rarely behaves differently.",
     "Failures are retried automatically": "Failures are retried automatically",
     "Feedback": "Feedback",
-    "Feedback form": "Feedback form",
     "Filter area": "Filter area",
     "Filter by % Adj.": "Filter by % Adj.",
     "Filter by % Adj. — 3 MIN, difficulty 2 of 3": "Filter by % Adj. — 3 MIN, difficulty 2 of 3",
@@ -277,7 +277,6 @@
     "Five stations selected. The Bulk Adjust link above the table becomes active.": "Five stations selected. The Bulk Adjust link above the table becomes active.",
     "Fold this week’s adjustments back into a saved profile without applying it to the course.": "Fold this week’s adjustments back into a saved profile without applying it to the course.",
     "Footer": "Footer",
-    "Form not loading? Open it in a new tab.": "Form not loading? Open it in a new tab.",
     "Four checks, in order, for a zero suggestion.": "Four checks, in order, for a zero suggestion.",
     "From suggestion to controller.": "From suggestion to controller.",
     "Get fresh scan data": "Get fresh scan data",
@@ -500,6 +499,7 @@
     "Send": "Send",
     "Send and watch the progress": "Send and watch the progress",
     "Send feedback": "Send feedback",
+    "Sending…": "Sending…",
     "Set a minimum threshold": "Set a minimum threshold",
     "Set a minimum threshold — 3 MIN, difficulty 2 of 3": "Set a minimum threshold — 3 MIN, difficulty 2 of 3",
     "Set a soil factor for persistent offsets": "Set a soil factor for persistent offsets",
@@ -745,6 +745,7 @@
     "Temperature and separator affect the toolbar": "Temperature and separator affect the toolbar",
     "Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.": "Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.",
     "Terms of Use": "Terms of Use",
+    "Thanks — your feedback has been sent.": "Thanks — your feedback has been sent.",
     "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.": "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.",
     "The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push and leaves the suggestion visible underneath for comparison.": "The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push and leaves the suggestion visible underneath for comparison.",
     "The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.": "The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.",
@@ -973,6 +974,7 @@
     "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.": "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.",
     "You reviewed the recalculated suggestions before pushing.": "You reviewed the recalculated suggestions before pushing.",
     "You supply the target": "You supply the target",
+    "Your comments": "Your comments",
     "Zero disables the feature": "Zero disables the feature",
     "Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash.": "Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash."
   },
@@ -1457,6 +1459,9 @@
       "understand-spatial-adjust",
       "map-navigation"
     ],
+    "Could not send. Check your connection and try again.": [
+      "chrome"
+    ],
     "Coverage is part of what a profile is.": [
       "creating-profiles"
     ],
@@ -1626,9 +1631,6 @@
     "Feedback": [
       "chrome"
     ],
-    "Feedback form": [
-      "chrome:attr"
-    ],
     "Filter by % Adj.": [
       "catalog",
       "filter-adjustments"
@@ -1659,9 +1661,6 @@
       "dashboard-overview:attr",
       "understand-spatial-adjust:attr",
       "map-navigation:attr"
-    ],
-    "Form not loading? Open it in a new tab.": [
-      "chrome"
     ],
     "Four checks, in order, for a zero suggestion.": [
       "catalog"
@@ -2346,6 +2345,9 @@
       "push-to-lynx"
     ],
     "Send feedback": [
+      "chrome"
+    ],
+    "Sending…": [
       "chrome"
     ],
     "Set a minimum threshold": [
@@ -3116,6 +3118,9 @@
       "understand-spatial-adjust",
       "map-navigation"
     ],
+    "Thanks — your feedback has been sent.": [
+      "chrome"
+    ],
     "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.": [
       "suggested-adjustments"
     ],
@@ -3838,6 +3843,9 @@
     ],
     "You supply the target": [
       "understand-spatial-adjust"
+    ],
+    "Your comments": [
+      "chrome"
     ],
     "Zero disables the feature": [
       "threshold-questions"
