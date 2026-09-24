@@ -137,28 +137,42 @@ for (const key of GUIDES) {
   process.stderr.write(`  ${key}: ${strings.size} unique so far\n`);
 }
 
-// The "Was this helpful?" widget sits at the bottom of a guide, so its dialog can only be
-// opened once a guide is rendered — hence after the loop rather than alongside the catalogue
-// dialogs above. The No path is the one that opens it; Yes stays in page.
+// The Feedback button only exists when an endpoint is configured, and its panel's states only
+// enter the DOM when driven — so a stub endpoint is injected and the panel is opened, sent
+// (delayed, to catch "Sending…"), confirmed, and failed once, here rather than found by the walk
+// above. Every request to the stub is answered locally; nothing is posted anywhere.
+const STUB = 'https://feedback.invalid/harvest';
+let failNext = false;
+await page.addInitScript((u) => { window.__saFeedbackEndpoint = u; }, STUB);
+await page.route(STUB, async (r) => {
+  if (failNext) return r.abort();
+  await new Promise((res) => setTimeout(res, 600));
+  return r.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: '' });
+});
 await page.goto(`${url}/#/${GUIDES[0]}`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1600);
-const noBtn = await page.$('.lsa-helpful-btn[data-v="no"]');
-if (noBtn) {
-  await noBtn.click().catch(() => {});
-  await page.waitForTimeout(300);
+const fab = await page.$('.lsa-fb-fab');
+if (fab) {
   await harvest('chrome');
-  // Escape cancels the dialog without consuming the widget, so the Yes path is still available.
-  // Worth taking: it is the only way the confirmation text enters the DOM.
-  await page.keyboard.press('Escape').catch(() => {});
-  await page.waitForTimeout(200);
-  const yesBtn = await page.$('.lsa-helpful-btn[data-v="yes"]');
-  if (yesBtn) {
-    await yesBtn.click().catch(() => {});
-    await page.waitForTimeout(250);
-    await harvest('chrome');
-  }
+  const openPanel = async () => { await page.click('.lsa-fb-fab').catch(() => {}); await page.waitForTimeout(300); };
+  await openPanel();
+  await harvest('chrome');
+  await page.fill('.lsa-fb-input', 'harvest').catch(() => {});
+  await page.click('.lsa-fb-send').catch(() => {});
+  await page.waitForTimeout(150);
+  await harvest('chrome');                     // "Sending…"
+  await page.waitForTimeout(800);
+  await harvest('chrome');                     // the sent confirmation
+  await page.click('.lsa-fb-cancel').catch(() => {});
+  failNext = true;
+  await openPanel();
+  await page.fill('.lsa-fb-input', 'harvest').catch(() => {});
+  await page.click('.lsa-fb-send').catch(() => {});
+  await page.waitForTimeout(400);
+  await harvest('chrome');                     // the send-failed message
+  await page.click('.lsa-fb-cancel').catch(() => {});
 } else {
-  process.stderr.write('  WARNING: feedback dialog not reached — its strings will be absent\n');
+  process.stderr.write('  WARNING: feedback button not found — its strings will be absent\n');
 }
 
 await browser.close();

@@ -65,13 +65,12 @@
     'guide_completed',
     'play_all_used',
     'stub_clicked',          // the demand signal for the 17 unwritten guides
-    'guide_requested',
     'search_used',
-    'feedback_submitted',
-    // The verdict above is the thumbs click; this is the detail the reader typed into the
-    // dialog afterwards. Separate events because the drop-off between them is the interesting
-    // number: a thumbs-down nobody explains is a different problem from one they do.
-    'feedback_detailed',
+    // Opening the Feedback panel, then a comment the flow confirmed it stored. Separate events
+    // because the drop-off between them is the interesting number: a panel opened and abandoned
+    // is a different problem from one nobody opens.
+    'feedback_opened',
+    'feedback_sent',
     'returned_home',
 
     // Language. Without these there is no way to tell whether the locale negotiation does

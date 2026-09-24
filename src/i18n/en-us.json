@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 972,
-    "words": 10865
+    "strings": 971,
+    "words": 10959
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -142,7 +142,6 @@
     "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it. Continue applies it; Cancel leaves everything as it was.": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it. Continue applies it; Cancel leaves everything as it was.",
     "Because Option 1 scales the current Lynx value, a station sitting at 0 percent adjust stays at 0 no matter how dry it is.": "Because Option 1 scales the current Lynx value, a station sitting at 0 percent adjust stays at 0 no matter how dry it is.",
     "Before a tournament.": "Before a tournament.",
-    "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on. On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation.": "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on. On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation.",
     "Before you start": "Before you start",
     "Below-threshold behaviour, with the second option selected.": "Below-threshold behaviour, with the second option selected.",
     "Bulk Adjust": "Bulk Adjust",
@@ -204,6 +203,7 @@
     "Contact NSN": "Contact NSN",
     "Copyright © 2026 The Toro Company. All Rights Reserved.": "Copyright © 2026 The Toro Company. All Rights Reserved.",
     "Copyright Policy": "Copyright Policy",
+    "Could not send. Check your connection and try again.": "Could not send. Check your connection and try again.",
     "Coverage is part of what a profile is.": "Coverage is part of what a profile is.",
     "Creating profiles": "Creating profiles",
     "Creating profiles — 3 MIN, difficulty 2 of 3": "Creating profiles — 3 MIN, difficulty 2 of 3",
@@ -264,6 +264,7 @@
     "F": "F",
     "Failed stations are re-pushed automatically, up to two further attempts. Pushing again by hand immediately afterwards is a fourth attempt at the same connection, which rarely behaves differently.": "Failed stations are re-pushed automatically, up to two further attempts. Pushing again by hand immediately afterwards is a fourth attempt at the same connection, which rarely behaves differently.",
     "Failures are retried automatically": "Failures are retried automatically",
+    "Feedback": "Feedback",
     "Filter area": "Filter area",
     "Filter by % Adj.": "Filter by % Adj.",
     "Filter by % Adj. — 3 MIN, difficulty 2 of 3": "Filter by % Adj. — 3 MIN, difficulty 2 of 3",
@@ -367,9 +368,9 @@
     "No server-side check.": "No server-side check.",
     "No station in Pushed Today is ticked unless you meant it.": "No station in Pushed Today is ticked unless you meant it.",
     "No station target or suggestion changed.": "No station target or suggestion changed.",
-    "No, this was not helpful": "No, this was not helpful",
     "Not the same setting.": "Not the same setting.",
     "Note.": "Note.",
+    "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on. On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation.": "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on. On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation.",
     "Notice the drift": "Notice the drift",
     "Notice where suggestions cluster": "Notice where suggestions cluster",
     "NSN support portal": "NSN support portal",
@@ -395,7 +396,6 @@
     "Option 2": "Option 2",
     "Option 2 — delta plus today’s ET, the default": "Option 2 — delta plus today’s ET, the default",
     "Option 2 flattens everything above the daily maximum onto one number. Option 1 has no ceiling, so its suggestions spread out — and can go far higher than you intend on a station that reads very dry.": "Option 2 flattens everything above the daily maximum onto one number. Option 1 has no ceiling, so its suggestions spread out — and can go far higher than you intend on a station that reads very dry.",
-    "Optional — this helps decide what gets written next.": "Optional — this helps decide what gets written next.",
     "or browse all 24 tasks ↓": "or browse all 24 tasks ↓",
     "Original and rewritten values, shown together.": "Original and rewritten values, shown together.",
     "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10. Each has its own checkbox, so you can run one end without the other — Over alone to find the stations asking for far too much, Under alone to find the ones asking for almost nothing.": "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10. Each has its own checkbox, so you can run one end without the other — Over alone to find the stations asking for far too much, Under alone to find the ones asking for almost nothing.",
@@ -498,6 +498,8 @@
     "Selecting a station in the table highlights it on the map, and selecting a pin selects the row. Use whichever is faster to find the head you mean.": "Selecting a station in the table highlights it on the map, and selecting a pin selects the row. Use whichever is faster to find the head you mean.",
     "Send": "Send",
     "Send and watch the progress": "Send and watch the progress",
+    "Send feedback": "Send feedback",
+    "Sending…": "Sending…",
     "Set a minimum threshold": "Set a minimum threshold",
     "Set a minimum threshold — 3 MIN, difficulty 2 of 3": "Set a minimum threshold — 3 MIN, difficulty 2 of 3",
     "Set a soil factor for persistent offsets": "Set a soil factor for persistent offsets",
@@ -555,7 +557,6 @@
     "STATION MANAGEMENT": "STATION MANAGEMENT",
     "Station-level rows for hole 3 of area AP.": "Station-level rows for hole 3 of area AP.",
     "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same head twice.": "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same head twice.",
-    "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx. This is a read-back, not a baseline — it is collecting what Lynx actually holds now so the next phase has something to check the push against.": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx. This is a read-back, not a baseline — it is collecting what Lynx actually holds now so the next phase has something to check the push against.",
     "Stations pushed today appear unselected in a separate list to prevent double adjustments. To adjust one again, simply select it.": "Stations pushed today appear unselected in a separate list to prevent double adjustments. To adjust one again, simply select it.",
     "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error. The bar restarts at zero for the retry pass and counts only the failed stations, so a drop from nearly complete back to nothing is the retry beginning, not the push collapsing.": "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error. The bar restarts at zero for the retry pass and counts only the failed stations, so a drop from nearly complete back to nothing is the retry beginning, not the push collapsing.",
     "Stations you left alone still show Suggested and Current unchanged.": "Stations you left alone still show Suggested and Current unchanged.",
@@ -744,7 +745,7 @@
     "Temperature and separator affect the toolbar": "Temperature and separator affect the toolbar",
     "Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.": "Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.",
     "Terms of Use": "Terms of Use",
-    "Thanks — noted.": "Thanks — noted.",
+    "Thanks — your feedback has been sent.": "Thanks — your feedback has been sent.",
     "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.": "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.",
     "The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push and leaves the suggestion visible underneath for comparison.": "The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push and leaves the suggestion visible underneath for comparison.",
     "The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.": "The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.",
@@ -915,13 +916,10 @@
     "Verify results — 3 MIN, difficulty 2 of 3": "Verify results — 3 MIN, difficulty 2 of 3",
     "VWC is volumetric water content, expressed as a percentage of soil volume.": "VWC is volumetric water content, expressed as a percentage of soil volume.",
     "Walkthrough": "Walkthrough",
-    "Was this helpful?": "Was this helpful?",
     "Watch for a modelled child": "Watch for a modelled child",
     "What the feature actually does: turn yesterday’s moisture scan into today’s percent adjustment, and write it to Lynx.": "What the feature actually does: turn yesterday’s moisture scan into today’s percent adjustment, and write it to Lynx.",
     "What the feature does and how the screen is laid out.": "What the feature does and how the screen is laid out.",
     "What to do.": "What to do.",
-    "What was missing or unclear?": "What was missing or unclear?",
-    "What would have helped?": "What would have helped?",
     "When a minimum threshold is set, the banner counts the stations it will rewrite and the affected rows show both the original and the value that will actually be sent.": "When a minimum threshold is set, the banner counts the stations it will rewrite and the affected rows show both the original and the value that will actually be sent.",
     "When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics.": "When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics.",
     "When the connection drops, a banner appears above the toolbar and percent adjust values can be neither read nor written.": "When the connection drops, a banner appears above the toolbar and percent adjust values can be neither read nor written.",
@@ -944,10 +942,10 @@
     "With Option 1 selected, the two amount fields are disabled.": "With Option 1 selected, the two amount fields are disabled.",
     "With Set to zero when pushed to Lynx selected, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.": "With Set to zero when pushed to Lynx selected, a small but genuine adjustment is written to Lynx as 0%. The table still shows the raw value, so the two disagree. Switch the option to set to the minimum threshold value if you want those stations to keep running.",
     "With the prompt suppressed, an area-level toggle silently changes every hole and station under it.": "With the prompt suppressed, an area-level toggle silently changes every hole and station under it.",
+    "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx. This is a read-back, not a baseline — it is collecting what Lynx actually holds now so the next phase has something to check the push against.": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx. This is a read-back, not a baseline — it is collecting what Lynx actually holds now so the next phase has something to check the push against.",
     "Work in the table": "Work in the table",
     "Work out your own ceiling": "Work out your own ceiling",
     "Worked example.": "Worked example.",
-    "Yes, this was helpful": "Yes, this was helpful",
     "You can expand a multi-sprinkler station.": "You can expand a multi-sprinkler station.",
     "You can explain a run of identical suggestions.": "You can explain a run of identical suggestions.",
     "You can explain why the table and the push dialog differ.": "You can explain why the table and the push dialog differ.",
@@ -976,6 +974,7 @@
     "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.": "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.",
     "You reviewed the recalculated suggestions before pushing.": "You reviewed the recalculated suggestions before pushing.",
     "You supply the target": "You supply the target",
+    "Your comments": "Your comments",
     "Zero disables the feature": "Zero disables the feature",
     "Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash.": "Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash."
   },
@@ -1262,6 +1261,9 @@
     "Available only under the second option: a station whose suggestion is a true zero stays at zero instead of being lifted to the threshold. Without it, a station that needs no water gets a small run anyway.": [
       "threshold-questions"
     ],
+    "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to.": [
+      "reviewing-changes"
+    ],
     "Avg / High / Low moisture are computed across every station in the selected course, not just the ones visible in the table.": [
       "dashboard-overview"
     ],
@@ -1276,9 +1278,6 @@
     ],
     "Before a tournament.": [
       "target-profiles"
-    ],
-    "Before writing anything, Spatial Adjust retrieves the current percent adjustments from Lynx so it has something to compare against afterwards. On a large course this is the slowest phase.": [
-      "verify-results"
     ],
     "Before you start": [
       "dashboard-overview",
@@ -1297,6 +1296,10 @@
     ],
     "By the time you see a failure, Spatial Adjust has already retried the affected stations twice.": [
       "push-failures"
+    ],
+    "Calculation ET under the filter tabs is the figure the calculation used. The weather strip reports current conditions separately, so do not expect the two to agree.": [
+      "dashboard-overview",
+      "chrome"
     ],
     "Calculation methods": [
       "catalog",
@@ -1455,6 +1458,9 @@
       "dashboard-overview",
       "understand-spatial-adjust",
       "map-navigation"
+    ],
+    "Could not send. Check your connection and try again.": [
+      "chrome"
     ],
     "Coverage is part of what a profile is.": [
       "creating-profiles"
@@ -1622,6 +1628,9 @@
     "Failures are retried automatically": [
       "verify-results"
     ],
+    "Feedback": [
+      "chrome"
+    ],
     "Filter by % Adj.": [
       "catalog",
       "filter-adjustments"
@@ -1724,6 +1733,9 @@
     "If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.": [
       "push-to-lynx"
     ],
+    "If nothing above explains it, open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo. It only opens once Lynx data has failed to load, which is exactly when you would want it — on a healthy dashboard the chord does nothing. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.": [
+      "station-zero"
+    ],
     "If the request will not queue": [
       "request-scan-data"
     ],
@@ -1732,6 +1744,10 @@
     ],
     "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.": [
       "suggested-adjustments"
+    ],
+    "In development — saved sets of station targets.": [
+      "catalog",
+      "chrome"
     ],
     "In one line.": [
       "understand-spatial-adjust"
@@ -1932,12 +1948,6 @@
     "No station target or suggestion changed.": [
       "updating-profiles"
     ],
-    "No, this was not helpful": [
-      "catalog:attr",
-      "dashboard-overview:attr",
-      "understand-spatial-adjust:attr",
-      "map-navigation:attr"
-    ],
     "Not the same setting.": [
       "filter-adjustments"
     ],
@@ -2027,9 +2037,6 @@
     "Option 2 flattens everything above the daily maximum onto one number. Option 1 has no ceiling, so its suggestions spread out — and can go far higher than you intend on a station that reads very dry.": [
       "calculation-methods"
     ],
-    "Optional — this helps decide what gets written next.": [
-      "chrome"
-    ],
     "or browse all 24 tasks ↓": [
       "catalog"
     ],
@@ -2060,13 +2067,7 @@
     "Phase four: retrying the stations that did not verify.": [
       "verify-results"
     ],
-    "Phase one: retrieving current values for comparison.": [
-      "verify-results"
-    ],
     "Phase three: comparing what Lynx reports against what was sent.": [
-      "verify-results"
-    ],
-    "Phase two: writing, four of six.": [
       "verify-results"
     ],
     "Phone": [
@@ -2343,6 +2344,12 @@
     "Send and watch the progress": [
       "push-to-lynx"
     ],
+    "Send feedback": [
+      "chrome"
+    ],
+    "Sending…": [
+      "chrome"
+    ],
     "Set a minimum threshold": [
       "catalog",
       "dashboard-overview",
@@ -2516,12 +2523,6 @@
     ],
     "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same head twice.": [
       "push-to-lynx"
-    ],
-    "Stations are written in sequence with a short pause between each, and the progress line names which one it is on. A stalled counter here means the connection, not the calculation.": [
-      "verify-results"
-    ],
-    "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error.": [
-      "verify-results"
     ],
     "Stations you left alone still show Suggested and Current unchanged.": [
       "suggested-adjustments"
@@ -3067,6 +3068,14 @@
       "updating-profiles",
       "seasonal-profiles"
     ],
+    "Target Profiles is still in development and is not in the shipping build yet — the screens below show a proposed design, which the tab being built does not yet match.": [
+      "target-profiles"
+    ],
+    "Target Profiles is still in development and is not in the shipping build yet. The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.": [
+      "creating-profiles",
+      "updating-profiles",
+      "seasonal-profiles"
+    ],
     "Target VWC accepts 0 to 50, integers only.": [
       "understanding-vwc"
     ],
@@ -3109,7 +3118,7 @@
       "understand-spatial-adjust",
       "map-navigation"
     ],
-    "Thanks — noted.": [
+    "Thanks — your feedback has been sent.": [
       "chrome"
     ],
     "The % Adj. column is yours. Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push. The suggested value is left untouched underneath.": [
@@ -3132,9 +3141,6 @@
     ],
     "The applied profile is marked active in the list.": [
       "target-profiles"
-    ],
-    "The automatic retry pass, before the failure is reported.": [
-      "push-failures"
     ],
     "The backend keeps these amounts in millimetres and the dialog converts on the way in and out — two decimals imperial, one metric.": [
       "calculation-settings"
@@ -3258,6 +3264,10 @@
     ],
     "The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.": [
       "reviewing-changes"
+    ],
+    "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation. It reports conditions; it is not where the suggested percentages come from. Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.": [
+      "dashboard-overview",
+      "chrome"
     ],
     "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.": [
       "minimum-threshold"
@@ -3653,12 +3663,6 @@
       "map-navigation",
       "understanding-vwc"
     ],
-    "Was this helpful?": [
-      "catalog",
-      "dashboard-overview",
-      "understand-spatial-adjust",
-      "map-navigation"
-    ],
     "Watch for a modelled child": [
       "station-details"
     ],
@@ -3670,12 +3674,6 @@
     ],
     "What to do.": [
       "suggested-adjustments"
-    ],
-    "What was missing or unclear?": [
-      "chrome"
-    ],
-    "What would have helped?": [
-      "chrome"
     ],
     "When a minimum threshold is set, the banner counts the stations it will rewrite and the affected rows show both the original and the value that will actually be sent.": [
       "reviewing-changes"
@@ -3762,12 +3760,6 @@
     "Worked example.": [
       "calculation-settings"
     ],
-    "Yes, this was helpful": [
-      "catalog:attr",
-      "dashboard-overview:attr",
-      "understand-spatial-adjust:attr",
-      "map-navigation:attr"
-    ],
     "You can expand a multi-sprinkler station.": [
       "station-details"
     ],
@@ -3852,36 +3844,13 @@
     "You supply the target": [
       "understand-spatial-adjust"
     ],
+    "Your comments": [
+      "chrome"
+    ],
     "Zero disables the feature": [
       "threshold-questions"
     ],
     "Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash.": [
-      "station-zero"
-    ],
-    "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day. That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to.": [
-      "reviewing-changes"
-    ],
-    "Calculation ET under the filter tabs is the figure the calculation used. The weather strip reports current conditions separately, so do not expect the two to agree.": [
-      "dashboard-overview",
-      "chrome"
-    ],
-    "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation. It reports conditions; it is not where the suggested percentages come from. Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.": [
-      "dashboard-overview",
-      "chrome"
-    ],
-    "In development — saved sets of station targets.": [
-      "catalog",
-      "chrome"
-    ],
-    "Target Profiles is still in development and is not in the shipping build yet — the screens below show a proposed design, which the tab being built does not yet match.": [
-      "target-profiles"
-    ],
-    "Target Profiles is still in development and is not in the shipping build yet. The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.": [
-      "creating-profiles",
-      "updating-profiles",
-      "seasonal-profiles"
-    ],
-    "If nothing above explains it, open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo. It only opens once Lynx data has failed to load, which is exactly when you would want it — on a healthy dashboard the chord does nothing. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.": [
       "station-zero"
     ]
   },
