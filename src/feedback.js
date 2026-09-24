@@ -19,8 +19,8 @@
 // page. The flow truncates what it stores (README > Feedback), and the URL can be regenerated in
 // Power Automate if it is ever abused.
 //
-// Configure it in one place: ENDPOINT below. While it is empty the button is not shown at all —
-// a button that sends nowhere is worse than no button.
+// The endpoint is injected at build time — see ENDPOINT below. While it is empty the button is
+// not shown at all: a button that sends nowhere is worse than no button.
 //
 // All handling is delegated from document rather than bound per element: the runtime re-renders
 // on every state change, which detaches any node-level listener.
@@ -28,10 +28,12 @@
   'use strict';
 
   // ---- destination -------------------------------------------------------------
-  // The HTTP POST URL of the flow's "When an HTTP request is received" trigger.
-  // window.__saFeedbackEndpoint overrides it so scripts/instrumentation.mjs can drive the panel
-  // against a stubbed endpoint without the real one being configured or posted to.
-  var ENDPOINT = window.__saFeedbackEndpoint || '';
+  // The HTTP POST URL of the flow's "When an HTTP request is received" trigger. The placeholder
+  // is replaced by build.mjs from the SA_FEEDBACK_ENDPOINT environment variable (a GitHub Actions
+  // secret on deploy), so the URL never enters the repository; unset, it becomes '' and the
+  // button stays hidden. window.__saFeedbackEndpoint overrides it so scripts/instrumentation.mjs
+  // can drive the panel against a stubbed endpoint.
+  var ENDPOINT = window.__saFeedbackEndpoint || '__SA_FEEDBACK_ENDPOINT__';
 
   var DRAFT_KEY = 'sa.feedback.draft';
   var DLG = 'lsa-fb-dlg';
