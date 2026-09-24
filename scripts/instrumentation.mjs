@@ -8,16 +8,31 @@ const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 const page = await ctx.newPage();
 
-// A stub feedback form, so the panel is exercised without a real one configured.
-await page.addInitScript(() => {
+// A stub feedback endpoint, so the panel is exercised without the real flow configured or posted
+// to. It records what was sent, answers the way the real flow's Response step does, and can be
+// told to fail so the error path runs too.
+const STUB = 'https://feedback.invalid/flow';
+const posted = [];
+await page.addInitScript((u) => {
   window.open = () => null;
-  window.__saFeedbackForm = { id: 'test-form', fields: { kind: '1', guide: '2', step: '3', locale: '4', url: '5' } };
+  window.__saFeedbackEndpoint = u;
+}, STUB);
+await page.route(STUB, (r) => {
+  if (failNext) return r.abort();
+  posted.push(Object.fromEntries(new URLSearchParams(r.request().postData() || '')));
+  return r.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: '' });
 });
-await page.route('https://forms.office.com/**', (r) => r.fulfill({ contentType: 'text/html', body: '<p>stub form</p>' }));
 
 const errors = [];
+let failNext = false;          // set in step 3 to make the stub feedback endpoint fail
 page.on('pageerror', (e) => errors.push(String(e).slice(0, 160)));
-page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text().slice(0, 160)); });
+// The browser logs the deliberately failed feedback send (step 3) as a console error; that one,
+// and only while the failure is being provoked, is expected.
+page.on('console', (m) => {
+  if (m.type() !== 'error') return;
+  if (failNext && /Failed to load resource/.test(m.text())) return;
+  errors.push('console: ' + m.text().slice(0, 160));
+});
 
 // src/analytics.js keeps a closed event list and rejects anything not on it with a console
 // WARNING, not an error — so a caller emitting an event nobody added to EVENTS records nothing
@@ -46,22 +61,56 @@ const rail = page.locator('[role="button"]').filter({ hasText: /Check the counts
 if (await rail.count()) await rail.last().click().catch(() => {});
 await page.waitForTimeout(500);
 
-// 3. the floating Feedback button opens the panel with the Microsoft Form embedded. No form is
-// configured in the build, so a stub one is injected (window.__saFeedbackForm) and every request
-// to forms.office.com is answered locally — the test must not depend on, or post to, a real form.
+// 3. the floating Feedback button: open, type, cancel, reopen, send, and fail once.
 const fab = page.locator('.lsa-fb-fab');
 const hadFeedbackWidget = (await fab.count()) > 0;
-let formPrefilled = null;
-let escapeReturnsFocus = null;
+const drafted = () => page.evaluate(() => {
+  try { return (JSON.parse(localStorage.getItem('sa.feedback.draft') || 'null') || {}).note || null; } catch (e) { return null; }
+});
+let sendBlockedWhenEmpty = null, draftSurvivedCancel = null, sentWithContext = null;
+let confirmedAfterSend = null, failureKeptNote = null, escapeReturnsFocus = null;
 if (hadFeedbackWidget) {
   await fab.click();
   await page.waitForTimeout(300);
-  const src = await page.locator('.lsa-fb-frame').getAttribute('src').catch(() => null);
-  const q = src ? new URL(src).searchParams : new URLSearchParams();
-  // The whole point of embedding: the reader stays here, and never retypes where they were.
-  formPrefilled = !!src && q.get('embed') === 'true' && q.get('id') === 'test-form'
-    && q.get('r2') === 'Dashboard overview' && /^Step \d+ of \d+/.test(q.get('r3') || '')
-    && q.get('r1') === 'Feedback' && !!q.get('r5');
+  const input = page.locator('.lsa-fb-input');
+  sendBlockedWhenEmpty = await page.locator('.lsa-fb-send').isDisabled();
+  await input.fill('automated test note');
+  // Cancel, not submit: a note must survive a cancel, and come back when the panel reopens.
+  await page.locator('.lsa-fb-cancel').click();
+  await page.waitForTimeout(200);
+  const stored = await drafted();
+  await fab.click();
+  await page.waitForTimeout(300);
+  draftSurvivedCancel = stored === 'automated test note'
+    && (await page.locator('.lsa-fb-input').inputValue()) === 'automated test note';
+
+  await page.locator('.lsa-fb-send').click();
+  await page.waitForTimeout(500);
+  // What reached the endpoint must carry the page and step, or the widget's point is lost.
+  const p0 = posted[0] || {};
+  sentWithContext = posted.length === 1 && p0.comment === 'automated test note' && p0.kind === 'Feedback'
+    && p0.page === 'Dashboard overview' && /^Step \d+ of \d+/.test(p0.step || '') && !!p0.url && !!p0.locale;
+  // "Sent" only after the endpoint answered, and the draft is gone with it.
+  confirmedAfterSend = (await page.locator('.lsa-fb-done').count()) === 1
+    && (await page.locator('.lsa-fb-input').count()) === 0
+    && (await drafted()) === null;
+  await page.locator('.lsa-fb-cancel').click();
+  await page.waitForTimeout(200);
+
+  // A failed send must say so and cost the reader nothing they typed.
+  failNext = true;
+  await fab.click();
+  await page.waitForTimeout(300);
+  await page.locator('.lsa-fb-input').fill('second note');
+  await page.locator('.lsa-fb-send').click();
+  await page.waitForTimeout(500);
+  failureKeptNote = ((await page.locator('.lsa-fb-error').textContent()) || '').trim().length > 0
+    && (await page.locator('.lsa-fb-input').inputValue()) === 'second note'
+    && (await drafted()) === 'second note'
+    && !(await page.locator('.lsa-fb-send').isDisabled());
+  failNext = false;
+
+  await page.locator('.lsa-fb-input').focus();
   await page.keyboard.press('Escape');
   await page.waitForTimeout(200);
   escapeReturnsFocus = (await page.locator('.lsa-fb-dlg').count()) === 0
@@ -75,12 +124,12 @@ const stub = page.locator('.lsa [data-stub="true"]').first();
 const hadStub = (await stub.count()) > 0;
 if (hadStub) { await stub.click(); await page.waitForTimeout(400); }
 
-// With no form configured — the shipped default — the button must not appear at all: a button
-// that opens nothing is worse than none.
+// With no endpoint configured, the button must not appear at all: a button that sends nowhere is
+// worse than none.
 const bare = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 await bare.goto(url, { waitUntil: 'networkidle' });
 await bare.waitForTimeout(1500);
-const hiddenWithoutForm = (await bare.locator('.lsa-fb-fab').count()) === 0;
+const hiddenWithoutEndpoint = (await bare.locator('.lsa-fb-fab').count()) === 0;
 await bare.close();
 
 const report = await page.evaluate(() => window.__saReport());
@@ -96,9 +145,13 @@ const result = {
   guidesOpened: report.guidesOpened,
   stubDemand: report.stubDemand,
   hadFeedbackWidget,
-  formPrefilled,
+  sendBlockedWhenEmpty,
+  draftSurvivedCancel,
+  sentWithContext,
+  confirmedAfterSend,
+  failureKeptNote,
   escapeReturnsFocus,
-  hiddenWithoutForm,
+  hiddenWithoutEndpoint,
   hadStub,
   externalSeen,
   rejectedEvents: [...rejected],
@@ -112,9 +165,14 @@ const pass =
   (!hadStub || uniq.includes('stub_clicked')) &&
   hadFeedbackWidget &&
   uniq.includes('feedback_opened') &&
-  formPrefilled === true &&
+  uniq.includes('feedback_sent') &&
+  sendBlockedWhenEmpty === true &&
+  draftSurvivedCancel === true &&
+  sentWithContext === true &&
+  confirmedAfterSend === true &&
+  failureKeptNote === true &&
   escapeReturnsFocus === true &&
-  hiddenWithoutForm === true &&
+  hiddenWithoutEndpoint === true &&
   rejected.size === 0 &&
   errors.length === 0;
 

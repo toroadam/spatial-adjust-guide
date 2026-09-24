@@ -137,21 +137,40 @@ for (const key of GUIDES) {
   process.stderr.write(`  ${key}: ${strings.size} unique so far\n`);
 }
 
-// The Feedback button only exists when a Microsoft Form is configured, and its panel only enters
-// the DOM when the button is pressed — so a stub form is injected and the panel opened here rather
-// than found by the walk above. Requests to the form are answered locally; nothing is posted.
-await page.addInitScript(() => {
-  window.__saFeedbackForm = { id: 'harvest', fields: {} };
+// The Feedback button only exists when an endpoint is configured, and its panel's states only
+// enter the DOM when driven — so a stub endpoint is injected and the panel is opened, sent
+// (delayed, to catch "Sending…"), confirmed, and failed once, here rather than found by the walk
+// above. Every request to the stub is answered locally; nothing is posted anywhere.
+const STUB = 'https://feedback.invalid/harvest';
+let failNext = false;
+await page.addInitScript((u) => { window.__saFeedbackEndpoint = u; }, STUB);
+await page.route(STUB, async (r) => {
+  if (failNext) return r.abort();
+  await new Promise((res) => setTimeout(res, 600));
+  return r.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: '' });
 });
-await page.route('https://forms.office.com/**', (r) => r.fulfill({ contentType: 'text/html', body: '' }));
 await page.goto(`${url}/#/${GUIDES[0]}`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1600);
 const fab = await page.$('.lsa-fb-fab');
 if (fab) {
   await harvest('chrome');
-  await fab.click().catch(() => {});
-  await page.waitForTimeout(300);
+  const openPanel = async () => { await page.click('.lsa-fb-fab').catch(() => {}); await page.waitForTimeout(300); };
+  await openPanel();
   await harvest('chrome');
+  await page.fill('.lsa-fb-input', 'harvest').catch(() => {});
+  await page.click('.lsa-fb-send').catch(() => {});
+  await page.waitForTimeout(150);
+  await harvest('chrome');                     // "Sending…"
+  await page.waitForTimeout(800);
+  await harvest('chrome');                     // the sent confirmation
+  await page.click('.lsa-fb-cancel').catch(() => {});
+  failNext = true;
+  await openPanel();
+  await page.fill('.lsa-fb-input', 'harvest').catch(() => {});
+  await page.click('.lsa-fb-send').catch(() => {});
+  await page.waitForTimeout(400);
+  await harvest('chrome');                     // the send-failed message
+  await page.click('.lsa-fb-cancel').catch(() => {});
 } else {
   process.stderr.write('  WARNING: feedback button not found — its strings will be absent\n');
 }

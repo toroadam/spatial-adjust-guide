@@ -66,10 +66,11 @@
     'play_all_used',
     'stub_clicked',          // the demand signal for the 17 unwritten guides
     'search_used',
-    // Opening the Feedback panel. Whether the reader then submits happens inside the embedded
-    // Microsoft Form, on another origin, so it is not observable here — the form's own response
-    // count is that number.
+    // Opening the Feedback panel, then a comment the flow confirmed it stored. Separate events
+    // because the drop-off between them is the interesting number: a panel opened and abandoned
+    // is a different problem from one nobody opens.
     'feedback_opened',
+    'feedback_sent',
     'returned_home',
 
     // Language. Without these there is no way to tell whether the locale negotiation does
