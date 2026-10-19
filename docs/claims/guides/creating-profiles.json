@@ -9,12 +9,48 @@
       "field": "title",
       "text": "Creating profiles",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "208-211"
+        }
+      ],
+      "note": "Tile title. Profiles cannot be created: the tab always holds five slots per course (sa-settings-dlg.component.ts:383-392; SpatialAdjustLogic.cs:28-31), and the guide's task is capturing current targets into one of them with Update from Current. Renaming the guide is an editorial call for the review.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Capturing profiles. Why: the tab has five fixed slots per course and no way to add one (sa-settings-dlg.component.ts:383-392); you capture targets into a slot with Update from Current (sa-settings-dlg.component.html:208-211)."
     },
     {
       "id": "creating-profiles/tile/2",
@@ -23,9 +59,31 @@
       "field": "summary",
       "text": "Capture the current targets under a name.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 204
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "208-211"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "636-678"
+        }
+      ],
+      "note": "Tile summary. Update from Current plus the slot's editable name.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37,9 +95,24 @@
       "field": "summary",
       "text": "Capture the station targets you have tuned, under a name you will recognise next season.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 204
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "636-678"
+        }
+      ],
+      "note": "Into one of the five slots, renamed as you like.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -51,9 +124,31 @@
       "field": "where",
       "text": "Settings › Target Profiles",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "68-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "22-35"
+        }
+      ],
+      "note": "Settings gear, then the third rail entry.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -65,12 +160,55 @@
       "field": "note",
       "text": "Target Profiles is still in development and is not in the shipping build yet.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 35
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "branch:feature/260812_target_profiles",
+          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 52
+        },
+        {
+          "source": "intellidash",
+          "ref": "branch:feature/260812_target_profiles",
+          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        }
+      ],
+      "note": "Target Profiles ships. The menu entry is live on production (sa-settings-dlg.component.ts:55); at the 2026-08-13 baseline it was commented out (docs/claims/changed-surfaces.md). The pane renders from the same build (sa-settings-dlg.component.html:35, :177-226). It was first built on branch feature/260812_target_profiles (menu entry :52, pane :177-226), merged to develop on 2026-09-14, and is the same on develop (:55). The status is Wrong rather than Not shipping because production contains the feature.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Target Profiles is in the shipping build. Why: the Settings dialog's Target Profiles entry is live on production (sa-settings-dlg.component.ts:55) and its pane renders (sa-settings-dlg.component.html:177-226)."
     },
     {
       "id": "creating-profiles/note/2",
@@ -79,12 +217,83 @@
       "field": "note",
       "text": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 35
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "branch:feature/260812_target_profiles",
+          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 52
+        },
+        {
+          "source": "intellidash",
+          "ref": "branch:feature/260812_target_profiles",
+          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        }
+      ],
+      "note": "The tab is not \"being built\"; it ships. The rest holds: the shipped tab does list five named slots, and the figures show the earlier card design. The shipped tab is a table of five fixed slots per Lynx course, named Spring, Summer, Fall, Winter and Tournament until renamed (sa-settings-dlg.component.ts:103-109, :383-392; the server rejects any index outside 0-4, SpatialAdjustLogic.cs:28-31). Its columns are Target Profile (an editable name), Last Updated, Stations, Update from Current and Apply Profile (sa-settings-dlg.component.html:195-206).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The screens here show an earlier design; the shipped tab lists five named profile slots per Lynx course, so your screen will look different. Why: the shipped pane is a five-slot table (sa-settings-dlg.component.ts:103-109, :383-392; sa-settings-dlg.component.html:195-206), not the cards in the figures."
     },
     {
       "id": "creating-profiles/before/1",
@@ -92,10 +301,25 @@
       "step": "before",
       "field": "before",
       "text": "A profile stores one Target VWC per station and nothing else — no percent adjustments, no enable states.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "662-667"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "921-936"
+        }
+      ],
+      "note": "Retyped from label to behaviour. A stored row holds the profile id, the station name and a Target VWC only (SpatialAdjustService.cs:662-667), and applying changes no enable state or % Adj. override (:921-936).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -107,9 +331,17 @@
       "field": "title",
       "text": "Tune the targets first",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "566-580"
+        }
+      ],
+      "note": "Step title. Capture reads the targets as they stand at Save Changes.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -121,9 +353,24 @@
       "field": "body",
       "text": "A profile is a snapshot, so the work happens in the table before you save anything.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "566-580"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "249-251"
+        }
+      ],
+      "note": "Update from Current copies the stored targets when Save Changes runs (sa-settings-dlg.component.ts:249-251; SpatialAdjustService.cs:566-580); later edits do not change the profile.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -135,9 +382,17 @@
       "field": "body",
       "text": "Get the course reading the way you want it, hole by hole, and only then capture it.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "566-580"
+        }
+      ],
+      "note": "Editorial; consistent with creating-profiles/1/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -148,10 +403,32 @@
       "step": "1",
       "field": "caption",
       "text": "The Target VWC column is what a profile would capture.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "566-580"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "653-671"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "Retyped from label to behaviour. The Target VWC values are what is captured, for every station record in the course, including any the table is not showing because it has no recent scans (SpatialAdjustService.cs:180-211).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -163,9 +440,24 @@
       "field": "title",
       "text": "Open the Target Profiles tab",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "22-29"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -177,9 +469,17 @@
       "field": "body",
       "text": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        }
+      ],
+      "note": "The rail places Target Profiles after Calculation and Minimum Threshold. The \"because\" clause is the guide's rationale.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -190,13 +490,84 @@
       "step": "2",
       "field": "caption",
       "text": "Proposed Target Profiles tab.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 35
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "branch:feature/260812_target_profiles",
+          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 52
+        },
+        {
+          "source": "intellidash",
+          "ref": "branch:feature/260812_target_profiles",
+          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        }
+      ],
+      "note": "Retyped from label to behaviour. Figure caption. The tab ships (see creating-profiles/note/1), and the figure shows the earlier card design rather than the five-slot table, so it needs replacing as well as the caption.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The Target Profiles tab. Why: the tab ships on production (sa-settings-dlg.component.ts:55), so it is no longer a proposal."
     },
     {
       "id": "creating-profiles/3/1",
@@ -205,9 +576,24 @@
       "field": "title",
       "text": "Name it for the condition",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 204
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "18-26"
+        }
+      ],
+      "note": "Step title. Slot names are editable.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -218,10 +604,32 @@
       "step": "3",
       "field": "body",
       "text": "Name a profile for the reason the targets are what they are — Summer Baseline, Tournament Week, Overseed Recovery.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 204
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "18-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        }
+      ],
+      "note": "Retyped from label to behaviour. Any name up to 200 characters is accepted (SpatialAdjustLogic.cs:18-26). The slots start as Spring, Summer, Fall, Winter and Tournament (sa-settings-dlg.component.ts:103-109), so names like these mean renaming a slot.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -233,9 +641,17 @@
       "field": "body",
       "text": "A date tells you when; a condition tells you why, which is what you will be searching for.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 205
+        }
+      ],
+      "note": "Editorial. The Last Updated column already records the date (sa-settings-dlg.component.html:205), which supports keeping the date out of the name.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,12 +663,48 @@
       "field": "caption",
       "text": "Three profiles, one active.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-219"
+        }
+      ],
+      "note": "Figure caption. The shipped list always shows five slots and marks none as active (sa-settings-dlg.component.html:195-219); the applied profile is named on the dashboard instead (sa-dashboard.component.html:30-32).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The Target Profiles tab with its five slots. Why: the tab always lists five slots per course (sa-settings-dlg.component.ts:383-392) and has no active marker (sa-settings-dlg.component.html:195-219)."
     },
     {
       "id": "creating-profiles/4/1",
@@ -261,9 +713,24 @@
       "field": "title",
       "text": "Check the station count",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 197
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 206
+        }
+      ],
+      "note": "Step title. The column header is \"Stations\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -275,9 +742,24 @@
       "field": "body",
       "text": "The count beside each profile says how many stations it covers.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 206
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "653-671"
+        }
+      ],
+      "note": "The Stations column is the number of station names stored in the profile, or \"--\" for an empty slot (sa-settings-dlg.component.html:206).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -289,12 +771,34 @@
       "field": "body",
       "text": "A profile captured while the course was partly disabled covers fewer stations than the course has, and applying it later leaves the rest untouched.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "566-580"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "653-671"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "861-936"
+        }
+      ],
+      "note": "Enable state plays no part in capture: Update from Current reads every station record for the course with no enabled filter (SpatialAdjustService.cs:566-580, :653-671). The second half is right in its own terms: applying writes only the stations named in the profile (:861-936), so stations added to the course after the capture keep their targets.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "A profile holds every station the course had when it was captured, enabled or not. Stations added to the course later are not in it, and applying the profile leaves them untouched. Why: Update from Current reads every station record for the course with no enable filter (SpatialAdjustService.cs:566-580, :653-671), and apply writes only the stations named in the profile (:861-936)."
     },
     {
       "id": "creating-profiles/4/4",
@@ -303,9 +807,17 @@
       "field": "caption",
       "text": "Coverage is part of what a profile is.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "306-313"
+        }
+      ],
+      "note": "The apply confirmation shows SPATIAL_ADJUST.STATIONS_IN_PROFILE \"Stations in Profile\" beside SPATIAL_ADJUST.MATCHING_STATIONS \"Matching Stations\" (sa-settings-dlg.component.html:306-313).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -317,9 +829,31 @@
       "field": "verify",
       "text": "The new profile appears in the list with today’s date and the full station count.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 625
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "205-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "653-671"
+        }
+      ],
+      "note": "After Save Changes the slot's Last Updated is stamped (SpatialAdjustService.cs:625) and Stations shows the count captured. The slot was already in the list before; it now shows a date and count instead of \"--\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -331,9 +865,24 @@
       "field": "verify",
       "text": "The targets in the table are unchanged by saving.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "566-580"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "681-686"
+        }
+      ],
+      "note": "Capture only reads the stations (SpatialAdjustService.cs:566-580). If Apply Profile was also staged on the same slot, the apply runs after the capture and writes the same values back (:681-686).",
       "question": "",
       "developNote": "",
       "correction": ""
