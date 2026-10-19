@@ -9,9 +9,31 @@
       "field": "title",
       "text": "Enable and disable stations",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "67-69"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 26
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 695
+        }
+      ],
+      "note": "Tile title. Every row, at area, hole and station level, carries a switch bound to its enabled state (sa-table-card.component.html:67-69), under the header STRINGS.ENABLE \"Enable\" (sa-dash-table.component.html:26).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -23,9 +45,31 @@
       "field": "summary",
       "text": "Cascading enable state across areas, holes and stations.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "334-360"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "507-543"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1311-1409"
+        }
+      ],
+      "note": "Tile summary. The cascade exists on production, but only as a Shift-click on an area or hole switch (sa-table-card.component.ts:336). It sets the row and every hole and station record beneath it in one transaction (SpatialAdjustService.cs:1316-1407). A plain click changes only the row itself; see enable-disable-stations/2/1.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37,9 +81,38 @@
       "field": "summary",
       "text": "Take a station, hole or area out of adjustment — and understand what cascading does before you confirm it.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "67-69"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "607-641"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "336-347"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "101-107"
+        }
+      ],
+      "note": "All three levels can be switched off, and a station under a disabled area or hole is left off the push list (sa-dashboard.component.ts:615-641). The confirmation appears only for a Shift-click cascade, and not at all once the user has suppressed it (sa-table-card.component.ts:336-347).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -50,10 +123,32 @@
       "step": "where",
       "field": "where",
       "text": "Table, Enable column",
-      "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 26
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 695
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "67-69"
+        }
+      ],
+      "note": "Retyped from behaviour to label. STRINGS.ENABLE \"Enable\" is the last column header at every table level (sa-dash-table.component.html:26), and the switch sits in that column on every row (sa-table-card.component.html:67-69).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -64,10 +159,43 @@
       "step": "before",
       "field": "before",
       "text": "A disabled station is excluded from adjustment entirely; it is not sent a zero, it is simply not sent.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "607-678"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 51
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1256-1309"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "39-63"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Push Changes Functionality"
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour; the source settles it. The pending list, which is what Push Changes sends, keeps only stations whose area and hole are enabled and that have at least one enabled sprinkler record (sa-dashboard.component.ts:615-641). No other step filters on the enabled flag, and disabling only writes that flag (SpatialAdjustService.cs:1256-1309), so nothing is sent to Lynx and Lynx keeps whatever Pct Adjust it was last given; the guide could say so. The station is excluded from the push, not from the calculation: the table still shows its Current, Suggested and an editable % Adj. (sa-table-card.component.html:39-63), without the push icon (:51). 373-1135 rev 02 §Push Changes Functionality: a station whose parents are not enabled is not included in the list. For the multi-sprinkler caveat see enable-disable-stations/1/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -79,9 +207,24 @@
       "field": "title",
       "text": "Toggle a single station",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "334-338"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1290-1302"
+        }
+      ],
+      "note": "Step title. On a station row the switch always acts alone, Shift or not (sa-table-card.component.ts:336).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -93,9 +236,77 @@
       "field": "body",
       "text": "The switch in the Enable column takes effect on that station alone.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "334-338"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "488-505"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1290-1302"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "355-408"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1218-1229"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "626-641"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "351-374"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Domain/SpatialAdjust.cs",
+          "line": 122
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-api.service.ts",
+          "line": "108-116"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Indicators"
+        }
+      ],
+      "note": "A station switch calls UpdateAutoAdjust for one record (sa-table-card.component.ts:488-505; SpatialAdjustService.cs:1290-1302) and never cascades (sa-table-card.component.ts:336). Product defect to raise in the review: a multi-sprinkler station's row is keyed on its first sprinkler record (sa-dash-table.component.ts:357-363) and the switch updates only that record, whereas a Target VWC edit is copied to every record of the station (SpatialAdjustService.cs:1218-1229). The push list and the map count a station as enabled when any of its records is enabled (sa-dashboard.component.ts:626-641; sa-dash-map.component.ts:360-365). Records are created disabled (Domain/SpatialAdjust.cs:122), so the gap opens only after a Shift-click cascade has enabled every record: switching the station off then greys its switch but leaves it in the push and on the Enabled Stations map. 373-1135 rev 02 §Map Indicators says every sprinkler of a multi-sprinkler station is enabled or disabled together. Side effect: the toggle also clears the row's graph selection on the server, because the client always sends selected as false (spatial-adjust-api.service.ts:108-116; SpatialAdjustService.cs:1300).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -107,9 +318,24 @@
       "field": "body",
       "text": "Station 5AP1 is off here, which is why it has no pending adjustment however dry it reads.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "626-641"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 51
+        }
+      ],
+      "note": "The station name is the figure's sample data. A disabled station is left off the pending list whatever its suggestion (sa-dashboard.component.ts:626-641), and the push icon is drawn only for enabled stations (sa-table-card.component.html:51). Its Suggested and % Adj. are still shown.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -121,9 +347,24 @@
       "field": "caption",
       "text": "A disabled station: the switch on its row is grey.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "67-69"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/angular.json",
+          "line": 80
+        }
+      ],
+      "note": "Figure caption. The switch is PrimeNG's p-inputSwitch under the nova-light theme (angular.json:80), whose off state is a grey track and on state blue. No Spatial Adjust style overrides it; the only inputswitch override in the site styles is scoped to a dashboard widget container.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -135,12 +376,48 @@
       "field": "title",
       "text": "Toggling a parent cascades",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "334-348"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "488-505"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1256-1309"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-619"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "355-365"
+        }
+      ],
+      "note": "A plain click on an area or hole switch takes the single-row path (sa-table-card.component.ts:336-338), which sets only that row's flag (SpatialAdjustService.cs:1262-1288); child switches keep their own state. The cascade runs only when Shift is held during the click (sa-table-card.component.ts:336, :339-347). No label, tooltip or en-us.json string mentions Shift, so the gesture cannot be discovered in the product; the review pack should ask whether the guide should teach it. Even without a cascade, a disabled parent takes its children out of the push and off the Enabled Stations map (sa-dashboard.component.ts:615-619; sa-dash-map.component.ts:355-365).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Shift-click a parent to cascade. Why: a plain click on an area or hole switch changes only that row (sa-table-card.component.ts:336-338), and the cascade runs only when Shift is held (:339-347)."
     },
     {
       "id": "enable-disable-stations/2/2",
@@ -149,12 +426,66 @@
       "field": "body",
       "text": "Hole and area rows carry the same switch, and turning one off turns off everything beneath it.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "67-69"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "336-338"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1262-1288"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-619"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "355-365"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "507-531"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1322-1383"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Push Changes Functionality"
+        }
+      ],
+      "note": "First half verified: the switch is rendered on every row (sa-table-card.component.html:67-69). Second half: a plain click turns off only the parent. Its stations drop out of the push list and off the Enabled Stations map because their parent is off (sa-dashboard.component.ts:615-619; sa-dash-map.component.ts:355-365; 373-1135 rev 02 §Push Changes Functionality), but their own switches stay on, and switching the parent back on restores them as they were. Only a Shift-click sets every switch beneath it (sa-table-card.component.ts:507-531; SpatialAdjustService.cs:1322-1383).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Hole and area rows carry the same switch. Turning one off takes everything beneath it out of the push and off the Enabled Stations map but leaves their own switches as they were; hold Shift as you click to switch everything beneath it off too. Why: a plain click sets only the parent's flag (SpatialAdjustService.cs:1262-1288), the push list skips children of a disabled parent (sa-dashboard.component.ts:615-619), and only a Shift-click cascades (sa-table-card.component.ts:336-347)."
     },
     {
       "id": "enable-disable-stations/2/3",
@@ -163,10 +494,25 @@
       "field": "body",
       "text": "That is usually what you want when a hole is out of play.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
-      "question": "",
+      "status": "Needs expert",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-619"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1256-1309"
+        }
+      ],
+      "note": "Operational advice that the source cannot settle. What the product does is settled: disabling a hole stops Spatial Adjust pushing to its stations (sa-dashboard.component.ts:615-619) and leaves Lynx on the last adjustment it was sent (SpatialAdjustService.cs:1256-1309 writes only the flag).",
+      "question": "When a hole is out of play, would a superintendent normally take all of its stations out of Spatial Adjust, leaving Lynx on its last pushed adjustment: yes or no?",
       "developNote": "",
       "correction": ""
     },
@@ -177,9 +523,24 @@
       "field": "caption",
       "text": "Hole rows carry their own Enable switch.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "67-69"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "318-333"
+        }
+      ],
+      "note": "Figure caption. Hole rows are built with the hole's own enabled flag (sa-dash-table.component.ts:318-333) and render the same switch (sa-table-card.component.html:67-69).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -191,9 +552,24 @@
       "field": "title",
       "text": "Confirm the cascade",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "339-347"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "101-107"
+        }
+      ],
+      "note": "Step title. The confirmation appears only for a Shift-click on an area or hole switch, and only while the user has not suppressed it (sa-table-card.component.ts:339-347; sa-table-card.component.html:101-107).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -205,9 +581,45 @@
       "field": "body",
       "text": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.html",
+          "line": "14-19"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.ts",
+          "line": "35-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 383
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 385
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 382
+        }
+      ],
+      "note": "The dialog title is SPATIAL_ADJUST.CASCADE_STATE \"Cascade {{state}}\", for example \"Cascade Disable\", and for a hole the body is SPATIAL_ADJUST.CASCADE_HOLE: \"Disable this hole and all child stations?\" then \"This will disable the selected hole and every station beneath it.\" (sa-confirm-cascade-dlg.component.html:14-19; sa-confirm-cascade-dlg.component.ts:35-42; en-us.json:383, :385). An area uses CASCADE_AREA, which names every hole and station beneath it (en-us.json:382). It asks only on a Shift-click; see enable-disable-stations/2/1.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -219,9 +631,66 @@
       "field": "body",
       "text": "Continue applies it; Cancel leaves everything as it was.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.html",
+          "line": "27-37"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 387
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 636
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.ts",
+          "line": "52-61"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "350-360"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1316-1407"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "532-534"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 384
+        }
+      ],
+      "note": "SPATIAL_ADJUST.CONTINUE \"Continue\" runs the cascade (sa-confirm-cascade-dlg.component.ts:54-61; sa-table-card.component.ts:356-360), which saves in one transaction (SpatialAdjustService.cs:1316-1407) and reports \"Cascade Disable for '<row>' complete\" in the footer (sa-table-card.component.ts:532-534; en-us.json:384). STRINGS.CANCEL \"Cancel\" flips the switch back without a server call (sa-table-card.component.ts:350-354); nothing was saved before the dialog opened. Side effect of Continue: the graph selection of every row it touches is set to match the new state (SpatialAdjustService.cs:1337-1398).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -233,9 +702,31 @@
       "field": "caption",
       "text": "The cascade confirmation names exactly what will change.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.ts",
+          "line": "38-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 382
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 385
+        }
+      ],
+      "note": "Figure caption. The dialog names the level and \"every hole and station\" or \"every station\" beneath it (en-us.json:382, :385); it does not list or count them.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,9 +738,24 @@
       "field": "title",
       "text": "Silence the prompt once you trust it",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.html",
+          "line": "22-25"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 392
+        }
+      ],
+      "note": "Step title. The dialog carries the opt-out checkbox (sa-confirm-cascade-dlg.component.html:22-25).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -261,9 +767,45 @@
       "field": "body",
       "text": "The checkbox suppresses the confirmation for future cascades.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.html",
+          "line": "22-25"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 392
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.ts",
+          "line": "52-61"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "339-343"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/models/dash-user-preferences.model.ts",
+          "line": 87
+        }
+      ],
+      "note": "The checkbox is SPATIAL_ADJUST.DONT_ASK_FOR_CASCADE_CONFIMRATION \"Don’t ask to confirm cascading enable/disable changes again\" (en-us.json:392). It is saved only when Continue is clicked; ticking it and pressing Cancel saves nothing (sa-confirm-cascade-dlg.component.ts:52-61). Once saved, Shift-clicks cascade without the dialog (sa-table-card.component.ts:340-342). No screen turns it back on: saHideCascadeConfirmation is only ever set to true (dash-user-preferences.model.ts:87; sa-confirm-cascade-dlg.component.ts:56) and the preferences dialog does not show it, so readers should know the choice cannot be undone from the dashboard.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -275,9 +817,38 @@
       "field": "body",
       "text": "It is stored in your own preferences, so it hides the prompt for you and not for your colleagues.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/models/dash-user-preferences.model.ts",
+          "line": 87
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.ts",
+          "line": "55-57"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/dash-user-api.service.ts",
+          "line": "39-41"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/dash-user-api.service.ts",
+          "line": 53
+        }
+      ],
+      "note": "The flag saHideCascadeConfirmation lives in the signed-in user's dashboard preferences (dash-user-preferences.model.ts:87) and is written with updateDashUserPreferences to the user-preferences endpoint (sa-confirm-cascade-dlg.component.ts:55-57; dash-user-api.service.ts:39-41, :53), the same per-user store map-navigation/before/1 verified for the moisture bands.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -289,9 +860,31 @@
       "field": "caption",
       "text": "The same dialog for an area-level enable.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-confirm-cascade-dlg/sa-confirm-cascade-dlg.component.ts",
+          "line": "36-39"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 382
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 383
+        }
+      ],
+      "note": "Figure caption. For an area the body is SPATIAL_ADJUST.CASCADE_AREA, \"Enable this area and all child holes and stations?\" when enabling (sa-confirm-cascade-dlg.component.ts:36-39; en-us.json:382), under the title \"Cascade Enable\" (en-us.json:383).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -303,12 +896,48 @@
       "field": "tip",
       "text": "Careful. With the prompt suppressed, an area-level toggle silently changes every hole and station under it.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "336-347"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1262-1274"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-619"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "532-534"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 384
+        }
+      ],
+      "note": "With the prompt suppressed, a Shift-click on an area switch cascades at once (sa-table-card.component.ts:340-342). A plain click on an area never cascades, prompt or not (:336-338; SpatialAdjustService.cs:1262-1274), though it still takes every hole and station beneath it out of the push (sa-dashboard.component.ts:615-619). Nor is a cascade silent: it shows \"Cascade Disable for '<area>' complete\" in the footer (sa-table-card.component.ts:532-534; en-us.json:384).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Careful. With the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a brief footer message to show for it. Why: the suppressed path cascades without the dialog (sa-table-card.component.ts:340-342), and only a Shift-click cascades at all (:336-338)."
     },
     {
       "id": "enable-disable-stations/5/1",
@@ -317,9 +946,24 @@
       "field": "title",
       "text": "Check the result on the map",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "199-210"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        }
+      ],
+      "note": "Step title. The map redraws its markers whenever a row's enabled state changes (sa-dash-map.component.ts:199-210).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -331,9 +975,52 @@
       "field": "body",
       "text": "Switch Layers to Enabled Stations to see only the heads still in adjustment.",
       "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 782
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 512
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 88
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "351-374"
+        }
+      ],
+      "note": "STRINGS.LAYERS, shown upper-case as \"LAYERS\", with radio buttons CASE_SENSITIVE.ALL_STATIONS \"All Stations\" and CASE_SENSITIVE.ENABLED_STATIONS \"Enabled Stations\" (sa-map-overlay.component.html:34-62). On production Enabled Stations is already the default (environment.toro-prod.ts:88), so for most users the step is a check rather than a switch. A station is drawn when its area and hole are enabled and at least one of its sprinkler records is (sa-dash-map.component.ts:351-374). Same finding as map-navigation/4/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -345,9 +1032,31 @@
       "field": "body",
       "text": "Anything that disappeared is out — deliberately or otherwise.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "351-374"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-641"
+        }
+      ],
+      "note": "The map's enabled test (sa-dash-map.component.ts:351-374) is the same rule the push list applies (sa-dashboard.component.ts:615-641), so a pin that disappears under Enabled Stations will not be pushed. The converse carries the caveat in enable-disable-stations/1/2: a multi-sprinkler station with another record still enabled stays on the map and in the push.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -359,9 +1068,24 @@
       "field": "caption",
       "text": "Layers filtered to enabled stations only.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "52-60"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        }
+      ],
+      "note": "Figure caption. The Enabled Stations radio button (sa-map-overlay.component.html:52-60) hides every station that fails the enabled test (sa-dash-map.component.ts:312).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -373,12 +1097,41 @@
       "field": "verify",
       "text": "The stations you meant to disable show a grey switch.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "336-338"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1262-1288"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-619"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "67-69"
+        }
+      ],
+      "note": "True for a station switched off directly or by a Shift-click cascade. After a plain click on a hole or area, the stations beneath it are out of the push but their own switches stay on (sa-table-card.component.ts:336-338; SpatialAdjustService.cs:1262-1288; sa-dashboard.component.ts:615-619), so the check fails although the result is right. See also the multi-sprinkler caveat in enable-disable-stations/1/2, where the switch is grey but the station is still pushed.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey. Why: a plain click on a parent switch leaves its children's switches on while still taking them out of the push (sa-table-card.component.ts:336-338; sa-dashboard.component.ts:615-619)."
     },
     {
       "id": "enable-disable-stations/verify/2",
@@ -386,10 +1139,46 @@
       "step": "verify",
       "field": "verify",
       "text": "The Push Changes count dropped by the pending edits you just excluded.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "176-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "607-678"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "146-160"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "34-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 559
+        }
+      ],
+      "note": "Retyped from label to behaviour. Disabling rebuilds the pending list (sa-dashboard.component.ts:176-188, :607-678), and the number on the Push Changes button counts pending stations not already pushed today (sa-main-toolbar.component.ts:146-160; sa-main-toolbar.component.html:34-42). It drops by the excluded stations that were pending, edited or not, less any already pushed today. \"Pending edits\" means stations whose % Adj. differs from Lynx's Current, as in bulk-adjustments/verify/3.",
       "question": "",
       "developNote": "",
       "correction": ""
