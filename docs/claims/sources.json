@@ -1,0 +1,52 @@
+{
+  "intellidash": {
+    "repository": "Azure DevOps rivcode/IntelliDash (read-only)",
+    "develop": {
+      "ref": "origin/develop",
+      "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+      "date": "2026-10-15T13:05:13-07:00",
+      "version": "2.5.261012"
+    },
+    "production": {
+      "ref": "origin/Deployments/release/261014_phase_3a",
+      "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+      "date": "2026-10-15T10:47:06-07:00",
+      "version": "2.5.261015",
+      "confirmed": false,
+      "method": "IntelliDash documents its own release convention at this SHA: CONTRIBUTING.md:26 describes Deployments/release/{YYMMDD}_{slug} as the snapshot deployed to production, CONTRIBUTING.md:44 says production ships from Deployments/release/* and not from master, and CONTRIBUTING.md:47-48 says the repository has no tags, so a release is identified by its Deployments/release/* branch name and the version in site/package.json. After the fetch there are 11 Deployments/release/* branches and no tags. This is the newest of them by both its YYMMDD name and its committer date, and its site/package.json:3 version (2.5.261015) is the highest of any ref inspected. The repository cannot prove it is what is deployed now: docs/guides/deployment.md:77 says nothing in the repository describes how production is published. Recorded as the best candidate pending confirmation from the release owner.",
+      "rejected": [
+        {
+          "ref": "origin/master",
+          "sha": "f2d965833b6da6847438cd07e83d0ed51a7fb1bf",
+          "date": "2023-02-02T16:24:58-08:00",
+          "reason": "Last committed in 2023. CONTRIBUTING.md:41-45 at the production SHA states master is not the release branch in current practice."
+        },
+        {
+          "ref": "origin/release/251001_i360",
+          "sha": "9d0b78c9d472a9eac19500947da88489359426c9",
+          "date": "2025-10-01T14:01:02-07:00",
+          "reason": "Older release/ naming that CONTRIBUTING.md:36 lists as a deviation from the current Deployments/release/* shape, and a year older than the newest Deployments/release/* branch."
+        }
+      ]
+    },
+    "baseline": {
+      "ref": "local develop checkout before the fetch",
+      "sha": "4d8aa61eb6131c5c5ef0f5df5d51079cc2eadedd",
+      "date": "2026-08-13T19:42:16Z",
+      "version": "2.5.260811"
+    },
+    "branches": {
+      "targetProfiles": {
+        "ref": "origin/feature/260812_target_profiles",
+        "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
+        "date": "2026-08-23T12:38:39-07:00"
+      },
+      "targetProfilesQueue": {
+        "ref": "origin/feature/260824_target_profiles_queue",
+        "sha": "d86ec595474bb6e535071a4f7dadf1d157c83cc8",
+        "date": "2026-08-26T14:06:23-07:00"
+      }
+    }
+  },
+  "fetchedAt": "2026-10-19T17:41:40Z"
+}
