@@ -9,9 +9,24 @@
       "field": "title",
       "text": "Dashboard overview",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "1-54"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/spatial-adjust-routing.module.ts",
+          "line": "9-19"
+        }
+      ],
+      "note": "Tile title. The Spatial Adjust module has one routed view, the dashboard (spatial-adjust-routing.module.ts:15), laid out as map, chart and table under the toolbar.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -23,9 +38,45 @@
       "field": "summary",
       "text": "The four regions of the screen and what each one is telling you.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "1-92"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "2-16"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "18-20"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "21-53"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.less",
+          "line": "91-103"
+        }
+      ],
+      "note": "Tile summary. The four regions are the toolbar, the map, the chart and the table. On screens 1400 px wide or narrower the layout stacks and the chart is hidden (sa-dashboard.component.less:91-103), so most tablets show three regions. That caveat is carried in the correction for dashboard-overview/3/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37,9 +88,24 @@
       "field": "summary",
       "text": "The whole feature lives on one screen.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/spatial-adjust-routing.module.ts",
+          "line": "9-19"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-112"
+        }
+      ],
+      "note": "The module routes to one view, the dashboard (the demo child route aside). Push, settings and the other tools open as dialogs over it (sa-main-toolbar.component.html:94-112).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -51,9 +117,31 @@
       "field": "summary",
       "text": "Learn what each of the four regions tells you, and which numbers are measured versus calculated.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-117"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        }
+      ],
+      "note": "Measured versus calculated is shown in the table: a station not scanned today is estimated under Option 2 (spatial-adjust-course.model.ts:184-188) and drawn grey and italic with a calculator icon (sa-table-card.component.html:29-32).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -64,10 +152,18 @@
       "step": "where",
       "field": "where",
       "text": "/spatialadjust",
-      "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Retyped from behaviour to navigation. The root router's path is 'spatialadjust', guarded by SpatialAdjustGuardService.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -79,9 +175,35 @@
       "field": "before",
       "text": "You need a Spatial Adjust account on a site with TurfRad scan data.",
       "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "373-1135 rev 02 (introduction, before Settings Configuration) says sites that subscribe reach Spatial Adjust by logging into IntelliDash and using the Spatial Adjust button, and to contact NSN if the link is missing. In code the route guard requires a Spatial Adjust user, meaning the user's spatialAdjust flag plus a TurfRad id (spatial-adjust-manager.service.ts:185-189), and the data load returns only areas, holes and stations that have scans (SpatialAdjustService.cs:180-211).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -93,9 +215,53 @@
       "field": "before",
       "text": "Without recent scans the map and table are empty.",
       "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2510
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 3
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 36
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 846
+        }
+      ],
+      "note": "Scans are requested from TurfRad for the last seven days (SpatialAdjustService.cs:2510), and only areas, holes and stations with scans are returned (:180-211). With none, map and table both show STRINGS.NO_DATA_TO_DISPLAY \"No data to display\" (sa-dashboard.component.html:3, :36). 373-1135 rev 02 §Table Functionality: the station view shows stations with scans in the past 7 days.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -106,10 +272,32 @@
       "step": "before",
       "field": "before",
       "text": "The route is all lowercase — /spatialadjust. /spatialAdjust does not resolve and redirects to the error page.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": 25
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/root-components/ah-snap/ah-snap.component.html",
+          "line": "1-5"
+        }
+      ],
+      "note": "Retyped from prerequisite to navigation, since the router settles it and 373-1135 rev 02 does not cover URLs. Angular matches route paths case-sensitively. 'spatialadjust' is the only path for the feature, and anything else falls through to the wildcard route, which redirects to /ah-snap, the generic error page.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -120,10 +308,25 @@
       "step": "before",
       "field": "before",
       "text": "The view is desktop and tablet only; phones are turned away by the route guard.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": 33
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour; 373-1135 rev 02 does not cover device support, and the guard settles it. The route is admitted only when the device detector reports desktop or tablet, alongside the Spatial Adjust user check (spatial-adjust-guard.service.ts:22-26). Anyone else is sent to the IntelliDash home page (:33).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -135,9 +338,17 @@
       "field": "title",
       "text": "Start with the toolbar",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "1-92"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -149,9 +360,21 @@
       "field": "body",
       "text": "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "7-19"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Multiple Lynx Course Support"
+        }
+      ],
+      "note": "Site name at :8. The course dropdown renders only when the Lynx course list has more than one entry (:9, :11). 373-1135 rev 02 §Multiple Lynx Course Support describes the same dropdown.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -163,9 +386,28 @@
       "field": "body",
       "text": "Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "22-24"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.html",
+          "line": "1-12"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Header"
+        }
+      ],
+      "note": "The strip shows current temperature, relative humidity, the first daily ET value and precipitation, and opens an overlay with more detail. 373-1135 rev 02 §Header describes the same strip, from DTN weather for the site's location.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -177,9 +419,38 @@
       "field": "body",
       "text": "It reports conditions; it is not where the suggested percentages come from.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.html",
+          "line": 6
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 33
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "346-352"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2838-2882"
+        }
+      ],
+      "note": "The strip's ET is the weather overlay's daily value (sa-weather-tb.component.html:6). The suggestion is computed on the server from the stored daily ET record (GetCurrentEtForOrgAsync, SpatialAdjustService.cs:2838-2882), and that figure is shown separately as Calculation ET above the table (sa-dashboard.component.html:33).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -191,11 +462,40 @@
       "field": "body",
       "text": "Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "43-65"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2931-2932"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3280-3325"
+        }
+      ],
+      "note": "Option 1 (Simple) is Target VWC ÷ measured VWC × the current Lynx percentage, with no ET (sa-algorithm.service.ts:58-60). Option 2 (DeltaPlusTodayEt, the default) looks up the value the server has already stored for the station (:62-65), computed when the server processes scan data (SpatialAdjustService.cs:2931-3043).",
       "question": "",
-      "developNote": "",
+      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325). The Option 2 figure is still computed before the page reads it.",
       "correction": ""
     },
     {
@@ -205,9 +505,17 @@
       "field": "caption",
       "text": "Toolbar, left: site, course selector, weather strip and the course-wide moisture summary.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "2-33"
+        }
+      ],
+      "note": "Figure caption. The left-hand group holds the logo, site name, course selector, weather strip and the AVG. VWC / HIGH / LOW summary (:2-32); the right-hand group, #sa-tb-right (:33), holds Push Changes, Pushed Today and the tool buttons.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -219,12 +527,59 @@
       "field": "tip",
       "text": "Note. Avg / High / Low moisture are computed across every station in the selected course, not just the ones visible in the table.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/spatial-adjust-main/spatial-adjust-main.component.ts",
+          "line": "67-89"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 531
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 87
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "16-40"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "98-99"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "25-30"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Header"
+        }
+      ],
+      "note": "The summary is built from the selected course's areas (sa-dashboard.component.ts:531), so it ignores the table's drill-down and filter, as the note says. It is not computed across every station, though. On production saShowCurrentOnly is true (environment.toro-prod.ts:87), so only areas whose last scan is today count (spatial-adjust-main.component.ts:77). AVG. VWC is the mean of those areas' averages, not of their stations (:86), and HIGH and LOW are the lowest and highest of today's scans (:87-88; spatial-adjust-course.model.ts:98-99). Stations last scanned on an earlier day are left out. 373-1135 rev 02 §Header calls it \"the average VWC for the entire site\".",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Note. AVG. VWC, HIGH and LOW summarise the areas of the selected course that were scanned today, whatever the table is showing. Why: the summary reads every area of the course but on production keeps only those whose last scan is today (spatial-adjust-main.component.ts:77), and AVG. VWC averages the area averages (:86)."
     },
     {
       "id": "dashboard-overview/2/1",
@@ -233,9 +588,17 @@
       "field": "title",
       "text": "Read the map",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "2-16"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,12 +610,52 @@
       "field": "body",
       "text": "Every station is a pin coloured by its latest measured VWC against the four moisture bands in the legend.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        }
+      ],
+      "note": "Three differences on production. Pins are drawn per sprinkler record, so a station with two sprinklers has two circles (sa-dashboard.component.ts:517-519, sa-dash-map.component.ts:307). A pin whose latest scan is not from today is drawn clear rather than coloured (:315, with saShowCurrentOnly true at environment.toro-prod.ts:87), as 373-1135 rev 02 §Map Functionality describes: coloured when scanned today, clear when scanned within the past 7 days. And the Layers default on production is Enabled Stations (environment.toro-prod.ts:88), so disabled stations are not drawn until the user picks All Stations (sa-dash-map.component.ts:312).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Each sprinkler of a station scanned in the past seven days is a pin. Pins scanned today are coloured by measured VWC against the four moisture bands in the legend; pins whose latest scan is older are drawn clear, and disabled stations stay hidden while Layers is set to Enabled Stations, the default. Why: the map draws one circle per sprinkler record and colours it only when its scan is from today (sa-dash-map.component.ts:307, :315), and production defaults Layers to Enabled Stations (environment.toro-prod.ts:88)."
     },
     {
       "id": "dashboard-overview/2/3",
@@ -261,9 +664,38 @@
       "field": "body",
       "text": "Drag the handles on the colour bar to move the band boundaries — the map recolours immediately and the change is saved to your user preferences.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/shared/components/color-range/color-range.component.ts",
+          "line": "79-87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "120-132"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "138-143"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/shared/components/color-range/color-range.component.ts",
+          "line": "115-139"
+        }
+      ],
+      "note": "The map redraws when the handle is released: the colour bar emits dragEnd on mouse-up or touch-end (color-range.component.ts:79-87), the overlay passes the new bands to the map, whose setter redraws every pin (sa-dash-map.component.ts:138-143), and saves them to the signed-in user's dashboard preferences (sa-map-overlay.component.ts:120-132). While the handle moves, only the legend labels change (color-range.component.ts:115-139). \"Immediately\" holds if read as \"on release\"; map-navigation/2/3, which says \"as you drag\", is marked Wrong.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -275,9 +707,17 @@
       "field": "caption",
       "text": "Map with the moisture legend.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "6-16"
+        }
+      ],
+      "note": "Figure caption.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -289,9 +729,24 @@
       "field": "caption",
       "text": "Bands default to 0–5, 6–19, 20–30 and above 30 percent.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "47-58"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "8-11"
+        }
+      ],
+      "note": "With no saved bands the boundaries fall back to 5, 19 and 30, which the legend labels 0-5%, 6-19%, 20-30% and > 30%.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -303,9 +758,42 @@
       "field": "tip",
       "text": "Variance view. The button beside the legend switches the pins from absolute moisture to variance — how far each station sits from its target rather than its raw reading.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "29-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "317-318"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "65-74"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 485
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Indicators"
+        }
+      ],
+      "note": "The button's tooltip is SPATIAL_ADJUST.TOGGLE_VWC_VARIANCE_VIEW \"Toggle VWC or Variance View\". In variance mode each pin's value is its measured VWC minus its Target VWC, rounded (sa-dash-map.component.ts:317), coloured against three bands. As in the moisture view, pins not scanned today are drawn clear (:318).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -317,9 +805,24 @@
       "field": "title",
       "text": "Use the chart for one area at a time",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.ts",
+          "line": "108-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": 338
+        }
+      ],
+      "note": "Step title. The chart follows the table's current level; inside an area it offers that area's holes.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -331,12 +834,45 @@
       "field": "body",
       "text": "The chart above the table plots the holes you pick in the multiselect.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.ts",
+          "line": "83-93"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.ts",
+          "line": "108-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.html",
+          "line": "13-24"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.less",
+          "line": "91-103"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Graph Functionality"
+        }
+      ],
+      "note": "The multiselect lists whatever level the table is showing: areas at the course level, holes inside an area, stations inside a hole. The chart fills the list and its SELECT_AREAS / SELECT_HOLES / SELECT_STATIONS placeholder from the table's current rows (sa-dash-chart.component.ts:83-93, :108-150). 373-1135 rev 02 §Graph Functionality agrees: \"Based on selected areas, holes, or stations\". Separately, on screens 1400 px wide or narrower the chart is hidden altogether (sa-dashboard.component.less:91-103).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The chart above the table plots the areas, holes or stations you pick in its multiselect, whichever level the table is showing. On screens 1400 px wide or narrower the chart is hidden. Why: the multiselect is filled from the table's current rows (sa-dash-chart.component.ts:83-93, :108-150), and the layout hides the chart at that width (sa-dashboard.component.less:91-103)."
     },
     {
       "id": "dashboard-overview/3/3",
@@ -345,9 +881,52 @@
       "field": "body",
       "text": "Selecting a row in the table changes the chart header to that area or hole and its average moisture, so the chart and the table always describe the same thing.",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.ts",
+          "line": "95-97"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.html",
+          "line": "2-5"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "301-303"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": 338
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": 414
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 662
+        }
+      ],
+      "note": "Drilling into an area or a hole broadcasts that row to the chart (sa-dash-table.component.ts:338, :414), and the header shows its name and average to two decimals with CASE_SENSITIVE.AVG_MOISTURE_ABBR \"AVG. VWC\" (sa-dash-chart.component.html:3-4). At the course level the header reads STRINGS.COURSE \"Course\" (sa-dash-table.component.ts:301-303). Selecting a station row does not change the header.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -359,9 +938,24 @@
       "field": "caption",
       "text": "Chart and table share a selection.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.ts",
+          "line": "95-97"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": 338
+        }
+      ],
+      "note": "Figure caption.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -372,10 +966,25 @@
       "step": "3",
       "field": "caption",
       "text": "The header reads the selected item and its average moisture.",
-      "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.html",
+          "line": "3-4"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 503
+        }
+      ],
+      "note": "Retyped from calculation to behaviour: the header displays a value, it does not compute one. Name, then the average to two decimals labelled CASE_SENSITIVE.AVG_MOISTURE_ABBR \"AVG. VWC\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -387,9 +996,17 @@
       "field": "title",
       "text": "Work in the table",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "1-45"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -401,9 +1018,28 @@
       "field": "body",
       "text": "The table is a drill-down: course, then areas, then holes, then stations.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "268-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "108-118"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Course level lists areas, an area lists its holes, a hole lists its stations (sa-dash-table.component.ts:268-420), and clicking a row drills down (:108-118). This is the All Stations tab; the Over/Under tab shows a flat station list instead (sa-dashboard.component.html:44-51).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -415,9 +1051,38 @@
       "field": "body",
       "text": "Breadcrumbs at the top left take you back up.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "3-6"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "124-141"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "422-429"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 662
+        }
+      ],
+      "note": "The first crumb is STRINGS.COURSE \"Course\" and drilling in adds the area and hole; clicking a crumb navigates back up.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -429,9 +1094,66 @@
       "field": "body",
       "text": "At station level you get the editable columns — Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch.",
       "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "14-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "39-69"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 607
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 664
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 1008
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 437
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 695
+        }
+      ],
+      "note": "Station-level headers are SPATIAL_ADJUST.TARGET_VWC \"Target VWC\", STRINGS.ADJUSTMENT \"Adjustment\" over STRINGS.CURRENT \"Current\" and STRINGS.SUGGESTED \"Suggested\", SPATIAL_ADJUST.PERCENT_ADJUST_ABBR \"% Adj.\" and STRINGS.ENABLE \"Enable\" (sa-dash-table.component.html:14-26). Target VWC (0-50) and % Adj. (0-900) are inputs (sa-table-card.component.html:40-62); Current and Suggested are read-only. The Enable switch appears on every level, not only stations (:67-69). On production a station that was not scanned today and has no Option 2 estimate shows \"--\" in place of the % Adj. input (:51-54).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -443,9 +1165,24 @@
       "field": "caption",
       "text": "Station-level rows for hole 3 of area AP.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "347-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "1-98"
+        }
+      ],
+      "note": "Figure caption. The hole and area named are the figure's sample data; at hole level the table lists that hole's stations with the station-level columns.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -457,9 +1194,42 @@
       "field": "tip",
       "text": "Measured or modelled. A greyed, italic Avg.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-117"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "369-379"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Read with dashboard-overview/4/7; the sentence splitter cut \"Avg. VWC\" in two. See that claim's note.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -471,9 +1241,42 @@
       "field": "tip",
       "text": "VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-117"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "369-379"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "A row gets class sa-vwc-estimated, drawn dark grey and italic, when the station is estimated: not scanned today while Option 2 is the algorithm (spatial-adjust-course.model.ts:184-188). The calculator icon shows on estimated rows and on parent rows with an estimated child (sa-table-card.component.html:29-31). It is orange on a single estimated station and grey on area, hole and multi-sprinkler rows (sa-table-card.component.less:97-117), as 373-1135 rev 02 §Table Functionality describes. Under Option 1 nothing is estimated and an unscanned station shows \"--\" (sa-table-card.component.ts:374-375).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -485,9 +1288,17 @@
       "field": "title",
       "text": "Check the counts before you leave",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-47"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -499,9 +1310,17 @@
       "field": "body",
       "text": "The right of the toolbar is your work queue.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-47"
+        }
+      ],
+      "note": "#sa-tb-right holds Push Changes and the Pushed Today counter, followed by the scan-data request, Announcements, Settings and Sign Out buttons.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -513,12 +1332,59 @@
       "field": "body",
       "text": "Push Changes counts stations with an unpushed edit, and the green counter beside it counts stations already pushed today.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "146-160"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "44-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "404-414"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Push Changes Functionality"
+        }
+      ],
+      "note": "Same finding as push-to-lynx/1/2 (feature 4). A station is pending when it is enabled down its area and hole and its % Adj. differs from what Lynx holds (sa-dashboard.component.ts:659-662). % Adj. starts as the suggestion (:597-598), so no edit is needed. The number in the button counts only pending stations not already pushed today (sa-main-toolbar.component.ts:153-160). The green counter is the server's count of stations pushed today (:404-414) with tooltip SPATIAL_ADJUST.PUSHED_TODAY \"Pushed Today\" (sa-main-toolbar.component.html:44-47); that half is right.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today; the green counter beside it counts stations already pushed today. Why: pending means \"differs from Lynx\", suggestions included (sa-dashboard.component.ts:597-598, :659-662), and the label leaves out stations pushed today (sa-main-toolbar.component.ts:153-160)."
     },
     {
       "id": "dashboard-overview/5/4",
@@ -527,9 +1393,24 @@
       "field": "body",
       "text": "When both are quiet, there is nothing outstanding.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "34-46"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "146-163"
+        }
+      ],
+      "note": "\"Quiet\" means the button carries no number and is disabled, and the counter reads 0. If the button reads \"Push Changes\" with no number but is still enabled, the pending stations are ones already pushed today (sa-main-toolbar.component.html:34, :40), so there is still something to review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -541,9 +1422,31 @@
       "field": "caption",
       "text": "Six stations pending, six already pushed today.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "44-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 560
+        }
+      ],
+      "note": "Figure caption. Sample numbers; the label is CASE_SENSITIVE.PUSH_N_CHANGES \"Push {{ num }} Changes\" with the counter beside it.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -555,9 +1458,17 @@
       "field": "caption",
       "text": "With nothing pending the button is disabled.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 34
+        }
+      ],
+      "note": "Disabled while nothing is pending or a push is in progress.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -569,12 +1480,55 @@
       "field": "verify",
       "text": "The map, chart and table all name the same course.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "422-429"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "301-303"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "9-18"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "440-540"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "4-15"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 662
+        }
+      ],
+      "note": "None of the three panels prints the course's name. The table's first crumb is STRINGS.COURSE \"Course\" (sa-dash-table.component.ts:422-429), the chart header at course level reads the same word (:301-303), and the map has no title. The name appears only in the toolbar's course dropdown, and only when the site has more than one Lynx course (sa-main-toolbar.component.html:9-18). All three panels do draw the same course's data, loaded for the selected course (sa-dashboard.component.ts:440-540).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The map, chart and table all show the course selected in the toolbar. Why: the panels are loaded from one course's data (sa-dashboard.component.ts:440-540), but none prints its name; the breadcrumb and the chart header read \"Course\" (sa-dash-table.component.ts:301-303, :422-429)."
     },
     {
       "id": "dashboard-overview/verify/2",
@@ -583,9 +1537,49 @@
       "field": "verify",
       "text": "Calculation ET under the filter tabs is the figure the calculation used.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 33
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "346-352"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2838-2882"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2931
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/appsettings.json",
+          "line": 149
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Calculation ET"
+        }
+      ],
+      "note": "Calculation ET shows the newest stored ET record for the site (SpatialAdjustService.cs:346-352), the record the calculation reads (:2931, GetCurrentEtForOrgAsync :2838-2882). Before SpatialAdjust:StableEtHourLocal, configured to 11 (api/appsettings.json:149), that record is refreshed from the weather service on each read, so early in the day the label can move ahead of the value today's suggestions used. 373-1135 rev 02 §Calculation ET: updated hourly, daily calculations use the 11:00 AM value. The label is ET before the Crop Coefficient is applied, and Option 1 does not use ET at all.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -597,9 +1591,24 @@
       "field": "verify",
       "text": "The weather strip reports current conditions separately, so do not expect the two to agree.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.html",
+          "line": 6
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 33
+        }
+      ],
+      "note": "The strip shows the weather overlay's daily ET; Calculation ET is the stored record the server calculates with, before the Crop Coefficient. They come from different calls and need not match.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -610,13 +1619,42 @@
       "step": "verify",
       "field": "verify",
       "text": "The station count on the All Stations tab matches the number of pins on the map.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-528"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "23-28"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "307-312"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 88
+        }
+      ],
+      "note": "Retyped from label to behaviour. The All Stations count is the number of unique station names in the course (sa-dashboard.component.ts:521-528). The map draws one circle per sprinkler record (:517-519, sa-dash-map.component.ts:307), so multi-sprinkler stations add pins, and on production the Layers default is Enabled Stations (environment.toro-prod.ts:88), which hides disabled stations (sa-dash-map.component.ts:312). The numbers match only when every station has one sprinkler and either all are enabled or Layers is set to All Stations.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The station count on the All Stations tab is the number of stations in the course. The map can show more pins, one per sprinkler, and hides disabled stations while Layers is set to Enabled Stations. Why: the count is unique station names (sa-dashboard.component.ts:521-528), while the map draws each sprinkler record (sa-dash-map.component.ts:307) and production defaults Layers to Enabled Stations (environment.toro-prod.ts:88)."
     }
   ]
 }
