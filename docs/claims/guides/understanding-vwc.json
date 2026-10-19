@@ -9,9 +9,31 @@
       "field": "title",
       "text": "Understanding VWC",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-15"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
+        }
+      ],
+      "note": "Tile title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -23,9 +45,31 @@
       "field": "summary",
       "text": "Measured, modelled and target volumetric water content.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        }
+      ],
+      "note": "Tile summary. Measured is today's scan mean, modelled is the Option 2 estimate for a station not scanned today, and target is the editable Target VWC.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37,9 +81,24 @@
       "field": "summary",
       "text": "Three different numbers wear the label VWC.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-47"
+        }
+      ],
+      "note": "Avg. VWC carries either the measured or the modelled value (sa-dash-table.component.ts:365-383), and Target VWC is the third.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -51,9 +110,24 @@
       "field": "summary",
       "text": "Knowing which one you are reading explains most surprises.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-117"
+        }
+      ],
+      "note": "Editorial. The visual cue that separates the two Avg. VWC readings is covered under understanding-vwc/2/3.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -65,9 +139,31 @@
       "field": "where",
       "text": "Table, Avg. VWC and Target VWC",
       "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-15"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
+        }
+      ],
+      "note": "SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\" and SPATIAL_ADJUST.TARGET_VWC \"Target VWC\" are table column headers; at area and hole level the second reads SPATIAL_ADJUST.AVG_TARGET_VWC \"Avg. Target VWC\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -79,10 +175,29 @@
       "field": "before",
       "text": "VWC is volumetric water content, expressed as a percentage of soil volume.",
       "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
-      "question": "",
+      "status": "Needs expert",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-30"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3004-3012"
+        }
+      ],
+      "note": "373-1135 rev 02 (introduction) expands VWC as \"volumetric water content\", and the table shows it with a % sign (sa-table-card.component.html:30), but neither the guide nor the source says what the percentage is of. The value is TurfRad's moisture_mean, passed through unchanged (SpatialAdjustService.cs:3004-3012).",
+      "question": "Is TurfRad's moisture_mean volumetric water content as a percentage of soil volume (water volume ÷ soil volume × 100)?",
       "developNote": "",
       "correction": ""
     },
@@ -93,9 +208,24 @@
       "field": "title",
       "text": "Measured: the scan mean",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-367"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "173-182"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -107,9 +237,35 @@
       "field": "body",
       "text": "When the scan date is today, Avg.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "173-182"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/utils/spatial-adjust.util.ts",
+          "line": "16-19"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Read with understanding-vwc/1/3; the sentence splitter cut \"Avg. VWC\" in two. See that claim's note.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -121,9 +277,35 @@
       "field": "body",
       "text": "VWC is the mean moisture TurfRad measured across that station.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "173-182"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/utils/spatial-adjust.util.ts",
+          "line": "16-19"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "A scan is current when its date is today in the site's time zone (spatial-adjust-course.model.ts:173-182, spatial-adjust.util.ts:16-19). A single-sprinkler station then shows its TurfRad moisture_mean, and a multi-sprinkler station the mean across its sprinklers (sa-dash-table.component.ts:365-383). 373-1135 rev 02 §Table Functionality: \"Average of scans within the sprinkler boundary from TurfRad\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -135,9 +317,24 @@
       "field": "body",
       "text": "It is a measurement, and it is the number the calculation prefers.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3001-3012"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3032
+        }
+      ],
+      "note": "The server uses the mean of today's scans when there is one and falls back to the model only when there is none (SpatialAdjustService.cs:3032).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -149,9 +346,24 @@
       "field": "caption",
       "text": "A current scan: black text, today’s date.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-117"
+        }
+      ],
+      "note": "Figure caption. A current value has no sa-vwc-estimated class, so it keeps the default text colour; the scan date beside the name is always grey (sa-table-card.component.html:24).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -163,9 +375,24 @@
       "field": "title",
       "text": "Modelled: the fallback",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3032"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        }
+      ],
+      "note": "Step title. Option 2 only; see understanding-vwc/2/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -177,11 +404,47 @@
       "field": "body",
       "text": "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3032"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3042
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "374-375"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3280-3325"
+        }
+      ],
+      "note": "With no scan today the server takes the previous adjustment's predicted result as the modelled VWC (SpatialAdjustService.cs:3031-3032). That prediction is the earlier modelled VWC minus that day's crop-adjusted ET plus the water the suggestion assumed would be applied (:3042), so it carries the last scan forward through the weather and the assumed irrigation. Only under Option 2; under Option 1 nothing is modelled and the cell shows \"--\" (sa-table-card.component.ts:374-375).",
       "question": "",
-      "developNote": "",
+      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325).",
       "correction": ""
     },
     {
@@ -191,9 +454,31 @@
       "field": "body",
       "text": "It is shown in grey italics so you can tell it apart at a glance.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-130"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        }
+      ],
+      "note": "On a station row the modelled value gets class sa-vwc-estimated, dark grey and italic, with a calculator icon (sa-table-card.component.html:29-31; .less:97-117). The expanded sprinkler rows of a multi-sprinkler station are not italic; a modelled sprinkler is marked by an orange calculator icon instead (sa-table-card.component.html:86-92; .less:121-130).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -205,9 +490,24 @@
       "field": "caption",
       "text": "Station 7AP1 has no current scan; the value shown is modelled.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-117"
+        }
+      ],
+      "note": "Figure caption. The station name is the figure's sample data.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -219,9 +519,17 @@
       "field": "title",
       "text": "Target: your input",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -233,9 +541,24 @@
       "field": "body",
       "text": "Target VWC is a whole number from 0 to 50 that you set per station.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1215-1229"
+        }
+      ],
+      "note": "Numeric input with 0 decimal places, min 0, max 50 (sa-table-card.component.html:40-47). The value is stored for the station and copied to its other sprinklers (SpatialAdjustService.cs:1215-1229).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,9 +570,24 @@
       "field": "body",
       "text": "Higher targets ask for more water.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3033-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        }
+      ],
+      "note": "A higher target raises the delta, the amount and so the suggestion under Option 2 (SpatialAdjustService.cs:3033-3043), until the Daily Max Amount caps it; under Option 1 the suggestion scales with target ÷ measured (sa-algorithm.service.ts:58-60).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -261,9 +599,17 @@
       "field": "body",
       "text": "It is the only VWC on the row you can type into.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-47"
+        }
+      ],
+      "note": "Avg. VWC is a read-only cell and Target VWC is the only VWC input. The % Adj. input on the same row is a percentage of the Lynx run, not a VWC.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -275,9 +621,17 @@
       "field": "caption",
       "text": "Target VWC accepts 0 to 50, integers only.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "Figure caption.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -289,9 +643,17 @@
       "field": "title",
       "text": "The delta is what drives the suggestion",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3033-3043"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -302,10 +664,25 @@
       "step": "4",
       "field": "body",
       "text": "Subtract the working VWC from the target and you have the deficit the calculation must close.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": 74
+        }
+      ],
+      "note": "Retyped from prerequisite to calculation. Delta = Target VWC − modelled VWC (SpatialAdjustService.cs:3033), where the working VWC is today's scan mean or, without one, the modelled value. If the modelled VWC is 0 the delta is set to 0.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -317,11 +694,37 @@
       "field": "body",
       "text": "Add today’s ET, cap it at the daily maximum, and express it against the Lynx reference amount.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2972-2974"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3211-3232"
+        }
+      ],
+      "note": "Amount = (ET × Crop Coefficient + delta) × soil factor, floored at 0 (SpatialAdjustService.cs:2972-2974, :3037-3039), capped at the Daily Max Amount (:3041), then ÷ Lynx Reference Amount × 100 (:3043). The sentence omits the Crop Coefficient and the optional soil factor. 373-1135 rev 02 §Settings Configuration gives the cap's effect: Daily Max 10 mm over Reference 5 mm caps the suggestion at 200%.",
       "question": "",
-      "developNote": "",
+      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325).",
       "correction": ""
     },
     {
@@ -331,9 +734,31 @@
       "field": "caption",
       "text": "Target minus measured, per station, is the whole idea.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3024-3028"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        }
+      ],
+      "note": "Under Option 2 the difference is taken per station name, and a multi-sprinkler station shares one adjustment (SpatialAdjustService.cs:3024-3028). Option 1 uses the ratio instead (sa-algorithm.service.ts:58-60).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -345,9 +770,24 @@
       "field": "title",
       "text": "Aggregate rows average their children",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "16-40"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "72-90"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -359,9 +799,52 @@
       "field": "body",
       "text": "At hole and area level the same two columns show averages rather than readings, and the scan date column shows the most recent scan beneath that row.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-13"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "25-33"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "72-96"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 376
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 409
+        }
+      ],
+      "note": "Hole and area rows show SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\", SPATIAL_ADJUST.AVG_TARGET_VWC \"Avg. Target VWC\" and SPATIAL_ADJUST.LAST_SCAN \"Last Scan\" (sa-dash-table.component.html:9-13). A hole averages its sprinkler records that are current or modelled, averages targets per station name, and takes the newest scan beneath it as Last Scan (spatial-adjust-course.model.ts:72-96). An area averages its holes (:25-33).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -372,13 +855,53 @@
       "step": "5",
       "field": "body",
       "text": "An italic average means at least one child is modelled.",
-      "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 29
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "59-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-117"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": 102
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": 36
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Retyped from calculation to behaviour. The italic class on an aggregate row follows the row's own isEstimated, which is true only when the row's newest scan is not from today (sa-table-item.model.ts:59-70), that is, when nothing beneath it was scanned today. When at least one child is modelled the row instead gets a grey calculator icon (hasEstimatedChildren, spatial-adjust-course.model.ts:102, :36; sa-table-card.component.html:29-31; .less:113-117). 373-1135 rev 02 §Table Functionality describes the grey calculator the same way.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "A grey calculator icon on a hole or area row means at least one station beneath it is modelled; the average turns grey and italic only when nothing beneath it was scanned today. Why: aggregate rows take the grey calculator from hasEstimatedChildren (spatial-adjust-course.model.ts:102) and the italic style only from their own isEstimated, which follows their newest scan (sa-table-item.model.ts:59-70)."
     },
     {
       "id": "understanding-vwc/5/4",
@@ -387,9 +910,24 @@
       "field": "caption",
       "text": "Hole rows: average measured, average target, latest scan.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-13"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "72-96"
+        }
+      ],
+      "note": "Figure caption. \"Average measured\" includes modelled values for stations not scanned today under Option 2 (spatial-adjust-course.model.ts:73-85).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -401,9 +939,31 @@
       "field": "verify",
       "text": "You can tell a measured value from a modelled one without checking the date.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-130"
+        }
+      ],
+      "note": "Station rows: grey italic with a calculator icon when modelled. Sprinkler rows: an orange calculator icon. See understanding-vwc/2/3.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -414,10 +974,25 @@
       "step": "verify",
       "field": "verify",
       "text": "You know Target VWC is capped at 50.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "93-105"
+        }
+      ],
+      "note": "Retyped from label to behaviour. The input max is 50 and bulk changes clamp to 50 (SpatialAdjustLogic.cs:93-105).",
       "question": "",
       "developNote": "",
       "correction": ""

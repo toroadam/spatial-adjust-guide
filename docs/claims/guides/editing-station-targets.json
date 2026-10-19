@@ -9,9 +9,17 @@
       "field": "title",
       "text": "Editing station targets",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "Tile title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -22,10 +30,25 @@
       "step": "tile",
       "field": "summary",
       "text": "Change one station’s Target VWC and see the effect.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "111-125"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "444-485"
+        }
+      ],
+      "note": "Retyped from label to behaviour. A Target VWC edit is sent after a 400 ms pause in typing (sa-table-card.component.ts:111-125), and the row's Suggested and % Adj. update from the reply (:444-485).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37,9 +60,31 @@
       "field": "summary",
       "text": "Change one station’s target and watch what it does to the suggestion.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "444-485"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1198-1209"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1240-1250"
+        }
+      ],
+      "note": "The server recalculates today's adjustment for the new target (SpatialAdjustService.cs:1198-1209) and returns the new suggestion (:1240-1250); the row shows it in Suggested and also copies it into % Adj. (sa-table-card.component.ts:457-469).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -51,9 +96,31 @@
       "field": "where",
       "text": "Table, Target VWC column",
       "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 15
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "SPATIAL_ADJUST.TARGET_VWC \"Target VWC\", in the station-level header.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -64,10 +131,18 @@
       "step": "before",
       "field": "before",
       "text": "Target VWC accepts whole numbers from 0 to 50.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour; 373-1135 rev 02 gives no range, and the input settles it: 0 decimal places, min 0, max 50.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -78,10 +153,32 @@
       "step": "before",
       "field": "before",
       "text": "A target change recalculates that station’s suggestion; it does not push anything.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "444-485"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1153-1254"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 208
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour. Nothing is written to Lynx; only the push does that (sa-push-changes.service.ts:208). Two side effects the sentence leaves out: the row's % Adj. is reset to the new suggestion and any saved % Adj. override is cleared (sa-table-card.component.ts:465-472), which can put the station on the pending list; and any applied Target Profile for the course is cleared (SpatialAdjustService.cs:1231).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -93,9 +190,17 @@
       "field": "title",
       "text": "Drill down to the station",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "268-420"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -107,9 +212,24 @@
       "field": "body",
       "text": "The table drills from course to areas, then holes, then stations.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "268-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "108-118"
+        }
+      ],
+      "note": "This is the All Stations tab.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -121,9 +241,38 @@
       "field": "body",
       "text": "Breadcrumbs at the top left take you back up a level.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "3-6"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "124-141"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "422-429"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 662
+        }
+      ],
+      "note": "The first crumb, STRINGS.COURSE \"Course\", returns to the areas; the area crumb returns to its holes.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -134,13 +283,56 @@
       "step": "1",
       "field": "body",
       "text": "The flat All Stations tab is faster when you already know the station name.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "navigation",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "37-51"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "161-266"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "3-16"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 405
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "332-335"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "444-469"
+        }
+      ],
+      "note": "Retyped from label to navigation. The All Stations tab is the drill-down table (sa-dashboard.component.html:37-43). The flat station list belongs to the Over/Under tab, SPATIAL_ADJUST.FILTER_OVER_UNDER \"Over/Under\" (:44-51; sa-dash-table.component.ts:161-266), and it lists only the stations outside the % Adj. thresholds. The quickest way to a known station is its map pin: clicking it drills the table to the station's hole and scrolls to its row (sa-dash-map.component.ts:332-335, sa-dash-table.component.ts:444-469).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row. Why: the All Stations tab is the drill-down (sa-dashboard.component.html:37-43); the only flat list is the Over/Under tab, which shows just the stations outside the thresholds (:44-51), while a pin click jumps the table to the station (sa-dash-table.component.ts:444-469)."
     },
     {
       "id": "editing-station-targets/1/5",
@@ -149,9 +341,17 @@
       "field": "caption",
       "text": "Hole rows for area AP.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "309-345"
+        }
+      ],
+      "note": "Figure caption. The area is the figure's sample data; inside an area the table lists its holes, named <hole number>-<area name> (sa-dash-table.component.ts:325).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -163,9 +363,24 @@
       "field": "caption",
       "text": "Clicking one shows its stations.",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "108-118"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "347-420"
+        }
+      ],
+      "note": "Clicking a hole row drills into its stations.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -177,9 +392,17 @@
       "field": "title",
       "text": "Type the new target",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -191,9 +414,24 @@
       "field": "body",
       "text": "The Target VWC field takes a whole number between 0 and 50.",
       "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
+        }
+      ],
+      "note": "Input with 0 decimal places, min 0, max 50.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -205,9 +443,24 @@
       "field": "body",
       "text": "Raising it increases the deficit and therefore the suggestion; lowering it does the opposite.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3033-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "64-91"
+        }
+      ],
+      "note": "Raising the target raises the delta and the amount (SpatialAdjustLogic.cs:64-91) until the Daily Max Amount caps it; lowering it reduces the amount until it floors at 0%. The deficit here is target minus modelled VWC.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -219,9 +472,17 @@
       "field": "caption",
       "text": "Target VWC on station 9AP1.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "Figure caption. The station name is the figure's sample data.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -233,9 +494,17 @@
       "field": "title",
       "text": "Read the new suggestion",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 49
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,9 +516,38 @@
       "field": "body",
       "text": "The Suggested column recalculates against the new target.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "444-458"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1198-1209"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1240-1250"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "64-91"
+        }
+      ],
+      "note": "Under Option 2 the server recalculates today's adjustment with the new target (SpatialAdjustService.cs:1198-1209, SpatialAdjustLogic.cs:64-91) and returns it; under Option 1 it returns target ÷ measured × current (SpatialAdjustService.cs:1241-1244). If no adjustment has been created for today yet, Option 2 returns the latest stored suggestion unchanged (:1198, :1247). On production a station with no current scan and no estimate shows \"--\" (sa-table-card.component.ts:453-455).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -261,12 +559,31 @@
       "field": "body",
       "text": "If it lands on the same number as its neighbours, the daily maximum is capping it rather than the target deciding it.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "76-81"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration"
+        }
+      ],
+      "note": "The cap gives every capped station the same value, Daily Max Amount ÷ Lynx Reference Amount × 100 (SpatialAdjustService.cs:3041-3043; 373-1135 rev 02 §Settings Configuration: 10 mm over 5 mm caps at 200%). Neighbours can also share a value for other reasons: any station whose target sits below its modelled VWC by more than today's crop-adjusted ET floors at 0% (:3037-3039), and similar stations round to the same whole percent. Matching neighbours alone does not show the cap.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "If it lands on the top value, Daily Max Amount ÷ Lynx Reference Amount × 100, the daily maximum is capping it rather than the target deciding it; a 0 means the target is below the modelled moisture by more than today's ET. Why: the cap sets every capped station to that one ceiling (SpatialAdjustService.cs:3041-3043), while the floor at 0 (:3037-3039) and ordinary rounding also make neighbours match."
     },
     {
       "id": "editing-station-targets/3/4",
@@ -275,9 +592,17 @@
       "field": "caption",
       "text": "Suggested follows the target you just set.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "444-458"
+        }
+      ],
+      "note": "Figure caption.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -288,10 +613,18 @@
       "step": "4",
       "field": "title",
       "text": "Override the percentage if you need to",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "50-62"
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour. Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -302,10 +635,25 @@
       "step": "4",
       "field": "body",
       "text": "The % Adj. field is separate from the target and accepts 0 to 900.",
-      "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "50-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 437
+        }
+      ],
+      "note": "Retyped from calculation to behaviour. SPATIAL_ADJUST.PERCENT_ADJUST_ABBR \"% Adj.\" is its own input: whole numbers, min 0, max 900 (sa-table-card.component.html:53-62). On production it is replaced by \"--\" for a station with no current scan and no Option 2 estimate (:51-54).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -317,12 +665,45 @@
       "field": "body",
       "text": "Editing it queues the station for push and leaves the suggestion visible underneath for comparison.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "146-164"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "607-678"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "48-62"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "An edit is saved (sa-table-card.component.ts:146-164) and the pending list is rebuilt, but the station joins it only when its area, hole and station are enabled and the new % Adj. differs from Lynx's Current value (sa-dashboard.component.ts:607-678, :659-662); typing the Current value back takes it off. Suggested stays visible, but beside the input, not underneath it: the row runs Current, Suggested, then % Adj. (sa-table-card.component.html:48-62).",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Editing it queues the station for push when the station is enabled and the new value differs from Lynx's Current; the Suggested value stays visible beside it for comparison. Why: pending means enabled and different from Current (sa-dashboard.component.ts:659-662), and Suggested is the cell to the left of % Adj. (sa-table-card.component.html:48-62)."
     },
     {
       "id": "editing-station-targets/4/4",
@@ -331,9 +712,35 @@
       "field": "caption",
       "text": "The pending icon marks a station queued for push.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 51
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "258-272"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "545-556"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "The icon is drawn only for enabled stations on the pending list (sa-table-card.component.html:51, sa-table-card.component.ts:258-272): the blue push icon when not yet pushed today, the green pushed icon when already pushed today (:545-556), as 373-1135 rev 02 §Table Functionality describes. setLastPushIcon sets an icon only when the station has a previous push time (:547), so a pending station that has never been pushed shows no icon; worth a product check.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -345,9 +752,35 @@
       "field": "tip",
       "text": "Which to change. Edit the target when the station should always be wetter or drier.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1215-1229"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3052-3062"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "465-472"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "A target is stored on the station and persists (SpatialAdjustService.cs:1215-1229), while a % Adj. override is cleared when a new scan arrives (:3052-3062; 373-1135 rev 02 §Table Functionality). Changing the target also discards any % Adj. override on that station (sa-table-card.component.ts:465-472).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -358,10 +791,29 @@
       "step": "4",
       "field": "tip",
       "text": "Edit % Adj. when today is unusual.",
-      "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "146-164"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3052-3062"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Retyped from calculation to behaviour. The override is saved for the station (sa-table-card.component.ts:160-162) and kept until a new scan arrives (SpatialAdjustService.cs:3052-3062), so \"today\" lasts until the next scan, which can be several days. Changing the target in the meantime discards it (sa-table-card.component.ts:465-472).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -373,9 +825,24 @@
       "field": "verify",
       "text": "The target shows the value you typed.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "111-125"
+        }
+      ],
+      "note": "The input keeps the typed value and saves it after a 400 ms pause.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -387,9 +854,17 @@
       "field": "verify",
       "text": "The suggestion recalculated.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "444-458"
+        }
+      ],
+      "note": "See editing-station-targets/3/2 for when it does not.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -400,13 +875,39 @@
       "step": "verify",
       "field": "verify",
       "text": "The station appears in the Push Changes count only if you edited % Adj.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "465-475"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Push Changes Functionality"
+        }
+      ],
+      "note": "Retyped from label to behaviour. A target change alone can put the station in the count: the row's % Adj. is reset to the new suggestion and the pending list is rebuilt (sa-table-card.component.ts:465-475), and the station is pending whenever it is enabled and % Adj. differs from Lynx's Current (sa-dashboard.component.ts:659-662). Stations nobody touched are counted too, because % Adj. starts as the suggestion (:597-598). Same finding as push-to-lynx/1/2.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The station appears in the Push Changes count when it is enabled and its % Adj. differs from Lynx's Current value, whether that comes from your % Adj. edit or from the new suggestion your target change produced. Why: a target change resets % Adj. to the new suggestion (sa-table-card.component.ts:465-472), and pending means \"differs from Current\" (sa-dashboard.component.ts:659-662)."
     }
   ]
 }
