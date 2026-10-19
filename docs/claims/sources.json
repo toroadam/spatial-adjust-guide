@@ -12,8 +12,10 @@
       "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
       "date": "2026-10-15T10:47:06-07:00",
       "version": "2.5.261015",
-      "confirmed": false,
-      "method": "IntelliDash documents its own release convention at this SHA: CONTRIBUTING.md:26 describes Deployments/release/{YYMMDD}_{slug} as the snapshot deployed to production, CONTRIBUTING.md:44 says production ships from Deployments/release/* and not from master, and CONTRIBUTING.md:47-48 says the repository has no tags, so a release is identified by its Deployments/release/* branch name and the version in site/package.json. After the fetch there are 11 Deployments/release/* branches and no tags. This is the newest of them by both its YYMMDD name and its committer date, and its site/package.json:3 version (2.5.261015) is the highest of any ref inspected. The repository cannot prove it is what is deployed now: docs/guides/deployment.md:77 says nothing in the repository describes how production is published. Recorded as the best candidate pending confirmation from the release owner.",
+      "confirmed": true,
+      "confirmedBy": "Guides owner, by delegated judgement on 2026-10-19 (\"As for the prod release you can make that judgement\")",
+      "confirmation": "Confirmed as production on the evidence below plus two further facts: it is the newest Deployments/release/* branch, its own history includes 2503d032 'Hide non production widgets: Decision Tree, DTN Weather, Weather Averages', which develop does not have and which only makes sense on a production snapshot, and the newest Deployments/beta/* branch sits exactly on develop (see beta), so develop is what the beta environment runs, not production. Re-check if a newer Deployments/release/* branch appears.",
+      "method": "IntelliDash documents its own release convention at this SHA: CONTRIBUTING.md:26 describes Deployments/release/{YYMMDD}_{slug} as the snapshot deployed to production, CONTRIBUTING.md:44 says production ships from Deployments/release/* and not from master, and CONTRIBUTING.md:47-48 says the repository has no tags, so a release is identified by its Deployments/release/* branch name and the version in site/package.json. After the fetch there are 11 Deployments/release/* branches and no tags. This is the newest of them by both its YYMMDD name and its committer date, and its site/package.json:3 version (2.5.261015) is the highest of any ref inspected. The repository cannot prove it is what is deployed now: docs/guides/deployment.md:77 says nothing in the repository describes how production is published. Recorded first as the best candidate, then confirmed (see confirmation).",
       "rejected": [
         {
           "ref": "origin/master",
@@ -28,6 +30,13 @@
           "reason": "Older release/ naming that CONTRIBUTING.md:36 lists as a deviation from the current Deployments/release/* shape, and a year older than the newest Deployments/release/* branch."
         }
       ]
+    },
+    "beta": {
+      "ref": "origin/Deployments/beta/261015_tr_v3_api_sprt",
+      "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+      "date": "2026-10-15T13:05:13-07:00",
+      "version": "2.5.261012",
+      "note": "The newest Deployments/beta/* branch, at the same SHA as develop. Content that exists on develop/beta but not on production is beta content (ER-1631)."
     },
     "baseline": {
       "ref": "local develop checkout before the fetch",
