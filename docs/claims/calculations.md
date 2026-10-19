@@ -100,7 +100,10 @@ non-zero suggestion larger in the same proportion. Option 1 never reads it.
 The coefficient is turned into a fraction rounded to two decimals, and today's ET in millimetres
 is multiplied by it and rounded to two decimals (`SpatialAdjustService.cs:2973-2974`). At 100 the
 ET is used as it is. Below 100 the course is treated as losing less water than reference ET,
-above 100 more. At 0 the ET term disappears and only the moisture deficit is left. Option 1 never
+above 100 more. At 0 the ET term disappears and only the moisture deficit is left. The Settings
+dialog accepts whole numbers from 0 to 200 (`sa-settings-dlg.component.html:116-117`), so at most
+today's ET counts double. That 200 percent ceiling is a dialog limit only: the server stores
+whatever value it is sent, with no range check (`SitesService.cs:88`). Option 1 never
 reads it.
 
 ### 1.4 The ceiling
