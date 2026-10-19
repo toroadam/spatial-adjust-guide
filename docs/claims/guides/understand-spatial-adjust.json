@@ -9,9 +9,21 @@
       "field": "title",
       "text": "Understand Spatial Adjust",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "1-54"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        }
+      ],
+      "note": "Tile title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -23,9 +35,21 @@
       "field": "summary",
       "text": "Where moisture scans come from and what the feature does with them.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2505-2520"
+        }
+      ],
+      "note": "Tile summary. 373-1135 rev 02 opens by naming TurfRad sensors as the source of moisture data and Spatial Adjust as turning it into recommendations pushed to Lynx. The server fetches the scans from TurfRad (SpatialAdjustService.cs:2505-2520).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37,12 +61,55 @@
       "field": "summary",
       "text": "What the feature actually does: turn yesterday’s moisture scan into today’s percent adjustment, and write it to Lynx.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3001-3012"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 208
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3211-3232"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3280-3325"
+        }
+      ],
+      "note": "Today's suggestion uses the mean of today's scans for the station (SpatialAdjustService.cs:3001-3012). Only when there is no scan today does it fall back to the previous day's predicted result, the model carried forward (:3031-3032), so \"yesterday's scan\" describes the fallback rather than the normal case. The write to Lynx happens only when the user pushes (sa-push-changes.service.ts:208).",
       "question": "",
-      "developNote": "",
-      "correction": ""
+      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325).",
+      "correction": "What the feature actually does: turn the latest moisture scan into today's percent adjustment, and write it to Lynx when you push. Why: the calculation uses today's scan when there is one and carries the model forward when there is not (SpatialAdjustService.cs:3001-3043), and only Push Changes writes to Lynx (sa-push-changes.service.ts:208)."
     },
     {
       "id": "understand-spatial-adjust/where/1",
@@ -50,10 +117,18 @@
       "step": "where",
       "field": "where",
       "text": "/spatialadjust",
-      "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Retyped from behaviour to navigation.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -65,9 +140,21 @@
       "field": "before",
       "text": "Spatial Adjust is a feature of IntelliDash, not a separate product.",
       "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "373-1135 rev 02 calls Spatial Adjust a companion product to Lynx, reached by logging into IntelliDash. In code it is a lazily loaded module of the IntelliDash site at /spatialadjust (app-routing.module.ts:19-23). \"Not a separate product\" holds in the sense of not a separate application; access is still sold per site (\"Sites that have subscribed to Spatial Adjust\").",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -79,9 +166,21 @@
       "field": "before",
       "text": "Reaching it means logging into IntelliDash.",
       "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/spatial-adjust-routing.module.ts",
+          "line": "10-13"
+        }
+      ],
+      "note": "The module is guarded by AuthGuardService (spatial-adjust-routing.module.ts:12), so an IntelliDash sign-in comes first.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -92,10 +191,25 @@
       "step": "before",
       "field": "before",
       "text": "Access is granted per user, and the view is admitted only on desktop and tablet.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour; 373-1135 rev 02 covers neither per-user access nor devices, and the guard settles both. The signed-in user must be a Spatial Adjust user (spatial-adjust-manager.service.ts:185-189), and the device must be desktop or tablet (spatial-adjust-guard.service.ts:24). The environment flag enableSpatialAdjust must also be on (:22).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -107,9 +221,17 @@
       "field": "title",
       "text": "It lives inside IntelliDash",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -121,9 +243,17 @@
       "field": "body",
       "text": "The route is /spatialadjust, all lowercase, inside the IntelliDash site.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Root route path 'spatialadjust'.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -135,9 +265,24 @@
       "field": "body",
       "text": "A camelCase URL does not resolve — it redirects to the generic error page.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": 25
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/root-components/ah-snap/ah-snap.component.html",
+          "line": "1-5"
+        }
+      ],
+      "note": "Angular matches route paths case-sensitively. Anything other than 'spatialadjust' hits the wildcard route and is redirected to /ah-snap, the generic error page.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -149,9 +294,17 @@
       "field": "body",
       "text": "Access is checked per user before the view loads.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "20-34"
+        }
+      ],
+      "note": "SpatialAdjustGuardService runs before the module loads.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -163,9 +316,24 @@
       "field": "caption",
       "text": "The Spatial Adjust header, inside IntelliDash.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "1-92"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Figure caption. The Spatial Adjust toolbar, rendered inside the IntelliDash site at /spatialadjust.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -177,9 +345,21 @@
       "field": "title",
       "text": "TurfRad supplies the measurement",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2505-2520"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -191,9 +371,28 @@
       "field": "body",
       "text": "Each station’s Avg.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Read with understand-spatial-adjust/2/3; the sentence splitter cut \"Avg. VWC\" in two. See that claim's note.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -205,9 +404,28 @@
       "field": "body",
       "text": "VWC comes from a TurfRad moisture scan — the mean volumetric water content measured across the station, with the date it was captured beside the station name.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "A station's Avg. VWC is the TurfRad moisture mean of its sprinkler, or the mean across its sprinklers for a multi-sprinkler station, and the latest scan date sits beside the name (sa-dash-table.component.ts:365-396, sa-table-card.component.html:22-25). 373-1135 rev 02 §Table Functionality: \"Avg. VWC: Average of scans within the sprinkler boundary from TurfRad\". On a day with no scan the figure is the model's estimate under Option 2, drawn grey and italic (see dashboard-overview/4/7), or \"--\" under Option 1.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -219,9 +437,17 @@
       "field": "caption",
       "text": "Measured moisture and its scan date, per station.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-32"
+        }
+      ],
+      "note": "Figure caption.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -233,9 +459,17 @@
       "field": "title",
       "text": "You supply the target",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,9 +481,21 @@
       "field": "body",
       "text": "Target VWC is the moisture you want that station to hold.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "373-1135 rev 02 §Table Functionality: Target VWC is user-defined and can be unique for each station.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -261,9 +507,31 @@
       "field": "body",
       "text": "It is yours to set, station by station, between 0 and 50 percent.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "93-105"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3128-3133"
+        }
+      ],
+      "note": "The input takes whole numbers 0-50 (sa-table-card.component.html:40-47), and bulk changes are clamped to the same range (SpatialAdjustLogic.cs:93-105). Until the user sets one, the target starts at the station's measured VWC (SpatialAdjustService.cs:3128-3133).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -275,9 +543,31 @@
       "field": "body",
       "text": "The gap between measured and target is what the calculation works on.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": 74
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        }
+      ],
+      "note": "Under Option 2 the gap is Target VWC minus the modelled VWC, which is the measured mean on a day with a scan (SpatialAdjustService.cs:3033). Option 1 uses the ratio of target to measured instead (sa-algorithm.service.ts:58-60).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -289,9 +579,17 @@
       "field": "caption",
       "text": "Target VWC is an editable input, not a reading.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "A numeric input bound to targetVwcPercent.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -303,9 +601,17 @@
       "field": "title",
       "text": "Spatial Adjust does the arithmetic",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -317,11 +623,51 @@
       "field": "body",
       "text": "The difference between target and measured moisture becomes an amount of water, today’s ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2968-2974"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "64-91"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "142-147"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3211-3232"
+        }
+      ],
+      "note": "Option 2 on the server: delta = Target VWC − modelled VWC (SpatialAdjustService.cs:3033); amount = (today's ET + delta) × soil factor, floored at 0 (:3037-3039); capped at the Daily Max Amount (:3041); suggested % = capped amount ÷ Lynx Reference Amount × 100, rounded (:3043). Two details the sentence leaves out: ET is first multiplied by the Crop Coefficient (:2972-2974), and the soil factor applies only when SpatialAdjust:UseSoilFactor is on (SpatialAdjustLogic.cs:142-147). Option 1 does not use this chain.",
       "question": "",
-      "developNote": "",
+      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325).",
       "correction": ""
     },
     {
@@ -331,9 +677,24 @@
       "field": "caption",
       "text": "The Suggested column is the output of that chain.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "43-65"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 49
+        }
+      ],
+      "note": "Under Option 2, the default, Suggested is the server's stored value (sa-algorithm.service.ts:62-65). Under Option 1 it is Target VWC ÷ measured VWC × Lynx Current instead (:58-60).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -345,9 +706,24 @@
       "field": "tip",
       "text": "In one line. Suggested % = the applied amount ÷ the Lynx reference amount × 100, rounded.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3043
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": 81
+        }
+      ],
+      "note": "Rounded half away from zero to a whole percent.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -359,9 +735,24 @@
       "field": "title",
       "text": "Lynx runs the water",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 208
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -373,9 +764,24 @@
       "field": "body",
       "text": "Spatial Adjust never waters anything.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 208
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        }
+      ],
+      "note": "The only Lynx write from Spatial Adjust is requestChangePercentAdjust (lynx-cloud.service.ts:80-95), called from the push service (sa-push-changes.service.ts:208). Nothing in IntelliDash starts a program or a valve.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -387,10 +793,29 @@
       "field": "body",
       "text": "It writes a percent adjust value onto each station in Lynx, and Lynx applies that percentage to the station’s programmed run time.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
-      "question": "",
+      "status": "Needs expert",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 208
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration"
+        }
+      ],
+      "note": "First half verified: the push writes one percent adjust value per station to Lynx (sa-push-changes.service.ts:208, lynx-cloud.service.ts:80-95). How Lynx applies it is Lynx-side behaviour the IntelliDash source cannot settle. 373-1135 rev 02 §Settings Configuration ties the Lynx Reference Amount to the program's Next Amt., which suggests Lynx scales an amount rather than a time.",
+      "question": "When Spatial Adjust writes a station's Pct Adjust to Lynx, does Lynx scale the station's programmed run time, or its programmed amount (Next Amt.) before converting that to run time?",
       "developNote": "",
       "correction": ""
     },
@@ -401,9 +826,24 @@
       "field": "body",
       "text": "Nothing changes until you push.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 208
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1153-1254"
+        }
+      ],
+      "note": "Read as \"nothing changes in Lynx\". Target VWC and % Adj. edits are saved to IntelliDash straight away (SpatialAdjustService.cs:1153-1254), but they reach the controller only through the push.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -415,9 +855,24 @@
       "field": "caption",
       "text": "Push Changes is the only thing that writes to the controller.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 208
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        }
+      ],
+      "note": "requestChangePercentAdjust has one caller in the Spatial Adjust code, the push service (sa-push-changes.service.ts:208).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -429,9 +884,24 @@
       "field": "verify",
       "text": "You can name the three inputs: measured VWC, target VWC and today’s ET.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2968-2974"
+        }
+      ],
+      "note": "These are the three per-station inputs under Option 2. The calculation also uses the Daily Max Amount, the Lynx Reference Amount, the Crop Coefficient and, when enabled, the station's soil factor (SpatialAdjustService.cs:2968-2974, :3036-3043). Option 1 uses measured VWC, Target VWC and the Lynx Current percentage, and no ET.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -442,10 +912,25 @@
       "step": "verify",
       "field": "verify",
       "text": "You know that nothing reaches Lynx until Push Changes is used.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 208
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        }
+      ],
+      "note": "Retyped from label to behaviour.",
       "question": "",
       "developNote": "",
       "correction": ""
