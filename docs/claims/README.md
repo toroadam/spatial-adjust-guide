@@ -98,9 +98,11 @@ claim whose evidence cites a file that differs between the two SHAs.
 ## Rules for verifiers
 
 1. **Guides describe production.** Judge every claim against the production SHA. If develop
-   differs, say what changes in `developNote`, but do not let develop decide the status. Claims
-   about Target Profiles are checked against the two feature branches above, because the feature
-   is not in production.
+   differs, say what changes in `developNote`, but do not let develop decide the status. This
+   includes Target Profiles. Its menu entry is live on production
+   (`sa-settings-dlg.component.ts:55`, see [`changed-surfaces.md`](changed-surfaces.md)), so its
+   claims are judged against production as well. The two feature branches above are history, kept
+   for citing where something was first built.
 2. **No excerpts.** The guide repository is public and IntelliDash is not. Cite `path:line` and
    describe the behaviour in prose. Never paste IntelliDash code, templates or comments. Product
    copy is the exception: an `en-us.json` key name and its English label are text a user sees, so
