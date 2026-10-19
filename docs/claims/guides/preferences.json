@@ -9,8 +9,23 @@
       "field": "title",
       "text": "Preferences",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 56
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "229-259"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -23,9 +38,17 @@
       "field": "summary",
       "text": "Language, units, temperature scale and number formatting.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "236-254"
+        }
+      ],
+      "note": "The four fields are Language, Units of Measure, Temperature Scale, and Group and Decimal Separator (sa-settings-dlg.component.html:237, :241, :248, :252).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37,9 +60,17 @@
       "field": "summary",
       "text": "Language, units, temperature and number formatting.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "236-254"
+        }
+      ],
+      "note": "See preferences/tile/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -51,9 +82,24 @@
       "field": "summary",
       "text": "These belong to you, not to the site.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "482-490"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/dash-user-manager.service.ts",
+          "line": "73-102"
+        }
+      ],
+      "note": "Preferences are saved to the user record (sa-settings-dlg.component.ts:490; dash-user-manager.service.ts:84). The other tabs are saved to the site (sa-settings-dlg.component.ts:486).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -65,9 +111,38 @@
       "field": "where",
       "text": "Settings › Preferences",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-291"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 56
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "74-80"
+        }
+      ],
+      "note": "Preferences is the fourth rail entry. Its description literal is \"Configure calculation preferences\" (sa-settings-dlg.component.ts:56), the same as Calculation's, though the tab holds no calculation settings. The separate User Preferences toolbar button is commented out on production (sa-main-toolbar.component.html:74-80), so Settings is the only route.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -78,9 +153,38 @@
       "step": "before",
       "field": "before",
       "text": "Preferences are stored against your user account; the calculation settings on the other tabs are stored against the site.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 486
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 490
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/dash-user-manager.service.ts",
+          "line": "73-102"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Domain/Site.cs",
+          "line": "40-52"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -93,8 +197,23 @@
       "field": "title",
       "text": "Open the Preferences tab",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "21-30"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -107,9 +226,17 @@
       "field": "body",
       "text": "Preferences is the last entry in the settings rail.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        }
+      ],
+      "note": "Preferences is the fourth and last literal (sa-settings-dlg.component.ts:56).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -121,12 +248,45 @@
       "field": "body",
       "text": "Nothing here changes a single suggested percentage — it changes how numbers are presented to you.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "240-243"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "422-427"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "452-455"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "528-539"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §6 Units of measure"
+        }
+      ],
+      "note": "Language, Temperature Scale and Group and Decimal Separator only change presentation. Units of Measure does not change the stored amounts if it is saved on its own. Changed and saved in the same visit as an open Calculation tab, it rescales both amounts by 25.4, because they are converted back with the unit selected at save time and the dropdown has no change handler (sa-settings-dlg.component.ts:422-427; sa-settings-dlg.component.html:242). The changed amounts count as recalculation inputs (sa-settings-dlg.component.ts:452-455), so every suggestion is recalculated. This guide's own step 2 tip describes the rescale.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Language, temperature scale and separator only change how numbers are presented. Units of Measure can change suggestions: change it and save in the same visit, and the amounts on the Calculation tab are saved rescaled by 25.4 and every suggestion is recalculated (see step 2). Why: the amounts are converted back with the unit selected at save time and are never re-converted when the unit changes, and any change to them triggers a recalculation (sa-settings-dlg.component.ts:422-427, :452-455)."
     },
     {
       "id": "preferences/1/4",
@@ -135,8 +295,16 @@
       "field": "caption",
       "text": "Settings dialog, Preferences tab.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "229-259"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -149,8 +317,23 @@
       "field": "title",
       "text": "Units of Measure changes what you type",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "354-365"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "82-110"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -163,8 +346,27 @@
       "field": "body",
       "text": "The stored amounts are millimetres.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Domain/Site.cs",
+          "line": "40-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "421-427"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §6 Units of measure"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -177,9 +379,31 @@
       "field": "body",
       "text": "Switching to imperial shows them in inches, with two decimal places and a hundredth-of-an-inch step; metric gets one decimal place and a tenth-of-a-millimetre step.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "361-364"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "86-90"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "101-105"
+        }
+      ],
+      "note": "Imperial uses two decimals and a 0.01 step, metric one decimal and a 0.1 step (sa-settings-dlg.component.ts:361-362).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -190,10 +414,32 @@
       "step": "2",
       "field": "body",
       "text": "That conversion runs when the dialog opens, not when you change the setting.",
-      "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 322
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "354-365"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 242
+        }
+      ],
+      "note": "The conversion runs once, when the dialog loads its data (sa-settings-dlg.component.ts:322). The Units of Measure dropdown has no change handler (sa-settings-dlg.component.html:242).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -205,9 +451,31 @@
       "field": "caption",
       "text": "Units of Measure drives the labels and precision on the Calculation tab.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "357-364"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 83
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 98
+        }
+      ],
+      "note": "The unit abbreviation in both amount labels follows Units of Measure (sa-settings-dlg.component.ts:357-359).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -218,10 +486,36 @@
       "step": "2",
       "field": "tip",
       "text": "Check after switching. Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab — they are saved as though they were already in the new unit, which rescales them by 25.4.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "422-427"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 242
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "452-455"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §6 Units of measure"
+        }
+      ],
+      "note": "Imperial to metric stores the inch figures as millimetres (25.4 times smaller). Metric to imperial stores the millimetre figures as inches (25.4 times larger). Either way the amounts have changed, so the save also triggers a recalculation (sa-settings-dlg.component.ts:452-455).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -232,10 +526,25 @@
       "step": "2",
       "field": "tip",
       "text": "After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "291-330"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "354-365"
+        }
+      ],
+      "note": "Reopening converts the stored millimetres with the new unit, so the rescaled values are visible and can be corrected before a push.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,8 +556,16 @@
       "field": "title",
       "text": "Language applies immediately",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/dash-user-manager.service.ts",
+          "line": "84-90"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -261,9 +578,17 @@
       "field": "body",
       "text": "Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/dash-user-manager.service.ts",
+          "line": "84-101"
+        }
+      ],
+      "note": "After the save the new language is applied with no page reload (dash-user-manager.service.ts:87), cached locally (:88), and the user record is fetched again (:90).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -275,9 +600,17 @@
       "field": "caption",
       "text": "Language, units, temperature scale and separator.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "236-254"
+        }
+      ],
+      "note": "The caption's \"separator\" is the Group and Decimal Separator field.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -289,9 +622,31 @@
       "field": "title",
       "text": "Temperature and separator affect the toolbar",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.ts",
+          "line": "61-63"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.ts",
+          "line": "142-146"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "252-256"
+        }
+      ],
+      "note": "Temperature affects the toolbar's weather strip. The separator affects the table and the dialog inputs rather than the toolbar (see preferences/4/2).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -303,9 +658,45 @@
       "field": "body",
       "text": "Temperature scale changes the weather strip; the group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.ts",
+          "line": "142-146"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/services/user-format.service.ts",
+          "line": "31-37"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "252-256"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "372-388"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "91-92"
+        }
+      ],
+      "note": "The weather strip formats temperatures in the user's scale (sa-weather-tb.component.ts:142-146). The separator choice is either 1,000.00 or 1.000,00 (dash-user-manager.service.ts:209-210). It is applied by the user-format service (user-format.service.ts:31-37) to the table's VWC and target values, which re-render when it changes (sa-table-card.component.ts:252-256, :372-388), and to the dialog's amount inputs (sa-settings-dlg.component.html:91-92).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -317,8 +708,23 @@
       "field": "caption",
       "text": "The weather strip follows your temperature scale.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.ts",
+          "line": "61-63"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.ts",
+          "line": "142-146"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -330,9 +736,31 @@
       "step": "verify",
       "field": "verify",
       "text": "Amount fields on the Calculation tab show the unit you chose.",
-      "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "357-359"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 420
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 422
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -345,8 +773,16 @@
       "field": "verify",
       "text": "The weather strip shows your temperature scale.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-weather-tb/sa-weather-tb.component.ts",
+          "line": "142-146"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
