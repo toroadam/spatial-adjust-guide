@@ -144,14 +144,18 @@ The extractor sets the type with a heuristic, and a verifier may change it.
 `<guide-key>/<step>/<n>`
 
 - `guide-key` is the key in `GUIDES`, for example `push-to-lynx`.
-- `step` is the 1-based step number for anything inside a step. Otherwise it is one of `summary`,
-  `where`, `before`, `verify` or `tile`. `tile` is the guide's card in the catalogue, meaning the
-  tile title plus the tile summary.
+- `step` is the 1-based step number for anything inside a step. Otherwise it is one of `tile`,
+  `summary`, `where`, `note`, `before` or `verify`. `tile` is the guide's card in the catalogue,
+  meaning the tile title plus the tile summary. `note` is the guide's "Concept." callout, which
+  the four Target Profiles guides use for their "not in the shipping build" disclaimer.
 - `n` is the 1-based sentence index within that bucket. Inside a step it counts across the fields
   in this order: title, body, caption, tip. The tip's label and its text count as one callout.
 
 A title, a `where` line and a tile title each form one claim. Prose is split into sentences with
 `Intl.Segmenter('en', { granularity: 'sentence' })`.
+
+Within a shard, claims are sorted in reading order: `tile`, `summary`, `where`, `note`,
+`before`, the numbered steps, then `verify`, and by `n` inside each.
 
 IDs are positional, so inserting a sentence shifts the IDs after it. To keep a re-extraction from
 losing work, the extractor carries status forward by matching guide and text first, and falls
@@ -176,6 +180,53 @@ wording in `previousText`.
   "correction": ""
 }
 ```
+
+## Files and tooling
+
+| File | What it is | Who writes it |
+|---|---|---|
+| `docs/claims/guides/<guide-key>.json` | One shard per guide: `{ "guide", "title", "claims": [...] }` | The extractor creates it. One verification feature per shard (see the shard map) fills in status and evidence. |
+| `docs/claims/claims.json` | The canonical aggregate: `_meta` (pinned SHAs, counts by status and type) plus every claim, guides in alphabetical order | Only the extractor. Never edit it by hand. |
+| `docs/claims/sources.json` | The pinned IntelliDash SHAs | Feature 1. The lint checks every citation against it. |
+
+`scripts/claims-extract.mjs` builds the ledger from the published text, which means the export
+after `transformGuide()` has applied every correction. It evaluates the guide data block in
+`node:vm` rather than scraping it, so it sees all 26 guides and every field: tile, summary, where,
+note, before, step title, body, caption, tip and verify.
+
+| Command | What it does |
+|---|---|
+| `npm run claims:extract` | Re-extracts every guide, merges into the existing shards, rebuilds `claims.json`, then lints. Run it after any change to the export or the transform layer. |
+| `npm run claims:aggregate` | Rebuilds `claims.json` from the shards alone. It lints first and refuses to write if any shard is invalid. Run it after editing a shard. |
+| `npm run claims:lint` | Validates every shard and writes nothing. `node scripts/claims-extract.mjs --lint <guide-key> ...` checks only the shards named. Exits 1 on any error. |
+
+What the lint enforces:
+
+- Shards and claims carry only the documented keys, and every claim has all of them except
+  `previousText`, which is optional.
+- `status` is one of the five statuses and `type` is one of the five types.
+- `id` is `<guide-key>/<step>/<n>`, matches the claim's `guide` and `step`, and is unique. `field`
+  is valid for its bucket, and claims are in reading order.
+- Verified, Wrong and Not shipping each have at least one citation. Wrong has a `correction`, and
+  Needs expert has a `question`.
+- Every IntelliDash citation has a full 40-character SHA, a repository-relative path and a line
+  or line range. A `production` or `develop` citation must use the SHA pinned in `sources.json`.
+
+How a re-extraction merges:
+
+1. **Same text.** A fresh claim whose guide and text match an existing claim keeps that claim's
+   `type`, `status`, `evidence`, `note`, `question`, `developNote`, `correction` and
+   `previousText`, even if its ID has moved.
+2. **Same ID, new text.** Otherwise, a fresh claim takes the existing claim at the same ID, if no
+   text match already took it. It goes back to Unverified, its evidence is cleared, and the old
+   wording is kept in `previousText`. Because this fallback is positional, a step that gains a
+   sentence and has another reworded in the same edit can put `previousText` on the neighbouring
+   claim. The status reset is still correct.
+3. **Gone.** An existing claim that matches nothing is dropped. If it had a status other than
+   Unverified, the extractor names it in its output so the lost verification is visible.
+
+The output uses a stable key order and 2-space JSON and is only written when it changes, so two
+runs in a row leave `git diff` clean.
 
 ## Citation format
 
