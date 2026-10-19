@@ -9,9 +9,31 @@
       "field": "title",
       "text": "Apply a bulk adjustment",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-29"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": 14
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 378
+        }
+      ],
+      "note": "Tile title. SPATIAL_ADJUST.BULK_ADJUST \"Bulk Adjust\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -23,9 +45,24 @@
       "field": "summary",
       "text": "Replace or shift the targets of many stations at once.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "22-43"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "93-105"
+        }
+      ],
+      "note": "Tile summary.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36,10 +73,57 @@
       "step": "summary",
       "field": "summary",
       "text": "Change the Target VWC of many stations at once, either by replacing every value or by shifting them all by the same amount.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "22-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2287-2428"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "93-105"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 369
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 918
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 987
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        }
+      ],
+      "note": "Retyped from label to behaviour. The dialog edits Target VWC (SPATIAL_ADJUST.ADJUST_TARGET_VWC_% \"Adjust Target VWC %\") with STRINGS.REPLACE \"Replace\" or STRINGS.SHIFT \"Shift\" (sa-bulk-adjust-dlg.component.html:22-43), and the server applies it to every selected station in one transaction (SpatialAdjustService.cs:2287-2428). Results are clamped to 0-50 (SpatialAdjustLogic.cs:93-105).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -51,9 +135,24 @@
       "field": "where",
       "text": "Table toolbar › Bulk Adjust",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-29"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "22-28"
+        }
+      ],
+      "note": "The BULK ADJUST link (SPATIAL_ADJUST.BULK_ADJUST, upper-cased) sits in the bar above the table, between the All Stations / Over/Under tabs and the threshold filter link.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -64,10 +163,32 @@
       "step": "before",
       "field": "before",
       "text": "Bulk Adjust edits Target VWC, not the percent adjustment.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2367-2398"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "22-24"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 598
+        }
+      ],
+      "note": "Retyped from label to behaviour. The server writes TargetVwcPercent for the selected stations and recalculates today's suggestion (SpatialAdjustService.cs:2367-2398). It does not touch UserPercentAdjust, so a station with a % Adj. override keeps it (sa-dashboard.component.ts:598).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -78,10 +199,39 @@
       "step": "before",
       "field": "before",
       "text": "The button stays disabled until at least one row checkbox is ticked.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-29"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "95-99"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 380
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1510-1571"
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour. It is a link rather than a button. With no stations selected it is greyed, shows SPATIAL_ADJUST.BULK_ADJUST_BTN_TOOLTIP \"Select one or more stations using the row checkboxes to enable bulk adjustment.\" and ignores clicks (sa-table-threshold-filter.component.ts:95-99). The selection is stored on the server per station, so ticks persist across reloads (SpatialAdjustService.cs:1510-1571).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -92,10 +242,18 @@
       "step": "1",
       "field": "title",
       "text": "Select the stations",
-      "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "5-15"
+        }
+      ],
+      "note": "Retyped from navigation to behaviour. Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -107,9 +265,17 @@
       "field": "body",
       "text": "Tick the checkbox on each station row.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "6-10"
+        }
+      ],
+      "note": "A checkbox on each station row; area and hole rows have a three-state checkbox (:11-15).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -120,10 +286,43 @@
       "step": "1",
       "field": "body",
       "text": "Ticking an area or hole row cascades the selection to everything beneath it, so you can take a whole hole in one click.",
-      "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "11-15"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "318-332"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "558-573"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1510-1571"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        }
+      ],
+      "note": "Retyped from navigation to behaviour. Ticking an area or hole marks every station beneath it selected, on the server (sa-table-card.component.ts:318-332, SpatialAdjustService.cs:1510-1571) and in the table (sa-table-card.component.ts:558-573). 373-1135 rev 02 §Bulk Adjust Functionality: \"Select individual stations or select an entire area or hole\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -135,9 +334,24 @@
       "field": "caption",
       "text": "Five stations selected.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "18-20"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 431
+        }
+      ],
+      "note": "Figure caption. Sample count.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -148,10 +362,18 @@
       "step": "1",
       "field": "caption",
       "text": "The Bulk Adjust link above the table becomes active.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-29"
+        }
+      ],
+      "note": "Retyped from label to behaviour. The link drops its disabled styling once at least one station is selected.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -163,9 +385,17 @@
       "field": "title",
       "text": "Open Bulk Adjust",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-29"
+        }
+      ],
+      "note": "Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -177,9 +407,24 @@
       "field": "body",
       "text": "The link sits above the table beside the threshold filter.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-36"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "22-28"
+        }
+      ],
+      "note": "Above the table, in the same bar as the All Stations and Over/Under tabs, immediately left of the threshold filter link.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -190,10 +435,39 @@
       "step": "2",
       "field": "body",
       "text": "The dialog opens with the count of stations you selected at the top — check it before going further.",
-      "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "18-20"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "91-112"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "329-343"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 431
+        }
+      ],
+      "note": "Retyped from navigation to behaviour. The dialog fetches the selected count from the server (sa-bulk-adjust-dlg.component.ts:91-112; SpatialAdjustService.cs:329-343, unique station names) and shows SPATIAL_ADJUST.N_STATIONS_SELECTED \"{{num}} Stations selected\" at the top. Apply to all is disabled when the count is 0 (sa-bulk-adjust-dlg.component.html:77).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -205,9 +479,17 @@
       "field": "caption",
       "text": "Bulk Adjust dialog.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "1-86"
+        }
+      ],
+      "note": "Figure caption.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -219,9 +501,17 @@
       "field": "caption",
       "text": "The count confirms your selection.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "18-20"
+        }
+      ],
+      "note": "Figure caption.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -232,10 +522,18 @@
       "step": "3",
       "field": "title",
       "text": "Choose replace or shift",
-      "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "26-43"
+        }
+      ],
+      "note": "Retyped from navigation to behaviour. Step title.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,9 +545,38 @@
       "field": "body",
       "text": "Replace overwrites every selected station with the value you enter.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2372-2383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 68
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 918
+        }
+      ],
+      "note": "Replace sets every selected station, and all its sprinklers, to the entered value (SpatialAdjustLogic.cs:100-102; SpatialAdjustService.cs:2372-2383). The Replace input accepts 0-50 and defaults to 24 (sa-bulk-adjust-dlg.component.ts:68).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -261,9 +588,35 @@
       "field": "body",
       "text": "Shift moves each station up or down by that amount, keeping the differences between them.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 69
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 987
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        }
+      ],
+      "note": "Shift adds the entered value, -40 to 40 (sa-bulk-adjust-dlg.component.ts:69), to each station's own target (SpatialAdjustLogic.cs:100-102). Results are clamped to 0-50 (:104), so a station pushed past either end stops there and its difference from the others is not kept. 373-1135 rev 02 §Bulk Adjust Functionality: \"Shift by -2% lowers Target VWC by 2%\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -275,9 +628,17 @@
       "field": "body",
       "text": "Shift is the safer choice when the stations were individually tuned.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        }
+      ],
+      "note": "Follows from bulk-adjustments/3/3: Shift keeps per-station differences, except at the 0 and 50 clamps, while Replace overwrites them. \"Safer\" is the guide's judgement on that basis.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -289,9 +650,24 @@
       "field": "caption",
       "text": "Shift by −5 percent, preserving the relative targets.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 69
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        }
+      ],
+      "note": "Figure caption. -5 is inside the Shift range of -40 to 40.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -303,9 +679,24 @@
       "field": "title",
       "text": "Apply to all",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "74-79"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 370
+        }
+      ],
+      "note": "Step title. SPATIAL_ADJUST.APPLY_TO_ALL \"Apply to all\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -317,9 +708,24 @@
       "field": "body",
       "text": "Apply to all writes the new targets and closes the dialog.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "123-157"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2363-2412"
+        }
+      ],
+      "note": "On success the dialog asks the dashboard to reload and closes (sa-bulk-adjust-dlg.component.ts:143-151). On an error it stays open and shows the error toast (:152-155).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -331,9 +737,38 @@
       "field": "body",
       "text": "The suggested percentages recalculate against the new targets straight away, so the Suggested column will move.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2389-2398"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "107-140"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 145
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "288-294"
+        }
+      ],
+      "note": "For every selected station with an adjustment dated today the server recalculates today's suggestion against the new target (SpatialAdjustService.cs:2389-2398, SpatialAdjustLogic.cs:107-140), and the dashboard reloads on success (sa-bulk-adjust-dlg.component.ts:145; sa-dashboard.component.ts:288-294). Unlike a single target edit, a bulk change leaves any % Adj. override in place, so those stations' % Adj. does not follow the new suggestion.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -345,9 +780,24 @@
       "field": "caption",
       "text": "Targets updated; suggestions recalculated against them.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2389-2398"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "288-294"
+        }
+      ],
+      "note": "Figure caption.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -359,12 +809,41 @@
       "field": "tip",
       "text": "On failure. A bulk adjust error means some values may already have been written.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2363-2421"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2298-2314"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "152-155"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 398
+        }
+      ],
+      "note": "The guide repeats the product's own error text, SPATIAL_ADJUST.ERR_BULK_ADJUST_DETAIL \"An error occurred while applying bulk adjustments. Some values may have been updated. Please check values and try again.\" The server contradicts it. Every target, today's recalculated adjustments and the cleared Target Profile are written inside one transaction that is rolled back on any exception (SpatialAdjustService.cs:2363-2421), and the early failures (no site, no ET) return before anything is written (:2298-2314). The only way an error can follow a successful write is a request that fails after the server has committed, and then every value was written, not some. The product message is worth fixing too.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "On failure. A bulk adjust error normally means nothing was written, because the change is applied all at once and rolled back on failure; if the connection failed after the server finished, everything was written. Why: the server writes all targets in one transaction and rolls it back on any error (SpatialAdjustService.cs:2363-2421)."
     },
     {
       "id": "bulk-adjustments/4/6",
@@ -373,12 +852,27 @@
       "field": "tip",
       "text": "Check the column before retrying rather than applying twice.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "142-156"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "288-294"
+        }
+      ],
+      "note": "After an error the dialog stays open and the dashboard is not reloaded; the reload is broadcast only on success (sa-bulk-adjust-dlg.component.ts:143-151, sa-dashboard.component.ts:288-294). The Target VWC column therefore still shows the values from before the attempt, so checking it cannot reveal a write that did happen. A Shift applied twice moves the targets twice.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Reload the page and check the column before retrying, rather than applying twice; the table is not refreshed after an error. Why: the table reloads only after a successful bulk adjust (sa-bulk-adjust-dlg.component.ts:143-151), so after an error it still shows the old targets."
     },
     {
       "id": "bulk-adjustments/verify/1",
@@ -387,9 +881,24 @@
       "field": "verify",
       "text": "Target VWC changed on every station you selected and on none that you did not.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2318-2324"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2338-2383"
+        }
+      ],
+      "note": "Only stations marked selected (with scans, in this course) are changed, together with the other sprinklers that share their names (SpatialAdjustService.cs:2318-2324, :2338-2383). A value past 0 or 50 lands on the clamp rather than the requested value.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -401,9 +910,24 @@
       "field": "verify",
       "text": "The Suggested column moved to reflect the new targets.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2389-2398"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "288-294"
+        }
+      ],
+      "note": "Only for stations with an adjustment dated today; see bulk-adjustments/4/3.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -414,10 +938,32 @@
       "step": "verify",
       "field": "verify",
       "text": "The Push Changes count in the toolbar reflects the new pending edits.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "146-160"
+        }
+      ],
+      "note": "Retyped from label to behaviour. After the reload, % Adj. follows the new suggestion for stations without an override (sa-dashboard.component.ts:597-598), and the count includes every enabled station whose % Adj. differs from Lynx's Current, leaving out stations pushed today (sa-main-toolbar.component.ts:153-160). Stations with a % Adj. override are unaffected by the bulk change. \"Pending edits\" means those differences, not only your edits.",
       "question": "",
       "developNote": "",
       "correction": ""
