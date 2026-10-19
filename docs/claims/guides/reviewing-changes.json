@@ -9,9 +9,17 @@
       "field": "title",
       "text": "Reviewing changes",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "1-148"
+        }
+      ],
+      "note": "The Push Changes dialog is sa-confirm-push-dlg.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -23,9 +31,31 @@
       "field": "summary",
       "text": "Reading the two lists in the push dialog.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "66-136"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 545
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 547
+        }
+      ],
+      "note": "The two lists are \"{{num}} Available to Push\" and \"{{num}} Pushed Today\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37,9 +67,38 @@
       "field": "summary",
       "text": "Read the push dialog properly before you send: two lists, two columns, and one count that matters.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "66-136"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 50
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 53
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 144
+        }
+      ],
+      "note": "Two lists (Available to Push and Pushed Today), two columns (Current and Changes) and the footer count, STRINGS.PUSH_N_CHANGES_TO_LYNX.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -50,10 +109,25 @@
       "step": "where",
       "field": "where",
       "text": "Push Changes dialog",
-      "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 14
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-99"
+        }
+      ],
+      "note": "Header CASE_SENSITIVE.PUSH_CHANGES, title-cased: \"Push Changes\". The toolbar opens it from the Push Changes button.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -64,10 +138,39 @@
       "step": "before",
       "field": "before",
       "text": "Everything in the dialog is still reversible.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": 20
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "70-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 145
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 97
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour. The dialog edits a deep copy of the pending list (sa-confirm-push-dlg.component.ts:20), and Cancel only closes it. Ticking and unticking never touch the stations themselves.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -78,10 +181,32 @@
       "step": "before",
       "field": "before",
       "text": "Nothing is written until you use the footer button.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-82"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "255-270"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "99-102"
+        }
+      ],
+      "note": "Retyped from prerequisite to behaviour. Only the footer button emits the list to send, and the toolbar starts the push from that event. Review Threshold also closes the dialog, and it sends nothing either.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -93,9 +218,24 @@
       "field": "title",
       "text": "Open Push Changes",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "34-36"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "251-253"
+        }
+      ],
+      "note": "The toolbar Push Changes button opens the dialog.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -107,12 +247,41 @@
       "field": "body",
       "text": "The button carries the number of stations with an unpushed edit.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "153-160"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        }
+      ],
+      "note": "Same finding as push-to-lynx/1/2. The label counts pending stations that have not been pushed today (sa-main-toolbar.component.ts:153-160). A station is pending whenever its % Adj. differs from what Lynx holds, and % Adj. starts as the suggestion when the user has not edited it (sa-dashboard.component.ts:597-598), so unedited suggestions are counted. Stations already pushed today that still have a pending change are not counted.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The button carries the number of stations whose % Adj. differs from what Lynx holds, whether you edited it or left the suggestion, leaving out any already pushed today. Why: pending means \"differs from Lynx\", suggestions included, and the label counts only stations not yet pushed today (sa-main-toolbar.component.ts:153-160)."
     },
     {
       "id": "reviewing-changes/1/3",
@@ -121,9 +290,24 @@
       "field": "body",
       "text": "It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 34
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "607-678"
+        }
+      ],
+      "note": "Disabled when the pending list is empty, and also while a push is running. A greyed-out button between pushes therefore means nothing is pending. The converse does not hold: an enabled button can carry no number when every pending station is already in Pushed Today, and the dialog then has rows to review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -135,9 +319,17 @@
       "field": "caption",
       "text": "Six changes pending.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        }
+      ],
+      "note": "Figure caption. CASE_SENSITIVE.PUSH_N_CHANGES \"Push {{ num }} Changes\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -148,10 +340,39 @@
       "step": "2",
       "field": "title",
       "text": "Read Current against Changes",
-      "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 50
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 53
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 664
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 645
+        }
+      ],
+      "note": "Column headers STRINGS.CURRENT \"Current\" and STRINGS.CHANGES \"Changes\".",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -163,9 +384,38 @@
       "field": "body",
       "text": "The left column is what Lynx holds now; the right is what will replace it.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 75
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 594
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "83-86"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-79"
+        }
+      ],
+      "note": "The left cell is currentAdjAmtPercent, which is set from the Lynx read (sa-dashboard.component.ts:594). The right cell is the value to be sent. When the minimum threshold overrides it, the row adds \"Adjusted to N%\" and that adjusted value is what replaces the current one (sa-confirm-push-dlg.component.ts:74-79).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -177,9 +427,38 @@
       "field": "body",
       "text": "Both name the station, so you are always comparing the same head across the row.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 74
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 81
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 110
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 117
+        }
+      ],
+      "note": "Both cells of every row print the station name.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -191,9 +470,31 @@
       "field": "caption",
       "text": "Current on the left, the proposed change on the right.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 50
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 53
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "74-86"
+        }
+      ],
+      "note": "Figure caption. Current is the left column and Changes the right.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -205,9 +506,24 @@
       "field": "title",
       "text": "Treat the two lists differently",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "66-136"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "23-26"
+        }
+      ],
+      "note": "The two lists are split by isStationPushable, and only the Pushed Today rows are unticked on load.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -219,9 +535,31 @@
       "field": "body",
       "text": "Available to Push comes first, ticked.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "66-99"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/sa-push-changes-station.model.ts",
+          "line": 16
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "25-26"
+        }
+      ],
+      "note": "Available to Push is drawn first, and its rows start ticked (submitChange defaults to true).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -233,9 +571,31 @@
       "field": "body",
       "text": "Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "101-136"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "23-24"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 323
+        }
+      ],
+      "note": "Drawn after Available to Push and unticked on load. The dialog banner SPECIAL_MSG.PUSH_STATION_CHANGES gives the purpose: \"Stations pushed today appear unselected in a separate list to prevent double adjustments.\" A station whose push failed also lands here, because every station that was sent is stamped as pushed today (sa-push-changes.service.ts:174-175).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -247,9 +607,38 @@
       "field": "body",
       "text": "That hold releases at midnight where the course is, not 24 hours after the push.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/utils/spatial-adjust.util.ts",
+          "line": "10-14"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/utils/date.util.ts",
+          "line": "81-93"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "316-324"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "149-165"
+        }
+      ],
+      "note": "Settled fact re-confirmed on production (docs/text-corrections.md section 5). isStationPushable floors both the last-push time and now to the start of the day in the course's UTC offset, so the hold ends at course-local midnight. The server's pushed-today count uses the same course-local day, taken from the site time zone (SpatialAdjustLogic.cs:149-165). SPATIAL_ADJUST.PUSHED_IN_LAST_N \"Pushed in last 24H\" (en-us.json:449) is still present and still unused.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -261,9 +650,24 @@
       "field": "body",
       "text": "Tick a pushed station only when you mean to.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 323
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "126-133"
+        }
+      ],
+      "note": "Advice, matching the banner's \"To adjust one again, simply select it.\" The exception is a station whose push failed, which also appears here (see push-failures/4/2).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -275,9 +679,24 @@
       "field": "caption",
       "text": "Pushed Today arrives unselected by design.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": 24
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 323
+        }
+      ],
+      "note": "Figure caption. The Pushed Today rows are explicitly set to unticked on load.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -289,9 +708,24 @@
       "field": "title",
       "text": "Check for threshold rewrites",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "32-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "84-86"
+        }
+      ],
+      "note": "The threshold banner and the per-row \"Adjusted to\" marker.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -303,9 +737,52 @@
       "field": "body",
       "text": "When a minimum threshold is set, the banner counts the stations it will rewrite and the affected rows show both the original and the value that will actually be sent.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "32-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": 28
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "84-86"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "120-122"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 430
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-79"
+        }
+      ],
+      "note": "Same evidence as push-to-lynx/3/2. The banner count covers rows in both lists, including Pushed Today rows that are not ticked (sa-confirm-push-dlg.component.ts:28). Affected rows keep the original value and add \"Adjusted to N%\", and that value is substituted at send time.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -317,9 +794,17 @@
       "field": "caption",
       "text": "Two stations will be rewritten by the threshold rules.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 430
+        }
+      ],
+      "note": "Figure caption. SPATIAL_ADJUST.N_STATIONS_ADJUSTED_BY_MIN_THRESHOLD \"{{num}} stations will be adjusted according to the minimum threshold rules.\"",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -331,9 +816,24 @@
       "field": "title",
       "text": "Trust the footer count",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 144
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-82"
+        }
+      ],
+      "note": "The footer button sends exactly the list it counts.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -345,9 +845,38 @@
       "field": "body",
       "text": "The footer button names the number of ticked rows, and that is exactly what will be sent.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 144
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "84-97"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-82"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "255-269"
+        }
+      ],
+      "note": "The label number and the emitted list are the same array, changesToSubmit, and the toolbar passes that list to the push service unchanged. The values sent for threshold rows are the adjusted ones.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -359,9 +888,45 @@
       "field": "body",
       "text": "Unticking a row is not the same as reverting it — the edit stays in the table for next time.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": 20
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "84-87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1019-1038"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3052-3058"
+        }
+      ],
+      "note": "Same evidence as push-to-lynx/4/3. Unticking only filters the dialog's copy, and the station stays pending because its % Adj. still differs from Lynx. A stored edit is cleared when a new scan arrives (SpatialAdjustService.cs:3052-3058).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -373,9 +938,24 @@
       "field": "caption",
       "text": "The footer count is the contract.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 144
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-82"
+        }
+      ],
+      "note": "Figure caption. The label count and the list sent are the same array.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -387,9 +967,24 @@
       "field": "verify",
       "text": "The footer count matches the rows you ticked.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 144
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "84-87"
+        }
+      ],
+      "note": "changesToSubmit is rebuilt from the ticked rows on every checkbox change.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -400,10 +995,32 @@
       "step": "verify",
       "field": "verify",
       "text": "No station in Pushed Today is ticked unless you meant it.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": 24
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "54-58"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "89-97"
+        }
+      ],
+      "note": "Pushed Today rows start unticked, so one is ticked only by the user. Watch the select-all checkbox in the Changes header: it ticks every row in both lists, Pushed Today included (sa-confirm-push-dlg.component.ts:89-97).",
       "question": "",
       "developNote": "",
       "correction": ""
