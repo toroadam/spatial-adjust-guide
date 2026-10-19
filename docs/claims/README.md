@@ -53,8 +53,8 @@ Every citation is pinned to one of these commits. The machine-readable copy is
 
 | Ref | Role | SHA | Commit date | `site/package.json` version |
 |---|---|---|---|---|
-| `origin/Deployments/release/261014_phase_3a` | **production** (unconfirmed, see below) | `1aa4f28622cc3cc9637f0d61a438bf16bcf01924` | 2026-10-15T10:47:06-07:00 | 2.5.261015 |
-| `origin/develop` | develop | `bd39f465cf5a7ae0356a59825250b36044085714` | 2026-10-15T13:05:13-07:00 | 2.5.261012 |
+| `origin/Deployments/release/261014_phase_3a` | **production** (confirmed 2026-10-19, see below) | `1aa4f28622cc3cc9637f0d61a438bf16bcf01924` | 2026-10-15T10:47:06-07:00 | 2.5.261015 |
+| `origin/develop` | develop, and the beta environment (`origin/Deployments/beta/261015_tr_v3_api_sprt` is the same SHA) | `bd39f465cf5a7ae0356a59825250b36044085714` | 2026-10-15T13:05:13-07:00 | 2.5.261012 |
 | local `develop` before the fetch | baseline for the change inventory | `4d8aa61eb6131c5c5ef0f5df5d51079cc2eadedd` | 2026-08-13T19:42:16Z | 2.5.260811 |
 | `origin/feature/260812_target_profiles` | Target Profiles branch | `53b5c5cde1128efabad6e1b79b9903d49a2d7c8c` | 2026-08-23T12:38:39-07:00 | n/a |
 | `origin/feature/260824_target_profiles_queue` | Target Profiles queue branch | `d86ec595474bb6e535071a4f7dadf1d157c83cc8` | 2026-08-26T14:06:23-07:00 | n/a |
@@ -88,12 +88,17 @@ them by both its `YYMMDD` name and its committer date, and its `site/package.jso
   the older `release/` shape that `CONTRIBUTING.md:36` lists as a deviation, and it is a year older
   than the newest `Deployments/release/*` branch.
 
-**Not confirmed.** The repository says how a production snapshot is named, but it cannot say which
-snapshot is running now. `docs/guides/deployment.md:77` notes that nothing in the repository
-describes how production is published. `sources.json` therefore records `confirmed: false`, and
-the release owner has been asked to confirm. Verification proceeds against this candidate in the
-meantime. If the release owner names a different build, re-pin `sources.json` and re-check every
-claim whose evidence cites a file that differs between the two SHAs.
+**Confirmed on 2026-10-19.** The repository says how a production snapshot is named, but it
+cannot say which snapshot is running now: `docs/guides/deployment.md:77` notes that nothing in the
+repository describes how production is published. The guides owner delegated the call, and it was
+made on two further facts. `261014_phase_3a` contains `2503d032` "Hide non production widgets:
+Decision Tree, DTN Weather, Weather Averages", a commit develop does not have and one that only
+makes sense on a snapshot bound for production. And the newest `Deployments/beta/*` branch,
+`261015_tr_v3_api_sprt`, sits on exactly the develop SHA, so develop is what the beta environment
+runs. `sources.json` records `confirmed: true` and a `beta` entry. Content that is on develop but
+not on production is beta content, which ER-1631 handles. If a newer `Deployments/release/*`
+branch appears, re-pin `sources.json` and re-check every claim whose evidence cites a file that
+differs between the two SHAs.
 
 ## Rules for verifiers
 
