@@ -9,25 +9,11 @@
 // future export that changes shape fails the build loudly instead of quietly dropping
 // keyboard support.
 
-/** Apply the replacement, asserting the pattern matched `expected` times.
- *
- *  Counting uses a global copy of the pattern on purpose: String.match() with a
- *  non-global regex returns the match *and its capture groups*, so any pattern with a
- *  group would report an inflated count. The replace itself stays non-global so it only
- *  touches the first occurrence, which is what `expected: 1` means. */
-function edit(src, { name, pattern, replace, expected = 1, __DISABLED__ = false }) {
-  if (__DISABLED__) return src;   // A/B harness only; never committed enabled
-  const counter = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g');
-  const found = [...src.matchAll(counter)].length;
-  if (found !== expected) {
-    throw new Error(
-      `Transform "${name}" expected ${expected} match(es) but found ${found}.\n` +
-      `  The Core Design export's structure has changed. Update the anchor in\n` +
-      `  src/transform-export.mjs — do not skip the transform.`,
-    );
-  }
-  return src.replace(pattern, replace);
-}
+import { edit } from './transforms/edit.mjs';
+import { apply as applyCorrections } from './transforms/corrections.mjs';
+import { apply as applyChangedSurfaces } from './transforms/changed-surfaces.mjs';
+import { apply as applyOperationalContract } from './transforms/operational-contract.mjs';
+import { apply as applyReviewFixes } from './transforms/review-fixes.mjs';
 
 /** Controls the export builds from <div onClick>, which have no keyboard behaviour. */
 const CONTROLS = [
@@ -811,6 +797,18 @@ export function transformGuide(src) {
     pattern: /(\.lsa \.sa-ring \{ animation: none; transform: translate\(var\(--tx\), var\(--ty\)\); opacity: )\.9(; \})/,
     replace: '$1.5$2',
   });
+
+  // --- per-concern modules ------------------------------------------------------
+  // Each module under src/transforms/ is owned by one feature (see the module map in
+  // docs/claims/README.md), so features can work in parallel without editing this file.
+  // They run last, after every edit above, and in this order on purpose. corrections replaces
+  // whole sentences first. changed-surfaces, operational-contract and review-fixes are additive,
+  // and they anchor only on step titles and existing list items, never on body sentences, so
+  // they compose with any body correction made before them.
+  s = applyCorrections(s);
+  s = applyChangedSurfaces(s);
+  s = applyOperationalContract(s);
+  s = applyReviewFixes(s);
 
   return s;
 }
