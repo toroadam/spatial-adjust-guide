@@ -276,9 +276,23 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
           "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "613-624"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 87
         }
       ],
-      "note": "Same finding as push-to-lynx/1/2. The label counts pending stations that have not been pushed today (sa-main-toolbar.component.ts:153-160). A station is pending whenever its % Adj. differs from what Lynx holds, and % Adj. starts as the suggestion when the user has not edited it (sa-dashboard.component.ts:597-598), so unedited suggestions are counted. Stations already pushed today that still have a pending change are not counted.",
+      "note": "Same finding as push-to-lynx/1/2. The label counts pending stations that have not been pushed today (sa-main-toolbar.component.ts:153-160). A station is pending whenever its % Adj. differs from what Lynx holds, and % Adj. starts as the suggestion when the user has not edited it (sa-dashboard.component.ts:597-598), so unedited suggestions are counted. Stations already pushed today that still have a pending change are not counted. Only stations in enabled areas and holes are considered (sa-dashboard.component.ts:613-619). On production saShowCurrentOnly is true (environment.toro-prod.ts:87), so a station counts only when its scan is from today or its value is estimated under Option 2 (sa-dashboard.component.ts:621-624).",
       "question": "",
       "developNote": "",
       "correction": "The button carries the number of stations whose % Adj. differs from what Lynx holds, whether you edited it or left the suggestion, leaving out any already pushed today. Why: pending means \"differs from Lynx\", suggestions included, and the label counts only stations not yet pushed today (sa-main-toolbar.component.ts:153-160)."
