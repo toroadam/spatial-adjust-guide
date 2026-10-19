@@ -410,8 +410,9 @@ right. The ledger carries each of these as a Needs expert question.
 1. **VWC points as millimetres.** The deficit in VWC percentage points is added to ET in
    millimetres one for one (section 2.2, step 5). Is that equivalence acceptable for the soils and
    root zones Spatial Adjust is sold for, or should the deficit be scaled by a depth?
+   (`suggested-adjustments/2/2`)
 2. **A 10 percent threshold** is offered as a common starting point (`minimum-threshold/3/3`).
-3. **Zero is usually right** (`station-zero/summary/1`): whether zeros in the field are mostly
-   wet stations rather than settings or stale data.
+3. **Zero is usually right** (`station-zero/summary/1`, `station-zero/1/2`): whether zeros in the
+   field are mostly wet stations rather than settings or stale data.
 4. **Soil factor for daily overrides** (`suggested-adjustments/5/2`): whether a permanent soil
    factor is the recommended response to overriding the same station every day.

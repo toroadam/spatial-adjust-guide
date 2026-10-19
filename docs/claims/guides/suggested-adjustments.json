@@ -9,8 +9,24 @@
       "field": "title",
       "text": "Understand suggested adjustments",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "43-65"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2 Option 2: delta plus today's ET (the default)"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -23,8 +39,20 @@
       "field": "summary",
       "text": "Where the number comes from and why it caps out.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -37,8 +65,27 @@
       "field": "summary",
       "text": "Where the suggested percentage comes from, why it caps out, and when you should override it.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "53-62"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -51,9 +98,24 @@
       "field": "where",
       "text": "Table, station level",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "39-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "14-22"
+        }
+      ],
+      "note": "The Suggested value is on station rows only. Area and hole rows show averages, not adjustments (sa-table-card.component.html:34-37).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -64,10 +126,57 @@
       "step": "before",
       "field": "before",
       "text": "Suggestions are recalculated whenever Max Amount, Lynx Reference Amount or Crop Coefficient change.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "452-455"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "528-539"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "563-571"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Controllers/SpatialAdjustController.cs",
+          "line": "298-301"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1848-1921"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "262-270"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.4 Recalculation after a settings change"
+        }
+      ],
+      "note": "This happens when the values are changed and saved in Settings. The recalculation covers the selected course only (sa-settings-dlg.component.ts:566; SpatialAdjustService.cs:1856-1859), and it matters only under Option 2: Option 1 uses none of the three.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -78,10 +187,50 @@
       "step": "before",
       "field": "before",
       "text": "A station with no current scan and no model estimate shows a dash rather than a number.",
-      "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "417-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "430-435"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "48-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 87
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §4 What the station table shows"
+        }
+      ],
+      "note": "Production hides stale values that are not estimated (environment.toro-prod.ts:87). Under Option 1 every station without a scan today shows a dash, because Option 1 has no model estimate (spatial-adjust-course.model.ts:184-188). Under Option 2 a dash means the station has no adjustment row at all (sa-table-card.component.ts:430-435).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -93,8 +242,23 @@
       "field": "title",
       "text": "Find the two adjustment columns",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "48-49"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "17-20"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -107,9 +271,24 @@
       "field": "body",
       "text": "Current is the percent adjust Lynx holds for the station right now.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "406-415"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "593-594"
+        }
+      ],
+      "note": "Current is the percent adjust read from Lynx Cloud for the station with the same name, as of the last time the dashboard received Lynx data.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -121,11 +300,48 @@
       "field": "body",
       "text": "Suggested is what Spatial Adjust calculated from this morning’s scan.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3004-3015"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2103-2133"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2838-2884"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "43-65"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.1 When it runs"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
+        }
+      ],
+      "note": "Under Option 2 the server recalculates from today's scans on every processing run, about every 30 minutes (SpatialAdjustService.cs:2103-2133, :3004-3015), and today's ET can still change until the first run after 11:00 course-local (:2838-2884), so a morning suggestion can move. A station with no scan today is estimated from the model instead. Under Option 1 the browser computes it from today's scan. \"This morning's\" assumes the scan is taken in the morning.",
       "question": "",
-      "developNote": "",
+      "developNote": "Develop adds a step that writes today's adjustment row from the model when TurfRad reports no new scans (develop SpatialAdjustService.cs:2146, :3266-3312). The display is unchanged.",
       "correction": ""
     },
     {
@@ -135,9 +351,24 @@
       "field": "body",
       "text": "The gap between them is the change you are being asked to make.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        }
+      ],
+      "note": "Strictly, the change pushed is from Current to % Adj., which starts equal to Suggested. A station is queued for push when the two differ (sa-dashboard.component.ts:659-662).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -149,9 +380,45 @@
       "field": "caption",
       "text": "Current and Suggested sit side by side under the Adjustment heading.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "17-20"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "48-49"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 607
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 664
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 1008
+        }
+      ],
+      "note": "The station header shows \"Adjustment\" (en-us.json:607) above \"Current\" and \"Suggested\" (en-us.json:664, :1008).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -163,8 +430,30 @@
       "field": "title",
       "text": "Read it against Avg. VWC and Target VWC",
       "type": "label",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-47"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -177,10 +466,40 @@
       "field": "body",
       "text": "The calculation starts from the difference between measured moisture and the station target, converts that into an amount of water, adds today’s ET, and expresses the result as a percentage of the Lynx reference amount.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
-      "question": "",
+      "status": "Needs expert",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3036-3039"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3043
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §12 Open for experts"
+        }
+      ],
+      "note": "The code does what the sentence says under Option 2, with two details it leaves out: the sum is multiplied by the station's soil factor and capped at the Daily Max Amount before the division (SpatialAdjustService.cs:3036-3041). The step that \"converts that into an amount of water\" has no conversion factor. The deficit in VWC percentage points is added to ET in millimetres one for one (:3037-3039). The source cannot say whether that equivalence is agronomically right, so it is left for the experts (docs/claims/calculations.md §12, item 1). Option 1 works differently (calculation-methods/3/2).",
+      "question": "Spatial Adjust adds the VWC deficit in percentage points to ET in millimetres one for one (1 point = 1 mm, no root-zone depth); is that acceptable for the soils it is sold for, or should the deficit be scaled by a depth?",
       "developNote": "",
       "correction": ""
     },
@@ -191,9 +510,31 @@
       "field": "body",
       "text": "A station well under target asks for more water; one over target asks for less.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3039"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        }
+      ],
+      "note": "Under Option 2 a station over target needs less than today's ET, and nothing once it is over by more than the crop-adjusted ET. Under Option 1 a station over target gets less than the percent Lynx holds now.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -205,9 +546,24 @@
       "field": "caption",
       "text": "Station 3AP1 measured 27.6 percent against a 54 percent target — the largest deficit on the hole.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3128-3133"
+        }
+      ],
+      "note": "Illustrative screenshot. A 54 percent target cannot be typed: the Target VWC box accepts 0 to 50 (sa-table-card.component.html:40-47), and bulk changes clamp to 0-50 (SpatialAdjustService.cs:2291-2292). It can still occur, because a station's first target is set automatically to its first measured VWC (:3128-3133). An example target of 50 or less would avoid the question.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -219,8 +575,24 @@
       "field": "title",
       "text": "Notice where suggestions cluster",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -233,8 +605,24 @@
       "field": "body",
       "text": "Several stations show the same suggested value.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -246,10 +634,26 @@
       "step": "3",
       "field": "body",
       "text": "That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        }
+      ],
+      "note": "Option 2 only.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -261,9 +665,25 @@
       "field": "body",
       "text": "If most of your course reads identically, the cap is doing the deciding, not the scan.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        }
+      ],
+      "note": "The capped value is the Daily Max Amount divided by the Lynx Reference Amount, whatever the scan says.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -274,9 +694,25 @@
       "step": "3",
       "field": "caption",
       "text": "A run of identical suggestions is the signature of the Max Amount cap.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -289,9 +725,42 @@
       "field": "tip",
       "text": "What to do. Raise Daily Max Amount in Settings › Calculation, or accept that the course is being deliberately limited.",
       "type": "navigation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-291"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 53
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "82-95"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        }
+      ],
+      "note": "Raising Daily Max Amount raises the ceiling up to the field's maximum of 15 in the user's unit (sa-settings-dlg.component.html:87).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -303,8 +772,16 @@
       "field": "title",
       "text": "Override where you disagree",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "53-62"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -316,10 +793,39 @@
       "step": "4",
       "field": "body",
       "text": "The % Adj. column is yours.",
-      "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "146-164"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1019-1038"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 598
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 437
+        }
+      ],
+      "note": "\"% Adj.\" (en-us.json:437) is the value that is pushed. It starts as the suggestion (sa-dashboard.component.ts:598), and an edit is saved to the station (sa-table-card.component.ts:162; SpatialAdjustService.cs:1035).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -331,9 +837,38 @@
       "field": "body",
       "text": "Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "146-164"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1019-1038"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3052-3062"
+        }
+      ],
+      "note": "The station is queued only if the typed value differs from what Lynx holds (sa-dashboard.component.ts:659-662). The edit is saved half a second after typing stops (sa-table-card.component.ts:157-163) and is kept until a new scan arrives for the station (SpatialAdjustService.cs:3052-3062).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -345,9 +880,24 @@
       "field": "body",
       "text": "The suggested value is left untouched underneath.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 49
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "146-164"
+        }
+      ],
+      "note": "Editing % Adj. changes only the % Adj. value. Suggested is painted from a separate field.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -358,13 +908,42 @@
       "step": "4",
       "field": "caption",
       "text": "Editing % Adj. queues the station; the icon beside the field marks it as pending.",
-      "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "545-556"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "258-272"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 51
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        }
+      ],
+      "note": "Editing does queue the station when the value differs from Lynx (sa-dashboard.component.ts:659-662). The icon beside the field is drawn only when the station has a recorded last push and its % Adj. differs from Lynx (sa-table-card.component.ts:545-556). A station never pushed before shows no icon however it is edited. One pushed today shows the pushed variant. Feature 4 found the same in push-to-lynx/verify/3.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Editing % Adj. queues the station when the new value differs from what Lynx holds. A station that has been pushed before also shows a push icon beside the field; a station that has never been pushed shows none. Why: the icon is drawn only for a station with a recorded previous push (sa-table-card.component.ts:545-556)."
     },
     {
       "id": "suggested-adjustments/5/1",
@@ -373,8 +952,23 @@
       "field": "title",
       "text": "Set a soil factor for persistent offsets",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": 15
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-281"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -387,10 +981,26 @@
       "field": "body",
       "text": "If you override the same station every day, the station itself needs adjusting rather than the number.",
       "type": "prerequisite",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
-      "question": "",
+      "status": "Needs expert",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3036-3039"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §7 Soil factor"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §12 Open for experts"
+        }
+      ],
+      "note": "The soil factor is a per-station multiplier that persists (docs/claims/calculations.md §7), so it can absorb a fixed offset. Whether it is the right response to repeated daily overrides is operational advice the source cannot settle.",
+      "question": "If a superintendent overrides the same station's % Adj. every day, is setting a permanent soil factor on that station the recommended fix?",
       "developNote": "",
       "correction": ""
     },
@@ -401,9 +1011,42 @@
       "field": "body",
       "text": "The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently.",
       "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "105-106"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3036-3039"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "142-147"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/appsettings.json",
+          "line": 150
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §7 Soil factor"
+        }
+      ],
+      "note": "The factor multiplies the station's amount before the Daily Max Amount cap, so it cannot lift a capped station (SpatialAdjustService.cs:3036-3041). It is stored on the station and stays until changed. A service-wide configuration switch can turn it off, and it is on (appsettings.json:150). Option 2 only.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -415,8 +1058,23 @@
       "field": "body",
       "text": "It is opened with Shift + Alt on the gear button.",
       "type": "behaviour",
-      "status": "Unverified",
-      "evidence": [],
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-281"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        }
+      ],
       "note": "",
       "question": "",
       "developNote": "",
@@ -429,9 +1087,24 @@
       "field": "caption",
       "text": "Soil Factor Editor, opened with Shift + Alt on the toolbar gear.",
       "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": 15
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-281"
+        }
+      ],
+      "note": "The dialog header is the hardcoded literal \"Soil Factor Editor\" (sa-soil-factor-dlg.component.html:15).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -442,13 +1115,35 @@
       "step": "verify",
       "field": "verify",
       "text": "Every station you edited shows the pending push icon beside the % Adj. field.",
-      "type": "calculation",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "545-556"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 51
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        }
+      ],
+      "note": "See suggested-adjustments/4/5. Only stations with a recorded previous push show the icon, and an edit back to the value Lynx already holds is not pending at all.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "Every station you edited to a value different from what Lynx holds is in the Push Changes list; stations that have been pushed before also show the push icon beside % Adj. Why: the icon is drawn only for a station with a recorded previous push (sa-table-card.component.ts:545-556)."
     },
     {
       "id": "suggested-adjustments/verify/2",
@@ -456,13 +1151,42 @@
       "step": "verify",
       "field": "verify",
       "text": "The Push Changes count in the toolbar matches the number of rows you changed.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Wrong",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "153-160"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        }
+      ],
+      "note": "Unedited stations count too: % Adj. starts as the suggestion (sa-dashboard.component.ts:597-598), and any station whose % Adj. differs from Lynx is pending (:659-662). Stations already pushed today are left out of the number (sa-main-toolbar.component.ts:153-160). Feature 4 recorded the same finding for push-to-lynx/1/2.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "The Push Changes count in the toolbar is the number of stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today. Why: % Adj. starts as the suggestion, so unedited suggestions that differ from Lynx are pending too (sa-dashboard.component.ts:597-598, :659-662; sa-main-toolbar.component.ts:153-160)."
     },
     {
       "id": "suggested-adjustments/verify/3",
@@ -470,10 +1194,18 @@
       "step": "verify",
       "field": "verify",
       "text": "Stations you left alone still show Suggested and Current unchanged.",
-      "type": "label",
-      "status": "Unverified",
-      "evidence": [],
-      "note": "",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "146-164"
+        }
+      ],
+      "note": "An edit changes only that station's % Adj.",
       "question": "",
       "developNote": "",
       "correction": ""
