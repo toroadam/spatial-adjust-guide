@@ -87,7 +87,7 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | Command | Script | Purpose | Delivered by |
 |---|---|---|---|
 | `npm run video -- capture` | `video/capture/director.mjs` | Capture a take from IntelliDash `/demo` under three safety layers | TBD (PI-ICNT-SW-1078) |
-| `npm run video -- vo` | `video/vo/render-brian.py` | Render the episode voice-over in the Brian voice | TBD (PI-ICNT-SW-1080) |
+| `npm run video -- vo` | `video/vo/render-brian.py` | Render the episode voice-over in the Brian voice; `--dry-run` lists characters and credits without a network call (see [`vo/voice-settings.md`](vo/voice-settings.md)) | PI-ICNT-SW-1080 |
 | `npm run video -- estimate` | `video/vo/estimate.py` | Estimate characters and credits before rendering VO | TBD (PI-ICNT-SW-1080) |
 | `npm run video -- build` | `video/edit/build.py` | Build the timeline from episode, take and VO report | TBD (PI-ICNT-SW-1083) |
 | `npm run video -- render` | `video/edit/render.py` | Render a timeline to H.264 | TBD (PI-ICNT-SW-1077) |
@@ -105,7 +105,7 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | `lib/` | Shared code for Node and Python: media root guard, local maps loader, ElevenLabs key resolver, episode schema |
 | `capture/` | Capture director, safety gates and the fictional course overlay. TBD (PI-ICNT-SW-1078, PI-ICNT-SW-1079) |
 | `edit/` | Compositor, renderer, builder and audio mix. TBD (PI-ICNT-SW-1077, PI-ICNT-SW-1083) |
-| `vo/` | Brian voice renderer, lexicon and estimates. TBD (PI-ICNT-SW-1080) |
+| `vo/` | Brian voice renderer, lexicon, voice settings and loudness target, credits log and estimates. Needs only `python3` and ffmpeg (PI-ICNT-SW-1080) |
 | `verify/` | Repository hygiene check; render verification, OCR and captions TBD (PI-ICNT-SW-1082) |
 | `brand/` | Motion system, course identity, end card and music records. TBD (PI-ICNT-SW-1079, PI-ICNT-SW-1081, PI-ICNT-SW-1083) |
 | `episodes/` | One folder per episode (`episode.json`, `script.md`); see [`episodes/README.md`](episodes/README.md) |
