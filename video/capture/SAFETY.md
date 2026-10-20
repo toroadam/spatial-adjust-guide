@@ -162,7 +162,7 @@ The director runs an episode's actions on one page under three independent safet
 - The director connects with `chromium.connectOverCDP` to a loopback endpoint only (`http://127.0.0.1:<port>` or `http://localhost:<port>`); any other host is refused with exit 2.
 - It opens **one new page** in the owner's browser context, sets the page's device metrics to 1920x1080 at device scale factor 2 (Emulation.setDeviceMetricsOverride; frames are 3840x2160 and show the page viewport only, no browser chrome), and installs its init scripts, bindings and request routes **on that page only**. The owner's other tabs are never touched.
 - At the end it closes only the page it opened, never the owner's browser: the DevTools connection is dropped when the director exits. Ctrl-C ends the take the same way and still writes the safety report.
-- `--launch` starts Playwright's own Chromium instead. It is refused unless every allowed host is loopback (the test fixtures) or the source is the local recreation.
+- `--launch` starts Playwright's own Chromium instead. It is refused unless every allowed host is loopback (the test fixtures). A take from the local recreation (`--source recreation`) always uses it: the recreation is this repository's own guide site, served from `dist/` on loopback by `video/capture/recreation.mjs`, with no Demo Mode and nothing of the owner's to use.
 
 ### Layer 1: the entry gate
 

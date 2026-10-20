@@ -1,0 +1,66 @@
+{
+  "id": "capture-fixture-ok",
+  "title": "Fixture: a read-only tour",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [
+    5,
+    30
+  ],
+  "source": "demo",
+  "mapPolicy": "blur",
+  "allowClicks": [
+    "Zoom in"
+  ],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [],
+  "beats": [
+    {
+      "id": "open",
+      "hold": 1,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "open"
+        }
+      ]
+    },
+    {
+      "id": "map",
+      "hold": 3,
+      "highlight": "role=region[name=\"Map\"]",
+      "actions": [
+        {
+          "type": "cue",
+          "id": "map"
+        },
+        {
+          "type": "hover",
+          "target": "role=img[name=\"Station 1AP1\"]",
+          "name": "Station 1AP1"
+        },
+        {
+          "type": "click",
+          "target": "role=button[name=\"Zoom in\"]",
+          "name": "Zoom in"
+        },
+        {
+          "type": "focus",
+          "target": "role=region[name=\"Moisture legend\"]",
+          "name": "Moisture legend"
+        },
+        {
+          "type": "scroll",
+          "target": "role=table",
+          "dy": 120
+        },
+        {
+          "type": "wait",
+          "ms": 300
+        }
+      ]
+    }
+  ]
+}

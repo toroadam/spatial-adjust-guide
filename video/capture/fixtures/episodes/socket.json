@@ -1,0 +1,32 @@
+{
+  "id": "capture-fixture-socket",
+  "title": "Fixture: a WebSocket after arming",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [
+    5,
+    30
+  ],
+  "source": "demo",
+  "mapPolicy": "blur",
+  "allowClicks": [
+    "Connect live"
+  ],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [],
+  "beats": [
+    {
+      "id": "act",
+      "hold": 2,
+      "actions": [
+        {
+          "type": "click",
+          "target": "role=button[name=\"Connect live\"]",
+          "name": "Connect live"
+        }
+      ]
+    }
+  ]
+}
