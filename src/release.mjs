@@ -7,6 +7,14 @@
 // decides whether beta content is published reads it through this module, so the rule lives in
 // one place.
 //
+// Cross-references. A sentence in a GA guide that names or links a beta guide or a beta step must
+// leave with it. A beta guide entry or a beta section lists those sentences under
+// "crossReferences": [{ "guide": "<ga key>", "field": "<field>", "text": "<exact sentence>" }],
+// where field is one of CROSS_REFERENCE_FIELDS and the text occurs exactly once in that field of
+// that guide. A build with SA_SHOW_BETA=false deletes each one, with the space that joins it to its
+// neighbour, and fails on any mention of a beta guide that is not registered this way
+// (src/transforms/release-gate.mjs).
+//
 // The switch. SA_SHOW_BETA is read from process.env in two places only: build.mjs, which passes the
 // raw value to parseShowBeta() and logs it, and showBetaFromEnv() here, for any other caller.
 // parseShowBeta() decides what the value means:
@@ -38,8 +46,12 @@ export const BETA_BANNER_LABEL = 'Beta.';
 export const BETA_BANNER_TEXT = 'This feature is in testing and may change before it reaches your IntelliDash.';
 
 const KEBAB = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
-const ENTRY_FIELDS = ['status', 'basis', 'sections'];
+const ENTRY_FIELDS = ['status', 'basis', 'sections', 'crossReferences'];
 const SECTION_FIELDS = ['id', 'status', 'basis', 'steps', 'crossReferences'];
+const CROSS_REFERENCE_KEYS = ['guide', 'field', 'text'];
+
+/** The guide fields a cross-reference may sit in. title, body, caption and tip include the steps'. */
+export const CROSS_REFERENCE_FIELDS = ['title', 'summary', 'where', 'note', 'before', 'body', 'caption', 'tip', 'verify'];
 
 const isObject = (v) => v !== null && typeof v === 'object' && !Array.isArray(v);
 const isText = (v) => typeof v === 'string' && v.trim() !== '';
@@ -141,6 +153,79 @@ export function loadRelease({ file } = {}) {
   return { release, file: path };
 }
 
+// ---- cross-references ---------------------------------------------------------------------------
+
+/**
+ * Every value of `field` in an evaluated guide, as [{ path, text }]. Guide-level fields give one
+ * value, before and verify one per item, and body, caption and tip one per step that has it. title
+ * gives the guide's title and then each step's.
+ */
+export function fieldValues(guide, field) {
+  const steps = Array.isArray(guide.steps) ? guide.steps : [];
+  const fromSteps = (name) => steps.flatMap((s, i) => (s && typeof s[name] === 'string' ? [{ path: `steps[${i}].${name}`, text: s[name] }] : []));
+  switch (field) {
+    case 'title': return [{ path: 'title', text: guide.title }].filter((v) => typeof v.text === 'string').concat(fromSteps('title'));
+    case 'summary': case 'where': case 'note':
+      return typeof guide[field] === 'string' ? [{ path: field, text: guide[field] }] : [];
+    case 'before': case 'verify':
+      return (Array.isArray(guide[field]) ? guide[field] : []).map((text, i) => ({ path: `${field}[${i}]`, text }));
+    case 'body': case 'caption': case 'tip': return fromSteps(field);
+    default: throw new Error(`"${field}" is not a cross-reference field; expected one of ${CROSS_REFERENCE_FIELDS.join(', ')}`);
+  }
+}
+
+/** How many times `needle` occurs in `hay`. */
+export function occurrences(hay, needle) {
+  let n = 0;
+  for (let at = hay.indexOf(needle); at >= 0; at = hay.indexOf(needle, at + needle.length)) n++;
+  return n;
+}
+
+/**
+ * Every registered cross-reference, as { guide, field, text, from }, where `from` names the beta
+ * guide or beta section that registered it.
+ */
+export function crossReferencesOf(release) {
+  const out = [];
+  for (const [key, entry] of Object.entries((release && release.guides) || {})) {
+    for (const ref of entry.crossReferences || []) out.push({ ...ref, from: `guide "${key}"` });
+    for (const section of entry.sections || []) {
+      for (const ref of section.crossReferences || []) out.push({ ...ref, from: `guide "${key}" section "${section.id}"` });
+    }
+  }
+  return out;
+}
+
+function checkCrossReferences(list, at, owner, entries, guides, problems) {
+  if (list === undefined) return;
+  if (owner !== 'beta') { problems.push(`${at} has crossReferences but is not beta; only beta content registers them`); return; }
+  if (!Array.isArray(list) || list.length === 0) {
+    problems.push(`${at} "crossReferences" must be a non-empty array of { guide, field, text } objects`);
+    return;
+  }
+  list.forEach((ref, n) => {
+    const where = `${at} cross-reference #${n + 1}`;
+    if (!isObject(ref)) { problems.push(`${where} must be an object with guide, field and text`); return; }
+    for (const k of Object.keys(ref)) if (!CROSS_REFERENCE_KEYS.includes(k)) problems.push(`${where} has an unknown field "${k}"`);
+    if (!isText(ref.guide) || !Object.hasOwn(guides, ref.guide)) {
+      problems.push(`${where} names guide ${JSON.stringify(ref.guide)}, which is not a guide in GUIDES`);
+      return;
+    }
+    if (!isObject(entries[ref.guide]) || entries[ref.guide].status !== 'ga') {
+      problems.push(`${where} names guide "${ref.guide}", which is not ga; a beta guide leaves whole, with its sentences`);
+    }
+    if (!CROSS_REFERENCE_FIELDS.includes(ref.field)) {
+      problems.push(`${where} has field ${JSON.stringify(ref.field)}; expected one of ${CROSS_REFERENCE_FIELDS.join(', ')}`);
+      return;
+    }
+    if (!isText(ref.text)) { problems.push(`${where} needs a non-empty "text"`); return; }
+    const found = fieldValues(guides[ref.guide], ref.field).reduce((sum, v) => sum + occurrences(v.text, ref.text), 0);
+    if (found !== 1) {
+      problems.push(`${where} text ${JSON.stringify(ref.text)} occurs ${found} times in the ${ref.field} of guide "${ref.guide}"; expected exactly once`);
+    }
+  });
+}
+
 // ---- validation ---------------------------------------------------------------------------------
 
 /**
@@ -171,6 +256,7 @@ export function validateRelease(release, guides) {
         problems.push(`${where} has status ${JSON.stringify(entry.status)}; expected "ga" or "beta"`);
       }
       if (!isText(entry.basis)) problems.push(`${where} needs a non-empty "basis"`);
+      checkCrossReferences(entry.crossReferences, where, entry.status, entries, guides, problems);
       if (entry.sections === undefined) continue;
       if (!Array.isArray(entry.sections)) { problems.push(`${where} "sections" must be an array`); continue; }
 
@@ -210,10 +296,7 @@ export function validateRelease(release, guides) {
             }
           }
         }
-        if (section.crossReferences !== undefined
-          && (!Array.isArray(section.crossReferences) || !section.crossReferences.every(isText))) {
-          problems.push(`${at} "crossReferences" must be an array of non-empty strings`);
-        }
+        checkCrossReferences(section.crossReferences, at, section.status, entries, guides, problems);
       });
     }
   }

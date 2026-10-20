@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "note": "One release status per guide, ga or beta. A GA guide may hold beta sections, which are steps addressed by exact title. GA content is published in every build. Beta content is published only when SA_SHOW_BETA is unset, empty, true or 1, and is left out of dist/ when it is false or 0. Read, validated and applied through src/release.mjs; checked by npm run test:release.",
+    "note": "One release status per guide, ga or beta. A GA guide may hold beta sections, which are steps addressed by exact title. GA content is published in every build. Beta content is published only when SA_SHOW_BETA is unset, empty, true or 1, and is left out of dist/ when it is false or 0. A beta guide or beta section may list crossReferences, { guide, field, text } sentences in GA guides that name it; a build with SA_SHOW_BETA false or 0 removes them with it and fails on any mention that is not listed. Read, validated and applied through src/release.mjs and src/transforms/release-gate.mjs; checked by npm run test:release.",
     "production": {
       "ref": "origin/Deployments/release/261014_phase_3a",
       "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924"

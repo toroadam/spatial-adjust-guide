@@ -13,10 +13,10 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { extractGuides } from './claims-extract.mjs';
 import { transformGuide } from '../src/transform-export.mjs';
-import { apply as applyReleaseGate, evaluateGuideData } from '../src/transforms/release-gate.mjs';
+import { apply as applyReleaseGate, evaluateGuideData, cutSentence } from '../src/transforms/release-gate.mjs';
 import {
   parseShowBeta, showBetaFromEnv, loadRelease, releaseFilePath, validateRelease, findDuplicateKeys,
-  isGuideShipped, betaSteps, statusOf, DEFAULT_RELEASE_FILE,
+  isGuideShipped, betaSteps, statusOf, crossReferencesOf, DEFAULT_RELEASE_FILE,
   BETA_BADGE_LABEL, BETA_BANNER_LABEL, BETA_BANNER_TEXT,
 } from '../src/release.mjs';
 
@@ -146,10 +146,19 @@ const rejects = (name, variant, pattern) => check(`validateRelease rejects ${nam
   if (!Array.isArray(err.problems) || err.problems.length === 0) throw new Error(`${name}: error.problems is empty`);
 });
 
+// A sentence that occurs once in the before list of each of seven GA guides.
+const PUSH_SENTENCE = 'Push changes to Lynx lists the settings under Before you start.';
+const XREF = { guide: 'seasonal-profiles', field: 'before', text: PUSH_SENTENCE };
+
 check('validateRelease accepts a beta section in a GA guide', () => validateRelease(
-  withSections([{ id: 'stale-scans-kept', status: 'beta', basis: 'docs/claims/beta-surfaces.md#stale-scans-kept', steps: [STEP_A], crossReferences: ['station-zero'] }]),
+  withSections([{ id: 'stale-scans-kept', status: 'beta', basis: 'docs/claims/beta-surfaces.md#stale-scans-kept', steps: [STEP_A], crossReferences: [XREF] }]),
   guides,
 ));
+check('validateRelease accepts cross-references on a beta guide', () => {
+  const r = clone(release);
+  r.guides['push-to-lynx'] = { status: 'beta', basis: 'test', crossReferences: [XREF, { ...XREF, guide: 'push-failures' }] };
+  validateRelease(r, guides);
+});
 
 {
   const r = clone(release);
@@ -191,9 +200,40 @@ rejects('a step in two sections', withSections([
   { id: 'one', status: 'beta', steps: [STEP_A] },
   { id: 'two', status: 'beta', steps: [STEP_A] },
 ]), /already in section "one"/);
-rejects('crossReferences that are not strings', withSections([
-  { id: 'beta-step', status: 'beta', steps: [STEP_A], crossReferences: [3] },
-]), /"crossReferences" must be an array of non-empty strings/);
+rejects('a cross-reference that is a bare string', withSections([
+  { id: 'beta-step', status: 'beta', steps: [STEP_A], crossReferences: ['station-zero'] },
+]), /cross-reference #1 must be an object with guide, field and text/);
+rejects('an empty crossReferences array', withSections([
+  { id: 'beta-step', status: 'beta', steps: [STEP_A], crossReferences: [] },
+]), /"crossReferences" must be a non-empty array/);
+rejects('crossReferences on a ga section', withSections([
+  { id: 'still-ga', status: 'ga', steps: [STEP_A], crossReferences: [XREF] },
+]), /section "still-ga" has crossReferences but is not beta/);
+{
+  const r = clone(release);
+  r.guides.preferences.crossReferences = [XREF];
+  rejects('crossReferences on a ga guide', r, /guide "preferences" has crossReferences but is not beta/);
+}
+{
+  const r = clone(release);
+  r.guides['push-to-lynx'] = { status: 'beta', basis: 'test', crossReferences: [{ ...XREF, guide: 'push-to-lynx', field: 'title', text: 'Push changes to Lynx' }] };
+  rejects('a cross-reference into a beta guide', r, /names guide "push-to-lynx", which is not ga/);
+}
+rejects('a cross-reference to a guide that does not exist', withSections([
+  { id: 'beta-step', status: 'beta', steps: [STEP_A], crossReferences: [{ ...XREF, guide: 'not-a-guide' }] },
+]), /names guide "not-a-guide", which is not a guide in GUIDES/);
+rejects('a cross-reference with an unknown field', withSections([
+  { id: 'beta-step', status: 'beta', steps: [STEP_A], crossReferences: [{ ...XREF, field: 'tipLabel' }] },
+]), /has field "tipLabel"; expected one of title, summary/);
+rejects('a cross-reference with an unknown key', withSections([
+  { id: 'beta-step', status: 'beta', steps: [STEP_A], crossReferences: [{ ...XREF, why: 'x' }] },
+]), /cross-reference #1 has an unknown field "why"/);
+rejects('a cross-reference whose text is not in the field', withSections([
+  { id: 'beta-step', status: 'beta', steps: [STEP_A], crossReferences: [{ ...XREF, field: 'verify' }] },
+]), /occurs 0 times in the verify of guide "seasonal-profiles"; expected exactly once/);
+rejects('a cross-reference whose text occurs twice', withSections([
+  { id: 'beta-step', status: 'beta', steps: [STEP_A], crossReferences: [{ guide: 'push-to-lynx', field: 'body', text: 'Lynx' }] },
+]), /occurs \d+ times in the body of guide "push-to-lynx"; expected exactly once/);
 {
   const r = withSections([{ id: 'still-ga', status: 'ga', steps: [STEP_A] }]);
   r.guides[KEY].status = 'beta';
@@ -328,6 +368,108 @@ check('release gate: an invalid release file fails in either mode', () => {
   throws(() => applyReleaseGate(SHOWN, { showBeta: true, release: r }), /guide "preferences" has no entry/, 'shown');
   throws(() => hide(SHOWN, r), /guide "preferences" has no entry/, 'hidden');
 });
+
+// ---- cross-references and step numbers ----------------------------------------------------------
+
+check('cutSentence takes the joining space with the sentence', () => {
+  equal(cutSentence('A one. B two. C three.', 'B two.'), 'A one. C three.', 'middle');
+  equal(cutSentence('A one. B two.', 'B two.'), 'A one.', 'last');
+  equal(cutSentence('B two. A one.', 'B two.'), 'A one.', 'first');
+  equal(cutSentence('B two.', 'B two.'), '', 'whole');
+});
+
+{
+  // Push changes to Lynx made beta. Seven GA guides name it in one sentence of their before list.
+  const named = Object.keys(guides).filter((k) => (guides[k].before || []).some((b) => b.includes(PUSH_SENTENCE)));
+  const pushBeta = (refs) => {
+    const r = clone(release);
+    r.guides['push-to-lynx'] = { status: 'beta', basis: 'test', crossReferences: refs };
+    return r;
+  };
+  check('release gate: registered cross-references are removed from GA guides', () => {
+    equal(named.length, 7, 'guides naming Push changes to Lynx');
+    const r = pushBeta(named.map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })));
+    equal(crossReferencesOf(r).length, 7, 'registered');
+    const hidden = hide(SHOWN, r);
+    const after = evaluateGuideData(hidden);
+    for (const k of named) {
+      const before = after.GUIDES[k].before;
+      equal(before.some((b) => b.includes(PUSH_SENTENCE)), false, `${k} still names the beta guide`);
+      equal(before.includes('Lynx itself must be set up to match Spatial Adjust.'), true, `${k} keeps the sentence before it`);
+      equal(before.length, guides[k].before.length, `${k} before count`);
+    }
+    equal(hidden.includes('Push changes to Lynx'), false, 'title anywhere in the export');
+    equal(Object.hasOwn(after.GUIDES, 'push-to-lynx'), false, 'beta guide');
+  });
+  check('release gate: an unregistered mention of a beta guide fails, naming guide, field and sentence', () => {
+    const r = pushBeta(named.filter((k) => k !== 'push-failures').map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })));
+    throws(() => hide(SHOWN, r),
+      /guide "push-failures" before\[\d+\]: "Push changes to Lynx lists the settings under Before you start\." names the title of beta guide "push-to-lynx"\. Register it in src\/release\.json under guides\."push-to-lynx"\.crossReferences/,
+      'unregistered');
+  });
+  check('release gate: a #/key link to a beta guide fails', () => {
+    const r = clone(release);
+    r.guides['station-details'].status = 'beta';
+    const caption = guides['minimum-threshold'].steps[1].caption;
+    const linked = SHOWN.replace(caption, `${caption} See #/station-details.`);
+    throws(() => hide(linked, r), /guide "minimum-threshold" steps\[1\]\.caption: "See #\/station-details\." names a link to beta guide "station-details"/, 'link');
+  });
+  check('release gate: a registered sentence that is a whole before item takes the item with it', () => {
+    const r = clone(release);
+    r.guides['station-details'] = { status: 'beta', basis: 'test', crossReferences: [
+      { guide: 'dashboard-overview', field: 'before', text: guides['dashboard-overview'].before[2] },
+    ] };
+    const after = evaluateGuideData(hide(SHOWN, r));
+    equal(JSON.stringify(after.GUIDES['dashboard-overview'].before), JSON.stringify(guides['dashboard-overview'].before.slice(0, 2)), 'before');
+  });
+  check('release gate: a registered sentence that is a whole caption fails rather than leave it empty', () => {
+    const r = clone(release);
+    r.guides['station-details'] = { status: 'beta', basis: 'test', crossReferences: [
+      { guide: 'minimum-threshold', field: 'caption', text: guides['minimum-threshold'].steps[1].caption },
+    ] };
+    throws(() => hide(SHOWN, r), /is all of steps\[1\]\.caption; removing it would leave it empty/, 'empty caption');
+  });
+}
+
+{
+  // push-to-lynx has six steps. Step 3 made beta leaves five, so step numbers from 4 up move.
+  const PUSH_STEP = guides['push-to-lynx'].steps[2].title;
+  const summary = guides['push-to-lynx'].summary;
+  const withSentence = (sentence) => {
+    if (SHOWN.split(summary).length !== 2) throw new Error('push-to-lynx summary anchor not found once');
+    return SHOWN.replace(summary, `${summary} ${sentence}`);
+  };
+  const stepBeta = (refs) => {
+    const r = clone(release);
+    r.guides['push-to-lynx'].sections = [{ id: 'one-step', status: 'beta', basis: 'test', steps: [PUSH_STEP], ...(refs ? { crossReferences: refs } : {}) }];
+    return r;
+  };
+  check('release gate: "step 6" in a guide reduced to five steps fails', () => {
+    throws(() => hide(withSentence('Step 6 confirms the result.'), stepBeta()),
+      /guide "push-to-lynx" summary: "Step 6 confirms the result\." cites step 6, but the guide has 5 steps without beta content/, 'step 6');
+  });
+  check('release gate: a reference to the removed step fails', () => {
+    throws(() => hide(withSentence('Step 3 shows the threshold.'), stepBeta()), /cites step 3, which a build without beta content removes/, 'step 3');
+  });
+  check('release gate: a reference to a step that moved fails', () => {
+    throws(() => hide(withSentence('Step 4 lets you untick rows.'), stepBeta()), /cites step 4, which becomes step 3 once beta step 3 is removed/, 'step 4');
+  });
+  check('release gate: a reference to a step before the removed one passes', () => {
+    const after = evaluateGuideData(hide(withSentence('Step 2 reviews the lists.'), stepBeta()));
+    equal(after.GUIDES['push-to-lynx'].summary, `${summary} Step 2 reviews the lists.`, 'summary');
+  });
+  check('release gate: a step reference registered on the beta section is removed', () => {
+    const r = stepBeta([{ guide: 'push-to-lynx', field: 'summary', text: 'Step 6 confirms the result.' }]);
+    const after = evaluateGuideData(hide(withSentence('Step 6 confirms the result.'), r));
+    equal(after.GUIDES['push-to-lynx'].summary, summary, 'summary');
+  });
+  check('release gate: the counter must still number steps from steps.length', () => {
+    const anchor = "counter: 'Step ' + (pi + 1) + ' of ' + steps.length";
+    throws(() => hide(SHOWN.replace(anchor, "counter: 'Step ' + (pi + 1) + ' of ' + 6"), stepBeta()), /the player counter, Step N of M must number steps from steps\.length/, 'counter');
+    const announce = "announcement: 'Step ' + (pi + 1) + ' of ' + steps.length";
+    throws(() => hide(SHOWN.replace(announce, "announcement: 'Step ' + (pi + 1) + ' of ' + 6"), stepBeta()), /live-region announcement/, 'announcement');
+  });
+}
 
 // ---- report -------------------------------------------------------------------------------------
 
