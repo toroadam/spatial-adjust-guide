@@ -1,0 +1,143 @@
+name: Release modes
+
+# Runs the test suite against both release modes, so a change that breaks the build customers get
+# is caught on the pull request rather than on the day beta content is switched off.
+#
+# The switch. SA_SHOW_BETA is a plain environment variable that any host can set: this workflow sets
+# it per job, GitHub Pages or an Azure pipeline set it for the deploy build, a laptop sets it inline.
+# Unset, empty, true or 1 means beta content is shown; false or 0 means build.mjs leaves it out of
+# dist/ altogether (src/release.mjs). Every test below reads the same variable the build read, and
+# the leak check and test:release-modes fail outright when dist/ was built in the other mode.
+#
+# Why four combinations. The real release (src/release.json) is what ships, so both of its modes
+# must pass. But the real beta set may be small or empty, and then a hidden build has nothing to
+# remove and every hidden-mode check passes without proving anything. test/fixtures/release.fixture.json
+# marks one whole guide (one that another guide lists under Next) and one middle step of a GA guide
+# beta, so removal, Next-card cleanup, renumbering, the Beta labels and their translations are
+# exercised on every run, whatever the real release holds. SA_RELEASE_FILE points the build and the
+# tests at the fixture; it is for tests only, and an empty value means src/release.json.
+#
+# This workflow builds and tests only; nothing it builds is deployed. deploy.yml builds the deployed
+# artifact separately, and whatever SA_SHOW_BETA that build sees decides what is published. Like
+# fidelity.yml, this is a separate workflow so the full picture is visible on every commit and pull
+# request, not only on the pushes that deploy.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  suite:
+    name: suite (${{ matrix.name }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: shown
+            show_beta: 'true'
+            release_file: ''
+          - name: hidden
+            show_beta: 'false'
+            release_file: ''
+          - name: fixture-shown
+            show_beta: 'true'
+            release_file: 'test/fixtures/release.fixture.json'
+          - name: fixture-hidden
+            show_beta: 'false'
+            release_file: 'test/fixtures/release.fixture.json'
+    env:
+      SA_SHOW_BETA: ${{ matrix.show_beta }}
+      SA_RELEASE_FILE: ${{ matrix.release_file }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The smoke, routing, i18n, a11y and release-modes checks drive a real browser. npm ci installs
+      # the Playwright package but not its binaries.
+      - run: npx playwright install --with-deps chromium
+
+      # The unit tests check the committed src/release.json and build their own beta cases in
+      # memory, so they run against the committed file in every job: one of them compares the
+      # default transform, which loads SA_RELEASE_FILE, with the committed release.
+      - name: Release unit tests
+        run: npm run test:release
+        env:
+          SA_RELEASE_FILE: ''
+
+      # Builds dist/ in this job's mode, then boots it with every external host blocked. The smoke
+      # test expects every guide's card when beta is shown and only the GA guides' when it is not.
+      - name: Build and smoke test
+        run: npm test
+
+      # Started in its own step and left running for the steps below, on the port the npm scripts
+      # use. nohup and the redirect detach it so this step can finish.
+      - name: Serve dist/ on port 8124
+        id: serve
+        run: |
+          nohup node scripts/serve.mjs dist 8124 > "$RUNNER_TEMP/serve.log" 2>&1 &
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:8124/ > /dev/null; then echo "dist/ is up after ${i}s"; exit 0; fi
+            sleep 1
+          done
+          echo "dist/ did not come up on http://localhost:8124/ within 30 s"
+          cat "$RUNNER_TEMP/serve.log"
+          exit 1
+
+      # Each check below runs whenever the server is up, even if an earlier check failed, so one red
+      # step does not hide the others.
+      - name: Routing (beta deep links fall back when hidden, open with the banner when shown)
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: npm run test:routing
+
+      - name: Validate locale catalogues
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: npm run test:validate
+
+      - name: Translations applied in every locale
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: npm run test:i18n
+
+      - name: Accessibility audit
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: npm run test:a11y
+
+      - name: Step numbering and Beta labels in every guide and locale
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: npm run test:release-modes
+
+      # Hidden: no beta key, title or string anywhere in dist/. fixture-shown: the beta content and
+      # the badge are really there, so the shown build is not passing because nothing was beta.
+      - name: Whole-dist beta leak check
+        if: ${{ !cancelled() && steps.serve.outcome == 'success' }}
+        run: node scripts/beta-leak.mjs ${{ matrix.name == 'fixture-shown' && '--expect-shown' || '' }}
+
+  # Advisory. Compares src/release.json with the claims ledger and reports where they disagree. It
+  # exits 0 by design (only --strict fails), and continue-on-error keeps it from ever blocking the
+  # workflow even if the script itself breaks.
+  release-status:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Release status against the claims ledger (advisory)
+        run: npm run release:status
