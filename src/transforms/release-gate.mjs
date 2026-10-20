@@ -31,7 +31,10 @@
 //
 // No third-party imports, and nothing from scripts/: src/ must build on its own.
 import vm from 'node:vm';
-import { validateRelease, betaSteps, crossReferencesOf, fieldValues, occurrences } from '../release.mjs';
+import {
+  validateRelease, betaSteps, crossReferencesOf, fieldValues, occurrences,
+  BETA_BADGE_LABEL, BETA_BANNER_LABEL, BETA_BANNER_TEXT,
+} from '../release.mjs';
 
 const fail = (message) => { throw new Error(`release-gate: ${message}`); };
 
@@ -708,6 +711,86 @@ function assertRemoved(before, after, plan) {
     if (!same(rest(a), rest(b))) problems.push(`guide "${k}" changed outside its steps and next list`);
   }
   if (problems.length) fail(`the export after removal is not what was planned:\n- ${problems.join('\n- ')}`);
+}
+
+// ---- the catalogues -------------------------------------------------------------------------------
+
+// Catalogue keys are the English the page renders, with runs of whitespace collapsed
+// (scripts/extract-strings.mjs), so strings from the data are compared in that form.
+const norm = (t) => String(t).replace(/\s+/g, ' ').trim();
+
+/** Every reader-facing string in evaluated guide data: guides, their steps, tiles and categories. */
+function dataStrings(data) {
+  const out = new Set();
+  const add = (t) => { if (typeof t === 'string' && norm(t)) out.add(norm(t)); };
+  for (const g of Object.values(data.GUIDES)) {
+    for (const f of ['category', 'title', 'minutes', 'where', 'summary', 'note']) add(g[f]);
+    for (const f of ['before', 'verify']) (g[f] || []).forEach(add);
+    for (const st of g.steps || []) for (const f of ['title', 'body', 'caption', 'tipLabel', 'tip']) add(st[f]);
+  }
+  for (const c of data.CATEGORIES) {
+    add(c.title);
+    add(c.blurb);
+    for (const t of c.tasks) { add(t.title); add(t.summary); add(t.minutes); }
+  }
+  return out;
+}
+
+/**
+ * The strings only beta content uses, which a build with SA_SHOW_BETA=false leaves out of the
+ * shipped catalogues. `allData` and `shippedData` are evaluateGuideData() of the export built with
+ * beta shown and with it removed. The set holds every string of the removed guides, tiles and
+ * steps, the blurb of a category left with no tiles, the GA text as it read before a registered cross-reference was cut, each
+ * registered cross-reference sentence, the beta badge and banner strings, and each
+ * `catalogueKeys` entry "Step N of M: <title>" whose title is a removed step's. A string that
+ * shipped content still uses stays, and so does every string in `keep`.
+ */
+export function betaOnlyStrings({ allData, shippedData, release, catalogueKeys = [], keep = [] }) {
+  const shipped = dataStrings(shippedData);
+  for (const g of Object.values(shippedData.GUIDES)) {
+    g.steps.forEach((st, i) => shipped.add(norm(`Step ${i + 1} of ${g.steps.length}: ${st.title}`)));
+  }
+  const out = dataStrings(allData);
+  for (const ref of crossReferencesOf(release)) out.add(norm(ref.text));
+  for (const label of [BETA_BADGE_LABEL, BETA_BANNER_LABEL, BETA_BANNER_TEXT]) out.add(norm(label));
+  const removedSteps = new Set();
+  for (const [key, g] of Object.entries(allData.GUIDES)) {
+    const kept = new Set(((shippedData.GUIDES[key] || {}).steps || []).map((st) => st.title));
+    for (const st of g.steps) if (!kept.has(st.title)) removedSteps.add(norm(st.title));
+  }
+  for (const key of catalogueKeys) {
+    const m = /^Step \d+ of \d+: (.+)$/.exec(key);
+    if (m && removedSteps.has(norm(m[1]))) out.add(key);
+  }
+  // Category headings stay even when a category empties: src/contact.js lists them in the footer
+  // of every page, so they are still on screen.
+  for (const c of allData.CATEGORIES) out.delete(norm(c.title));
+  for (const t of shipped) out.delete(t);
+  for (const t of keep) out.delete(norm(t));
+  return out;
+}
+
+/**
+ * The keys a build with SA_SHOW_BETA=false leaves out of every shipped catalogue. `catalogue` is
+ * src/i18n/en-us.json. Returns { omit, betaTitles }: `omit` holds each catalogue key that is a
+ * beta-only string, or that contains the title or tile title of a removed guide (the accessible
+ * names harvested from tiles, such as "<title> — 3 MIN, difficulty 2 of 3"). The reproduction's
+ * screen labels (_screenStrings) and every string shipped content uses are never left out.
+ */
+export function catalogueOmissions({ allData, shippedData, release, catalogue }) {
+  const keys = Object.keys(catalogue.strings || {});
+  const keep = Object.values(catalogue._screenStrings || {});
+  const betaOnly = betaOnlyStrings({ allData, shippedData, release, catalogueKeys: keys, keep });
+  const betaTitles = [];
+  for (const [key, g] of Object.entries(allData.GUIDES)) {
+    if (Object.hasOwn(shippedData.GUIDES, key)) continue;
+    betaTitles.push(norm(g.title));
+    const tile = tilesOf(allData).find((t) => t.key === key);
+    if (tile && norm(tile.title) !== norm(g.title)) betaTitles.push(norm(tile.title));
+  }
+  const used = new Set([...dataStrings(shippedData), ...keep.map(norm)]);
+  const omit = new Set(keys.filter((k) => betaOnly.has(k) || (!used.has(k) && betaTitles.some((t) => k.includes(t)))));
+  return { omit, betaTitles };
 }
 
 // ---- the transform --------------------------------------------------------------------------------

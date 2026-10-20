@@ -19,6 +19,7 @@ import { join, relative, sep } from 'node:path';
 import { transformGuide } from './src/transform-export.mjs';
 import { transformApp } from './src/transform-app.mjs';
 import { parseShowBeta, loadRelease } from './src/release.mjs';
+import { evaluateGuideData, catalogueOmissions } from './src/transforms/release-gate.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -116,7 +117,23 @@ async function main() {
   // once hand-edits in the .dc.html files, which a re-export silently wiped; doing it here
   // makes re-exports free. Each transform asserts its own anchor, so a shape change fails
   // the build rather than quietly dropping keyboard support.
-  html = transformGuide(html, { showBeta, release });
+  const exported = html;
+  html = transformGuide(exported, { showBeta, release });
+
+  // With beta content removed, the strings only it used must not ship either: a catalogue is
+  // fetched by every reader and would publish the beta prose in English. transformGuide() is pure,
+  // so running it again with beta shown gives everything a build with beta would publish, and the
+  // difference between the two is computed here from src/release.json rather than kept as a list.
+  let omitted = null;
+  if (!showBeta) {
+    const catalogue = JSON.parse(await readFile(join(ROOT, 'src', 'i18n', 'en-us.json'), 'utf8'));
+    omitted = catalogueOmissions({
+      allData: evaluateGuideData(transformGuide(exported, { showBeta: true, release })),
+      shippedData: evaluateGuideData(html),
+      release,
+      catalogue,
+    }).omit;
+  }
 
   // Belt and braces: confirm the transforms actually produced what the runtime needs.
   for (const [marker, what] of A11Y_GUARDS) {
@@ -250,20 +267,36 @@ async function main() {
     .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json');
   if (localeFiles.length) await mkdir(join(DIST, 'i18n'), { recursive: true });
   let shipped = 0;
+  const leftOut = new Set();
   for (const file of localeFiles) {
     const data = JSON.parse(await readFile(join(ROOT, 'src', 'i18n', file), 'utf8'));
     if (!data.strings) throw new Error(`${file} has no "strings" map — regenerate it`);
-    await writeFile(join(DIST, 'i18n', file), JSON.stringify({ strings: data.strings }));
+    let strings = data.strings;
+    if (omitted) {
+      strings = Object.fromEntries(Object.entries(strings).filter(([key]) => {
+        if (!omitted.has(key)) return true;
+        leftOut.add(key);
+        return false;
+      }));
+    }
+    await writeFile(join(DIST, 'i18n', file), JSON.stringify({ strings }));
     shipped++;
   }
 
   await writeFile(join(DIST, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
+  // The release status is build input. It names every beta guide, so it must never be published,
+  // whichever way the switch is set.
+  const releaseFiles = (await readdir(DIST, { recursive: true }))
+    .filter((f) => /(^|[\\/])release\.(json|mjs)$/.test(f));
+  if (releaseFiles.length) throw new Error(`dist/ must not contain the release status: ${releaseFiles.join(', ')}`);
+
   console.log(`built dist/ — entry index.html, ${COMPONENTS.length} component(s) inlined, `
     + `${shipped} locale catalogue(s), 0 external origins`);
   console.log(`release mode: ${showBeta ? 'beta shown' : 'beta removed'} `
     + `(SA_SHOW_BETA=${rawShowBeta === undefined ? 'unset' : JSON.stringify(rawShowBeta)}), `
-    + `release file ${releaseFile.startsWith(ROOT + sep) ? relative(ROOT, releaseFile) : releaseFile}`);
+    + `release file ${releaseFile.startsWith(ROOT + sep) ? relative(ROOT, releaseFile) : releaseFile}`
+    + (omitted ? `, ${leftOut.size} beta-only catalogue key(s) left out of the locale catalogues` : ''));
 }
 
 await main();
