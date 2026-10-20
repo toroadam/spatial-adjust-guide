@@ -7,7 +7,10 @@ directory, or inside an agent scratchpad (/scratchpad, /claude-), raises FFmpegE
 with the session that made it, and a render must never depend on one.
 """
 import json, os, re, shutil, subprocess, sys
-import numpy as np
+try:
+    import numpy as np
+except ImportError:     # the resolvers and probe need only the standard library (video/verify runs in any python3)
+    np = None
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from media import MR, require_media_path  # noqa: E402
