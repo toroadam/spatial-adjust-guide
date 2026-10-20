@@ -1,0 +1,88 @@
+{
+  "id": "dashboard-overview-pilot",
+  "title": "Dashboard overview",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [20, 30],
+  "source": "recreation",
+  "recreationPath": "/#/dashboard-overview",
+  "recreationFigure": "Map with the moisture legend.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "dashboard-overview/summary/1",
+    "dashboard-overview/2/1",
+    "dashboard-overview/2/2",
+    "dashboard-overview/2/3",
+    "dashboard-overview/2/6"
+  ],
+  "chapters": [
+    { "id": "map", "label": "Read the map" }
+  ],
+  "vo": [
+    {
+      "id": "vo-intro",
+      "text": "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.",
+      "next_text": "Each sprinkler of a station scanned in the past seven days is a pin.",
+      "claims": ["dashboard-overview/summary/1", "dashboard-overview/2/1"]
+    },
+    {
+      "id": "vo-pins",
+      "text": "Each sprinkler of a station scanned in the past seven days is a pin.",
+      "previous_text": "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.",
+      "next_text": "A pin scanned today is coloured by the moisture band its reading falls into, as the legend shows.",
+      "claims": ["dashboard-overview/2/2"]
+    },
+    {
+      "id": "vo-bands",
+      "text": "A pin scanned today is coloured by the moisture band its reading falls into, as the legend shows.",
+      "previous_text": "Each sprinkler of a station scanned in the past seven days is a pin.",
+      "claims": ["dashboard-overview/2/3", "dashboard-overview/2/6"]
+    }
+  ],
+  "beats": [
+    {
+      "id": "title",
+      "vo": "vo-intro",
+      "hold": 1,
+      "actions": [
+        { "type": "wait", "ms": 600 }
+      ]
+    },
+    {
+      "id": "pins",
+      "chapter": "map",
+      "label": "Read the map",
+      "vo": "vo-pins",
+      "hold": 4.6,
+      "actions": [
+        { "type": "cue", "id": "vo-pins" },
+        { "type": "hover", "target": "[data-sa-frame] >> text=\"26\"", "name": "26" },
+        { "type": "wait", "ms": 700 },
+        { "type": "hover", "target": "[data-sa-frame] >> text=\"31\"", "name": "31" },
+        { "type": "wait", "ms": 700 },
+        { "type": "hover", "target": "[data-sa-frame] >> text=\"4\"", "name": "4" },
+        { "type": "wait", "ms": 500 }
+      ]
+    },
+    {
+      "id": "bands",
+      "chapter": "map",
+      "vo": "vo-bands",
+      "hold": 6.4,
+      "actions": [
+        { "type": "cue", "id": "vo-bands" },
+        { "type": "focus", "target": "[data-sa-frame] >> text=\"0-5%\" >> xpath=..", "name": "0-5% 6-19% 20-30% > 30%" },
+        { "type": "hover", "target": "[data-sa-frame] >> text=\"0-5%\"", "name": "0-5%" },
+        { "type": "wait", "ms": 600 },
+        { "type": "hover", "target": "[data-sa-frame] >> text=\"4\"", "name": "4" },
+        { "type": "wait", "ms": 700 },
+        { "type": "hover", "target": "[data-sa-frame] >> text=\"> 30%\"", "name": "> 30%" },
+        { "type": "wait", "ms": 600 },
+        { "type": "hover", "target": "[data-sa-frame] >> text=\"62\"", "name": "62" },
+        { "type": "wait", "ms": 800 }
+      ]
+    }
+  ]
+}
