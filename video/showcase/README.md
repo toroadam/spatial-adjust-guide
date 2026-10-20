@@ -215,7 +215,7 @@ differs.
 |---|---|---|---|
 | Preflight | Upstream checklist and media root | the commands in the table above | done, 2026-10-20 |
 | 1 | Brief and concept | `node video/lib/episode-schema.mjs video/showcase/episode.json`; `npm run video -- capture --episode video/showcase/episode.json --take 1 --dry-run`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`; `npm run video -- estimate --episode video/showcase/episode.json` | done, 2026-10-20: all four exit 0 (see [Phase 1](#phase-1-brief-and-concept)) |
-| 2 | Claims check | `node video/showcase/check-claims.mjs` (exit 1 on any failure or a stale `claims-check.md`; add `--strict` to fail on numbers too); `node video/showcase/check-claims.mjs --write` (regenerates the tables in `claims-check.md`); `node --test video/showcase/check-claims.test.mjs` (also in `npm run test:video`) | in progress |
+| 2 | Claims check | `node video/showcase/check-claims.mjs` (exit 1 on any failure or a stale `claims-check.md`; add `--strict` to fail on numbers too); `node video/showcase/check-claims.mjs --write` (regenerates the tables in `claims-check.md`); `node --test video/showcase/check-claims.test.mjs` (also in `npm run test:video`) | done, 2026-10-20: `--strict`, `--write` and a plain run exit 0 (24 items, 42 claim IDs, all Verified; 2 held); 28 tests pass (see [Phase 2](#phase-2-claims-check)) |
 | 3 | Script, VO estimate and Brian voice | planned: `npm run video -- estimate --episode video/showcase/episode.json`, then `npm run video -- vo --episode video/showcase/episode.json --dry-run`, then without `--dry-run` | to be filled in by phase 3 |
 | 4a | Capture | planned: `npm run video -- capture --episode video/showcase/episode.json --take <N>` | to be filled in by phase 4a |
 | 4b | Edit | planned: `build`, `render` and `mix`, as in [Episode config](#episode-config) | to be filled in by phase 4b |
@@ -256,3 +256,37 @@ site) are recorded in the Showcase section of [`../approvals.md`](../approvals.m
 under the owner's direction, and each call, with its question for the review, is on
 [`docs/review-agenda.md`](../../docs/review-agenda.md). That settles rule 5's open question for now: the film omits
 Target Profiles.
+
+## Phase 2: claims check
+
+[`check-claims.mjs`](check-claims.mjs) is the check behind global rule 4, and [`claims-check.md`](claims-check.md) the
+evidence it generates: every VO line and on-screen label with its claim IDs, ledger status and citations, the lines
+held for expert review, the not-claimable sweep and the change log from the concept's draft.
+
+**Fields the check reads.** On top of the phase 1 extension fields:
+
+| Field | Where | Meaning |
+|---|---|---|
+| `labels[]` | each beat | Every text the builder draws in the beat: `id`, `text`, `kind` (`title`, `chapter` or `brand`) and `claims[]`. A `brand` item may hold only a product or brand name, the series word, or the end-card copy decided at `endCard.approval`, and needs no claim |
+| `comingSoon`, `approval` | a VO line or label | Accept a Not shipping claim: the text must say COMING SOON and `approval` must name a gate row whose Decision reads Approved. The film has none |
+| `held[]` | top level | Draft copy held out of the film until its claims are Verified: `id`, `beat`, `text`, `claims[]` and `note` (the decision and the question for the review). Never narrated or shown; listed under Held for expert review. It replaces phase 1's `pendingClaim` |
+| `targetProfiles`, `endCard` | top level | `targetProfiles.decision` `omit` makes any Target Profiles claim ID anywhere in the config a failure; `endCard.config` names the end-card copy brand items may carry |
+
+The top-level `claims[]` must list exactly the IDs the items cite, so the episode schema's own check of VO claims sees
+the same set.
+
+**Gaps resolved (task 3).** The push window is held: all 12 push-window claims in the ledger are Needs expert, so B7
+says the Verified Lynx set-up line instead, and the film ships without the window line, a call recorded for the script
+gate SC-G2 and the review (see [Held for expert review](claims-check.md#held-for-expert-review)). The brief's key
+message is held too, and B8 closes on `understanding-vwc/4/4`. `--strict` finds no number in any line or label outside
+the end card's legal line. The ledger and the guide prose are not edited here: they belong to the claims ledger's
+owner, and what the film needs from it is raised as a note on the phase 2 feature.
+
+**Runs, 2026-10-20**, against `docs/claims/claims.json` at commit `d264376`:
+
+| Command | Result |
+|---|---|
+| `node video/showcase/check-claims.mjs --strict --write` | exit 0: 24 items (10 VO lines, 14 labels), 2 held, 0 failures, 0 warnings; doc rewritten between its markers |
+| `node video/showcase/check-claims.mjs` | exit 0: `claims-check.md` is up to date |
+| `node --test video/showcase/check-claims.test.mjs` | 28 tests pass |
+| `node video/lib/episode-schema.mjs video/showcase/episode.json` | exit 0: `ok video/showcase/episode.json (showcase, 9 beats, status draft)` |

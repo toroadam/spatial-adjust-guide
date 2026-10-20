@@ -79,6 +79,10 @@
     { "id": "vo-b7-lynx", "text": "Lynx itself must be set up to match Spatial Adjust; the push guide lists the settings.", "claims": ["reviewing-changes/before/3", "reviewing-changes/before/4"] },
     { "id": "vo-b8-close", "text": "Target minus measured, station by station. That is the whole idea.", "claims": ["understanding-vwc/4/4"] }
   ],
+  "held": [
+    { "id": "held-b7-window", "beat": "b7", "text": "Push between 11 AM and the synchronisation time set in Lynx, then synchronise Lynx.", "claims": ["push-to-lynx/5/5", "push-to-lynx/5/6"], "note": "Not narrated: all 12 push-window claims in the ledger are Needs expert. Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22: the film ships without the line rather than waiting for the ledger, and B7 says the Verified Lynx set-up line (vo-b7-lynx) in its place. Question for the script gate SC-G2 and the review: hold the film until the push window is Verified, or ship without the line? Restore the line, in the ledger's words, when push-to-lynx/5/5 and 5/6 are Verified (the check then prints a NOTE); the same two sentences are in reviewing-changes, verify-results, push-failures, minimum-threshold and one Target Profiles guide." },
+    { "id": "held-b8-close", "beat": "b8", "text": "Every part of the course gets the water its soil actually needs.", "claims": ["understand-spatial-adjust/5/3"], "note": "Not said: the brief's key message states an outcome no claim covers, and the water a station gets rests on how Lynx applies the pushed percentage, which is Needs expert. B8 says understanding-vwc/4/4 instead. Question for the review: if the experts endorse the key message, should the ledger carry it so the film can say it?" }
+  ],
   "beats": [
     {
       "id": "b0",

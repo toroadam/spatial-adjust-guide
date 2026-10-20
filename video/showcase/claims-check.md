@@ -94,6 +94,52 @@ changes; `--write` regenerates the tables. Run it again at the script gate (SC-G
 | Map and table stay in sync | B3 | "Map and table stay in sync" (`map-navigation/5/1`, `map-navigation/5/2`). |
 | The soil factor is for persistent offsets | B4 | "A soil factor handles persistent offsets" (`suggested-adjustments/5/1`, `suggested-adjustments/5/3`). |
 | The push flow shows a pending count and two review lists | B7 | The pending count is on screen (Push Changes and its count, `push-to-lynx/1/2`); the line says "Review the two lists" (`push-to-lynx/2/1`, `push-to-lynx/2/3`). |
+| The push window is said exactly as Verified | B7 | Not said. All 12 push-window claims are Needs expert, so the line is held (see [Held for expert review](#held-for-expert-review)) and B7 says the Verified Lynx set-up line in its place. |
+| The Lynx set-up line says no more than is Verified | B7 | "Lynx itself must be set up to match Spatial Adjust" (`reviewing-changes/before/3`, a `prerequisite`). It does not say what happens when Lynx is not, which is Needs expert: a Site Adjust, Course Adjust or Pct. Adjust other than 100 applied on top of every pushed percentage (`push-to-lynx/before/5`, `before/7`), or a Next Amt. that differs from the Lynx Reference Amount scaling what each station receives (`before/9`). |
+| No number without a calculation or prerequisite claim | all | `--strict`: 0 warnings. No line or label carries a digit or %, apart from the year in the end card's legal line, a brand item. No water-savings number anywhere. |
+| No Wrong, Needs expert or Not shipping claim in the film | all | The 42 claim IDs the film cites are all Verified (the summary line under the table). |
+| Target Profiles is absent while SC-TP is omit | all | No `target-profiles`, `creating-profiles`, `updating-profiles` or `seasonal-profiles` claim ID appears anywhere in `episode.json`, held lines and notes included: the check scans the whole config while `targetProfiles.decision` is `omit`. |
+| "The gap between target and measured becomes water" | B5 | Kept: `understand-spatial-adjust/4/2` and `calculation-methods/2/2` are Verified, because the code does exactly that. The ledger's own sentence in another guide, `suggested-adjustments/2/2`, says the same chain and is Needs expert, for an agronomic question rather than a code one: the deficit in VWC points is added to ET in millimetres one for one, and the experts are asked whether that is right ([`docs/claims/calculations.md`](../../docs/claims/calculations.md) §12). The film states what the product does, not that the conversion is agronomically right. |
+
+## Held for expert review
+
+Draft copy the film does not say because a claim it rests on is not Verified. Each held line stays in `held[]` in
+[`episode.json`](episode.json) with the claims it waits for, and the table below is generated from it. The check fails
+if a held line is also live, and prints a NOTE when every claim a held line waits for has turned Verified, so the line
+can come back after the experts answer.
+
+<!-- held:begin -->
+<!-- Generated from held[] in video/showcase/episode.json by node video/showcase/check-claims.mjs --write. -->
+
+| Held item | Draft text | Beat | Claim IDs | Ledger status | Expert question | Decision |
+|---|---|---|---|---|---|---|
+| `held-b7-window` | "Push between 11 AM and the synchronisation time set in Lynx, then synchronise Lynx." | B7 | `push-to-lynx/5/5`<br>`push-to-lynx/5/6` | Needs expert<br>Needs expert | Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?<br>Q3 and Q4: does a push made after the Lynx synchronisation time, or before 11 AM, fail to reach the course, and does anything in Spatial Adjust or Lynx report it? (The push dialog would still verify the values against Lynx and report success.) | Not narrated: all 12 push-window claims in the ledger are Needs expert. Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22: the film ships without the line rather than waiting for the ledger, and B7 says the Verified Lynx set-up line (vo-b7-lynx) in its place. Question for the script gate SC-G2 and the review: hold the film until the push window is Verified, or ship without the line? Restore the line, in the ledger's words, when push-to-lynx/5/5 and 5/6 are Verified (the check then prints a NOTE); the same two sentences are in reviewing-changes, verify-results, push-failures, minimum-threshold and one Target Profiles guide. |
+| `held-b8-close` | "Every part of the course gets the water its soil actually needs." | B8 | `understand-spatial-adjust/5/3` | Needs expert | When Spatial Adjust writes a station's Pct Adjust to Lynx, does Lynx scale the station's programmed run time, or its programmed amount (Next Amt.) before converting that to run time? | Not said: the brief's key message states an outcome no claim covers, and the water a station gets rests on how Lynx applies the pushed percentage, which is Needs expert. B8 says understanding-vwc/4/4 instead. Question for the review: if the experts endorse the key message, should the ledger carry it so the film can say it? |
+<!-- held:end -->
+
+**The push window (B7).** The plan asks B7 to state the push window: push between 11 AM and the synchronisation time
+set in Lynx, then synchronise Lynx; outside that window the push does not reach the course, and no error says so. The
+ledger carries that pair of sentences in six guides, 12 claims (six `prerequisite`, six `behaviour`), and all 12 are
+Needs expert until the experts answer Q1 to Q4 in
+[`docs/claims/operational-contract.md`](../../docs/claims/operational-contract.md#questions-for-the-expert-review):
+whether 11 AM is course time or US Eastern Time, whether the scheduled Lynx synchronisation picks up an earlier push,
+and what happens to a push made outside the window. The opening at 11 AM, the closing at the synchronisation time and
+the order (push, then synchronise) are sourced from 373-1135 rev 02 (rules OC-1, OC-3 and OC-4), but the time basis
+and the consequence are not, and an unverified operational fact is never narrated. So B7 says the Verified Lynx set-up
+line instead, which points the viewer to the push guide's Before you start (`reviewing-changes/before/3` and
+`before/4`).
+
+**Decision, for the script gate SC-G2 and the review.** Decided by the executor under owner direction 2026-10-19; for
+review in person 2026-10-22: the film ships without the push-window line rather than waiting for the ledger. The
+question for SC-G2 (phase 3) and for the experts on 2026-10-22: hold the film until the push window is Verified, or
+ship without the line? If the ledger marks `push-to-lynx/5/5` and `5/6` Verified, the line returns to B7 in the
+ledger's words. It is about the length of the Lynx set-up line (14 words against 16), so it can take that line's place
+without retiming B7, and its "11 AM" passes `--strict` through `push-to-lynx/5/5`, a `prerequisite` claim.
+
+**The key message (B8).** "Every part of the course gets the water its soil actually needs" is the brief's key
+message, not a sentence from the guides. No claim states that outcome; the nearest, that Lynx applies the pushed
+percentage to the station's programmed run time (`understand-spatial-adjust/5/3`), is Needs expert. The film closes on
+`understanding-vwc/4/4` instead.
 
 ## Not-claimable sweep
 
@@ -102,11 +148,16 @@ Every VO line and label in `episode.json` was checked against the five categorie
 
 | Avoid-list category | Result |
 |---|---|
-| Real customer courses or names | None. No line or label names a course, a person or a customer; the course on screen is the fictional one ([`../brand/course.json`](../brand/course.json)), and only on screen. Denylist scan of `episode.json` and this file: see the result line below the table. |
+| Real customer courses or names | None. No line or label names a course, a person or a customer; the course on screen is the fictional one ([`../brand/course.json`](../brand/course.json)), and only on screen. Denylist scan of `episode.json` and this file: 0 hits (the result line below the table). |
 | Pushing to a real Lynx | None. The B7 line describes a push; nothing is pushed. Send, progress and confirmation are recreation footage, Demo Mode blocks the send, and no real Lynx is involved. |
 | Water-savings numbers without a cited source | None. No line or label carries a number of any kind, except the year in the end card's legal line. Numbers inside the product footage (station percentages, VWC readings, counts) are UI data, fictional course, and no line or label turns them into a savings claim. |
 | Unshipped UI, unless tagged COMING SOON with approval | None. The ledger has no Not shipping claim. Target Profiles, which ships, is omitted (SC-TP), and the check fails on any Target Profiles claim while it is. The Option 1 and Option 2 selector ships but is hidden on most production sites, so it appears only if the demo site shows it. |
 | Stock footage that is not licensed | None. Every frame is Demo Mode footage, the guides' recreation or a pipeline card; the music bed is an original work (gate G5). |
+
+**Denylist scan, 2026-10-20:** `episode.json` and this file, against the local name maps (`sanitize.local.json`;
+`video/capture/overlay.local.json` does not exist on this machine), with the matcher of `npm run video -- hygiene`
+(`denylistMatcher` in [`../verify/hygiene.mjs`](../verify/hygiene.mjs)): 5 terms scanned, 0 hits. The 2 terms that
+matcher skips as too short were also searched for as whole words: 0 hits. Counts only; the terms are never printed.
 
 Also checked, from the brief's own additions: no webinar-style feature list (one line per link of the chain, said
 over the control it names); no line or label without a Verified claim (the table above); and the push window is not

@@ -33,8 +33,9 @@
 //      text is a brand name or the decided end-card copy.
 //   Coverage: every chapter label and the episode title appear as label items; every voLines id
 //   exists; the episode's top-level claims[] lists exactly the IDs its items cite (the episode
-//   schema checks VO claims against that list); no Target Profiles claim appears while
-//   targetProfiles.decision is "omit"; held items cite claims that exist and are not also live.
+//   schema checks VO claims against that list); while targetProfiles.decision is "omit", no Target
+//   Profiles claim ID appears anywhere in the episode config, held lines and notes included; held
+//   items cite claims that exist and are not also live.
 //
 // The doc: the table between <!-- claims:begin --> and <!-- claims:end -->, and the held table
 // between <!-- held:begin --> and <!-- held:end --> when those markers are present. --write
@@ -323,6 +324,18 @@ export function check(ep, ledger, gates, { strict = false, root = REPO_ROOT } = 
       else if (tpComingSoon && !(item.comingSoon && item.approval === tpGate)) {
         fail(item, id, `Target Profiles item must carry comingSoon: true and approval "${tpGate}"`);
       }
+    }
+  }
+
+  // Target Profiles while omitted (gate SC-TP): no Target Profiles claim ID anywhere in the config,
+  // so a held line, a note or the top-level list cannot carry one either. IDs a live item cites
+  // have already failed above.
+  if (tpOmitted) {
+    const tpId = new RegExp(`\\b(?:${TARGET_PROFILE_GUIDES.map(escapeRe).join('|')})/[A-Za-z0-9-]+/\\d+\\b`, 'g');
+    const live = new Set(items.flatMap((i) => i.claims));
+    const found = new Set(JSON.stringify(ep ?? {}).match(tpId) ?? []);
+    for (const id of found) {
+      if (!live.has(id)) fail({ beat: null, id: '(episode config)', text: '' }, id, `Target Profiles claim ID in the episode config, but targetProfiles.decision is "omit" (gate ${tpGate})`);
     }
   }
 
