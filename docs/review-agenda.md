@@ -76,3 +76,15 @@ and never rewrite another one.
   guide, in any language but English, stepping through the player. Decided by the executor under
   owner direction 2026-10-19; for review in person 2026-10-22. Question: has anyone in the field
   seen a translated guide that looked stuck, and if so, was it anywhere other than the player?
+
+- **Spanish and French concept prose that says CVA or Hv where it should say VWC.** Narrowing the
+  VWC exemption in `npm run test:validate`, so that only a control's own name may drop the acronym,
+  found four strings the old per-locale exemption had hidden: in Spanish and in French, the map
+  legend text ("a pin scanned today is coloured by its measured VWC") and the map summary text
+  ("the average, high and low VWC figures") use the product's local acronym, CVA or Hv, for the
+  measurement itself. Under the 2026-09-12 ruling the measurement keeps VWC. The check now lists the
+  four by name as known defects that may only shrink, rather than fixing them, because this change
+  left the translation catalogues to the next translation pass. Shows on: `#/dashboard-overview`, in
+  Spanish and French. Decided by the executor under owner direction 2026-10-19; for review in person
+  2026-10-22. Question: would a Spanish or French superintendent rather read VWC, as the ruling
+  says, or the CVA and Hv their own screen uses for the averages?

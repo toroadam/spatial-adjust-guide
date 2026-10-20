@@ -109,6 +109,9 @@ Rules:
 - Return a translation for EVERY string given, in the same order, with the source echoed back exactly.
 - Preserve meaning precisely. Do not summarise, expand, localise examples, or improve the prose.
 - Keep product and brand names untranslated: Toro, IntelliDash, Spatial Adjust, Lynx, TurfRad, VWC, ET.
+  VWC is the one exception, and only inside a control's name: where the English names a control
+  such as Target VWC or Avg. VWC, write that control's glossary rendering, even when it has no
+  "VWC" in it. Everywhere else VWC is the measurement itself and stays "VWC", never a local acronym.
 - Keep station identifiers (3AP1, 11AP2), numbers, percentages and URLs exactly as they are, but use
   the decimal separator normal for the target language.
 - Preserve typographic characters: curly apostrophes, en dashes, arrows, ellipses.
