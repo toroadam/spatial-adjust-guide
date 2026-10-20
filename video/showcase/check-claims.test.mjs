@@ -158,7 +158,7 @@ test('brand exemption: brand names, the series word and the decided end-card cop
   const r = check(ws);
   assert.equal(r.code, 0, r.out);
   const doc = readFileSync(ws.doc, 'utf8');
-  assert.match(doc, /"Explore the Sample Guides" \| B3 \| brand \| — \| brand, no claim needed/);
+  assert.match(doc, /"Explore the Sample Guides" \| B3 \| brand \| — \| brand, no claim needed \| end-card copy decided at SC-CTA/);
 });
 
 test('fails a brand item that also makes a capability claim', () => {
