@@ -142,8 +142,21 @@ export function extractGuides({ html } = {}) {
 
 const segmenter = new Intl.Segmenter('en', { granularity: 'sentence' });
 const clean = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
-export const sentences = (text) =>
-  [...segmenter.segment(clean(text))].map((s) => s.segment.trim()).filter(Boolean);
+// The segmenter breaks after an abbreviation that a capital follows, so the Lynx label
+// "Pct. Adjust" (push-to-lynx, Before you start) would become two claims. A segment ending in one
+// of these is joined to the next. "Avg." is not listed, though dashboard-overview/4/6 splits on it:
+// adding it would renumber claims that are already verified.
+const JOIN_AFTER = /(?:^|\s)Pct\.$/;
+export const sentences = (text) => {
+  const out = [];
+  for (const { segment } of segmenter.segment(clean(text))) {
+    const s = segment.trim();
+    if (!s) continue;
+    if (out.length && JOIN_AFTER.test(out[out.length - 1])) out[out.length - 1] += ` ${s}`;
+    else out.push(s);
+  }
+  return out;
+};
 
 /** Heuristic first guess at a claim's type. The first rule that matches wins; verifiers may change it. */
 // Product and brand names are Title Case but are not control labels.

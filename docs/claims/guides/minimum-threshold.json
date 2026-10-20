@@ -357,6 +357,44 @@
       "correction": ""
     },
     {
+      "id": "minimum-threshold/before/5",
+      "guide": "minimum-threshold",
+      "step": "before",
+      "field": "before",
+      "text": "Lynx itself must be set up to match Spatial Adjust.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "373-1135 rev 02 p.1 lists the Lynx settings Spatial Adjust depends on: Site Adjust and Course Adjust, Pct. Adjust, and Next Amt.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/before/6",
+      "guide": "minimum-threshold",
+      "step": "before",
+      "field": "before",
+      "text": "Push changes to Lynx lists the settings under Before you start.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "Cross-reference within the guides: push-to-lynx/before/4 to /before/9 carry the settings, each from 373-1135 rev 02 §Settings Configuration, p.1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "minimum-threshold/1/1",
       "guide": "minimum-threshold",
       "step": "1",
@@ -1270,6 +1308,39 @@
       ],
       "note": "Illustrative screenshot. The layout matches the template.",
       "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/5/6",
+      "guide": "minimum-threshold",
+      "step": "5",
+      "field": "tip",
+      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "type": "prerequisite",
+      "status": "Needs expert",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
+        }
+      ],
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/5/7",
+      "guide": "minimum-threshold",
+      "step": "5",
+      "field": "tip",
+      "text": "Outside that window the push does not reach the course, and no error tells you so.",
+      "type": "behaviour",
+      "status": "Needs expert",
+      "evidence": [],
+      "note": "373-1135 rev 02 gives the window but never says what happens outside it, and IntelliDash has no push-window logic. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "question": "Q3 and Q4: does a push made after the Lynx synchronisation time, or before 11 AM, fail to reach the course, and does anything in Spatial Adjust or Lynx report it? (The push dialog would still verify the values against Lynx and report success.)",
       "developNote": "",
       "correction": ""
     },

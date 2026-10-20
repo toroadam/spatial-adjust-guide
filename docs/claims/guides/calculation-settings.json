@@ -273,6 +273,44 @@
       "correction": ""
     },
     {
+      "id": "calculation-settings/before/3",
+      "guide": "calculation-settings",
+      "step": "before",
+      "field": "before",
+      "text": "Lynx itself must be set up to match Spatial Adjust.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "373-1135 rev 02 p.1 lists the Lynx settings Spatial Adjust depends on: Site Adjust and Course Adjust, Pct. Adjust, and Next Amt.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-settings/before/4",
+      "guide": "calculation-settings",
+      "step": "before",
+      "field": "before",
+      "text": "Push changes to Lynx lists the settings under Before you start.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "Cross-reference within the guides: push-to-lynx/before/4 to /before/9 carry the settings, each from 373-1135 rev 02 §Settings Configuration, p.1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "calculation-settings/1/1",
       "guide": "calculation-settings",
       "step": "1",

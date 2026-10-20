@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 981,
-    "words": 11999
+    "strings": 987,
+    "words": 12194
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -306,7 +306,10 @@
     "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.": "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.",
     "Ignore insignificant irrigation adjustments": "Ignore insignificant irrigation adjustments",
     "in": "in",
+    "In Lynx, Site Adjust and Course Adjust must both be 100%. Any other value is applied on top of every percentage you push, so the whole course waters more or less than the dashboard shows, and nothing reports an error.": "In Lynx, Site Adjust and Course Adjust must both be 100%. Any other value is applied on top of every percentage you push, so the whole course waters more or less than the dashboard shows, and nothing reports an error.",
     "In one line.": "In one line.",
+    "In the Lynx watering plan, Pct. Adjust must be 100 on the program and on every hole under it that you have enabled in Spatial Adjust, for example Fairways and 2-Fairways. Any other value is applied on top of the percentages you push to the stations under it, again without an error.": "In the Lynx watering plan, Pct. Adjust must be 100 on the program and on every hole under it that you have enabled in Spatial Adjust, for example Fairways and 2-Fairways. Any other value is applied on top of the percentages you push to the stations under it, again without an error.",
+    "In the same program, Next Amt. must equal the Lynx Reference Amount under Settings › Calculation, in the same units. Every suggestion is a percentage of that reference amount, so a mismatch scales what each station receives by the ratio between the two, again without an error.": "In the same program, Next Amt. must equal the Lynx Reference Amount under Settings › Calculation, in the same units. Every suggestion is a percentage of that reference amount, so a mismatch scales what each station receives by the ratio between the two, again without an error.",
     "Individually edited targets drift away from the profile.": "Individually edited targets drift away from the profile.",
     "intellidash.toro.com/spatialadjust": "intellidash.toro.com/spatialadjust",
     "Intermediate": "Intermediate",
@@ -337,6 +340,7 @@
     "Low": "Low",
     "Lynx Cloud": "Lynx Cloud",
     "Lynx Cloud connected": "Lynx Cloud connected",
+    "Lynx itself must be set up to match Spatial Adjust. Push changes to Lynx lists the settings under Before you start.": "Lynx itself must be set up to match Spatial Adjust. Push changes to Lynx lists the settings under Before you start.",
     "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.": "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.",
     "Lynx Reference Amount (in)": "Lynx Reference Amount (in)",
     "Lynx Reference Amount is what 100% means": "Lynx Reference Amount is what 100% means",
@@ -431,6 +435,7 @@
     "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.",
     "Push 6 Changes": "Push 6 Changes",
     "Push 6 changes to Lynx": "Push 6 changes to Lynx",
+    "Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.": "Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.",
     "Push Changes": "Push Changes",
     "Push Changes dialog": "Push Changes dialog",
     "Push Changes is the only thing that writes to the controller.": "Push Changes is the only thing that writes to the controller.",
@@ -445,6 +450,7 @@
     "Push in progress, station four of six.": "Push in progress, station four of six.",
     "Push once you agree with them": "Push once you agree with them",
     "Push progress dialog": "Push progress dialog",
+    "Push window.": "Push window.",
     "Pushed Today arrives unselected by design.": "Pushed Today arrives unselected by design.",
     "Pushing Changes To Lynx": "Pushing Changes To Lynx",
     "Pushing Percent Adjustments to Lynx (4 of 6)": "Pushing Percent Adjustments to Lynx (4 of 6)",
@@ -1807,8 +1813,17 @@
     "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.": [
       "suggested-adjustments"
     ],
+    "In Lynx, Site Adjust and Course Adjust must both be 100%. Any other value is applied on top of every percentage you push, so the whole course waters more or less than the dashboard shows, and nothing reports an error.": [
+      "push-to-lynx"
+    ],
     "In one line.": [
       "understand-spatial-adjust"
+    ],
+    "In the Lynx watering plan, Pct. Adjust must be 100 on the program and on every hole under it that you have enabled in Spatial Adjust, for example Fairways and 2-Fairways. Any other value is applied on top of the percentages you push to the stations under it, again without an error.": [
+      "push-to-lynx"
+    ],
+    "In the same program, Next Amt. must equal the Lynx Reference Amount under Settings › Calculation, in the same units. Every suggestion is a percentage of that reference amount, so a mismatch scales what each station receives by the ratio between the two, again without an error.": [
+      "push-to-lynx"
     ],
     "Individually edited targets drift away from the profile.": [
       "updating-profiles"
@@ -1910,6 +1925,12 @@
       "chrome",
       "dashboard-overview",
       "understand-spatial-adjust"
+    ],
+    "Lynx itself must be set up to match Spatial Adjust. Push changes to Lynx lists the settings under Before you start.": [
+      "minimum-threshold",
+      "calculation-settings",
+      "seasonal-profiles",
+      "suggested-adjustments"
     ],
     "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.": [
       "push-to-lynx"
@@ -2227,6 +2248,12 @@
     "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.": [
       "creating-profiles"
     ],
+    "Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.": [
+      "minimum-threshold",
+      "seasonal-profiles",
+      "push-to-lynx",
+      "reviewing-changes"
+    ],
     "Push Changes dialog": [
       "reviewing-changes"
     ],
@@ -2274,6 +2301,12 @@
     "Push progress dialog": [
       "verify-results",
       "push-failures"
+    ],
+    "Push window.": [
+      "minimum-threshold",
+      "seasonal-profiles",
+      "push-to-lynx",
+      "reviewing-changes"
     ],
     "Pushed Today arrives unselected by design.": [
       "reviewing-changes"
