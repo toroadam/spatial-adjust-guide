@@ -262,8 +262,9 @@ npm run review-pack
 ```
 
 Run it once the shards are final and `claims.json` has been rebuilt. It reads
-`docs/claims/claims.json`, `docs/claims/sources.json` and the published guide text from
-`extractGuides()`, and nothing else. It never writes to `docs/claims/`.
+`docs/claims/claims.json`, `docs/claims/sources.json`, the published guide text from
+`extractGuides()`, and the push-window and Lynx questions from `operational-contract.md` and
+`src/transforms/operational-contract.mjs`, and nothing else. It never writes to `docs/claims/`.
 
 It refuses to write anything when:
 
@@ -286,7 +287,8 @@ It refuses to write anything when:
 
 | File | What it is |
 |---|---|
-| `review-pack/index.html` | The badge legend, totals by status and by type, and a table of every guide with its claim, Wrong, Needs expert, Not shipping and Unverified counts. After that come all 26 guides, in catalogue order. |
+| `review-pack/index.html` | The badge legend, totals by status and by type, and a table of every guide with its claim, Wrong, Needs expert, Not shipping and Unverified counts. Then the questions page, then all 26 guides, in catalogue order. |
+| `review-pack/push-window-questions.html` | "Questions for the experts: push window and Lynx prerequisites". The seven questions Q1-Q7 from `operational-contract.md`, each with the wording that rests on it and the live page and step where it appears, then the rules, then every other Needs expert claim with its guide, step, question and live page. It says whether the operational wording is published or held back. It is the agenda for a review that walks the live site. |
 | `review-pack/<guide-key>.html` | One guide on its own, 26 files. Use these to send a single guide to the expert who owns it. |
 | `review-pack/spatial-adjust-guides-review.pdf` | `index.html` printed to A4. Each guide starts on a new page, and every page is numbered. |
 
@@ -294,11 +296,11 @@ Each guide has, in order:
 
 1. A header with the category, the catalogue card, the pinned production and develop SHAs, the
    time the pack was generated, and a link to the guide on the live site.
-2. For the four Target Profiles guides, the shipping notice that readers see before step 1, with
-   the status of its claims.
+2. For the four Target Profiles guides, the "New in IntelliDash" notice that readers see before
+   step 1, with the status of its claims.
 3. The guide as written, section by section: the catalogue card, the summary, where to find it,
-   the concept note, before you start, each step (title, body, caption and tip), and how to know
-   it worked. Every claim in a section is listed under the published text.
+   the banner before step 1, before you start, each step (title, body, caption and tip), and how
+   to know it worked. Every claim in a section is listed under the published text.
 4. **Questions for the experts**: every Needs expert claim in the guide, with its claim ID, its
    question, the sentence it is about and room for an answer.
 5. A sign-off box: Approved, Approved with changes or Rejected, plus the reviewer's role and the
