@@ -25,6 +25,7 @@ import {
   guideKeysFrom, loadManifest, validateManifest, verifyItem,
 } from './src/media/manifest.mjs';
 import { checkItems, checkSite } from './scripts/media-budget.mjs';
+import { DEFAULT_CAPTIONS_DIR, writeCaptionTracks } from './src/media/captions.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -96,6 +97,8 @@ ${blobEntries}
 //
 //   SA_MEDIA_MANIFEST  another manifest file, for tests (default src/media/manifest.json)
 //   SA_MEDIA_DIR       another staging directory, for tests (default .media)
+//   SA_MEDIA_CAPTIONS_DIR  another directory of caption catalogues, for tests
+//                      (default src/i18n/captions; the fixture is scripts/fixtures/media/captions)
 //   SA_MEDIA_REQUIRED  1: a missing staged asset fails the build, which is what CI sets.
 //                      Unset, empty or 0: the item is dropped with a warning and its guide shows no
 //                      video, the same way the Feedback button is simply absent without an endpoint.
@@ -219,6 +222,29 @@ async function main() {
 
   // Run after the transforms, so the catalogue keys include the guides they add.
   const mediaItems = await stageMedia(html);
+
+  // Eleven caption tracks per shipped video, dist/media/captions/<key>.<locale>.vtt: the English
+  // source and one per translated locale, from the caption catalogues (see src/media/captions.mjs).
+  // Built from the verified items only, so a video that is left out leaves no tracks behind. A cue
+  // with no translation in any locale fails the build, naming the locale and the cue: no partial
+  // track ever ships.
+  const captionTracks = await writeCaptionTracks({
+    items: mediaItems,
+    captionsDir: process.env.SA_MEDIA_CAPTIONS_DIR || DEFAULT_CAPTIONS_DIR,
+    distDir: DIST,
+    root: ROOT,
+  });
+  const tracks = Object.values(captionTracks).reduce((n, byLocale) => n + Object.keys(byLocale).length, 0);
+  // What the page's media panel is told about each shipped video, keyed like mediaItems. Every path
+  // is relative to dist/, so the browser loads it from the site's own origin.
+  const runtimeItems = Object.fromEntries(Object.entries(mediaItems).map(([key, item]) => [key, {
+    kind: item.kind,
+    src: `media/${item.file}`,
+    type: 'video/mp4',
+    poster: `media/${item.poster}`,
+    duration: item.duration,
+    captions: captionTracks[key],
+  }]));
 
   // Belt and braces: confirm the transforms actually produced what the runtime needs.
   for (const [marker, what] of A11Y_GUARDS) {
@@ -365,7 +391,8 @@ async function main() {
   if (site.problems.length) throw new Error(`media budget exceeded:\n- ${site.problems.join('\n- ')}`);
 
   console.log(`built dist/ — entry index.html, ${COMPONENTS.length} component(s) inlined, `
-    + `${shipped} locale catalogue(s), 0 external origins, ${Object.keys(mediaItems).length} video(s)`);
+    + `${shipped} locale catalogue(s), 0 external origins, ${Object.keys(mediaItems).length} video(s), `
+    + `${tracks} caption track(s)`);
 }
 
 await main();
