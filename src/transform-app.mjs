@@ -7,6 +7,11 @@
 //
 // Same contract as src/transform-export.mjs: every edit asserts its anchor, so a re-export that
 // changes shape fails the build loudly rather than silently dropping the controls again.
+//
+// IntelliDash is cited by path and line only, never quoted: this repository is public. Line
+// numbers are at the production pin recorded in docs/claims/sources.json
+// (1aa4f28622cc3cc9637f0d61a438bf16bcf01924), with paths under site/src/app/spatial-adjust/.
+// Quotations of SpatialAdjustApp.dc.html are of this repository's own export.
 
 function edit(src, { name, pattern, replace, expected = 1 }) {
   const counter = new RegExp(pattern.source, pattern.flags.includes('g') ? pattern.flags : pattern.flags + 'g');
@@ -34,13 +39,13 @@ const TARGET_PROFILES_TABLE = [
   `  h('div', { style: { display: 'grid', gridTemplateColumns: ${TP_COLS}, alignItems: 'center', padding: '10px 14px', background: '#F5F7F8', borderBottom: '1px solid #080D121A', fontWeight: 'bold', color: '#080D12', fontSize: '13px' } },`,
   "    h('div', null, 'Target Profile'), h('div', null, 'Last Updated'), h('div', null, 'Stations'),",
   "    h('div', null, 'Update from Current'), h('div', null, 'Apply Profile')),",
-  "  [['Summer Baseline', '14 Jun 2026', '148'], ['Tournament Week', '02 May 2026', '148'], ['Overseed Recovery', '--', '--']].map(p =>",
+  "  [['Spring', '--', '--'], ['Summer Baseline', '14 Jun 2026', '148'], ['Fall', '--', '--'], ['Winter', '--', '--'], ['Tournament Week', '02 May 2026', '148']].map(p =>",
   `    h('div', { key: p[0], style: { display: 'grid', gridTemplateColumns: ${TP_COLS}, alignItems: 'center', padding: '8px 14px', borderBottom: '1px solid #080D121A' } },`,
   "      h('div', null, this.numInput(p[0], '170px')),",
   "      h('div', { style: { fontSize: '13px', color: '#080D12' } }, p[1]),",
   "      h('div', { style: { fontSize: '13px', color: '#080D12' } }, p[2]),",
   "      h('div', null, h('div', { style: { width: '22px', height: '22px', borderRadius: '3px', border: '1px solid #a6a6a6', background: '#fff' } })),",
-  "      h('div', null, h('div', { style: { width: '22px', height: '22px', borderRadius: '3px', border: '1px solid #a6a6a6', background: '#fff', opacity: p[2] === '--' ? 0.45 : 1 } }))))),",
+  "      h('div', null, h('div', { style: { width: '22px', height: '22px', borderRadius: '3px', border: '1px solid #a6a6a6', background: '#fff', opacity: p[2] === '--' ? 0.45 : 1 } })))))",
 ].join('\n        ');
 
 // Drawn aerial for the map figure. See the transform that installs it for why this is drawn
@@ -138,44 +143,38 @@ export function transformApp(src) {
       + `\n    else if (dlg === 'dataready') dialog = this.scanReadyBanner();`,
   });
 
-  // The reproduced Target Profiles pane carries its own footnote, and it said "Concept". Same
-  // correction as transform 8 in src/transform-export.mjs, and the same reason: the tab is
-  // implemented on a feature branch, not a concept. Kept short because it sits inside the
-  // figure rather than in the prose around it.
+  // The reproduced Target Profiles pane carried a footnote of its own, "Concept — this tab is not
+  // in the shipping build." An earlier pass reworded it to "In development — not in the shipping
+  // build yet", and the claims audit found that wrong too: at the production pin the settings
+  // dialog lists Target Profiles unconditionally (sa-settings-dlg.component.ts:55). The product's
+  // pane has no footnote at all (sa-settings-dlg.component.html:177-226), so the figure loses it
+  // rather than gaining a different one. What the reader needs to know about the release lives in
+  // the guide's banner, outside the figure. docs/text-corrections.md section 30.
   s = edit(s, {
-    name: 'target profiles pane footnote',
-    pattern: /Concept — this tab is not in the shipping build\./,
-    replace: 'In development — not in the shipping build yet.',
+    name: 'target profiles pane footnote removed',
+    pattern: /,\n\s*h\('div', \{ style: \{ marginTop: '12px', fontSize: '12px', color: '#A2ADB2' \} \}, 'Concept — this tab is not in the shipping build\.'\)/,
+    replace: '',
   });
 
   // The Target Profiles pane depicted a concept, not the product.
   //
-  // It drew three cards — a bold name, an "Applied 14 Jun 2026 · 148 stations" subtitle, and an
-  // ACTIVE or APPLY badge on the right. None of that exists. The implementation on the feature
-  // branch renders a five-column TABLE:
+  // It drew three cards, each with a bold name, an "Applied 14 Jun 2026 · 148 stations" subtitle
+  // and an ACTIVE or APPLY badge. None of that exists. The shipped pane is a table of five fixed
+  // slots per Lynx course (sa-settings-dlg.component.ts:103-109, :383-392) with the columns
+  // Target Profile, Last Updated, Stations, Update from Current and Apply Profile
+  // (sa-settings-dlg.component.html:195-199). The name is an editable text input, and the last two
+  // columns are separate icon actions, one writing current targets into the slot and one applying
+  // the slot to the stations; the card design collapsed them into one badge. An empty slot shows
+  // "--" for Last Updated and Stations, and its Apply action is disabled (:205-214).
   //
-  //   Target Profile | Last Updated | Stations | Update from Current | Apply Profile
+  // The five rows are the product's default slot names, Spring, Summer, Fall, Winter and
+  // Tournament, with two renamed for their condition, which is what "Capturing profiles" teaches.
+  // The icons carry no text on purpose: anything written here would enter the label inventory as
+  // a product string the product does not have.
   //
-  // with the name in an editable text input, and the last two columns as icon buttons rather
-  // than a single badge. Those are two separate actions — write current values INTO a profile,
-  // and push a profile OUT to the stations — and the card design collapsed them into one, which
-  // is the part a reader would get wrong. The product also renders '--' rather than prose when a
-  // profile has never been populated: `stationCount < 1 ? '--' : stationCount`, and Last Updated
-  // is blanked to '--' on the same condition, so "Never applied · 148 stations" was impossible.
-  //
-  // Read from the branch template rather than guessed, and verified identical on the newer
-  // queue branch, so this is the design as it stands and not a snapshot of an older iteration.
-  // The tab is still commented out on the shipping branch — the footnote above says so — but
-  // depicting the real table is strictly better than depicting an invention, and the pilot's
-  // stated expectation is that these features reach production before the guides do.
-  //
-  // Apply is disabled when a profile holds no stations, matching [ngClass] "disabled" on the
-  // branch. The icons carry no text on purpose: anything written here would enter the label
-  // inventory as a product string the product does not have.
   // The pane's intro was written for the guide, not taken from the product. The tab renders
-  // SPATIAL_ADJUST.SETTINGS_TARGET_PROFILES_HEADER, and that key resolves — on the feature
-  // branch's own catalogue — to the sentence below. It was one of the six product labels the
-  // fidelity gate listed as never shown by the guides.
+  // SPATIAL_ADJUST.SETTINGS_TARGET_PROFILES_HEADER, whose English is the sentence below. It was
+  // one of the six product labels the fidelity gate listed as never shown by the guides.
   s = edit(s, {
     name: 'target profiles pane intro matches the product header key',
     pattern: /Save a full set of station Target VWC values as a named profile, then apply it whenever the season or the event calls for it\./,
@@ -184,7 +183,7 @@ export function transformApp(src) {
 
   s = edit(s, {
     name: 'target profiles: card list becomes the real five-column table',
-    pattern: /h\('div', \{ style: \{ border: '1px solid #080D121A', borderRadius: '4px', background: '#F5F7F8', marginTop: '16px', overflow: 'hidden' \} \},[\s\S]*?'ACTIVE' : 'APPLY'\)\)\)\),/,
+    pattern: /h\('div', \{ style: \{ border: '1px solid #080D121A', borderRadius: '4px', background: '#F5F7F8', marginTop: '16px', overflow: 'hidden' \} \},[\s\S]*?'ACTIVE' : 'APPLY'\)\)\)\)/,
     replace: TARGET_PROFILES_TABLE,
   });
 
@@ -197,8 +196,9 @@ export function transformApp(src) {
   //
   // Found by scripts/cursor-target.mjs, not by the label gate. The map legend chips are not in
   // _screenStrings, so the label diff never looked at them — the animated cursor landing on
-  // "6-16%" during "Move the band boundaries" is what surfaced it. sa-dash-map falls back to
-  // `value?.range2Boundary || 19` when a user has no saved preference, so 19 is the default.
+  // "6-16%" during "Move the band boundaries" is what surfaced it. The map falls back to 19 for the
+  // middle boundary when a user has no saved preference (sa-dash-map.component.ts:49), so 19 is
+  // the default.
   s = edit(s, {
     name: 'map legend band 2 default',
     pattern: /6-16%/,
@@ -261,8 +261,9 @@ export function transformApp(src) {
   // tells the reader that variance "colours each pin by how far it sits from its own target
   // instead of by its raw reading", and then shows them a map where nothing recolours.
   //
-  // The product's own values (ToroEnums.SaVarianceColor, and the -11 / 10 fallbacks in
-  // sa-dash-map.component.ts):
+  // The product's own values: the variance colours (site/src/app/common/enumerations/toro.enums.ts:464),
+  // and the -11 and 10 boundaries the map falls back to when a user has saved none
+  // (sa-dash-map.component.ts:66-67):
   //     < -11   #FDB034 orange     -10 to 10   #009EB2 teal     > 10   #D64E9A pink
   s = edit(s, {
     name: 'map: variance gets the product palette',
@@ -273,7 +274,7 @@ export function transformApp(src) {
       + '// recolouring is visible rather than theoretical.\n'
       + 'const NOMINAL_TARGET = 30;\n'
       + 'function varianceColor(v) {\n'
-      + "  if (v <= -11) return '#FDB034';\n"   // inclusive: the product band is `from: -100, to: -11`
+      + "  if (v <= -11) return '#FDB034';\n"   // inclusive: the product's lowest band runs from -100 up to and including -11
       + "  if (v <= 10) return '#009EB2';\n"
       + "  return '#D64E9A';\n"
       + '}\n\n'
@@ -310,11 +311,10 @@ export function transformApp(src) {
 
   // The estimated-value marker was half-drawn: the reproduction dims and italicises the number
   // but never draws the icon that sits beside it, in any of the three places the table renders
-  // one. The criterion on PERS-344 reads "calculator icons replace the mock's grey italics" and
-  // that is not what the product does — GREY ITALICS ARE CORRECT, the icon is additional:
-  //
-  //   sa-table-card.component.less:107   &.sa-vwc-estimated { color: darkgray; font-style: italic; }
-  //   sa-table-card.component.html:31    <fa-icon *ngIf="..." icon="calculator"></fa-icon>
+  // one. The audit's acceptance criterion read "calculator icons replace the mock's grey italics"
+  // and that is not what the product does — GREY ITALICS ARE CORRECT, the icon is additional. The
+  // estimated class greys and italicises the reading (sa-table-card.component.less:107-110), and
+  // the same cell draws the calculator icon (sa-table-card.component.html:29-31).
   //
   // Both are applied to the same cell, so nothing is being replaced and the existing styling is
   // left alone. What matters is that the icon is the only marker carried into the push dialog
@@ -323,9 +323,10 @@ export function transformApp(src) {
   // the one moment it decides whether they push an estimate to the course.
   //
   // PARENT ROWS DIFFER FROM STATION ROWS, and the reproduction had them the same. The two classes
-  // are applied on different conditions (sa-table-card.component.html:29): sa-vwc-estimated on
-  // tableItem?.isEstimated, sa-parent on hasEstimatedChildren || someStationPairIsEstimated, and
-  // sa-parent styles only the fa-icon (less:112-115), never the number. An Area or Hole row is an
+  // are applied on different conditions (sa-table-card.component.html:29): the estimated class when
+  // the row's own reading is modelled, the parent class when a child's is (a hole or area with a
+  // modelled station, or a paired station with a modelled sprinkler), and the parent class styles
+  // only the icon (less:112-116), never the number. An Area or Hole row is an
   // aggregate — its own reading cannot be estimated, only its children's — so it shows a normal
   // number with a grey icon, not a grey italic number. areaAgg() hardcodes est: true, so the
   // reproduction was dimming a figure the product prints plainly.
@@ -337,11 +338,12 @@ export function transformApp(src) {
     name: 'estimated marker: a drawn calculator glyph',
     pattern: /(\n  aggRows\(items\) \{)/,
     replace: `
-  // Marks a reading the algorithm modelled rather than measured. \`dim\` is the sa-parent case:
-  // the icon greys but the number it sits beside does not.
+  // Marks a reading the algorithm modelled rather than measured. The product draws it orange
+  // (sa-table-card.component.less:97-104, :121-128). \`dim\` is the sa-parent case, a row whose
+  // estimate is in a child rather than its own reading: the icon greys (:112-116).
   calcIcon(dim) {
     return h('svg', { viewBox: '0 0 12 16', width: '9', height: '12', 'aria-hidden': 'true', focusable: 'false',
-      style: { flex: 'none', color: dim ? 'darkgray' : 'inherit' } },
+      style: { flex: 'none', color: dim ? 'darkgray' : 'orange' } },
       h('rect', { x: 0.6, y: 0.6, width: 10.8, height: 14.8, rx: 1.6, fill: 'none', stroke: 'currentColor', strokeWidth: 1.2 }),
       h('rect', { x: 2.6, y: 2.6, width: 6.8, height: 3, rx: 0.6, fill: 'currentColor' }),
       [0, 1, 2, 3, 4, 5, 6, 7, 8].map(i => h('circle', { key: i, cx: 3 + (i % 3) * 3, cy: 8.4 + Math.floor(i / 3) * 2.6, r: 0.85, fill: 'currentColor' })));
@@ -354,37 +356,53 @@ $1`,
     name: 'estimated marker: aggregate rows get the icon, not the italics',
     pattern: /gap: '4px', color: it\.est \? 'darkgray' : 'inherit' \} \},\n(\s*)h\('span', \{ style: \{ fontStyle: it\.est \? 'italic' : 'normal' \} \}, it\.vwc\.toFixed\(1\) \+ '%'\)\)/,
     replace: (_m, i) =>
-      `gap: '4px' } },\n${i}h('span', null, it.vwc.toFixed(1) + '%'), it.est ? this.calcIcon(true) : null)`,
+      `gap: '4px' } },\n${i}it.est ? this.calcIcon(true) : null, h('span', null, it.vwc.toFixed(1) + '%'))`,
   });
 
-  // Sprinkler rows: a real reading of their own, so they keep the dimming and gain the icon.
+  // Sprinkler rows: the product prints a modelled sprinkler reading in the normal style and marks
+  // it only with an orange icon (sa-table-card.component.html:86-92; the child cell has no
+  // estimated class, less:121-130). The reproduction greyed and italicised it, which is the
+  // station-row style; docs/text-corrections.md section 25.
   s = edit(s, {
     name: 'estimated marker: sprinkler rows',
-    pattern: /(color: k\[2\] \? 'darkgray' : 'inherit', fontStyle: k\[2\] \? 'italic' : 'normal' \} \},\n\s*)k\[0\]\.toFixed\(1\) \+ '%'\)/,
-    replace: "$1k[0].toFixed(1) + '%', k[2] ? this.calcIcon(false) : null)",
+    pattern: /color: k\[2\] \? 'darkgray' : 'inherit', fontStyle: k\[2\] \? 'italic' : 'normal' \} \},\n\s*k\[0\]\.toFixed\(1\) \+ '%'\)/,
+    replace: "color: 'inherit', fontStyle: 'normal' } }, k[2] ? this.calcIcon(false) : null, k[0].toFixed(1) + '%')",
   });
 
-  // Station rows: same, and they need the gap the other two cells already had.
+  // Station rows. A station whose own newest scan is not from today is greyed and italicised and
+  // carries the orange icon (html:29-31, less:97-110). A paired station whose newest scan IS from
+  // today but one of whose sprinklers is modelled keeps a plain number and gets the grey icon,
+  // because the product sets sa-parent on someStationPairIsEstimated
+  // (sa-table-card.component.ts:398-400). 6AP1 is that case: its second sprinkler is two days old.
   s = edit(s, {
     name: 'estimated marker: station rows',
     pattern: /alignItems: 'center', color: s\.est \? 'darkgray' : 'inherit', fontStyle: s\.est \? 'italic' : 'normal' \} \}, s\.vwc\.toFixed\(1\) \+ '%'\)/,
-    replace: "alignItems: 'center', gap: '4px', color: s.est ? 'darkgray' : 'inherit', fontStyle: s.est ? 'italic' : 'normal' } }, s.vwc.toFixed(1) + '%', s.est ? this.calcIcon(false) : null)",
+    replace: "alignItems: 'center', gap: '4px', color: s.est ? 'darkgray' : 'inherit', fontStyle: s.est ? 'italic' : 'normal' } }, "
+      + "(s.est || (s.kids && s.kids.some(k => k[2]))) ? this.calcIcon(!!(s.kids && s.kids.some(k => k[2]))) : null, s.vwc.toFixed(1) + '%')",
   });
 
-  // The push icon was drawn on every station row. The product gates it on the station being
-  // enabled (sa-table-card.component.html:51):
-  //
-  //   <img *ngIf="isEnabled && pushIcon && !(saShowCurrentOnly && !isScanCurrent && !isEstimated)"
+  // A hole is marked when any sprinkler record beneath it is modelled, not only a single-sprinkler
+  // station: the hole's hasEstimatedChildren tests every station record, and a paired station is
+  // two records (spatial-adjust-course.model.ts:102). Hole 6 holds 6AP1, so it gains the icon.
+  s = edit(s, {
+    name: 'estimated marker: a hole counts a modelled sprinkler',
+    pattern: /if \(s\.est\) g\.est = true;/,
+    replace: 'if (s.est || (s.kids && s.kids.some(k => k[2]))) g.est = true;',
+  });
+
+  // The push icon was drawn on every station row. The product draws it only on an enabled station,
+  // and also hides it when the show-current-only flag is on and the station's scan is neither
+  // current nor modelled (sa-table-card.component.html:51).
   //
   // The reproduction's `on` is that enabled state — it is what the row's toggle renders — and
   // 5AP1 ships disabled, so exactly one row was claiming a disabled station had something
   // waiting to go to Lynx. That is the row "Enable and disable stations" exists to talk about.
   //
-  // Only the isEnabled clause is reproduced. The third clause turns on environment.saShowCurrentOnly
-  // and swaps the whole adjust input for a "--" placeholder, and nothing in this repository
-  // establishes that flag's production value — reproducing a branch on a guess would put a
-  // control on screen that may not be there, which is the failure this transform file exists to
-  // prevent.
+  // Only the enabled clause is reproduced. The third clause turns on the show-current-only flag and
+  // swaps the whole adjust input for a "--" placeholder. The flag is on in production
+  // (environments/environment.toro-prod.ts:87, under site/src/), but the branch needs a station
+  // whose scan is neither current nor modelled, which only Option 1 produces; every figure here
+  // uses Option 2, where the one stale station, 7AP1, is modelled. docs/text-corrections.md §10, §30.
   s = edit(s, {
     name: 'push icon follows the station enabled state',
     pattern: /h\('img', \{ src: 'assets\/sa\/' \+ \(s\.pushed \? 'pushed_ico\.png' : 'push_ico\.png'\), alt: '', style: \{ position: 'absolute', right: '20px', top: '9px', height: '15px', zIndex: 1 \} \}\)/,
@@ -399,13 +417,10 @@ $1`,
   //      adjustments. To adjust one again, simply select it.'
   //
   // So the figure contradicted a sentence printed inside the same figure. The product is on the
-  // banner's side:
-  //
-  //   sa-confirm-push-dlg.component.ts:24    this.oldChanges.forEach(s => s.submitChange = false);
-  //   sa-confirm-push-dlg.component.html:132 <i *ngIf="item.submitChange" class="pi pi-check">
-  //
-  // oldChanges are cleared on load and the tick is conditional, so the Pushed Today rows render
-  // empty. This is not cosmetic: the guard against adjusting the same head twice in a day is the
+  // banner's side: the dialog unticks every Pushed Today row when it opens
+  // (sa-confirm-push-dlg.component.ts:24), and draws a tick only on a selected row
+  // (sa-confirm-push-dlg.component.html:95, :132), so the Pushed Today rows render empty.
+  // This is not cosmetic: the guard against adjusting the same head twice in a day is the
   // whole reason that section is split out, and a reader who has been shown twelve ticked rows
   // has been taught that pushing again sends all twelve. "Re-push only the failures" in
   // push-failures tells them to "untick anything that already went out", which reads as
@@ -441,13 +456,10 @@ $1`,
   // decoration: "Verify results" is a five-step guide whose entire subject is the four phases,
   // and the bar is the only thing in the figure that changes between its steps.
   //
-  // IntelliDash computes the number, it does not choose it:
-  //
-  //   sa-push-changes.service.ts:195
-  //     this.progressInfo.percentComplete = Math.round(processedCount / this.totalProcessSteps * 100);
-  //
-  //   :218  stepsForVerification = max(1, round(n * .05))
-  //   :220  totalProcessSteps    = n + stepsForVerification + stepsForRetry
+  // IntelliDash computes the number, it does not choose it. The percentage is the steps done over
+  // the total steps, rounded, and held at 99 until the push ends (services/sa-push-changes.service.ts:197-201).
+  // The total is the station count plus verification steps (5% of the stations, at least one)
+  // plus retry steps (2%, at least one) (:213-222).
   //
   // The reproduction's scenario is six stations ("Push 6 Changes", "4 of 6", "2 station(s)"), so
   // n=6 gives stepsForVerification=1, stepsForRetry=1 and totalProcessSteps=8. Every phase falls
@@ -461,19 +473,17 @@ $1`,
   // THE 12 IS THE INTERESTING ONE, because it is not a typo — it encodes a wrong mental model of
   // the push, and the guide prose encodes the same one. "It reads Lynx first / Before writing
   // anything" is how "Verify results" opens, and 12% is what you would draw if you believed it.
-  // The product does the opposite: onPushChanges goes straight to processItemsWithDelay with no
-  // prior read (sa-main-toolbar.component.ts:266), progressInfo is constructed with
-  // step: PushChangesStep.Pushing (:134), and the only requestSpatialAdjustData() in the push
-  // path fires from the push loop's own complete: handler (:168) — AFTER every station is
-  // written. Retrieving is phase two of four, not phase one, which is exactly why it sits at 88.
+  // The product does the opposite: the push button hands the changes straight to the write loop
+  // with no prior read (components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts:255-269),
+  // the first progress state is the pushing step (services/sa-push-changes.service.ts:136-137),
+  // and the only read of Lynx in the push path is requested when the write loop completes
+  // (:162-170) — AFTER every station is written. Retrieving is phase two of four, not phase one, which is exactly why it sits at 88.
   // The prose is corrected alongside this as transform 12 in src/transform-export.mjs; correcting
   // one without the other would leave a figure contradicting its own caption.
   //
-  // The 0 is the second finding. On a retry the bar does not resume — it RESETS:
-  //
-  //   :92   this.currentStepCount = 0;
-  //   :93   this.calculateTotalSteps(unchangedStations.length);
-  //   :94   this.updateProgressPercent(this.currentStepCount, PushChangesStep.Retrying, ...);
+  // The 0 is the second finding. On a retry the bar does not resume — it RESETS: the step count
+  // goes back to zero and the total is recomputed for the failed stations alone before the
+  // retrying step is reported (services/sa-push-changes.service.ts:93-97).
   //
   // A superintendent watching a push reach 99% and drop to 0% will read that as the whole run
   // collapsing, when the product is retrying two stations out of six and the guide correctly
@@ -484,6 +494,71 @@ $1`,
     pattern: /fetching: \[12, ('Retrieving latest Percent Adjustments from Lynx for comparison')\],\n(\s*)running: \[64, ('Pushing Percent Adjustments to Lynx \(4 of 6\)')\],\n\s*verifying: \[82, ('Verifying adjustments sent to Lynx')\],\n\s*retry: \[46, ('Push Changes failed for 2 station\(s\)\. Retrying')\]/,
     replace: (_m, retrieving, indent, pushing, verifying, retrying) =>
       `fetching: [88, ${retrieving}],\n${indent}running: [50, ${pushing}],\n${indent}verifying: [99, ${verifying}],\n${indent}retry: [0, ${retrying}]`,
+  });
+
+  // The settings rail listed Target Profiles only on the Target Profiles tab itself, or when the
+  // guide page set showProfilesTab. The product lists it unconditionally, third of four
+  // (sa-settings-dlg.component.ts:52-57), so every other settings figure was missing a rail entry
+  // the reader sees. Preferences moves down one place as a result; its cursor target moves with it
+  // in src/transform-export.mjs ("settings rail: Preferences cursor below Target Profiles").
+  s = edit(s, {
+    name: 'settings rail always lists Target Profiles',
+    pattern: /if \(tab === 'profiles' \|\| this\.props\.showProfilesTab\) items\.push\(\['profiles'/,
+    replace: "items.push(['profiles'",
+  });
+
+  // Option 1 disables Crop Coefficient along with the two amounts
+  // (sa-settings-dlg.component.html:113-122). The reproduction dimmed only the amounts, so the
+  // Option 1 figure in "Calculation methods" showed an editable Crop Coefficient.
+  s = edit(s, {
+    name: 'crop coefficient dims under Option 1',
+    pattern: /field\('Crop Coefficient \(%\)', this\.numInput\('100', '140px'\)\)/,
+    replace: "field('Crop Coefficient (%)', dim(this.numInput('100', '140px')))",
+  });
+
+  // The map drew every pin filled, including a disabled station and a station last scanned two days
+  // ago, and its Layers panel showed All Stations selected. On production:
+  //   - Layers defaults to Enabled Stations (environment.toro-prod.ts:88, read at
+  //     sa-dashboard.component.ts:504), and that layer skips any station that fails the enabled
+  //     test (sa-dash-map.component.ts:312). 5AP1 is disabled, so its pin is not drawn.
+  //   - A pin whose latest scan is not from today is filled transparent (:315, with
+  //     saShowCurrentOnly true at environment.toro-prod.ts:87), keeping only its white outline
+  //     (:322-329). 7AP1 and 6AP1's second sprinkler were last scanned two days ago.
+  //   - Pins are drawn per sprinkler record (sa-dashboard.component.ts:517-519), so 6AP1, which has
+  //     two sprinklers, has two pins, each labelled with its own reading (31.4 and 30.4) rather than
+  //     the station's average.
+  // Each MARKERS entry gains an optional fourth element: 'off' for a disabled station, 'old' for a
+  // scan from an earlier day. docs/text-corrections.md section 23.
+  s = edit(s, {
+    name: 'map markers: 5AP1 is disabled',
+    pattern: /\[58,21,27\.9\]/,
+    replace: "[58,21,27.9,'off']",
+  });
+  s = edit(s, {
+    name: 'map markers: 7AP1 was scanned two days ago',
+    pattern: /\[63,47,50\.0\]/,
+    replace: "[63,47,50.0,'old']",
+  });
+  s = edit(s, {
+    name: 'map markers: 6AP1 has a pin per sprinkler',
+    pattern: /\[68,30,30\.9\]/,
+    replace: "[68,30,31.4],[63,27,30.4,'old']",
+  });
+  s = edit(s, {
+    name: 'map markers: the default layer hides disabled stations',
+    pattern: /return MARKERS\.map\(\(m, i\) => h\('div', \{/,
+    replace: "return MARKERS.filter(m => m[3] !== 'off').map((m, i) => h('div', {",
+  });
+  s = edit(s, {
+    name: 'map markers: a pin scanned before today is drawn clear',
+    pattern: /background: this\.props\.mapMode === 'variance' \? varianceColor\(m\[2\] - NOMINAL_TARGET\) : rangeColor\(m\[2\]\), opacity: 0\.9, border: '1px solid rgba\(255,255,255,\.5\)'/,
+    replace: "background: m[3] === 'old' ? 'transparent' : this.props.mapMode === 'variance' ? varianceColor(m[2] - NOMINAL_TARGET) : rangeColor(m[2]), "
+      + "opacity: 0.9, border: m[3] === 'old' ? '2px solid rgba(255,255,255,.4)' : '1px solid rgba(255,255,255,.5)'",
+  });
+  s = edit(s, {
+    name: 'map layers: Enabled Stations is the default selection',
+    pattern: /layerOpt\('All Stations', true, 'l1'\),\n(\s*)layerOpt\('Enabled Stations', false, 'l2'\)/,
+    replace: "layerOpt('All Stations', false, 'l1'),\n$1layerOpt('Enabled Stations', true, 'l2')",
   });
 
   // The reproduced algorithm dropdown still rendered the ENUM NAME. Transform 1 in

@@ -25,6 +25,21 @@ const CONTROLS = [
   { handler: 'nx.open', attrs: 'role="button" tabindex="0"' },
 ];
 
+/** The label on the Target Profiles note callout and the badge on their catalogue tiles (§8 below).
+ *  The note text follows the label, so neither note repeats it. */
+const NEW_LABEL = 'New in IntelliDash';
+
+/** The Target Profiles note, in the three guides that carry the short form (see §8 below). */
+const TP_NOTE = 'The Target Profiles tab lists five named profile slots for each Lynx course. If your '
+  + 'settings dialog has no Target Profiles entry, your IntelliDash has not yet been updated to the '
+  + 'release that includes it.';
+
+/** The Target Profiles note in the "Target profiles" walkthrough, which also names the columns. */
+const TP_NOTE_WALKTHROUGH = 'The Target Profiles tab lists five profile slots for each Lynx course, '
+  + 'named Spring, Summer, Fall, Winter and Tournament until you rename them, with Last Updated, '
+  + 'Stations, Update from Current and Apply Profile columns. If your settings dialog has no Target '
+  + 'Profiles entry, your IntelliDash has not yet been updated to the release that includes it.';
+
 export function transformGuide(src) {
   let s = src;
 
@@ -96,11 +111,18 @@ export function transformGuide(src) {
   // Design at source; until they are fixed there, they are corrected here so the published
   // site is not wrong, and each anchor fails the build if the sentence changes upstream.
   // See docs/text-corrections.md for the evidence behind every one.
+  //
+  // IntelliDash is cited by path and line only, never quoted: this repository is public. Unless
+  // a comment says otherwise, line numbers are at the production pin recorded in
+  // docs/claims/sources.json (1aa4f28622cc3cc9637f0d61a438bf16bcf01924), with paths under
+  // site/src/app/spatial-adjust/ unless given in full.
 
   // 1. Algorithm naming. The guide calls the two methods "Simple" and "the default method",
   //    which are the enum names (SaAlgorithm.Simple / DeltaPlusTodayEt). The dropdown is
-  //    built from ALGO_SIMPLE and ALGO_DELTA_PLUS_TODAY_ET, which render as "Option 1" and
-  //    "Option 2" in en-us.json and in all ten other locales. A reader hunting the dropdown
+  //    built from the ALGO_SIMPLE and ALGO_DELTA_PLUS_TODAY_ET labels
+  //    (site/src/app/api/dash-user/dash-user-manager.service.ts:217-226), which render as
+  //    "Option 1" and "Option 2" in en-us.json (site/src/assets/i18n/en-us.json:367-368) and in
+  //    all ten other locales. A reader hunting the dropdown
   //    for "Simple" finds nothing. The descriptive names are kept as prose, because
   //    "Option 1 multiplies the percent adjust Lynx holds" is unreadable on its own, but
   //    every mention is now tied to the label actually on screen.
@@ -160,12 +182,12 @@ export function transformGuide(src) {
   });
 
   // 2. Unit-of-measure safety claim. The guide reassures the reader that switching units
-  //    changes only the displayed number. It does not. sa-settings-dlg converts mm to the
-  //    user's unit in setSettingsToUserUnits(), which runs once when settings load. The
-  //    Units of Measure dropdown is a plain [(ngModel)] on userPrefs.unitsSystem with no
-  //    change handler, so nothing re-converts the amounts already on the Calculation tab.
-  //    onSave() then calls setSettingsToSaveUnits() unconditionally, which reads the new
-  //    unitsSystem and applies convertInchesToMm to a value still expressed in millimetres.
+  //    changes only the displayed number. It does not. The settings dialog converts the stored
+  //    millimetres to the user's unit once, when its data loads (sa-settings-dlg.component.ts:322,
+  //    :354-365). The Units of Measure dropdown is a plain two-way binding with no change handler
+  //    (sa-settings-dlg.component.html:242), so nothing re-converts the amounts already on the
+  //    Calculation tab. Saving then converts back unconditionally (ts:186-192, :416-427), reading
+  //    the new unit and treating a value still expressed in millimetres as inches.
   //    Metric to imperial therefore multiplies the stored Max Amount and Lynx Reference
   //    Amount by 25.4. This is a reassurance on a setting that feeds irrigation output, so
   //    it is the most consequential wrong sentence in the guides.
@@ -181,10 +203,10 @@ export function transformGuide(src) {
     replace: `tipLabel: 'Check after switching.', tip: 'Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab — they are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.'`,
   });
 
-  // 3. Moisture band defaults. The guide gives the middle boundary as 16, which is the
-  //    Colliers dataset's saved user preference, not the product default. sa-dash-map
-  //    falls back to `value?.range2Boundary || 19` when the user has none, so a fresh
-  //    account sees 0-5, 6-19, 20-30, above 30. The boundaries stay user-configurable and
+  // 3. Moisture band defaults. The guide gives the middle boundary as 16, which is the saved
+  //    user preference in one of IntelliDash's demo datasets, not the product default. The map
+  //    falls back to 5, 19 and 30 when the user has saved no boundaries
+  //    (sa-dash-map.component.ts:48-50), so a fresh account sees 0-5, 6-19, 20-30, above 30. The boundaries stay user-configurable and
   //    the guide already says so; only the stated default was wrong. The two sentences use
   //    different dash encodings in the export, so they need separate anchors.
   s = edit(s, {
@@ -238,23 +260,23 @@ export function transformGuide(src) {
     name: 'stale scans: diagnostics step names the next action',
     pattern: /A course-wide problem is almost always here rather than in your settings\./,
     replace: 'A course-wide problem is almost always here rather than in your settings. '
-      + 'If TurfRad access and scan data are both fine and only the date is old, request a fresh '
-      + 'scan from the toolbar rather than waiting for one.',
+      + 'If TurfRad access and scan data are both fine and only the date is old, use Request latest '
+      + 'scan data in the toolbar to fetch any scans TurfRad already holds rather than waiting for the '
+      + 'next automatic fetch. It cannot make TurfRad scan, so if TurfRad has nothing newer the date '
+      + 'will not change.',
   });
 
   // 6. The "same ET" claim, which is wrong on both algorithms. The guide tells the reader that
   //    the weather strip's ET is "the same ET that drives the calculation", and asks them to
-  //    verify a guide by checking Calculation ET against it. Neither holds:
+  //    verify a guide by checking Calculation ET against it. Neither holds.
   //
-  //      site/src/app/spatial-adjust/services/sa-algorithm.service.ts:41
-  //        calculateSuggestedPercentAdjust(..., currentEt: number = null)
-  //
-  //    `currentEt` is accepted and never read. Neither branch of the switch uses it, and the
-  //    only caller — sa-dashboard.component.ts:576 — passes four arguments, so it is always
-  //    null. Option 1 (`calculateSimple`) is targetVwc / actualVwc × the percent adjust Lynx
-  //    holds: no ET term at all. Option 2 (`calculateDeltaPlusTodayEt`) does not calculate
-  //    anything client-side — it looks up a server-computed `suggestedPercentAdjust` by station
-  //    name. So on Option 1 no ET enters the number, and on Option 2 the ET that did is the
+  //    The function that picks the suggested percentage accepts a current-ET argument and never
+  //    reads it: neither branch of its algorithm switch uses it (services/sa-algorithm.service.ts:43,
+  //    :45-50), and its only caller passes four arguments, so it is always empty
+  //    (sa-dashboard.component.ts:597). Option 1 is target VWC divided by measured VWC, times the
+  //    percent adjust Lynx holds: no ET term at all (sa-algorithm.service.ts:58-60). Option 2 does
+  //    not calculate anything client-side; it looks up a server-computed suggestion by station
+  //    name (:62-65). So on Option 1 no ET enters the number, and on Option 2 the ET that did is the
   //    server's, applied before the page ever loaded.
   //
   //    This matters because the second one is a VERIFY step: it asks the reader to confirm they
@@ -277,19 +299,18 @@ export function transformGuide(src) {
 
   // 7. When "Pushed Today" lets go. The guide correctly says a pushed station is held back for
   //    the rest of the day, but never says when the day ends, and the rule is not the one a
-  //    reader would assume:
-  //
-  //      site/src/app/spatial-adjust/utils/spatial-adjust.util.ts:11  isStationPushable()
-  //        -> site/src/app/common/utils/date.util.ts:81  isUtcDateAtLeastOneDayAgoLocally()
-  //           localDate.startOf('day') < localToday.startOf('day')
+  //    reader would assume. A station is pushable again once its last push falls on an earlier
+  //    local calendar day than today (utils/spatial-adjust.util.ts:11-13, which calls
+  //    site/src/app/common/utils/date.util.ts:81-93).
   //
   //    Both sides are floored to the start of the day in the COURSE's local offset, so a station
   //    becomes available again at local midnight — not 24 hours after it was pushed. Push at
   //    11:58 PM and it is selectable two minutes later. Worth one sentence because the natural
   //    assumption is a rolling day, and acting on that assumption double-adjusts a head.
   //
-  //    Note also SPATIAL_ADJUST.PUSHED_IN_LAST_N ("Pushed in last 24H"), which is present in all
-  //    eleven IntelliDash catalogues and referenced by no code. If it is ever wired up it will
+  //    Note also SPATIAL_ADJUST.PUSHED_IN_LAST_N ("Pushed in last 24H", site/src/assets/i18n/
+  //    en-us.json:449), which is present in all eleven IntelliDash catalogues and referenced by no
+  //    code. If it is ever wired up it will
   //    state the wrong rule.
   s = edit(s, {
     name: 'pushed-today reset boundary',
@@ -300,14 +321,12 @@ export function transformGuide(src) {
 
   // 12. "Verify results" teaches the four push phases in the wrong order, and opens on the one
   //     that is wrong. Its first step is titled "It reads Lynx first" and its body begins
-  //     "Before writing anything". The product writes first:
-  //
-  //       sa-main-toolbar.component.ts:266   onPushChanges() -> processItemsWithDelay(...)
-  //                                          no read of any kind precedes it
-  //       sa-push-changes.service.ts:134     progressInfo starts at step: PushChangesStep.Pushing
-  //       sa-push-changes.service.ts:161-168 the push loop's own complete: handler is what emits
-  //                                          PushChangesStep.Fetching and then calls
-  //                                          requestSpatialAdjustData() — AFTER every station
+  //     "Before writing anything". The product writes first. The push button hands the pending
+  //     changes straight to the write loop with no read of any kind before it
+  //     (components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts:255-269). The first
+  //     progress state is the pushing step (services/sa-push-changes.service.ts:136-137), and the
+  //     read of Lynx is requested only when the write loop completes, after every station has
+  //     been written (:162-170).
   //
   //     So retrieving is phase two, and it is a read-BACK, not a baseline read. The guide's
   //     account is not merely misordered, it misstates the purpose of the phase: there is nothing
@@ -322,16 +341,18 @@ export function transformGuide(src) {
   //     pass, because a corrected caption beside an uncorrected figure is the failure this whole
   //     exercise exists to prevent.
   //
-  //     The "slowest phase" claim moves with the correction rather than being dropped. It is true
-  //     of writing and was never established for the read: the push loop delays 100ms between
-  //     stations (sa-main-toolbar.component.ts:266), so the write phase alone costs at least
-  //     stationCount * 100ms, and on a 148-station course that is fifteen seconds of floor.
+  //     The write-phase body originally kept the export's "slowest phase … a stalled counter here
+  //     means the connection" sentence. The claims ledger marked it Wrong (verify-results/1/4):
+  //     each write is sent without waiting for Lynx and the counter advances on a fixed
+  //     per-station delay (services/sa-push-changes.service.ts:145-150, :206-211), so it cannot stall; a
+  //     slow or silent Lynx shows in the read-back that follows. Corrected here rather than in
+  //     src/transforms/corrections.mjs so the wrong sentence is never produced.
   s = edit(s, {
     name: 'verify-results push phase order',
     pattern: /\{ title: 'It reads Lynx first', fig: 'dlgMid', dialog: 'progress', pushState: 'fetching',\n(\s*)body: 'Before writing anything, Spatial Adjust retrieves the current percent adjustments from Lynx so it has something to compare against afterwards\. On a large course this is the slowest phase\.',\n\s*caption: 'Phase one: retrieving current values for comparison\.' \},\n\s*\{ title: 'Then it writes, station by station', fig: 'dlgMid', dialog: 'progress', pushState: 'running',\n\s*body: 'Stations are written in sequence with a short pause between each, and the progress line names which one it is on\. A stalled counter here means the connection, not the calculation\.',\n\s*caption: 'Phase two: writing, four of six\.' \},/,
     replace: (_m, i) =>
       `{ title: 'It writes first, station by station', fig: 'dlgMid', dialog: 'progress', pushState: 'running',\n`
-      + `${i}body: 'Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on. On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation.',\n`
+      + `${i}body: 'Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on. On a large course writing takes a while, at least a tenth of a second per station, but its counter runs on a fixed timer and does not wait for Lynx. If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer.',\n`
       + `${i}caption: 'Phase one: writing, four of six.' },\n`
       + `${i.slice(0, -2)}{ title: 'Then it reads Lynx back', fig: 'dlgMid', dialog: 'progress', pushState: 'fetching',\n`
       + `${i}body: 'With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx. This is a read-back, not a baseline — it is collecting what Lynx actually holds now so the next phase has something to check the push against.',\n`
@@ -341,12 +362,9 @@ export function transformGuide(src) {
   //     The remaining two captions carry phase numbers that the swap above does not touch, so
   //     they are correct already — three is still comparing, four is still retrying. What is
   //     missing from four is the progress bar's behaviour, which is the most alarming thing in
-  //     the whole sequence and is nowhere in the corpus:
-  //
-  //       sa-push-changes.service.ts:92-94
-  //         this.currentStepCount = 0;
-  //         this.calculateTotalSteps(unchangedStations.length);
-  //         this.updateProgressPercent(this.currentStepCount, PushChangesStep.Retrying, ...);
+  //     the whole sequence and is nowhere in the corpus. On a retry the step count goes back to
+  //     zero and the total is recomputed for the failed stations alone before the retrying step
+  //     is reported (services/sa-push-changes.service.ts:93-97).
   //
   //     The bar does not resume from 99% — it resets to 0% and the total is recomputed for the
   //     failed stations alone. A reader who has just watched a push reach 99% sees it collapse to
@@ -389,23 +407,23 @@ export function transformGuide(src) {
     replace: `$1  'request-scan-data': {
     category: 'TROUBLESHOOTING', title: 'Get fresh scan data', minutes: '3 minutes', difficulty: 2,
     where: 'Toolbar',
-    summary: 'A stale course is not something you have to wait out. Request a new TurfRad scan, and reload when it lands.',
+    summary: 'A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Ask for the latest scan data TurfRad holds, and reload when it is ready.',
     before: [
-      'When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics.'
+      'When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.'
     ],
     steps: [
       { title: 'Read the scan date before anything else', fig: 'tableTop', t: [900, 32],
         body: 'Every station row carries the date its reading was captured. One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.',
         caption: 'Scan dates sit beside the station name in the table.' },
       { title: 'Request the latest scan', fig: 'toolbarR', t: [1793, 32],
-        body: 'The circular-arrow button in the toolbar’s right-hand group is Request latest scan data. It asks TurfRad for a new scan; it does not reload the dashboard, and it does not change a single calculation setting.',
+        body: 'The circular-arrow button in the toolbar’s right-hand group is Request latest scan data. It asks Spatial Adjust to fetch the latest scan data TurfRad already holds, ahead of the next automatic retrieval. It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting.',
         caption: 'Request latest scan data, between the pushed-today counter and the gear.',
         tipLabel: 'Note.', tip: 'This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.' },
       { title: 'It queues, it does not block', fig: 'toolbarR', t: [1793, 32],
         body: 'The request is queued and you are told so: retrieval may take several minutes, and you are notified when it is ready. You can carry on reading the table while it runs — nothing is frozen and nothing is lost if you navigate away.',
         caption: 'A queued request confirms immediately; the data arrives later.' },
       { title: 'Reload when the banner appears', fig: 'full', dialog: 'dataready', t: [960, 120],
-        body: 'When the scan lands, a banner says so. Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings. Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.',
+        body: 'When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings. Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.',
         caption: 'The banner offers Reload Data or Dismiss.',
         tipLabel: 'Careful.', tip: 'Dismissing is not declining. The next reload picks the new scan up.' },
       { title: 'If the request will not queue', fig: 'dlgDiag', dialog: 'diagnostics', t: [752, 455],
@@ -413,7 +431,7 @@ export function transformGuide(src) {
         caption: 'Diagnostics: TurfRad access, scan data, last scan date.' }
     ],
     verify: [
-      'You know the toolbar can request a scan, not only display the last one.',
+      'You know the toolbar can fetch the latest scan data from TurfRad, not only display what was last retrieved.',
       'You can tell Request latest scan data from Reload Data.',
       'You know Dismiss leaves the dashboard on the data it already had.'
     ]
@@ -423,14 +441,14 @@ export function transformGuide(src) {
     where: 'Table toolbar',
     summary: 'The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.',
     before: [
-      'The filter reads the suggested percentage, and only for stations that are enabled. A disabled station never appears in it however extreme its number.'
+      'The filter reads the suggested percentage, and only for stations that are enabled. A disabled station is never caught by its own number, however extreme; it appears only as part of a paired row whose enabled partner is caught.'
     ],
     steps: [
       { title: 'Read the two tabs', fig: 'tableTop', t: [1148, 414],
         body: 'All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches. Until you set a filter that count is a dash and the tab does nothing — it is not broken, there is simply nothing to show yet.',
         caption: 'Two tabs: All Stations, and the Over/Under count.' },
       { title: 'Open the options', fig: 'tableTop', t: [1330, 464],
-        body: 'The link to the right of the table toolbar states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.',
+        body: 'The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.',
         caption: 'The link doubles as a readout of the current thresholds.' },
       { title: 'Set the two ends independently', fig: 'dlgSmall', dialog: 'filter', t: [960, 470],
         body: 'Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10. Each has its own checkbox, so you can run one end without the other — Over alone to find the stations asking for far too much, Under alone to find the ones asking for almost nothing.',
@@ -483,7 +501,7 @@ export function transformGuide(src) {
     name: 'catalogue entry: request-scan-data',
     pattern: /(\{ key: 'push-failures', title: 'Push failures', minutes: '3 MIN', difficulty: 3, summary: 'Reading the failure count and retrying safely\.' \})/,
     replace: `$1,
-    { key: 'request-scan-data', title: 'Get fresh scan data', minutes: '3 MIN', difficulty: 2, summary: 'Request a new TurfRad scan rather than waiting for one.' }`,
+    { key: 'request-scan-data', title: 'Get fresh scan data', minutes: '3 MIN', difficulty: 2, summary: 'Fetch the latest TurfRad scan data now rather than waiting for the next automatic retrieval.' }`,
   });
 
   s = edit(s, {
@@ -521,13 +539,13 @@ export function transformGuide(src) {
     replace: `$1
     const _saRole = 'button';
     const _saLabel = live
-      ? t.title + ' — ' + t.minutes + ', difficulty ' + t.difficulty + ' of 3'
+      ? t.title + ' — ' + (t.newInIntelliDash ? '${NEW_LABEL}, ' : '') + t.minutes + ', difficulty ' + t.difficulty + ' of 3'
       : t.title + ' — not written yet. Activate to request it.';`,
   });
   s = edit(s, {
     name: 'buildCard returned fields',
     pattern: /(\n\s*)(dots: '●'\.repeat\(t\.difficulty\) \+ '○'\.repeat\(3 - t\.difficulty\),)/,
-    replace: `$1$2$1difficultyLabel: 'Difficulty ' + t.difficulty + ' of 3',$1stub: live ? 'false' : 'true',$1role: _saRole,$1tabIndex: 0,$1ariaLabel: _saLabel,`,
+    replace: `$1$2$1difficultyLabel: 'Difficulty ' + t.difficulty + ' of 3',$1stub: live ? 'false' : 'true',$1role: _saRole,$1tabIndex: 0,$1ariaLabel: _saLabel,$1isNew: !!t.newInIntelliDash,`,
   });
 
   // --- logic: announcement string ---------------------------------------------
@@ -622,63 +640,87 @@ export function transformGuide(src) {
   });
 
 
-  // 8. Target Profiles is not a "design concept" any more, and the guides should stop saying so.
-  //    Documenting ahead of ship is deliberate here — this is a pilot, and the expectation is
-  //    that dev features reach production before the guides do. So the disclaimer is NOT there to
-  //    warn the reader off; it is there to be accurate, and it currently is not:
+  // 8. The Target Profiles notes. The export calls the feature "a design concept" whose tab is a
+  //    "placeholder … not reachable in the shipping build". An earlier pass replaced that with
+  //    "still in development and is not in the shipping build yet", which the claims ledger then
+  //    marked Wrong (creating-profiles, seasonal-profiles, updating-profiles and target-profiles,
+  //    note/1 and note/2): at the IntelliDash production pin the settings dialog lists Target
+  //    Profiles unconditionally (sa-settings-dlg.component.ts:55) and its pane renders
+  //    (sa-settings-dlg.component.html:177-226). The entry is absent from every earlier release
+  //    branch, so the feature is new rather than long-standing.
   //
-  //      "The tab exists in the codebase as a commented-out placeholder"
+  //    The callout now carries the label "New in IntelliDash." (see the 'note callout' edits
+  //    below), and the notes say what the shipped tab holds, so a reader can match the screen to
+  //    the guide. The last sentence covers a reader whose IntelliDash predates the release, and it
+  //    stays true whichever release they are on. docs/text-corrections.md §11 gives the
+  //    evidence; docs/claims/sources.json records the production pin and its confirmation. When
+  //    the feature stops being new, or if the pin is ever re-pointed at a build without it,
+  //    NEW_LABEL, TP_NOTE and TP_NOTE_WALKTHROUGH at the top of this file are the strings to change.
   //
-  //    It is commented out on the shipping branch but fully implemented on a feature branch —
-  //    model, icons, styling, i18n key, and client plus server API integration. Calling that a
-  //    placeholder
-  //    undersells a feature someone is actively building, and it is the kind of claim that ages
-  //    into a lie the moment the branch merges.
-  //
-  //    What the reader gains instead: a heads-up that the shipped tab lists five named slots, so
-  //    a screen that does not look like these figures is expected rather than a fault. The
-  //    figures themselves still disagree with the implementation — three cards with ACTIVE badges
-  //    versus a five-row table with Last Updated, Update from Current and Apply Profile — and no
-  //    disclaimer fixes that. It needs the guides reconciling once that branch merges.
-  //    Tracker IDs are deliberately absent: this repository is public, and a superintendent
-  //    does not care which work item it was.
+  //    Tracker IDs are deliberately absent: this repository is public.
   s = edit(s, {
     name: 'target profiles disclaimer: commented-out placeholder claim',
     pattern: /Target Profiles is a design concept\. The tab exists in the codebase as a commented-out placeholder and is not reachable in the shipping build\./g,
-    replace: 'Target Profiles is still in development and is not in the shipping build yet. '
-      + 'The screens here show a proposed design; the tab being built lists five named profile '
-      + 'slots, so what you see on your own screen may differ.',
+    replace: TP_NOTE,
     expected: 3,
   });
 
   s = edit(s, {
     name: 'target profiles disclaimer: placeholder claim, walkthrough variant',
     pattern: /Target Profiles is a design concept\. The tab exists in the codebase as a placeholder and is not reachable in the shipping build — the screens below show the proposed behaviour\./,
-    replace: 'Target Profiles is still in development and is not in the shipping build yet — the '
-      + 'screens below show a proposed design, which the tab being built does not yet match.',
+    replace: TP_NOTE_WALKTHROUGH,
   });
 
   s = edit(s, {
     name: 'target profiles catalogue card subtitle',
     pattern: /Concept — saved sets of station targets\./,
-    replace: 'In development — saved sets of station targets.',
+    replace: 'New in IntelliDash — saved sets of station targets.',
     // The catalogue section is now authored as "Targets", so this legacy subtitle may be absent.
     expected: 0,
+  });
+
+  //    The note callout is labelled "Concept." in the export, a word that now contradicts every
+  //    note it introduces. A guide carrying the newInIntelliDash flag (set on the four Target
+  //    Profiles guides by src/transforms/corrections.mjs) gets the label "New in IntelliDash." and
+  //    any other note gets "Note.", which the locale catalogues already translate. The callout is a
+  //    role="note" landmark with an accent rule, so it reads as a banner ahead of step 1 rather
+  //    than as part of the header. The note text says what the shipped tab holds and what a reader
+  //    whose IntelliDash predates the release will see, so it follows the label without repeating it.
+  s = edit(s, {
+    name: 'note callout: banner label and role',
+    pattern: /<div style="margin-top:24px;padding:16px 20px;border-radius:8px;background:var\(--05\);box-shadow:inset 0 0 0 1px var\(--20\);(font-size:14px;line-height:1\.6;color:var\(--60\))"><span style="font-weight:700;color:var\(--informative-03\)">Concept\.<\/span> \{\{ guide\.note \}\}<\/div>/,
+    replace: '<div role="note" style="margin-top:24px;padding:16px 20px;border-radius:8px;background:var(--05);'
+      + 'box-shadow:inset 0 0 0 1px var(--20),inset 4px 0 0 var(--informative-03);$1">'
+      + '<span style="font-weight:700;color:var(--informative-03)">{{ guide.noteLabel }}</span> {{ guide.note }}</div>',
+  });
+  s = edit(s, {
+    name: 'note callout: label in the guide view-model',
+    pattern: /hasNote: !!g\.note, note: g\.note \|\| '',/,
+    replace: `hasNote: !!g.note, note: g.note || '', noteLabel: g.newInIntelliDash ? '${NEW_LABEL}.' : 'Note.',`,
+  });
+
+  //    The catalogue tile carries the same label as a text badge above the title, so it does not
+  //    rely on colour, and the card's accessible name includes it ('buildCard metadata' above):
+  //    the card's aria-label replaces its content for a screen reader, so a badge outside the
+  //    label would never be heard.
+  s = edit(s, {
+    name: 'catalogue tile: new in IntelliDash badge',
+    pattern: /(\n(\s*))(<div style="font-size:17px;font-weight:700;line-height:1\.25;letter-spacing:-0\.2px;margin-bottom:8px;text-wrap:pretty">\{\{ task\.title \}\}<\/div>)/,
+    replace: `$1<sc-if value="{{ task.isNew }}" hint-placeholder-val="{{ false }}">`
+      + `<span style="display:inline-block;align-self:flex-start;margin-bottom:8px;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700;letter-spacing:0.5px;line-height:1.5;color:var(--informative-03);box-shadow:inset 0 0 0 1px var(--informative-03)">${NEW_LABEL}</span>`
+      + `</sc-if>$1$3`,
   });
 
   // 9. The diagnostics dialog does not open by clicking the logo. It needs a modifier chord, and
   //    the guide sends a reader to click plainly — in the middle of troubleshooting a failed
   //    push, which is the worst moment to hand someone a gesture that does nothing.
   //
-  //      site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts:290
-  //        protected onShowDiagnostics(event: MouseEvent) {
-  //            if (!this.hasFailedToLoadLynxData && this.lynxProxyService.currentLynxCloudCourseInfo == null) { return; }
-  //            if (event.shiftKey && event.altKey) { this.showDiagDlg = true; }
-  //        }
-  //
-  //    Two gates, not one: Shift AND Alt held while clicking, and it returns early unless Lynx
-  //    data actually failed to load. The second is worth stating rather than hiding — a reader who
-  //    tries the chord on a healthy dashboard gets nothing and concludes the guide is wrong again.
+  //    The logo's click handler opens the dialog only while Shift and Alt are both held
+  //    (components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts:293-299). It also
+  //    does nothing until Spatial Adjust has either loaded the Lynx course or failed to load
+  //    Lynx data (:294), so on a healthy dashboard the chord works a second or so after the page
+  //    loads. An earlier version of this comment read that second gate backwards, as working only
+  //    after a failure; the claims ledger caught it (docs/text-corrections.md §27).
   //
   //    The corpus already documents "Soil Factor Editor, opened with Shift + Alt on the toolbar
   //    gear", so the authors knew this product hides things behind that chord; this one was just
@@ -688,8 +730,8 @@ export function transformGuide(src) {
     name: 'diagnostics dialog trigger',
     pattern: /open the diagnostics dialog by clicking the Spatial Adjust logo\./,
     replace: 'open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo. '
-      + 'It only opens once Lynx data has failed to load, which is exactly when you would want it — '
-      + 'on a healthy dashboard the chord does nothing.',
+      + 'It opens on a healthy dashboard once Spatial Adjust has contacted Lynx, which happens a second '
+      + 'or so after the page loads, and it also opens when Lynx data has failed to load.',
   });
 
   // 10. Two cursor targets in bulk-adjustments point at the wrong control.
@@ -765,6 +807,16 @@ export function transformGuide(src) {
     name: 'reviewing-changes step 2 points at the Changes column, not a row gap',
     pattern: /'reviewing-changes': \[P\.push, P\.pushRow, P\.pushOldRow/,
     replace: "'reviewing-changes': [P.push, [958, 229], P.pushOldRow",
+  });
+
+  // The settings rail now lists Target Profiles on every tab, as the product does (see "settings
+  // rail always lists Target Profiles" in src/transform-app.mjs), so Preferences is the fourth
+  // entry rather than the third. Its cursor target moves down one 58 px rail row with it; left at
+  // [666, 508] it would land on Target Profiles. docs/text-corrections.md section 30.
+  s = edit(s, {
+    name: 'settings rail: Preferences cursor below Target Profiles',
+    pattern: /menuPrefs: \[666, 508\]/,
+    replace: 'menuPrefs: [666, 566]',
   });
 
   // --- click marker ------------------------------------------------------------
