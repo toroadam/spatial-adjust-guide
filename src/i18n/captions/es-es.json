@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "note": "Machine translation of the video caption cues in src/i18n/captions/en-us.json. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json, and a cue that names a guide step uses that step heading's translation from the page catalogue. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and step-label agreement. NOT reviewed by a native speaker. Regenerate keys with scripts/media-cues.mjs after any change to an English caption track.",
+    "locale": "es-es",
+    "strings": 4,
+    "identicalToEnglish": 0,
+    "machineValidated": true,
+    "nativeSpeakerReviewed": false,
+    "nativeReviewPlanned": false
+  },
+  "strings": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": "Un marcador escaneado hoy se colorea según la banda de humedad en la que cae su lectura,",
+    "as the legend shows.": "como muestra la leyenda.",
+    "Each sprinkler of a station scanned in the past seven days is a pin.": "Cada aspersor de una estación escaneada en los últimos siete días es un marcador.",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Toda la función Spatial Adjust vive en una sola pantalla. Así se lee su mapa."
+  }
+}
