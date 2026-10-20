@@ -10,6 +10,7 @@
 // Usage: node scripts/extract-strings.mjs <url> [--out src/i18n/en-us.json]
 import { chromium } from 'playwright';
 import { writeFile } from 'node:fs/promises';
+import { installMediaFixture, FIXTURE_PREFIX } from './lib/media-fixture.mjs';
 
 const url = (process.argv[2] || 'http://localhost:8124/').replace(/\/$/, '');
 const outIdx = process.argv.indexOf('--out');
@@ -56,7 +57,11 @@ const harvest = (context) => page.evaluate(() => {
     // .sa-app is harvested separately by scripts/app-strings.mjs, which resolves most of its
     // labels from IntelliDash's own catalogues rather than translating them afresh. Excluding it
     // here keeps this catalogue to the guides' own prose.
-  const skip = (el) => !el || !!el.closest('.sa-app, script, style, noscript');
+    // .lsa-media-transcript-body holds the video's caption cues, which live in their own
+    // catalogue (src/i18n/captions/) and are already localized when they are painted, so
+    // src/i18n-apply.js skips the same element. Only the body: the "Transcript" summary and the
+    // load-failure message sit beside it in the same <details> and are page strings.
+  const skip = (el) => !el || !!el.closest('.sa-app, .lsa-media-transcript-body, script, style, noscript');
   const found = { text: [], attrs: [] };
 
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -177,6 +182,43 @@ if (fab) {
   await page.click('.lsa-fb-cancel').catch(() => {});
 } else {
   process.stderr.write('  WARNING: feedback button not found — its strings will be absent\n');
+}
+
+// The video panel (src/media.js) only renders where the manifest has an item, and a build with no
+// released media ships an empty manifest, so the walk above never sees it. The same reason and the
+// same remedy as the Feedback button: the browser-test media fixture injects a manifest and answers
+// every media request locally, on the page's own origin. Its headings, the video's fallback text
+// (a text node inside <video>, picked up by the walk), the Transcript summary and the load-failure
+// message are page strings. The transcript body is caption text and is skipped by harvest().
+await installMediaFixture(page);
+const fresh = async (hash) => {
+  // A fresh document each time, for the reason given above, and because media.js caches a loaded
+  // transcript per URL for the life of the document.
+  await page.goto('about:blank');
+  await page.goto(`${url}/${hash}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1600);
+};
+const openTranscript = async (done) => {
+  await page.click('.lsa-media-transcript summary').catch(() => {});
+  await page.waitForSelector(done, { timeout: 4000 }).catch(() => {});
+  await page.waitForTimeout(200);
+};
+await fresh('');
+if (await page.$('.lsa-media')) await harvest('chrome');                  // the showcase heading
+else process.stderr.write('  WARNING: media panel not found on the catalogue — its strings will be absent\n');
+await fresh(`#/${GUIDES[0]}`);
+if (await page.$('.lsa-media')) {
+  await harvest('chrome');                                               // the episode heading
+  await openTranscript('.lsa-media-transcript-body p');
+  await harvest('chrome');                                               // Transcript, open
+  // Routes registered later win, so this answers the fixture's caption tracks with a 404 and the
+  // transcript fails the way it would against a missing release asset.
+  await page.route(`**/${FIXTURE_PREFIX}captions/**`, (r) => r.fulfill({ status: 404, contentType: 'text/plain', body: 'not found' }));
+  await fresh(`#/${GUIDES[0]}`);
+  await openTranscript('.lsa-media-transcript-error');
+  await harvest('chrome');                                               // the load-failure message
+} else {
+  process.stderr.write('  WARNING: media panel not found on a guide — its strings will be absent\n');
 }
 
 await browser.close();

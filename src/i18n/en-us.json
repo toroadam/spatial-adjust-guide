@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 987,
-    "words": 12194
+    "strings": 992,
+    "words": 12220
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -867,6 +867,7 @@
     "The targets in the table are unchanged by saving.": "The targets in the table are unchanged by saving.",
     "The threshold is a site-level setting. It applies to every user on the site, not just you.": "The threshold is a site-level setting. It applies to every user on the site, not just you.",
     "The threshold is applied when you push, not when the suggestion is calculated.": "The threshold is applied when you push, not when the suggestion is calculated.",
+    "The transcript could not be loaded.": "The transcript could not be loaded.",
     "The view is desktop and tablet only; phones are turned away by the route guard.": "The view is desktop and tablet only; phones are turned away by the route guard.",
     "The weather strip follows your temperature scale.": "The weather strip follows your temperature scale.",
     "The weather strip shows your temperature scale.": "The weather strip shows your temperature scale.",
@@ -891,6 +892,7 @@
     "Toolbar › Push Changes": "Toolbar › Push Changes",
     "Toolbar, left: site, course selector, weather strip and the course-wide moisture summary.": "Toolbar, left: site, course selector, weather strip and the course-wide moisture summary.",
     "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.": "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.",
+    "Transcript": "Transcript",
     "Treat the two lists differently": "Treat the two lists differently",
     "Troubleshooting": "Troubleshooting",
     "TROUBLESHOOTING": "TROUBLESHOOTING",
@@ -932,6 +934,8 @@
     "VWC is volumetric water content, expressed as a percentage of soil volume.": "VWC is volumetric water content, expressed as a percentage of soil volume.",
     "Walkthrough": "Walkthrough",
     "Watch for a modelled child": "Watch for a modelled child",
+    "Watch the Double Click": "Watch the Double Click",
+    "Watch the Spatial Adjust overview": "Watch the Spatial Adjust overview",
     "What targets mean, and how to set and manage them.": "What targets mean, and how to set and manage them.",
     "What the feature actually does: turn the latest moisture scan into today’s percent adjustment, and write it to Lynx when you push.": "What the feature actually does: turn the latest moisture scan into today’s percent adjustment, and write it to Lynx when you push.",
     "What the feature does and how the screen is laid out.": "What the feature does and how the screen is laid out.",
@@ -990,6 +994,7 @@
     "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.": "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.",
     "You reviewed the recalculated suggestions before pushing.": "You reviewed the recalculated suggestions before pushing.",
     "You supply the target": "You supply the target",
+    "Your browser cannot play this video. Read the transcript below.": "Your browser cannot play this video. Read the transcript below.",
     "Your comments": "Your comments",
     "Zero disables the feature": "Zero disables the feature",
     "Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash.": "Zero means the calculation asked for no water. It is not the same as a missing value, which shows as a dash."
@@ -3628,6 +3633,9 @@
     "The threshold is applied when you push, not when the suggestion is calculated.": [
       "threshold-questions"
     ],
+    "The transcript could not be loaded.": [
+      "chrome"
+    ],
     "The view is desktop and tablet only; phones are turned away by the route guard.": [
       "dashboard-overview",
       "chrome"
@@ -3715,6 +3723,9 @@
       "chrome"
     ],
     "Toro National Support Network. For help with Spatial Adjust, IntelliDash or a failed push to Lynx.": [
+      "chrome"
+    ],
+    "Transcript": [
       "chrome"
     ],
     "Treat the two lists differently": [
@@ -3866,6 +3877,12 @@
     ],
     "Watch for a modelled child": [
       "station-details"
+    ],
+    "Watch the Double Click": [
+      "chrome"
+    ],
+    "Watch the Spatial Adjust overview": [
+      "chrome"
     ],
     "What targets mean, and how to set and manage them.": [
       "catalog",
@@ -4059,6 +4076,9 @@
     ],
     "You supply the target": [
       "understand-spatial-adjust"
+    ],
+    "Your browser cannot play this video. Read the transcript below.": [
+      "chrome"
     ],
     "Your comments": [
       "chrome"
