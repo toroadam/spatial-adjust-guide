@@ -7,6 +7,7 @@
 //
 // Usage: node scripts/validate-locales.mjs [locale ...]
 import { readFile, readdir } from 'node:fs/promises';
+import { hardcodedLabels, markerProblems } from './lib/markers.mjs';
 
 const dir = 'src/i18n';
 const sourceCat = JSON.parse(await readFile(`${dir}/en-us.json`, 'utf8'));
@@ -34,16 +35,12 @@ const glossary = JSON.parse(await readFile(`${dir}/glossary.json`, 'utf8'));
 // means "reference" and is a product mistranslation; demanding the guides match it would have
 // told Thai readers to look for a tab labelled "reference" when their screen says "Preferences".
 // Seven findings said exactly that.
-const hardcoded = new Set();
-try {
-  const dlg = await readFile(
-    '/Users/adammunir/IntelliDash/site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts',
-    'utf8');
-  for (const m of dlg.matchAll(/new SaDlgMenuItem\('([^']+)',\s*'([^']+)'/g)) {
-    hardcoded.add(m[1]);
-    hardcoded.add(m[2]);
-  }
-} catch { /* no checkout: nothing known to be hardcoded */ }
+//
+// The list comes from the committed fixture src/i18n/product-labels.json (surfaces.settings.menu),
+// with a local IntelliDash checkout read as an addition (scripts/lib/markers.mjs). It used to come
+// from the checkout alone, so CI, which has none, knew of no hardcoded label and reached a
+// different verdict from a laptop. The markerDrift gate below depends on it, so it cannot differ.
+const hardcoded = hardcodedLabels();
 const only = process.argv.slice(2);
 const locales = (await readdir(dir))
   .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json')
@@ -57,7 +54,9 @@ const PROTECTED = ['Toro', 'IntelliDash', 'Spatial Adjust', 'Lynx', 'TurfRad', '
 // and a lost ÷ or × breaks a formula. Deliberately excludes — and %: Romance languages routinely
 // render an em dash as a colon, and Chinese spells "% Adj." out as 调整百分比 rather than using the
 // glyph. Both are correct, and flagging them buries the real defects.
-const STRUCTURAL = ['←', '→', '…', '›', '÷', '×'];
+// [[ and ]] delimit an on-screen label in a rewritten step (docs/writing-guide.md > Label markers);
+// markerDrift below checks the labels themselves.
+const STRUCTURAL = ['←', '→', '…', '›', '÷', '×', '[[', ']]'];
 
 // Legitimately identical across languages — a URL, a trademark line, a duration code. Short strings
 // are exempt too: "Concept.", "START" and "2 minutes" are real words in several target languages,
@@ -129,7 +128,7 @@ let advisory = 0;
 for (const locale of locales) {
   const data = JSON.parse(await readFile(`${dir}/${locale}.json`, 'utf8'));
   const t = data.strings;
-  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [], screenLabelDrift: [] };
+  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [], markerDrift: [], screenLabelDrift: [] };
 
   for (const [en, tr] of Object.entries(t)) {
     if (!tr || !String(tr).trim()) { issues.empty.push(en.slice(0, 50)); continue; }
@@ -177,6 +176,20 @@ for (const locale of locales) {
       if (!present(tr, t[label])) {
         issues.screenLabelDrift.push(`${en.slice(0, 40)} :: should name "${t[label]}"`);
       }
+    }
+  }
+
+  // markerDrift, a GATE. A rewritten step names each control as [[Exact Label]], and the renderer
+  // shows whatever is inside the brackets in bold, as the thing to find on screen. So a translation
+  // must keep every marker, and each marker must hold the label the reader's screen shows in this
+  // locale: English for a label IntelliDash hardcodes, otherwise the locale's translation of the
+  // screen label (scripts/lib/markers.mjs > expectedLabel). A marker that drifts is worse than
+  // prose that drifts, because it is drawn as the exact label.
+  const markerCtx = { t, screen: SCREEN, glossary: glossary[locale] || {}, hardcoded };
+  for (const [en, tr] of Object.entries(t)) {
+    if (!en.includes('[[') && !String(tr).includes('[[')) continue;
+    for (const p of markerProblems(en, String(tr), markerCtx)) {
+      issues.markerDrift.push(`${en.slice(0, 50)} :: ${p}`);
     }
   }
 
