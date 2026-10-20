@@ -391,6 +391,7 @@ Checked against:
 
 The cursor target is unchanged: `TARGETS['minimum-threshold'][1]` is `P.menuThresh`, the rail
 entry that `do` names. The step count is unchanged, so `TARGETS` needs no edit.
+Readability: grade 5.1.
 
 ### Example 2: Push changes to Lynx, step 1
 
@@ -436,7 +437,7 @@ Checked against:
 
 No `why`: the count needs no concept to act on. The sentence about stations already pushed today
 moves to step 2, where the Pushed Today list is on screen. The cursor target is
-`TARGETS['push-to-lynx'][0]`, `P.push`, the button that `do` names.
+`TARGETS['push-to-lynx'][0]`, `P.push`, the button that `do` names. Readability: grade 5.1.
 
 ### A region step
 
@@ -451,4 +452,5 @@ From Dashboard overview, step 2, where the reader looks at the map rather than a
 ```
 
 The pins and colours rest on ledger `dashboard-overview/2/2` and `dashboard-overview/2/3`. The way
-back points at the guide that fetches new scan data rather than explaining it again.
+back points at the guide that fetches new scan data rather than explaining it again. Readability:
+grade 3.5.
