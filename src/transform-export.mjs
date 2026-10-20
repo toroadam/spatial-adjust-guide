@@ -408,6 +408,36 @@ export function transformGuide(src) {
     replace: '<figure class="lsa-step-figure" style="margin:28px 0 0">',
   });
 
+  // --- each step's cursor target, exposed in the DOM ---------------------------
+  // The player resolves a step's target as TARGETS first, then the step's own `t`, then a hard
+  // default of [800, 500] that points at nothing in particular. The resolved point and WHICH of
+  // the three supplied it go on the player stage and on every article figure as data attributes,
+  // for two readers outside the export: src/player.js, which outlines the element under the point
+  // (the Double Click highlight), and scripts/cursor-target.mjs, which fails the build on a step
+  // that fell back to the default. Reporting the source directly is the point: inferring a
+  // fallback from the coordinates would miss a TARGETS entry that happens to be [800, 500].
+  // The point is in the reproduction's 1920x1080 design space, the space TARGETS is written in.
+  s = edit(s, {
+    name: 'cursor target: resolved point and its source in the step view-model',
+    pattern: exact("target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],"),
+    replace: () => "target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],\n"
+      + "          targetSrc: (TARGETS[key] && TARGETS[key][i]) ? 'targets' : (s.t ? 'step' : 'default'),\n"
+      + "          targetAttr: ((TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500]).join(','),",
+  });
+  s = edit(s, {
+    name: 'cursor target: data attributes on the player stage',
+    pattern: exact('<div ref="{{ setStageEl }}" style="{{ guide.player.stageStyle }}">'),
+    replace: () => '<div ref="{{ setStageEl }}" style="{{ guide.player.stageStyle }}" class="lsa-stage" '
+      + 'data-sa-target="{{ guide.player.step.targetAttr }}" data-sa-target-src="{{ guide.player.step.targetSrc }}" '
+      + 'data-sa-step="{{ guide.player.step.n }}">',
+  });
+  s = edit(s, {
+    name: 'cursor target: data attributes on each article figure',
+    pattern: exact('<figure class="lsa-step-figure" style="margin:28px 0 0">'),
+    replace: () => '<figure class="lsa-step-figure" style="margin:28px 0 0" '
+      + 'data-sa-target="{{ step.targetAttr }}" data-sa-target-src="{{ step.targetSrc }}" data-sa-step="{{ step.n }}">',
+  });
+
   // --- keyboard semantics on the div-based controls ---------------------------
   // The brand control puts style before onClick, so it needs its own anchor.
   s = edit(s, {
