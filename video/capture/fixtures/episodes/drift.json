@@ -1,0 +1,32 @@
+{
+  "id": "capture-fixture-drift",
+  "title": "Fixture: a selector that drifted onto Push changes",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [
+    5,
+    30
+  ],
+  "source": "demo",
+  "mapPolicy": "blur",
+  "allowClicks": [
+    "Zoom in"
+  ],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [],
+  "beats": [
+    {
+      "id": "act",
+      "hold": 2,
+      "actions": [
+        {
+          "type": "click",
+          "target": "css=#primary-action",
+          "name": "Zoom in"
+        }
+      ]
+    }
+  ]
+}

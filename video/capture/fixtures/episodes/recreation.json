@@ -1,0 +1,52 @@
+{
+  "id": "capture-fixture-recreation",
+  "title": "Fixture: a shot from the local recreation",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [
+    5,
+    30
+  ],
+  "source": "recreation",
+  "mapPolicy": "restyle",
+  "allowClicks": [
+    "Next step"
+  ],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [],
+  "recreationPath": "/#/dashboard-overview",
+  "beats": [
+    {
+      "id": "title",
+      "hold": 1.5,
+      "highlight": "role=heading[name=\"Dashboard overview\"]",
+      "actions": [
+        {
+          "type": "cue",
+          "id": "title"
+        }
+      ]
+    },
+    {
+      "id": "step",
+      "hold": 2,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "step"
+        },
+        {
+          "type": "click",
+          "target": "role=button[name=\"Next step\"]",
+          "name": "Next step"
+        },
+        {
+          "type": "wait",
+          "ms": 400
+        }
+      ]
+    }
+  ]
+}

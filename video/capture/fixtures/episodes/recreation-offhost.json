@@ -1,0 +1,30 @@
+{
+  "id": "capture-fixture-recreation-offhost",
+  "title": "Fixture: a recreation path that points at another host",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [
+    5,
+    30
+  ],
+  "source": "recreation",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [],
+  "recreationPath": "https://dev.example.invalid/spatialadjust",
+  "beats": [
+    {
+      "id": "title",
+      "hold": 1,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 100
+        }
+      ]
+    }
+  ]
+}

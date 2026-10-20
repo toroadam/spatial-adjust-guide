@@ -1,0 +1,32 @@
+{
+  "id": "capture-fixture-reload",
+  "title": "Fixture: a reload after arming",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [
+    5,
+    30
+  ],
+  "source": "demo",
+  "mapPolicy": "blur",
+  "allowClicks": [
+    "Refresh view"
+  ],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [],
+  "beats": [
+    {
+      "id": "act",
+      "hold": 2,
+      "actions": [
+        {
+          "type": "click",
+          "target": "role=button[name=\"Refresh view\"]",
+          "name": "Refresh view"
+        }
+      ]
+    }
+  ]
+}

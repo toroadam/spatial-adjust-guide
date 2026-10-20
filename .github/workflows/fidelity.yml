@@ -81,6 +81,14 @@ jobs:
       - name: Install Chromium for the cursor check
         run: npx playwright install --with-deps chromium
 
+      # The video capture director must fail closed: these drive it against a local fixture app
+      # and the local recreation, and assert each safety layer ends the take with its own exit
+      # code and that no write reaches the fixture server after arming. No IntelliDash, no
+      # credentials, no Python. Recorded takes are skipped here (they are a local check), so no
+      # media is produced; the safety reports go to the runner's media root and are discarded.
+      - name: Capture safety tests
+        run: node --test video/capture/gates.test.mjs video/capture/refusal.test.mjs video/capture/recreation.test.mjs video/capture/guarded-click.test.mjs video/lib/*.test.mjs
+
       - name: Cursor target check
         run: |
           npm run build

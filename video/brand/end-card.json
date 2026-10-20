@@ -1,0 +1,8 @@
+{
+  "$comment": "The end card of every Spatial Adjust video, drawn by video/edit/lib/cards.py end_card. The URL is decided at gate G4 (video/approvals.md; the options are in video/brand/end-card-options.md). end_card refuses to draw a final while G4 has no recorded decision, and in draft mode shows URL PENDING APPROVAL instead of the address. display is url without https:// and the trailing slash; video/edit/tests/test_end_card.py checks both against the latest G4 decision.",
+  "approval": "G4",
+  "url": "https://toroadam.github.io/spatial-adjust-guide/",
+  "display": "toroadam.github.io/spatial-adjust-guide",
+  "cta": "Explore the Spatial Adjust Guides",
+  "legal": "© 2026 The Toro Company. All rights reserved."
+}
