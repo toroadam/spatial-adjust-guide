@@ -14,7 +14,7 @@ Every episode goes through the same steps, in this order. Each step is one comma
 | 2 | Capture from IntelliDash `/demo` | `npm run video -- capture` | `<media root>/episodes/<id>/capture/raw/` |
 | 3 | Voice-over | `npm run video -- vo` | `<media root>/episodes/<id>/vo/` |
 | 4 | Build the timeline | `npm run video -- build` | `<media root>/episodes/<id>/edit/` |
-| 5 | Render | `npm run video -- render` | `<media root>/episodes/<id>/renders/` |
+| 5 | Render the picture, then mix and mux the audio | `npm run video -- render`, then `npm run video -- mix` | `<media root>/episodes/<id>/renders/` |
 | 6 | Verify: format, loudness, holds, OCR, captions, repository hygiene | `npm run video -- verify`, `ocr`, `captions`, `hygiene` | `<media root>/episodes/<id>/renders/` |
 | 7 | Decision and review | recorded in [`approvals.md`](approvals.md); reviewed in person (see rule 7) | repo |
 
@@ -29,7 +29,7 @@ Media (raw takes, VO, music, graphics, frames, renders) lives under the **media 
   .venv/          Python venv for the pipeline
   auth/           local browser profile and session material (mode 0700)
   bin/            compiled helpers (for example the OCR tool)
-  music/          licensed music
+  music/          the music bed (music.json names the file), licences/ for receipts
   logs/
   episodes/<id>/
     capture/raw/  raw takes
@@ -89,8 +89,9 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | `npm run video -- capture` | `video/capture/director.mjs` | Capture a take from IntelliDash `/demo` under three safety layers (`--dry-run` prints the plan and the click guard's verdicts without a browser); see [Capture](#capture) | PI-ICNT-SW-1078 |
 | `npm run video -- vo` | `video/vo/render-brian.py` | Render the episode voice-over in the Brian voice; `--dry-run` lists characters and credits without a network call (see [`vo/voice-settings.md`](vo/voice-settings.md)) | PI-ICNT-SW-1080 |
 | `npm run video -- estimate` | `video/vo/estimate.py` | Estimate characters and credits before rendering VO: one episode, the whole series, or the account's remaining credits (`--live`, counts only); see [`vo/series-estimate.md`](vo/series-estimate.md) | PI-ICNT-SW-1080 |
-| `npm run video -- build` | `video/edit/build.py` | Build the timeline from episode, take and VO report | TBD (PI-ICNT-SW-1083) |
+| `npm run video -- build` | `video/edit/build.py` | Build the timeline from episode, take and VO report (`--episode <episode.json> --take N [--draft \| --final] [--source demo\|recreation]`): chapters cut on the take's cues, VO on its cues, the title, chapter and end cards, the music re-cut on its bar grid; gates checked first (exit 3 `missing approval: G..`). Writes `edit/timeline.json` and `edit/edl.json`; see [`episodes/README.md`](episodes/README.md#how-the-builder-reads-an-episode) | PI-ICNT-SW-1083 |
 | `npm run video -- render` | `video/edit/render.py` | Render a timeline to H.264 High, yuv420p, 60 fps (`--timeline <json>`, `--from`/`--to`, `--still t --out png`) | PI-ICNT-SW-1077 |
+| `npm run video -- mix` | `video/edit/mix.py` | Mix VO, SFX and the music bed to -14 LUFS (music 3 dB under the VO, ducked 9 dB while it speaks; true peak at or below -1 dBTP) and mux it with the rendered picture as AAC 48 kHz stereo (`--timeline <json> [--no-mux] [--stems]`; `--check-music <file>`). Refuses the unlicensed iCentral preview track before any audio is read; SFX sources in [`brand/sfx.md`](brand/sfx.md) | PI-ICNT-SW-1083 |
 | `npm run video -- style-frame` | `video/edit/style_frame.py` | Render the style frame for gate G3 (`--version v1`): eight stills, `sheet.jpg` and `manifest.json` under `<media root>/style-frames/<version>/`, the window shot on a still of the guide site's recreation (see [`brand/style-frame-notes.md`](brand/style-frame-notes.md)) | PI-ICNT-SW-1081 |
 | `npm run video -- verify` | `video/verify/verify.py` | Format, duration, loudness and true peak, label holds, VO overlap, black and frozen frames, and in final mode the music licence (`--render --timeline --episode [--draft]`); see [Verify](#verify) | PI-ICNT-SW-1082 |
 | `npm run video -- ocr` | `video/verify/ocr_check.py` | OCR sampled frames against the denylist, on macOS (`--render --timeline [--every 0.5] [--keep-frames]`) | PI-ICNT-SW-1082 |
@@ -104,10 +105,10 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | `bin/sa-video` | The dispatcher |
 | `lib/` | Shared code for Node and Python: media root guard, local maps loader, ElevenLabs key resolver, episode schema |
 | `capture/` | Fictional course overlay (`course-overlay.js`: `window.__saOverlayInstall(pairs, identity)`, `window.__saOverlay.scan(denylist)`) and map treatment (`map-routes.mjs`: `installMapRoutes(page, mapPolicy)`, GET-only tile substitution; `map-treatment.js`; `node video/capture/map-still.mjs` renders a still of a policy to `<media root>/episodes/_stills/`). Capture director (`director.mjs`), its in-page runtime (`director-runtime.js`), safety gates (`gates.mjs`), recorder (`record.mjs`), the recreation runner (`recreation.mjs`) and the Demo Mode audit ([`SAFETY.md`](capture/SAFETY.md)) (PI-ICNT-SW-1078) |
-| `edit/` | Compositor (`lib/`: engine, wallpaper, camera planners, timeline builder, layer registry, `theme.py`), text graphics (`gfx/render_gfx.mjs`) and `render.py`, ported from iCentral MarCom; provenance in [`edit/NOTES.md`](edit/NOTES.md). Builder and audio mix TBD (PI-ICNT-SW-1083) |
+| `edit/` | Compositor (`lib/`: engine, wallpaper, camera planners, timeline builder, layer registry, `theme.py`), text graphics (`gfx/render_gfx.mjs`) and `render.py`, ported from iCentral MarCom; provenance in [`edit/NOTES.md`](edit/NOTES.md). The builder `build.py` and the audio (`mix.py`; `audio/`: the mixer, the original music bed `music_bed.py` and `loop_points.py`), PI-ICNT-SW-1083 |
 | `vo/` | Brian voice renderer, lexicon, voice settings and loudness target, credits log and estimates. Needs only `python3` and ffmpeg (PI-ICNT-SW-1080) |
 | `verify/` | The release gate: `verify.py`, the OCR check (`ocr.swift`, built to `<media root>/bin/sa-ocr`, and `ocr_check.py`), `captions.py` (PI-ICNT-SW-1082; provenance in [`verify/NOTES.md`](verify/NOTES.md)), and the repository hygiene check (`hygiene.mjs`) |
-| `brand/` | Course identity: `course.json` is the only definition of the fictional course for the pipeline (gate G1; proposal in `course-proposal.md`; `course.test.mjs` checks the guides' allowlists still accept it). Motion system: [`motion-system.md`](brand/motion-system.md), mirrored by `edit/lib/brand.py`. End card: `end-card.json` (URL decided at gate G4; options in `end-card-options.md`). Style frame notes for gate G3: `style-frame-notes.md`. Music record TBD (PI-ICNT-SW-1083) |
+| `brand/` | Course identity: `course.json` is the only definition of the fictional course for the pipeline (gate G1; proposal in `course-proposal.md`; `course.test.mjs` checks the guides' allowlists still accept it). Motion system: [`motion-system.md`](brand/motion-system.md), mirrored by `edit/lib/brand.py`. End card: `end-card.json` (URL decided at gate G4; options in `end-card-options.md`). Style frame notes for gate G3: `style-frame-notes.md`. Music: `music.json`, the bed every video uses, with its SHA-256, bar grid and licence (gate G5; options in `music-shortlist.md`); SFX sources and levels: `sfx.md` |
 | `episodes/` | One folder per episode (`episode.json`, `script.md`); see [`episodes/README.md`](episodes/README.md) |
 | `approvals.md` | The owner approvals log |
 | `requirements.txt` | Python packages for the venv at the media root |
