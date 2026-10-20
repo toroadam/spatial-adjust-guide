@@ -1,0 +1,71 @@
+{
+  "_meta": {
+    "note": "The eight terms defined at their first use in each guide (docs/writing-guide.md > Why lines and the glossary). build.mjs injects id, term, match, caseSensitive and definition as window.__saTerms; src/transform-export.mjs (glossary at point of use) finds each term's first use per guide in the English source, outside [[label]] markers and as a whole word, and renders the definition there. `match` lists the spellings that count as a use; `caseSensitive` is true only for the two acronyms. Each definition is one sentence at Flesch-Kincaid grade 8 or below, and `ledger` lists the Verified claims in docs/claims/claims.json that back it. The term and definition are catalogue strings, translated like any other text on the page: changing one orphans its translation in ten locales. This is not src/i18n/glossary.json, which is IntelliDash terminology for translators and is never shipped. npm run test:shape checks this file."
+  },
+  "terms": [
+    {
+      "id": "vwc",
+      "term": "VWC",
+      "match": ["VWC"],
+      "caseSensitive": true,
+      "definition": "Volumetric water content: how much of the soil is water, as a percent.",
+      "ledger": ["understand-spatial-adjust/2/3", "understanding-vwc/tile/2", "understand-spatial-adjust/3/3"]
+    },
+    {
+      "id": "et",
+      "term": "ET",
+      "match": ["ET"],
+      "caseSensitive": true,
+      "definition": "Evapotranspiration: the water your turf and soil lose to the air each day.",
+      "ledger": ["dashboard-overview/1/3", "dashboard-overview/1/4", "calculation-settings/4/2"]
+    },
+    {
+      "id": "delta",
+      "term": "Delta",
+      "match": ["delta"],
+      "caseSensitive": false,
+      "definition": "The target minus the station's moisture: the gap the suggestion tries to close.",
+      "ledger": ["understanding-vwc/4/1", "understanding-vwc/4/2", "seasonal-profiles/3/2"]
+    },
+    {
+      "id": "lynx-reference-amount",
+      "term": "Lynx Reference Amount",
+      "match": ["Lynx Reference Amount"],
+      "caseSensitive": false,
+      "definition": "The amount of water a station applies at 100 percent.",
+      "ledger": ["calculation-settings/3/1", "calculation-settings/3/2", "calculation-settings/3/3"]
+    },
+    {
+      "id": "aggregate-row",
+      "term": "Aggregate row",
+      "match": ["aggregate row", "aggregate rows"],
+      "caseSensitive": false,
+      "definition": "A hole or area row in the table, which shows the average of the rows under it.",
+      "ledger": ["understanding-vwc/5/1", "understanding-vwc/5/2"]
+    },
+    {
+      "id": "measured",
+      "term": "Measured",
+      "match": ["measured"],
+      "caseSensitive": false,
+      "definition": "Read from a TurfRad moisture scan taken today, and shown in plain black text.",
+      "ledger": ["understanding-vwc/1/2", "understanding-vwc/1/3", "understanding-vwc/1/5", "understanding-vwc/tile/2"]
+    },
+    {
+      "id": "modelled",
+      "term": "Modelled",
+      "match": ["modelled", "modeled"],
+      "caseSensitive": false,
+      "definition": "From the model when there was no scan that day, shown in grey italics with a calculator icon.",
+      "ledger": ["dashboard-overview/4/7", "calculation-questions/before/1", "understanding-vwc/2/2", "understanding-vwc/2/3"]
+    },
+    {
+      "id": "target",
+      "term": "Target",
+      "match": ["target", "targets"],
+      "caseSensitive": false,
+      "definition": "The VWC you want a station to hold, which you set from 0 to 50 percent.",
+      "ledger": ["understand-spatial-adjust/3/2", "understand-spatial-adjust/3/3", "understanding-vwc/3/2"]
+    }
+  ]
+}
