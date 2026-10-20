@@ -8,3 +8,7 @@ from the account, and never the key, is ever written here.
 | Date | Episode | Lines sent | Characters sent | Credits remaining before -> after |
 |---|---|---|---|---|
 | 2026-10-19 19:59 | vo-lexicon-check | 1 | 199 | 357634 -> 357546 |
+| 2026-10-20 09:53 | understand-spatial-adjust | 11 | 1118 | 357437 -> 355147 |
+| 2026-10-20 09:53 | map-navigation | 11 | 1178 | 357437 -> 355147 |
+| 2026-10-20 09:53 | understanding-vwc | 11 | 1228 | 357437 -> 355147 |
+| 2026-10-20 09:53 | dashboard-overview | 11 | 1675 | 357437 -> 355147 |
