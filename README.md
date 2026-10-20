@@ -65,16 +65,22 @@ Adding a new imported component still means adding its name to `COMPONENTS` in `
 
 | Command | What it checks |
 |---|---|
-| `npm test` | Boots the built bundle in Chromium with all external hosts blocked. Asserts the catalog renders 24 cards, a guide opens, the imported app component mounts, and there are zero external requests and zero console errors. |
-| `npm run test:guides` | Discovers every guide from the page and walks all 24, stepping through each and fingerprinting the rendered DOM. Used to prove a change is render-neutral — diff against a known-good run. |
+| `npm test` | Boots the built bundle in Chromium with all external hosts blocked. Asserts the catalog's card count is the number of guides `src/release.json` ships in this mode, a guide opens, the imported app component mounts, and there are zero external requests and zero console errors. |
+| `npm run test:guides` | Discovers every guide from the page and walks each one the build ships, stepping through each and fingerprinting the rendered DOM. Used to prove a change is render-neutral — diff against a known-good run. |
 | `npm run test:keyboard` | Drives the interface: tab to a card, Enter to open, Space on Next, and asserts the live region changed. |
 | `npm run test:routing` | Deep links, Back/Forward, and an unknown key falling back to the catalog. |
 | `npm run test:a11y` | axe-core on the catalog and inside a guide, plus a keyboard-reachability probe. |
 | `npm run test:validate` | Mechanical validation of every catalogue against the English source: numbers, product names, structural characters, empties, and `Step N of M:` agreement with the standalone translation of its own tail. |
 | `npm run test:i18n` | Per shipped locale: that the words on screen actually change, that `<html lang>` agrees with what is served, and that a locale with no catalogue degrades to English rather than to a half-translated page. |
 | `npm run test:gate` | Drives the sign-in gate: that it hides the guides from `innerText`, rejects an outside domain and a lookalike (`nottoro.com`), admits a subdomain, persists the unlock across a reload, re-locks when storage is cleared, and is axe-clean. |
+| `npm run test:release` | Unit tests for `src/release.mjs` and `src/release.json`, with no browser: the committed release is valid against the guides, each kind of invalid release is rejected, `SA_SHOW_BETA` parses as documented, and the release gate removes, labels and fails as it should on the real export. |
+| `npm run test:leak` | The whole-`dist/` beta leak check (see **Beta content and the customer launch**). In a build made with `SA_SHOW_BETA=false`, any beta guide key, title, step or string in any file or locale fails it; with beta shown it reports and passes, and `npm run test:leak -- --expect-shown` also asserts the beta content is there. |
+| `npm run test:release-modes` | In the built page, every guide's steps number 1 to n alike in the player, the step rail, the contents and the written steps. With beta shown, the Beta badge, banner and step marker sit on exactly the beta items and render translated in all ten locales; with beta hidden, no Beta markup appears anywhere. |
+| `npm run release:status` | Compares `src/release.json` with the claims ledger and lists where they disagree. Advisory: it exits 0 unless given `--strict`. See [`docs/claims/README.md`](docs/claims/README.md#release-status). |
 
 The fingerprint harness verified the original port: output was **identical** between the Core Design export and the built bundle.
+
+`npm test`, `test:routing`, `test:release-modes` and `test:leak` follow `SA_SHOW_BETA` the way the build does: with beta hidden, the smoke test expects only the GA guides' cards and routing expects a beta guide's address to fall back to the catalog. Build and test with the same value. `.github/workflows/release-modes.yml` runs the suite in both modes on every push and pull request; see **Beta content and the customer launch**.
 
 ## Accessibility and responsive behaviour
 
@@ -91,7 +97,161 @@ Fourteen contrast failures remain inside `.sa-app`. That component is a faithful
 
 ## URL routing
 
-Each guide has its own address (`#/minimum-threshold`), so a guide can be linked to directly and the browser Back button returns to the catalog instead of leaving the site. The export kept the open guide purely in component state, which meant neither worked. An unknown key falls back to the catalog rather than rendering blank. Covered by `npm run test:routing`.
+Each guide has its own address (`#/minimum-threshold`), so a guide can be linked to directly and the browser Back button returns to the catalog instead of leaving the site. The export kept the open guide purely in component state, which meant neither worked. An unknown key falls back to the catalog rather than rendering blank. Covered by `npm run test:routing`. In a build without beta content, a beta guide's address falls back the same way, because the guide is not in the page at all (see **Beta content and the customer launch**).
+
+## Beta content and the customer launch
+
+The guides describe IntelliDash as it runs in production. Some Spatial Adjust behaviour exists only
+on develop and the beta environment, and not yet in production: that is **beta content**. The two
+builds are pinned in [`docs/claims/sources.json`](docs/claims/sources.json), and
+[`docs/claims/beta-surfaces.md`](docs/claims/beta-surfaces.md) classifies every commit that
+separates them and names each beta surface. Beta content is written into the guides so internal
+readers and the expert team can see it now, marked Beta, and one build-time setting removes it
+from the built site for customers until the feature ships.
+
+**What is beta: `src/release.json`.** One entry per guide key, `"status": "ga"` or `"beta"`, with a
+`basis` saying why. A GA guide can also hold beta `sections`: steps addressed by their exact step
+title, never by number, because numbers shift whenever a step is added or removed. A beta guide or
+section lists under `crossReferences` each sentence in a GA guide that names it
+(`{ "guide", "field", "text" }`), so that sentence leaves with it. Every build validates the file
+against the guides through `src/release.mjs`: a guide with no entry, a step title that matches no
+step or more than one, and a mention of a beta guide that is not registered all fail the build. As
+of 2026-10-20 all 26 guides are GA, and `calculation-questions` holds one beta section,
+`stale-scans-kept`: the step "A stale course keeps its last scans". The surfaces the reproduction
+cannot draw are under **Known gaps** as beta guide candidates.
+
+**The switch: `SA_SHOW_BETA`.** A plain environment variable, read by `build.mjs` at build time.
+Nothing in the build or the page depends on which host runs it.
+
+| `SA_SHOW_BETA` | The build |
+|---|---|
+| `true` or `1`, any letter case | Shows beta content, labelled: a Beta badge on a beta guide's catalogue tile, a banner at the top of a beta guide ("Beta. This feature is in testing and may change before it reaches your IntelliDash."), and an inline Beta marker on a beta step of a GA guide, all translated in the ten locales. |
+| unset or empty | The same as `true`. This default is for the internal and expert phase; see **The customer launch** below. |
+| `false` or `0`, any letter case | Removes beta content from `dist/`: each beta guide with its tile, cursor targets and the Next cards that point at it; each beta step of a GA guide, with the remaining steps renumbered; each registered cross-reference; and every catalogue string only beta content uses, from every locale. The page carries no Beta markup at all. |
+| anything else | Fails the build, so a typo in a pipeline cannot guess. |
+
+Removed, not hidden. CSS or a URL parameter would leave the content in the page source, and the
+sign-in gate is client-side (see **Sign-in gate**). The build records the mode in the page, as
+`<meta name="sa-release-mode" content="with-beta">` or `content="ga-only"`, and logs what it
+resolved:
+
+```
+release mode: beta removed (SA_SHOW_BETA="false"), release file src/release.json, 7 beta-only catalogue key(s) left out of the locale catalogues
+```
+
+Locally, `SA_SHOW_BETA=false npm start` builds and serves the customer site.
+
+**Where it is set today: GitHub Actions.** `.github/workflows/deploy.yml` passes the repository
+variable `SA_SHOW_BETA` (`${{ vars.SA_SHOW_BETA }}`) to the build whose `dist/` it publishes, and to
+the leak check that runs before the upload. It is a variable, not a secret: it is a setting, not a
+credential, and its value shows in the log. Until the variable exists GitHub passes an empty
+string, so the deploy shows beta content and logs `SA_SHOW_BETA=""`. To create or change it, open
+the repository's **Settings › Secrets and variables › Actions › Variables**, or run
+`gh variable set SA_SHOW_BETA --body false --repo toroadam/spatial-adjust-guide` with a token that
+may administer the repository. A new value applies to the next deploy run and needs no commit.
+
+**Where it will be set: Azure.** When the site moves to Azure behind Toro SSO, the pipeline that
+builds it sets the same variable and no code changes. Azure Pipelines exports each plain pipeline
+variable to scripts as an environment variable of the same name, so `SA_SHOW_BETA` reaches
+`build.mjs` as it is. A secret pipeline variable is not exported, so keep this one plain. A sketch,
+since no such pipeline exists yet:
+
+```yaml
+# azure-pipelines.yml (sketch)
+variables:
+  SA_SHOW_BETA: 'false'   # or define it in the pipeline's Variables panel, settable at queue time
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '22.x'
+  - script: npm ci && npx playwright install --with-deps chromium
+    displayName: Install
+  - script: npm test                  # build.mjs reads SA_SHOW_BETA and logs the release mode
+    displayName: Build dist/ and smoke test
+  - script: node scripts/beta-leak.mjs
+    displayName: Beta leak check      # the same check deploy.yml runs before its upload
+  # ...then publish dist/
+```
+
+Azure Static Web Apps works the same way: set `SA_SHOW_BETA` in the environment of whichever step
+builds `dist/`, either a build step like the one above or the Static Web Apps deploy task when that
+task runs the build. The application settings on a Static Web App's portal page are runtime settings
+for its API, and a static build never sees them.
+
+**The customer launch.** The pipeline that publishes the customer site, GitHub Actions now or Azure
+later, must set `SA_SHOW_BETA` explicitly. The empty default is for the internal and expert phase,
+and the published mode should never rest on it. To publish without beta content:
+
+1. Set the variable to `false`.
+2. Run the deploy: **Actions › Build and deploy to Pages › Run workflow**, or
+   `gh workflow run deploy.yml --ref main`. Start a new run rather than re-running an old one, so the
+   run reads the variable as it is now.
+3. In the run's log, the `npm test` step prints `release mode: beta removed (SA_SHOW_BETA="false")`
+   and the **Beta leak check** step ends `BETA LEAK: PASS (0 beta keys, titles or strings in …)`.
+4. On the live site, the page source carries `<meta name="sa-release-mode" content="ga-only">`, no
+   tile has a Beta badge, and a beta guide's address opens the catalogue. GitHub Pages can serve
+   the previous build for a few minutes after a deploy.
+
+**Bringing beta back**, for example to show the experts a new beta feature: set the variable to
+`true` and run the deploy again. The log then says `beta shown`. Deleting the variable has the same
+effect today, because empty means shown, but once customers use the site, set the value explicitly.
+
+**Releasing a feature.** When a beta feature reaches production, change its entry in
+`src/release.json`: a beta guide's `"status"` becomes `"ga"`, and a beta section's `"status"`
+becomes `"ga"`, or the section is removed. Delete its `crossReferences` in the same edit, because
+only beta content carries them (the build fails and says so if you forget), and point `basis` at the
+production evidence. The prose and its translations do not change: the catalogues are harvested from
+both modes, so they already hold every string either build renders, including the step numbers a
+released step brings back. The claims ledger does change. Re-check the feature's claims against
+production, because `npm run claims:lint` fails on a Verified (beta) claim in GA content and
+`npm run release:status` reports GA content that cites develop only, and re-pin
+`docs/claims/sources.json` if production has moved (see
+[`docs/claims/README.md`](docs/claims/README.md)). Then commit; the next deploy publishes the
+feature in both modes. New beta content goes the other way: it is written in
+`src/transforms/beta-content.mjs`, recorded in `src/release.json` and in `beta-surfaces.md`, and
+translated, in one change.
+
+**The leak check.** `scripts/beta-leak.mjs` (`npm run test:leak`) reads every file in `dist/` the
+way anyone who downloads the site could, and the deploy runs it before the upload. With
+`SA_SHOW_BETA=false` it fails on any beta guide key, in a file or in a file name; any beta guide's
+title, tile title or summary; any beta step title; the Beta badge, banner and their class names;
+every beta-only string, and each locale's translation of every catalogue key a build without beta
+leaves out; a catalogue whose tile count is not the GA guide count; a sitemap or media manifest that
+names a beta guide; a release file in `dist/`; and a `dist/` that was built in the other mode. Each
+hit names the file, what was found and its context. Everything it looks for is computed from
+`src/release.json` and the export, so there is no list to keep up to date. With beta shown it
+reports and passes, and `--expect-shown` asserts that the beta content and the badge are present.
+
+**Tests in both modes.** `.github/workflows/release-modes.yml` runs the suite on every push and pull
+request in four jobs: the real release shown and hidden, and a removal fixture shown and hidden.
+The fixture, `test/fixtures/release.fixture.json`, marks a whole guide and a middle step of a GA
+guide beta, so removal, Next-card cleanup and renumbering are exercised however small the real beta
+set is. It builds and tests only; what customers get is decided by the deploy's own build.
+`npm test`, `test:routing`, `test:release-modes` and `test:leak` read `SA_SHOW_BETA` as the build
+does, so build and test with the same value; `test:release-modes` and `test:leak` fail outright on a
+`dist/` built in the other mode. `test:validate`, `test:i18n` and `test:a11y` need no setting and
+check whichever build is served:
+
+```bash
+SA_SHOW_BETA=false npm test         # build without beta content, then the smoke test
+npm run serve &                     # the checks below drive the served dist/
+SA_SHOW_BETA=false npm run test:routing
+SA_SHOW_BETA=false npm run test:release-modes
+SA_SHOW_BETA=false npm run test:leak
+```
+
+`SA_RELEASE_FILE` points the build and the tests at another release file, such as the fixture. It
+is for tests only: no deploy sets it, and an empty value means `src/release.json`.
+
+**Who can read beta content.** Toro SSO on the Azure site will control who reaches the published
+site, and `SA_SHOW_BETA` controls which features a reader who gets in sees. Neither one controls
+this repository, whose visibility is a separate GitHub setting. The repository is public, so the
+beta prose in `src/transforms/beta-content.mjs` and the beta list in
+`docs/claims/beta-surfaces.md` are readable on GitHub whatever `SA_SHOW_BETA` says, like the rest
+of the source (see **Sign-in gate** and **Data**). That is accepted for the beta content written so
+far. Before writing beta content that must not be public, make the repository private, which is
+its own decision. Nothing confidential belongs in this repository, beta or not.
 
 ## Instrumentation and feedback
 
