@@ -1,0 +1,20 @@
+{
+  "id": "vo-lexicon-check",
+  "title": "Lexicon check: one line that says every lexicon term once",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [5, 15],
+  "source": "recreation",
+  "mapPolicy": "frame-out",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [
+    {
+      "id": "lexicon",
+      "text": "Pronunciation check: IntelliDash, Spatial Adjust, TurfRad, Lynx, Avg. VWC, today's ET, the % Adj. column, station 3AP1 in area AP, 17%, and a 10 mm cap."
+    }
+  ],
+  "beats": []
+}

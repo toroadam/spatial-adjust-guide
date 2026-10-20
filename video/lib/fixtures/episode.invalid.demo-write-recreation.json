@@ -1,0 +1,90 @@
+{
+  "id": "fixture-demo-write",
+  "title": "Read the map",
+  "guide": "dashboard-overview",
+  "status": "script-locked",
+  "durationTarget": [
+    20,
+    30
+  ],
+  "source": "recreation",
+  "mapPolicy": "blur",
+  "allowClicks": [],
+  "demoWriteClicks": [
+    {
+      "name": "Push Changes",
+      "target": "role=button[name=\"Push Changes\"]",
+      "reason": "Shows the Demo Mode unsupported message; Demo Mode blocks the push before any request is sent."
+    }
+  ],
+  "claims": [
+    "dashboard-overview/2/1",
+    "dashboard-overview/2/2"
+  ],
+  "chapters": [
+    {
+      "id": "map",
+      "label": "Read the map"
+    }
+  ],
+  "vo": [
+    {
+      "id": "vo-map-1",
+      "text": "Every station is a pin, coloured by its latest measured moisture.",
+      "claims": [
+        "dashboard-overview/2/2"
+      ]
+    }
+  ],
+  "beats": [
+    {
+      "id": "title",
+      "label": "Dashboard overview",
+      "hold": 3.5,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "map",
+      "chapter": "map",
+      "label": "Read the map",
+      "vo": "vo-map-1",
+      "hold": 6,
+      "highlight": "role=region[name=\"Map\"]",
+      "actions": [
+        {
+          "type": "cue",
+          "id": "vo-map-1"
+        },
+        {
+          "type": "hover",
+          "target": "role=img[name=\"Station 3AP1\"]",
+          "name": "Station 3AP1"
+        },
+        {
+          "type": "focus",
+          "target": "role=region[name=\"Moisture legend\"]",
+          "name": "Moisture legend"
+        },
+        {
+          "type": "scroll",
+          "target": "role=table",
+          "dy": 240
+        },
+        {
+          "type": "click",
+          "target": "role=button[name=\"Push Changes\"]",
+          "name": "Push Changes"
+        },
+        {
+          "type": "wait",
+          "ms": 1500
+        }
+      ]
+    }
+  ]
+}

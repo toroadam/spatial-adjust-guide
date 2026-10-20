@@ -1,0 +1,11 @@
+{
+  "name": "captions-fixture-16x9",
+  "w": 1920,
+  "h": 1080,
+  "fps": 60,
+  "duration": 20.0,
+  "labels": [],
+  "layers": [],
+  "music": null,
+  "vo": [["vo-intro", 0.5], ["vo-map", 3.6], ["vo-station", 12.4], ["vo-short", 15.8]]
+}

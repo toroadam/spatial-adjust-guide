@@ -1,0 +1,42 @@
+<!doctype html>
+<!--
+  Test page for video/capture/course-overlay.js (course-overlay.test.mjs). Every "real" name here
+  is an invented placeholder from video/lib/fixtures/sanitize.fixture.json and
+  overlay.fixture.json, never a real course or person. The layout loosely follows the Spatial
+  Adjust dashboard: toolbar course name, breadcrumb, account menu, station table, push dialog.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Example Real Club | Spatial Adjust</title>
+  <style>
+    body { font: 14px system-ui, sans-serif; margin: 0; }
+    header { display: flex; gap: 12px; align-items: center; padding: 8px 16px; background: #F5F7F8; }
+    td { padding: 4px 8px; border-bottom: 1px solid #080D121A; }
+  </style>
+</head>
+<body>
+  <header>
+    <span id="course"><span aria-hidden="true">&#9673;</span> Example Real Club</span>
+    <nav id="crumbs"><span>Example Real Club</span><span>/</span><span>AP</span></nav>
+    <button id="account" type="button" title="Sample Person Name" aria-label="Account menu for Sample Person Name">SAMPLE PERSON NAME</button>
+  </header>
+  <main>
+    <label>Find a station <input id="search" placeholder="Search Example Real Club stations" value="EXR-1042"></label>
+    <textarea id="notes">Notes for Example Real Club Annex</textarea>
+    <img id="logo" alt="Example Real Club Annex logo" src="data:image/gif;base64,R0lGODlhAQABAAAAACw=" width="1" height="1">
+    <table id="stations">
+      <tr><td>3AP1</td><td>Example Real Club Annex</td><td>27.6%</td></tr>
+      <tr><td>6AP2</td><td>EXAMPLE REAL CLUB ANNEX</td><td>28.5%</td></tr>
+      <tr><td>11AP3</td><td>Example Real</td><td>26.6%</td></tr>
+    </table>
+    <p id="super">Superintendent: Placeholder Superintendent</p>
+    <p id="ordinary">Field moisture readings for the whole course</p>
+    <div id="dialog" role="dialog" aria-label="Push changes to Example Real Club">
+      <p>Send 6 Percent Adjustments to Lynx for Example Real Club?</p>
+      <p>Demo Mode does not support this action.</p>
+    </div>
+    <script id="data">window.__fixtureScript = 'Example Real Club';</script>
+  </main>
+</body>
+</html>

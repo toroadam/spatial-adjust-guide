@@ -1,0 +1,15 @@
+{
+  "id": "captions-fixture",
+  "title": "Captions fixture",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [15, 25],
+  "source": "recreation",
+  "mapPolicy": "restyle",
+  "vo": [
+    { "id": "vo-intro", "text": "Spatial Adjust is a feature of IntelliDash." },
+    { "id": "vo-map", "text": "Every station is a pin, coloured by its latest measured moisture, so you can see at a glance where the course is dry and where it is wet." },
+    { "id": "vo-station", "text": "Station 3AP1 reads 17% & needs <more> water." },
+    { "id": "vo-short", "text": "Done." }
+  ]
+}

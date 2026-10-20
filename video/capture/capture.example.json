@@ -1,0 +1,16 @@
+{
+  "$comment": "Copy to video/capture/capture.local.json (gitignored) and replace the example.invalid hosts with the IntelliDash dev host and its API host. Never commit the real names. Fields: video/README.md, 'Capture'; rules: video/capture/SAFETY.md.",
+  "entryUrl": "https://dev.example.invalid/spatialadjust/demo",
+  "allowedHosts": ["dev.example.invalid"],
+  "apiHosts": ["api.dev.example.invalid"],
+  "authHosts": [],
+  "blockHosts": ["telemetry.example.invalid"],
+  "cdpEndpoint": "http://127.0.0.1:9222",
+  "demoLoginPath": "/auth/demo",
+  "armPathSuffix": "/spatialadjust",
+  "signInTimeoutMs": 300000,
+  "readySelector": null,
+  "settleMs": 2000,
+  "overlayScript": null,
+  "recreationUrl": null
+}

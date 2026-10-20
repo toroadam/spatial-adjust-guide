@@ -1,0 +1,7 @@
+{
+  "pairs": {
+    "Sample Person Name": "Jordan Field",
+    "Example Real Club Annex": "Riverbend Annex"
+  },
+  "denylist": ["Placeholder Superintendent", "example real"]
+}

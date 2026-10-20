@@ -30,3 +30,24 @@ review-pack/
 # GitHub Release assets and never enter git; see README > Video.
 .media/
 .media-fixture/
+# Video pipeline (video/): media never enters git. It belongs under the media root
+# (~/Documents/SpatialAdjust_MarCom/, see video/README.md). These globs are the second line of
+# defence; npm run video -- hygiene is the check. Do not ignore *.png globally: assets/ and
+# _ds/ hold committed PNGs.
+video/**/*.mp4
+video/**/*.mov
+video/**/*.wav
+video/**/*.mp3
+video/**/*.m4a
+video/**/*.aac
+video/**/*.flac
+video/**/*.webm
+video/**/raw/
+video/**/_video/
+video/**/_audio/
+video/**/state.json
+# Local-only maps and settings (for example video/capture/overlay.local.json): real values by
+# definition, read only by scripts at run time. Never commit.
+*.local.json
+# Python bytecode from the video pipeline and its tests.
+__pycache__/

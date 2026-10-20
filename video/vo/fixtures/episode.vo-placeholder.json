@@ -1,0 +1,32 @@
+{
+  "id": "vo-placeholder",
+  "title": "Placeholder: dashboard overview, 70 words, for VO tests and estimates only",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [20, 30],
+  "source": "demo",
+  "mapPolicy": "blur",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [
+    {
+      "id": "vo-intro",
+      "text": "Spatial Adjust lives inside IntelliDash, and the whole feature is one screen with four regions."
+    },
+    {
+      "id": "vo-map",
+      "text": "Every station is a pin coloured by its latest measured VWC, from TurfRad scan data."
+    },
+    {
+      "id": "vo-table",
+      "text": "In the table, station 3AP1 measured 27.6% against a 54% target, the largest deficit on the hole."
+    },
+    {
+      "id": "vo-push",
+      "text": "Calculation ET matches the ET in the weather strip, and Push Changes counts the stations with an unpushed edit before anything reaches Lynx."
+    }
+  ],
+  "beats": []
+}

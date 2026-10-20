@@ -1,0 +1,25 @@
+{
+  "$comment": "The fictional course identity for the video pipeline, decided at gate G1 (video/approvals.md; proposal video/brand/course-proposal.md). The only place the pipeline defines it: course-overlay.js receives it as its identity argument, map-routes.mjs reads map.palette, and video/brand/course.test.mjs checks the guides' allowlists still accept name, shortName and idPrefix.",
+  "approval": "G1",
+  "name": "Riverbend National",
+  "shortName": "Riverbend",
+  "idPrefix": "riverbend",
+  "location": {
+    "region": "Marrowby Valley",
+    "country": "United States"
+  },
+  "superintendent": "Morgan Ellery",
+  "customerNumber": "RVB-000742",
+  "holeCount": 18,
+  "holePattern": "Hole <hole>",
+  "stationPattern": "<hole>AP<n>",
+  "people": ["Morgan", "Harper", "Reese", "Emery", "Jules", "Hollis", "Sloane", "Kendall"],
+  "map": {
+    "approval": "G2",
+    "defaultPolicy": "restyle",
+    "palette": {
+      "turf": "#2E3D2A",
+      "stripe": "#35472F"
+    }
+  }
+}

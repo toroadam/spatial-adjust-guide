@@ -1,0 +1,91 @@
+#!/usr/bin/env node
+// The single entry point for the video pipeline. Every later step is documented as
+// `npm run video -- <subcommand> [args]` (or `video/bin/sa-video <subcommand> [args]`), so the
+// subcommand names below are a stable contract: rename a script, not a subcommand.
+//
+// The dispatcher only resolves a subcommand to its script and runs it with the remaining
+// arguments, forwarding the exit code. It holds no pipeline logic and reads no secrets.
+//
+// Exit codes: the child's own code; 64 (EX_USAGE) for no subcommand, an unknown one, or one
+// whose script has not landed yet; 128 + signal number when the child is killed by a signal.
+
+import { spawn } from 'node:child_process';
+import { existsSync } from 'node:fs';
+import { constants } from 'node:os';
+import { join, relative } from 'node:path';
+
+const VIDEO = join(import.meta.dirname, '..');
+const REPO = join(VIDEO, '..');
+const EX_USAGE = 64;
+
+// subcommand -> [script relative to video/, runtime, the work that delivers it, one-line purpose]
+const COMMANDS = {
+  capture: ['capture/director.mjs', 'node', 'the capture director', 'Capture a take from IntelliDash /demo under the three safety layers'],
+  vo: ['vo/render-brian.py', 'python', 'the voice-over renderer', 'Render the episode voice-over in the Brian voice (ElevenLabs)'],
+  build: ['edit/build.py', 'python', 'the timeline builder', 'Build the episode timeline from episode.json, a take and the VO report'],
+  render: ['edit/render.py', 'python', 'the compositor port', 'Render a timeline to frames and H.264 under the media root'],
+  mix: ['edit/mix.py', 'python', 'the audio mix', 'Mix VO, SFX and music to -14 LUFS and mux it with the rendered picture'],
+  verify: ['verify/verify.py', 'python', 'the release gate', 'Check format, duration, loudness, holds and frames of a render'],
+  ocr: ['verify/ocr_check.py', 'python', 'the release gate', 'OCR sampled frames against the local denylist'],
+  captions: ['verify/captions.py', 'python', 'the release gate', 'Write WebVTT captions from the timeline'],
+  'style-frame': ['edit/style_frame.py', 'python', 'the motion system', 'Render the style frame for owner approval (gate G3)'],
+  estimate: ['vo/estimate.py', 'python', 'the voice-over renderer', 'Estimate ElevenLabs characters and credits before rendering'],
+  hygiene: ['verify/hygiene.mjs', 'node', 'the pipeline foundations', 'Fail if media, the ElevenLabs key, a denylisted name, an internal tracker ID or Claude attribution reached git'],
+};
+
+function usage(stream = process.stderr) {
+  const width = Math.max(...Object.keys(COMMANDS).map((k) => k.length));
+  const lines = [
+    'Usage: npm run video -- <subcommand> [args]',
+    '       video/bin/sa-video <subcommand> [args]',
+    '',
+    'Subcommands:',
+  ];
+  for (const [name, [script, , feature, purpose]] of Object.entries(COMMANDS)) {
+    const ready = existsSync(join(VIDEO, script)) ? '' : `  [not yet implemented: ${feature}]`;
+    lines.push(`  ${name.padEnd(width)}  ${purpose}  (video/${script})${ready}`);
+  }
+  lines.push(
+    '',
+    'Python subcommands run with $SA_VIDEO_PYTHON, or python3 when it is unset.',
+    'Media is written only under the media root: node video/lib/media-root.mjs --check',
+  );
+  stream.write(lines.join('\n') + '\n');
+}
+
+const [sub, ...rest] = process.argv.slice(2);
+
+if (sub === 'help' || sub === '--help' || sub === '-h') {
+  usage(process.stdout);
+  process.exit(0);
+}
+
+if (!sub || !Object.hasOwn(COMMANDS, sub)) {
+  if (sub) process.stderr.write(`sa-video: unknown subcommand "${sub}"\n\n`);
+  usage();
+  process.exit(EX_USAGE);
+}
+
+const [script, runtime, feature] = COMMANDS[sub];
+const scriptPath = join(VIDEO, script);
+if (!existsSync(scriptPath)) {
+  process.stderr.write(`sa-video: "${sub}" is not implemented yet (video/${script} lands with ${feature})\n\n`);
+  usage();
+  process.exit(EX_USAGE);
+}
+
+const command = runtime === 'node' ? process.execPath : (process.env.SA_VIDEO_PYTHON || 'python3');
+const child = spawn(command, [scriptPath, ...rest], { stdio: 'inherit' });
+
+// Let the child handle Ctrl-C itself; the dispatcher just waits for it to finish.
+for (const sig of ['SIGINT', 'SIGTERM', 'SIGHUP']) process.on(sig, () => {});
+
+child.on('error', (err) => {
+  process.stderr.write(`sa-video: could not start ${relative(REPO, scriptPath)} with ${command}: ${err.message}\n`);
+  process.exit(err.code === 'ENOENT' ? 127 : 126);
+});
+
+child.on('exit', (code, signal) => {
+  if (signal) process.exit(128 + (constants.signals[signal] ?? 0));
+  process.exit(code ?? 1);
+});

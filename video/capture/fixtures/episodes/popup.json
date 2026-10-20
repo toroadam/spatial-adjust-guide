@@ -1,0 +1,32 @@
+{
+  "id": "capture-fixture-popup",
+  "title": "Fixture: a new window after arming",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [
+    5,
+    30
+  ],
+  "source": "demo",
+  "mapPolicy": "blur",
+  "allowClicks": [
+    "Open help"
+  ],
+  "demoWriteClicks": [],
+  "claims": [],
+  "chapters": [],
+  "vo": [],
+  "beats": [
+    {
+      "id": "act",
+      "hold": 2,
+      "actions": [
+        {
+          "type": "click",
+          "target": "role=button[name=\"Open help\"]",
+          "name": "Open help"
+        }
+      ]
+    }
+  ]
+}
