@@ -378,7 +378,8 @@ export function check(ep, ledger, gates, { strict = false, root = REPO_ROOT } = 
 const cell = (s) => String(s ?? '').replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
 const beatName = (b) => (b ? String(b).toUpperCase() : '—');
 
-export function renderTable(items, ledger, meta) {
+export function renderTable(items, ledger, meta, { cardGate = null } = {}) {
+  const brandNames = [...BRAND_NAMES, SERIES_WORD];
   const rows = [
     '| # | Text (exact copy) | Beat | Kind | Claim IDs | Status | Citation |',
     '|---|---|---|---|---|---|---|',
@@ -388,7 +389,8 @@ export function renderTable(items, ledger, meta) {
     if (!item.claims.length) {
       ids = '—';
       status = item.kind === 'brand' ? 'brand, no claim needed' : 'NO CLAIM';
-      cites = item.kind === 'brand' ? 'brand name or decided end-card copy' : '—';
+      cites = item.kind !== 'brand' ? '—'
+        : brandLeftover(item.text, brandNames) ? `end-card copy${cardGate ? ` decided at ${cell(cardGate)}` : ''}` : 'brand name';
     } else {
       ids = item.claims.map((c) => `\`${c}\``).join('<br>');
       status = item.claims.map((c) => ledger.get(c)?.status || 'NOT IN LEDGER').join('<br>');
@@ -416,6 +418,7 @@ export function renderTable(items, ledger, meta) {
     const prod = meta.intellidash.production;
     const dev = meta.intellidash.develop;
     lines.push(
+      '',
       `**Ledger:** ${meta.claims ?? ledger.size} claims; production \`${prod.sha}\`${dev?.sha ? `, develop \`${dev.sha}\`` : ''}${meta.intellidash.fetchedAt ? `, fetched ${meta.intellidash.fetchedAt}` : ''}.`,
     );
   }
@@ -498,7 +501,7 @@ export function main(argv = process.argv.slice(2), { cwd = process.cwd(), out = 
       docFailed = true;
     } else {
       const doc = readFileSync(docPath, 'utf8');
-      let next = replaceBlock(doc, MARKERS.claims, renderTable(result.items, ledger, meta));
+      let next = replaceBlock(doc, MARKERS.claims, renderTable(result.items, ledger, meta, { cardGate: ep?.endCard?.approval ?? null }));
       if (next === null) {
         out(`FAIL ${args.doc} has no ${MARKERS.claims[0]} ... ${MARKERS.claims[1]} block`);
         docFailed = true;
