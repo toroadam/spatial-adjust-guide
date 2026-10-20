@@ -103,11 +103,11 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 |---|---|
 | `bin/sa-video` | The dispatcher |
 | `lib/` | Shared code for Node and Python: media root guard, local maps loader, ElevenLabs key resolver, episode schema |
-| `capture/` | Capture director, safety gates and the fictional course overlay. TBD (PI-ICNT-SW-1078, PI-ICNT-SW-1079) |
+| `capture/` | Fictional course overlay (`course-overlay.js`: `window.__saOverlayInstall(pairs, identity)`, `window.__saOverlay.scan(denylist)`) and map treatment (`map-routes.mjs`: `installMapRoutes(page, mapPolicy)`, GET-only tile substitution; `map-treatment.js`; `node video/capture/map-still.mjs` renders a still of a policy to `<media root>/episodes/_stills/`). Capture director and safety gates TBD (PI-ICNT-SW-1078) |
 | `edit/` | Compositor (`lib/`: engine, wallpaper, camera planners, timeline builder, layer registry, `theme.py`), text graphics (`gfx/render_gfx.mjs`) and `render.py`, ported from iCentral MarCom; provenance in [`edit/NOTES.md`](edit/NOTES.md). Builder and audio mix TBD (PI-ICNT-SW-1083) |
 | `vo/` | Brian voice renderer, lexicon, voice settings and loudness target, credits log and estimates. Needs only `python3` and ffmpeg (PI-ICNT-SW-1080) |
 | `verify/` | Repository hygiene check; render verification, OCR and captions TBD (PI-ICNT-SW-1082) |
-| `brand/` | Motion system, course identity, end card and music records. TBD (PI-ICNT-SW-1079, PI-ICNT-SW-1081, PI-ICNT-SW-1083) |
+| `brand/` | Course identity: `course.json` is the only definition of the fictional course for the pipeline (gate G1; proposal in `course-proposal.md`; `course.test.mjs` checks the guides' allowlists still accept it). Motion system, end card and music records TBD (PI-ICNT-SW-1081, PI-ICNT-SW-1083) |
 | `episodes/` | One folder per episode (`episode.json`, `script.md`); see [`episodes/README.md`](episodes/README.md) |
 | `approvals.md` | The owner approvals log |
 | `requirements.txt` | Python packages for the venv at the media root |
