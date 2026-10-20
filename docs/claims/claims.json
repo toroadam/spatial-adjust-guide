@@ -16,10 +16,10 @@
       "fetchedAt": "2026-10-19T17:41:40Z"
     },
     "guides": 26,
-    "claims": 871,
+    "claims": 869,
     "byStatus": {
       "Unverified": 0,
-      "Verified": 843,
+      "Verified": 841,
       "Wrong": 0,
       "Not shipping": 0,
       "Needs expert": 28
@@ -27,7 +27,7 @@
     "byType": {
       "label": 32,
       "navigation": 55,
-      "behaviour": 727,
+      "behaviour": 725,
       "calculation": 35,
       "prerequisite": 22
     }
@@ -12628,57 +12628,6 @@
     },
     {
       "id": "minimum-threshold/2/2",
-      "guide": "minimum-threshold",
-      "step": "2",
-      "field": "body",
-      "text": "The left rail lists the settings groups.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "21-30"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "52-57"
-        }
-      ],
-      "note": "The rail lists four entries, each with a title and a one-line description: Calculation, Minimum Threshold, Target Profiles and Preferences (sa-settings-dlg.component.ts:53-56).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "minimum-threshold/2/3",
-      "guide": "minimum-threshold",
-      "step": "2",
-      "field": "body",
-      "text": "Minimum Threshold sits second, under Calculation.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "52-57"
-        }
-      ],
-      "note": "Minimum Threshold is the second literal (sa-settings-dlg.component.ts:54), directly after Calculation (:53).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "minimum-threshold/2/4",
       "guide": "minimum-threshold",
       "step": "2",
       "field": "caption",
