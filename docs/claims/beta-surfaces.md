@@ -149,8 +149,11 @@ reproduction, not a release status.
 
 This is the authoritative beta list. Each heading is the surface's stable id. In
 `src/release.json`, a beta section cites its surface as `docs/claims/beta-surfaces.md#<id>`.
-Today no guide contains beta content, so every guide is ga and has no sections. When a beta step
-is added to a guide, its section in `src/release.json` names the id here.
+One surface has guide content today: `stale-scans-kept`, as the beta step "A stale course keeps
+its last scans" at the end of calculation-questions (`src/transforms/beta-content.mjs`). That
+guide is ga with one beta section, `stale-scans-kept`, and every other guide is ga with no
+sections. The other two surfaces are beta guide candidates, listed in `README.md` under Known
+gaps, with no guide text.
 
 ### stale-scans-kept
 
@@ -177,6 +180,11 @@ is added to a guide, its section in `src/release.json` names the id here.
 - **Can the reproduction show it?** Yes. The existing stale-scan figures already draw what the
   reader sees: clear pins, grey italic modelled values and an older scan date. No new state is
   needed.
+- **Guide content.** The beta step "A stale course keeps its last scans", step 6 of
+  calculation-questions, after "If the whole course is stale, check the source". Its figure is the
+  existing map state, whose clear pins are stations last scanned on an earlier day, and its cursor
+  points at one of them. Its claims are `calculation-questions/6/1` to `/6/5`, checked against
+  develop.
 - **Commits.** `8f9ca024`, `278335e0`.
 - **Citations (develop).** `SAS:2140-2152`, `:2169`, `:2575`, `:3266-3326`; `TRS:104-134`;
   `SAS:978-992` (Request latest scan data moves the "since" time back two days).

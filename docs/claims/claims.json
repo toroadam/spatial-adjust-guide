@@ -16,9 +16,9 @@
       "fetchedAt": "2026-10-19T17:41:40Z"
     },
     "guides": 26,
-    "claims": 871,
+    "claims": 876,
     "byStatus": {
-      "Unverified": 0,
+      "Unverified": 5,
       "Verified": 843,
       "Verified (beta)": 0,
       "Wrong": 0,
@@ -28,7 +28,7 @@
     "byType": {
       "label": 32,
       "navigation": 55,
-      "behaviour": 727,
+      "behaviour": 732,
       "calculation": 35,
       "prerequisite": 22
     }
@@ -3322,6 +3322,76 @@
           "line": "14-40"
         }
       ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/1",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "title",
+      "text": "A stale course keeps its last scans",
+      "type": "behaviour",
+      "status": "Unverified",
+      "evidence": [],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/2",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "body",
+      "text": "When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last scans, even once they are more than seven days old.",
+      "type": "behaviour",
+      "status": "Unverified",
+      "evidence": [],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/3",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "body",
+      "text": "The stations stay in the table with their last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled value and a suggestion every day.",
+      "type": "behaviour",
+      "status": "Unverified",
+      "evidence": [],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/4",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "body",
+      "text": "Request latest scan data looks back only two days, so the scans stay as they are unless TurfRad has loaded new scan data in that time.",
+      "type": "behaviour",
+      "status": "Unverified",
+      "evidence": [],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/5",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "caption",
+      "text": "A pin last scanned on an earlier day is drawn clear.",
+      "type": "behaviour",
+      "status": "Unverified",
+      "evidence": [],
       "note": "",
       "question": "",
       "developNote": "",
