@@ -173,8 +173,7 @@ Split at a natural pause, such as after Save Changes, never in the middle of a d
 
 ## Why lines and the glossary
 
-Eight terms are defined automatically at their first use in each guide, from `src/terms.json`
-(added by the glossary work):
+Eight terms are defined automatically at their first use in each guide, from `src/terms.json`:
 
 VWC, ET, delta, Lynx Reference Amount, aggregate row, measured, modelled, target.
 
@@ -182,6 +181,15 @@ Do not explain these in a `why` line or anywhere else in a step: the definition 
 step that first uses the term, in every locale. Use each term with exactly that spelling, so that
 the first use is found. A `why` line is for the concept behind a choice ("The threshold stops very
 small changes from reaching Lynx"), not for vocabulary.
+
+How the first use is found. The guide is read in page order: `start` and `before`, whose terms are
+defined under Before you start, then each step's `title`, `do`, `see`, `ifNot`, `why`, `body`,
+`caption` and `tip`. The definition shows under that step's text, in the article and in the player
+panel, and nowhere later in the guide. A match is a whole word, case-insensitive except for VWC
+and ET, and text inside a `[[label]]` marker never counts, so `[[Target VWC]]` does not define
+"target". Each definition is one sentence at grade 8 or below, backed by Verified claims in
+`docs/claims/claims.json`; `npm run test:shape` checks the file. Changing a definition orphans its
+translation in ten locales, like any other prose.
 
 ## Readability
 
