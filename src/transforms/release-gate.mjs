@@ -1,13 +1,24 @@
-// The release gate: removes beta content from a build with SA_SHOW_BETA=false.
+// The release gate: labels beta content in a build that shows it, and removes it from a build with
+// SA_SHOW_BETA=false.
 //
 // Owner: the beta release epic (see the module map in docs/claims/README.md). No other feature
 // edits this file.
 //
 // Runs last of every transform, after beta-content, so it sees every guide and step that any
 // module added. src/release.json says which guides are beta and which steps of a GA guide are beta
-// (src/release.mjs reads and validates it). With showBeta true this module only validates the
-// release file against the guides and returns the export unchanged. With showBeta false it deletes,
-// from the guide data in the export:
+// (src/release.mjs reads and validates it). Either way the release file is first validated against
+// the guides.
+//
+// With showBeta true the beta content stays and is labelled (see "presentation" below): each beta
+// guide's GUIDES entry and tile, and each beta step of a GA guide, gain `beta: true`, and anchored
+// edits render a Beta text badge on the tile (also in its accessible name), a role="note" banner at
+// the top of the guide, and an inline Beta marker in the heading of a beta step. The markup edits are
+// made in every build that shows beta content, even when nothing is beta, so an export that moves
+// an anchor fails the build today rather than on the day the first beta guide lands. src/release.css
+// styles them; build.mjs injects it only into a build that shows beta content.
+//
+// With showBeta false none of that markup is added, and the gate deletes, from the guide data in the
+// export:
 //
 //   - each beta guide's entry in GUIDES (`const GUIDES = {` and every `Object.assign(GUIDES, {`),
 //   - each beta guide's cursor-target row in TARGETS (`const TARGETS = {` and `Object.assign(TARGETS, {`),
@@ -31,6 +42,7 @@
 //
 // No third-party imports, and nothing from scripts/: src/ must build on its own.
 import vm from 'node:vm';
+import { edit } from './edit.mjs';
 import {
   validateRelease, betaSteps, crossReferencesOf, fieldValues, occurrences,
   BETA_BADGE_LABEL, BETA_BANNER_LABEL, BETA_BANNER_TEXT,
@@ -276,25 +288,36 @@ function removeTargetsRow(script, key) {
   return row ? cutItem(script, row.items, row.index) : script;
 }
 
+/** Offset of the `[` of `const CATEGORIES = [`. */
+function categoriesOpen(script) {
+  return only(script, 'const CATEGORIES = [', 'CATEGORIES declaration') + 'const CATEGORIES = '.length;
+}
+
+/**
+ * Every tile literal in CATEGORIES, as { key, items, index, start }: `items` is its category's
+ * tasks array, `index` its place there, and `start` the offset of its `{`.
+ */
+function tileLiterals(script) {
+  const out = [];
+  itemsOf(script, categoriesOpen(script)).items.forEach((category, ci) => {
+    if (script[category.start] !== '{') fail(`category ${ci + 1} in CATEGORIES is not an object literal`);
+    const tasks = arrayMember(script, category.start, 'tasks', `category ${ci + 1}`);
+    if (tasks === null) fail(`category ${ci + 1} in CATEGORIES has no tasks array`);
+    const { items } = itemsOf(script, tasks);
+    items.forEach((tile, ti) => {
+      if (script[tile.start] !== '{') fail(`tile ${ti + 1} of category ${ci + 1} is not an object literal`);
+      const k = memberNamed(script, tile.start, 'key');
+      if (!k) fail(`tile ${ti + 1} of category ${ci + 1} has no key`);
+      out.push({ key: decodeString(script.slice(k.valueStart, k.item.end)), items, index: ti, start: tile.start });
+    });
+  });
+  return out;
+}
+
 /** Remove the tiles whose key is in `keys`, then any category left with no tiles. */
 function removeTiles(script, keys) {
-  const catOpen = only(script, 'const CATEGORIES = [', 'CATEGORIES declaration') + 'const CATEGORIES = '.length;
-  const tilesAt = () => {
-    const out = [];
-    itemsOf(script, catOpen).items.forEach((category, ci) => {
-      if (script[category.start] !== '{') fail(`category ${ci + 1} in CATEGORIES is not an object literal`);
-      const tasks = arrayMember(script, category.start, 'tasks', `category ${ci + 1}`);
-      if (tasks === null) fail(`category ${ci + 1} in CATEGORIES has no tasks array`);
-      const { items } = itemsOf(script, tasks);
-      items.forEach((tile, ti) => {
-        if (script[tile.start] !== '{') fail(`tile ${ti + 1} of category ${ci + 1} is not an object literal`);
-        const k = memberNamed(script, tile.start, 'key');
-        if (!k) fail(`tile ${ti + 1} of category ${ci + 1} has no key`);
-        out.push({ key: decodeString(script.slice(k.valueStart, k.item.end)), items, index: ti });
-      });
-    });
-    return out;
-  };
+  const catOpen = categoriesOpen(script);
+  const tilesAt = () => tileLiterals(script);
   for (const key of keys) {
     const found = tilesAt().filter((t) => t.key === key);
     if (found.length !== 1) fail(`expected one CATEGORIES tile for "${key}", found ${found.length}`);
@@ -793,6 +816,164 @@ export function catalogueOmissions({ allData, shippedData, release, catalogue })
   return { omit, betaTitles };
 }
 
+// ---- presentation: labelling beta content in a build that shows it ---------------------------------
+//
+// Three treatments, each a text label rather than colour alone, styled by src/release.css:
+//
+//   - the catalogue tile of a beta guide carries a Beta badge above its title, ahead of any New in
+//     IntelliDash badge, and its accessible name gains "Beta, " (the card's aria-label replaces its
+//     content for a screen reader, so a badge outside the label would never be heard);
+//   - a beta guide opens with a role="note" banner, "Beta." and one sentence, ahead of the note
+//     callout, so a guide that is both new and beta reads Beta first;
+//   - a beta step of a GA guide carries an inline Beta marker in its written heading and in the
+//     player's step heading. Every step of a beta guide is beta, and the banner already says so,
+//     so those steps carry no marker.
+//
+// The strings are BETA_BADGE_LABEL, BETA_BANNER_LABEL and BETA_BANNER_TEXT from src/release.mjs.
+// Each sits in a text node of its own, so its catalogue key is the exact constant. The marker sits
+// after the step title in a node of its own, so step title strings, and the catalogue keys built
+// from them such as "Step N of M: <title>", do not change.
+
+/** An HTML text node for one of the constants. They hold no markup, but escape them anyway. */
+const htmlText = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/** A `<sc-if>` that renders the Beta badge when `value` is true. `lead` goes before the badge. */
+const badgeIf = (value, modifier, lead = '') => `<sc-if value="{{ ${value} }}" hint-placeholder-val="{{ false }}">`
+  + `${lead}<span class="lsa-beta-badge lsa-beta-badge-${modifier}">${htmlText(BETA_BADGE_LABEL)}</span></sc-if>`;
+
+/** Give the object literal at `open` a leading `beta: true,` member. */
+function flagLiteral(script, open, what) {
+  if (script[open] !== '{') fail(`${what} is not an object literal`);
+  if (memberNamed(script, open, 'beta')) {
+    fail(`${what} already has a beta member; beta status comes from src/release.json, not from the guide data`);
+  }
+  const { items } = itemsOf(script, open);
+  const at = items.length ? items[0].start : open + 1;
+  return script.slice(0, at) + 'beta: true, ' + script.slice(at);
+}
+
+/** Flag each beta guide's GUIDES entry and tile, and each beta step of a GA guide, with `beta: true`. */
+function flagBetaContent(script, plan, data) {
+  for (const key of plan.betaGuides) {
+    script = flagLiteral(script, guideEntry(script, key).valueStart, `the GUIDES entry for "${key}"`);
+    const tiles = tileLiterals(script).filter((t) => t.key === key);
+    if (tiles.length !== 1) fail(`expected one CATEGORIES tile for beta guide "${key}", found ${tiles.length}`);
+    script = flagLiteral(script, tiles[0].start, `the tile for "${key}"`);
+  }
+  for (const [key, { indexes }] of Object.entries(plan.betaStepsByGuide)) {
+    const titles = data.GUIDES[key].steps.map((st) => st.title);
+    for (const i of indexes) {
+      const open = arrayMember(script, guideEntry(script, key).valueStart, 'steps', `guide "${key}"`);
+      if (open === null) fail(`guide "${key}" has no steps array`);
+      const steps = itemsOf(script, open).items;
+      if (steps.length !== titles.length) {
+        fail(`guide "${key}" has ${steps.length} step literals but evaluates to ${titles.length} steps; `
+          + 'its steps are built some other way, so a beta step cannot be found by position');
+      }
+      const step = steps[i];
+      if (script[step.start] !== '{') fail(`step ${i + 1} of guide "${key}" is not an object literal`);
+      const t = memberNamed(script, step.start, 'title');
+      if (!t || decodeString(script.slice(t.valueStart, t.item.end)) !== titles[i]) {
+        fail(`step ${i + 1} of guide "${key}" in the source is not the step titled ${JSON.stringify(titles[i])}`);
+      }
+      script = flagLiteral(script, step.start, `step ${i + 1} of guide "${key}"`);
+    }
+  }
+  return script;
+}
+
+/** Fail unless `after` is `before` with `beta: true` on exactly the planned guides, tiles and steps. */
+function assertFlagged(before, after, plan) {
+  const beta = new Set(plan.betaGuides);
+  const problems = [];
+  const check = (what, value, want) => {
+    if (want ? value !== true : value !== undefined) {
+      problems.push(`${what} has beta ${JSON.stringify(value)}; expected ${want ? 'true' : 'no beta member'}`);
+    }
+  };
+  for (const [k, g] of Object.entries(after.GUIDES)) {
+    check(`guide "${k}"`, g.beta, beta.has(k));
+    const steps = new Set((plan.betaStepsByGuide[k] || { indexes: [] }).indexes);
+    (g.steps || []).forEach((st, i) => check(`step ${i + 1} of guide "${k}"`, st.beta, steps.has(i)));
+  }
+  for (const t of tilesOf(after)) check(`tile "${t.key}"`, t.beta, beta.has(t.key));
+  const strip = (o) => { const { beta: _, ...rest } = o; return rest; };
+  const unflagged = {
+    GUIDES: Object.fromEntries(Object.entries(after.GUIDES)
+      .map(([k, g]) => [k, { ...strip(g), ...(g.steps ? { steps: g.steps.map(strip) } : {}) }])),
+    TARGETS: after.TARGETS,
+    CATEGORIES: after.CATEGORIES.map((c) => ({ ...c, tasks: c.tasks.map(strip) })),
+  };
+  if (!same(unflagged, before)) problems.push('the guide data changed other than by its beta flags');
+  if (problems.length) fail(`flagging beta content did not give what was planned:\n- ${problems.join('\n- ')}`);
+}
+
+/** The anchored markup and view-model edits that render the flags. Made whether or not anything is beta. */
+function presentBeta(s) {
+  // The catalogue tile: the badge above the title, ahead of the New in IntelliDash badge when that
+  // is there. The title div is the anchor, so the badge survives that badge being retired.
+  s = edit(s, {
+    name: 'beta presentation: tile badge',
+    pattern: /(<sc-if value="\{\{ task\.isNew \}\}"[^\n]*?<\/sc-if>\s*)?(<div style="font-size:17px;font-weight:700;line-height:1\.25;letter-spacing:-0\.2px;margin-bottom:8px;text-wrap:pretty">\{\{ task\.title \}\}<\/div>)/,
+    replace: (m) => badgeIf('task.isBeta', 'tile') + m,
+  });
+  s = edit(s, {
+    name: 'beta presentation: tile accessible name',
+    pattern: /(const _saLabel = live\s*\?\s*t\.title \+ ' — ' \+ )/,
+    replace: (m) => `${m}(t.beta ? ${encodeString(`${BETA_BADGE_LABEL}, `)} : '') + `,
+  });
+  s = edit(s, {
+    name: 'beta presentation: tile view-model',
+    pattern: /(\n\s*)(ariaLabel: _saLabel,)/,
+    replace: (m, nl, field) => `${nl}${field}${nl}isBeta: !!t.beta,`,
+  });
+
+  // The guide banner, ahead of the note callout.
+  s = edit(s, {
+    name: 'beta presentation: guide banner',
+    pattern: /(\n(\s*))(<sc-if value="\{\{ guide\.hasNote \}\}" hint-placeholder-val="\{\{ false \}\}">)/,
+    replace: (m, nl, indent, noteIf) => `${nl}<sc-if value="{{ guide.isBeta }}" hint-placeholder-val="{{ false }}">`
+      + `${nl}  <div role="note" class="lsa-beta-banner"><span class="lsa-beta-banner-label">${htmlText(BETA_BANNER_LABEL)}</span> `
+      + `${htmlText(BETA_BANNER_TEXT)}</div>${nl}</sc-if>${nl}${noteIf}`,
+  });
+  s = edit(s, {
+    name: 'beta presentation: guide view-model',
+    pattern: /hasNote: !!g\.note,/,
+    replace: (m) => `isBeta: !!g.beta, ${m}`,
+  });
+
+  // The inline marker on a beta step: the step view-model, the written heading and the player's.
+  s = edit(s, {
+    name: 'beta presentation: step view-model',
+    pattern: /(\n\s*)(title: s\.title,)(\n\s*body: s\.body,)/,
+    replace: (m, nl, title, body) => `${nl}${title}${nl}isBeta: !!s.beta,${body}`,
+  });
+  s = edit(s, {
+    name: 'beta presentation: written step heading marker',
+    pattern: /(<h2 style="margin:0 0 14px;font-size:26px;font-weight:700;letter-spacing:-0\.5px;text-wrap:pretty">\{\{ step\.title \}\})(<\/h2>)/,
+    replace: (m, open, close) => open + badgeIf('step.isBeta', 'step', ' ') + close,
+  });
+  s = edit(s, {
+    name: 'beta presentation: player step heading marker',
+    pattern: /(<div style="font-size:20px;font-weight:700;letter-spacing:-0\.4px;line-height:1\.25;margin-bottom:10px;text-wrap:pretty">\{\{ guide\.player\.step\.title \}\})(<\/div>)/,
+    replace: (m, open, close) => open + badgeIf('guide.player.step.isBeta', 'step', ' ') + close,
+  });
+  return s;
+}
+
+/**
+ * The export with beta content labelled: the flags on the guide data, then the markup that renders
+ * them. `before` is evaluateGuideData(s). The flags are checked against the plan before returning.
+ */
+export function presentBetaContent(s, release, before = evaluateGuideData(s)) {
+  const plan = planRemoval(release, before);
+  const { start, end } = dataScript(s);
+  const script = flagBetaContent(s.slice(start, end), plan, before);
+  const out = presentBeta(s.slice(0, start) + script + s.slice(end));
+  assertFlagged(before, evaluateGuideData(out), plan);
+  return out;
+}
+
 // ---- the transform --------------------------------------------------------------------------------
 
 export function apply(s, { showBeta, release } = {}) {
@@ -801,9 +982,8 @@ export function apply(s, { showBeta, release } = {}) {
 
   const before = evaluateGuideData(s);
   validateRelease(release, before.GUIDES);
-  // Presentation of beta content (badges, banners) belongs to a later feature. Until then a build
-  // that shows beta content is the export unchanged.
-  if (showBeta) return s;
+  // A build that shows beta content keeps it and labels it.
+  if (showBeta) return presentBetaContent(s, release, before);
 
   const plan = planRemoval(release, before);
   const refs = crossReferencesOf(release);

@@ -4,8 +4,8 @@
 // validateRelease() rejects each kind of mistake it exists to catch, that SA_SHOW_BETA parses as
 // documented, and that the shipping helpers answer correctly for a GA guide, a GA guide with a beta
 // section, and a beta guide. The release gate (src/transforms/release-gate.mjs) is exercised on the
-// real export with in-memory release objects: what a build with SA_SHOW_BETA=false removes, and
-// what makes it fail.
+// real export with in-memory release objects: what a build with SA_SHOW_BETA=false removes, what
+// a build that shows beta content labels, and what makes either fail.
 //
 // Usage: node scripts/release-unit.mjs   (npm run test:release). Exits 1 on any failure.
 import { mkdtempSync, writeFileSync, rmSync, readFileSync } from 'node:fs';
@@ -288,20 +288,32 @@ check('Beta strings', () => {
 
 // ---- the release gate ---------------------------------------------------------------------------
 
-// The export with every transform applied and beta content shown. With the committed release file
-// nothing is beta, so a hidden build of it must be the same text.
+// The export with every transform applied, built both ways with the committed release file. Nothing
+// in it is beta, so the hidden build (PLAIN) removes nothing and is the export with every other
+// transform applied; the release gate tests below start from it. The shown build (SHOWN) is the same
+// guide data plus the beta presentation markup, which renders nothing while nothing is beta.
 const EXPORT_HTML = readFileSync(join(import.meta.dirname, '..', 'Learn Spatial Adjust.dc.html'), 'utf8');
 const SHOWN = transformGuide(EXPORT_HTML, { showBeta: true, release });
+const PLAIN = transformGuide(EXPORT_HTML, { showBeta: false, release });
 const hide = (html, r) => applyReleaseGate(html, { showBeta: false, release: r });
+const show = (html, r) => applyReleaseGate(html, { showBeta: true, release: r });
 const tileKeys = (data) => data.CATEGORIES.flatMap((c) => c.tasks.map((t) => t.key));
+const PRESENTATION = ['lsa-beta-badge', 'lsa-beta-banner', BETA_BANNER_TEXT, 'isBeta'];
 
 check('release gate: the committed release file removes nothing', () => {
-  equal(transformGuide(EXPORT_HTML, { showBeta: false, release }) === SHOWN, true, 'hidden build equals shown build');
+  equal(JSON.stringify(evaluateGuideData(PLAIN)) === JSON.stringify(evaluateGuideData(SHOWN)), true, 'same guide data both ways');
+  equal(show(PLAIN, release) === SHOWN, true, 'shown build is the hidden build plus the presentation');
   equal(transformGuide(EXPORT_HTML) === SHOWN, true, 'default options show beta');
 });
+check('release gate: only a build that shows beta content carries the presentation markup', () => {
+  for (const needle of PRESENTATION) {
+    equal(PLAIN.includes(needle), false, `hidden build has ${needle}`);
+    equal(SHOWN.includes(needle), true, `shown build has ${needle}`);
+  }
+});
 check('release gate: needs a boolean showBeta and a release', () => {
-  throws(() => applyReleaseGate(SHOWN, { showBeta: 'false', release }), /showBeta must be a boolean/, 'string showBeta');
-  throws(() => applyReleaseGate(SHOWN, { showBeta: false }), /no release status/, 'no release');
+  throws(() => applyReleaseGate(PLAIN, { showBeta: 'false', release }), /showBeta must be a boolean/, 'string showBeta');
+  throws(() => applyReleaseGate(PLAIN, { showBeta: false }), /no release status/, 'no release');
 });
 
 {
@@ -313,10 +325,10 @@ check('release gate: needs a boolean showBeta and a release', () => {
   r.guides['enable-disable-stations'] = { status: 'beta', basis: 'test' };
   r.guides['station-details'] = { status: 'beta', basis: 'test' };
   r.guides['push-to-lynx'].sections = [{ id: 'one-step', status: 'beta', basis: 'test', steps: [PUSH_STEP] }];
-  const before = evaluateGuideData(SHOWN);
+  const before = evaluateGuideData(PLAIN);
   let hidden = null;
   check('release gate: hides beta guides, tiles, rows, steps and Next references', () => {
-    hidden = hide(SHOWN, r);
+    hidden = hide(PLAIN, r);
     const after = evaluateGuideData(hidden);
     for (const k of ['calculation-questions', 'enable-disable-stations', 'station-details']) {
       equal(Object.hasOwn(after.GUIDES, k), false, `GUIDES has ${k}`);
@@ -342,13 +354,35 @@ check('release gate: needs a boolean showBeta and a release', () => {
       equal(hidden.includes(needle), false, needle);
     }
   });
-  check('release gate: a build with beta shown is unchanged by beta status', () => {
-    equal(applyReleaseGate(SHOWN, { showBeta: true, release: r }) === SHOWN, true, 'shown build');
+  check('release gate: a build with beta shown flags exactly the beta guides, tiles and steps', () => {
+    const shown = show(PLAIN, r);
+    const data = evaluateGuideData(shown);
+    const betaKeys = ['calculation-questions', 'enable-disable-stations', 'station-details'];
+    for (const [k, g] of Object.entries(data.GUIDES)) {
+      equal(g.beta, betaKeys.includes(k) ? true : undefined, `guide ${k} beta`);
+      g.steps.forEach((st, i) => equal(st.beta, k === 'push-to-lynx' && i === 2 ? true : undefined, `${k} step ${i + 1} beta`));
+    }
+    for (const t of data.CATEGORIES.flatMap((c) => c.tasks)) equal(t.beta, betaKeys.includes(t.key) ? true : undefined, `tile ${t.key} beta`);
+    equal(Object.keys(data.GUIDES).length, Object.keys(before.GUIDES).length, 'nothing removed');
+    equal(data.GUIDES['push-to-lynx'].steps[2].title, PUSH_STEP, 'step title unchanged');
+    equal(shown.split('class="lsa-beta-banner"').length - 1, 1, 'one banner element in the template');
+  });
+  check('release gate: a build with beta shown labels with the src/release.mjs strings', () => {
+    const shown = show(PLAIN, r);
+    equal(shown.includes(`<span class="lsa-beta-banner-label">${BETA_BANNER_LABEL}</span> ${BETA_BANNER_TEXT}</div>`), true, 'banner');
+    equal(shown.includes(`<span class="lsa-beta-badge lsa-beta-badge-tile">${BETA_BADGE_LABEL}</span>`), true, 'tile badge');
+    equal(shown.split(`<span class="lsa-beta-badge lsa-beta-badge-step">${BETA_BADGE_LABEL}</span>`).length - 1, 2, 'step markers');
+    equal(shown.includes(`(t.beta ? '${BETA_BADGE_LABEL}, ' : '')`), true, 'accessible name');
+  });
+  check('release gate: beta status written into the guide data fails a shown build', () => {
+    const flagged = PLAIN.replace("{ key: 'push-failures', ", "{ key: 'push-failures', beta: true, ");
+    if (flagged === PLAIN) throw new Error('push-failures tile anchor not found');
+    throws(() => show(flagged, release), /tile "push-failures" has beta true; expected no beta member/, 'flag in the data');
   });
   check('release gate: a TARGETS row out of step with its steps fails when a step is beta', () => {
     const row = "'push-to-lynx': [P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar, P.progressClose]";
-    if (SHOWN.split(row).length !== 2) throw new Error('push-to-lynx TARGETS row anchor not found once');
-    const short = SHOWN.replace(row, "'push-to-lynx': [P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar]");
+    if (PLAIN.split(row).length !== 2) throw new Error('push-to-lynx TARGETS row anchor not found once');
+    const short = PLAIN.replace(row, "'push-to-lynx': [P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar]");
     const one = clone(release);
     one.guides['push-to-lynx'].sections = [{ id: 'one-step', status: 'beta', basis: 'test', steps: [PUSH_STEP] }];
     throws(() => hide(short, one), /TARGETS\["push-to-lynx"\] has 5 cells but GUIDES\["push-to-lynx"\]\.steps has 6 steps/, 'row mismatch');
@@ -357,18 +391,18 @@ check('release gate: needs a boolean showBeta and a release', () => {
 check('release gate: a beta key left in the logic fails the build with its offset', () => {
   const r = clone(release);
   r.guides['target-profiles'].status = 'beta';
-  throws(() => hide(SHOWN, r), /guide key 'target-profiles' at offset \d+: .*showProfilesTab/, 'showProfilesTab leftover');
+  throws(() => hide(PLAIN, r), /guide key 'target-profiles' at offset \d+: .*showProfilesTab/, 'showProfilesTab leftover');
 });
 check('release gate: a GA guide with every step beta fails', () => {
   const r = clone(release);
   r.guides.preferences.sections = [{ id: 'all', status: 'beta', basis: 'test', steps: guides.preferences.steps.map((st) => st.title) }];
-  throws(() => hide(SHOWN, r), /every step of GA guide "preferences" is beta/, 'all steps beta');
+  throws(() => hide(PLAIN, r), /every step of GA guide "preferences" is beta/, 'all steps beta');
 });
 check('release gate: an invalid release file fails in either mode', () => {
   const r = clone(release);
   delete r.guides.preferences;
-  throws(() => applyReleaseGate(SHOWN, { showBeta: true, release: r }), /guide "preferences" has no entry/, 'shown');
-  throws(() => hide(SHOWN, r), /guide "preferences" has no entry/, 'hidden');
+  throws(() => applyReleaseGate(PLAIN, { showBeta: true, release: r }), /guide "preferences" has no entry/, 'shown');
+  throws(() => hide(PLAIN, r), /guide "preferences" has no entry/, 'hidden');
 });
 
 // ---- cross-references and step numbers ----------------------------------------------------------
@@ -392,7 +426,7 @@ check('cutSentence takes the joining space with the sentence', () => {
     equal(named.length, 7, 'guides naming Push changes to Lynx');
     const r = pushBeta(named.map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })));
     equal(crossReferencesOf(r).length, 7, 'registered');
-    const hidden = hide(SHOWN, r);
+    const hidden = hide(PLAIN, r);
     const after = evaluateGuideData(hidden);
     for (const k of named) {
       const before = after.GUIDES[k].before;
@@ -405,7 +439,7 @@ check('cutSentence takes the joining space with the sentence', () => {
   });
   check('release gate: an unregistered mention of a beta guide fails, naming guide, field and sentence', () => {
     const r = pushBeta(named.filter((k) => k !== 'push-failures').map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })));
-    throws(() => hide(SHOWN, r),
+    throws(() => hide(PLAIN, r),
       /guide "push-failures" before\[\d+\]: "Push changes to Lynx lists the settings under Before you start\." names the title of beta guide "push-to-lynx"\. Register it in src\/release\.json under guides\."push-to-lynx"\.crossReferences/,
       'unregistered');
   });
@@ -413,7 +447,7 @@ check('cutSentence takes the joining space with the sentence', () => {
     const r = clone(release);
     r.guides['station-details'].status = 'beta';
     const caption = guides['minimum-threshold'].steps[1].caption;
-    const linked = SHOWN.replace(caption, `${caption} See #/station-details.`);
+    const linked = PLAIN.replace(caption, `${caption} See #/station-details.`);
     throws(() => hide(linked, r), /guide "minimum-threshold" steps\[1\]\.caption: "See #\/station-details\." names a link to beta guide "station-details"/, 'link');
   });
   check('release gate: a registered sentence that is a whole before item takes the item with it', () => {
@@ -421,7 +455,7 @@ check('cutSentence takes the joining space with the sentence', () => {
     r.guides['station-details'] = { status: 'beta', basis: 'test', crossReferences: [
       { guide: 'dashboard-overview', field: 'before', text: guides['dashboard-overview'].before[2] },
     ] };
-    const after = evaluateGuideData(hide(SHOWN, r));
+    const after = evaluateGuideData(hide(PLAIN, r));
     equal(JSON.stringify(after.GUIDES['dashboard-overview'].before), JSON.stringify(guides['dashboard-overview'].before.slice(0, 2)), 'before');
   });
   check('release gate: a registered sentence that is a whole caption fails rather than leave it empty', () => {
@@ -429,7 +463,7 @@ check('cutSentence takes the joining space with the sentence', () => {
     r.guides['station-details'] = { status: 'beta', basis: 'test', crossReferences: [
       { guide: 'minimum-threshold', field: 'caption', text: guides['minimum-threshold'].steps[1].caption },
     ] };
-    throws(() => hide(SHOWN, r), /is all of steps\[1\]\.caption; removing it would leave it empty/, 'empty caption');
+    throws(() => hide(PLAIN, r), /is all of steps\[1\]\.caption; removing it would leave it empty/, 'empty caption');
   });
 }
 
@@ -438,8 +472,8 @@ check('cutSentence takes the joining space with the sentence', () => {
   const PUSH_STEP = guides['push-to-lynx'].steps[2].title;
   const summary = guides['push-to-lynx'].summary;
   const withSentence = (sentence) => {
-    if (SHOWN.split(summary).length !== 2) throw new Error('push-to-lynx summary anchor not found once');
-    return SHOWN.replace(summary, `${summary} ${sentence}`);
+    if (PLAIN.split(summary).length !== 2) throw new Error('push-to-lynx summary anchor not found once');
+    return PLAIN.replace(summary, `${summary} ${sentence}`);
   };
   const stepBeta = (refs) => {
     const r = clone(release);
@@ -467,9 +501,9 @@ check('cutSentence takes the joining space with the sentence', () => {
   });
   check('release gate: the counter must still number steps from steps.length', () => {
     const anchor = "counter: 'Step ' + (pi + 1) + ' of ' + steps.length";
-    throws(() => hide(SHOWN.replace(anchor, "counter: 'Step ' + (pi + 1) + ' of ' + 6"), stepBeta()), /the player counter, Step N of M must number steps from steps\.length/, 'counter');
+    throws(() => hide(PLAIN.replace(anchor, "counter: 'Step ' + (pi + 1) + ' of ' + 6"), stepBeta()), /the player counter, Step N of M must number steps from steps\.length/, 'counter');
     const announce = "announcement: 'Step ' + (pi + 1) + ' of ' + steps.length";
-    throws(() => hide(SHOWN.replace(announce, "announcement: 'Step ' + (pi + 1) + ' of ' + 6"), stepBeta()), /live-region announcement/, 'announcement');
+    throws(() => hide(PLAIN.replace(announce, "announcement: 'Step ' + (pi + 1) + ' of ' + 6"), stepBeta()), /live-region announcement/, 'announcement');
   });
 }
 
@@ -483,8 +517,8 @@ check('cutSentence takes the joining space with the sentence', () => {
   r.guides['enable-disable-stations'] = { status: 'beta', basis: 'test' };
   r.guides['station-details'] = { status: 'beta', basis: 'test' };
   r.guides['push-to-lynx'].sections = [{ id: 'one-step', status: 'beta', basis: 'test', steps: [PUSH_STEP] }];
-  const allData = evaluateGuideData(SHOWN);
-  const shippedData = evaluateGuideData(hide(SHOWN, r));
+  const allData = evaluateGuideData(PLAIN);
+  const shippedData = evaluateGuideData(hide(PLAIN, r));
   check('catalogues: beta-only strings and harvested compounds are left out', () => {
     const { omit } = catalogueOmissions({ allData, shippedData, release: r, catalogue: CATALOGUE });
     for (const key of ['Calculation questions', 'Calculation questions — 4 MIN, difficulty 3 of 3', PUSH_STEP,
@@ -511,7 +545,7 @@ check('cutSentence takes the joining space with the sentence', () => {
     const named = Object.keys(guides).filter((k) => (guides[k].before || []).some((b) => b.includes(PUSH_SENTENCE)));
     const pr = clone(release);
     pr.guides['push-to-lynx'] = { status: 'beta', basis: 'test', crossReferences: named.map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })) };
-    const shipped = evaluateGuideData(hide(SHOWN, pr));
+    const shipped = evaluateGuideData(hide(PLAIN, pr));
     const set = betaOnlyStrings({ allData, shippedData: shipped, release: pr });
     const original = guides['push-failures'].before.find((b) => b.includes(PUSH_SENTENCE));
     equal(set.has(PUSH_SENTENCE), true, 'sentence');
