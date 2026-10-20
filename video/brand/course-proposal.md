@@ -1,6 +1,6 @@
 # Fictional course identity and map approach: proposal v1
 
-**Gates:** G1 (fictional course) and G2 (map approach) in [`../approvals.md`](../approvals.md) · **Feature:** PI-ICNT-SW-1079 · **Date:** 2026-10-19
+**Gates:** G1 (fictional course) and G2 (map approach) in [`../approvals.md`](../approvals.md) · **Date:** 2026-10-19
 
 The videos are captured from IntelliDash `/demo`. Its demo data carries a real course name (called "the demo course name" here; it is never written in this repository) and real people's names, and its map shows satellite tiles of a real place. Every frame of a published video must instead show one fictional course. This proposal settles two questions:
 

@@ -39,7 +39,7 @@
 //
 // Out of reach: text drawn into a canvas or baked into an image, such as map tiles. The map is
 // covered by the map treatment (video/capture/map-routes.mjs and map-treatment.js, gate G2) and
-// every render is checked by OCR (PI-ICNT-SW-1082).
+// every render is checked by OCR (video/verify/ocr_check.py).
 //
 // Error messages name pair positions only, never a name.
 //

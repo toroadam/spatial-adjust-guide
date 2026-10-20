@@ -1,4 +1,4 @@
-// Deterministic, frame-stepped 60 fps recorder for the capture director (PI-ICNT-SW-1078-3).
+// Deterministic, frame-stepped 60 fps recorder for the capture director.
 //
 // Ported from the iCentral capture harness recorder (~/Documents/iCentral_MarCom/05-capture/harness/
 // record.mjs, modified 2026-10-02T17:06:54-0700) with the same API: Recorder, contactSheet,

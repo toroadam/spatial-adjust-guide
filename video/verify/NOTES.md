@@ -25,7 +25,7 @@ The iCentral folder is a read-only source and its tools were changing on the day
 
 ## Timeline keys the gate reads
 
-The builder (PI-ICNT-SW-1083) writes the timeline; these are the keys `verify.py` relies on, so a builder change that renames one must change the gate too.
+The builder (`video/edit/build.py`) writes the timeline; these are the keys `verify.py` relies on, so a builder change that renames one must change the gate too.
 
 | Key | Shape | Used by |
 |---|---|---|
