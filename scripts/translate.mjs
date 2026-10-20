@@ -21,7 +21,7 @@ import Anthropic from '@anthropic-ai/sdk';
 // 'zod/v4' subpath here does not help. The SDK's peer range (^3.25 || ^4) does not catch this.
 import { z } from 'zod';
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
-import { markersOf, hardcodedLabels, expectedLabel, markerProblems } from './lib/markers.mjs';
+import { markersOf, hardcodedLabels, englishInProduct, expectedLabel, markerProblems } from './lib/markers.mjs';
 
 const argv = process.argv.slice(2);
 const arg = (name, fallback) => {
@@ -47,15 +47,16 @@ const source = sourceCat.strings;
 const glossary = JSON.parse(await readFile('src/i18n/glossary.json', 'utf8'))[locale] || {};
 
 // [[Exact Label]] markers (docs/writing-guide.md > Label markers). The text inside each one must be
-// the label the reader's screen shows in this locale: English where IntelliDash hardcodes it,
-// otherwise the locale's own rendering of the screen label. scripts/lib/markers.mjs decides which,
+// the label the reader's screen shows in this locale: English where IntelliDash hardcodes it or
+// ships it untranslated, otherwise the locale's own rendering of the screen label. scripts/lib/markers.mjs decides which,
 // for this script and for the markerDrift gate in scripts/validate-locales.mjs alike. The screen
 // labels' renderings come from the locale catalogue already committed, so a brand-new locale
 // (no catalogue yet) falls back to the glossary.
 let current = {};
 try { current = JSON.parse(await readFile(join('src/i18n', `${locale}.json`), 'utf8')).strings || {}; } catch { /* new locale */ }
 const hardcoded = hardcodedLabels();
-const markerCtx = { t: current, screen: new Set(sourceCat._screenStrings || []), glossary, hardcoded };
+const markerCtx = { t: current, screen: new Set(sourceCat._screenStrings || []), glossary, hardcoded,
+  english: englishInProduct(), locale };
 const markerRule = (s) => markersOf(s).map((label) => {
   const exp = expectedLabel(label, markerCtx);
   return exp === undefined ? `[[your translation of "${label}"]]` : `[[${exp}]]`;
@@ -122,8 +123,9 @@ Rules:
 - Text inside double square brackets, [[like this]], is the exact label of a control on screen. It
   is drawn in bold as the thing to find. Keep the double brackets. Return exactly as many markers as
   the English has, never add or drop one, and put nothing inside a marker except the label. Inside
-  each marker write the label as the product shows it in ${LANGUAGE[locale]}: the glossary rendering
-  below, or the rendering given for that string in the request. The words around a marker are
+  each marker write the label as the product shows it in ${LANGUAGE[locale]}: the rendering given
+  for that string in the request, which is English where the product shows English, or else the
+  glossary rendering below. The words around a marker are
   translated normally and may move; the marker moves with its label.
 - These labels are hardcoded in English in the product, so they stay in English inside their
   markers in every language, even where the glossary or the prose would translate them:

@@ -111,6 +111,11 @@ tooling uses it to substitute the product's own translated label. The rules:
   dialog's left rail (Calculation, Minimum Threshold, Target Profiles, Preferences) are like this.
   They are still marked, and they stay English in every locale of the guides, because that is what
   the reader's screen shows.
+- **Untranslated in the product.** Some labels have a catalogue key but no translation in a
+  locale, so the product falls back to English there. "Minimum Threshold (%)" is untranslated in
+  all ten. A marker for one stays English in those locales, for the same reason.
+  `src/i18n/product-untranslated.json` lists them per locale; regenerate it with
+  `node scripts/product-untranslated.mjs` when the production pin moves.
 - **Every marker is checked.** Each `[[label]]` must exist in the label fixture and be recorded in
   the claims ledger. A marker that is not a real label is a bug, not a style choice.
 - **Not a label, not a marker.** Product names (Spatial Adjust, IntelliDash, Lynx, TurfRad),

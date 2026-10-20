@@ -26,4 +26,8 @@
 // assemble sequence in README > Localisation status > How translation is applied has to follow
 // any change here.
 
-export const REWRITES = [];
+import { apply as calculations } from './calculations.mjs';
+
+export const REWRITES = [
+  calculations,
+];

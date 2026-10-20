@@ -11,13 +11,20 @@
 //      from string literals (sa-settings-dlg.component.ts, the SaDlgMenuItem list) and paints them
 //      without the translate pipe, so Calculation, Minimum Threshold, Target Profiles and
 //      Preferences, and their one-line descriptions, are English in every locale of the product.
-//   2. The locale catalogue's translation of X, when X is a reproduced screen label
+//   2. X itself, when IntelliDash ships X untranslated in this locale, so the product falls back to
+//      its English (src/i18n/product-untranslated.json, written by scripts/product-untranslated.mjs).
+//      "Minimum Threshold (%)" is English on every reader's screen for this reason.
+//   3. The locale catalogue's translation of X, when X is a reproduced screen label
 //      (en-us.json _screenStrings). That is the label the figure beside the step shows, and for
 //      the labels IntelliDash ships translated it is the product's own rendering
 //      (scripts/app-strings.mjs takes those from IntelliDash's catalogues).
-//   3. IntelliDash's shipped translation of X from src/i18n/glossary.json.
+//   4. IntelliDash's shipped translation of X from src/i18n/glossary.json.
 //   Otherwise nothing is expected beyond keeping the marker: the label is not one the product
 //   or the reproduction renders, so there is no screen to be faithful to.
+//
+// Rules 1 and 2 put the reader's real screen ahead of the reproduction. The reproduction
+// translates some labels the product leaves English (src/i18n/app-manual.json), so in those
+// locales the figure beside a step can show a word the step does not use. The step is right.
 //
 // The hardcoded list comes from the committed fixture src/i18n/product-labels.json
 // (surfaces.settings.menu), because CI has no IntelliDash checkout and must reach the same verdict
@@ -56,11 +63,19 @@ export function hardcodedLabels(root = '.') {
   return out;
 }
 
+/** Labels IntelliDash renders in English per locale: label -> Set of locale codes. */
+export function englishInProduct(root = '.') {
+  const fixture = JSON.parse(readFileSync(`${root}/src/i18n/product-untranslated.json`, 'utf8'));
+  return new Map(Object.entries(fixture.labels || {}).map(([label, locales]) => [label, new Set(locales)]));
+}
+
 /** What [[label]] must read in `locale`, or undefined when only the marker itself is required.
  *  `t` is the locale's catalogue strings, `screen` the set of reproduced screen labels,
- *  `glossary` the locale's slice of src/i18n/glossary.json, `hardcoded` from hardcodedLabels(). */
-export function expectedLabel(label, { t, screen, glossary, hardcoded }) {
+ *  `glossary` the locale's slice of src/i18n/glossary.json, `hardcoded` from hardcodedLabels(),
+ *  `english` from englishInProduct() and `locale` the locale code. */
+export function expectedLabel(label, { t, screen, glossary, hardcoded, english, locale }) {
   if (hardcoded.has(label)) return label;
+  if (english?.get(label)?.has(locale)) return label;
   if (screen.has(label) && typeof t?.[label] === 'string' && t[label].trim()) return t[label];
   if (typeof glossary?.[label] === 'string' && glossary[label].trim()) return glossary[label];
   return undefined;

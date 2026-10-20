@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 987,
-    "words": 12194
+    "strings": 992,
+    "words": 12244
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -229,6 +229,7 @@
     "Difficulty 2 of 3": "Difficulty 2 of 3",
     "Difficulty 3 of 3": "Difficulty 3 of 3",
     "Dismissing is not declining. The next reload picks the new scan up.": "Dismissing is not declining. The next reload picks the new scan up.",
+    "Do": "Do",
     "Dragging a handle changes the boundary and saves it to your preferences.": "Dragging a handle changes the boundary and saves it to your preferences.",
     "Drill down to the station": "Drill down to the station",
     "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture. Nothing else is editable at sprinkler level — the target and the adjustment belong to the station.": "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture. Nothing else is editable at sprinkler level — the target and the adjustment belong to the station.",
@@ -300,14 +301,17 @@
     "Identical suggestions, missing values and stale scans — three things that look like bugs and are not.": "Identical suggestions, missing values and stale scans — three things that look like bugs and are not.",
     "Identical suggestions, missing values, stale scans.": "Identical suggestions, missing values, stale scans.",
     "If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.": "If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.",
+    "If not": "If not",
     "If nothing above explains it, open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo. It opens on a healthy dashboard once Spatial Adjust has contacted Lynx, which happens a second or so after the page loads, and it also opens when Lynx data has failed to load. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.": "If nothing above explains it, open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo. It opens on a healthy dashboard once Spatial Adjust has contacted Lynx, which happens a second or so after the page loads, and it also opens when Lynx data has failed to load. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.",
     "If the request will not queue": "If the request will not queue",
     "If the whole course is stale, check the source": "If the whole course is stale, check the source",
     "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.": "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.",
+    "If you see another tab, select [[Minimum Threshold]] again; Settings opens on [[Calculation]]. If there is no left rail, select the gear button, [[Settings]], at the right of the toolbar.": "If you see another tab, select [[Minimum Threshold]] again; Settings opens on [[Calculation]]. If there is no left rail, select the gear button, [[Settings]], at the right of the toolbar.",
     "Ignore insignificant irrigation adjustments": "Ignore insignificant irrigation adjustments",
     "in": "in",
     "In Lynx, Site Adjust and Course Adjust must both be 100%. Any other value is applied on top of every percentage you push, so the whole course waters more or less than the dashboard shows, and nothing reports an error.": "In Lynx, Site Adjust and Course Adjust must both be 100%. Any other value is applied on top of every percentage you push, so the whole course waters more or less than the dashboard shows, and nothing reports an error.",
     "In one line.": "In one line.",
+    "In the left rail, select [[Minimum Threshold]], just under [[Calculation]].": "In the left rail, select [[Minimum Threshold]], just under [[Calculation]].",
     "In the Lynx watering plan, Pct. Adjust must be 100 on the program and on every hole under it that you have enabled in Spatial Adjust, for example Fairways and 2-Fairways. Any other value is applied on top of the percentages you push to the stations under it, again without an error.": "In the Lynx watering plan, Pct. Adjust must be 100 on the program and on every hole under it that you have enabled in Spatial Adjust, for example Fairways and 2-Fairways. Any other value is applied on top of the percentages you push to the stations under it, again without an error.",
     "In the same program, Next Amt. must equal the Lynx Reference Amount under Settings › Calculation, in the same units. Every suggestion is a percentage of that reference amount, so a mismatch scales what each station receives by the ratio between the two, again without an error.": "In the same program, Next Amt. must equal the Lynx Reference Amount under Settings › Calculation, in the same units. Every suggestion is a percentage of that reference amount, so a mismatch scales what each station receives by the ratio between the two, again without an error.",
     "Individually edited targets drift away from the profile.": "Individually edited targets drift away from the profile.",
@@ -808,7 +812,6 @@
     "The interactive walkthrough needs a wider screen.": "The interactive walkthrough needs a wider screen.",
     "The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.": "The left column is what Lynx holds now; the right is what will replace it. Both name the station, so you are always comparing the same head across the row.",
     "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation. It reports conditions; it is not where the suggested percentages come from. Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.": "The left of the toolbar identifies where you are: site name, and a course selector that only appears when the site has more than one Lynx course. Next to it the weather strip shows current temperature, relative humidity, today’s ET and precipitation. It reports conditions; it is not where the suggested percentages come from. Option 1 uses no ET at all, and Option 2’s figure is calculated before the page loads.",
-    "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.": "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.",
     "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.",
     "The link doubles as a readout of the current thresholds.": "The link doubles as a readout of the current thresholds.",
     "The link sits above the table beside the threshold filter. The dialog opens with the count of stations you selected at the top — check it before going further.": "The link sits above the table beside the threshold filter. The dialog opens with the count of stations you selected at the top — check it before going further.",
@@ -833,6 +836,7 @@
     "The request is queued and you are told so: retrieval may take several minutes, and you are notified when it is ready. You can carry on reading the table while it runs — nothing is frozen and nothing is lost if you navigate away.": "The request is queued and you are told so: retrieval may take several minutes, and you are notified when it is ready. You can carry on reading the table while it runs — nothing is frozen and nothing is lost if you navigate away.",
     "The retry contained only the failed stations.": "The retry contained only the failed stations.",
     "The right of the toolbar is your work queue. Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today; the green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding.": "The right of the toolbar is your work queue. Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today; the green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding.",
+    "The right side shows the [[Minimum Threshold (%)]] box, with two choices below it for small values.": "The right side shows the [[Minimum Threshold (%)]] box, with two choices below it for small values.",
     "The route is /spatialadjust, all lowercase, inside the IntelliDash site. A camelCase URL does not resolve — it redirects to the generic error page. Access is checked per user before the view loads.": "The route is /spatialadjust, all lowercase, inside the IntelliDash site. A camelCase URL does not resolve — it redirects to the generic error page. Access is checked per user before the view loads.",
     "The route is all lowercase — /spatialadjust. /spatialAdjust does not resolve and redirects to the error page.": "The route is all lowercase — /spatialadjust. /spatialAdjust does not resolve and redirects to the error page.",
     "The same dialog for an area-level enable.": "The same dialog for an area-level enable.",
@@ -989,6 +993,7 @@
     "You know why Max Amount is greyed out under Option 1.": "You know why Max Amount is greyed out under Option 1.",
     "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.": "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.",
     "You reviewed the recalculated suggestions before pushing.": "You reviewed the recalculated suggestions before pushing.",
+    "You should see": "You should see",
     "You supply the target": "You supply the target",
     "Your comments": "Your comments",
     "Zero disables the feature": "Zero disables the feature",
@@ -1583,6 +1588,9 @@
     "Dismissing is not declining. The next reload picks the new scan up.": [
       "request-scan-data"
     ],
+    "Do": [
+      "minimum-threshold"
+    ],
     "Dragging a handle changes the boundary and saves it to your preferences.": [
       "map-navigation"
     ],
@@ -1801,6 +1809,9 @@
     "If a minimum threshold is set, a pink banner counts the stations it altered and each affected row shows the original percentage and the value that will actually be sent. Review Threshold opens Settings on the threshold tab if the numbers look wrong.": [
       "push-to-lynx"
     ],
+    "If not": [
+      "minimum-threshold"
+    ],
     "If nothing above explains it, open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo. It opens on a healthy dashboard once Spatial Adjust has contacted Lynx, which happens a second or so after the page loads, and it also opens when Lynx data has failed to load. It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.": [
       "station-zero"
     ],
@@ -1813,11 +1824,17 @@
     "If you override the same station every day, the station itself needs adjusting rather than the number. The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently. It is opened with Shift + Alt on the gear button.": [
       "suggested-adjustments"
     ],
+    "If you see another tab, select [[Minimum Threshold]] again; Settings opens on [[Calculation]]. If there is no left rail, select the gear button, [[Settings]], at the right of the toolbar.": [
+      "minimum-threshold"
+    ],
     "In Lynx, Site Adjust and Course Adjust must both be 100%. Any other value is applied on top of every percentage you push, so the whole course waters more or less than the dashboard shows, and nothing reports an error.": [
       "push-to-lynx"
     ],
     "In one line.": [
       "understand-spatial-adjust"
+    ],
+    "In the left rail, select [[Minimum Threshold]], just under [[Calculation]].": [
+      "minimum-threshold"
     ],
     "In the Lynx watering plan, Pct. Adjust must be 100 on the program and on every hole under it that you have enabled in Spatial Adjust, for example Fairways and 2-Fairways. Any other value is applied on top of the percentages you push to the stations under it, again without an error.": [
       "push-to-lynx"
@@ -3444,9 +3461,6 @@
       "dashboard-overview",
       "chrome"
     ],
-    "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.": [
-      "minimum-threshold"
-    ],
     "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force — % ADJ. OVER 200%, UNDER 10% — so you can read the filter without opening it. Clicking it opens Over/Under Options.": [
       "filter-adjustments"
     ],
@@ -3520,6 +3534,9 @@
     "The right of the toolbar is your work queue. Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today; the green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding.": [
       "dashboard-overview",
       "chrome"
+    ],
+    "The right side shows the [[Minimum Threshold (%)]] box, with two choices below it for small values.": [
+      "minimum-threshold"
     ],
     "The route is /spatialadjust, all lowercase, inside the IntelliDash site. A camelCase URL does not resolve — it redirects to the generic error page. Access is checked per user before the view loads.": [
       "understand-spatial-adjust"
@@ -4056,6 +4073,9 @@
     ],
     "You reviewed the recalculated suggestions before pushing.": [
       "seasonal-profiles"
+    ],
+    "You should see": [
+      "minimum-threshold"
     ],
     "You supply the target": [
       "understand-spatial-adjust"
