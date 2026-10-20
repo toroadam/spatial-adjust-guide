@@ -10,13 +10,13 @@ Every episode goes through the same steps, in this order. Each step is one comma
 
 | # | Step | Command | Output |
 |---|---|---|---|
-| 1 | Script lock: `episode.json` and `script.md`, every VO sentence backed by a claim; owner approves | edit `video/episodes/<id>/`, validate with the episode schema | repo |
+| 1 | Script lock: `episode.json` and `script.md`, every VO sentence backed by a claim; lock recorded in `approvals.md` | edit `video/episodes/<id>/`, validate with `node video/lib/episode-schema.mjs` | repo |
 | 2 | Capture from IntelliDash `/demo` | `npm run video -- capture` | `<media root>/episodes/<id>/capture/raw/` |
 | 3 | Voice-over | `npm run video -- vo` | `<media root>/episodes/<id>/vo/` |
 | 4 | Build the timeline | `npm run video -- build` | `<media root>/episodes/<id>/edit/` |
 | 5 | Render | `npm run video -- render` | `<media root>/episodes/<id>/renders/` |
 | 6 | Verify: format, loudness, holds, OCR, captions, repository hygiene | `npm run video -- verify`, `ocr`, `captions`, `hygiene` | `<media root>/episodes/<id>/renders/` |
-| 7 | Owner approval | recorded in [`approvals.md`](approvals.md) | repo |
+| 7 | Decision and review | recorded in [`approvals.md`](approvals.md); reviewed in person (see rule 7) | repo |
 
 The episode file format is documented in [`episodes/README.md`](episodes/README.md).
 
@@ -59,9 +59,11 @@ These apply to every person and every agent working on the videos.
 4. **Media goes to the media root**, `~/Documents/SpatialAdjust_MarCom/`, never into git, `/tmp` or an agent scratchpad.
 5. **Capture only from IntelliDash `/demo`.** On a live course, Push Changes sends adjustments to Lynx and waters a golf course. Demo Mode blocks writes with an "unsupported" message; it does not mock them. Never click push, save or apply on a non-demo course.
 6. **No Claude attribution in commits.** Commit messages carry no `Co-Authored-By` line for Claude, no session trailer, no session link and no "Generated with" line.
-7. **Owner decisions are gates.** The fictional course, the map approach, the style frame, the end-card URL, the music licence, the pilot script and the pilot final are decided by the owner and recorded in [`approvals.md`](approvals.md) in the owner's own words. Nobody writes an approval the owner has not given.
+7. **Owner decisions are recorded, not waited on.** The fictional course, the map approach, the style frame, the end-card URL, the music licence, the pilot script and the pilot final are gates G1 to G7 in [`approvals.md`](approvals.md). Under the owner's direction of 2026-10-19 there are no pre-publication gates: whoever reaches a gate makes the call with the defaults listed in `approvals.md`, records it there as decided by the executor, adds the question to [`docs/review-agenda.md`](../docs/review-agenda.md), and carries on. The owner and the experts review everything in person on 2026-10-22. Nobody records `approved` on the owner's behalf; the owner's own decision is a new row in their words.
 
-`npm run video -- hygiene` enforces rules 2, 3, 4 and 6 on the repository: it fails when a media file is anywhere in git history, when the key or a denylisted name appears in a tracked file or in history, or when a commit message carries Claude attribution. Run it before every push.
+`npm run video -- hygiene` enforces rules 2, 3, 4 and 6 on the repository: it fails when a media file is anywhere in git history, when the key or a denylisted name appears in a tracked file, in any commit's diff or in a commit message, or when a commit message in `origin/main..HEAD` carries Claude attribution. It prints locations only, never the key or a name. Run it before every push; exit 0 is clean, 1 means findings, 2 means the check itself could not run.
+
+Denylisted names are matched case-insensitively by length: a term of six characters or more anywhere, four or five characters as a whole word only, and a term under four characters (a short code, say) not at all, because it matches line numbers and font data everywhere. The report lists any skipped terms by index, so a short term never passes silently.
 
 ## Prerequisites
 
