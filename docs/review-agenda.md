@@ -76,3 +76,49 @@ and never rewrite another one.
   guide, in any language but English, stepping through the player. Decided by the executor under
   owner direction 2026-10-19; for review in person 2026-10-22. Question: has anyone in the field
   seen a translated guide that looked stuck, and if so, was it anywhere other than the player?
+
+- **A blue ring outlines the control each step names, in the player and in every article
+  picture.** The ring is the design system's informative blue (#3079F0), the same blue as the click
+  pulse and the iCentral Double Click highlights, never red, because in this product red is a
+  moisture reading. It outlines the smallest on-screen element under the step's cursor point, and
+  in the player it travels with the camera to the next step's control. Where the only thing under
+  the point is the map (Map navigation, step 1), the ring outlines the whole map. Shows on: every
+  step of every guide, in the player and in each step's picture. Decided by the executor under
+  owner direction 2026-10-19; for review in person 2026-10-22. Question: does the ring land on the
+  control you would point a new operator at, and is it strong enough to see without hiding the
+  control?
+
+- **The step title shows as a caps chapter label, and a chapter strip runs under the player.** The
+  label sits on the player's top-left corner, and moves to the first other corner when that would
+  cover the outlined control. The strip has one segment per step, each a button that jumps to that
+  step; the current one is a filled blue chip in the darker shade of the same blue, because white
+  text on #3079F0 does not reach the 4.5:1 contrast small text needs. The strip sits under the
+  picture rather than over it, so it never covers a control near the bottom edge. Its name for
+  screen readers, "Chapters", reads in English in other languages until the next translation pass.
+  Shows on: every guide's player, from tablet width up. Decided by the executor under owner
+  direction 2026-10-19; for review in person 2026-10-22. Question: are chapter label and strip a
+  help or clutter next to the step list on the right, which already lists the same steps?
+
+- **Twenty-three step pictures were re-framed to show the control their caption names.** A
+  picture's crop was fixed per picture type, so twelve left out the very thing the step is about:
+  in Understanding VWC, step 2 (`#/understanding-vwc`), the caption names station 7AP1 but the crop
+  ended above its row. Eleven more had the point at or just past an edge: in Push changes to Lynx,
+  step 4 (`#/push-to-lynx`), the crop sliced the footer button in half. A crop now moves, only as far as
+  needed, to bring the step's cursor point at least half a table row inside it, the rule the
+  player's camera already follows; most moved by less than a row. Shows on: those pictures, most
+  in Filter by % Adj., Editing station targets, Station zero, Threshold questions and Calculation
+  questions. Decided by the executor under owner direction 2026-10-19; for review in person
+  2026-10-22. Question: does any re-framed picture now lose context a reader needed, such as a
+  table header?
+
+- **The ring shows three cursor points that sit beside what their step is about.** In Set a minimum
+  threshold, step 4, and Threshold questions, step 3, the point is just left of the radio button,
+  so the ring outlines the whole Minimum Threshold panel. In Reviewing changes, step 2 ("Read
+  Current against Changes"), it lands on the blue information banner above the table rather than
+  the Changes column. In Get fresh scan data, step 1 ("Read the scan date before anything else"),
+  it points at the moisture summary in the toolbar, so the player and the picture show the toolbar
+  while the text is about scan dates in the table. The points were not moved: they are left for
+  the step rewrites, which own them. Shows on: `#/minimum-threshold`, `#/threshold-questions`,
+  `#/reviewing-changes` and `#/request-scan-data`. Decided by the executor under owner direction
+  2026-10-19; for review in person 2026-10-22. Question: should those cursors point at the radio,
+  the Changes column and a scan date before Thursday?
