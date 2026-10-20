@@ -35,7 +35,8 @@
     "review-pack": "node scripts/review-pack.mjs",
     "test:media-budget": "node scripts/media-budget.mjs",
     "media:fetch": "node scripts/fetch-media.mjs",
-    "media:add": "node scripts/media-add.mjs"
+    "media:add": "node scripts/media-add.mjs",
+    "test:media-git": "node scripts/media-git-guard.mjs"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.72.0",
