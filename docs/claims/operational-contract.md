@@ -5,9 +5,10 @@ a push to do what the dashboard says. There are two kinds: when to push, and how
 set up. Both come from Toro's own user guide. Wherever that guide is silent, the rule is left as
 a question for an expert.
 
-`src/transforms/operational-contract.mjs` holds the guide wording built from these rules. It
-stays behind `PUBLISH = false` until every open question below has an answer (see
-[Publishing](#publishing)).
+`src/transforms/operational-contract.mjs` holds the guide wording built from these rules. It is
+published. On 2026-10-19 the guides owner decided to put all of it on the live site before the
+open questions below are answered, and to settle them with the experts at the in-person review of
+the live site on 2026-10-22 (see [Publishing](#publishing)).
 
 Owner: feature 5. See the module map in [`README.md`](README.md).
 
@@ -88,7 +89,9 @@ document uses is the Fairways program.
 ## Questions for the expert review
 
 One line each, phrased so a Lynx specialist or agronomist can confirm or correct them. Feature 9
-puts these in the review pack.
+puts these in the review pack. The wording that rests on them is already live, so they are agenda
+items for the in-person review on 2026-10-22, and the claims ledger records each open sentence as
+Needs expert with its question.
 
 | Q | Rule | Question |
 |---|---|---|
@@ -100,12 +103,13 @@ puts these in the review pack.
 | Q6 | OC-7 | If the program's or a hole's Pct. Adjust is not 100, does Lynx multiply it into the pushed percentage of every station under it in the same way? |
 | Q7 | OC-8 | Does Lynx apply a station's percentage to the program's Next Amt.? If so, a Next Amt. that differs from the Lynx Reference Amount scales what every station receives by Next Amt. ÷ Lynx Reference Amount. |
 
-## Guide wording (draft, behind `PUBLISH`)
+## Guide wording (published 2026-10-19)
 
 Each callout and list item is made of sentences. A sentence is **settled** when 373-1135 rev 02
 states it, and **open** while any question it depends on is unanswered. The module records each
 sentence's 373-1135 `source` and its `open` questions, and it refuses to publish while any
-sentence has no source or is still open.
+sentence has no source or is still open, unless `PUBLISH_UNSETTLED` is true. It is true now, so
+every row below is live, including the open ones.
 
 | ID | Where | Sentence | Rests on | State |
 |---|---|---|---|---|
@@ -169,28 +173,31 @@ separately …".
 
 ## Publishing
 
-`PUBLISH` in `src/transforms/operational-contract.mjs` is `false`. With it false, `apply()` still
-runs every anchored edit, on a copy, so a moved anchor fails the build straight away. It then
-returns the page unchanged, and the published site stays byte-identical.
+`PUBLISH` and `PUBLISH_UNSETTLED` in `src/transforms/operational-contract.mjs` are both `true`, so
+every sentence in the table above is on the live site in all eleven languages. With `PUBLISH`
+false, `apply()` would still run every anchored edit on a copy, so a moved anchor fails the build,
+and return the page unchanged.
 
-Steps to publish:
+**Decision (2026-10-19).** OC-5 and the consequences in OC-6 to OC-8 are Lynx-side behaviour, and
+373-1135 rev 02 does not cover them, so under the original rule (publish only sentences that cite
+a 373-1135 section) they could never ship. The guides owner decided to publish all of the wording
+now, the open sentences included, and to review it with the experts in person, page by page on the
+live site, on 2026-10-22. The open sentences carry the silent-failure warning and the
+consequences, which this feature exists to add. Until the review, they rest on Q1-Q7 alone.
 
-1. Record each expert answer against its question here, with who answered and when. Then reword
-   any sentence the answer changes, clear the sentence's `open` list in the module, and give it a
-   `source` (see the decision below).
-2. Set `PUBLISH = true`. The module throws if any sentence still has no `source` or an open
-   question.
-3. Feature 9's process translates the new strings into all ten locales and re-extracts the claims
-   ledger. W2-W5 are `prerequisite` claims, cited as
-   `{ "source": "doc", "ref": "373-1135 rev 02 §…" }`.
+The claims ledger records every published sentence. The settled ones are `prerequisite` or
+`navigation` claims, Verified and cited as `{ "source": "doc", "ref": "373-1135 rev 02 §…" }`.
+The open ones are Needs expert, each with the question it rests on.
 
-**Decision needed from the requester.** OC-5 and the consequences in OC-6 to OC-8 are Lynx-side
-behaviour, and 373-1135 rev 02 does not cover them. The brief says to publish only sentences that
-cite a 373-1135 section. Taken literally, that means these sentences can never ship, unless a later
-revision of the document covers them. The alternatives are to accept a recorded expert answer as
-their source, or to drop the open sentences and publish only W1's first sentence, W2-W4's first
-sentences and W5. Dropping them would leave out the silent-failure warning and the consequences,
-which this feature exists to add.
+After the review:
+
+1. Record each expert answer against its question here, with the reviewer's role and the date, not
+   a name. Then reword any sentence the answer changes, clear the sentence's `open` list in the
+   module, and give it a `source`: the 373-1135 section, or the recorded answer.
+2. Once no sentence has an open question or lacks a source, set `PUBLISH_UNSETTLED = false`, so
+   the module throws again if a later edit adds an unsettled sentence.
+3. Translate any reworded string into all ten locales, re-extract the claims ledger, and move each
+   answered claim from Needs expert to Verified or Wrong.
 
 ## Superseded notes
 

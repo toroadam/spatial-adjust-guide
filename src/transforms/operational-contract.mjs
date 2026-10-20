@@ -20,13 +20,20 @@
 //
 // Each published sentence below names its 373-1135 source and the open questions it still
 // depends on. apply() publishes only when PUBLISH is true, and it refuses to publish while any
-// sentence lacks a source or still has an open question. With PUBLISH false, every edit still runs
-// on a throwaway copy, so a moved anchor fails the build now rather than on the day the wording
-// is switched on. The page itself is returned unchanged.
+// sentence lacks a source or still has an open question, unless PUBLISH_UNSETTLED records a
+// decision to publish ahead of the answers. With PUBLISH false, every edit still runs on a
+// throwaway copy, so a moved anchor fails the build, and the page itself is returned unchanged.
 import { edit } from './edit.mjs';
 
-/** Switched on only once every sentence below is settled. See operational-contract.md § Publishing. */
-export const PUBLISH = false;
+/** Published since 2026-10-19. See operational-contract.md § Publishing. */
+export const PUBLISH = true;
+
+/** The guides owner decided on 2026-10-19 to publish every sentence below before Q1-Q7 are
+ *  answered, and to settle them with the experts at the in-person review of the live site on
+ *  2026-10-22. While this is true, apply() publishes sentences that have no 373-1135 source or an
+ *  open question. Once the answers are recorded in operational-contract.md and the sentences
+ *  below are settled, set it to false so the gate holds again. */
+export const PUBLISH_UNSETTLED = true;
 
 // ---- sources ------------------------------------------------------------------------------------
 
@@ -212,7 +219,7 @@ export function apply(s) {
   const drafted = draft(s);
   if (!PUBLISH) return s;
   const pending = unsettled();
-  if (pending.length) {
+  if (pending.length && !PUBLISH_UNSETTLED) {
     throw new Error(
       `operational-contract: PUBLISH is true but ${pending.length} sentence(s) are not settled:\n` +
       pending.map((x) => `  - ${x.text}\n    source: ${x.source ?? 'none'}; open: ${x.open.join(', ') || 'none'}`).join('\n') +
