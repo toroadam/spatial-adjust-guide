@@ -5,8 +5,15 @@
 // from the standalone translation of its own parts. None of it judges whether the prose is any
 // good — that needs a human — but all of it is the kind of mistake a reader would act on.
 //
+// Two catalogues are checked. The page catalogue (src/i18n/<locale>.json) comes first, with results
+// reported under the locale code. The video caption catalogues (src/i18n/captions/<locale>.json, see
+// scripts/media-cues.mjs) follow, reported under "captions:<locale>": the same per-string checks, plus
+// a cue with no translation (missingCue) and a cue that quotes a guide step heading in different words
+// from the heading itself (stepLabelDrift).
+//
 // Usage: node scripts/validate-locales.mjs [locale ...]
 import { readFile, readdir } from 'node:fs/promises';
+import { stepLabelMatcher, stepLabelsFrom } from '../src/media/captions.mjs';
 
 const dir = 'src/i18n';
 const sourceCat = JSON.parse(await readFile(`${dir}/en-us.json`, 'utf8'));
@@ -51,8 +58,9 @@ const locales = (await readdir(dir))
   .filter((l) => !only.length || only.includes(l));
 
 // Names the product does not translate, plus the identifiers a reader types or reads off a screen.
+// Double Click is the name of the video series, kept untranslated like a product name.
 const PROTECTED = ['Toro', 'IntelliDash', 'Spatial Adjust', 'Lynx', 'TurfRad', 'VWC', 'ET',
-  '3AP1', '11AP2', '9AP1', '5AP1', '6AP1', '7AP1', '10AP1', '/spatialadjust', 'MIN'];
+  '3AP1', '11AP2', '9AP1', '5AP1', '6AP1', '7AP1', '10AP1', '/spatialadjust', 'MIN', 'Double Click'];
 // Characters that carry structure rather than language. A missing arrow is a broken instruction,
 // and a lost ÷ or × breaks a formula. Deliberately excludes — and %: Romance languages routinely
 // render an em dash as a colon, and Chinese spells "% Adj." out as 调整百分比 rather than using the
@@ -126,11 +134,13 @@ const report = {};
 let totalIssues = 0;
 let advisory = 0;
 
-for (const locale of locales) {
-  const data = JSON.parse(await readFile(`${dir}/${locale}.json`, 'utf8'));
-  const t = data.strings;
-  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [], screenLabelDrift: [] };
-
+/**
+ * The checks every translated string gets, whichever catalogue it is in: numbers, protected tokens,
+ * structural characters, untranslated and empty values. `screen` is the set of reproduced screen
+ * labels exempt from the token and untranslated rules (the page catalogue's _screenStrings; none for
+ * captions). Appends to `issues`.
+ */
+function checkStrings(locale, t, issues, screen) {
   for (const [en, tr] of Object.entries(t)) {
     if (!tr || !String(tr).trim()) { issues.empty.push(en.slice(0, 50)); continue; }
 
@@ -150,7 +160,7 @@ for (const locale of locales) {
       // a Latin letter and a CJK/Thai character, so the target side is checked with an explicit
       // "not adjacent to another Latin letter" test instead.
       const bounded = new RegExp(`(?<![A-Za-z])${tok.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![A-Za-z])`);
-      if (bounded.test(en) && !bounded.test(tr) && !SCREEN.has(en) && !(EXEMPT[locale]?.(en, tr, tok))) {
+      if (bounded.test(en) && !bounded.test(tr) && !screen.has(en) && !(EXEMPT[locale]?.(en, tr, tok))) {
         issues.droppedToken.push(`${en.slice(0, 45)} :: lost "${tok}"`);
       }
     }
@@ -158,10 +168,38 @@ for (const locale of locales) {
       const a = (en.split(ch).length - 1), b = (tr.split(ch).length - 1);
       if (a !== b) issues.structuralDrift.push(`${en.slice(0, 40)} :: ${ch} ${a}→${b}`);
     }
-    if (en === tr && !MAY_MATCH.test(en) && en.length > SHORT && !SCREEN.has(en)) {
+    if (en === tr && !MAY_MATCH.test(en) && en.length > SHORT && !screen.has(en)) {
       issues.untranslated.push(en.slice(0, 55));
     }
   }
+}
+
+/**
+ * Fold one catalogue's issues into the report under `name`. Every issue type gates except the ones
+ * listed in `advisoryTypes`, which are counted separately and never fail the run.
+ */
+function record(name, issues, advisoryTypes = [], extra = {}) {
+  const counts = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, v.length]));
+  const n = Object.entries(counts)
+    .filter(([k]) => !advisoryTypes.includes(k))
+    .reduce((a, [, v]) => a + v, 0);
+  totalIssues += n;
+  for (const k of advisoryTypes) advisory += counts[k] || 0;
+  report[name] = { total: n, ...extra, ...counts, samples: Object.fromEntries(
+    Object.entries(issues).filter(([, v]) => v.length).map(([k, v]) => [k, v.slice(0, 4)])) };
+}
+
+// ---- the page catalogue --------------------------------------------------------------------------
+
+const page = {}; // locale -> its page catalogue's strings, for the caption step-label check
+
+for (const locale of locales) {
+  const data = JSON.parse(await readFile(`${dir}/${locale}.json`, 'utf8'));
+  const t = data.strings;
+  page[locale] = t;
+  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [], screenLabelDrift: [] };
+
+  checkStrings(locale, t, issues, SCREEN);
 
   // Prose that names a reproduced screen label must use the label's own translation. A guide
   // saying "open Toutes les stations" while the tab reads "Toutes les voies" sends the reader
@@ -192,19 +230,60 @@ for (const locale of locales) {
     }
   }
 
-  const counts = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, v.length]));
   // screenLabelDrift is ADVISORY, not a gate. It reports prose that names a reproduced control
   // using different words from the control itself — real signal, but there are hundreds of them:
   // the guide prose was written independently of IntelliDash's shipped labels, so "Bulk Adjust"
   // is "Sammelanpassung" in the prose and "Massenanpassung" on screen. Worth a dedicated pass;
   // failing the build on it would just mean nobody runs the validator.
-  const n = Object.entries(counts)
-    .filter(([k]) => k !== 'screenLabelDrift')
-    .reduce((a, [, v]) => a + v, 0);
-  totalIssues += n;
-  advisory += counts.screenLabelDrift;
-  report[locale] = { total: n, ...counts, samples: Object.fromEntries(
-    Object.entries(issues).filter(([, v]) => v.length).map(([k, v]) => [k, v.slice(0, 4)])) };
+  record(locale, issues, ['screenLabelDrift']);
+}
+
+// ---- the caption catalogues ----------------------------------------------------------------------
+//
+// One per locale, translating the cue text of every English caption track. build.mjs refuses to
+// write a track with an untranslated cue, so a missing cue is a gate here too; a locale with no
+// caption catalogue at all is only a problem once there are cues to translate.
+const captionsSource = JSON.parse(await readFile(`${dir}/captions/en-us.json`, 'utf8')).strings;
+const cueCount = Object.keys(captionsSource).length;
+// The guide's step headings, from the same "Step N of M: <label>" keys compoundDrift checks above.
+const labelsIn = stepLabelMatcher(stepLabelsFrom(source));
+
+for (const locale of locales) {
+  let t;
+  try {
+    t = JSON.parse(await readFile(`${dir}/captions/${locale}.json`, 'utf8')).strings;
+    if (!t || typeof t !== 'object') throw new Error(`${dir}/captions/${locale}.json has no "strings" map — regenerate it`);
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err;
+    if (!cueCount) continue;                            // nothing to caption yet
+    t = null;
+  }
+  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], missingCue: [], stepLabelDrift: [] };
+  const strings = t || {};
+
+  // Keys outside the source are not checked here: assemble-locale.mjs refuses them, and a stale
+  // translation of a cue nobody speaks any more cannot reach a track.
+  const current = Object.fromEntries(Object.entries(strings).filter(([en]) => en in captionsSource));
+  checkStrings(locale, current, issues, new Set());
+
+  for (const en of Object.keys(captionsSource)) {
+    if (!(en in strings)) issues.missingCue.push(en.slice(0, 55));
+  }
+
+  // A cue that quotes a step heading must use the heading's own translation, or the video names the
+  // step one way and the guide another. Same tolerance as screenLabelDrift: case, whitespace and
+  // spaces next to CJK characters do not count as a difference.
+  for (const [en, tr] of Object.entries(current)) {
+    if (!tr || !String(tr).trim()) continue;            // already reported as empty
+    for (const label of labelsIn(en)) {
+      const heading = page[locale][label];
+      if (heading && !present(tr, heading)) {
+        issues.stepLabelDrift.push(`${en.slice(0, 40)} :: should name "${heading}"`);
+      }
+    }
+  }
+
+  record(`captions:${locale}`, issues, [], t ? {} : { catalogue: `missing: ${dir}/captions/${locale}.json` });
 }
 
 console.log(JSON.stringify(report, null, 2));
