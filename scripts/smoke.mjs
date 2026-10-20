@@ -18,6 +18,7 @@
 import { chromium } from 'playwright';
 import { CAPTION_LOCALES } from '../src/media/captions.mjs';
 import { installMediaFixture } from './lib/media-fixture.mjs';
+import { parseShowBeta, loadRelease, isGuideShipped } from '../src/release.mjs';
 
 const args = process.argv.slice(2);
 const url = args.find((a) => !a.startsWith('--'));
@@ -25,6 +26,13 @@ const block = args.filter((a) => a.startsWith('--block=')).map((a) => a.slice(8)
 const offline = args.includes('--offline');
 const mediaFixture = args.includes('--media-fixture');
 const base = url.replace(/#.*$/, '').replace(/\/?$/, '/');
+
+// How many guide cards the catalogue should show: every guide when the build shows beta content,
+// the GA guides when SA_SHOW_BETA=false removed it. Read the way build.mjs reads it, from the same
+// variable and the same release file (SA_RELEASE_FILE, tests only).
+const showBeta = parseShowBeta(process.env.SA_SHOW_BETA);
+const { release } = loadRelease();
+const expectedCards = Object.keys(release.guides).filter((k) => isGuideShipped(release, k, showBeta)).length;
 
 const browser = await chromium.launch();
 const ctx = await browser.newContext();
@@ -200,6 +208,7 @@ if (mediaFixture) {
 
 const result = {
   home, guide, media,
+  expectedCards: { count: expectedCards, mode: showBeta ? 'beta shown' : 'beta hidden' },
   externalOrigins: [...external],
   blocked: [...blocked].length,
   failed: [...failed],
@@ -209,7 +218,7 @@ const result = {
 const pass =
   home.dcRoot &&
   home.renderedChars > 20000 &&
-  home.cards === 26 &&
+  home.cards === expectedCards &&
   guide?.stageMounted === true &&
   media.problems.length === 0 &&
   external.size === 0 &&

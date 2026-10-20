@@ -14,12 +14,12 @@
 // Keeping support.js untouched preserves the Core Design -> web round-trip: re-exporting
 // from Core Design means dropping the new .dc.html files in and rebuilding.
 
-import { existsSync } from 'node:fs';
 import { readFile, writeFile, mkdir, rm, cp, copyFile, readdir } from 'node:fs/promises';
-import { isAbsolute, join, relative, resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { transformGuide } from './src/transform-export.mjs';
 import { transformApp } from './src/transform-app.mjs';
+import { parseShowBeta, loadRelease, isGuideShipped } from './src/release.mjs';
+import { evaluateGuideData, catalogueOmissions } from './src/transforms/release-gate.mjs';
 import {
   DEFAULT_MANIFEST, DEFAULT_MEDIA_DIR, SHOWCASE_KEY,
   guideKeysFrom, loadManifest, validateManifest, verifyItem,
@@ -117,23 +117,12 @@ function mediaRequired(value) {
 
 /**
  * Which guides ship in this build, and so which episodes may: the release rule in src/release.mjs
- * (src/release.json plus SA_SHOW_BETA, read only through that module). When SA_SHOW_BETA is false a
- * beta guide's episode, captions and transcript must be absent from dist/, not hidden. The module is
- * loaded only when present so this step also runs on a tree that predates it; there every guide
- * ships. A release file without its module is refused rather than guessed at. The showcase is not
- * a guide and always ships.
+ * (src/release.json plus SA_SHOW_BETA, read only through that module). main() parses the switch and
+ * loads the release once and passes both here, so the media step and the guide transforms can never
+ * disagree. When SA_SHOW_BETA is false a beta guide's episode, captions and transcript must be absent
+ * from dist/, not hidden. The showcase is not a guide and always ships.
  */
-async function releaseGate() {
-  const releaseModule = join(ROOT, 'src', 'release.mjs');
-  if (!existsSync(releaseModule)) {
-    if (existsSync(join(ROOT, 'src', 'release.json'))) {
-      throw new Error('src/release.json exists without src/release.mjs, so the media step cannot tell which guides ship');
-    }
-    return { knownKeys: [], isShipped: () => true };
-  }
-  const { loadRelease, showBetaFromEnv, isGuideShipped } = await import(pathToFileURL(releaseModule).href);
-  const showBeta = showBetaFromEnv();
-  const { release } = loadRelease();
+function releaseGate({ showBeta, release }) {
   return {
     // Every guide the release file knows, so a beta guide's item still validates when the release
     // transforms have already removed that guide from the catalogue.
@@ -149,11 +138,11 @@ async function releaseGate() {
  * media (caption tracks, transcripts, the page's media list) must be derived from this object and
  * never from the raw manifest, so an item that is left out leaves nothing behind in dist/.
  */
-async function stageMedia(html) {
+async function stageMedia(html, { showBeta, release }) {
   const required = mediaRequired(process.env.SA_MEDIA_REQUIRED);
   const manifestPath = resolve(ROOT, process.env.SA_MEDIA_MANIFEST || DEFAULT_MANIFEST);
   const mediaDir = resolve(ROOT, process.env.SA_MEDIA_DIR || DEFAULT_MEDIA_DIR);
-  const gate = await releaseGate();
+  const gate = releaseGate({ showBeta, release });
   const guideKeys = new Set([...guideKeysFrom(html), ...gate.knownKeys]);
 
   const manifest = validateManifest(await loadManifest(manifestPath), { guideKeys });
@@ -194,6 +183,15 @@ async function stageMedia(html) {
 }
 
 async function main() {
+  // The release switch. SA_SHOW_BETA is the whole contract with whatever host runs the build: GitHub
+  // Actions sets it from a repository variable, an Azure pipeline from a pipeline variable, a laptop
+  // inline. Unset means beta content is shown; false removes it from dist/ altogether (see
+  // src/release.mjs). Parsed before anything is deleted, so a typo fails the build and leaves the
+  // previous dist/ alone.
+  const rawShowBeta = process.env.SA_SHOW_BETA;
+  const showBeta = parseShowBeta(rawShowBeta);
+  const { release, file: releaseFile } = loadRelease();
+
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
 
@@ -220,10 +218,26 @@ async function main() {
   // once hand-edits in the .dc.html files, which a re-export silently wiped; doing it here
   // makes re-exports free. Each transform asserts its own anchor, so a shape change fails
   // the build rather than quietly dropping keyboard support.
-  html = transformGuide(html);
+  const exported = html;
+  html = transformGuide(exported, { showBeta, release });
+
+  // With beta content removed, the strings only it used must not ship either: a catalogue is
+  // fetched by every reader and would publish the beta prose in English. transformGuide() is pure,
+  // so running it again with beta shown gives everything a build with beta would publish, and the
+  // difference between the two is computed here from src/release.json rather than kept as a list.
+  let omitted = null;
+  if (!showBeta) {
+    const catalogue = JSON.parse(await readFile(join(ROOT, 'src', 'i18n', 'en-us.json'), 'utf8'));
+    omitted = catalogueOmissions({
+      allData: evaluateGuideData(transformGuide(exported, { showBeta: true, release })),
+      shippedData: evaluateGuideData(html),
+      release,
+      catalogue,
+    }).omit;
+  }
 
   // Run after the transforms, so the catalogue keys include the guides they add.
-  const mediaItems = await stageMedia(html);
+  const mediaItems = await stageMedia(html, { showBeta, release });
 
   // Eleven caption tracks per shipped video, dist/media/captions/<key>.<locale>.vtt: the English
   // source and one per translated locale, from the caption catalogues (see src/media/captions.mjs).
@@ -295,6 +309,9 @@ async function main() {
   const feedbackCss = await readFile(join(ROOT, 'src', 'feedback.css'), 'utf8');
   const mediaCss = await readFile(join(ROOT, 'src', 'media.css'), 'utf8');
   const splashCss = await readFile(join(ROOT, 'src', 'splash.css'), 'utf8');
+  // The Beta badge, banner and step marker styles ship only with the markup they style: a build with
+  // beta content removed carries none of their class names (src/transforms/release-gate.mjs).
+  const releaseCss = showBeta ? await readFile(join(ROOT, 'src', 'release.css'), 'utf8') : '';
   // Resolved in <head>, synchronously, so the gate decision is made before the first paint
   // rather than after — see the header of src/gate-boot.js.
   const gateBoot = await readFile(join(ROOT, 'src', 'gate-boot.js'), 'utf8');
@@ -345,7 +362,8 @@ async function main() {
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
-<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${mediaCss}\n${splashCss}\n</style>
+<meta name="sa-release-mode" content="${showBeta ? 'with-beta' : 'ga-only'}">
+<style>\n${a11yCss}\n${releaseCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${mediaCss}\n${splashCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 
@@ -396,14 +414,29 @@ async function main() {
     .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json');
   if (localeFiles.length) await mkdir(join(DIST, 'i18n'), { recursive: true });
   let shipped = 0;
+  const leftOut = new Set();
   for (const file of localeFiles) {
     const data = JSON.parse(await readFile(join(ROOT, 'src', 'i18n', file), 'utf8'));
     if (!data.strings) throw new Error(`${file} has no "strings" map — regenerate it`);
-    await writeFile(join(DIST, 'i18n', file), JSON.stringify({ strings: data.strings }));
+    let strings = data.strings;
+    if (omitted) {
+      strings = Object.fromEntries(Object.entries(strings).filter(([key]) => {
+        if (!omitted.has(key)) return true;
+        leftOut.add(key);
+        return false;
+      }));
+    }
+    await writeFile(join(DIST, 'i18n', file), JSON.stringify({ strings }));
     shipped++;
   }
 
   await writeFile(join(DIST, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
+
+  // The release status is build input. It names every beta guide, so it must never be published,
+  // whichever way the switch is set.
+  const releaseFiles = (await readdir(DIST, { recursive: true }))
+    .filter((f) => /(^|[\\/])release\.(json|mjs)$/.test(f));
+  if (releaseFiles.length) throw new Error(`dist/ must not contain the release status: ${releaseFiles.join(', ')}`);
 
   // Last, after every write: the whole site, videos and posters included, against the Pages budget.
   const site = await checkSite(DIST);
@@ -412,6 +445,10 @@ async function main() {
   console.log(`built dist/ — entry index.html, ${COMPONENTS.length} component(s) inlined, `
     + `${shipped} locale catalogue(s), 0 external origins, ${Object.keys(mediaItems).length} video(s), `
     + `${tracks} caption track(s)`);
+  console.log(`release mode: ${showBeta ? 'beta shown' : 'beta removed'} `
+    + `(SA_SHOW_BETA=${rawShowBeta === undefined ? 'unset' : JSON.stringify(rawShowBeta)}), `
+    + `release file ${releaseFile.startsWith(ROOT + sep) ? relative(ROOT, releaseFile) : releaseFile}`
+    + (omitted ? `, ${leftOut.size} beta-only catalogue key(s) left out of the locale catalogues` : ''));
 }
 
 await main();

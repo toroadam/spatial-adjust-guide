@@ -63,8 +63,24 @@ jobs:
       # quietly shipping that guide without its video, which is what a local build does.
       - run: npm test
         env:
+          # The beta switch (README: Beta content and the customer launch). A repository variable,
+          # not a secret: it is a setting, not a credential, and its value shows in the log. Empty
+          # or unset, which is what this expression gives until the variable exists, means the build
+          # default: beta content shown, with its Beta labels. For the customer launch, set it to
+          # false and re-run this workflow; build.mjs then leaves beta content out of dist/. An
+          # Azure pipeline sets the same environment variable, with no code change.
+          SA_SHOW_BETA: ${{ vars.SA_SHOW_BETA }}
           SA_FEEDBACK_ENDPOINT: ${{ secrets.SA_FEEDBACK_ENDPOINT }}
           SA_MEDIA_REQUIRED: '1'
+
+      # Reads every file in the dist/ the steps below upload. With SA_SHOW_BETA false it fails the
+      # deploy on any beta guide key, title, step or string in any file or locale, and on a dist/
+      # built in the other mode; with beta shown it reports and passes. It must see the same
+      # SA_SHOW_BETA as the build above, so a mismatch between the two env blocks fails closed.
+      - name: Beta leak check
+        run: node scripts/beta-leak.mjs
+        env:
+          SA_SHOW_BETA: ${{ vars.SA_SHOW_BETA }}
 
       # Blocking as of 2026-09-12. It ran as its own advisory workflow while the Target Profiles
       # figures were red; that is resolved — those labels belong to an unmerged feature branch and
