@@ -33,7 +33,8 @@
     "claims:aggregate": "node scripts/claims-extract.mjs --aggregate-only",
     "claims:lint": "node scripts/claims-extract.mjs --lint",
     "review-pack": "node scripts/review-pack.mjs",
-    "test:media-budget": "node scripts/media-budget.mjs"
+    "test:media-budget": "node scripts/media-budget.mjs",
+    "media:fetch": "node scripts/fetch-media.mjs"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.72.0",
