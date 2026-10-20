@@ -35,6 +35,7 @@ The iCentral folder is a read-only source. Its tools were changing on the day of
 | `tests/test_timeline.py` | Gfx asset sizes and metrics, Golos UI 400 vs 700 from `_ds` (same uniwidth box, more ink at 700), 600 drawn as 500, no default music, window shots from capture rows with `camplan.plan`, `dc_plan` and the FLAT no-drift framing, timeline output paths. |
 | `tests/test_renderer.py`, `tests/dummy_layer.py` | A layer type registered from a test-only module is applied without editing `renderer.py`; registered layers draw above base layers; inactive layers are skipped; base type names are refused. |
 | `tests/test_render_paths.py` | `render.py` exits 2 for an output under `/tmp`, `/private/tmp`, the temp directory, a scratchpad, the repository or anywhere outside the media root, for `video_out`, `--out` and `--still`. Standard library only. |
+| `tests/test_ff.py` | `ff.py` resolves ffmpeg and ffprobe from PATH or `$FFMPEG`/`$FFPROBE`, raises when they are missing, and refuses builds under `/tmp`, `/private/tmp`, `/var/folders`, a scratchpad, or reached through a symlink into `/tmp`. |
 
 ## Not ported
 
