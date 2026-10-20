@@ -135,7 +135,7 @@ A take is recorded from IntelliDash Demo Mode in the owner's own Chrome, which t
    ```
 
    Sign in to the demo form in the tab the director opens. The take is written to `<media root>/episodes/<id>/capture/raw/take<N>.mp4` (3840x2160, 60 fps) with `take<N>-log.json` (cue times), `take<N>-track.json` (cursor and focus track for the edit), `take<N>_sheet.jpg` and `take<N>-safety.json`. Takes are never overwritten.
-5. **Recreation.** An episode with `"source": "recreation"` (and an optional `recreationPath`, for example `/#/dashboard-overview`) is captured from the local guide site instead, for shots Demo Mode cannot show: `node video/capture/recreation.mjs --episode <id> --take <N>` (or the capture command above, which does the same for such an episode) builds `dist/` when it is missing, serves it on `localhost:8124` unless a server there already serves the same `dist/`, and records `take<N>-recreation.mp4` in Playwright's own Chromium. Any other host is refused for this source, and demo-mode clicks are never allowed there. `node video/capture/recreation.mjs --serve` just serves it, to pick targets.
+5. **Recreation.** An episode with `"source": "recreation"` (and an optional `recreationPath`, for example `/#/dashboard-overview`) is captured from the local guide site instead, for shots Demo Mode cannot show: `node video/capture/recreation.mjs --episode <id> --take <N>` (or the capture command above, which does the same for such an episode) builds `dist/` when it is missing, serves it on `localhost:8124` (or `$SA_RECREATION_PORT`) unless a server there already serves the same `dist/`, and records `take<N>-recreation.mp4` in Playwright's own Chromium. A server on that port that serves anything else is refused with exit 2; pick another free port with `SA_RECREATION_PORT`. Any other host is refused for this source, and demo-mode clicks are never allowed there. An optional `recreationFigure`, the start of one figure caption on the guide page, lifts that figure out of the page to fill the frame, so no guide prose is in shot; the episode's targets are then scoped with `[data-sa-frame] >> ...` ([`episodes/README.md`](episodes/README.md), [`capture/SAFETY.md`](capture/SAFETY.md)). `node video/capture/recreation.mjs --serve` just serves it, to pick targets.
 
 Exit codes: 0 recorded, 1 failed, 2 entry refused, 3 write or WebSocket aborted, 4 new document or window, 5 overlay or denylist, 6 click refused, 64 usage, 65 invalid episode ([table](capture/SAFETY.md#exit-codes)).
 
@@ -166,4 +166,83 @@ Tests use committed fixtures with invented names only. They never open the real 
 
 ## Runbook
 
-TBD (PI-ICNT-SW-1084): the end-to-end runbook for one episode, written from the pilot.
+One episode from script to verified render, written from the pilot, which ran every step on 2026-10-20: [`episodes/dashboard-overview-pilot/README.md`](episodes/dashboard-overview-pilot/README.md) has its commands, wall times and numbers. Run everything from the repository root. `<id>` is the episode id, `<ep>` its file `video/episodes/<id>/episode.json`, `<media>` the media root and `<N>` the take number.
+
+### Setup, once per machine
+
+1. **Node and Playwright.** Node 22 or later, then `npm ci` and `npx playwright install chromium` (the graphics and the recreation run in Playwright's Chromium).
+2. **ffmpeg with libx264** on `PATH` (or `$FFMPEG` and `$FFPROBE`), and **swiftc** for the OCR check (see [Prerequisites](#prerequisites)).
+3. **The media root and its venv.** `node video/lib/media-root.mjs --check` must print `~/Documents/SpatialAdjust_MarCom` (or your `$SA_MEDIA_ROOT`). Create the venv there, install `video/requirements.txt` into it and `export SA_VIDEO_PYTHON=<media>/.venv/bin/python` in every shell that runs the pipeline. Without it the Python subcommands run on the system `python3`, which has no torch, and `render` exits 2.
+4. **The ElevenLabs key** sits in the `elevenlabs` MCP entry of `~/.claude.json`. `npm run video -- estimate --live` proves the pipeline can read it: it prints the remaining credits, never the key.
+5. **The local name maps,** gitignored and never printed, copied or committed:
+   - `sanitize.local.json` at the repository root, `{"real": "fictional"}`, the same file the guide build uses. In a second git worktree, symlink it from the main checkout rather than copying it.
+   - `video/capture/overlay.local.json`, `{"pairs": {"real": "fictional"}, "denylist": ["real", ...]}`, with the Demo Mode data's real course and people names. A Demo Mode take is refused with exit 5 without it; the recreation, whose names are fictional already, runs without it.
+6. **The capture config,** for Demo Mode only: copy `video/capture/capture.example.json` to `video/capture/capture.local.json` (gitignored) and fill in the dev host as in [Capture](#capture), step 1.
+7. **The music bed.** `video/brand/music.json` names `music/sa-bed-v1.wav` under the media root, with its SHA-256; `mix` and `verify` check the file against it. If the file is missing, regenerate it with `$SA_VIDEO_PYTHON video/edit/audio/music_bed.py --version v1` and compare the SHA-256 it prints with `music.json`; a mismatch is refused by `mix`.
+8. **Check the tools:** `npm run test:video` and `npm run test:video:py`.
+
+### One episode
+
+| # | Step | Command | Output | Done when |
+|---|---|---|---|---|
+| 1 | Write the script: `<ep>` and `video/episodes/<id>/script.md`, every VO line citing claims in `docs/claims/claims.json` | `node video/lib/episode-schema.mjs <ep>` and `npm run video -- estimate --episode <ep>` | repo | the schema prints `ok`; the estimate gives the characters to budget |
+| 2 | Lock the script: set `"status": "script-locked"` and record the lock in [`approvals.md`](approvals.md) (G6 for the pilot), plus a bullet in [`docs/review-agenda.md`](../docs/review-agenda.md) | `node video/lib/episode-schema.mjs <ep>` | repo, committed | the row is recorded and the commit named in it |
+| 3 | Plan the take | `npm run video -- capture --episode <id> --dry-run` | stdout | every target resolves and the click guard has nothing to refuse |
+| 4 | Rehearse | `npm run video -- capture --episode <id> --take <N> --no-record` | `<media>/episodes/<id>/capture/raw/take<N>[-recreation]-safety.json` | exit 0 |
+| 5 | Record | `npm run video -- capture --episode <id> --take <N>`; set `"status": "captured"` | `take<N>[-recreation].mp4`, `-log.json`, `-track.json`, `_sheet.jpg`, `-safety.json` | exit 0, and the contact sheet shows the shot you meant |
+| 6 | Voice-over | `npm run video -- vo --episode <ep> --dry-run`, then without `--dry-run` | `<media>/episodes/<id>/vo/vo-*.wav`, `render-report.json`; a row in `video/vo/credits-log.md` (commit it) | exit 0; listen to every line |
+| 7 | Draft | `npm run video -- build --episode <ep> --take <N> --draft`, `npm run video -- render --timeline <media>/episodes/<id>/edit/timeline.json`, `npm run video -- mix --timeline <same>` | `renders/<id>-take<N>-DRAFT.mp4` | watch it: framing, pace, the cursor on every target the VO names |
+| 8 | Final | the same three commands with `--final`; set `"status": "edited"` | `renders/<id>-take<N>.mp4` | exit 0 from all three |
+| 9 | Verify | `npm run video -- verify --render <mp4> --timeline <tl> --episode <ep>`, `npm run video -- ocr --render <mp4> --timeline <tl> --episode <ep>`, `npm run video -- captions --timeline <tl> --episode <ep> --report <media>/episodes/<id>/vo/render-report.json`; set `"status": "verified"` | `renders/verify-report.json`, `ocr-report.json`, `<id>.en.vtt` | exit 0 from all three |
+| 10 | Hygiene and commit | `npm run video -- hygiene`, then commit the episode files with a plain message | repo | exit 0 |
+| 11 | Decision | record the call in [`approvals.md`](approvals.md) (G7 for the pilot) and [`docs/review-agenda.md`](../docs/review-agenda.md); `"status": "approved"` only on the owner's own words | repo | the row is recorded |
+
+Every step writes under the media root except the repository files named in the table. A take, a VO render and a timeline are inputs to the next step, so do not move or rename them: the timeline records the take and VO paths it was built from, and `verify` and `ocr` read the timeline.
+
+The episode's `status` follows the steps: `draft`, `script-locked` (a final build needs at least this), `captured`, `edited`, `verified` and `approved`. A change to a VO line's text, or to the actions after a take, is a new script version: a new lock row before the next final, then a new take.
+
+### Gates
+
+The gates live in [`approvals.md`](approvals.md). Until the in-person review of 2026-10-22, whoever reaches a gate decides it under the owner's direction of 2026-10-19, records it as `decided by executor` and adds a bullet to [`docs/review-agenda.md`](../docs/review-agenda.md). Only the owner, Adam Munir, records `approved`, in their own words, as a new row.
+
+| Gate | What it decides | Default under the owner's direction | Checked by |
+|---|---|---|---|
+| G1 | The fictional course identity, `video/brand/course.json` | a neutral fictional course not in the iCentral material | before capture, by the rule in `approvals.md` (the director does not read it) |
+| G2 | The map approach and the treatment still | fictional or Demo Mode imagery only; restyle is the default `mapPolicy` | before capture, by the same rule |
+| G3 | The style frame | the Spatial Adjust brand as the plan describes | `build` (draft and final) |
+| G4 | The end-card URL, `video/brand/end-card.json` | the guides site URL | `build --final`; while undecided a draft's end card reads URL PENDING APPROVAL |
+| G5 | The music licence, `video/brand/music.json` | an original or licensed bed with its licence reference | `build --final`, `mix`, `verify` in final mode |
+| G6 | The pilot's script lock | locked once the schema passes and every VO line cites a claim | `build --final` (status `script-locked` or later); before capture, by the same rule |
+| G7 | The pilot's final render | accepted once verify, OCR and hygiene pass | the decision row; the episode reaches `approved` only on the owner's words |
+
+`build` stops with exit 3 `missing approval: G..` when a gate it needs has no decision; `$SA_APPROVALS_PATH` points it at another file, for tests only.
+
+### Exit codes
+
+| Command | Exit codes |
+|---|---|
+| `sa-video` (the dispatcher) | the subcommand's own code; 64 no, unknown or not yet implemented subcommand; 128 + the signal number when the child is killed |
+| `capture` | 0 recorded (or dry run printed); 1 unexpected error or the plan failed in the page; 2 entry refused, config missing or invalid, `--source` mismatch, no CDP endpoint, a port held by another server, or no arming in time; 3 a write or WebSocket aborted; 4 a new document or window; 5 overlay, map treatment or denylist; 6 a guarded action refused or its target not found; 64 usage, or the take exists; 65 invalid episode ([`capture/SAFETY.md`](capture/SAFETY.md#exit-codes)) |
+| `vo` | 0 done; 1 a render step failed (API, ffmpeg, file); 2 configuration or usage (bad episode, key not found, RMS target missing, media root refused) |
+| `estimate` | 0 done; 1 the live credit call failed; 2 configuration or usage |
+| `build` | 0 written; 1 the build failed (missing media, a hold or VO overlap, a tool); 2 usage or configuration; 3 a gate is missing |
+| `render` | 0 rendered; 1 ffmpeg missing or failed; 2 usage or configuration (bad timeline, media root refused, torch missing) |
+| `mix` | 0 done and in spec; 1 a refused music file, a failed step or a result out of spec; 2 usage or configuration |
+| `style-frame` | 0 rendered; 2 usage or configuration; 64 a malformed `--version`; 1 an unexpected error |
+| `verify` | 0 pass; 1 fail; 2 could not run |
+| `ocr` | 0 pass; 1 a denylisted name read; 2 could not run (an empty denylist included); 3 OCR unavailable |
+| `captions` | 0 written; 1 a rule broken or a denylisted name (nothing written); 2 could not run |
+| `hygiene` | 0 clean; 1 findings; 2 the check could not run; 64 usage |
+
+### Troubleshooting
+
+From the pilot's runs:
+
+- **`capture` exits 2: a server on 8124 does not serve this checkout's `dist/`.** Another checkout's guide server (or `npm run serve`) holds the recreation's port. Run the capture with `SA_RECREATION_PORT=<free port>`; the pilot used 8139.
+- **Tests fail with `moov atom not found` or a contact sheet exit 254.** Two test runs shared `<media>/_tests/capture` and deleted each other's takes. Give each run its own root: `SA_MEDIA_ROOT=<media>/_tests/<name> npm run test:video`.
+- **`render` prints `Error submitting a packet to the muxer: Broken pipe`.** Once per window shot, when the take's decoder is closed after the shot has read its frames. The render exits 0 with every frame; it is not an error.
+- **The camera pushes in too early.** A `focus` box is fitted to about 60 % of the view and held until the beat ends, so a box on a small element (the pilot's 318 x 32 px legend) is the maximum push-in for the whole beat. Put the focus in a beat of its own, after the hovers that need the wide shot.
+- **`render` exits 2: torch is not installed.** `$SA_VIDEO_PYTHON` is unset in this shell; export it.
+- **A Demo Mode take ends with exit 5 before anything happens.** `video/capture/overlay.local.json` is missing or its denylist is empty.
+- **The final render is `<id>-take<N>.mp4`,** not `<id>.mp4`: the builder names renders by take, so a new take never overwrites the render of an earlier one.
+

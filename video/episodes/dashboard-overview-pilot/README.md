@@ -9,6 +9,7 @@ The first episode taken through the whole pipeline, end to end, to prove it and 
 | Voice-over | 3 lines rendered once, 247 characters, 109 credits | `vo/` |
 | Edit | draft and final rendered from take 2 | `renders/dashboard-overview-pilot-take2.mp4` |
 | Verification | verify, OCR, captions and hygiene pass on the final | `renders/verify-report.json`, `renders/ocr-report.json`, `renders/dashboard-overview-pilot.en.vtt` |
+| Pilot final (G7) | decided by executor; status `verified`, not `approved` | `video/approvals.md` row G7, [Decision](#decision-g7) |
 
 ## Capture
 
@@ -122,3 +123,36 @@ npm run video -- hygiene                                                        
 Reports: `renders/verify-report.json` (mode `final`) and `renders/ocr-report.json`; the OCR report holds counts and times only. The verify and OCR runs load `overlay.local.json` if present; it is not on this machine, so the denylist is the 7 terms of `sanitize.local.json`. The recreation's names are fictional already, so the OCR pass shows the overlay-free path is clean, not that a Demo Mode take would be.
 
 The VO credit estimate, refreshed with these numbers (`python3 video/vo/estimate.py --write --episode video/episodes/dashboard-overview-pilot/episode.json --cps-from <media root>/episodes/dashboard-overview-pilot/vo/render-report.json --takes 2 --render-seconds 46`), is in [`video/vo/series-estimate.md`](../../vo/series-estimate.md#pilot-as-rendered): the pilot narrates at 18.32 characters per second, faster than the iCentral rate of 16.16 the plan assumed, which raises the 26-guide planning estimate from 9,856 to 11,172 characters (22,344 credits with retakes, at 1 credit per character; the account has charged 0.44).
+
+## Decision (G7)
+
+Under the owner direction of 2026-10-19 the executor accepted the final render once verify, OCR and hygiene passed (the G7 default), and recorded it in `video/approvals.md` as `decided by executor`, with the render's SHA-256 and a bullet on `docs/review-agenda.md`. The episode stays at `verified`: it becomes `approved` only when the owner approves it in their own words, as a new G7 row.
+
+For the review on 2026-10-22, open locally (never upload): `renders/dashboard-overview-pilot-take2.mp4` (27.9 s, 13.8 MB), its captions `renders/dashboard-overview-pilot.en.vtt`, the [Verification](#verification) numbers above and [`video/vo/series-estimate.md`](../../vo/series-estimate.md). Two things are not yet proven: the footage is the recreation, not Demo Mode, and no person has listened to the three VO lines.
+
+## Lessons from the pilot
+
+1. **The cards leave about 12 s of footage.** Lockup 2.3 s, title card 5.9 s, one chapter card 2.9 s and end card 5.0 s are 16.1 s of a 27.9 s episode. A 20-30 s episode holds one chapter, perhaps two short ones, and the title card has to carry the first VO line. Plan scripts around 10-15 s of footage, not 15-20 s.
+2. **Brian is faster than planned.** 18.32 characters per second, against the 16.16 measured on iCentral: 247 characters filled 13.5 s, not 15.3 s. The account charged 0.44 credits per character (109 for 247); the estimate keeps 1 credit per character as the upper bound.
+3. **A focus box is a full push-in for the whole beat.** The camera fits the box to about 60 % of the view and holds it until the beat ends. Give each focus a beat of its own after the hovers that need the wide shot; never focus a small element at the start of a beat that also visits other targets.
+4. **Watch the draft before the final.** The take 1 draft passed every check and still showed the wrong thing (the pins out of shot). The checks prove format, loudness, holds and names; only a person watching proves the shot matches the line.
+5. **The recreation is a full source for shots the guides reproduce.** `recreationFigure` lifts one figure to fill the frame, the targets scope to it, and the take cannot pass as Demo Mode (`take<N>-recreation.mp4`). A Demo Mode take needs the owner in person: a capture Chrome, a hand sign-in, `capture.local.json` and `overlay.local.json`.
+6. **Machine time per episode is about 10 minutes.** Rehearsal 16 s; a 14 s take about 6.5 minutes (recorded at 3840x2160 on a virtual clock); VO 33 s; build, render and mix about 1 minute per pass (draft, then final); verify and OCR 14 s. The human time is in the script, the draft review and the listening.
+7. **Isolate parallel runs.** Two checkouts on one machine collide on the recreation's port (`SA_RECREATION_PORT`) and on the shared test media folder (`SA_MEDIA_ROOT` per run).
+8. **The claims ids move.** This branch's ledger predates the claims audit, and three of the pilot's ids name different sentences there. After the merge into `main`, re-run the schema and compare the cited texts before any further episode is locked.
+9. **This branch's video docs still carry internal work-item ids** (in `video/README.md`, `video/approvals.md`, `docs/review-agenda.md` and the dispatcher), which `main` has since removed from its public docs. Sweep them before the merge.
+
+## Hand-off
+
+**For the Double Click series** (one episode per guide):
+
+- The runbook in [`video/README.md`](../../README.md#runbook) is the procedure; this folder is the worked example. Copy `episode.json` as the template: a `title` beat carrying the first line over the title card, one `cue` per VO line, hovers, then focus in a beat of its own.
+- G1 to G5 are decided once for the whole series (course, map, style, end-card URL, music). G6 and G7 are written for the pilot only; decide how each episode's script lock and final are recorded (a row per episode in `approvals.md`, or one series row) before the first episode is locked.
+- Budget: `video/vo/series-estimate.md`, regenerated at the pilot's rate: 11,172 characters for 26 guides, 22,344 credits with retakes at 1 credit per character (about 9,800 at the rate charged so far), against about 357,400 left on the account.
+- Capture the first series episode from Demo Mode with the owner present, to prove the overlay and map restyle on real footage; the pilot did not.
+
+**For the site delivery:**
+
+- The deliverable is `renders/<id>-take<N>.mp4` under the media root, H.264 High 1920x1080 60 fps with AAC 48 kHz stereo at -14 LUFS (the pilot: 27.9 s, 13.8 MB), and English WebVTT captions `renders/<id>.en.vtt` beside it. `render --still <t> --out <png>` makes a poster frame from the same timeline.
+- `video/` is never deployed (`build.mjs` copies only `assets`, `_ds` and `vendor` into `dist/`), and the renders are not in git. Where the files are hosted, and any upload, is an owner decision of its own.
+- The end-card URL is data (`video/brand/end-card.json`): when the site moves to Azure behind SSO, change it, record the G4 change and re-render; nothing else changes.
