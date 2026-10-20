@@ -16,6 +16,7 @@
 // this. It attaches to the existing session rather than trying to authenticate itself.
 import { writeFile, readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { WRITES } from './lib/writes.mjs';
 
 const argv = process.argv.slice(2);
 const arg = (n, d) => { const i = argv.indexOf(`--${n}`); return i === -1 ? d : argv[i + 1]; };
@@ -23,8 +24,8 @@ const cdp = arg('cdp', 'http://localhost:9222');
 const out = arg('out', 'src/i18n/product-labels.json');
 const id = arg('id', '/Users/adammunir/IntelliDash/site/src');
 
-// Anything matching this is never clicked, whatever else the script asks for.
-const WRITES = /save|apply|push|confirm|delete|remove|send|submit|discard|reset|update from/i;
+// Anything matching WRITES (scripts/lib/writes.mjs) is never clicked, whatever else the script
+// asks for.
 
 // Where shipped-ness is decided: a settings tab whose menu entry is commented out here is in
 // flight on dev but not in the product readers have.
