@@ -1,5 +1,7 @@
 // The Double Click treatment in the guide player: a design-system blue ring around the control a
-// step names. Injected by build.mjs, outside the Core Design export, so a re-export keeps it.
+// step names, a caps chapter label on the stage, and a chapter strip under it. Injected by build.mjs,
+// outside the Core Design export, so a re-export keeps it. The label and strip are described where
+// they are built, below the ring.
 //
 // Where the ring goes. src/transform-export.mjs puts each step's resolved cursor target on the
 // player stage and on every article figure as data-sa-target="x,y", in the reproduction's own
@@ -44,7 +46,7 @@
 
   function own(node) {
     var el = node && (node.nodeType === 1 ? node : node.parentElement);
-    return !!(el && el.closest && el.closest('.lsa-hl'));
+    return !!(el && el.closest && el.closest('.lsa-hl, .lsa-chapter, .lsa-strip'));
   }
 
   function targetOf(c) {
@@ -213,15 +215,170 @@
     c.__lsaDirty = false;
     var box = p.el && appBox(app, p.el);
     var b = box && ringBox(c, app, box);
-    if (!b) { hide(hl); hl.removeAttribute('data-sa-for'); return; }
+    if (!b) { hide(hl); hl.removeAttribute('data-sa-for'); c.__lsaBox = null; return; }
     hl.setAttribute('data-sa-for', key);
     place(hl, b);
+    c.__lsaBox = b;
+  }
+
+  // ---- chapter label and chapter strip ----------------------------------------
+  // The Double Click series puts the chapter on screen as a SemiBold caps label on a card, and runs
+  // a chapter progress strip across the bottom. Here the chapter is the step: the label shows the
+  // current step's title, and the strip has one segment per step.
+  //
+  // Both mirror the rail, which src/transform-export.mjs marks with data-sa-chip (the step number)
+  // and data-sa-title (the English title). A segment activates its step by clicking the rail chip,
+  // so the export's own setPlayerStep runs and step_advanced and the live-region announcement are
+  // exactly what a rail click produces. Nothing here reads or sets component state.
+  //
+  // Text is the English catalogue key translated through window.__saT (src/i18n-apply.js) at write
+  // time, so a step change shows no English frame in another language, and is rewritten on
+  // sa:locale-applied. The label is aria-hidden: the live region already announces the step, and
+  // the label would say it twice. Segment names reuse the live region's own "Step N of M: title",
+  // which every catalogue already holds; only the strip's name, "Chapters", is new.
+
+  function tr(en) {
+    return window.__saT ? window.__saT(en) : en;
+  }
+
+  /** Writes translated text only when it differs, so neither this file nor i18n-apply loops. */
+  function setText(el, en) {
+    var t = tr(en);
+    if (el.textContent !== t) el.textContent = t;
+  }
+
+  function setAttr(el, name, en) {
+    var t = tr(en);
+    if (el.getAttribute(name) !== t) el.setAttribute(name, t);
+  }
+
+  /** The rendered rail chips, in step order. The raw template's "{{ chip.n }}" is not a number. */
+  function railChips() {
+    var out = [];
+    var all = document.querySelectorAll('[data-sa-chip]');
+    for (var i = 0; i < all.length; i++) {
+      var n = parseInt(all[i].getAttribute('data-sa-chip'), 10);
+      if (n > 0) out[n - 1] = all[i];
+    }
+    for (var j = 0; j < out.length; j++) if (!out[j]) return [];
+    return out;
+  }
+
+  function titleOf(chip) {
+    return (chip.getAttribute('data-sa-title') || '').trim();
+  }
+
+  function overlaps(x, y, w, h, b, gap) {
+    return x < b.l + b.w + gap && x + w + gap > b.l && y < b.t + b.h + gap && y + h + gap > b.t;
+  }
+
+  /** Top-left unless that covers the highlighted control; then the first free corner. */
+  function placeLabel(label, stage) {
+    var b = stage.__lsaBox;
+    var pos = 'tl';
+    if (b) {
+      var W = stage.clientWidth, H = stage.clientHeight;
+      var w = label.offsetWidth, h = label.offsetHeight, m = 12, gap = 8;
+      var spots = [['tl', m, m], ['tr', W - m - w, m], ['bl', m, H - m - h], ['br', W - m - w, H - m - h]];
+      for (var i = 0; i < spots.length; i++) {
+        if (!overlaps(spots[i][1], spots[i][2], w, h, b, gap)) { pos = spots[i][0]; break; }
+      }
+    }
+    if (label.getAttribute('data-sa-pos') !== pos) label.setAttribute('data-sa-pos', pos);
+  }
+
+  function labelFor(stage) {
+    var el = stage.__lsaChapter;
+    if (el && el.parentNode === stage) return el;
+    el = document.createElement('div');
+    el.className = 'lsa-chapter';
+    el.setAttribute('aria-hidden', 'true');
+    stage.appendChild(el);
+    stage.__lsaChapter = el;
+    return el;
+  }
+
+  function activate(e) {
+    var seg = e.currentTarget;
+    var chip = document.querySelector('[data-sa-chip="' + seg.getAttribute('data-sa-n') + '"]');
+    if (chip) chip.click();
+  }
+
+  // The guide binds Space to play-all on window, and that handler calls preventDefault, which would
+  // cancel the button's own activation and restart the walkthrough from step 1. A segment is a real
+  // button, so its Enter and Space belong to it: stop them here, before they reach window. Arrow
+  // keys still step the player, as they do from anywhere else in a guide.
+  function keepKeys(e) {
+    if (e.key !== ' ' && e.key !== 'Spacebar' && e.key !== 'Enter') return;
+    if (e.target && e.target.classList && e.target.classList.contains('lsa-strip-seg')) e.stopPropagation();
+  }
+
+  function stripFor(stage) {
+    var frame = stage.parentElement;
+    var el = frame.__lsaStrip;
+    if (el && el.parentNode === frame) return el;
+    el = document.createElement('div');
+    el.className = 'lsa-strip';
+    el.setAttribute('role', 'group');
+    el.addEventListener('keydown', keepKeys);
+    frame.insertBefore(el, stage.nextSibling);
+    frame.__lsaStrip = el;
+    return el;
+  }
+
+  function segments(strip, count) {
+    if (strip.children.length === count) return strip.children;
+    while (strip.firstChild) strip.removeChild(strip.firstChild);
+    for (var i = 0; i < count; i++) {
+      var seg = document.createElement('button');
+      seg.type = 'button';
+      seg.className = 'lsa-strip-seg';
+      seg.setAttribute('data-sa-n', String(i + 1));
+      var bar = document.createElement('span');
+      bar.className = 'lsa-strip-bar';
+      var label = document.createElement('span');
+      label.className = 'lsa-strip-label';
+      seg.appendChild(bar);
+      seg.appendChild(label);
+      seg.addEventListener('click', activate);
+      strip.appendChild(seg);
+    }
+    return strip.children;
+  }
+
+  function chapters(stage) {
+    if (!targetOf(stage) || !stage.parentElement) return;
+    var chips = railChips();
+    var cur = parseInt(stage.getAttribute('data-sa-step'), 10);
+    if (!chips.length || !(cur >= 1 && cur <= chips.length)) return;
+
+    var label = labelFor(stage);
+    setText(label, titleOf(chips[cur - 1]));
+    placeLabel(label, stage);
+
+    var strip = stripFor(stage);
+    setAttr(strip, 'aria-label', 'Chapters');
+    var segs = segments(strip, chips.length);
+    for (var i = 0; i < segs.length; i++) {
+      var seg = segs[i], n = i + 1, title = titleOf(chips[i]);
+      setText(seg.lastChild, title);
+      setAttr(seg, 'aria-label', 'Step ' + n + ' of ' + chips.length + ': ' + title);
+      var state = n < cur ? 'done' : n === cur ? 'current' : 'todo';
+      if (seg.getAttribute('data-sa-state') !== state) seg.setAttribute('data-sa-state', state);
+      if (n === cur) { if (seg.getAttribute('aria-current') !== 'step') seg.setAttribute('aria-current', 'step'); }
+      else if (seg.hasAttribute('aria-current')) seg.removeAttribute('aria-current');
+    }
   }
 
   function run() {
     var cs = containers();
     for (var i = 0; i < cs.length; i++) {
       try { update(cs[i]); } catch (e) { /* one bad container must not take the others down */ }
+    }
+    // After the rings: the label keeps clear of the stage's ring.
+    var stages = document.querySelectorAll('.lsa-stage');
+    for (var j = 0; j < stages.length; j++) {
+      try { chapters(stages[j]); } catch (e) { /* the ring stands without the strip */ }
     }
   }
 

@@ -472,6 +472,17 @@ export function transformGuide(src) {
     replace: () => 'const f = fig(s.fig, ratio, (TARGETS[key] && TARGETS[key][i]) || s.t);',
   });
 
+  // --- rail chips carry their step number and English title -------------------
+  // The chapter strip in src/player.js mirrors the rail: one segment per chip, activated by clicking
+  // the chip, so the export's setPlayerStep, step_advanced and the live region are unchanged. The
+  // title is the English catalogue key, which a data attribute keeps when src/i18n-apply.js
+  // translates the chip's visible text.
+  s = edit(s, {
+    name: 'chapter strip: step number and title on each rail chip',
+    pattern: exact('<div onClick="{{ chip.onClick }}" style="{{ chip.style }}"'),
+    replace: () => '<div onClick="{{ chip.onClick }}" data-sa-chip="{{ chip.n }}" data-sa-title="{{ chip.label }}" style="{{ chip.style }}"',
+  });
+
   // --- keyboard semantics on the div-based controls ---------------------------
   // The brand control puts style before onClick, so it needs its own anchor.
   s = edit(s, {
