@@ -8,7 +8,7 @@ where production has moved under a claim.
 | Name | SHA | Date |
 |---|---|---|
 | baseline (local develop the guides were checked against) | `4d8aa61eb6131c5c5ef0f5df5d51079cc2eadedd` | 2026-08-13 |
-| production, `origin/Deployments/release/261014_phase_3a` (unconfirmed) | `1aa4f28622cc3cc9637f0d61a438bf16bcf01924` | 2026-10-15 |
+| production, `origin/Deployments/release/261014_phase_3a` (confirmed 2026-10-19) | `1aa4f28622cc3cc9637f0d61a438bf16bcf01924` | 2026-10-15 |
 | develop, `origin/develop` | `bd39f465cf5a7ae0356a59825250b36044085714` | 2026-10-15 |
 
 Paths searched: `site/src/app/spatial-adjust`, `site/src/app/api/spatial-adjust`,
