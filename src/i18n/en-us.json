@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 992,
-    "words": 12244
+    "strings": 1007,
+    "words": 12368
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -73,6 +73,7 @@
     "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all — a course-wide problem is almost always there rather than in your settings.": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all — a course-wide problem is almost always there rather than in your settings.",
     "A greyed, italic average means the value came from the model rather than a scan taken that day. The calculation still runs, but it is running on an estimate.": "A greyed, italic average means the value came from the model rather than a scan taken that day. The calculation still runs, but it is running on an estimate.",
     "A greyed, italic Avg. VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day.": "A greyed, italic Avg. VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day.",
+    "A hole or area row in the table, which shows the average of the rows under it.": "A hole or area row in the table, which shows the average of the rows under it.",
     "A modelled value: grey and italic.": "A modelled value: grey and italic.",
     "A modelled value: grey, italic, and dated two days ago.": "A modelled value: grey, italic, and dated two days ago.",
     "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.": "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.",
@@ -104,6 +105,7 @@
     "Advanced": "Advanced",
     "After a fortnight of individual target edits, the course no longer matches the profile you applied. The profile is still valid, it is simply out of date.": "After a fortnight of individual target edits, the course no longer matches the profile you applied. The profile is still valid, it is simply out of date.",
     "After a recalculation the dashboard reloads with new suggestions.": "After a recalculation the dashboard reloads with new suggestions.",
+    "Aggregate row": "Aggregate row",
     "Aggregate rows average their children": "Aggregate rows average their children",
     "All selected changes pushed and verified.": "All selected changes pushed and verified.",
     "All selected changes pushed successfully.": "All selected changes pushed successfully.",
@@ -173,6 +175,7 @@
     "Changes": "Changes",
     "Changing any of them recalculates every suggestion and reloads the dashboard.": "Changing any of them recalculates every suggestion and reloads the dashboard.",
     "Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab — they are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.": "Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab — they are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.",
+    "Chapters": "Chapters",
     "Chart and table share a selection. The header reads the selected item and its average moisture.": "Chart and table share a selection. The header reads the selected item and its average moisture.",
     "Check after switching.": "Check after switching.",
     "Check for threshold rewrites": "Check for threshold rewrites",
@@ -219,6 +222,7 @@
     "Dashboard overview": "Dashboard overview",
     "Dashboard overview — 4 MIN, difficulty 1 of 3": "Dashboard overview — 4 MIN, difficulty 1 of 3",
     "Decide what happens below the line": "Decide what happens below the line",
+    "Delta": "Delta",
     "Diagnostics confirms Lynx is reachable before you retry.": "Diagnostics confirms Lynx is reachable before you retry.",
     "Diagnostics dialog, opened from the toolbar logo.": "Diagnostics dialog, opened from the toolbar logo.",
     "Diagnostics reports the Lynx interconnect, whether the cloud can be pinged, and the installation and course identifiers. If the ping is failing, no amount of re-pushing will help.": "Diagnostics reports the Lynx interconnect, whether the cloud can be pinged, and the installation and course identifiers. If the ping is failing, no amount of re-pushing will help.",
@@ -248,6 +252,7 @@
     "Enabled Stations": "Enabled Stations",
     "Enter the percentage": "Enter the percentage",
     "ET": "ET",
+    "Evapotranspiration: the water your turf and soil lose to the air each day.": "Evapotranspiration: the water your turf and soil lose to the air each day.",
     "Every station row carries the date its reading was captured. One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.": "Every station row carries the date its reading was captured. One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.",
     "Every station you edited to a value different from what Lynx holds is in the Push Changes list.": "Every station you edited to a value different from what Lynx holds is in the Push Changes list.",
     "Every suggestion in this column came from that chain.": "Every suggestion in this column came from that chain.",
@@ -281,6 +286,7 @@
     "Footer": "Footer",
     "Four checks, in order, for a zero suggestion.": "Four checks, in order, for a zero suggestion.",
     "From suggestion to controller.": "From suggestion to controller.",
+    "From the model when there was no scan that day, shown in grey italics with a calculator icon.": "From the model when there was no scan that day, shown in grey italics with a calculator icon.",
     "Get fresh scan data": "Get fresh scan data",
     "Get fresh scan data — 3 MIN, difficulty 2 of 3": "Get fresh scan data — 3 MIN, difficulty 2 of 3",
     "Getting Started": "Getting Started",
@@ -346,6 +352,7 @@
     "Lynx Cloud connected": "Lynx Cloud connected",
     "Lynx itself must be set up to match Spatial Adjust. Push changes to Lynx lists the settings under Before you start.": "Lynx itself must be set up to match Spatial Adjust. Push changes to Lynx lists the settings under Before you start.",
     "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.": "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.",
+    "Lynx Reference Amount": "Lynx Reference Amount",
     "Lynx Reference Amount (in)": "Lynx Reference Amount (in)",
     "Lynx Reference Amount is what 100% means": "Lynx Reference Amount is what 100% means",
     "Lynx Reference Amount, ceiling of 10.": "Lynx Reference Amount, ceiling of 10.",
@@ -361,6 +368,7 @@
     "Max Amount over Lynx Reference Amount sets the ceiling.": "Max Amount over Lynx Reference Amount sets the ceiling.",
     "Max Amount, Lynx Reference Amount and Crop Coefficient.": "Max Amount, Lynx Reference Amount and Crop Coefficient.",
     "Mean of the children, shown on the parent row.": "Mean of the children, shown on the parent row.",
+    "Measured": "Measured",
     "Measured 34.5 percent against a 16 percent target. Zero is the right answer.": "Measured 34.5 percent against a 16 percent target. Zero is the right answer.",
     "Measured moisture and its scan date, per station.": "Measured moisture and its scan date, per station.",
     "Measured or modelled.": "Measured or modelled.",
@@ -368,6 +376,7 @@
     "Measured: the scan mean": "Measured: the scan mean",
     "Minimum Threshold": "Minimum Threshold",
     "Minimum Threshold (%)": "Minimum Threshold (%)",
+    "Modelled": "Modelled",
     "Modelled: the fallback": "Modelled: the fallback",
     "Move the band boundaries": "Move the band boundaries",
     "Name a profile for the reason the targets are what they are — Summer Baseline, Tournament Week, Overseed Recovery. A date tells you when; a condition tells you why, which is what you will be searching for.": "Name a profile for the reason the targets are what they are — Summer Baseline, Tournament Week, Overseed Recovery. A date tells you when; a condition tells you why, which is what you will be searching for.",
@@ -461,6 +470,7 @@
     "Raise Daily Max Amount in Settings › Calculation, or accept that the course is being deliberately limited.": "Raise Daily Max Amount in Settings › Calculation, or accept that the course is being deliberately limited.",
     "Re-push only the failures": "Re-push only the failures",
     "Read Current against Changes": "Read Current against Changes",
+    "Read from a TurfRad moisture scan taken today, and shown in plain black text.": "Read from a TurfRad moisture scan taken today, and shown in plain black text.",
     "Read it against Avg. VWC and Target VWC": "Read it against Avg. VWC and Target VWC",
     "Read the count, not the colour": "Read the count, not the colour",
     "Read the failure count, understand what has already been tried, and re-push only what failed.": "Read the failure count, understand what has already been tried, and re-push only what failed.",
@@ -745,6 +755,7 @@
     "Table, station rows": "Table, station rows",
     "Table, Target VWC column": "Table, Target VWC column",
     "Take a station, hole or area out of adjustment — and understand what cascading does before you confirm it.": "Take a station, hole or area out of adjustment — and understand what cascading does before you confirm it.",
+    "Target": "Target",
     "Target minus measured, per station, is the whole idea.": "Target minus measured, per station, is the whole idea.",
     "Target Profiles": "Target Profiles",
     "TARGET PROFILES": "TARGET PROFILES",
@@ -768,6 +779,7 @@
     "The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push when the station is enabled and the new value differs from Lynx’s Current; the Suggested value stays visible beside it for comparison.": "The % Adj. field is separate from the target and accepts 0 to 900. Editing it queues the station for push when the station is enabled and the new value differs from Lynx’s Current; the Suggested value stays visible beside it for comparison.",
     "The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.": "The 0–50 bound is enforced by the dialog only. Values sent by other means are not validated on the server.",
     "The algorithm dropdown, above the three amounts.": "The algorithm dropdown, above the three amounts.",
+    "The amount of water a station applies at 100 percent.": "The amount of water a station applies at 100 percent.",
     "The automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried.": "The automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried.",
     "The average, high and low VWC figures summarise the areas of the selected course that were scanned today, whatever the table is showing.": "The average, high and low VWC figures summarise the areas of the selected course that were scanned today, whatever the table is showing.",
     "The backend keeps these amounts in millimetres and the dialog converts on the way in and out — two decimals imperial, one metric.": "The backend keeps these amounts in millimetres and the dialog converts on the way in and out — two decimals imperial, one metric.",
@@ -860,6 +872,7 @@
     "The table drills from course to areas, then holes, then stations. Breadcrumbs at the top left take you back up a level. If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row.": "The table drills from course to areas, then holes, then stations. Breadcrumbs at the top left take you back up a level. If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row.",
     "The table is a drill-down: course, then areas, then holes, then stations. Breadcrumbs at the top left take you back up. At station level you get the editable columns — Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch.": "The table is a drill-down: course, then areas, then holes, then stations. Breadcrumbs at the top left take you back up. At station level you get the editable columns — Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch.",
     "The table shows the raw suggestion": "The table shows the raw suggestion",
+    "The target minus the station’s moisture: the gap the suggestion tries to close.": "The target minus the station’s moisture: the gap the suggestion tries to close.",
     "The Target Profiles tab in the settings dialog.": "The Target Profiles tab in the settings dialog.",
     "The Target Profiles tab lists five named profile slots for each Lynx course. If your settings dialog has no Target Profiles entry, your IntelliDash has not yet been updated to the release that includes it.": "The Target Profiles tab lists five named profile slots for each Lynx course. If your settings dialog has no Target Profiles entry, your IntelliDash has not yet been updated to the release that includes it.",
     "The Target Profiles tab lists five profile slots for each Lynx course, named Spring, Summer, Fall, Winter and Tournament until you rename them, with Last Updated, Stations, Update from Current and Apply Profile columns. If your settings dialog has no Target Profiles entry, your IntelliDash has not yet been updated to the release that includes it.": "The Target Profiles tab lists five profile slots for each Lynx course, named Spring, Summer, Fall, Winter and Tournament until you rename them, with Last Updated, Stations, Update from Current and Apply Profile columns. If your settings dialog has no Target Profiles entry, your IntelliDash has not yet been updated to the release that includes it.",
@@ -872,6 +885,7 @@
     "The threshold is a site-level setting. It applies to every user on the site, not just you.": "The threshold is a site-level setting. It applies to every user on the site, not just you.",
     "The threshold is applied when you push, not when the suggestion is calculated.": "The threshold is applied when you push, not when the suggestion is calculated.",
     "The view is desktop and tablet only; phones are turned away by the route guard.": "The view is desktop and tablet only; phones are turned away by the route guard.",
+    "The VWC you want a station to hold, which you set from 0 to 50 percent.": "The VWC you want a station to hold, which you set from 0 to 50 percent.",
     "The weather strip follows your temperature scale.": "The weather strip follows your temperature scale.",
     "The weather strip shows your temperature scale.": "The weather strip shows your temperature scale.",
     "The whole feature lives on one screen. Learn what each of the four regions tells you, and which numbers are measured versus calculated.": "The whole feature lives on one screen. Learn what each of the four regions tells you, and which numbers are measured versus calculated.",
@@ -933,6 +947,7 @@
     "Verification is automatic. You do not have to check Lynx by hand to know whether a push landed.": "Verification is automatic. You do not have to check Lynx by hand to know whether a push landed.",
     "Verify results": "Verify results",
     "Verify results — 3 MIN, difficulty 2 of 3": "Verify results — 3 MIN, difficulty 2 of 3",
+    "Volumetric water content: how much of the soil is water, as a percent.": "Volumetric water content: how much of the soil is water, as a percent.",
     "VWC is volumetric water content, expressed as a percentage of soil volume.": "VWC is volumetric water content, expressed as a percentage of soil volume.",
     "Walkthrough": "Walkthrough",
     "Watch for a modelled child": "Watch for a modelled child",
@@ -1104,6 +1119,9 @@
       "dashboard-overview",
       "chrome"
     ],
+    "A hole or area row in the table, which shows the average of the rows under it.": [
+      "understanding-vwc"
+    ],
     "A modelled value: grey and italic.": [
       "calculation-questions"
     ],
@@ -1201,6 +1219,9 @@
     ],
     "After a recalculation the dashboard reloads with new suggestions.": [
       "calculation-settings"
+    ],
+    "Aggregate row": [
+      "understanding-vwc"
     ],
     "Aggregate rows average their children": [
       "understanding-vwc"
@@ -1420,6 +1441,12 @@
     "Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab — they are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.": [
       "preferences"
     ],
+    "Chapters": [
+      "dashboard-overview:attr",
+      "understand-spatial-adjust:attr",
+      "map-navigation:attr",
+      "understanding-vwc:attr"
+    ],
     "Chart and table share a selection. The header reads the selected item and its average moisture.": [
       "dashboard-overview",
       "chrome"
@@ -1551,6 +1578,10 @@
     "Decide what happens below the line": [
       "minimum-threshold"
     ],
+    "Delta": [
+      "understanding-vwc",
+      "calculation-methods"
+    ],
     "Diagnostics confirms Lynx is reachable before you retry.": [
       "push-failures"
     ],
@@ -1642,6 +1673,12 @@
     ],
     "Enter the percentage": [
       "minimum-threshold"
+    ],
+    "Evapotranspiration: the water your turf and soil lose to the air each day.": [
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "understanding-vwc",
+      "calculation-settings"
     ],
     "Every station row carries the date its reading was captured. One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.": [
       "request-scan-data"
@@ -1736,6 +1773,12 @@
     "From suggestion to controller.": [
       "catalog",
       "chrome"
+    ],
+    "From the model when there was no scan that day, shown in grey italics with a calculator icon.": [
+      "understanding-vwc",
+      "station-details",
+      "station-zero",
+      "calculation-questions"
     ],
     "Get fresh scan data": [
       "catalog",
@@ -1952,6 +1995,12 @@
     "Lynx must be reachable. If the connection is lost an amber banner appears above the toolbar and percent adjust values cannot be read or written.": [
       "push-to-lynx"
     ],
+    "Lynx Reference Amount": [
+      "understand-spatial-adjust",
+      "understanding-vwc",
+      "calculation-settings",
+      "calculation-methods"
+    ],
     "Lynx Reference Amount is what 100% means": [
       "calculation-settings"
     ],
@@ -2004,6 +2053,12 @@
     "Mean of the children, shown on the parent row.": [
       "station-details"
     ],
+    "Measured": [
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation",
+      "understanding-vwc"
+    ],
     "Measured 34.5 percent against a 16 percent target. Zero is the right answer.": [
       "station-zero"
     ],
@@ -2020,6 +2075,12 @@
     ],
     "Measured: the scan mean": [
       "understanding-vwc"
+    ],
+    "Modelled": [
+      "understanding-vwc",
+      "station-details",
+      "station-zero",
+      "calculation-questions"
     ],
     "Modelled: the fallback": [
       "understanding-vwc"
@@ -2336,6 +2397,12 @@
     ],
     "Read Current against Changes": [
       "reviewing-changes"
+    ],
+    "Read from a TurfRad moisture scan taken today, and shown in plain black text.": [
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation",
+      "understanding-vwc"
     ],
     "Read it against Avg. VWC and Target VWC": [
       "suggested-adjustments"
@@ -3244,6 +3311,12 @@
     "Take a station, hole or area out of adjustment — and understand what cascading does before you confirm it.": [
       "enable-disable-stations"
     ],
+    "Target": [
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation",
+      "understanding-vwc"
+    ],
     "Target minus measured, per station, is the whole idea.": [
       "understanding-vwc"
     ],
@@ -3318,6 +3391,12 @@
       "minimum-threshold"
     ],
     "The algorithm dropdown, above the three amounts.": [
+      "calculation-methods"
+    ],
+    "The amount of water a station applies at 100 percent.": [
+      "understand-spatial-adjust",
+      "understanding-vwc",
+      "calculation-settings",
       "calculation-methods"
     ],
     "The automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried.": [
@@ -3610,6 +3689,10 @@
     "The table shows the raw suggestion": [
       "threshold-questions"
     ],
+    "The target minus the station’s moisture: the gap the suggestion tries to close.": [
+      "understanding-vwc",
+      "calculation-methods"
+    ],
     "The Target Profiles tab in the settings dialog.": [
       "target-profiles"
     ],
@@ -3648,6 +3731,12 @@
     "The view is desktop and tablet only; phones are turned away by the route guard.": [
       "dashboard-overview",
       "chrome"
+    ],
+    "The VWC you want a station to hold, which you set from 0 to 50 percent.": [
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation",
+      "understanding-vwc"
     ],
     "The weather strip follows your temperature scale.": [
       "preferences"
@@ -3871,6 +3960,12 @@
     "Verify results — 3 MIN, difficulty 2 of 3": [
       "catalog:attr",
       "chrome:attr"
+    ],
+    "Volumetric water content: how much of the soil is water, as a percent.": [
+      "dashboard-overview",
+      "understand-spatial-adjust",
+      "map-navigation",
+      "understanding-vwc"
     ],
     "VWC is volumetric water content, expressed as a percentage of soil volume.": [
       "understanding-vwc"

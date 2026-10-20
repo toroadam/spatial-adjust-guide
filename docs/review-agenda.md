@@ -158,3 +158,17 @@ and never rewrite another one.
   `#/reviewing-changes` and `#/request-scan-data`. Decided by the executor under owner direction
   2026-10-19; for review in person 2026-10-22. Question: should those cursors point at the radio,
   the Changes column and a scan date before Thursday?
+
+- **The glossary and chapter-strip strings were translated by the executor, not by the translation
+  script.** Merging the followability work added 15 English strings: the eight glossary terms'
+  names and definitions, and "Chapters", the chapter strip's name for screen readers. No
+  translation API credentials were available, so the executor translated them into all ten
+  languages, using the product's own renderings (Lynx Reference Amount, volumetric water content,
+  evapotranspiration) and the words each locale's guide prose already uses for target, measured,
+  modelled and delta, so a definition names a term the way the step above it does. Concept prose
+  keeps VWC in every locale. The locale validation passes with no findings. "Chapters" no longer
+  reads in English in other languages. Shows on: any guide that uses a term, in any language but
+  English, for example `#/understanding-vwc`, and the chapter strip under every player. Decided by
+  the executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: can a
+  native speaker read the German and Japanese definitions, and does each term's name match what
+  that language's superintendents call it?
