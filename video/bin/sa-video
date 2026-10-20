@@ -24,6 +24,7 @@ const COMMANDS = {
   vo: ['vo/render-brian.py', 'python', 'PI-ICNT-SW-1080', 'Render the episode voice-over in the Brian voice (ElevenLabs)'],
   build: ['edit/build.py', 'python', 'PI-ICNT-SW-1083', 'Build the episode timeline from episode.json, a take and the VO report'],
   render: ['edit/render.py', 'python', 'PI-ICNT-SW-1077', 'Render a timeline to frames and H.264 under the media root'],
+  mix: ['edit/mix.py', 'python', 'PI-ICNT-SW-1083', 'Mix VO, SFX and music to -14 LUFS and mux it with the rendered picture'],
   verify: ['verify/verify.py', 'python', 'PI-ICNT-SW-1082', 'Check format, duration, loudness, holds and frames of a render'],
   ocr: ['verify/ocr_check.py', 'python', 'PI-ICNT-SW-1082', 'OCR sampled frames against the local denylist'],
   captions: ['verify/captions.py', 'python', 'PI-ICNT-SW-1082', 'Write WebVTT captions from the timeline'],

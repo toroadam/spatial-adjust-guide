@@ -60,6 +60,7 @@ Unknown fields are kept, at every level. A later episode can add a field without
 | `hold` | seconds, 0 or more | yes | How long the beat stays on screen. |
 | `highlight` | target | no | A target the highlight box is drawn around for the whole beat (the same box a `focus` action draws). |
 | `actions` | `[Action]` | no, default `[]` | What the capture director does during the beat, in order. |
+| `cutAfter` | seconds | no | Read by the builder, not the schema: the beat's chapter ends this many seconds after the beat's VO line has finished (or after its first cue when it has no VO line), instead of at the next chapter's cut. Use it to leave a page before the take moves on (dc_build.py's per-chapter end override). |
 
 ## Action
 
@@ -73,6 +74,15 @@ Every action has a `type`; the other fields depend on it. A `target` is a Playwr
 | `scroll` | `target`, `dy` (pixels, negative scrolls up) | Scrolls the target. |
 | `focus` | `target`, `name` | Draws the highlight box around the target. Never clicks. |
 | `click` | `target`, `name` | Clicks the target. Allowed only for a name listed in `allowClicks`, or for a write-like click declared in `demoWriteClicks` on a `demo` episode. |
+
+## How the builder reads an episode
+
+`npm run video -- build --episode <episode.json> --take <N> --draft` (`video/edit/build.py`) turns the episode, take `N` and the VO render report into the timeline. It relies on these conventions:
+
+- **Every VO line starts at its own cue.** A line spoken over footage needs a `cue` action whose `id` is the line's id, in the beat that speaks it; the builder places the line at that cue's time in the take, so picture and voice stay in sync whatever the take's timing. A line whose beat comes before the first chapter's beats is spoken over the title card; one whose beat comes after the last chapter's beats, over the end card.
+- **Every chapter cuts on its first cue.** A chapter's footage runs from 0.55 s before the first cue in its beats to the next chapter's cut (the last chapter: to the take's end flash), so each chapter needs at least one beat with a cue, and chapters must be in take order. `cutAfter` on a beat ends a chapter earlier.
+- **Chapters are shown in order,** each as a typed chapter card with its `label`, then its footage, with the chapter strip naming every chapter. Beat labels are not drawn by the builder; they set holds for the capture.
+- **The title card shows `title`**, and the title card, chapter cards and end card enforce the hold rule: a card too short for its words fails the build, naming the text.
 
 ## Rules the schema enforces
 
