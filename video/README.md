@@ -91,7 +91,7 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | `npm run video -- estimate` | `video/vo/estimate.py` | Estimate characters and credits before rendering VO: one episode, the whole series, or the account's remaining credits (`--live`, counts only); see [`vo/series-estimate.md`](vo/series-estimate.md) | PI-ICNT-SW-1080 |
 | `npm run video -- build` | `video/edit/build.py` | Build the timeline from episode, take and VO report | TBD (PI-ICNT-SW-1083) |
 | `npm run video -- render` | `video/edit/render.py` | Render a timeline to H.264 High, yuv420p, 60 fps (`--timeline <json>`, `--from`/`--to`, `--still t --out png`) | PI-ICNT-SW-1077 |
-| `npm run video -- style-frame` | `video/edit/style_frame.py` | Render the style frame for gate G3 | TBD (PI-ICNT-SW-1081) |
+| `npm run video -- style-frame` | `video/edit/style_frame.py` | Render the style frame for gate G3 (`--version v1`): eight stills, `sheet.jpg` and `manifest.json` under `<media root>/style-frames/<version>/`, the window shot on a still of the guide site's recreation (see [`brand/style-frame-notes.md`](brand/style-frame-notes.md)) | PI-ICNT-SW-1081 |
 | `npm run video -- verify` | `video/verify/verify.py` | Format, duration, loudness, holds, black and frozen frames | TBD (PI-ICNT-SW-1082) |
 | `npm run video -- ocr` | `video/verify/ocr_check.py` | OCR sampled frames against the denylist | TBD (PI-ICNT-SW-1082) |
 | `npm run video -- captions` | `video/verify/captions.py` | WebVTT captions from the timeline | TBD (PI-ICNT-SW-1082) |
@@ -107,7 +107,7 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | `edit/` | Compositor (`lib/`: engine, wallpaper, camera planners, timeline builder, layer registry, `theme.py`), text graphics (`gfx/render_gfx.mjs`) and `render.py`, ported from iCentral MarCom; provenance in [`edit/NOTES.md`](edit/NOTES.md). Builder and audio mix TBD (PI-ICNT-SW-1083) |
 | `vo/` | Brian voice renderer, lexicon, voice settings and loudness target, credits log and estimates. Needs only `python3` and ffmpeg (PI-ICNT-SW-1080) |
 | `verify/` | Repository hygiene check; render verification, OCR and captions TBD (PI-ICNT-SW-1082) |
-| `brand/` | Course identity: `course.json` is the only definition of the fictional course for the pipeline (gate G1; proposal in `course-proposal.md`; `course.test.mjs` checks the guides' allowlists still accept it). Motion system: [`motion-system.md`](brand/motion-system.md), mirrored by `edit/lib/brand.py`. End card: `end-card.json` (URL decided at gate G4; options in `end-card-options.md`). Music record TBD (PI-ICNT-SW-1083) |
+| `brand/` | Course identity: `course.json` is the only definition of the fictional course for the pipeline (gate G1; proposal in `course-proposal.md`; `course.test.mjs` checks the guides' allowlists still accept it). Motion system: [`motion-system.md`](brand/motion-system.md), mirrored by `edit/lib/brand.py`. End card: `end-card.json` (URL decided at gate G4; options in `end-card-options.md`). Style frame notes for gate G3: `style-frame-notes.md`. Music record TBD (PI-ICNT-SW-1083) |
 | `episodes/` | One folder per episode (`episode.json`, `script.md`); see [`episodes/README.md`](episodes/README.md) |
 | `approvals.md` | The owner approvals log |
 | `requirements.txt` | Python packages for the venv at the media root |
