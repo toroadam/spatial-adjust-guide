@@ -1,0 +1,44 @@
+/* The Double Click treatment in the guide player. Injected by build.mjs, outside the Core Design
+   export, so a re-export keeps it. src/player.js places these elements; see its header.
+
+   Colour. #3079F0 is the design system's --informative-02, already this site's click pulse and
+   the iCentral Double Click highlight. It reads as interface chrome rather than product state,
+   which red would not: the map paints its wettest band red. As a non-text indicator it needs 3:1
+   against what it sits on (WCAG 1.4.11); it is 4.1:1 on white, and the white halo carries it over
+   the dark map and the blue selected rows. */
+
+/* The stage and the figures become stacking contexts, so the overlay's z-index stays local and
+   cannot paint over the sticky site header when the page scrolls beneath it. */
+.lsa-stage,
+.lsa-step-figure { isolation: isolate; }
+.lsa-step-figure { position: relative; }
+
+/* ---------- highlight ring ---------- */
+.lsa-hl {
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  border: 2px solid var(--informative-02, #3079F0);
+  border-radius: 6px;
+  background: rgba(48, 121, 240, .12);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .85);
+  pointer-events: none;
+  /* The camera's own duration and easing, so on the stage the ring travels with the picture. */
+  transition: left .85s cubic-bezier(.4, 0, .2, 1), top .85s cubic-bezier(.4, 0, .2, 1),
+              width .85s cubic-bezier(.4, 0, .2, 1), height .85s cubic-bezier(.4, 0, .2, 1);
+}
+.lsa-hl[data-sa-hl="off"] { display: none; }
+
+/* The export's cursor and click pulse stay above the ring: the pulse marks the click point, the
+   ring outlines the element around it. */
+.lsa-stage .sa-cursor,
+.lsa-stage .sa-ring { z-index: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lsa-hl { transition: none !important; }
+}
+
+/* Below the tablet breakpoint src/a11y.css hides the stage and the figures; the overlay goes too. */
+@media (max-width: 767px) {
+  .lsa-hl { display: none !important; }
+}

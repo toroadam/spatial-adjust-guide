@@ -438,6 +438,40 @@ export function transformGuide(src) {
       + 'data-sa-target="{{ step.targetAttr }}" data-sa-target-src="{{ step.targetSrc }}" data-sa-step="{{ step.n }}">',
   });
 
+  // --- each article figure frames its step's target --------------------------------
+  // src/player.js outlines the step's target in every article figure, which exposed figures whose
+  // fixed crop leaves the target out: 12 of 122 had nothing to outline. Most are a table crop
+  // showing the first five rows while the caption names a row further down ("Station 7AP1 has no
+  // current scan" over a crop that ends at row 4), or a tall dialog crop that stops just short of
+  // the footer button the step is about. camera() already pans the stage to keep the target in
+  // view; fig() now does the same, by the same rule: a crop moves only when the target is outside
+  // it or within PAD of its edge, and then only far enough to bring it PAD inside. PAD is half the
+  // height of a table row, so the control around the point is in view, not just the point.
+  s = edit(s, {
+    name: 'figure frame: fig() pans its crop to include the target',
+    pattern: exact('function fig(kind, k) {\n  const f = FIGURES[kind] || FIGURES.full;'),
+    replace: () => '// Added by src/transform-export.mjs (figure frames the target). A crop moved, minimally, so the\n'
+      + "// step's target is at least PAD inside it, as camera() does for the stage.\n"
+      + 'function saFrame(f, t) {\n'
+      + '  if (!t) return f;\n'
+      + '  const PAD = 32, vw = f.w / f.s, vh = f.h / f.s;\n'
+      + '  let x = f.x, y = f.y;\n'
+      + '  if (t[0] < x + PAD) x = t[0] - PAD;\n'
+      + '  if (t[0] > x + vw - PAD) x = t[0] - vw + PAD;\n'
+      + '  if (t[1] < y + PAD) y = t[1] - PAD;\n'
+      + '  if (t[1] > y + vh - PAD) y = t[1] - vh + PAD;\n'
+      + '  x = Math.max(0, Math.min(x, 1920 - vw));\n'
+      + '  y = Math.max(0, Math.min(y, 1080 - vh));\n'
+      + '  return x === f.x && y === f.y ? f : Object.assign({}, f, { x: x, y: y });\n'
+      + '}\n\n'
+      + 'function fig(kind, k, target) {\n  const f = saFrame(FIGURES[kind] || FIGURES.full, target);',
+  });
+  s = edit(s, {
+    name: "figure frame: each step's figure is given its target",
+    pattern: exact('const f = fig(s.fig, ratio);'),
+    replace: () => 'const f = fig(s.fig, ratio, (TARGETS[key] && TARGETS[key][i]) || s.t);',
+  });
+
   // --- keyboard semantics on the div-based controls ---------------------------
   // The brand control puts style before onClick, so it needs its own anchor.
   s = edit(s, {

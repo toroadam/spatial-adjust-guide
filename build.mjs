@@ -156,6 +156,8 @@ async function main() {
   const contactCss = await readFile(join(ROOT, 'src', 'contact.css'), 'utf8');
   const feedbackCss = await readFile(join(ROOT, 'src', 'feedback.css'), 'utf8');
   const splashCss = await readFile(join(ROOT, 'src', 'splash.css'), 'utf8');
+  // The Double Click treatment in the player: highlight ring, chapter label and chapter strip.
+  const playerCss = await readFile(join(ROOT, 'src', 'player.css'), 'utf8');
   // Resolved in <head>, synchronously, so the gate decision is made before the first paint
   // rather than after — see the header of src/gate-boot.js.
   const gateBoot = await readFile(join(ROOT, 'src', 'gate-boot.js'), 'utf8');
@@ -163,8 +165,9 @@ async function main() {
   // guide logic all call. gate follows it so the gate's own events are recorded, and comes
   // before the rest so the prompt is up before anything else starts wiring itself to a page
   // the reader cannot see. i18n defines window.__saLocale and must precede both i18n-apply,
-  // which reads the resolved locale, and i18n-selector, which renders from it. a11y last so it
-  // observes a fully wired tree.
+  // which reads the resolved locale, and i18n-selector, which renders from it. player after
+  // i18n-apply, so on a step change the translated labels are in place before the highlight is
+  // measured in the same frame. a11y last so it observes a fully wired tree.
   const injectedJs = [];
   // The feedback endpoint is the Power Automate trigger URL, whose sig= parameter lets anyone
   // holding it post to the list. The built page has to carry it — a browser cannot post without
@@ -176,7 +179,7 @@ async function main() {
   // string, which expands `$&`-style sequences — a `$` here would be silently rewritten. Trigger
   // URLs contain none, so refuse one rather than ship a corrupted endpoint.
   if (feedbackEndpoint.includes('$')) throw new Error('SA_FEEDBACK_ENDPOINT contains "$", which the page splice would corrupt');
-  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'a11y.js']) {
+  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'player.js', 'a11y.js']) {
     let src = await readFile(join(ROOT, 'src', name), 'utf8');
     if (name === 'feedback.js') {
       if (!src.includes('__SA_FEEDBACK_ENDPOINT__')) throw new Error('src/feedback.js lost its __SA_FEEDBACK_ENDPOINT__ placeholder');
@@ -190,7 +193,7 @@ async function main() {
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
-<style>\n${a11yCss}\n${stepsCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n</style>
+<style>\n${a11yCss}\n${stepsCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n${playerCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 
