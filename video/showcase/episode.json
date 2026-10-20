@@ -3,7 +3,7 @@
   "id": "showcase",
   "title": "From scan to water",
   "guide": "understand-spatial-adjust",
-  "status": "draft",
+  "status": "script-locked",
   "durationTarget": [60, 120],
   "source": "demo",
   "mapPolicy": "restyle",
