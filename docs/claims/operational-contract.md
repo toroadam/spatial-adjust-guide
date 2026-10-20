@@ -53,7 +53,7 @@ The document does not give a time zone for the 11 AM in OC-1. Specifically:
 - §Calculation ET, p.2 says daily calculations use "the 11:00 AM ET value". Here **ET means
   evapotranspiration**, not Eastern Time. The section's own subheading is "Calculations ET
   (Evapotranspiration)", and the sentence before it says Calculation ET (Evapotranspiration) is
-  updated hourly. PERS-347 read "11:00 AM ET" as possibly Eastern. The document does not support
+  updated hourly. An earlier review read "11:00 AM ET" as possibly Eastern. The document does not support
   that reading, and it never mentions Eastern Time anywhere.
 - §Header, p.2 says the weather data comes from DTN for the site's geographic location.
 
@@ -201,7 +201,7 @@ After the review:
 
 ## Superseded notes
 
-PERS-346 and PERS-347 were blocked from 2026-09-09 waiting for this document. This feature absorbs
+Two earlier work items were blocked from 2026-09-09 waiting for this document. This work absorbs
 both. 373-1135 rev 02 settles the window's start and end, the push-then-synchronise order and the
 required Lynx values. It also shows that the "ET" in "11:00 AM ET" is evapotranspiration. It does
 not settle anything listed under Q1-Q7.

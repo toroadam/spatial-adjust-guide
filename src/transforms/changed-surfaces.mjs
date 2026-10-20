@@ -32,7 +32,7 @@ import { edit } from './edit.mjs';
 // A callout used in several guides is written once, so the catalogues hold one entry for it and
 // the ten locales translate it once.
 
-/** US-21207. One Save Changes for the whole dialog, and the Discard changes confirmation.
+/** The new Settings dialog. One Save Changes for the whole dialog, and the Discard changes confirmation.
  *  sa-settings-dlg.component.ts:186-215 (save), :482-503 (one request per changed group: site
  *  settings, user preferences, Target Profiles), :217-229 (Cancel checks for edits),
  *  :235-242 (the two answers); sa-settings-dlg.component.html:261-270 (the confirmation, keys
@@ -44,7 +44,7 @@ export const SAVE_AND_CANCEL = {
     + 'Discard Changes closes the dialog and drops every edit.',
 };
 
-/** PERS-348 localisation. The ten non-English catalogues carry 50 to 54 of the 126
+/** Localisation. The ten non-English catalogues carry 50 to 54 of the 126
  *  SPATIAL_ADJUST keys, and a missing key falls back to English (app-initializer.service.ts:38).
  *  The rail's tab names are English literals with no catalogue key (sa-settings-dlg.component.ts:52-57,
  *  painted untranslated at sa-settings-dlg.component.html:27-28). No non-English catalogue has
@@ -57,7 +57,7 @@ export const PARTLY_TRANSLATED = {
     + 'and the scan-data banner are in English whatever you choose.',
 };
 
-/** PERS-348 Crop Coefficient up to 200%. The 0 to 200 range is already in the step. The field is
+/** Crop Coefficient up to 200%. The 0 to 200 range is already in the step. The field is
  *  disabled under Option 1, like the two amounts (sa-settings-dlg.component.html:83-85, :98-100,
  *  :113-115). The step's figure is drawn under Option 2, so it does not contradict this. */
 export const CROP_UNDER_OPTION_1 = {
@@ -66,7 +66,7 @@ export const CROP_UNDER_OPTION_1 = {
     + 'with Daily Max Amount and Lynx Reference Amount.',
 };
 
-/** PERS-348 Enabled Stations filter. The choice is saved to the user's preferences
+/** Enabled Stations filter. The choice is saved to the user's preferences
  *  (sa-map-overlay.component.ts:50-52). With nothing saved the map uses the environment default
  *  (sa-dashboard.component.ts:504), which is Enabled Stations in production
  *  (environment.toro-prod.ts:88). The step's figure shows Enabled Stations chosen, the production
