@@ -133,6 +133,11 @@ DURATIONS = dict(                                   # seconds
 )
 CAMERA = dict(tilt=True, flat_only=('title card', 'end card'))   # the window shot is the tilted plate with cursor-follow push-ins
 
+# The title card (layers/dctitle.py, cards.title_card): seconds from the card's start, and the episode name's drop under the
+# series word's baseline in px. up_next is the closing "Up next" card's timing.
+TITLE_CARD = dict(t_in=0.15, t_move=0.75, click=1.74, pop=1.98, leave=2.6, out=0.3, drop=30,
+                  up_next=dict(t_in=0.1, t_move=1.45, click=2.42, pop=2.68, leave=3.2, out=0.3))
+
 # Holds: an on-screen label stays readable (every word at least 50 % opacity) for 1.5 s plus 0.3 s per word
 HOLD = dict(base=1.5, per_word=0.3)
 
@@ -166,7 +171,7 @@ BRAND = dict(COLORS)
 BRAND.update(ROLES)
 BRAND.update(
     moisture=MOISTURE, lockup=LOCKUP, wall=WALL, type=TYPE, series_word=SERIES_WORD, eases=EASES, spring=SPRING,
-    durations=DURATIONS, camera=CAMERA, hold=HOLD, frame=FRAME, layout=LAYOUT, focus_box=FOCUS_BOX, cursor_spec=CURSOR,
+    durations=DURATIONS, camera=CAMERA, title_card=TITLE_CARD, hold=HOLD, frame=FRAME, layout=LAYOUT, focus_box=FOCUS_BOX, cursor_spec=CURSOR,
     loudness=LOUDNESS, sfx_levels=SFX,
     # engine fallbacks (engine.py v1 background and defaults, engine2 peel, glass layer tint)
     bg_tint=COLORS['gray10'], bloom_a=COLORS['blue'], bloom_b=COLORS['blue_tint'], cursor=ROLES['type_cursor'],

@@ -147,9 +147,21 @@ The series word is `series_word`: "Double Click", the series name the Spatial Ad
 | `lockup` | 2.3 s | the opening lockup moment |
 | `title_card` | 5.9 s | the title card |
 | `up_next_card` | 4.6 s | the up-next title card |
-| `chapter_card` | 1.7 s | a typed chapter card |
+| `chapter_card` | 1.7 s | a typed chapter card, at least; longer when its typing plus the label's hold needs it |
 | `end_card` | 5.0 s | the end card |
 | `strip_fade` | 0.5 s | chapter strip fade in and out |
+
+**Title card** (`title_card`): the series word rises in, the arrow cursor glides in on the `glide` ease and double-clicks it (the word squishes and a white pulse rings out on each click), then the episode name springs down out from under the word's baseline and the pair settles centred. Times in seconds from the card's start:
+
+| Key | Title card | Up next card | What |
+|---|---|---|---|
+| `t_in` | 0.15 | 0.1 | the series word rises in |
+| `t_move` | 0.75 | 1.45 | the cursor starts its glide |
+| `click` | 1.74 | 2.42 | first click; the second follows after `double_click_gap` |
+| `pop` | 1.98 | 2.68 | the episode name springs out |
+| `leave` | 2.6 | 3.2 | the cursor leaves |
+| `out` | 0.3 | 0.3 | everything fades this long before the card ends |
+| `drop` | 30 px | 30 px | the episode name's drop under the word's baseline |
 
 **Camera.** Window shots use the tilted window plate with push-ins from the cursor-follow camera plan (the hero look): the window floats on the wall with a slight perspective tilt and the camera pushes in on what the cursor does. The plate is flat (no tilt, no drift) only on the title card and the end card, where there is no window. Between moves the camera keeps drifting, so no UI shot is ever static.
 
