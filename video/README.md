@@ -78,7 +78,7 @@ Denylisted names are matched case-insensitively by length: a term of six charact
   ```
 
   `requirements.txt` pins torch, numpy, scipy, soundfile and Pillow to the versions in the iCentral compositor environment. The dispatcher runs Python subcommands with `$SA_VIDEO_PYTHON`, or `python3` when it is unset.
-- **macOS** for the OCR check, which uses the Vision framework. TBD (PI-ICNT-SW-1082)
+- **macOS with swiftc** (the Xcode command line tools, `xcode-select --install`) for the OCR check, which uses the Vision framework. `ocr_check.py` builds `video/verify/ocr.swift` into `<media root>/bin/sa-ocr` on first use; on any other platform, or without swiftc and the binary, it exits 3 with "OCR unavailable" instead of passing.
 
 ## Commands
 
@@ -92,9 +92,9 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | `npm run video -- build` | `video/edit/build.py` | Build the timeline from episode, take and VO report | TBD (PI-ICNT-SW-1083) |
 | `npm run video -- render` | `video/edit/render.py` | Render a timeline to H.264 High, yuv420p, 60 fps (`--timeline <json>`, `--from`/`--to`, `--still t --out png`) | PI-ICNT-SW-1077 |
 | `npm run video -- style-frame` | `video/edit/style_frame.py` | Render the style frame for gate G3 (`--version v1`): eight stills, `sheet.jpg` and `manifest.json` under `<media root>/style-frames/<version>/`, the window shot on a still of the guide site's recreation (see [`brand/style-frame-notes.md`](brand/style-frame-notes.md)) | PI-ICNT-SW-1081 |
-| `npm run video -- verify` | `video/verify/verify.py` | Format, duration, loudness, holds, black and frozen frames | TBD (PI-ICNT-SW-1082) |
-| `npm run video -- ocr` | `video/verify/ocr_check.py` | OCR sampled frames against the denylist | TBD (PI-ICNT-SW-1082) |
-| `npm run video -- captions` | `video/verify/captions.py` | WebVTT captions from the timeline | TBD (PI-ICNT-SW-1082) |
+| `npm run video -- verify` | `video/verify/verify.py` | Format, duration, loudness and true peak, label holds, VO overlap, black and frozen frames, and in final mode the music licence (`--render --timeline --episode [--draft]`); see [Verify](#verify) | PI-ICNT-SW-1082 |
+| `npm run video -- ocr` | `video/verify/ocr_check.py` | OCR sampled frames against the denylist, on macOS (`--render --timeline [--every 0.5] [--keep-frames]`) | PI-ICNT-SW-1082 |
+| `npm run video -- captions` | `video/verify/captions.py` | English WebVTT captions from the timeline's VO placements and the written VO text (`--timeline --episode --report [--out]`) | PI-ICNT-SW-1082 |
 | `npm run video -- hygiene` | `video/verify/hygiene.mjs` | Media, key, denylist and attribution check on git | PI-ICNT-SW-1076 |
 
 ## Layout
@@ -106,7 +106,7 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | `capture/` | Fictional course overlay (`course-overlay.js`: `window.__saOverlayInstall(pairs, identity)`, `window.__saOverlay.scan(denylist)`) and map treatment (`map-routes.mjs`: `installMapRoutes(page, mapPolicy)`, GET-only tile substitution; `map-treatment.js`; `node video/capture/map-still.mjs` renders a still of a policy to `<media root>/episodes/_stills/`). Capture director (`director.mjs`), its in-page runtime (`director-runtime.js`), safety gates (`gates.mjs`), recorder (`record.mjs`), the recreation runner (`recreation.mjs`) and the Demo Mode audit ([`SAFETY.md`](capture/SAFETY.md)) (PI-ICNT-SW-1078) |
 | `edit/` | Compositor (`lib/`: engine, wallpaper, camera planners, timeline builder, layer registry, `theme.py`), text graphics (`gfx/render_gfx.mjs`) and `render.py`, ported from iCentral MarCom; provenance in [`edit/NOTES.md`](edit/NOTES.md). Builder and audio mix TBD (PI-ICNT-SW-1083) |
 | `vo/` | Brian voice renderer, lexicon, voice settings and loudness target, credits log and estimates. Needs only `python3` and ffmpeg (PI-ICNT-SW-1080) |
-| `verify/` | Repository hygiene check; render verification, OCR and captions TBD (PI-ICNT-SW-1082) |
+| `verify/` | The release gate: `verify.py`, the OCR check (`ocr.swift`, built to `<media root>/bin/sa-ocr`, and `ocr_check.py`), `captions.py` (PI-ICNT-SW-1082; provenance in [`verify/NOTES.md`](verify/NOTES.md)), and the repository hygiene check (`hygiene.mjs`) |
 | `brand/` | Course identity: `course.json` is the only definition of the fictional course for the pipeline (gate G1; proposal in `course-proposal.md`; `course.test.mjs` checks the guides' allowlists still accept it). Motion system: [`motion-system.md`](brand/motion-system.md), mirrored by `edit/lib/brand.py`. End card: `end-card.json` (URL decided at gate G4; options in `end-card-options.md`). Style frame notes for gate G3: `style-frame-notes.md`. Music record TBD (PI-ICNT-SW-1083) |
 | `episodes/` | One folder per episode (`episode.json`, `script.md`); see [`episodes/README.md`](episodes/README.md) |
 | `approvals.md` | The owner approvals log |
@@ -137,6 +137,22 @@ A take is recorded from IntelliDash Demo Mode in the owner's own Chrome, which t
 5. **Recreation.** An episode with `"source": "recreation"` (and an optional `recreationPath`, for example `/#/dashboard-overview`) is captured from the local guide site instead, for shots Demo Mode cannot show: `node video/capture/recreation.mjs --episode <id> --take <N>` (or the capture command above, which does the same for such an episode) builds `dist/` when it is missing, serves it on `localhost:8124` unless a server there already serves the same `dist/`, and records `take<N>-recreation.mp4` in Playwright's own Chromium. Any other host is refused for this source, and demo-mode clicks are never allowed there. `node video/capture/recreation.mjs --serve` just serves it, to pick targets.
 
 Exit codes: 0 recorded, 1 failed, 2 entry refused, 3 write or WebSocket aborted, 4 new document or window, 5 overlay or denylist, 6 click refused, 64 usage, 65 invalid episode ([table](capture/SAFETY.md#exit-codes)).
+
+## Verify
+
+No render leaves the pipeline until all three checks pass on it. Each prints one line per finding and writes its report next to the render, under `<media root>/episodes/<id>/renders/`.
+
+```bash
+npm run video -- verify --render <mp4> --timeline <timeline.json> --episode video/episodes/<id>/episode.json [--draft]
+npm run video -- ocr --render <mp4> --timeline <timeline.json>
+npm run video -- captions --timeline <timeline.json> --episode video/episodes/<id>/episode.json --report <media root>/episodes/<id>/vo/render-report.json
+```
+
+- **verify** (`verify-report.json`): H.264 High, yuv420p, 1920x1080, constant 60 fps, AAC 48 kHz stereo; the duration inside `durationTarget`; -14 LUFS integrated +/- 0.5 and true peak at or below -1.0 dBTP (from `BRAND`, the mixer's targets); every label held for 1.5 s + 0.3 s per word; VO lines at least 0.15 s apart; no black frames outside the first and last 0.2 s; no frozen picture of 1.5 s or more outside label holds; and in final mode a `licenceRef` on the music with gate G5 decided (`--draft` skips that one). Exit 0 pass, 1 fail, 2 could not run.
+- **ocr** (`ocr-report.json`): frames every 0.5 s and after each label comes in, read on the Mac by Apple Vision and matched against the local name maps (six characters or more: also one OCR misread away; shorter: whole words). It is the only check that sees canvas text such as map tiles. A hit prints `[denylisted #N] at <t> s`, never the name, and keeps the frames in `frames/ocr/` for review; a pass deletes them. Exit 0 pass, 1 hit, 2 could not run (an empty denylist included), 3 OCR unavailable.
+- **captions** (`<id>.en.vtt`): cues of at most two lines of 42 characters, split at phrase ends, timed from the VO placements and the VO report's line lengths, with the written text from `episode.json` (never the lexicon's spoken form). Exit 0 written, 1 a rule broken or a denylisted name (nothing is written), 2 could not run.
+
+The timeline keys the checks read, including the optional `holds` and `layers[].intentional` declarations, are listed in [`verify/NOTES.md`](verify/NOTES.md#timeline-keys-the-gate-reads).
 
 ## Tests
 
