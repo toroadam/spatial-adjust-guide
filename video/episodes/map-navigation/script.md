@@ -29,7 +29,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:37 | 1:44 | 17 Step 5 result | Push in on the table: the cursor returns to the selected row, highlighted |  | "One selection, shown in both panels. Use whichever is faster to find the head you mean." | `map-navigation/5/4`, `map-navigation/5/3` |
 | 1:44 | 1:49 | 18 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; up next **Next on Double Click: Understanding VWC**; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/map-navigation` goes in the published description | — | — | — |
 
-**VO total:** 218 words in 11 lines, about 75 s spoken (measured). **Running time:** about 1:49 (109 s); the target is 1:30-2:15, inside the series range of 60-180 s.
+**VO total:** 218 words in 11 lines, about 75 s spoken (measured). **Running time:** about 1:49 (109 s); the target is 1:30-2:15, inside the series range of 60-180 s. **Measured:** 2:06 (126.2 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/map-navigation`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- map-navigation` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 
