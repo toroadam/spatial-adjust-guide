@@ -513,6 +513,81 @@ export function transformGuide(src) {
     replace: '<figure class="lsa-step-figure" style="margin:28px 0 0">',
   });
 
+  // --- each step's cursor target, exposed in the DOM ---------------------------
+  // The player resolves a step's target as TARGETS first, then the step's own `t`, then a hard
+  // default of [800, 500] that points at nothing in particular. The resolved point and WHICH of
+  // the three supplied it go on the player stage and on every article figure as data attributes,
+  // for two readers outside the export: src/player.js, which outlines the element under the point
+  // (the Double Click highlight), and scripts/cursor-target.mjs, which fails the build on a step
+  // that fell back to the default. Reporting the source directly is the point: inferring a
+  // fallback from the coordinates would miss a TARGETS entry that happens to be [800, 500].
+  // The point is in the reproduction's 1920x1080 design space, the space TARGETS is written in.
+  s = edit(s, {
+    name: 'cursor target: resolved point and its source in the step view-model',
+    pattern: exact("target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],"),
+    replace: () => "target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],\n"
+      + "          targetSrc: (TARGETS[key] && TARGETS[key][i]) ? 'targets' : (s.t ? 'step' : 'default'),\n"
+      + "          targetAttr: ((TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500]).join(','),",
+  });
+  s = edit(s, {
+    name: 'cursor target: data attributes on the player stage',
+    pattern: exact('<div ref="{{ setStageEl }}" style="{{ guide.player.stageStyle }}">'),
+    replace: () => '<div ref="{{ setStageEl }}" style="{{ guide.player.stageStyle }}" class="lsa-stage" '
+      + 'data-sa-target="{{ guide.player.step.targetAttr }}" data-sa-target-src="{{ guide.player.step.targetSrc }}" '
+      + 'data-sa-step="{{ guide.player.step.n }}">',
+  });
+  s = edit(s, {
+    name: 'cursor target: data attributes on each article figure',
+    pattern: exact('<figure class="lsa-step-figure" style="margin:28px 0 0">'),
+    replace: () => '<figure class="lsa-step-figure" style="margin:28px 0 0" '
+      + 'data-sa-target="{{ step.targetAttr }}" data-sa-target-src="{{ step.targetSrc }}" data-sa-step="{{ step.n }}">',
+  });
+
+  // --- each article figure frames its step's target --------------------------------
+  // src/player.js outlines the step's target in every article figure, which exposed figures whose
+  // fixed crop leaves the target out: 12 of 122 had nothing to outline. Most are a table crop
+  // showing the first five rows while the caption names a row further down ("Station 7AP1 has no
+  // current scan" over a crop that ends at row 4), or a tall dialog crop that stops just short of
+  // the footer button the step is about. camera() already pans the stage to keep the target in
+  // view; fig() now does the same, by the same rule: a crop moves only when the target is outside
+  // it or within PAD of its edge, and then only far enough to bring it PAD inside. PAD is half the
+  // height of a table row, so the control around the point is in view, not just the point.
+  s = edit(s, {
+    name: 'figure frame: fig() pans its crop to include the target',
+    pattern: exact('function fig(kind, k) {\n  const f = FIGURES[kind] || FIGURES.full;'),
+    replace: () => '// Added by src/transform-export.mjs (figure frames the target). A crop moved, minimally, so the\n'
+      + "// step's target is at least PAD inside it, as camera() does for the stage.\n"
+      + 'function saFrame(f, t) {\n'
+      + '  if (!t) return f;\n'
+      + '  const PAD = 32, vw = f.w / f.s, vh = f.h / f.s;\n'
+      + '  let x = f.x, y = f.y;\n'
+      + '  if (t[0] < x + PAD) x = t[0] - PAD;\n'
+      + '  if (t[0] > x + vw - PAD) x = t[0] - vw + PAD;\n'
+      + '  if (t[1] < y + PAD) y = t[1] - PAD;\n'
+      + '  if (t[1] > y + vh - PAD) y = t[1] - vh + PAD;\n'
+      + '  x = Math.max(0, Math.min(x, 1920 - vw));\n'
+      + '  y = Math.max(0, Math.min(y, 1080 - vh));\n'
+      + '  return x === f.x && y === f.y ? f : Object.assign({}, f, { x: x, y: y });\n'
+      + '}\n\n'
+      + 'function fig(kind, k, target) {\n  const f = saFrame(FIGURES[kind] || FIGURES.full, target);',
+  });
+  s = edit(s, {
+    name: "figure frame: each step's figure is given its target",
+    pattern: exact('const f = fig(s.fig, ratio);'),
+    replace: () => 'const f = fig(s.fig, ratio, (TARGETS[key] && TARGETS[key][i]) || s.t);',
+  });
+
+  // --- rail chips carry their step number and English title -------------------
+  // The chapter strip in src/player.js mirrors the rail: one segment per chip, activated by clicking
+  // the chip, so the export's setPlayerStep, step_advanced and the live region are unchanged. The
+  // title is the English catalogue key, which a data attribute keeps when src/i18n-apply.js
+  // translates the chip's visible text.
+  s = edit(s, {
+    name: 'chapter strip: step number and title on each rail chip',
+    pattern: exact('<div onClick="{{ chip.onClick }}" style="{{ chip.style }}"'),
+    replace: () => '<div onClick="{{ chip.onClick }}" data-sa-chip="{{ chip.n }}" data-sa-title="{{ chip.label }}" style="{{ chip.style }}"',
+  });
+
   // --- keyboard semantics on the div-based controls ---------------------------
   // The brand control puts style before onClick, so it needs its own anchor.
   s = edit(s, {
