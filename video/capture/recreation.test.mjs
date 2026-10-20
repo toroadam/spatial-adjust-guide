@@ -11,7 +11,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { mediaRoot } from '../lib/media-root.mjs';
 import { probeFile, resolveFfmpeg } from './record.mjs';
-import { RecreationError, ensureRecreationServer } from './recreation.mjs';
+import { FRAME_ATTR, RecreationError, ensureRecreationServer, liftFigure } from './recreation.mjs';
 
 const HERE = import.meta.dirname;
 const EPISODES = path.join(HERE, 'fixtures', 'episodes');
@@ -103,6 +103,48 @@ test('a recreation rehearsal runs the episode in Playwright\'s Chromium (exit 0)
   assert.equal(safety.browser, 'launch');
   assert.equal(safety.demoVerified, false);
   assert.deepEqual(safety.aborted, []);
+});
+
+test('only a recreation episode may lift a figure: recreationFigure on a Demo Mode episode exits 65', async () => {
+  const r = await run('director.mjs', ['--episode', path.join(EPISODES, 'figure-on-demo.json'), '--dry-run']);
+  assert.equal(r.code, 65, r.out);
+  assert.match(r.out, /only a recreation episode may set it/);
+});
+
+test('liftFigure lifts exactly one captioned figure to fill the viewport, and refuses a caption no figure has', { timeout: 180000 }, async (t) => {
+  if (chromiumReason) return t.skip(chromiumReason);
+  const port = await freePort();
+  const srv = await ensureRecreationServer({ port });
+  const { chromium } = await import('playwright');
+  const browser = await chromium.launch();
+  try {
+    const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+    await page.goto(`${srv.origin}/#/dashboard-overview`, { waitUntil: 'domcontentloaded' });
+    assert.match((await liftFigure(page, 'No such caption')).error, /0 figures/);
+    assert.match((await liftFigure(page, ' ')).error, /start of a figure caption/);
+    const lifted = await liftFigure(page, 'Map with the moisture legend.');
+    assert.deepEqual(lifted, { box: [0, 0, 1920, 1080] });
+    assert.equal(await page.locator(`[${FRAME_ATTR}]`).count(), 1);
+    // The scoped targets the pilot uses resolve inside the lifted figure.
+    const legend = page.locator(`[${FRAME_ATTR}] >> text="0-5%" >> xpath=..`).first();
+    assert.ok(await legend.isVisible());
+    const box = await legend.boundingBox();
+    assert.ok(box.y > 540 && box.y + box.height <= 1080, `the legend sits in the lower half of the frame (${JSON.stringify(box)})`);
+  } finally {
+    await browser.close();
+    await srv.close();
+  }
+});
+
+test('a recreation rehearsal with a lifted figure records the lift in the safety report (exit 0)', { timeout: 180000 }, async (t) => {
+  if (chromiumReason) return t.skip(chromiumReason);
+  const r = await run('director.mjs', ['--episode', path.join(EPISODES, 'recreation-figure.json'), '--take', '1', '--no-record']);
+  assert.equal(r.code, 0, r.out);
+  assert.match(r.out, /lifted the figure "Map with the moisture legend\."/);
+  const safety = JSON.parse(fs.readFileSync(path.join(root, 'episodes', 'capture-fixture-recreation-figure', 'capture', 'raw', 'take1-recreation-safety.json'), 'utf8'));
+  assert.deepEqual(safety.frame, { figure: 'Map with the moisture legend.', box: [0, 0, 1920, 1080] });
+  assert.deepEqual(safety.aborted, []);
+  assert.deepEqual(safety.refusals, []);
 });
 
 let ffmpeg = null;

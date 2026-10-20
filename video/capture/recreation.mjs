@@ -18,6 +18,9 @@
 //   node video/capture/recreation.mjs --serve
 //        serves the recreation until Ctrl-C, to look at it or to pick targets
 //
+//   liftFigure(page, caption)  lifts one SpatialAdjustApp figure of the guide page to fill the
+//                              viewport, for an episode that sets "recreationFigure" (see below)
+//
 // The director calls ensureRecreationServer itself for --source recreation, so
 // `node video/capture/director.mjs --source recreation ...` works the same way. A recreation take
 // runs in Playwright's own Chromium: there is no Demo Mode, no sign-in and nothing of the owner's
@@ -131,6 +134,56 @@ export async function ensureRecreationServer({ port = RECREATION_PORT, build = t
     started: true,
     close: () => Promise.all(servers.map((s) => new Promise((r) => { s.closeAllConnections?.(); s.close(() => r()); }))),
   };
+}
+
+// The figure lift: the guide page draws SpatialAdjustApp several times, each figure scaled into the
+// page's column, with the guide's own prose around it. An episode that sets "recreationFigure" to
+// the start of a figure's caption gets that one figure lifted out of the page to fill the
+// 1920x1080 viewport, unscaled, the same framing as the style frame's window shot
+// (video/edit/gfx/recreation_still.mjs). Only a stylesheet and two attributes are added: nothing
+// is navigated, clicked or sent. The lifted app carries data-sa-frame, so the episode's targets
+// can be scoped to it ([data-sa-frame] >> ...); without the scope a target resolves to the first
+// match on the page, which is another, hidden copy of the app.
+export const FRAME_ATTR = 'data-sa-frame';
+
+// Lifts the figure whose caption starts with `caption`. Resolves to { box: [x0, y0, x1, y1] } in
+// CSS px, or { error } when no figure, or more than one, matches, or the lifted app does not fill
+// the viewport exactly. The page must already hold the guide (waits up to `timeout` for it).
+export async function liftFigure(page, caption, { timeout = 30000 } = {}) {
+  if (typeof caption !== 'string' || !caption.trim()) return { error: 'recreationFigure must be the start of a figure caption' };
+  try {
+    await page.waitForSelector('figure .sa-app', { state: 'attached', timeout });
+  } catch {
+    return { error: `no SpatialAdjustApp figure appeared within ${Math.round(timeout / 1000)} s` };
+  }
+  await page.evaluate(() => document.fonts.ready).catch(() => {});
+  return page.evaluate(({ caption: want, attr }) => {
+    const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
+    const figs = [...document.querySelectorAll('figure')].filter((f) => {
+      const cap = f.querySelector('figcaption');
+      return cap && norm(cap.textContent).startsWith(norm(want)) && f.querySelector('.sa-app');
+    });
+    if (figs.length !== 1) return { error: `${figs.length} figures have a caption starting "${norm(want)}"; exactly one must` };
+    const app = figs[0].querySelector('.sa-app');
+    const wrap = app.parentElement?.parentElement;
+    if (!wrap) return { error: 'the figure\'s app has no scaling wrapper' };
+    if (!document.getElementById('sa-frame-style')) {
+      const style = document.createElement('style');
+      style.id = 'sa-frame-style';
+      style.textContent = `[${attr}-wrap]{position:fixed!important;left:0!important;top:0!important;transform:none!important;`
+        + 'margin:0!important;width:1920px!important;height:1080px!important;z-index:2147483000!important}';
+      document.head.appendChild(style);
+    }
+    wrap.setAttribute(`${attr}-wrap`, '');
+    app.setAttribute(attr, '');
+    window.scrollTo(0, 0);
+    const b = app.getBoundingClientRect();
+    const box = [b.left, b.top, b.right, b.bottom].map((v) => Math.round(v * 100) / 100);
+    if (Math.abs(b.left) > 0.5 || Math.abs(b.top) > 0.5 || Math.abs(b.width - 1920) > 0.5 || Math.abs(b.height - 1080) > 0.5) {
+      return { error: `the lifted app is at ${box.join(', ')}, not 0, 0, 1920, 1080`, box };
+    }
+    return { box };
+  }, { caption, attr: FRAME_ATTR });
 }
 
 async function cli(argv) {
