@@ -409,7 +409,7 @@ export function renderTracker(series) {
       out.push(`- ${group.map((e) => `#${e.n} \`${e.key}\``).join(', ')} (checked ${checked || DASH}): ${reason || DASH}`);
     }
   }
-  out.push('', '**Credits per wave** (ElevenLabs credits; estimate from RUNBOOK.md, before and after from the account, counts only)', '');
+  out.push('', '**Credits per wave** (ElevenLabs credits; estimate from series.json, method under Voice-over credits above; before and after from the account, counts only)', '');
   out.push('| Wave | Name | Episodes | Estimate | Before | After | Used | Expert review |', '|---|---|---|---|---|---|---|---|');
   for (const w of series.waves ?? []) {
     const n = eps.filter((e) => e.wave === w.n).length;

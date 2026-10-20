@@ -156,7 +156,7 @@ Blocked:
 
 - #23 `target-profiles`, #24 `creating-profiles`, #25 `updating-profiles`, #26 `seasonal-profiles` (checked 2026-10-20): Waits for the corrected Target Profiles guides to be published on the live site, which is in progress on 2026-10-20 as the last step of the claims audit. Target Profiles ships in production, so no approval gate applies: produce these four episodes as soon as their guides are live, and re-check the claims for each guide at preflight.
 
-**Credits per wave** (ElevenLabs credits; estimate from RUNBOOK.md, before and after from the account, counts only)
+**Credits per wave** (ElevenLabs credits; estimate from series.json, method under Voice-over credits above; before and after from the account, counts only)
 
 | Wave | Name | Episodes | Estimate | Before | After | Used | Expert review |
 |---|---|---|---|---|---|---|---|
@@ -339,6 +339,8 @@ A complete episode that `parseEpisode` accepts (the schema tests parse this bloc
 The last beat only draws the highlight box around Push Changes. A `click` on it would be rejected: the name matches the write guard and the episode declares no demo-mode clicks.
 
 ## Adding an episode
+
+A Double Click series episode follows [`RUNBOOK.md`](RUNBOOK.md), EP-0 to EP-10, which starts from `node scripts/episode-scaffold.mjs <key>`. The steps below are the pipeline's minimum for any episode.
 
 1. Create `video/episodes/<id>/` with `script.md` and `episode.json`, status `draft`.
 2. Back every VO sentence with a claim id from `docs/claims/claims.json`; a sentence without a claim does not go in.
