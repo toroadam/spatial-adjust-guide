@@ -176,7 +176,7 @@ export function draftScript({ series, entry, guide, episode, skipped, next, neve
     '',
     `**Episode:** ${entry.n} of ${series.episodes.length} · **Wave:** ${entry.wave}${wave ? ` (${wave.name})` : ''}${entry.firstOfWave ? ', first of the wave' : ''} · **Guide:** \`#/${entry.key}\` · **Status:** draft`,
     `**Voice:** ElevenLabs Brian (\`${v.id}\`, ${v.model}) · **Pace:** the picture leads, the VO leaves room for each click`,
-    '**Chapter labels:** the step titles in SemiBold caps, on the chapter card; design-system blue (#3079F0) highlight on the control each step names',
+    '**Chapter labels:** the step titles exactly, in caps on the typed chapter card (Golos UI 500; the face ships no SemiBold); design-system blue (#3079F0) highlight on the control each step names',
     `**Source:** IntelliDash Demo Mode (\`/demo\`), course overlay on, map ${episode.mapPolicy}; music \`${episode.music}\``,
     '',
     '| TC in | TC out | Beat | Picture | Chapter label | VO | Claim IDs |',
