@@ -8,6 +8,7 @@ The first episode taken through the whole pipeline, end to end, to prove it and 
 | Capture | 2 takes from the recreation, both clean; take 2 chosen | `capture/raw/take2-recreation.*` |
 | Voice-over | 3 lines rendered once, 247 characters, 109 credits | `vo/` |
 | Edit | draft and final rendered from take 2 | `renders/dashboard-overview-pilot-take2.mp4` |
+| Verification | verify, OCR, captions and hygiene pass on the final | `renders/verify-report.json`, `renders/ocr-report.json`, `renders/dashboard-overview-pilot.en.vtt` |
 
 ## Capture
 
@@ -92,3 +93,32 @@ Timeline (final): lockup 0-2.3 s; title card 2.3-8.2 s with `vo-intro` at 2.75 s
 The first draft (take 1) pushed in on the legend as soon as `vo-bands` started, because its focus box was drawn at the start of the beat, and the pins the cursor then visited were out of shot. The camera planner fits a focus box to about 60 % of the view, so a box on a 318 x 32 px legend means the maximum push-in for as long as the box is up. Actions v2 moved the focus into a last beat of its own; take 2 shows the pins wide and the legend close.
 
 `render` prints `Error submitting a packet to the muxer: Broken pipe` once per window shot: that is the take's decoder being closed when the shot has read the frames it needs. The render itself exits 0 and has every frame.
+
+## Verification
+
+On the final render, `renders/dashboard-overview-pilot-take2.mp4`, 2026-10-20. `<r>` is that file and `<tl>` is `edit/timeline.json`:
+
+```bash
+npm run video -- verify --render <r> --timeline <tl> --episode video/episodes/dashboard-overview-pilot/episode.json   # final mode, exit 0, 2 s
+npm run video -- ocr --render <r> --timeline <tl> --episode video/episodes/dashboard-overview-pilot/episode.json      # exit 0, 12 s
+npm run video -- captions --timeline <tl> --episode video/episodes/dashboard-overview-pilot/episode.json --report vo/render-report.json   # exit 0
+npm run video -- hygiene                                                                                              # exit 0
+```
+
+| Check | Result | Numbers |
+|---|---|---|
+| (a) format | pass | H.264 High, yuv420p, 1920x1080, constant 60 fps; AAC 48 kHz stereo |
+| (b) duration | pass | 27.87 s, inside 20-30 s and equal to the timeline |
+| (c) loudness | pass | integrated -14.0 LUFS, true peak -1.7 dBTP |
+| (d) holds | pass | 5 labels, each held at least its minimum |
+| (e) VO overlap | pass | 3 VO lines, none overlapping |
+| (f) black frames | pass | none |
+| (g) frozen frames | pass | none |
+| (h) music licence | pass | `sa-bed-v1`, an original work, G5 decided by the executor |
+| OCR | pass | 59 frames read (every 0.5 s plus the label frames), 7 denylist terms, 0 hits; frames deleted after the pass |
+| Captions | written | 4 cues for 3 VO lines, `renders/dashboard-overview-pilot.en.vtt`, timed from the timeline's VO placements |
+| Hygiene | pass | no media, key, denylisted name or Claude attribution in tracked files, history or commit messages |
+
+Reports: `renders/verify-report.json` (mode `final`) and `renders/ocr-report.json`; the OCR report holds counts and times only. The verify and OCR runs load `overlay.local.json` if present; it is not on this machine, so the denylist is the 7 terms of `sanitize.local.json`. The recreation's names are fictional already, so the OCR pass shows the overlay-free path is clean, not that a Demo Mode take would be.
+
+The VO credit estimate, refreshed with these numbers (`python3 video/vo/estimate.py --write --episode video/episodes/dashboard-overview-pilot/episode.json --cps-from <media root>/episodes/dashboard-overview-pilot/vo/render-report.json --takes 2 --render-seconds 46`), is in [`video/vo/series-estimate.md`](../../vo/series-estimate.md#pilot-as-rendered): the pilot narrates at 18.32 characters per second, faster than the iCentral rate of 16.16 the plan assumed, which raises the 26-guide planning estimate from 9,856 to 11,172 characters (22,344 credits with retakes, at 1 credit per character; the account has charged 0.44).

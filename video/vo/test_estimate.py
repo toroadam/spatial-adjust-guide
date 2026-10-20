@@ -127,6 +127,65 @@ class SeriesEstimate(unittest.TestCase):
             self.assertIn("Retake factor 2", text)
             self.assertRegex(text, r"Generated \d{4}-\d{2}-\d{2}")
             self.assertIn("Total, 26 guides", text)
+            self.assertNotIn("Pilot, as rendered", text)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_write_markdown_with_the_pilot_as_rendered(self):
+        tmp = tempfile.mkdtemp(prefix="sa-vo-est-")
+        try:
+            path = os.path.join(tmp, "series-estimate.md")
+            report = os.path.join(tmp, "render-report.json")
+            with open(report, "w") as fh:
+                json.dump({"episode": "vo-placeholder",
+                           "lines": [{"line": "vo-intro", "seconds": 6.0, "characters": 96},
+                                     {"line": "vo-map", "seconds": 5.0, "characters": 86}]}, fh)
+            log = os.path.join(tmp, "credits-log.md")
+            with open(log, "w") as fh:
+                fh.write("| Date | Episode | Lines sent | Characters sent | Credits remaining before -> after |\n"
+                         "|---|---|---|---|---|\n"
+                         "| 2026-10-19 19:59 | other | 1 | 200 | 1000 -> 900 |\n"
+                         "| 2026-10-20 09:29 | vo-placeholder | 2 | 182 | 900 -> 820 |\n")
+            with mock.patch.object(est, "SERIES_ESTIMATE_PATH", path), \
+                    mock.patch.object(est.rb, "CREDITS_LOG_PATH", log):
+                code, out, err = run(["--write", "--episode", EPISODE, "--cps-from", report,
+                                      "--takes", "2", "--render-seconds", "46"])
+            self.assertEqual(code, 0, err)
+            with open(path) as fh:
+                text = fh.read()
+            self.assertIn("## Pilot, as rendered", text)
+            self.assertIn("| VO lines rendered | 4, or 8 with retakes | 2 in 1 run |", text)
+            self.assertIn("| Characters sent | 444, or 888 with retakes | 182 |", text)
+            self.assertIn("| Credits | 444, or 888 with retakes | 80 (0.44 per character) |", text)
+            self.assertIn("11.00 s, 16.55 characters per second", text)
+            self.assertIn("| Takes recorded | — | 2 |", text)
+            self.assertIn("| Final render wall time | — | 46 s |", text)
+            # The series' observed billing still counts every logged run.
+            self.assertIn("2 runs sent 382 characters", text)
+        finally:
+            shutil.rmtree(tmp, ignore_errors=True)
+
+    def test_takes_and_render_time_need_the_pilots_report(self):
+        tmp = tempfile.mkdtemp(prefix="sa-vo-est-")
+        try:
+            path = os.path.join(tmp, "series-estimate.md")
+            report = os.path.join(tmp, "render-report.json")
+            with open(report, "w") as fh:
+                json.dump({"episode": "another-episode", "lines": [{"line": "a", "seconds": 5.0, "characters": 80}]}, fh)
+            with mock.patch.object(est, "SERIES_ESTIMATE_PATH", path):
+                code, _, err = run(["--write", "--episode", EPISODE, "--cps-from", report, "--takes", "2"])
+                self.assertEqual(code, 2)
+                self.assertIn("is not the render report of vo-placeholder", err)
+                self.assertFalse(os.path.exists(path))
+                # Without --takes, another episode's report only sets the rate.
+                code, _, err = run(["--write", "--episode", EPISODE, "--cps-from", report])
+                self.assertEqual(code, 0, err)
+            with open(path) as fh:
+                self.assertNotIn("Pilot, as rendered", fh.read())
+            with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):
+                est.parse_args(["--series", "--takes", "2"])
+            with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):
+                est.parse_args(["--write", "--cps-from", report, "--render-seconds", "0"])
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
 
@@ -147,6 +206,8 @@ class Observed(unittest.TestCase):
             self.assertEqual((seen["runs"], seen["characters"], seen["credits"]), (2, 500, 400))
             self.assertAlmostEqual(seen["per_character"], 0.8)
             self.assertEqual(est.observed_billing(os.path.join(tmp, "absent.md"))["runs"], 0)
+            only_b = est.observed_billing(path, episode="b")
+            self.assertEqual((only_b["runs"], only_b["characters"], only_b["credits"]), (1, 300, 300))
         finally:
             shutil.rmtree(tmp, ignore_errors=True)
 
