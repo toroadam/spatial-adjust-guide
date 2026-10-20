@@ -1,0 +1,121 @@
+{
+  "_meta": {
+    "note": "Test fixture, not a release. A copy of src/release.json that marks one whole guide and one step of another guide beta, so a build with SA_SHOW_BETA=false is proven to remove a guide, its tile, a Next-card reference to it and a step in the middle of a GA guide, whatever the real beta set holds. Used only through SA_RELEASE_FILE=test/fixtures/release.fixture.json by npm run test:leak, test:release-modes and .github/workflows/release-modes.yml. Never deploy with it. It must not make minimum-threshold, push-to-lynx or dashboard-overview beta, because scripts/routing.mjs, scripts/i18n.mjs, scripts/smoke.mjs and scripts/a11y.mjs open those guides."
+  },
+  "guides": {
+    "dashboard-overview": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/dashboard-overview.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "understand-spatial-adjust": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/understand-spatial-adjust.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "map-navigation": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/map-navigation.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "understanding-vwc": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/understanding-vwc.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "editing-station-targets": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/editing-station-targets.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "bulk-adjustments": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/bulk-adjustments.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "target-profiles": {
+      "status": "ga",
+      "basis": "Menu entry live at site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55 at production 1aa4f286"
+    },
+    "creating-profiles": {
+      "status": "ga",
+      "basis": "Menu entry live at site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55 at production 1aa4f286"
+    },
+    "updating-profiles": {
+      "status": "ga",
+      "basis": "Menu entry live at site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55 at production 1aa4f286"
+    },
+    "seasonal-profiles": {
+      "status": "ga",
+      "basis": "Menu entry live at site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55 at production 1aa4f286"
+    },
+    "minimum-threshold": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/minimum-threshold.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "calculation-settings": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/calculation-settings.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "calculation-methods": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/calculation-methods.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "preferences": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/preferences.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "enable-disable-stations": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/enable-disable-stations.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "station-details": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/station-details.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "suggested-adjustments": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/suggested-adjustments.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "push-to-lynx": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/push-to-lynx.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "reviewing-changes": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/reviewing-changes.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "verify-results": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/verify-results.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "filter-adjustments": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/filter-adjustments.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "station-zero": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/station-zero.json; none of its text is a beta surface in docs/claims/beta-surfaces.md",
+      "sections": [
+        {
+          "id": "fixture-middle-step",
+          "status": "beta",
+          "basis": "Test fixture: a step in the middle of a GA guide, so the steps after it must renumber",
+          "steps": [
+            "Check whether the station is disabled"
+          ]
+        }
+      ]
+    },
+    "threshold-questions": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/threshold-questions.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "calculation-questions": {
+      "status": "beta",
+      "basis": "Test fixture: a whole guide that calculation-methods lists under Next, so the Next card to it must be removed"
+    },
+    "push-failures": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/push-failures.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "request-scan-data": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/request-scan-data.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    }
+  }
+}

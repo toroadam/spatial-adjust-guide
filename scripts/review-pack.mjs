@@ -10,7 +10,10 @@
 // What it reads, and nothing else:
 //   docs/claims/claims.json     the canonical ledger (statuses, evidence, questions, corrections)
 //   docs/claims/sources.json    the pinned IntelliDash SHAs shown in every page header
-//   extractGuides()             the published guide text, from scripts/claims-extract.mjs
+//   extractGuides()             the published guide text, from scripts/claims-extract.mjs, with
+//                               beta content shown whatever SA_SHOW_BETA says
+//   src/release.json            through src/release.mjs: which guides and steps are beta, shown
+//                               as Beta tags on guide headers, step headings and the index
 //   docs/claims/operational-contract.md and src/transforms/operational-contract.mjs
 //                               the push-window and Lynx questions (Q1-Q7), the rules they belong
 //                               to, and the sentences that rest on them and where they appear
@@ -48,8 +51,9 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, rmSync, realpathSync } from 'node:fs';
 import { join, resolve, relative, isAbsolute, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { extractGuides, claimsForGuide, lintShard, STATUSES, TYPES } from './claims-extract.mjs';
+import { extractGuides, claimsForGuide, lintShard, releaseContext, STATUSES, TYPES } from './claims-extract.mjs';
 import * as OC from '../src/transforms/operational-contract.mjs';
+import { loadRelease, validateRelease, statusOf, betaSteps } from '../src/release.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 const LEDGER = join(ROOT, 'docs', 'claims', 'claims.json');
@@ -75,6 +79,7 @@ const noteLabel = (guide) => (guide.newInIntelliDash ? 'New in IntelliDash.' : '
 // Display order and meaning of each status. Mirrors the status vocabulary in docs/claims/README.md.
 const STATUS_INFO = [
   ['Verified', 'verified', 'Production does what the claim says.'],
+  ['Verified (beta)', 'verified-beta', 'Develop and the beta environment do what the claim says, and the content is marked Beta. The citation is at the pinned develop SHA.'],
   ['Wrong', 'wrong', 'Production contradicts the claim. A correction is proposed beside it.'],
   ['Not shipping', 'not-shipping', 'The claim describes something that is not in the production build.'],
   ['Needs expert', 'needs-expert', 'The source cannot settle it. The question for you is listed under Questions for the experts.'],
@@ -97,6 +102,12 @@ const TYPE_INFO = [
 
 const VERDICTS = ['Approved', 'Approved with changes', 'Rejected'];
 
+// Release status, from src/release.json. Mirrors "Release status" in docs/claims/README.md.
+const RELEASE_INFO = [
+  ['GA', 'In production. Its claims are checked against the pinned production SHA.'],
+  ['Beta', 'On develop and the beta environment only, as src/release.json records it. Its claims are checked against the pinned develop SHA, so a checked claim reads Verified (beta). The live site shows it with a Beta badge; a build with SA_SHOW_BETA=false leaves it out.'],
+];
+
 // ---- helpers ------------------------------------------------------------------------------------
 
 const ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
@@ -112,6 +123,21 @@ const count = (claims, field, values) => {
   return out;
 };
 const badge = (status) => `<span class="badge b-${STATUS_CLASS[status] ?? 'unverified'}">${esc(status)}</span>`;
+/** The Beta tag on a beta guide's header, a beta step's heading and the index. Not a claim status. */
+const betaTag = () => '<span class="beta-tag">Beta</span>';
+const isBetaGuide = (ctx, key) => ctx.release.guides[key].status === 'beta';
+/** The Release cell of the index: GA or Beta, plus how many beta steps a GA guide holds. */
+function releaseCell(ctx, key) {
+  if (isBetaGuide(ctx, key)) return betaTag();
+  const n = betaSteps(ctx.release, key).length;
+  return n ? `GA <span class="small muted">with</span> ${betaTag()} <span class="small muted">${esc(plural(n, 'step'))}</span>` : 'GA';
+}
+/** How many guides are GA and beta, and how many beta steps the GA guides hold. */
+function releaseTotals(ctx) {
+  const beta = ctx.keys.filter((k) => isBetaGuide(ctx, k)).length;
+  const betaStepCount = ctx.keys.reduce((n, k) => n + betaSteps(ctx.release, k).length, 0);
+  return { ga: ctx.keys.length - beta, beta, betaSteps: betaStepCount };
+}
 /** Whether sources.json records the production pin as the deployed build. */
 const confirmation = (prod) => (prod.confirmed
   ? ' <span class="muted">(confirmed as the production build)</span>'
@@ -144,6 +170,10 @@ export function load({ ledgerPath = LEDGER, sourcesPath = SOURCES } = {}) {
   const ledger = JSON.parse(readFileSync(ledgerPath, 'utf8'));
   const sources = JSON.parse(readFileSync(sourcesPath, 'utf8'));
   const { guides, categories, tiles, keys } = extractGuides();
+  // SA_RELEASE_FILE points this at a fixture, as it does for the build and the lint.
+  const { release, file: releaseFile } = loadRelease();
+  validateRelease(release, guides);
+  const context = releaseContext({ release, guides });
 
   const byGuide = new Map(keys.map((k) => [k, []]));
   const stale = [];
@@ -163,7 +193,7 @@ export function load({ ledgerPath = LEDGER, sourcesPath = SOURCES } = {}) {
   for (const key of keys) {
     const mine = byGuide.get(key);
     if (!mine.length) { stale.push(`${key}: no claims in the ledger`); staleByGuide[key] = 1; continue; }
-    lintErrors.push(...lintShard(key, { guide: key, title: tiles[key].title, claims: mine }, sources));
+    lintErrors.push(...lintShard(key, { guide: key, title: tiles[key].title, claims: mine }, sources, context));
     const fresh = new Map(claimsForGuide(key, guides[key], tiles[key]).map((c) => [c.id, c.text]));
     const held = new Map(mine.map((c) => [c.id, c.text]));
     let differ = 0;
@@ -175,7 +205,7 @@ export function load({ ledgerPath = LEDGER, sourcesPath = SOURCES } = {}) {
     }
   }
   const oc = loadOperational({ byGuide, tiles });
-  return { ledger, sources, guides, categories, tiles, keys, byGuide, stale, staleByGuide, lintErrors, oc };
+  return { ledger, sources, guides, categories, tiles, keys, byGuide, stale, staleByGuide, lintErrors, oc, release, releaseFile };
 }
 
 /** Rows of the first markdown table under the line `heading`, as objects keyed by its header cells. */
@@ -241,7 +271,8 @@ const CSS = `
 :root { --ink: #1d1d1f; --muted: #5f6368; --rule: #d9dadc; --soft: #f5f6f7; --accent: #b3261e;
   --verified: #1e6b34; --verified-bg: #e3f3e7; --wrong: #a3161a; --wrong-bg: #fde7e7;
   --not-shipping: #5b2a86; --not-shipping-bg: #efe6f8; --needs-expert: #7a4a00; --needs-expert-bg: #fff1d6;
-  --unverified: #4a4f55; --unverified-bg: #eceef0; }
+  --unverified: #4a4f55; --unverified-bg: #eceef0; --verified-beta: #0b5566; --verified-beta-bg: #e0f1f4;
+  --beta: #3b3f9e; }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; color: var(--ink); background: #fff;
@@ -273,6 +304,10 @@ tr.cat td { background: var(--soft); font-weight: 600; }
 .b-not-shipping { color: var(--not-shipping); background: var(--not-shipping-bg); }
 .b-needs-expert { color: var(--needs-expert); background: var(--needs-expert-bg); }
 .b-unverified { color: var(--unverified); background: var(--unverified-bg); }
+.b-verified-beta { color: var(--verified-beta); background: var(--verified-beta-bg); }
+.beta-tag { display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  line-height: 1.5; padding: 0 .4rem; border-radius: 3px; color: #fff; background: var(--beta); vertical-align: .15em; white-space: nowrap; }
+.bucket.beta { border-left: 3px solid var(--beta); padding-left: .6rem; }
 .tally { display: flex; flex-wrap: wrap; gap: .35rem .75rem; margin: .5rem 0; font-size: .9rem; }
 .banner { border: 2px solid var(--accent); background: #fff4f2; padding: .6rem .8rem; margin: 1rem 0; border-radius: 4px; }
 .notice { border-left: 4px solid var(--not-shipping); background: var(--not-shipping-bg); padding: .6rem .8rem; margin: 1rem 0; }
@@ -288,6 +323,7 @@ tr.cat td { background: var(--soft); font-weight: 600; }
 .claim.s-not-shipping { border-left-color: var(--not-shipping); }
 .claim.s-needs-expert { border-left-color: var(--needs-expert); }
 .claim.s-unverified { border-left-color: var(--unverified); }
+.claim.s-verified-beta { border-left-color: var(--verified-beta); }
 .claim-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .6rem; font-size: .85rem; }
 .claim-head .ctype { color: var(--muted); }
 .ctext { margin: .25rem 0; }
@@ -376,8 +412,11 @@ function tallyLine(claims) {
   return `<div class="tally"><span><strong>${plural(claims.length, 'claim')}</strong></span>${parts.join('')}</div>`;
 }
 
-/** The sections of a guide in reading order, each with its prose as published and its ledger bucket. */
-function sections(guide, tile) {
+/**
+ * The sections of a guide in reading order, each with its prose as published and its ledger bucket.
+ * `stepIsBeta(title)` says whether a step is beta, which puts a Beta tag on its heading.
+ */
+function sections(guide, tile, stepIsBeta = () => false) {
   const out = [];
   const para = (t) => (t ? `<p>${esc(t)}</p>` : '');
   const list = (items) => (items?.length ? `<ul>${items.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>` : '');
@@ -393,7 +432,8 @@ function sections(guide, tile) {
   (guide.steps || []).forEach((st, i) => {
     const tip = st.tip || st.tipLabel ? `${st.tipLabel ? `<strong>${esc(st.tipLabel)}</strong> ` : ''}${esc(st.tip)}` : '';
     out.push({ step: String(i + 1), heading: st.title ? `Step ${i + 1}: ${st.title}` : `Step ${i + 1}`, prose: field('Title', esc(st.title))
-      + field('Body', esc(st.body)) + field('Caption', esc(st.caption), 'caption') + field('Tip', tip, 'tip') });
+      + field('Body', esc(st.body)) + field('Caption', esc(st.caption), 'caption') + field('Tip', tip, 'tip'),
+      beta: stepIsBeta(st.title) });
   });
   out.push({ step: 'verify', heading: 'How to know it worked', prose: list(guide.verify) });
   return out;
@@ -414,15 +454,25 @@ function renderGuide(ctx, key) {
     buckets.get(c.step).push(c);
   }
 
+  const entry = ctx.release.guides[key];
+  const betaGuide = entry.status === 'beta';
+  const nBetaSteps = betaSteps(ctx.release, key).length;
+  const releaseLine = betaGuide
+    ? `${betaTag()} The whole guide is beta: it describes develop and the beta environment, and its claims are checked against develop.`
+    : nBetaSteps
+      ? `GA, with ${esc(plural(nBetaSteps, 'beta step'))}, each tagged ${betaTag()} below and checked against develop.`
+      : 'GA';
+
   const parts = [];
   parts.push(`<article class="guide" id="${guideAnchor(key)}">
 <header>
 <p><span class="internal">Internal review</span> <span class="muted small">${esc(category?.title ?? guide.category)}</span></p>
-<h2>${esc(tile.title)}</h2>
+<h2>${esc(tile.title)}${betaGuide ? ` ${betaTag()}` : ''}</h2>
 <p>${esc(tile.summary)}</p>
 <dl class="meta">
 <dt>Guide key</dt><dd><code>${esc(key)}</code></dd>
 ${guide.title && guide.title !== tile.title ? `<dt>Page title</dt><dd>${esc(guide.title)}</dd>` : ''}
+<dt>Release</dt><dd>${releaseLine}<br><span class="small muted">${esc(entry.basis)}</span></dd>
 <dt>Category</dt><dd>${esc(category?.title ?? guide.category)}</dd>
 <dt>Card</dt><dd>${esc(tile.minutes)} · difficulty ${esc(tile.difficulty)} of 3</dd>
 <dt>Live page</dt><dd><a href="${esc(`${SITE}#/${key}`)}">${esc(`${SITE}#/${key}`)}</a></dd>
@@ -450,11 +500,13 @@ ${guide.note
   }
 
   parts.push('<h3>The guide as written</h3>');
-  for (const s of sections(guide, tile)) {
+  for (const s of sections(guide, tile, (title) => statusOf(ctx.release, key, title) === 'beta')) {
     const mine = buckets.get(s.step) ?? [];
     buckets.delete(s.step);
     if (!s.prose && !mine.length) continue;
-    parts.push(`<section class="bucket"><h4>${esc(s.heading)}</h4>`);
+    parts.push(s.beta
+      ? `<section class="bucket beta"><h4>${esc(s.heading)} ${betaTag()}</h4>`
+      : `<section class="bucket"><h4>${esc(s.heading)}</h4>`);
     if (s.prose) parts.push(`<div class="as-written">${s.prose}</div>`);
     for (const c of mine) { parts.push(renderClaim(c)); rendered.add(c.id); }
     if (!mine.length) parts.push('<p class="none">No claims recorded for this section.</p>');
@@ -576,6 +628,9 @@ function legend() {
 <table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody>
 ${STATUS_INFO.map(([s, , m]) => `<tr><td>${badge(s)}</td><td>${esc(m)}</td></tr>`).join('\n')}
 </tbody></table>
+<table><thead><tr><th>Release</th><th>Meaning</th></tr></thead><tbody>
+${RELEASE_INFO.map(([r, m]) => `<tr><td>${r === 'Beta' ? betaTag() : esc(r)}</td><td>${esc(m)}</td></tr>`).join('\n')}
+</tbody></table>
 <table><thead><tr><th>Type</th><th>What the claim asserts</th></tr></thead><tbody>
 ${TYPE_INFO.map(([t, m]) => `<tr><td><code>${esc(t)}</code></td><td>${esc(m)}</td></tr>`).join('\n')}
 </tbody></table>
@@ -592,14 +647,16 @@ function renderIndex(ctx, articles) {
   const questions = all.filter((c) => c.status === 'Needs expert').length;
   const experts = expertClaims(ctx);
   const ocLink = `<a href="#operational-questions">${esc(OC_TITLE)}</a> <a class="screen-only small" href="${esc(OC_PAGE)}">(page)</a>`;
+  const rel = releaseTotals(ctx);
 
   const rows = [];
   for (const cat of categories) {
-    rows.push(`<tr class="cat"><td colspan="6">${esc(cat.title)}</td></tr>`);
+    rows.push(`<tr class="cat"><td colspan="7">${esc(cat.title)}</td></tr>`);
     for (const { key } of cat.tasks) {
       const mine = byGuide.get(key);
       const by = count(mine, 'status', STATUSES);
       rows.push(`<tr><td><a href="#${guideAnchor(key)}">${esc(ctx.tiles[key].title)}</a> <a class="screen-only small" href="${esc(key)}.html">(page)</a></td>`
+        + `<td>${releaseCell(ctx, key)}</td>`
         + `<td class="n">${mine.length}</td><td class="n">${by.Wrong}</td><td class="n">${by['Needs expert']}</td>`
         + `<td class="n">${by['Not shipping']}</td><td class="n">${by.Unverified}</td></tr>`);
     }
@@ -613,6 +670,7 @@ function renderIndex(ctx, articles) {
 <dt>Production</dt><dd><code>${esc(short(prod.sha))}</code> ${esc(prod.ref)}, version ${esc(prod.version)}, ${esc(prod.date)}${confirmation(prod)}</dd>
 <dt>Develop</dt><dd><code>${esc(short(dev.sha))}</code> ${esc(dev.ref)}, version ${esc(dev.version)}, ${esc(dev.date)}</dd>
 <dt>Source fetched</dt><dd>${esc(sources.fetchedAt)}</dd>
+<dt>Release</dt><dd>${esc(plural(rel.ga, 'GA guide'))}, ${esc(plural(rel.beta, 'beta guide'))} and ${esc(plural(rel.betaSteps, 'beta step'))} in GA guides, from <code>src/release.json</code>. Every guide is in this pack, beta or not.</dd>
 <dt>Generated</dt><dd>${esc(fmtDate(generatedAt))}</dd>
 <dt>Live site</dt><dd><a href="${esc(SITE)}">${esc(SITE)}</a></dd>
 </dl>
@@ -624,6 +682,7 @@ ${stale.length ? `<div class="banner"><strong>Stale ledger.</strong> This pack w
 <li>Start with ${ocLink}: the ${esc(plural(ctx.oc.questions.length, 'question'))} about the push window and the Lynx settings, then the ${esc(plural(experts.guides.length, 'other question'))}, each with the live page where it appears.</li>
 <li>Read each guide as written, then the claims under it. The badge says whether the claim has been checked, and the citation says against what.</li>
 <li>Where a claim is <strong>Wrong</strong>, check the proposed correction. Where it is <strong>Not shipping</strong>, say whether the guide should describe it at all.</li>
+<li>A guide or step tagged ${betaTag()} describes develop and the beta environment, not production. Its checked claims read <strong>Verified (beta)</strong> and cite develop. Check it against the beta environment, and say whether it may change before it reaches production.</li>
 <li>Answer every item under <strong>Questions for the experts</strong>, quoting the claim ID.</li>
 <li>Comment on anything else from the live site: the <strong>Feedback</strong> button, bottom right of every page, records the guide and step you are on.</li>
 <li>Tick a verdict in the sign-off box at the end of each guide.</li>
@@ -643,7 +702,7 @@ ${TYPE_INFO.map(([t]) => `<tr><td><code>${esc(t)}</code></td><td class="n">${byT
 </tbody></table>
 </section>
 <section class="contents"><h3>Guides</h3>
-<table><thead><tr><th>Guide</th><th class="n">Claims</th><th class="n">Wrong</th><th class="n">Needs expert</th><th class="n">Not shipping</th><th class="n">Unverified</th></tr></thead>
+<table><thead><tr><th>Guide</th><th>Release</th><th class="n">Claims</th><th class="n">Wrong</th><th class="n">Needs expert</th><th class="n">Not shipping</th><th class="n">Unverified</th></tr></thead>
 <tbody>
 ${rows.join('\n')}
 </tbody></table>
@@ -808,6 +867,8 @@ async function main(argv) {
   console.log(`review pack: ${ctx.keys.length} guide pages, ${OC_PAGE} and index.html${opts.pdf ? ` and ${PDF_NAME}` : ''} in ${shown}/`);
   if (opts.pdf) console.log(`  all ${files.length} pages opened in Chromium with zero requests`);
   console.log(`  ${all.length} claims: ${STATUS_INFO.map(([s]) => `${s} ${by[s]}`).join(', ')}`);
+  const rel = releaseTotals(ctx);
+  console.log(`  release: ${plural(rel.ga, 'GA guide')}, ${plural(rel.beta, 'beta guide')}, ${plural(rel.betaSteps, 'beta step')} in GA guides`);
   const experts = expertClaims(ctx);
   console.log(`  ${ctx.oc.questions.length} operational questions (${ctx.oc.published ? 'wording published' : 'wording held back'}), `
     + `${experts.operational.length} Needs expert claims resting on them, ${experts.guides.length} other questions`);

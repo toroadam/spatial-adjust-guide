@@ -14,6 +14,9 @@ import { apply as applyCorrections } from './transforms/corrections.mjs';
 import { apply as applyChangedSurfaces } from './transforms/changed-surfaces.mjs';
 import { apply as applyOperationalContract } from './transforms/operational-contract.mjs';
 import { apply as applyReviewFixes } from './transforms/review-fixes.mjs';
+import { apply as applyBetaContent } from './transforms/beta-content.mjs';
+import { apply as applyReleaseGate } from './transforms/release-gate.mjs';
+import { loadRelease } from './release.mjs';
 
 /** Controls the export builds from <div onClick>, which have no keyboard behaviour. */
 const CONTROLS = [
@@ -40,7 +43,17 @@ const TP_NOTE_WALKTHROUGH = 'The Target Profiles tab lists five profile slots fo
   + 'Stations, Update from Current and Apply Profile columns. If your settings dialog has no Target '
   + 'Profiles entry, your IntelliDash has not yet been updated to the release that includes it.';
 
-export function transformGuide(src) {
+/**
+ * Transform the raw Core Design export into the published guide.
+ *
+ * `showBeta` decides whether beta content (see src/release.mjs) is published. It defaults to true,
+ * so every caller other than build.mjs (scripts/claims-extract.mjs, for one) sees every guide.
+ * build.mjs passes the value of SA_SHOW_BETA, parsed by parseShowBeta(). `release` is the parsed
+ * src/release.json; when it is not given, the default release file is loaded.
+ *
+ * Pure: the same source and options always give the same output, so build.mjs may call it twice.
+ */
+export function transformGuide(src, { showBeta = true, release = null } = {}) {
   let s = src;
 
   // --- class hooks the responsive layer targets -------------------------------
@@ -883,6 +896,13 @@ export function transformGuide(src) {
   s = applyChangedSurfaces(s);
   s = applyOperationalContract(s);
   s = applyReviewFixes(s);
+
+  // Beta content and the release gate run after the four modules above. beta-content adds the
+  // steps and guides written against develop. release-gate runs last of all, so it sees every
+  // guide and step any module added, and in a build with SA_SHOW_BETA=false it deletes the beta
+  // ones and fails the build on anything left over.
+  s = applyBetaContent(s);
+  s = applyReleaseGate(s, { showBeta, release: release || loadRelease().release });
 
   return s;
 }

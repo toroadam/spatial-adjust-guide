@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 992,
-    "words": 12220
+    "strings": 1004,
+    "words": 12398
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -75,6 +75,7 @@
     "A greyed, italic Avg. VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day.": "A greyed, italic Avg. VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day.",
     "A modelled value: grey and italic.": "A modelled value: grey and italic.",
     "A modelled value: grey, italic, and dated two days ago.": "A modelled value: grey, italic, and dated two days ago.",
+    "A pin last scanned on an earlier day is drawn clear.": "A pin last scanned on an earlier day is drawn clear.",
     "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.": "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.",
     "A profile is a snapshot, so the work happens in the table before you save anything. Get the course reading the way you want it, hole by hole, and only then capture it.": "A profile is a snapshot, so the work happens in the table before you save anything. Get the course reading the way you want it, hole by hole, and only then capture it.",
     "A profile per season and per event.": "A profile per season and per event.",
@@ -88,6 +89,7 @@
     "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, shown in grey italics with a calculator icon. If the whole course is stale, TurfRad has not delivered new scans yet. Use Request latest scan data in the toolbar to queue a retrieval — it takes several minutes and notifies you when it lands, then Reload Data on the banner brings it in.": "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, shown in grey italics with a calculator icon. If the whole course is stale, TurfRad has not delivered new scans yet. Use Request latest scan data in the toolbar to queue a retrieval — it takes several minutes and notifies you when it lands, then Reload Data on the banner brings it in.",
     "A short list stays readable a year later.": "A short list stays readable a year later.",
     "A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.": "A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.",
+    "A stale course keeps its last scans": "A stale course keeps its last scans",
     "A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.": "A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.",
     "A station is caught if its suggestion is above the Over value OR below the Under value. With 200 and 10 set you get everything over 200 percent and everything under 10 percent — and nothing in between. It is an outlier finder. Reading it as “between 10 and 200” gives you exactly the stations it is not showing you.": "A station is caught if its suggestion is above the Over value OR below the Under value. With 200 and 10 set you get everything over 200 percent and everything under 10 percent — and nothing in between. It is an outlier finder. Reading it as “between 10 and 200” gives you exactly the stations it is not showing you.",
     "A station with no current scan and no model estimate shows a dash rather than a number.": "A station with no current scan and no model estimate shows a dash rather than a number.",
@@ -144,6 +146,8 @@
     "Before a tournament.": "Before a tournament.",
     "Before you start": "Before you start",
     "Below-threshold behaviour, with the second option selected.": "Below-threshold behaviour, with the second option selected.",
+    "Beta": "Beta",
+    "Beta.": "Beta.",
     "Bulk Adjust": "Bulk Adjust",
     "BULK ADJUST": "BULK ADJUST",
     "Bulk Adjust dialog. The count confirms your selection.": "Bulk Adjust dialog. The count confirms your selection.",
@@ -605,6 +609,7 @@
     "Step 1 of 5: Toggle a single station": "Step 1 of 5: Toggle a single station",
     "Step 1 of 6": "Step 1 of 6",
     "Step 1 of 6: Check the pending count": "Step 1 of 6: Check the pending count",
+    "Step 1 of 6: Identical suggestions across many stations": "Step 1 of 6: Identical suggestions across many stations",
     "Step 2 of 4": "Step 2 of 4",
     "Step 2 of 4: Apply the evening before": "Step 2 of 4: Apply the evening before",
     "Step 2 of 4: Expand the station": "Step 2 of 4: Expand the station",
@@ -634,6 +639,7 @@
     "Step 2 of 5: Work out your own ceiling": "Step 2 of 5: Work out your own ceiling",
     "Step 2 of 6": "Step 2 of 6",
     "Step 2 of 6: Review the two lists": "Step 2 of 6: Review the two lists",
+    "Step 2 of 6: Work out your own ceiling": "Step 2 of 6: Work out your own ceiling",
     "Step 3 of 4": "Step 3 of 4",
     "Step 3 of 4: Apply and confirm": "Step 3 of 4: Apply and confirm",
     "Step 3 of 4: Check the connection to Lynx": "Step 3 of 4: Check the connection to Lynx",
@@ -662,6 +668,7 @@
     "Step 3 of 5: Use the chart for one area at a time": "Step 3 of 5: Use the chart for one area at a time",
     "Step 3 of 5: You supply the target": "Step 3 of 5: You supply the target",
     "Step 3 of 6": "Step 3 of 6",
+    "Step 3 of 6: A dash instead of a number": "Step 3 of 6: A dash instead of a number",
     "Step 3 of 6: Look for threshold adjustments": "Step 3 of 6: Look for threshold adjustments",
     "Step 4 of 4": "Step 4 of 4",
     "Step 4 of 4: Apply to all": "Step 4 of 4: Apply to all",
@@ -691,6 +698,7 @@
     "Step 4 of 5: The delta is what drives the suggestion": "Step 4 of 5: The delta is what drives the suggestion",
     "Step 4 of 5: Work in the table": "Step 4 of 5: Work in the table",
     "Step 4 of 6": "Step 4 of 6",
+    "Step 4 of 6: Grey italics mean modelled": "Step 4 of 6: Grey italics mean modelled",
     "Step 4 of 6: Untick anything you are not sure about": "Step 4 of 6: Untick anything you are not sure about",
     "Step 5 of 5": "Step 5 of 5",
     "Step 5 of 5: Aggregate rows average their children": "Step 5 of 5: Aggregate rows average their children",
@@ -710,8 +718,10 @@
     "Step 5 of 5: Trust the footer count": "Step 5 of 5: Trust the footer count",
     "Step 5 of 5: Zero disables the feature": "Step 5 of 5: Zero disables the feature",
     "Step 5 of 6": "Step 5 of 6",
+    "Step 5 of 6: If the whole course is stale, check the source": "Step 5 of 6: If the whole course is stale, check the source",
     "Step 5 of 6: Send and watch the progress": "Step 5 of 6: Send and watch the progress",
     "Step 6 of 6": "Step 6 of 6",
+    "Step 6 of 6: A stale course keeps its last scans": "Step 6 of 6: A stale course keeps its last scans",
     "Step 6 of 6: Confirm the result": "Step 6 of 6: Confirm the result",
     "Sticky tab.": "Sticky tab.",
     "Stop trivial adjustments reaching Lynx. Set the percentage below which a suggestion is either zeroed or lifted to the threshold value.": "Stop trivial adjustments reaching Lynx. Set the percentage below which a suggestion is either zeroed or lifted to the threshold value.",
@@ -877,6 +887,7 @@
     "These are site-level settings — they apply to every user on the site.": "These are site-level settings — they apply to every user on the site.",
     "These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.": "These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.",
     "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.": "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.",
+    "This feature is in testing and may change before it reaches your IntelliDash.": "This feature is in testing and may change before it reaches your IntelliDash.",
     "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.": "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.",
     "This is the common answer. When measured VWC is comfortably above the station target, the required amount is zero and so is the suggestion. Station 10AP1 read 34.5 percent against a target of 16 — it does not need water today.": "This is the common answer. When measured VWC is comfortably above the station target, the required amount is zero and so is the suggestion. Station 10AP1 read 34.5 percent against a target of 16 — it does not need water today.",
     "Three different numbers wear the label VWC. Knowing which one you are reading explains most surprises.": "Three different numbers wear the label VWC. Knowing which one you are reading explains most surprises.",
@@ -948,6 +959,7 @@
     "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings. Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings. Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.",
     "When the scan date is today, Avg. VWC is the mean moisture TurfRad measured across that station. It is a measurement, and it is the number the calculation prefers.": "When the scan date is today, Avg. VWC is the mean moisture TurfRad measured across that station. It is a measurement, and it is the number the calculation prefers.",
     "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since. It is shown in grey italics so you can tell it apart at a glance.": "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since. It is shown in grey italics so you can tell it apart at a glance.",
+    "When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last scans, even once they are more than seven days old. The stations stay in the table with their last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled value and a suggestion every day. Request latest scan data looks back only two days, so the scans stay as they are unless TurfRad has loaded new scan data in that time.": "When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last scans, even once they are more than seven days old. The stations stay in the table with their last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled value and a suggestion every day. Request latest scan data looks back only two days, so the scans stay as they are unless TurfRad has loaded new scan data in that time.",
     "WHERE": "WHERE",
     "Where a value is absent the column shows a dash, not a zero.": "Where a value is absent the column shows a dash, not a zero.",
     "Where moisture scans come from and what the feature does with them.": "Where moisture scans come from and what the feature does with them.",
@@ -1110,6 +1122,9 @@
     "A modelled value: grey, italic, and dated two days ago.": [
       "station-zero"
     ],
+    "A pin last scanned on an earlier day is drawn clear.": [
+      "calculation-questions"
+    ],
     "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.": [
       "seasonal-profiles"
     ],
@@ -1153,6 +1168,9 @@
       "creating-profiles",
       "updating-profiles",
       "seasonal-profiles"
+    ],
+    "A stale course keeps its last scans": [
+      "calculation-questions"
     ],
     "A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.": [
       "station-details"
@@ -1318,6 +1336,14 @@
     ],
     "Below-threshold behaviour, with the second option selected.": [
       "minimum-threshold"
+    ],
+    "Beta": [
+      "catalog (beta chrome)",
+      "chrome (beta chrome)",
+      "dashboard-overview (beta chrome)"
+    ],
+    "Beta.": [
+      "request-scan-data (beta chrome)"
     ],
     "Bulk Adjust dialog. The count confirms your selection.": [
       "bulk-adjustments"
@@ -2804,6 +2830,9 @@
     "Step 1 of 6: Check the pending count": [
       "push-to-lynx"
     ],
+    "Step 1 of 6: Identical suggestions across many stations": [
+      "calculation-questions"
+    ],
     "Step 2 of 4": [
       "preferences",
       "target-profiles",
@@ -2897,6 +2926,9 @@
     "Step 2 of 6: Review the two lists": [
       "push-to-lynx"
     ],
+    "Step 2 of 6: Work out your own ceiling": [
+      "calculation-questions"
+    ],
     "Step 3 of 4": [
       "preferences",
       "target-profiles",
@@ -2986,6 +3018,9 @@
     ],
     "Step 3 of 6": [
       "push-to-lynx"
+    ],
+    "Step 3 of 6: A dash instead of a number": [
+      "calculation-questions"
     ],
     "Step 3 of 6: Look for threshold adjustments": [
       "push-to-lynx"
@@ -3080,6 +3115,9 @@
     "Step 4 of 6": [
       "push-to-lynx"
     ],
+    "Step 4 of 6: Grey italics mean modelled": [
+      "calculation-questions"
+    ],
     "Step 4 of 6: Untick anything you are not sure about": [
       "push-to-lynx"
     ],
@@ -3140,11 +3178,17 @@
     "Step 5 of 6": [
       "push-to-lynx"
     ],
+    "Step 5 of 6: If the whole course is stale, check the source": [
+      "calculation-questions"
+    ],
     "Step 5 of 6: Send and watch the progress": [
       "push-to-lynx"
     ],
     "Step 6 of 6": [
       "push-to-lynx"
+    ],
+    "Step 6 of 6: A stale course keeps its last scans": [
+      "calculation-questions"
     ],
     "Step 6 of 6: Confirm the result": [
       "push-to-lynx"
@@ -3667,6 +3711,9 @@
     "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.": [
       "request-scan-data"
     ],
+    "This feature is in testing and may change before it reaches your IntelliDash.": [
+      "request-scan-data (beta chrome)"
+    ],
     "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.": [
       "calculation-settings"
     ],
@@ -3922,6 +3969,9 @@
     ],
     "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since. It is shown in grey italics so you can tell it apart at a glance.": [
       "understanding-vwc"
+    ],
+    "When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last scans, even once they are more than seven days old. The stations stay in the table with their last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled value and a suggestion every day. Request latest scan data looks back only two days, so the scans stay as they are unless TurfRad has loaded new scan data in that time.": [
+      "calculation-questions"
     ],
     "WHERE": [
       "dashboard-overview",
