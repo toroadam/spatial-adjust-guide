@@ -2,7 +2,7 @@
   "id": "dashboard-overview-pilot",
   "title": "Dashboard overview",
   "guide": "dashboard-overview",
-  "status": "captured",
+  "status": "edited",
   "durationTarget": [20, 30],
   "source": "recreation",
   "recreationPath": "/#/dashboard-overview",

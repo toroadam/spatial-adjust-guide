@@ -8,3 +8,4 @@ from the account, and never the key, is ever written here.
 | Date | Episode | Lines sent | Characters sent | Credits remaining before -> after |
 |---|---|---|---|---|
 | 2026-10-19 19:59 | vo-lexicon-check | 1 | 199 | 357634 -> 357546 |
+| 2026-10-20 09:29 | dashboard-overview-pilot | 3 | 247 | 357546 -> 357437 |
