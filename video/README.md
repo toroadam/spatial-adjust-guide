@@ -134,7 +134,7 @@ A take is recorded from IntelliDash Demo Mode in the owner's own Chrome, which t
    ```
 
    Sign in to the demo form in the tab the director opens. The take is written to `<media root>/episodes/<id>/capture/raw/take<N>.mp4` (3840x2160, 60 fps) with `take<N>-log.json` (cue times), `take<N>-track.json` (cursor and focus track for the edit), `take<N>_sheet.jpg` and `take<N>-safety.json`. Takes are never overwritten.
-5. **Recreation.** An episode with `"source": "recreation"` (and an optional `recreationPath`) is captured from the local guide site instead: `node video/capture/recreation.mjs --episode <id> --take <N>` builds and serves `dist/` on `localhost:8124` when needed and records `take<N>-recreation.mp4`. Demo-mode clicks are never allowed there.
+5. **Recreation.** An episode with `"source": "recreation"` (and an optional `recreationPath`, for example `/#/dashboard-overview`) is captured from the local guide site instead, for shots Demo Mode cannot show: `node video/capture/recreation.mjs --episode <id> --take <N>` (or the capture command above, which does the same for such an episode) builds `dist/` when it is missing, serves it on `localhost:8124` unless a server there already serves the same `dist/`, and records `take<N>-recreation.mp4` in Playwright's own Chromium. Any other host is refused for this source, and demo-mode clicks are never allowed there. `node video/capture/recreation.mjs --serve` just serves it, to pick targets.
 
 Exit codes: 0 recorded, 1 failed, 2 entry refused, 3 write or WebSocket aborted, 4 new document or window, 5 overlay or denylist, 6 click refused, 64 usage, 65 invalid episode ([table](capture/SAFETY.md#exit-codes)).
 

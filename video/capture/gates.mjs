@@ -31,7 +31,11 @@ export const EXIT = Object.freeze({
 
 export const SAFE_METHODS = Object.freeze(['GET', 'HEAD', 'OPTIONS']);
 export const DEMO_ENTRY_SUFFIX = '/spatialadjust/demo';
-export const RECREATION_HOSTS = Object.freeze(['localhost:8124', '127.0.0.1:8124']);
+// The local recreation server (video/capture/recreation.mjs) is on port 8124, the port
+// `npm run serve` uses. SA_RECREATION_PORT moves it to another loopback port, for tests run while
+// something else holds 8124; the host is loopback either way.
+export const RECREATION_PORT = recreationPort(process.env.SA_RECREATION_PORT);
+export const RECREATION_HOSTS = Object.freeze([`localhost:${RECREATION_PORT}`, `127.0.0.1:${RECREATION_PORT}`]);
 export const LOOPBACK_HOSTNAMES = Object.freeze(['127.0.0.1', 'localhost', '[::1]']);
 // The demo sign-in form may be retried after a typo; never more often than this, and never after
 // arming.
@@ -51,6 +55,13 @@ export const CONFIG_DEFAULTS = Object.freeze({
   overlayScript: null,
   recreationUrl: null,
 });
+
+function recreationPort(value) {
+  if (value === undefined || value === '') return 8124;
+  const n = Number(value);
+  if (!Number.isInteger(n) || n < 1024 || n > 65535) throw new Error('SA_RECREATION_PORT must be a port number from 1024 to 65535');
+  return n;
+}
 
 const ok = () => ({ ok: true });
 const no = (reason) => ({ ok: false, reason });

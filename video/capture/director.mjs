@@ -16,8 +16,8 @@
 //   --no-record           run the plan in real time without recording (rehearsal); the safety
 //                         report is still written
 //   --launch              use Playwright's own Chromium instead of the owner's Chrome; refused
-//                         unless every allowed host is loopback (test fixtures) or the source is
-//                         the recreation
+//                         unless every allowed host is loopback (test fixtures). Always on for
+//                         the recreation, which video/capture/recreation.mjs serves from dist/
 //   --headed              with --launch, show the browser window
 //   --config <file>       capture config (default video/capture/capture.local.json, or
 //                         $SA_CAPTURE_CONFIG)
@@ -45,7 +45,7 @@ import path from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { parseArgs } from 'node:util';
 import {
-  CONFIG_DEFAULTS, CaptureConfigError, DEFAULT_CONFIG_PATH, EXIT, RECREATION_HOSTS,
+  CONFIG_DEFAULTS, CaptureConfigError, DEFAULT_CONFIG_PATH, EXIT, RECREATION_HOSTS, RECREATION_PORT,
   checkCdpEndpoint, checkEntryUrl, checkLaunchAllowed, classifyRequest, loadCaptureConfig,
 } from './gates.mjs';
 import { EpisodeError, REPO_ROOT, parseEpisode } from '../lib/episode-schema.mjs';
@@ -60,7 +60,6 @@ export const RUNTIME_SCRIPT = path.join(HERE, 'director-runtime.js');
 export const OVERLAY_SCRIPT = path.join(HERE, 'course-overlay.js');
 export const MAP_ROUTES = path.join(HERE, 'map-routes.mjs');
 export const COURSE_IDENTITY = path.join(REPO_ROOT, 'video', 'brand', 'course.json');
-export const RECREATION_ORIGIN = 'http://localhost:8124';
 
 // Timing of the in-page plan (seconds). The start flash is 0.25 s; beats start at LEAD.
 export const LEAD_S = 0.75;
@@ -114,7 +113,6 @@ export function parseCli(argv) {
   } else if (!values['dry-run']) {
     throw new UsageError('--take is required');
   }
-  if (values.headed && !values.launch) throw new UsageError('--headed applies to --launch only (the owner\'s Chrome is always visible)');
   return {
     episode: values.episode, take: take ?? 1, source: values.source ?? null, dryRun: values['dry-run'],
     noRecord: values['no-record'], launch: values.launch, headed: values.headed, config: values.config ?? null,
@@ -181,7 +179,12 @@ function recreationConfig(file) {
   // The recreation needs no capture config; a local one may still name an overlay script or a
   // recreation URL. Only the local recreation server is ever allowed.
   let local = null;
-  try { local = loadCaptureConfig(file ?? undefined); } catch (err) { if (!(err instanceof CaptureConfigError)) throw err; }
+  try {
+    local = loadCaptureConfig(file ?? undefined);
+  } catch (err) {
+    // No config is fine for the recreation; a config that exists must still be valid.
+    if (!(err instanceof CaptureConfigError) || !/ not found\./.test(err.message)) throw err;
+  }
   const pick = (k) => (local && local[k] !== undefined ? local[k] : CONFIG_DEFAULTS[k]);
   return Object.freeze({
     ...CONFIG_DEFAULTS,
@@ -226,7 +229,7 @@ function dryRun({ args, file, episode, source }) {
   log(verdicts.length ? 'click guard (checked again on the resolved element during the take):' : 'click guard: no clicks');
   for (const v of verdicts) log(`  "${v.name}" in beat ${v.beat}: ${v.verdict}`);
   if (source === 'demo') {
-    const cfgFile = args.config ?? process.env.SA_CAPTURE_CONFIG ?? DEFAULT_CONFIG_PATH;
+    const cfgFile = args.config || process.env.SA_CAPTURE_CONFIG || DEFAULT_CONFIG_PATH;
     let status;
     try { const cfg = loadCaptureConfig(cfgFile); status = `valid (${cfg.allowedHosts.length} allowed host(s), ${cfg.apiHosts.length} API host(s); names not shown)`; } catch (err) {
       status = err instanceof CaptureConfigError && /not found/.test(err.message) ? 'not found (needed for a capture)' : 'invalid (run without --dry-run to see why)';
@@ -632,10 +635,13 @@ export async function main(argv) {
   let entryUrl;
   if (source === 'demo') entryUrl = cfg.entryUrl;
   else {
-    try { entryUrl = new URL(episode.recreationPath ?? '/', cfg.recreationUrl ?? RECREATION_ORIGIN).href; } catch { warn('the episode\'s recreationPath is not a path'); return EXIT.ENTRY; }
+    try { entryUrl = new URL(episode.recreationPath ?? '/', cfg.recreationUrl ?? `http://localhost:${RECREATION_PORT}`).href; } catch { warn('the episode\'s recreationPath is not a path'); return EXIT.ENTRY; }
   }
   const entry = checkEntryUrl(entryUrl, cfg, { source });
   if (!entry.ok) { warn(`entry refused: ${redactHosts(entry.reason, cfg)}`); return EXIT.ENTRY; }
+  // The recreation always runs in Playwright's own Chromium: nothing of the owner's is needed.
+  if (source === 'recreation') args.launch = true;
+  if (args.headed && !args.launch) { warn('--headed applies to --launch only (the owner\'s Chrome is always visible)'); return EXIT.USAGE; }
   const browserGate = args.launch ? checkLaunchAllowed(cfg, { source }) : checkCdpEndpoint(cfg.cdpEndpoint);
   if (!browserGate.ok) { warn(`browser refused: ${browserGate.reason}`); return EXIT.ENTRY; }
 
@@ -666,10 +672,26 @@ export async function main(argv) {
   const identity = JSON.parse(fs.readFileSync(COURSE_IDENTITY, 'utf8'));
   const { plan, targets, seconds } = buildPlan(episode);
 
-  return capture({
-    args, episode, source, cfg, entryUrl, plan, targets, seconds, rawDir, stem, maps, identity,
-    overlayFile: fs.existsSync(overlayFile) ? overlayFile : null,
-  });
+  // The recreation is served from this checkout's dist/ on port 8124 (video/capture/recreation.mjs).
+  let server = null;
+  if (source === 'recreation') {
+    const { RecreationError, ensureRecreationServer } = await import('./recreation.mjs');
+    try {
+      server = await ensureRecreationServer({ log });
+    } catch (err) {
+      if (!(err instanceof RecreationError)) throw err;
+      warn(err.message);
+      return EXIT.ENTRY;
+    }
+  }
+  try {
+    return await capture({
+      args, episode, source, cfg, entryUrl, plan, targets, seconds, rawDir, stem, maps, identity,
+      overlayFile: fs.existsSync(overlayFile) ? overlayFile : null,
+    });
+  } finally {
+    await server?.close();
+  }
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === import.meta.filename) {

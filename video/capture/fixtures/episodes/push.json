@@ -1,0 +1,36 @@
+{
+  "id": "capture-fixture-push",
+  "title": "Fixture: a declared demo-mode push",
+  "guide": "dashboard-overview",
+  "status": "draft",
+  "durationTarget": [
+    5,
+    30
+  ],
+  "source": "demo",
+  "mapPolicy": "blur",
+  "allowClicks": [],
+  "demoWriteClicks": [
+    {
+      "name": "Push changes",
+      "target": "role=button[name=\"Push changes\"]",
+      "reason": "Fixture: the in-page guard and the route must stop the request."
+    }
+  ],
+  "claims": [],
+  "chapters": [],
+  "vo": [],
+  "beats": [
+    {
+      "id": "act",
+      "hold": 2,
+      "actions": [
+        {
+          "type": "click",
+          "target": "role=button[name=\"Push changes\"]",
+          "name": "Push changes"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,113 @@
+<!doctype html>
+<!--
+  Demo app fixture for the capture director's refusal tests (video/capture/refusal.test.mjs).
+  Served by fixtures/server.mjs for /[<variant>/]spatialadjust[/demo]. It imitates only the parts
+  of the IntelliDash Demo Mode entry the director depends on (video/capture/SAFETY.md): the
+  /spatialadjust/demo sign-in page sends one demo sign-in POST and then moves inside the app to
+  /spatialadjust without loading a new document. Every name on it is invented.
+
+  Variants (first path segment):
+    (none)     signs in, hops, shows the app
+    nologin    hops without the demo sign-in POST, so Demo Mode is never verified
+    leak       also shows a denylisted name the overlay has no pair for
+
+  Controls and what they do:
+    Zoom in        read-only; counts clicks
+    Push changes   fetch POST /api/push
+    Open report    form POST into the report frame
+    Refresh view   location.reload()
+    Open help      window.open
+    Connect live   opens a WebSocket
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Spatial Adjust (fixture)</title>
+<style>
+  body { margin: 0; font: 16px/1.4 system-ui, sans-serif; background: #f4f6f8; color: #1d2733; }
+  header { display: flex; gap: 12px; align-items: center; padding: 16px 24px; background: #fff; border-bottom: 1px solid #d6dde4; }
+  header h1 { font-size: 20px; margin: 0 auto 0 0; }
+  button { font: inherit; padding: 8px 14px; border: 1px solid #9aa7b4; border-radius: 6px; background: #fff; cursor: pointer; }
+  main { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; padding: 24px; }
+  .card { background: #fff; border: 1px solid #d6dde4; border-radius: 8px; padding: 16px; }
+  #map { height: 360px; background: repeating-linear-gradient(45deg, #2e3d2a 0 20px, #35472f 20px 40px); position: relative; }
+  #map [role="img"] { position: absolute; left: 45%; top: 40%; width: 18px; height: 18px; border-radius: 50%; background: #42ce11; border: 2px solid #fff; }
+  .table-wrap { max-height: 200px; overflow-y: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  td, th { padding: 6px 8px; border-bottom: 1px solid #e4e9ee; text-align: left; }
+  iframe { width: 100%; height: 60px; border: 1px dashed #9aa7b4; }
+  #signin { max-width: 360px; margin: 120px auto; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(() => {
+  const m = /^\/(?:([a-z0-9-]+)\/)?spatialadjust(\/demo)?\/?$/.exec(location.pathname);
+  const variant = (m && m[1]) || '';
+  const base = variant ? `/${variant}` : '';
+  const root = document.getElementById('root');
+
+  const rows = Array.from({ length: 24 }, (_, i) => `<tr><td>Hole ${i % 18 + 1}</td><td>${i % 18 + 1}AP${i % 3 + 1}</td><td>${(18 + (i * 7) % 11).toFixed(1)} %</td></tr>`).join('');
+
+  function renderApp() {
+    root.innerHTML = `
+      <header>
+        <h1>Spatial Adjust</h1>
+        <span id="user">Signed in as Sample Person Name</span>
+        ${variant === 'leak' ? '<span id="super">Placeholder Superintendent</span>' : ''}
+        <button id="zoom" type="button">Zoom in</button>
+        <button id="primary-action" type="button">Push changes</button>
+        <button id="report" type="button">Open report</button>
+        <button id="refresh" type="button">Refresh view</button>
+        <button id="help" type="button">Open help</button>
+        <button id="live" type="button">Connect live</button>
+      </header>
+      <main>
+        <section class="card" role="region" aria-label="Map">
+          <div id="map"><span role="img" aria-label="Station 1AP1"></span></div>
+          <p id="zoom-level">Zoom 1</p>
+        </section>
+        <aside>
+          <section class="card" role="region" aria-label="Moisture legend">
+            <p>Dry &middot; Target &middot; Wet</p>
+          </section>
+          <section class="card">
+            <div class="table-wrap"><table role="table"><thead><tr><th>Hole</th><th>Station</th><th>Moisture</th></tr></thead><tbody>${rows}</tbody></table></div>
+          </section>
+          <section class="card">
+            <form id="report-form" method="post" action="/api/report" target="report-frame"><input type="hidden" name="kind" value="summary"></form>
+            <iframe name="report-frame" title="Report"></iframe>
+          </section>
+        </aside>
+      </main>
+      <div id="app-ready" hidden></div>`;
+    let zoom = 1;
+    document.getElementById('zoom').addEventListener('click', () => { zoom++; document.getElementById('zoom-level').textContent = `Zoom ${zoom}`; });
+    document.getElementById('primary-action').addEventListener('click', () => {
+      fetch('/api/push', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{"adjust":5}' }).catch(() => {});
+    });
+    document.getElementById('report').addEventListener('click', () => document.getElementById('report-form').submit());
+    document.getElementById('refresh').addEventListener('click', () => location.reload());
+    document.getElementById('help').addEventListener('click', () => window.open(`${base}/spatialadjust`, '_blank'));
+    document.getElementById('live').addEventListener('click', () => {
+      try { new WebSocket(`ws://${location.host}/live`); } catch { /* blocked */ }
+    });
+  }
+
+  function signIn() {
+    root.innerHTML = '<form id="signin" class="card"><h1>Demo sign-in</h1><p>Signing in&hellip;</p></form>';
+    setTimeout(async () => {
+      if (variant !== 'nologin') {
+        try { await fetch('/api/auth/demo', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' }); } catch { return; }
+      }
+      history.pushState({}, '', `${base}/spatialadjust`);
+      renderApp();
+    }, 200);
+  }
+
+  if (m && m[2]) signIn(); else renderApp();
+})();
+</script>
+</body>
+</html>
