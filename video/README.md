@@ -86,7 +86,7 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 
 | Command | Script | Purpose | Delivered by |
 |---|---|---|---|
-| `npm run video -- capture` | `video/capture/director.mjs` | Capture a take from IntelliDash `/demo` under three safety layers | TBD (PI-ICNT-SW-1078) |
+| `npm run video -- capture` | `video/capture/director.mjs` | Capture a take from IntelliDash `/demo` under three safety layers (`--dry-run` prints the plan and the click guard's verdicts without a browser); see [Capture](#capture) | PI-ICNT-SW-1078 |
 | `npm run video -- vo` | `video/vo/render-brian.py` | Render the episode voice-over in the Brian voice; `--dry-run` lists characters and credits without a network call (see [`vo/voice-settings.md`](vo/voice-settings.md)) | PI-ICNT-SW-1080 |
 | `npm run video -- estimate` | `video/vo/estimate.py` | Estimate characters and credits before rendering VO: one episode, the whole series, or the account's remaining credits (`--live`, counts only); see [`vo/series-estimate.md`](vo/series-estimate.md) | PI-ICNT-SW-1080 |
 | `npm run video -- build` | `video/edit/build.py` | Build the timeline from episode, take and VO report | TBD (PI-ICNT-SW-1083) |
@@ -103,7 +103,7 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 |---|---|
 | `bin/sa-video` | The dispatcher |
 | `lib/` | Shared code for Node and Python: media root guard, local maps loader, ElevenLabs key resolver, episode schema |
-| `capture/` | Fictional course overlay (`course-overlay.js`: `window.__saOverlayInstall(pairs, identity)`, `window.__saOverlay.scan(denylist)`) and map treatment (`map-routes.mjs`: `installMapRoutes(page, mapPolicy)`, GET-only tile substitution; `map-treatment.js`; `node video/capture/map-still.mjs` renders a still of a policy to `<media root>/episodes/_stills/`). Capture director and safety gates TBD (PI-ICNT-SW-1078) |
+| `capture/` | Fictional course overlay (`course-overlay.js`: `window.__saOverlayInstall(pairs, identity)`, `window.__saOverlay.scan(denylist)`) and map treatment (`map-routes.mjs`: `installMapRoutes(page, mapPolicy)`, GET-only tile substitution; `map-treatment.js`; `node video/capture/map-still.mjs` renders a still of a policy to `<media root>/episodes/_stills/`). Capture director (`director.mjs`), its in-page runtime (`director-runtime.js`), safety gates (`gates.mjs`), recorder (`record.mjs`), the recreation runner (`recreation.mjs`) and the Demo Mode audit ([`SAFETY.md`](capture/SAFETY.md)) (PI-ICNT-SW-1078) |
 | `edit/` | Compositor (`lib/`: engine, wallpaper, camera planners, timeline builder, layer registry, `theme.py`), text graphics (`gfx/render_gfx.mjs`) and `render.py`, ported from iCentral MarCom; provenance in [`edit/NOTES.md`](edit/NOTES.md). Builder and audio mix TBD (PI-ICNT-SW-1083) |
 | `vo/` | Brian voice renderer, lexicon, voice settings and loudness target, credits log and estimates. Needs only `python3` and ffmpeg (PI-ICNT-SW-1080) |
 | `verify/` | Repository hygiene check; render verification, OCR and captions TBD (PI-ICNT-SW-1082) |
@@ -111,6 +111,32 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 | `episodes/` | One folder per episode (`episode.json`, `script.md`); see [`episodes/README.md`](episodes/README.md) |
 | `approvals.md` | The owner approvals log |
 | `requirements.txt` | Python packages for the venv at the media root |
+
+## Capture
+
+A take is recorded from IntelliDash Demo Mode in the owner's own Chrome, which the director drives over the DevTools protocol on loopback. The rules, and the IntelliDash audit behind them, are in [`capture/SAFETY.md`](capture/SAFETY.md). In short: one page, one navigation (to the `/spatialadjust/demo` entry), the owner signs in to the demo form by hand, the director arms on the in-app hop to `/spatialadjust`, and from then on any write, WebSocket, new document, new window, refused click or denylisted name on screen ends the take with its own exit code.
+
+1. **Config, once.** Copy `video/capture/capture.example.json` to `video/capture/capture.local.json` (gitignored) and replace the `example.invalid` hosts with the dev host (`entryUrl`, `allowedHosts`) and its API host (`apiHosts`). Hosts that must never be contacted, such as analytics, go in `blockHosts`; their requests are aborted quietly. `readySelector` (optional) is an element to wait for after the hop, `settleMs` a pause after it. The real host names never go into git.
+2. **Name maps, once.** `video/capture/overlay.local.json` must exist (see [Safety rules](#safety-rules), rule 3): a Demo Mode take is refused with exit 5 while the denylist is empty.
+3. **Chrome.** Start a separate Chrome for capture, listening on loopback, with its profile in the media root (the director prints this command when no Chrome is listening):
+
+   ```bash
+   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --remote-debugging-port=9222 --user-data-dir="$HOME/Documents/SpatialAdjust_MarCom/auth/chrome-profile"
+   ```
+
+   Use that profile for capture only: no extensions, and never signed in to a live IntelliDash course.
+4. **Rehearse, then record.**
+
+   ```bash
+   npm run video -- capture --episode <id> --dry-run              # plan and click verdicts, no browser
+   npm run video -- capture --episode <id> --take 1 --no-record   # real time, nothing recorded
+   npm run video -- capture --episode <id> --take 1               # the take
+   ```
+
+   Sign in to the demo form in the tab the director opens. The take is written to `<media root>/episodes/<id>/capture/raw/take<N>.mp4` (3840x2160, 60 fps) with `take<N>-log.json` (cue times), `take<N>-track.json` (cursor and focus track for the edit), `take<N>_sheet.jpg` and `take<N>-safety.json`. Takes are never overwritten.
+5. **Recreation.** An episode with `"source": "recreation"` (and an optional `recreationPath`) is captured from the local guide site instead: `node video/capture/recreation.mjs --episode <id> --take <N>` builds and serves `dist/` on `localhost:8124` when needed and records `take<N>-recreation.mp4`. Demo-mode clicks are never allowed there.
+
+Exit codes: 0 recorded, 1 failed, 2 entry refused, 3 write or WebSocket aborted, 4 new document or window, 5 overlay or denylist, 6 click refused, 64 usage, 65 invalid episode ([table](capture/SAFETY.md#exit-codes)).
 
 ## Tests
 
