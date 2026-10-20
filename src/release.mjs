@@ -7,7 +7,8 @@
 // decides whether beta content is published reads it through this module, so the rule lives in
 // one place.
 //
-// The switch. SA_SHOW_BETA is read from process.env here, by showBetaFromEnv(), and nowhere else.
+// The switch. SA_SHOW_BETA is read from process.env in two places only: build.mjs, which passes the
+// raw value to parseShowBeta() and logs it, and showBetaFromEnv() here, for any other caller.
 // parseShowBeta() decides what the value means:
 //   unset or empty  -> true   (the internal and expert-review default: beta content is shown)
 //   true, 1         -> true   (any letter case)

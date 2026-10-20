@@ -15,9 +15,10 @@
 // from Core Design means dropping the new .dc.html files in and rebuilding.
 
 import { readFile, writeFile, mkdir, rm, cp, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, relative } from 'node:path';
 import { transformGuide } from './src/transform-export.mjs';
 import { transformApp } from './src/transform-app.mjs';
+import { parseShowBeta, loadRelease } from './src/release.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -80,6 +81,15 @@ ${blobEntries}
 }
 
 async function main() {
+  // The release switch. SA_SHOW_BETA is the whole contract with whatever host runs the build: GitHub
+  // Actions sets it from a repository variable, an Azure pipeline from a pipeline variable, a laptop
+  // inline. Unset means beta content is shown; false removes it from dist/ altogether (see
+  // src/release.mjs). Parsed before anything is deleted, so a typo fails the build and leaves the
+  // previous dist/ alone.
+  const rawShowBeta = process.env.SA_SHOW_BETA;
+  const showBeta = parseShowBeta(rawShowBeta);
+  const { release, file: releaseFile } = loadRelease();
+
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
 
@@ -106,7 +116,7 @@ async function main() {
   // once hand-edits in the .dc.html files, which a re-export silently wiped; doing it here
   // makes re-exports free. Each transform asserts its own anchor, so a shape change fails
   // the build rather than quietly dropping keyboard support.
-  html = transformGuide(html);
+  html = transformGuide(html, { showBeta, release });
 
   // Belt and braces: confirm the transforms actually produced what the runtime needs.
   for (const [marker, what] of A11Y_GUARDS) {
@@ -188,6 +198,7 @@ async function main() {
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
+<meta name="sa-release-mode" content="${showBeta ? 'with-beta' : 'ga-only'}">
 <style>\n${a11yCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
@@ -250,6 +261,9 @@ async function main() {
 
   console.log(`built dist/ — entry index.html, ${COMPONENTS.length} component(s) inlined, `
     + `${shipped} locale catalogue(s), 0 external origins`);
+  console.log(`release mode: ${showBeta ? 'beta shown' : 'beta removed'} `
+    + `(SA_SHOW_BETA=${rawShowBeta === undefined ? 'unset' : JSON.stringify(rawShowBeta)}), `
+    + `release file ${relative(ROOT, releaseFile) || releaseFile}`);
 }
 
 await main();
