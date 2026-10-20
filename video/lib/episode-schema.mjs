@@ -48,8 +48,11 @@ const Scroll = z.looseObject({ type: z.literal('scroll'), target: text, dy: z.nu
 // focus draws the highlight box around the target only; it never clicks.
 const Focus = z.looseObject({ type: z.literal('focus'), target: text, name: text });
 const Click = z.looseObject({ type: z.literal('click'), target: text, name: text });
+// figure swaps the lifted recreation figure for another figure of the same guide page (the start of
+// its caption), so a chapter can show the state its step's figure shows. Recreation episodes only.
+const Figure = z.looseObject({ type: z.literal('figure'), caption: text });
 
-export const Action = z.discriminatedUnion('type', [Wait, Cue, Hover, Scroll, Focus, Click]);
+export const Action = z.discriminatedUnion('type', [Wait, Cue, Hover, Scroll, Focus, Click, Figure]);
 
 export const Chapter = z.looseObject({ id: text, label: text });
 
@@ -154,6 +157,9 @@ function crossFieldRules(ep, ctx) {
       if (action.type === 'cue') {
         if (cueIds.has(action.id)) add(['beats', i, 'actions', j, 'id'], `${where(beat, j, action)}: duplicate cue id "${action.id}" (first used in beat "${cueIds.get(action.id)}")`);
         else cueIds.set(action.id, beat.id);
+      }
+      if (action.type === 'figure' && ep.source !== 'recreation') {
+        add(['beats', i, 'actions', j], `${where(beat, j, action)}: a figure action swaps the lifted recreation figure, so it is only allowed when source is "recreation" (source is "${ep.source}")`);
       }
       if (action.type !== 'click') return;
       const writeLike = WRITES.test(action.name) || WRITES.test(action.target);

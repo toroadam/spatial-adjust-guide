@@ -288,12 +288,17 @@ export function lintEpisode(ep, { ctx, entry, guide, nextTitle = null, folder = 
     f.push(...claimFindings(`${key} titleCard`, ep.titleCard.claims, ctx, ep));
   }
 
-  // (f) highlights
+  // (f) highlights. A step the rewrite has not reached and that names no bold label (boldLabels
+  // empty) cannot offer one, so there the label must be words the step's title, body or caption
+  // uses, as written (template v1, RUNBOOK.md changelog).
   chapters.forEach((c, i) => {
     const s = steps[i];
     const h = c.highlight ?? {};
     if (!nonEmpty(h.label)) add(` chapter ${i + 1}: no highlight.label`);
-    else if (s && !s.boldLabels.includes(h.label)) {
+    else if (s && !s.boldLabels.length && !s.shape) {
+      const said = [s.title, s.body, s.caption].map((x) => String(x ?? '').toLowerCase()).join('\n');
+      if (!said.includes(h.label.trim().toLowerCase())) add(` chapter ${i + 1}: highlight.label ${q(h.label)} is not in the text of step ${s.n}, which has no bold labels yet`);
+    } else if (s && !s.boldLabels.includes(h.label)) {
       add(` chapter ${i + 1}: highlight.label ${q(h.label)} is not a bold label of step ${s.n} (${s.boldLabels.map(q).join(', ') || 'none'})`);
     }
     if (!nonEmpty(h.selector)) add(` chapter ${i + 1}: no highlight.selector`);
