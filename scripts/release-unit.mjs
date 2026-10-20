@@ -13,7 +13,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { extractGuides } from './claims-extract.mjs';
 import { transformGuide } from '../src/transform-export.mjs';
-import { apply as applyReleaseGate, evaluateGuideData, cutSentence } from '../src/transforms/release-gate.mjs';
+import {
+  apply as applyReleaseGate, evaluateGuideData, cutSentence, betaOnlyStrings, catalogueOmissions,
+} from '../src/transforms/release-gate.mjs';
 import {
   parseShowBeta, showBetaFromEnv, loadRelease, releaseFilePath, validateRelease, findDuplicateKeys,
   isGuideShipped, betaSteps, statusOf, crossReferencesOf, DEFAULT_RELEASE_FILE,
@@ -468,6 +470,58 @@ check('cutSentence takes the joining space with the sentence', () => {
     throws(() => hide(SHOWN.replace(anchor, "counter: 'Step ' + (pi + 1) + ' of ' + 6"), stepBeta()), /the player counter, Step N of M must number steps from steps\.length/, 'counter');
     const announce = "announcement: 'Step ' + (pi + 1) + ' of ' + steps.length";
     throws(() => hide(SHOWN.replace(announce, "announcement: 'Step ' + (pi + 1) + ' of ' + 6"), stepBeta()), /live-region announcement/, 'announcement');
+  });
+}
+
+// ---- catalogues ---------------------------------------------------------------------------------
+
+{
+  const CATALOGUE = JSON.parse(readFileSync(join(import.meta.dirname, '..', 'src', 'i18n', 'en-us.json'), 'utf8'));
+  const PUSH_STEP = guides['push-to-lynx'].steps[2].title;
+  const r = clone(release);
+  r.guides['calculation-questions'] = { status: 'beta', basis: 'test' };
+  r.guides['enable-disable-stations'] = { status: 'beta', basis: 'test' };
+  r.guides['station-details'] = { status: 'beta', basis: 'test' };
+  r.guides['push-to-lynx'].sections = [{ id: 'one-step', status: 'beta', basis: 'test', steps: [PUSH_STEP] }];
+  const allData = evaluateGuideData(SHOWN);
+  const shippedData = evaluateGuideData(hide(SHOWN, r));
+  check('catalogues: beta-only strings and harvested compounds are left out', () => {
+    const { omit } = catalogueOmissions({ allData, shippedData, release: r, catalogue: CATALOGUE });
+    for (const key of ['Calculation questions', 'Calculation questions — 4 MIN, difficulty 3 of 3', PUSH_STEP,
+      `Step 3 of 6: ${PUSH_STEP}`, 'Managing station state and detail rows.', guides['station-details'].steps[0].title]) {
+      equal(Object.hasOwn(CATALOGUE.strings, key), true, `catalogue has ${key}`);
+      equal(omit.has(key), true, `omits ${key}`);
+    }
+    for (const key of ['Calculation methods', 'Push changes to Lynx', 'Station Management', '4 minutes', 'Note.',
+      `Step 1 of 6: ${guides['push-to-lynx'].steps[0].title}`]) {
+      equal(omit.has(key), false, `keeps ${key}`);
+    }
+    for (const key of omit) equal(Object.hasOwn(CATALOGUE.strings, key), true, `omitted key ${key} is a catalogue key`);
+  });
+  check('catalogues: the badge and banner strings are beta-only', () => {
+    const set = betaOnlyStrings({ allData, shippedData, release: r });
+    for (const label of [BETA_BADGE_LABEL, BETA_BANNER_LABEL, BETA_BANNER_TEXT]) equal(set.has(label), true, label);
+  });
+  check('catalogues: strings in keep and strings shipped content uses stay', () => {
+    equal(betaOnlyStrings({ allData, shippedData, release: r, keep: ['Calculation questions'] }).has('Calculation questions'), false, 'keep');
+    const set = betaOnlyStrings({ allData, shippedData, release: r });
+    for (const t of [guides['calculation-methods'].title, guides['push-to-lynx'].steps[0].title]) equal(set.has(t), false, t);
+  });
+  check('catalogues: a registered cross-reference and the text it was cut from are left out', () => {
+    const named = Object.keys(guides).filter((k) => (guides[k].before || []).some((b) => b.includes(PUSH_SENTENCE)));
+    const pr = clone(release);
+    pr.guides['push-to-lynx'] = { status: 'beta', basis: 'test', crossReferences: named.map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })) };
+    const shipped = evaluateGuideData(hide(SHOWN, pr));
+    const set = betaOnlyStrings({ allData, shippedData: shipped, release: pr });
+    const original = guides['push-failures'].before.find((b) => b.includes(PUSH_SENTENCE));
+    equal(set.has(PUSH_SENTENCE), true, 'sentence');
+    equal(set.has(original), true, 'original text');
+    equal(set.has('Lynx itself must be set up to match Spatial Adjust.'), false, 'shortened text');
+  });
+  check('catalogues: only the badge and banner strings are left out when nothing is beta', () => {
+    const { omit } = catalogueOmissions({ allData, shippedData: allData, release, catalogue: CATALOGUE });
+    const labels = [BETA_BADGE_LABEL, BETA_BANNER_LABEL, BETA_BANNER_TEXT];
+    for (const key of omit) equal(labels.includes(key), true, `omitted ${key}`);
   });
 }
 

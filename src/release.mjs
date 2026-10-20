@@ -25,6 +25,21 @@
 // When the switch is false, the build must leave beta content out of dist/ altogether. Hiding it
 // with CSS or a URL parameter does not count. Nothing here depends on GitHub or any other host.
 //
+// What a build with SA_SHOW_BETA=false leaves out (src/transforms/release-gate.mjs and build.mjs):
+// each beta guide's entry, cursor targets and tile, each beta step of a GA guide, Next links and
+// registered cross-references to them, and, from every dist/i18n/<locale>.json, each catalogue key
+// that only beta content uses. That set is computed at build time from this file, so releasing a
+// beta guide is a one-line status change. Neither src/release.json nor this module is copied into
+// dist/; build.mjs fails if either turns up there.
+//
+// Media contract. Any per-guide media published beside the guides follows the same rule through
+// isGuideShipped(). The video media manifest includes a guide's episode, its captions and its
+// transcript only when isGuideShipped(release, key, showBeta) is true, with showBeta from
+// parseShowBeta(). When showBeta is false, an episode of a GA guide that shows or narrates a step
+// listed by betaSteps(release, key) is beta content as well: leave it out, or ship a cut without
+// that step. Captions and transcripts carry the same beta-only strings the catalogues drop, so they
+// go wherever their episode goes.
+//
 // SA_RELEASE_FILE is for tests only. It points loadRelease() at a fixture instead of
 // src/release.json. Production and preview deploys never set it. An empty value counts as unset.
 //
@@ -316,7 +331,11 @@ function entryOf(release, key) {
   return entry;
 }
 
-/** Whether a guide is published in a build. GA guides always are; beta guides only when showBeta is true. */
+/**
+ * Whether a guide is published in a build. GA guides always are; beta guides only when showBeta is
+ * true. This is also the media-manifest contract: an episode, its captions and its transcript ship
+ * only when this returns true for their guide (see "Media contract" at the top of this file).
+ */
 export function isGuideShipped(release, key, showBeta) {
   if (typeof showBeta !== 'boolean') throw new Error('isGuideShipped needs showBeta as a boolean; use parseShowBeta()');
   return entryOf(release, key).status === 'ga' || showBeta;
