@@ -1,11 +1,19 @@
 // Smoke test: boot the built bundle in a real browser and assert it renders with no
 // external origins. Usage: node scripts/smoke.mjs <url> [--block=<substr>] [--offline]
 import { chromium } from 'playwright';
+import { parseShowBeta, loadRelease, isGuideShipped } from '../src/release.mjs';
 
 const args = process.argv.slice(2);
 const url = args.find((a) => !a.startsWith('--'));
 const block = args.filter((a) => a.startsWith('--block=')).map((a) => a.slice(8));
 const offline = args.includes('--offline');
+
+// How many guide cards the catalogue should show: every guide when the build shows beta content,
+// the GA guides when SA_SHOW_BETA=false removed it. Read the way build.mjs reads it, from the same
+// variable and the same release file (SA_RELEASE_FILE, tests only).
+const showBeta = parseShowBeta(process.env.SA_SHOW_BETA);
+const { release } = loadRelease();
+const expectedCards = Object.keys(release.guides).filter((k) => isGuideShipped(release, k, showBeta)).length;
 
 const browser = await chromium.launch();
 const ctx = await browser.newContext();
@@ -67,6 +75,7 @@ try {
 
 const result = {
   home, guide,
+  expectedCards: { count: expectedCards, mode: showBeta ? 'beta shown' : 'beta hidden' },
   externalOrigins: [...external],
   blocked: [...blocked].length,
   failed: [...failed],
@@ -76,7 +85,7 @@ const result = {
 const pass =
   home.dcRoot &&
   home.renderedChars > 20000 &&
-  home.cards === 26 &&
+  home.cards === expectedCards &&
   guide?.stageMounted === true &&
   external.size === 0 &&
   errors.size === 0;
