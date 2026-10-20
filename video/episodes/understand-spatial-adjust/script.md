@@ -29,7 +29,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:29 | 1:33 | 17 Step 5 result | **Push 6 Changes** highlighted, never clicked |  | "Push Changes is the only thing that writes to the controller." | `understand-spatial-adjust/5/5` |
 | 1:33 | 1:38 | 18 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; up next **Next on Double Click: Map navigation**; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/understand-spatial-adjust` goes in the published description | — | — | — |
 
-**VO total:** 188 words in 11 lines, about 68 s spoken (measured). **Running time:** about 1:38 (99 s); the target is 1:30-2:15, inside the series range of 60-180 s.
+**VO total:** 188 words in 11 lines, about 68 s spoken (measured). **Running time:** about 1:38 (99 s); the target is 1:30-2:15, inside the series range of 60-180 s. **Measured:** 1:56 (115.8 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/understand-spatial-adjust`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- understand-spatial-adjust` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 

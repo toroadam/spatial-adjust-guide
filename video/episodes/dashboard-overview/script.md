@@ -1,6 +1,6 @@
 # Double Click #1: Dashboard overview
 
-**Episode:** 1 of 26 · **Wave:** 1 (Getting Started), first of the wave · **Guide:** `#/dashboard-overview` · **Template:** v0 ([`../RUNBOOK.md`](../RUNBOOK.md)) · **Script version:** v1
+**Episode:** 1 of 26 · **Wave:** 1 (Getting Started), first of the wave · **Guide:** `#/dashboard-overview` · **Template:** v1 ([`../RUNBOOK.md`](../RUNBOOK.md); scripted on v0, cut on v1, which locked from this episode) · **Script version:** v1
 **Voice:** ElevenLabs Brian (`Gubgw9l4dtIoQA9YZHgx`, eleven_multilingual_v2) · **Music:** `sa-bed-v1` · **Map:** restyle (gate G2)
 **Source:** the guide site's recreation (`"source": "recreation"`), one lifted figure per chapter: step 1 "Toolbar, left: site, course selector"; step 2 "Map with the moisture legend."; step 3 "Chart and table share a selection."; step 4 "Station-level rows for hole 3 of area AP."; step 5 "Six stations pending, six already pushed today."
 
@@ -29,7 +29,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 2:02 | 2:10 | 17 Step 5 result | The cursor moves to the green counter **6**, highlighted |  | "The green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding." | `dashboard-overview/5/3`, `dashboard-overview/5/4` |
 | 2:10 | 2:15 | 18 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; up next **Next on Double Click: Understand Spatial Adjust**; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/dashboard-overview` goes in the published description | — | — | — |
 
-**VO total:** 298 words in 11 lines, about 102 s spoken (measured). **Running time:** about 2:15 (136 s); the target is 1:45-2:30, inside the series range of 60-180 s.
+**VO total:** 298 words in 11 lines, about 102 s spoken (measured). **Running time:** about 2:15 (136 s); the target is 1:45-2:30, inside the series range of 60-180 s. **Measured:** 2:34 (154.2 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds. That is 4 s over this episode's planned 2:30, all of it the up-next card template v1 added; it stays inside the series range.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/dashboard-overview`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- dashboard-overview` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 

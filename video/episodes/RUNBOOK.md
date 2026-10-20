@@ -6,18 +6,18 @@ The pipeline the procedure drives is described in [`../README.md`](../README.md)
 
 ## Template
 
-**Version:** v0 - draft, 2026-10-20. It locks as v1 when the first episode of wave 1 is approved (EP-9); after that every change is a new version in the changelog below, and episodes already approved are re-checked against it.
+**Version:** v1 - locked, 2026-10-20, from episode 01 (Dashboard overview); approvals row `template` in [`../approvals.md`](../approvals.md#episodes). Every later change is a new version with its own approvals row and changelog row; it applies only to episodes not yet approved, and approved episodes are re-cut only when the owner asks.
 
 | Part | What the viewer sees | Comes from | Drawn by |
 |---|---|---|---|
-| Open | The Spatial Adjust lockup, then the title card: the series word "Double Click" is double-clicked and the guide's title springs out of it, so the card reads **Double Click: \<guide title\>**, in the Spatial Adjust brand (contour wall, Golos UI, no red boxes) | `titleCard.text`; the guide title as the site renders it | `video/edit/lib/cards.py` `lockup`, `title_card` |
+| Open | The Spatial Adjust lockup, then the title card: the series word "Double Click" is double-clicked and the guide's title springs out of it, so the card reads **Double Click: \<guide title\>**, in the Spatial Adjust brand (contour wall, Golos UI, no red boxes). A title wider than title-safe is set smaller so it stays on one line | `titleCard.text`; the guide title as the site renders it | `video/edit/lib/cards.py` `lockup`, `title_card` |
 | Chapters | One chapter per step of the guide, in order. Each opens on a typed chapter card whose label is the step title exactly, in caps | `chapters[].label` = the rendered step title | `cards.chapter_card` (style `chapter_card`: Golos UI 500, 132 px, 0.06em, caps) |
 | Highlight | A design-system blue (#3079F0) focus box on the control the step names, never a red box | `chapters[].highlight.label` (a bold label of the step) and `.selector` | the director's in-page runtime during capture (`video/capture/director-runtime.js`, `focus_box`) |
 | Camera | The window tilted and floating on the contour wall, with push-ins that follow the cursor | the take's cursor and focus track | `build.py` window shots (`dc_camplan`) |
 | Voice | For each step, the Do line, then the You-should-see line, in Brian's voice. The picture leads: the click lands, then the line | `vo[]`: `V<n>a` (Do), `V<n>b` (You should see) | `video/vo/render-brian.py`, placed on the take's cues by `build.py` |
 | If not | The step's If-not state is shown on screen, as the screen looks in that state, with the If-not line as a held label. It is not narrated | `chapters[].onScreen[]` with `stateShown: true` | the footage (Demo Mode, or the recreation when Demo Mode cannot produce the state) |
 | Progress | The chapter strip: every chapter name in a frosted bar under the window, the active chapter filling blue | `chapters[].label` | `cards.chapter_strip` |
-| Close | **Next on Double Click: \<next guide title\>**, then the end card: the lockup, "Explore the Spatial Adjust Guides", the URL pill and the legal line, with the episode's own guide address, https://toroadam.github.io/spatial-adjust-guide/#/\<key\> | `endCard.next`, `endCard.text`, `endCard.address`; `video/brand/end-card.json` (gate G4) | `cards.end_card` |
+| Close | The up-next card **Next on Double Click: \<next guide title\>** (the title card's motion, with a NEXT ON eyebrow over the series word), then the end card: the lockup, "Explore the Spatial Adjust Guides", the URL pill with the site address and the legal line. With no later episode open there is no up-next card, and the series-end line closes the transcript. The episode's own guide address, https://toroadam.github.io/spatial-adjust-guide/#/\<key\>, is the transcript's last line and goes in the published description | `endCard.next`, `endCard.text`, `endCard.address`; `video/brand/end-card.json` (gate G4) | `build.py` (`up_next_title`), `cards.title_card` with a tag, `cards.end_card`; `video/edit/deliver.py` writes the transcript |
 | Length | 1 to 3 minutes | `series.json` `targets.runtimeSec` [60, 180], or the entry's `runtimeRange` | checked by `verify.py` and the lint |
 | Sound | One music bed for the whole series, `sa-bed-v1`, 3 dB under the voice and ducked a further 9 dB while Brian speaks; -14 LUFS integrated, true peak at or below -1.0 dBTP | `episode.music` = `series.json` `musicBed`; `video/brand/music.json` (gate G5) | `video/edit/mix.py` |
 
@@ -29,13 +29,42 @@ The close points to the next episode in `series.json` that is not blocked. When 
 
 Everything else on screen, and every spoken word, cites Verified claims. The episode lint reads both bold lines above from this file, so keep their wording and quote marks as they are.
 
-**Where the builder is behind the template (v0).** `build.py` draws the lockup, the title card, the chapter cards, the window shots, the chapter strip and the end card. It does not yet draw the "Next on Double Click" card (the closing up-next card exists in `video/edit/lib/brand.py`, `TITLE_CARD['up_next']`, and `cards.title_card` draws it when given a tag), the If-not labels from `onScreen`, or the guide address on the end card, whose pill shows the site address from `end-card.json`. Until it does, `episode.json` carries `endCard` and `onScreen` so nothing is lost, and the published description carries the guide address.
+**Where the builder is behind the template (v1).** `build.py` draws the lockup, the title card, the chapter cards, the window shots, the chapter strip, the up-next card and the end card. It does not yet draw the If-not labels from `onScreen`; no guide renders If-not lines yet, so no episode carries any. When the rewrite lands, the first episode with an If-not state adds the label drawing as a template v2 change.
+
+### Parameters (v1)
+
+Every value below is in code, with the file named; a change to any of them is a template change.
+
+| Parameter | v1 value | Set in |
+|---|---|---|
+| Frame | 1920x1080, 60 fps, H.264 High yuv420p; takes captured at 3840x2160 (device scale 2) | `brand.py` `FRAME`; `video/capture/record.mjs` |
+| Lockup | 2.3 s | `brand.py` `DURATIONS['lockup']` |
+| Title card | 5.9 s: series word in at 0.15 s, double-click at 1.74 s and 1.90 s, the title pops at 1.98 s, the cursor leaves at 2.6 s and the card goes out over its last 0.3 s; series word Golos UI 500 150 px, title Golos UI 700 200 px (smaller when wider than title-safe, 1728 px) | `brand.py` `TITLE_CARD`, `TYPE`; `cards.title_card` |
+| Chapter card | Typed caps, Golos UI 500 132 px, tracking 0.06em, 50 characters a second; 1.7 s or longer, as its label's hold needs | `brand.py` `TYPE['chapter_card']`, `DURATIONS`; `cards.chapter_card` |
+| Label hold | Every on-screen label readable for at least 1.5 s + 0.3 s per word | `brand.py` `HOLD`; checked by the cards and by `verify.py` (d) |
+| Highlight | Design-system blue #3079F0, 2.5 px border, 10 px radius, 6 px ring at 16 %, 24 px glow at 25 %, 0.28 s fade; never red | `brand.py` `FOCUS_BOX`; `director-runtime.js` |
+| Window shot | The take from 0.55 s before the chapter's first cue to the next chapter's; resting framing scale 0.77 centred at (962, 522) | `build.py` `LEAD`, `chapter_plan`; `brand.py` `LAYOUT['window_wide']` |
+| Tilt | Tilted plate on the contour wall with a slow drift (1.0, 0.5, 7.0); flat only for the title and end cards | `brand.py` `CAMERA`; `build.py` |
+| Push-ins | With a focus box on screen, the camera fits the box to about 60 % of the view, between 1.35x and 2.7x the resting scale; without one, a gentle 1.35x that follows the cursor. Gaps under 1.4 s hold the zoom, boxes held under 0.4 s are ignored, and the zoom is smoothed so every move is a calm ease; the tilt flattens by about 40 % when zoomed in. A focus box is held to the end of its beat, so put a focus on a small element in a beat of its own | `video/edit/lib/dc_camplan.py` `dc_plan` defaults (`s_base_k=1.35`, `s_max_k=2.7`, `fit=(0.62, 0.58)`, `bridge=1.4`, `omega_z=2.2`) |
+| Strip | Frosted glass bar (250, 958)-(1670, 1016), radius 20, blur 22; chapter names Golos UI 500 19 px; fades 0.5 s | `brand.py` `LAYOUT['strip']`, `TYPE['strip']`; `cards.chapter_strip` |
+| Voice | Brian (`Gubgw9l4dtIoQA9YZHgx`), eleven_multilingual_v2, stability 0.5, similarity 0.75, style 0, speaker boost, speed 1.0; product terms as `video/vo/lexicon.json` says them | `series.json` `voice`; `video/vo/render-brian.py` |
+| VO pacing | Scripted at about 2.3 words a second (Brian reads wave 1 at 2.8 to 2.9); each line starts on its own cue in the take, so the picture leads; at least 0.15 s between lines; the title line 0.45 s into the title card | `series.json` `targets.wordsPerSecond`; `build.py` `VO_GAP`, `TITLE_VO_AT` |
+| Music | `sa-bed-v1` for every episode: 3 dB under the voice, ducked a further 9 dB while Brian speaks (key -45 dBFS, look-ahead 50 ms, attack 80 ms, release 350 ms); fade in 0.4 s, out 0.6 s; the outro's final chord lands on the end card | `series.json` `musicBed`; `brand.py` `LOUDNESS`; `build.py` `MUSIC_FADE_*`, `music_segments` |
+| Loudness | -14 LUFS integrated +/- 0.5, true peak at or below -1.0 dBTP (limiter ceiling -1.85 dBTP); AAC 48 kHz stereo | `brand.py` `LOUDNESS`; `mix.py`; `verify.py` (c) |
+| SFX | Click -10, soft hit -14, soft tick -10, typing -6 (relative to each sound's design level), synthesised | `brand.py` `SFX`; `video/brand/sfx.md` |
+| Up-next card | 4.6 s, or longer when "Next on / Double Click / \<title\>" needs a longer hold; NEXT ON eyebrow Golos UI 500 40 px caps | `build.py` `up_next_seconds`; `brand.py` `TITLE_CARD['up_next']` |
+| End card | 5.0 s; "Explore the Spatial Adjust Guides", the pill `toroadam.github.io/spatial-adjust-guide`, "© 2026 The Toro Company. All rights reserved." | `brand.py` `DURATIONS['end_card']`, `END_CARD`; `video/brand/end-card.json` |
+| Address format | The pill shows the site address; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/<key>` is the transcript's last line | `video/edit/deliver.py` |
+| Length | 60 to 180 s per episode, in practice 1:40 to 2:30 | `series.json` `targets.runtimeSec` |
+| Footage | Demo Mode where the owner can sign in to a capture session; otherwise the guide site's recreation, one lifted figure per chapter (a beat's `figure` action), never guide prose in shot | `episode.json` `source`, `recreationFigure`, beats; `video/capture/recreation.mjs` |
+| Poster | The title card, 1 s before it leaves (7.2 s), as JPEG quality 3 | `video/edit/deliver.py` |
 
 ### Changelog
 
 | Version | Date | Change | Decided by |
 |---|---|---|---|
 | v0 - draft | 2026-10-20 | First template, from the iCentral Double Click #1 (Home) and the Spatial Adjust motion system (`video/brand/motion-system.md`). The plan's "SemiBold caps" chapter labels are Golos UI 500 caps, because Golos UI ships no 600 (motion-system.md, Type). The series-end line above. The If-not state is shown, not narrated, to keep episodes inside 3 minutes. | Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22 |
+| v1 - locked | 2026-10-20 | Locked from episode 01 (Dashboard overview). The builder now draws the up-next card, "Next on Double Click: \<next title\>", between the last chapter and the end card, and no up-next card at the series end; a title wider than title-safe is set smaller on one line, which the episode 02 title "Understand Spatial Adjust" and several later titles need; the guide address is the transcript's last line, not in the pill; every parameter is set in the table above; recreation footage with one lifted figure per chapter is accepted where no Demo Mode session is available; `video/vo/whisper_check.py` (EP-5) and `video/edit/deliver.py` (EP-7) added. The series-end line and the music bed `sa-bed-v1` are unchanged. | `video/approvals.md`, Episodes, row `template` (decided by executor, 2026-10-20) |
 
 ## Formats
 
@@ -136,7 +165,7 @@ Each step names what it records. Commands run from the repository root; `<key>` 
 
 **EP-4 Capture.** In Demo Mode, overlay on, through the director's gate (`../README.md`, Capture): `npm run video -- capture --episode <id> --dry-run`, then a `--no-record` rehearsal, then the take. Recreation shots: `node video/capture/recreation.mjs --episode <id> --take <N>`. Look through `take<N>_sheet.jpg` and `take<N>-safety.json`; discard any take that reloaded, refused a click or ended on a safety exit. Set `status` to `captured` in both files.
 
-**EP-5 Voice-over.** `python3 video/vo/estimate.py --episode video/episodes/<id>/episode.json`, then `python3 video/vo/render-brian.py --episode video/episodes/<id>/episode.json --dry-run`, then the render without `--dry-run`. The script appends the credits before and after to `video/vo/credits-log.md`. Then a Whisper round-trip: transcribe every line WAV and compare it with the line's text, word for word, and re-render a line Brian misread (`--lines V3a --force`). No Whisper is installed on the production Mac as of 2026-10-20; install it into the media root's venv (`.venv/bin/pip install openai-whisper`), never into the repository, or listen to every line until it is. Set the series `status` to `voiced`.
+**EP-5 Voice-over.** `python3 video/vo/estimate.py --episode video/episodes/<id>/episode.json`, then `python3 video/vo/render-brian.py --episode video/episodes/<id>/episode.json --dry-run`, then the render without `--dry-run`. The script appends the credits before and after to `video/vo/credits-log.md`. Then the Whisper round-trip: `$SA_VIDEO_PYTHON video/vo/whisper_check.py --episode video/episodes/<id>/episode.json` transcribes every line WAV (openai-whisper, small.en, in the media root's venv, never in the repository) and compares it with the line's spoken text, word for word; re-check any flagged line with `--model medium.en --lines <ids>`, and re-render a line Brian misread (`render-brian.py --lines V3a --force`). Differences that are only spelling (US forms, compounds), homophones or run-together sounds are Whisper's; note them in `script.md` under "Voice-over check". Set the series `status` to `voiced`.
 
 **EP-6 Edit.** `npm run video -- build --episode video/episodes/<id>/episode.json --take <N> --final`, then `npm run video -- render --timeline <media root>/episodes/<id>/edit/timeline.json` and `npm run video -- mix --timeline <media root>/episodes/<id>/edit/timeline.json`. Open the render and watch it through.
 
@@ -145,11 +174,10 @@ Each step names what it records. Commands run from the repository root; `<key>` 
 ```bash
 npm run video -- verify   --render <mp4> --timeline <timeline.json> --episode video/episodes/<id>/episode.json
 npm run video -- ocr      --render <mp4> --timeline <timeline.json>
-npm run video -- captions --timeline <timeline.json> --episode video/episodes/<id>/episode.json --report <media root>/episodes/<id>/vo/render-report.json --out <media root>/episodes/<id>/deliver/<key>.en.vtt
-npm run video -- render   --timeline <timeline.json> --still <seconds> --out <media root>/episodes/<id>/deliver/<key>.poster.png
+npm run video -- captions --timeline <timeline.json> --episode video/episodes/<id>/episode.json --report <media root>/episodes/<id>/vo/render-report.json
 ```
 
-All three checks must pass. Copy the render to `deliver/<key>.mp4`, convert the poster still to `deliver/<key>.poster.jpg` (`ffmpeg -i <key>.poster.png -q:v 3 <key>.poster.jpg`), and write `deliver/<key>.transcript.txt`: the title card text, then every VO line's written text in order, then the end-card text. Record `runtimeSec`, `lufs` and `truePeak` from `verify-report.json` in `series.json`, set `status` to `verified` in `episode.json` and `edited` in `series.json`.
+All three checks must pass. Then `$SA_VIDEO_PYTHON video/edit/deliver.py --episode video/episodes/<id>/episode.json` writes the four deliverables: it refuses unless verify (final mode) and OCR passed on the timeline's render and the captions exist, copies the render to `deliver/<key>.mp4` and the captions to `deliver/<key>.en.vtt`, renders the poster still from the title card to `deliver/<key>.poster.jpg`, and writes `deliver/<key>.transcript.txt`: the title card text, every VO line's written text in order, the end-card text and the guide address. Write the captions straight to the renders folder (the `captions` default, `renders/<id>.en.vtt`), not to `deliver/`; `deliver.py` copies them. Record `runtimeSec`, `lufs` and `truePeak` from `verify-report.json` in `series.json`, set `status` to `verified` in `episode.json` and `edited` in `series.json`.
 
 **EP-8 Lint.** `npm run test:episodes -- <key>` must be clean, (h) included.
 
