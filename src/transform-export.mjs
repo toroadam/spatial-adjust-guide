@@ -271,6 +271,128 @@ export function editTargets(src, { name, guide, expect, replace }) {
   return src.slice(0, at[0]) + next + src.slice(close);
 }
 
+// --- step shape rendering --------------------------------------------------------------------------
+// A rewritten step carries do / see / ifNot (and optionally why) instead of body, and a rewritten
+// guide carries start. This renders them in the player panel, in the article step and under
+// Before you start. A step without do keeps its body paragraph exactly as before, and until a
+// rewrite is registered the renderer is not installed at all (see transformGuide).
+//
+// The lines are translated whole, at render time, through window.__saT (src/i18n-apply.js), not
+// by the DOM pass that translates everything else. A sentence with a bold label inside it is
+// three DOM text nodes, so the DOM pass would either harvest fragments ("Select", "in the list.")
+// that no language can reorder, or split text nodes React owns. saLine() keeps one catalogue key
+// per sentence, turns each [[Exact Label]] into <b class="lsa-label">, and marks its span with
+// data-sa-src so the DOM pass and the harvester leave the inside alone. The component re-renders
+// on the 'sa:locale-applied' event, which is how a locale switch reaches these lines.
+
+/** Exact text as a pattern for edit(). */
+const exact = (text) => new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+const SHAPE_ROWS = (v) => [
+  `<div class="lsa-shape-row lsa-do"><span class="lsa-shape-k">Do</span>{{ ${v}.doLine }}</div>`,
+  `<div class="lsa-shape-row lsa-see"><span class="lsa-shape-k">You should see</span>{{ ${v}.see }}</div>`,
+  `<div class="lsa-shape-row lsa-ifnot"><span class="lsa-shape-k">If not</span>{{ ${v}.ifNot }}</div>`,
+  `<sc-if value="{{ ${v}.hasWhy }}" hint-placeholder-val="{{ false }}"><div class="lsa-shape-row lsa-why"><span class="lsa-shape-k">Why</span>{{ ${v}.why }}</div></sc-if>`,
+].join('');
+
+/** The body paragraph when the step has no shape, the shape rows when it does. The two sc-if
+ *  blocks sit flush against each other and against the paragraph, so a step without do renders
+ *  exactly the DOM it rendered before: no extra element and no extra whitespace node. */
+const shapeBlock = (v, para, extraClass) =>
+  `<sc-if value="{{ ${v}.noShape }}" hint-placeholder-val="{{ true }}">${para}</sc-if>`
+  + `<sc-if value="{{ ${v}.hasShape }}" hint-placeholder-val="{{ false }}">`
+  + `<div class="lsa-shape ${extraClass}">${SHAPE_ROWS(v)}</div></sc-if>`;
+
+function stepShape(src) {
+  let s = src;
+
+  const PANEL_BODY = '<p style="margin:0;font-size:14px;line-height:1.65;color:var(--60);text-wrap:pretty">{{ guide.player.step.body }}</p>';
+  s = edit(s, {
+    name: 'step shape: player panel rows',
+    pattern: exact(PANEL_BODY),
+    replace: () => shapeBlock('guide.player.step', PANEL_BODY, 'lsa-shape-panel'),
+  });
+
+  const ARTICLE_BODY = '<p style="margin:0;font-size:16px;line-height:1.7;color:var(--60);text-wrap:pretty">{{ step.body }}</p>';
+  s = edit(s, {
+    name: 'step shape: article step rows',
+    pattern: exact(ARTICLE_BODY),
+    replace: () => shapeBlock('step', ARTICLE_BODY, 'lsa-shape-article'),
+  });
+
+  // The start state leads Before you start: where to begin, what to have open, what you need.
+  const BEFORE_LIST = '>Before you start</h2>\n          <div style="display:flex;flex-direction:column;gap:10px">';
+  s = edit(s, {
+    name: 'step shape: start state under Before you start',
+    pattern: exact(BEFORE_LIST),
+    replace: () => BEFORE_LIST.replace('\n          <div', '\n          '
+      + '<sc-if value="{{ guide.hasStart }}" hint-placeholder-val="{{ false }}"><dl class="lsa-start">'
+      + '<sc-for list="{{ guide.start }}" as="r" hint-placeholder-count="3">'
+      + '<div class="lsa-start-row"><dt class="lsa-shape-k">{{ r.k }}</dt><dd>{{ r.v }}</dd></div>'
+      + '</sc-for></dl></sc-if><div'),
+  });
+
+  s = edit(s, {
+    name: 'step shape: saLine() renders a translated line with bold labels',
+    pattern: /\nconst GUIDES = \{\n/,
+    replace: () => '\n// Added by src/transform-export.mjs (step shape rendering). One line of a step, translated whole\n'
+      + '// through window.__saT, with each [[Exact Label]] shown bold and no brackets. data-sa-src keeps\n'
+      + '// the English, which is the catalogue key and tells src/i18n-apply.js to leave the inside alone.\n'
+      + 'function saLine(text) {\n'
+      + '  if (!text) return null;\n'
+      + '  const src = String(text);\n'
+      + "  const tr = (typeof window !== 'undefined' && window.__saT) ? window.__saT(src) : src;\n"
+      + '  const parts = String(tr).split(/\\[\\[([^\\]]+)\\]\\]/);\n'
+      + "  return React.createElement('span', { 'data-sa-src': src, className: 'lsa-line' },\n"
+      + "    ...parts.map((p, i) => (i % 2 ? React.createElement('b', { className: 'lsa-label', key: i }, p) : p)));\n"
+      + '}\n'
+      + '\nconst GUIDES = {\n',
+  });
+
+  s = edit(s, {
+    name: 'step shape: step fields in renderVals',
+    pattern: /tip: s\.tip \|\| ''\n/,
+    replace: () => "tip: s.tip || '',\n"
+      + '          hasShape: !!s.do,\n'
+      + '          noShape: !s.do,\n'
+      + '          doLine: saLine(s.do),\n'
+      + '          see: saLine(s.see),\n'
+      + '          ifNot: saLine(s.ifNot),\n'
+      + '          why: saLine(s.why),\n'
+      + '          hasWhy: !!s.why\n',
+  });
+
+  s = edit(s, {
+    name: 'step shape: guide start rows in renderVals',
+    pattern: /before: g\.before, verify: g\.verify, player,/,
+    replace: () => 'before: g.before, verify: g.verify, player,\n'
+      + '        hasStart: !!g.start,\n'
+      + "        start: g.start ? [{ k: 'Start on', v: saLine(g.start.page) }, { k: 'Have open', v: saLine(g.start.open) },\n"
+      + "          { k: 'You need', v: saLine(g.start.needs) }].filter((r) => r.v) : [],",
+  });
+
+  // A locale switch changes what saLine() returns, so it has to reach the component as a render.
+  s = edit(s, {
+    name: 'step shape: re-render on sa:locale-applied',
+    pattern: exact("window.addEventListener('scroll', this._onScroll, { passive: true });"),
+    replace: () => "window.addEventListener('scroll', this._onScroll, { passive: true });\n\n"
+      + '    // Step-shape lines are translated at render time (saLine), so a locale change needs a render.\n'
+      + '    this._onLocale = () => {\n'
+      + "      if (typeof this.forceUpdate === 'function') this.forceUpdate();\n"
+      + '      else this.setState({ _saLocale: Date.now() });\n'
+      + '    };\n'
+      + "    window.addEventListener('sa:locale-applied', this._onLocale);",
+  });
+  s = edit(s, {
+    name: 'step shape: remove the sa:locale-applied listener',
+    pattern: exact("if (this._onScroll) window.removeEventListener('scroll', this._onScroll);"),
+    replace: () => "if (this._onScroll) window.removeEventListener('scroll', this._onScroll);\n"
+      + "    if (this._onLocale) window.removeEventListener('sa:locale-applied', this._onLocale);",
+  });
+
+  return s;
+}
+
 export function transformGuide(src) {
   let s = src;
 
@@ -1092,6 +1214,12 @@ export function transformGuide(src) {
   s = applyChangedSurfaces(s);
   s = applyOperationalContract(s);
   s = applyReviewFixes(s);
+
+  // The step-shape renderer is installed only once a rewrite is registered. With none, the page
+  // is the page as it was before the rewrite began, byte for byte apart from src/steps.css and the
+  // render-time translation hooks in src/i18n-apply.js, so the renderer cannot change a guide
+  // that has not been rewritten. Its anchors are still checked on every build that has a rewrite.
+  if (REWRITES.length) s = stepShape(s);
 
   // --- followability rewrites ---------------------------------------------------
   // Last on purpose: a rewrite anchors on the text every correction above has already produced,
