@@ -16,7 +16,7 @@
 // this. It attaches to the existing session rather than trying to authenticate itself.
 import { writeFile, readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
-import { WRITES } from './lib/writes.mjs';
+import { guardedClick as sharedGuardedClick, refuseReason } from './lib/guarded-click.mjs';
 
 const argv = process.argv.slice(2);
 const arg = (n, d) => { const i = argv.indexOf(`--${n}`); return i === -1 ? d : argv[i + 1]; };
@@ -25,7 +25,9 @@ const out = arg('out', 'src/i18n/product-labels.json');
 const id = arg('id', '/Users/adammunir/IntelliDash/site/src');
 
 // Anything matching WRITES (scripts/lib/writes.mjs) is never clicked, whatever else the script
-// asks for.
+// asks for: every click on a product control goes through guardedClick, the shared guard in
+// scripts/lib/guarded-click.mjs that the video capture director uses too. The harvest never
+// passes allowWrites, so no write-like name can pass it.
 
 // Where shipped-ness is decided: a settings tab whose menu entry is commented out here is in
 // flight on dev but not in the product readers have.
@@ -196,23 +198,13 @@ if (!page) {
     + `  open tabs: ${ctx.pages().map((p) => p.url()).join(', ') || '(none)'}`);
 }
 
+// Identity check before the name check, both in the shared guard. Icon buttons carry no
+// accessible name, so the WRITES guard cannot see them at all — a selector that drifts onto the
+// wrong icon button sails straight through. Asserting the icon is the only thing that catches it
+// (a positional selector here once resolved to refresh-scan-data instead of the gear). The 1.2 s
+// settle lets the dialog open before the next read.
 async function guardedClick(selector, why, expectIcon) {
-  const el = page.locator(selector).first();
-  if (!(await el.count())) throw new Error(`${why}: selector not found — ${selector}`);
-  // Identity check before the name check. Icon buttons carry no accessible name, so the WRITES
-  // guard cannot see them at all — a selector that drifts onto the wrong icon button sails
-  // straight through. Asserting the icon is the only thing that catches it.
-  if (expectIcon) {
-    const got = await el.locator('fa-icon').first().getAttribute('icon').catch(() => null);
-    if (got !== expectIcon) {
-      throw new Error(`${why}: resolved to icon "${got}", expected "${expectIcon}" — refusing to click.\n`
-        + `  A positional selector here once resolved to refresh-scan-data instead of the gear.`);
-    }
-  }
-  const name = ((await el.getAttribute('aria-label')) || (await el.innerText().catch(() => '')) || '').trim();
-  if (WRITES.test(name)) throw new Error(`refusing to click "${name}" (${why}) — it may write to Lynx`);
-  await el.click({ timeout: 8000 });
-  await page.waitForTimeout(1200);
+  await sharedGuardedClick(page, selector, { why, expectedIconId: expectIcon, timeout: 8000, settleMs: 1200 });
 }
 
 // The host is a Toro-internal dev instance and this fixture is committed to a PUBLIC
@@ -238,6 +230,9 @@ for (const s of SURFACES) {
 for (const label of SETTINGS_TABS) {
   const card = page.locator('.sa-dlg-mnu-card').filter({ hasText: label }).first();
   if (!(await card.count())) { product.tabs[label] = { present: false }; continue; }
+  // A tab is selected by its label, so the label itself goes past the write guard first.
+  const refused = refuseReason({ name: label });
+  if (refused) throw new Error(`refusing to select settings tab "${label}": ${refused}`);
   await card.click();
   await page.waitForTimeout(900);
   product.tabs[label] = {
