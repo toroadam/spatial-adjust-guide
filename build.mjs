@@ -181,6 +181,9 @@ async function main() {
   const contactCss = await readFile(join(ROOT, 'src', 'contact.css'), 'utf8');
   const feedbackCss = await readFile(join(ROOT, 'src', 'feedback.css'), 'utf8');
   const splashCss = await readFile(join(ROOT, 'src', 'splash.css'), 'utf8');
+  // The Beta badge, banner and step marker styles ship only with the markup they style: a build with
+  // beta content removed carries none of their class names (src/transforms/release-gate.mjs).
+  const releaseCss = showBeta ? await readFile(join(ROOT, 'src', 'release.css'), 'utf8') : '';
   // Resolved in <head>, synchronously, so the gate decision is made before the first paint
   // rather than after — see the header of src/gate-boot.js.
   const gateBoot = await readFile(join(ROOT, 'src', 'gate-boot.js'), 'utf8');
@@ -216,7 +219,7 @@ async function main() {
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="sa-release-mode" content="${showBeta ? 'with-beta' : 'ga-only'}">
-<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n</style>
+<style>\n${a11yCss}\n${releaseCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 
