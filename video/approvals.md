@@ -3,15 +3,36 @@
 **Epic:** PI-ICNT-SW-E200 · **ER:** ER-1618 · **Approver:** Adam Munir (owner)
 **Media root:** `~/Documents/SpatialAdjust_MarCom/` (local only, never in git)
 
+## Owner direction, 2026-10-19: no pre-publication gates
+
+On 2026-10-19 the owner removed every pre-publication review and approval gate: "There's no gates to review them right now." Everything planned is built and made ready to deploy, and the owner and the experts review it in person on Thursday 2026-10-22, walking the live guides site (https://toroadam.github.io/spatial-adjust-guide/) page by page. Until then:
+
+- Nothing waits for a human. The executor of the feature that reaches a gate makes the call with the defaults below, records it in that gate's row, and carries on.
+- An executor's call is recorded with **Decision** `decided by executor`, **Approver** `executor`, and **Quote / notes** starting "Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22", followed by what was decided. It is never recorded as `approved`.
+- Every such call is also appended to [`docs/review-agenda.md`](../docs/review-agenda.md): what was decided, where it shows, and the question for the experts.
+- What the owner decides in person on 2026-10-22 is recorded as a new row for the same gate, in the owner's words.
+
+Defaults for the calls (a list, not a table, so the only `| G<n> |` rows in this file are the gate rows below):
+
+- G1: a neutral fictional course name and identity that does not appear anywhere in the iCentral MarCom material.
+- G2: fictional or Demo Mode map imagery only, never a real customer course.
+- G3: the Spatial Adjust brand, as the plan describes.
+- G4: the live guides site URL, https://toroadam.github.io/spatial-adjust-guide/.
+- G5: the music bed the iCentral MarCom Double Click series uses, with its source path recorded; the licence question goes on the review agenda.
+- G6: locked by the executor once the script passes the episode schema and every VO line cites a claim from the claims ledger.
+- G7: accepted by the executor once verify, OCR and hygiene pass.
+
+Beta content is shown (`SA_SHOW_BETA` unset means show).
+
 ## Rules
 
-- Only the owner, Adam Munir, approves a gate. An agent, a script or a reviewer never does, and nobody approves on the owner's behalf.
-- **Decision** is one of `pending`, `approved`, `changes requested` or `rejected`. Every gate starts as `pending`.
-- **Quote / notes** holds the owner's own words, quoted exactly as given, with where they were given (chat, ticket, review). A row without the owner's words is not approved, whatever its Decision column says.
-- **Version** names the exact artifact that was shown (file and commit, or render file name), so a later change to the artifact reopens the gate.
-- Never pre-fill a row. Prepare the artifact, present it, stop, and record the decision only after the owner has replied.
+- Only the owner, Adam Munir, approves a gate. Until the in-person review, an executor decides under the owner direction above and records `decided by executor`; nobody records `approved` on the owner's behalf.
+- **Decision** is one of `pending`, `decided by executor`, `approved`, `changes requested` or `rejected`. Every gate starts as `pending`, which means the feature that owns the gate has not reached it yet.
+- **Quote / notes** holds the owner's own words, quoted exactly as given, with where they were given (chat, ticket, review), or for an executor's call the sentence above and what was decided.
+- **Version** names the exact artifact the decision covers (file and commit, or render file name), so a later change to the artifact reopens the gate.
+- Never pre-fill a row. Record a decision only when the feature that owns the gate makes it.
 - Recording a decision fills in the gate's `pending` row. After that the row is never edited: a changed decision, or a decision on a new version, is a new row for the same gate with its own date.
-- Downstream steps check this file: drafts need G3, finals also need G4 and G5, capture needs G1, G2, G3 and G6.
+- Downstream steps check this file for a recorded decision (`decided by executor` or `approved`): drafts need G3, finals also need G4 and G5, capture needs G1, G2, G3 and G6. A `pending` gate is decided by the step that needs it, not waited on.
 
 ## Gates
 
