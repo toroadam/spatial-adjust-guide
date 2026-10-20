@@ -34,7 +34,8 @@
     "claims:lint": "node scripts/claims-extract.mjs --lint",
     "review-pack": "node scripts/review-pack.mjs",
     "test:media-budget": "node scripts/media-budget.mjs",
-    "media:fetch": "node scripts/fetch-media.mjs"
+    "media:fetch": "node scripts/fetch-media.mjs",
+    "media:add": "node scripts/media-add.mjs"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.72.0",
