@@ -119,6 +119,24 @@ tooling uses it to substitute the product's own translated label. The rules:
   all ten. A marker for one stays English in those locales, for the same reason.
   `src/i18n/product-untranslated.json` lists them per locale; regenerate it with
   `node scripts/product-untranslated.mjs` when the production pin moves.
+- **The same words in every locale.** A translation names a control with that locale's shipped
+  label, inside a marker (`markerDrift`) and in plain prose that names a reproduced control
+  without one (`screenLabelDrift`). Both are gates in `npm run test:validate`. Case and spacing may
+  differ, because grammar inflects a label mid-sentence; the words may not. A label IntelliDash
+  hardcodes in English is matched in English.
+- **One word, two controls: say where.** Some locales ship one word for two controls. German
+  renders both `STRINGS.SETTINGS` and `STRINGS.PREFERENCES` as "Einstellungen", so the shipped
+  label alone does not say which one is meant. Use the shipped label verbatim anyway, and name the
+  control's place in the same sentence, so the label is on the page and the sentence is still
+  unambiguous. Never swap in a clearer word that the screen does not show. The pilot step does
+  this in German: "wählen Sie die Zahnradschaltfläche [[Einstellungen]] rechts in der
+  Symbolleiste" (the gear button, at the right of the toolbar), while the rail tab stays
+  `[[Preferences]]`, which the product hardcodes in English.
+- **VWC in a control's name.** Some locales ship `Target VWC` or `Avg. VWC` without the acronym
+  ("CVA objetivo", "Teneur en eau volumétrique cible"). Prose that names the control uses that
+  label; prose about the measurement itself keeps "VWC" in every locale (ruled 2026-09-12).
+  `droppedToken` exempts a translation only when every VWC in the English sits inside such a
+  control's name and the translation uses the shipped label.
 - **Every marker is checked.** Each `[[label]]` must be a key of the label fixture,
   `src/i18n/labels.en-us.json`, exactly, and a Verified claim in the claims ledger must name it in
   its text or note. `npm run test:validate` fails otherwise (`labelProvenance`), naming the guide,
