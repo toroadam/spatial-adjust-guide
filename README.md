@@ -575,17 +575,20 @@ worth knowing:
   a guide. [`docs/claims/changed-surfaces.md`](docs/claims/changed-surfaces.md) gives the
   disposition of every Spatial Adjust change since 2026-08-13 and the production line behind it.
   - **Target Profiles as shipped** (US-21136), with the applied-profile label beside Calculation
-    ET. Production draws the tab as a table of five fixed slots per Lynx course. The figures in
-    `target-profiles`, `creating-profiles`, `updating-profiles` and `seasonal-profiles` draw three
-    named cards, so rewriting those guides needs the reproduction extended in Core Design.
+    ET. Production draws the tab as a table of five fixed slots per Lynx course, and the figures
+    now draw that table (`src/transform-app.mjs`). No figure draws the applied-profile label or
+    the Apply confirmation, so rewriting `target-profiles`, `creating-profiles`,
+    `updating-profiles` and `seasonal-profiles` around the shipped tab needs the reproduction
+    extended in Core Design.
   - **Multiple Lynx courses** (PERS-348). A task guide needs figures of the course selector and of
     Target Profiles per course. The reproduction has a `multiCourse` prop, but the guide page does
     not forward it, and nothing draws a per-course view. Extending the reproduction in Core Design
     comes first.
   - **An Enabled Stations task guide** (PERS-348). `map-navigation` step 4 gives the production
-    default and says the choice is remembered, but the reproduction's Layers overlay always draws
-    All Stations selected, so no figure can show the filter applied until the reproduction is
-    extended in Core Design.
+    default and says the choice is remembered. The map figure now draws Enabled Stations
+    selected, with the disabled station's pin hidden (`docs/text-corrections.md` §23), but a task
+    guide that walks through switching layers still needs more figures than the reproduction
+    draws.
 
   The toolbar's **Announcements** button is not a candidate. It opens the product-wide
   announcements panel and changes no Spatial Adjust data, so its absence from every toolbar figure
