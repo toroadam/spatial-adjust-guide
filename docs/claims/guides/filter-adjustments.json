@@ -202,9 +202,9 @@
       "guide": "filter-adjustments",
       "step": "before",
       "field": "before",
-      "text": "A disabled station never appears in it however extreme its number.",
+      "text": "A disabled station is never caught by its own number, however extreme; it appears only as part of a paired row whose enabled partner is caught.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -235,10 +235,11 @@
           "line": "809-816"
         }
       ],
-      "note": "A disabled station is never caught by its own number (sa-dashboard.component.ts:790), but it can still appear. The filter groups a hole's stations by name, and when any enabled member of a group is caught, the whole group goes into the filtered list, including a disabled partner (:785-795). The table shows a same-name group as one paired row with its stations beneath it (sa-dash-table.component.ts:186-253). Disabled areas and holes never appear (sa-dashboard.component.ts:771, :774).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (filter-adjustments/before/2); docs/text-corrections.md §29 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "A disabled station is never caught by its own number, however extreme. It appears only as part of a paired row whose enabled partner is caught. Why: the filter keeps a whole same-name group when any enabled member matches (sa-dashboard.component.ts:785-795)."
+      "correction": "",
+      "previousText": "A disabled station never appears in it however extreme its number."
     },
     {
       "id": "filter-adjustments/1/1",
@@ -433,9 +434,9 @@
       "guide": "filter-adjustments",
       "step": "2",
       "field": "body",
-      "text": "The link to the right of the table toolbar states the thresholds currently in force — % ADJ.",
+      "text": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force — % ADJ.",
       "type": "calculation",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -480,10 +481,11 @@
           "line": 439
         }
       ],
-      "note": "The readout is right but the location is not. The filter component stacks its contents in a column (sa-table-threshold-filter.component.less:8-11): the two tabs on top, and below them a row of two links, BULK ADJUST first and the filter link second (sa-table-threshold-filter.component.html:18-37). Nothing of the filter sits to the right of the table toolbar. The right of that toolbar holds the applied target profile name and the Calculation ET readout (sa-dashboard.component.html:30-33). The link text is upper-cased and starts \"% ADJ.\" whenever either end is enabled (SPATIAL_ADJUST.PERCENT_ADJUST_OVER_UNDER, _OVER, _UNDER).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (filter-adjustments/2/2); docs/text-corrections.md §29 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force — % ADJ. Why: the tabs and the two links are stacked in a column, with BULK ADJUST first and the filter link second (sa-table-threshold-filter.component.html:18-37, sa-table-threshold-filter.component.less:8-11)."
+      "correction": "",
+      "previousText": "The link to the right of the table toolbar states the thresholds currently in force — % ADJ."
     },
     {
       "id": "filter-adjustments/2/3",

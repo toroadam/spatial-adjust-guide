@@ -570,18 +570,32 @@ worth knowing:
   carries `data-stub="true"` and the dialog is unreachable — the harvester prints a note when it
   finds no stub rather than failing. If an unwritten guide is ever added back, re-run the harvest
   before relying on those two strings.
-- **Two features still have no guide:** the update banner's dismiss-without-reload path in context,
-  and the discard-changes confirmation.
-- **Superseded note.** An audit of
-  IntelliDash's 108 user-facing Spatial Adjust strings against the guide corpus found no coverage
-  for: the **Over/Under % Adj. filter** (an outlier finder — `> over || < under`, so it surfaces
-  both extremes at once, not a band; Over 0–300 default 200, Under 0–100 default 10, stored per
-  user), **Request latest scan data / Reload Data**, the **update banner**, and the
-  **discard-changes confirmation**. `SpatialAdjustApp.dc.html` renders none of
-  those controls — no refresh button, no banner, no filter dialog — so a step-by-step guide would
-  have to point its figure at an unrelated panel. Covering them properly means extending the
-  reproduction in Core Design first. The cursor targets `refresh`, `filterLink`, `tabOver` and
-  `tabAll` already exist and are referenced by nothing, which suggests this was always the plan.
+- **New-guide candidates.** Three production surfaces need figures the reproduction cannot draw,
+  so they wait on extending `SpatialAdjustApp.dc.html` in Core Design instead of being folded into
+  a guide. [`docs/claims/changed-surfaces.md`](docs/claims/changed-surfaces.md) gives the
+  disposition of every Spatial Adjust change since 2026-08-13 and the production line behind it.
+  - **Target Profiles as shipped**, with the applied-profile label beside Calculation
+    ET. Production draws the tab as a table of five fixed slots per Lynx course, and the figures
+    now draw that table (`src/transform-app.mjs`). No figure draws the applied-profile label or
+    the Apply confirmation, so rewriting `target-profiles`, `creating-profiles`,
+    `updating-profiles` and `seasonal-profiles` around the shipped tab needs the reproduction
+    extended in Core Design.
+  - **Multiple Lynx courses**. A task guide needs figures of the course selector and of
+    Target Profiles per course. The reproduction has a `multiCourse` prop, but the guide page does
+    not forward it, and nothing draws a per-course view. Extending the reproduction in Core Design
+    comes first.
+  - **An Enabled Stations task guide**. `map-navigation` step 4 gives the production
+    default and says the choice is remembered. The map figure now draws Enabled Stations
+    selected, with the disabled station's pin hidden (`docs/text-corrections.md` §23), but a task
+    guide that walks through switching layers still needs more figures than the reproduction
+    draws.
+
+  The toolbar's **Announcements** button is not a candidate. It opens the product-wide
+  announcements panel and changes no Spatial Adjust data, so its absence from every toolbar figure
+  is a reproduction gap, not a missing guide. The two features this list used to carry now have
+  guides: `request-scan-data` step 4 covers the update banner's Dismiss, and the guides that save
+  Settings (`calculation-settings`, `calculation-methods`, `minimum-threshold` and `preferences`)
+  cover the Discard changes confirmation.
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
 
 ## Two export defaults corrected by transforms

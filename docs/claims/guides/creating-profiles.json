@@ -1,15 +1,15 @@
 {
   "guide": "creating-profiles",
-  "title": "Creating profiles",
+  "title": "Capturing profiles",
   "claims": [
     {
       "id": "creating-profiles/tile/1",
       "guide": "creating-profiles",
       "step": "tile",
       "field": "title",
-      "text": "Creating profiles",
+      "text": "Capturing profiles",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -47,10 +47,11 @@
           "line": "208-211"
         }
       ],
-      "note": "Tile title. Profiles cannot be created: the tab always holds five slots per course (sa-settings-dlg.component.ts:383-392; SpatialAdjustLogic.cs:28-31), and the guide's task is capturing current targets into one of them with Update from Current. Renaming the guide is an editorial call for the review.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (creating-profiles/tile/1); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Capturing profiles. Why: the tab has five fixed slots per course and no way to add one (sa-settings-dlg.component.ts:383-392); you capture targets into a slot with Update from Current (sa-settings-dlg.component.html:208-211)."
+      "correction": "",
+      "previousText": "Creating profiles"
     },
     {
       "id": "creating-profiles/tile/2",
@@ -158,9 +159,9 @@
       "guide": "creating-profiles",
       "step": "note",
       "field": "note",
-      "text": "Target Profiles is still in development and is not in the shipping build yet.",
+      "text": "The Target Profiles tab lists five named profile slots for each Lynx course.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -182,42 +183,22 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
           "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 52
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 55
         }
       ],
-      "note": "Target Profiles ships. The menu entry is live on production (sa-settings-dlg.component.ts:55); at the 2026-08-13 baseline it was commented out (docs/claims/changed-surfaces.md). The pane renders from the same build (sa-settings-dlg.component.html:35, :177-226). It was first built on branch feature/260812_target_profiles (menu entry :52, pane :177-226), merged to develop on 2026-09-14, and is the same on develop (:55). The status is Wrong rather than Not shipping because production contains the feature.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (creating-profiles/note/1); docs/text-corrections.md §11 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Target Profiles is in the shipping build. Why: the Settings dialog's Target Profiles entry is live on production (sa-settings-dlg.component.ts:55) and its pane renders (sa-settings-dlg.component.html:177-226)."
+      "correction": "",
+      "previousText": "Target Profiles is still in development and is not in the shipping build yet."
     },
     {
       "id": "creating-profiles/note/2",
       "guide": "creating-profiles",
       "step": "note",
       "field": "note",
-      "text": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.",
+      "text": "If your settings dialog has no Target Profiles entry, your IntelliDash has not yet been updated to the release that includes it.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -239,27 +220,6 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
           "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 52
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 55
         },
         {
           "source": "intellidash",
@@ -290,10 +250,11 @@
           "line": "28-31"
         }
       ],
-      "note": "The tab is not \"being built\"; it ships. The rest holds: the shipped tab does list five named slots, and the figures show the earlier card design. The shipped tab is a table of five fixed slots per Lynx course, named Spring, Summer, Fall, Winter and Tournament until renamed (sa-settings-dlg.component.ts:103-109, :383-392; the server rejects any index outside 0-4, SpatialAdjustLogic.cs:28-31). Its columns are Target Profile (an editable name), Last Updated, Stations, Update from Current and Apply Profile (sa-settings-dlg.component.html:195-206).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (creating-profiles/note/2); docs/text-corrections.md §11 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The screens here show an earlier design; the shipped tab lists five named profile slots per Lynx course, so your screen will look different. Why: the shipped pane is a five-slot table (sa-settings-dlg.component.ts:103-109, :383-392; sa-settings-dlg.component.html:195-206), not the cards in the figures."
+      "correction": "",
+      "previousText": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ."
     },
     {
       "id": "creating-profiles/before/1",
@@ -489,9 +450,9 @@
       "guide": "creating-profiles",
       "step": "2",
       "field": "caption",
-      "text": "Proposed Target Profiles tab.",
+      "text": "The Target Profiles tab.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -513,27 +474,6 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
           "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 52
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 55
         },
         {
           "source": "intellidash",
@@ -564,10 +504,11 @@
           "line": "28-31"
         }
       ],
-      "note": "Retyped from label to behaviour. Figure caption. The tab ships (see creating-profiles/note/1), and the figure shows the earlier card design rather than the five-slot table, so it needs replacing as well as the caption.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (creating-profiles/2/3); docs/text-corrections.md §11 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The Target Profiles tab. Why: the tab ships on production (sa-settings-dlg.component.ts:55), so it is no longer a proposal."
+      "correction": "",
+      "previousText": "Proposed Target Profiles tab."
     },
     {
       "id": "creating-profiles/3/1",
@@ -661,9 +602,9 @@
       "guide": "creating-profiles",
       "step": "3",
       "field": "caption",
-      "text": "Three profiles, one active.",
+      "text": "The Target Profiles tab with its five slots.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -701,10 +642,11 @@
           "line": "195-219"
         }
       ],
-      "note": "Figure caption. The shipped list always shows five slots and marks none as active (sa-settings-dlg.component.html:195-219); the applied profile is named on the dashboard instead (sa-dashboard.component.html:30-32).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (creating-profiles/3/4); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The Target Profiles tab with its five slots. Why: the tab always lists five slots per course (sa-settings-dlg.component.ts:383-392) and has no active marker (sa-settings-dlg.component.html:195-219)."
+      "correction": "",
+      "previousText": "Three profiles, one active."
     },
     {
       "id": "creating-profiles/4/1",
@@ -769,9 +711,9 @@
       "guide": "creating-profiles",
       "step": "4",
       "field": "body",
-      "text": "A profile captured while the course was partly disabled covers fewer stations than the course has, and applying it later leaves the rest untouched.",
+      "text": "A profile holds every station the course had when it was captured, enabled or not.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -795,13 +737,50 @@
           "line": "861-936"
         }
       ],
-      "note": "Enable state plays no part in capture: Update from Current reads every station record for the course with no enabled filter (SpatialAdjustService.cs:566-580, :653-671). The second half is right in its own terms: applying writes only the stations named in the profile (:861-936), so stations added to the course after the capture keep their targets.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (creating-profiles/4/3); docs/text-corrections.md §14 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "A profile holds every station the course had when it was captured, enabled or not. Stations added to the course later are not in it, and applying the profile leaves them untouched. Why: Update from Current reads every station record for the course with no enable filter (SpatialAdjustService.cs:566-580, :653-671), and apply writes only the stations named in the profile (:861-936)."
+      "correction": "",
+      "previousText": "A profile captured while the course was partly disabled covers fewer stations than the course has, and applying it later leaves the rest untouched."
     },
     {
       "id": "creating-profiles/4/4",
+      "guide": "creating-profiles",
+      "step": "4",
+      "field": "body",
+      "text": "Stations added to the course later are not in it, and applying the profile leaves them untouched.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "566-580"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "653-671"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "861-936"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (creating-profiles/4/3); docs/text-corrections.md §14 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "creating-profiles/4/5",
       "guide": "creating-profiles",
       "step": "4",
       "field": "caption",
