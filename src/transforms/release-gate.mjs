@@ -13,7 +13,13 @@
 //   - each beta guide's cursor-target row in TARGETS (`const TARGETS = {` and `Object.assign(TARGETS, {`),
 //   - each beta guide's tile in CATEGORIES, and any category left with no tiles,
 //   - each beta step of a GA guide, with the TARGETS cell at the same index,
-//   - every beta key in the `next` list of the guides that remain.
+//   - every beta key in the `next` list of the guides that remain,
+//   - every registered cross-reference: a sentence in a GA guide that names a beta guide or step,
+//     listed under crossReferences in src/release.json, cut with the space that joins it.
+//
+// It then fails the build on a mention of a beta guide or beta step that is not registered, on GA
+// prose that cites a step number the removal took away or moved, and on a player that no longer
+// numbers its steps from steps.length.
 //
 // How. The export holds the guide data as a JavaScript object literal inside an inline script, so
 // the work is text surgery on that literal. The data is first evaluated in node:vm to decide what
@@ -25,7 +31,7 @@
 //
 // No third-party imports, and nothing from scripts/: src/ must build on its own.
 import vm from 'node:vm';
-import { validateRelease, betaSteps } from '../release.mjs';
+import { validateRelease, betaSteps, crossReferencesOf, fieldValues, occurrences } from '../release.mjs';
 
 const fail = (message) => { throw new Error(`release-gate: ${message}`); };
 
@@ -369,6 +375,220 @@ function removeNextReferences(script, keys) {
   return script;
 }
 
+// ---- cross-references -----------------------------------------------------------------------------
+
+/**
+ * `value` without `text` and the space that joins it to its neighbour: the space after it when one
+ * follows, otherwise the space before it.
+ */
+export function cutSentence(value, text) {
+  const at = value.indexOf(text);
+  if (at < 0) fail(`${JSON.stringify(text)} is not in ${JSON.stringify(value)}`);
+  if (value[at + text.length] === ' ') return value.slice(0, at) + value.slice(at + text.length + 1);
+  if (at > 0 && value[at - 1] === ' ') return value.slice(0, at - 1) + value.slice(at + text.length);
+  return value.slice(0, at) + value.slice(at + text.length);
+}
+
+/** A single-quoted JavaScript string literal for `value`, safe inside an inline <script>. */
+function encodeString(value) {
+  return `'${value.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/\r/g, '\\r')
+    .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029').replace(/<\/(script)/gi, '<\\/$1')}'`;
+}
+
+/** A field that may be left as an empty string: the guide renders nothing for it. */
+const MAY_BE_EMPTY = (path) => path === 'note' || /^steps\[\d+\]\.tip$/.test(path);
+
+/**
+ * The string literals of `field` in guide `key`, with the same paths fieldValues() gives the
+ * evaluated guide. Items of before and verify also carry their array, so an emptied item can go.
+ */
+function fieldLiterals(script, key, field) {
+  const { valueStart } = guideEntry(script, key);
+  const member = (open, name, path) => {
+    const m = memberNamed(script, open, name);
+    return m ? [{ start: m.valueStart, end: m.item.end, path }] : [];
+  };
+  const steps = () => {
+    const open = arrayMember(script, valueStart, 'steps', `guide "${key}"`);
+    return open === null ? [] : itemsOf(script, open).items;
+  };
+  const fromSteps = (name) => steps().flatMap((step, i) => member(step.start, name, `steps[${i}].${name}`));
+  switch (field) {
+    case 'title': return member(valueStart, 'title', 'title').concat(fromSteps('title'));
+    case 'summary': case 'where': case 'note': return member(valueStart, field, field);
+    case 'before': case 'verify': {
+      const open = arrayMember(script, valueStart, field, `guide "${key}"`);
+      if (open === null) return [];
+      const { items } = itemsOf(script, open);
+      return items.map((it, index) => ({ start: it.start, end: it.end, path: `${field}[${index}]`, items, index }));
+    }
+    case 'body': case 'caption': case 'tip': return fromSteps(field);
+    default: return fail(`"${field}" is not a cross-reference field`);
+  }
+}
+
+/** Delete one registered cross-reference sentence from the guide data source. */
+function removeCrossReference(script, ref) {
+  const where = `the cross-reference ${JSON.stringify(ref.text)} in the ${ref.field} of guide "${ref.guide}" (registered by ${ref.from})`;
+  const literals = fieldLiterals(script, ref.guide, ref.field).map((l) => {
+    const raw = script.slice(l.start, l.end);
+    if (!STRING_RE.test(raw)) fail(`${where}: ${l.path} is not a plain string literal, so the sentence cannot be cut from it`);
+    return { ...l, value: decodeString(raw) };
+  });
+  const hits = literals.filter((l) => l.value.includes(ref.text));
+  const count = hits.reduce((n, l) => n + occurrences(l.value, ref.text), 0);
+  if (count !== 1) fail(`${where} occurs ${count} times in the source; expected exactly once`);
+  const lit = hits[0];
+  const value = cutSentence(lit.value, ref.text);
+  if (value.trim() === '') {
+    if (lit.items) return cutItem(script, lit.items, lit.index);
+    if (!MAY_BE_EMPTY(lit.path)) fail(`${where} is all of ${lit.path}; removing it would leave it empty, so rewrite the text instead`);
+    return script.slice(0, lit.start) + "''" + script.slice(lit.end);
+  }
+  return script.slice(0, lit.start) + encodeString(value) + script.slice(lit.end);
+}
+
+/** The same deletions applied to evaluated data, to know what the export should say afterwards. */
+function applyCrossReferences(data, refs) {
+  const out = JSON.parse(JSON.stringify(data));
+  for (const ref of refs) {
+    const guide = out.GUIDES[ref.guide];
+    const hits = fieldValues(guide, ref.field).filter((v) => v.text.includes(ref.text));
+    if (hits.length !== 1) fail(`the cross-reference ${JSON.stringify(ref.text)} is in ${hits.length} ${ref.field} values of guide "${ref.guide}"; expected one`);
+    const { path, text } = hits[0];
+    const value = cutSentence(text, ref.text);
+    const item = /^(before|verify)\[(\d+)\]$/.exec(path);
+    const step = /^steps\[(\d+)\]\.(\w+)$/.exec(path);
+    if (item && value.trim() === '') guide[item[1]].splice(Number(item[2]), 1);
+    else if (item) guide[item[1]][Number(item[2])] = value;
+    else if (step) guide.steps[Number(step[1])][step[2]] = value.trim() === '' ? '' : value;
+    else guide[path] = value.trim() === '' ? '' : value;
+  }
+  return out;
+}
+
+// ---- mentions and step numbers --------------------------------------------------------------------
+
+const segmenter = new Intl.Segmenter('en', { granularity: 'sentence' });
+
+/** The sentence of `text` that holds offset `at`. */
+function sentenceAt(text, at) {
+  for (const { segment, index } of segmenter.segment(text)) {
+    if (at >= index && at < index + segment.length) return segment.trim();
+  }
+  return text;
+}
+
+/** Every prose value of an evaluated guide, as { path, field, text }; field is the crossReferences field, or null. */
+function proseOf(guide) {
+  const out = [];
+  const add = (path, field, text) => { if (typeof text === 'string' && text) out.push({ path, field, text }); };
+  add('title', 'title', guide.title);
+  for (const f of ['summary', 'where', 'note']) add(f, f, guide[f]);
+  for (const f of ['before', 'verify']) (guide[f] || []).forEach((t, i) => add(`${f}[${i}]`, f, t));
+  (guide.steps || []).forEach((st, i) => {
+    for (const f of ['title', 'body', 'caption', 'tip']) add(`steps[${i}].${f}`, f, st[f]);
+    add(`steps[${i}].tipLabel`, null, st.tipLabel);
+  });
+  return out;
+}
+
+/** Offsets of `needle` in `text`; a #/ link must not run on into a longer key. */
+function hitsIn(text, needle) {
+  const out = [];
+  for (let at = text.indexOf(needle); at >= 0; at = text.indexOf(needle, at + 1)) {
+    if (needle.startsWith('#/') && /[a-z0-9-]/.test(text[at + needle.length] || '')) continue;
+    out.push(at);
+  }
+  return out;
+}
+
+/**
+ * Fail on any remaining GA guide field or tile that names a beta guide (its title, its tile title,
+ * or a #/key link) or a beta step, naming the guide, field and sentence and where to register it.
+ */
+function assertNoMentions(after, before, plan, release) {
+  const needles = [];
+  for (const k of plan.betaGuides) {
+    const owner = `guides."${k}".crossReferences`;
+    needles.push({ needle: before.GUIDES[k].title, what: `the title of beta guide "${k}"`, owner });
+    const tile = tilesOf(before).find((t) => t.key === k);
+    if (tile.title !== before.GUIDES[k].title) needles.push({ needle: tile.title, what: `the tile title of beta guide "${k}"`, owner });
+    needles.push({ needle: `#/${k}`, what: `a link to beta guide "${k}"`, owner });
+  }
+  for (const [key, { titles }] of Object.entries(plan.betaStepsByGuide)) {
+    for (const title of titles) {
+      const section = release.guides[key].sections.find((sec) => sec.status === 'beta' && sec.steps.includes(title));
+      needles.push({ needle: title, what: `beta step ${JSON.stringify(title)} of guide "${key}"`, owner: `guides."${key}" section "${section.id}" crossReferences` });
+    }
+  }
+  const problems = [];
+  const scan = (place, field, path, text) => {
+    for (const { needle, what, owner } of needles) {
+      for (const at of hitsIn(text, needle)) {
+        const sentence = sentenceAt(text, at);
+        problems.push(`${place} ${path}: ${JSON.stringify(sentence)} names ${what}. `
+          + (field
+            ? `Register it in src/release.json under ${owner} as ${JSON.stringify({ guide: place.replace(/^guide "(.*)"$/, '$1'), field, text: sentence })}, or rewrite it.`
+            : 'Rewrite it: this field cannot hold a registered cross-reference.'));
+      }
+    }
+  };
+  for (const [key, guide] of Object.entries(after.GUIDES)) {
+    for (const { path, field, text } of proseOf(guide)) scan(`guide "${key}"`, field, path, text);
+  }
+  for (const tile of tilesOf(after)) {
+    for (const f of ['title', 'summary']) if (typeof tile[f] === 'string') scan(`tile "${tile.key}"`, null, f, tile[f]);
+  }
+  if (problems.length) {
+    fail(`GA content still mentions beta content that a build without it removes (${problems.length}):\n- ${problems.join('\n- ')}`);
+  }
+}
+
+/**
+ * In each GA guide that lost steps, fail on prose that cites a step number which was removed, is
+ * past the new last step, or now names a different step because an earlier one was removed.
+ */
+function assertStepNumbers(after, plan) {
+  const problems = [];
+  for (const [key, { indexes }] of Object.entries(plan.betaStepsByGuide)) {
+    const removed = indexes.map((i) => i + 1);
+    const total = after.GUIDES[key].steps.length;
+    for (const { path, text } of proseOf(after.GUIDES[key])) {
+      for (const m of text.matchAll(/\b[Ss]teps? (\d+)\b/g)) {
+        const n = Number(m[1]);
+        let why = null;
+        if (removed.includes(n)) why = `cites step ${n}, which a build without beta content removes`;
+        else if (n > total) why = `cites step ${n}, but the guide has ${total} steps without beta content`;
+        else if (n > removed[0]) why = `cites step ${n}, which becomes step ${n - removed.filter((r) => r < n).length} once beta step ${removed.join(', ')} is removed`;
+        if (why) problems.push(`guide "${key}" ${path}: ${JSON.stringify(sentenceAt(text, m.index))} ${why}`);
+      }
+    }
+  }
+  if (problems.length) {
+    fail(`GA prose cites a step number that does not hold without beta content (${problems.length}). Rewrite each `
+      + `sentence, or register it under the beta section's crossReferences in src/release.json:\n- ${problems.join('\n- ')}`);
+  }
+}
+
+/** The code that numbers steps from steps.length, so a guide that loses a step renumbers itself. */
+const COUNTER_ANCHORS = [
+  ["counter: 'Step ' + (pi + 1) + ' of ' + steps.length", 'the player counter, Step N of M'],
+  ["announcement: 'Step ' + (pi + 1) + ' of ' + steps.length + ': ' + (steps[pi] ? steps[pi].title : '')",
+    'the live-region announcement added by the "player announcement" edit in src/transform-export.mjs'],
+  ['n: i + 1,', 'the step numbers in the step rail and the contents'],
+];
+
+function assertCounterAnchors(s) {
+  for (const [anchor, what] of COUNTER_ANCHORS) {
+    const n = every(s, anchor).length;
+    if (n !== 1) {
+      fail(`${what} must number steps from steps.length, but its code ${JSON.stringify(anchor)} occurs ${n} times. `
+        + 'Without it a guide that loses a beta step would number its steps wrongly.');
+    }
+  }
+}
+
 // ---- what is beta ---------------------------------------------------------------------------------
 
 /**
@@ -503,9 +723,12 @@ export function apply(s, { showBeta, release } = {}) {
   if (showBeta) return s;
 
   const plan = planRemoval(release, before);
+  const refs = crossReferencesOf(release);
   const { start, end } = dataScript(s);
   let script = s.slice(start, end);
 
+  // Sentences first, while every guide and step they may sit in is still where validation found it.
+  for (const ref of refs) script = removeCrossReference(script, ref);
   for (const key of plan.betaGuides) {
     script = removeGuideEntry(script, key);
     script = removeTargetsRow(script, key);
@@ -518,7 +741,10 @@ export function apply(s, { showBeta, release } = {}) {
 
   const out = s.slice(0, start) + script + s.slice(end);
   const after = evaluateGuideData(out);
-  assertRemoved(before, after, plan);
+  assertNoMentions(after, before, plan, release);
+  assertStepNumbers(after, plan);
+  assertCounterAnchors(out);
+  assertRemoved(applyCrossReferences(before, refs), after, plan);
   assertNothingLeft(out, {
     keys: plan.betaGuides,
     titles: [
