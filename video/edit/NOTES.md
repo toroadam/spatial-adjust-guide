@@ -25,13 +25,15 @@ The iCentral folder is a read-only source. Its tools were changing on the day of
 
 | File | Purpose |
 |---|---|
-| `lib/theme.py` | `THEME`: every colour and font the compositor draws with. Starts with the iCentral values; PI-ICNT-SW-1081-1 sets the Spatial Adjust values. Fonts are the repository's `_ds` Golos UI files (400, 500, 700). |
+| `lib/theme.py` | `THEME`: every colour and font the compositor draws with. Started with the iCentral values; since PI-ICNT-SW-1081-1 it is `BRAND` from `lib/brand.py` plus the font folder (`THEME.update(BRAND)`), and holds no colour literal. Fonts are the repository's `_ds` Golos UI files (400, 500, 700). |
+| `lib/brand.py` | `BRAND`: the Spatial Adjust motion system as code (PI-ICNT-SW-1081-1), the single source of every colour, type size, ease, duration, layout box and loudness target, mirroring `video/brand/motion-system.md`; `min_hold(words)`. Red is the lockup tile and the 0-5 % band only; the chapter strip's active fill (`strip_active`), the URL pill dot (`highlight`) and the typewriter cursor (`type_cursor`) are design-system blue. |
+| `tests/test_brand.py` | Standard library only. `BRAND` against `fig-tokens.css` (red, blue, neutrals), the app's moisture legend and the transform layer's corrected boundaries, the engine's eases, the capture runtime's focus box and cursor, and `motion-system.md` value for value; no weight 600; `min_hold`; red only where allowed. Each drift check is also run on a drifted copy. |
 | `lib/media.py` | Episode folders under the media root (`episode_dir`, with the reserved test episode `_test`) and the output guard `require_media_path`, both on top of `video/lib/media_root.py`. |
 | `lib/layers/__init__.py` | Imports every module in `lib/layers/` so each layer type registers itself with `renderer.register_layer` on import. |
 | `__init__.py`, `tests/__init__.py` | Package markers so `npm run test:video:py` (`unittest discover -s video`) finds `edit/tests`. `lib/` is deliberately not a package: the ported modules import each other flat, as in the source, and `video/lib` is already the package `lib`. |
 | `tests/_pipeline.py` | Test helpers: run in place when torch, numpy and scipy import, otherwise rerun the test file with the pipeline Python (`$SA_VIDEO_PYTHON`, else `<media root>/.venv/bin/python`), else skip naming what is missing; skip when ffmpeg, node or Playwright Chromium is missing. |
 | `tests/make_test_clip.py` | Synthetic take: ffmpeg `testsrc2`, 3840x2160, 60 fps, 3 s, into `<media root>/episodes/_test/capture/raw/test_take.mp4`, with `test_take-track.json` in the `take.mjs:65` track format (`[t, x, y, a, ripple, focusBox or null]` frames, `clicks: []`). |
-| `tests/test_smoke.py` | End to end: TL wallpaper, one window shot of the test take, a two-segment glass strip and one typed label, 2 s, rendered by `render.py`; ffprobe must report h264 High, yuv420p, 1920x1080, 60 fps, 2.0 +/- 0.05 s. A `--still` at 1.0 s must not be uniform and must show the glass strip. |
+| `tests/test_smoke.py` | End to end: TL wallpaper, one window shot of the test take, a two-segment glass strip and one typed label, 2 s, rendered by `render.py`; ffprobe must report h264 High, yuv420p, 1920x1080, 60 fps, 2.0 +/- 0.05 s. A `--still` at 1.0 s must not be uniform and must show the glass strip (since PI-ICNT-SW-1081-1: the finished chapter's white track, which does not depend on the wall's palette; the old check compared mean brightness with the red wave above it). |
 | `tests/test_timeline.py` | Gfx asset sizes and metrics, Golos UI 400 vs 700 from `_ds` (same uniwidth box, more ink at 700), 600 drawn as 500, no default music, window shots from capture rows with `camplan.plan`, `dc_plan` and the FLAT no-drift framing, timeline output paths. |
 | `tests/test_renderer.py`, `tests/dummy_layer.py` | A layer type registered from a test-only module is applied without editing `renderer.py`; registered layers draw above base layers; inactive layers are skipped; base type names are refused. |
 | `tests/test_render_paths.py` | `render.py` exits 2 for an output under `/tmp`, `/private/tmp`, the temp directory, a scratchpad, the repository or anywhere outside the media root, for `video_out`, `--out` and `--still`. Standard library only. |
@@ -61,7 +63,7 @@ The iCentral graphics used Golos UI SemiBold (600) from a variable font. The rep
 - `render_gfx.mjs` draws any element whose computed weight is 600 at 500 (`THEME['weight_map']`) and prints one warning line per asset, so episode HTML that still says 600 renders predictably instead of falling through to 700;
 - `split_lines` keeps the SemiBold average advance; Golos UI is uniwidth, so line breaks do not depend on the weight.
 
-PI-ICNT-SW-1081-1 may set `heading_weight` to 700 if the Spatial Adjust motion system calls for a heavier title.
+The Spatial Adjust motion system (PI-ICNT-SW-1081-1) keeps `heading_weight` at 500 and uses 700 for the episode title and the lockup wordmark.
 
 ## Running it
 
@@ -74,3 +76,12 @@ npm run test:video:py
 ```
 
 The smoke render (120 frames at 1920x1080) takes about 6 s on an Apple Silicon GPU. Test media stays under `<media root>/episodes/_test`.
+
+## Brand changes after the port (PI-ICNT-SW-1081)
+
+| File | Change |
+|---|---|
+| `lib/theme.py` | `THEME = dict(font_dir=...)` then `THEME.update(BRAND)`: every value comes from `lib/brand.py`. The iCentral literals are gone. The engine fallbacks change with it: v1 background `bg_tint` gray-10, blooms blue and blue tint, typewriter cursor blue, peel back face gray-70, glass tint `#080D12` at 0.46 (was `rgb(14,18,24)`). |
+| `lib/layers/glass.py` | The active fill and its glowing head read `THEME['strip_active']` (design-system blue `#3079F0`) instead of `THEME['red']`. |
+| `lib/timeline.py` | The end card's URL pill dot is `THEME['highlight']` and the typed card's block cursor `THEME['type_cursor']`, both blue, instead of `RED`; `RED` stays exported for builders that need the Toro red tile colour. |
+| `lib/wallpaper.py` | Unchanged code; `THEME['wall']` re-skins its satin ribbons in design-system blue (`red`, `shade`, `tint` slots), so it can no longer draw the red wave. |

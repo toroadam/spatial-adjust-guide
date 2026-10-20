@@ -23,6 +23,7 @@ from media import episode_dir, ensure_media_dir  # noqa: E402
 RENDER_GFX = os.path.join(os.path.dirname(HERE), 'gfx', 'render_gfx.mjs')
 RATIOS = {'16x9': (1920, 1080), '1x1': (1080, 1080), '9x16': (1080, 1920)}
 RED, GRAY05, GRAY30, GRAY40 = THEME['red'], THEME['gray05'], THEME['gray30'], THEME['gray40']
+HIGHLIGHT, TYPE_CURSOR = THEME['highlight'], THEME['type_cursor']   # design-system blue: no red outside the lockup tile
 WALL_SIZE = (2304, 1296)          # wallpapers are rendered once per palette at this size and cover-fitted by the engine
 
 
@@ -104,7 +105,7 @@ class Gfx:
                 'background:%s;border:1.5px solid %s;box-shadow:0 18px 50px %s">'
                 % (int(T['url'] * 0.55), int(T['url'] * 0.55), int(T['url']), int(T['url'] * 0.55), int(T['url'] * 0.6),
                    rgba('gray05', 0.10), rgba('gray05', 0.28), rgba('gray100', 0.45)) +
-                f'<span style="width:{dot}px;height:{dot}px;border-radius:50%;background:{RED};display:flex;align-items:center;justify-content:center;flex:none">'
+                f'<span style="width:{dot}px;height:{dot}px;border-radius:50%;background:{HIGHLIGHT};display:flex;align-items:center;justify-content:center;flex:none">'
                 f'<svg width="{int(dot * 0.48)}" height="{int(dot * 0.48)}" viewBox="0 0 24 24"><path d="M5 12h12M12 6l6 6-6 6" stroke="{THEME["white"]}" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
                 f'<span style="font-weight:500;font-size:{T["url"]}px;letter-spacing:0.005em;color:{GRAY05};white-space:nowrap">{url}</span></div>')
         self.add('urlpill', pill, 'line-height:1', pad=40)
@@ -169,7 +170,7 @@ class TL:
             w = m[a]['w']; n = len(m[a]['chars']); x = (self.W - w) / 2
             last = i == len(aid_lines) - 1
             lay = dict(type='text', asset=a, t0=t0, t1=t1, pos=[[t0, [x + 12, round(y)]], [t1, [x - 12, round(y)], 'linear']], anim='type', cps=cps,
-                       cursor_color=RED, dy=10, dur_out=0.22, soft=True, **{'in': tin, 'out': t1 - out_off})
+                       cursor_color=TYPE_CURSOR, dy=10, dur_out=0.22, soft=True, **{'in': tin, 'out': t1 - out_off})
             if not last: lay['cursor_off'] = tin + n / cps + 0.02
             self.L.append(lay)
             tin += n / cps + 0.04; y += hs[i] + gap

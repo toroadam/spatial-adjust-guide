@@ -7,7 +7,7 @@
   blur, pad, gap   optional (22, 22, 14)
 Look: frosted dark glass (the frame under it blurred sigma 22, tinted THEME['glass_tint']), 1.25 px hairline edge, soft
 shadow. Per chapter: the name (55% white, 100% when active), and a 3 px track under it that fills while the chapter plays
-(THEME['red'] while active, white once done), with a glowing head on the active fill.
+(THEME['strip_active'], design-system blue, while active; white once done), with a glowing head on the active fill.
 """
 import os, sys
 import torch
@@ -17,7 +17,7 @@ from engine import DEV, DT, kf, clamp01, hexrgb, rrect_sdf, gauss_blur, soft_sha
 from theme import THEME  # noqa: E402
 from renderer import register_layer  # noqa: E402
 
-RED = torch.tensor(hexrgb(THEME['red']), device=DEV, dtype=DT).view(1, 3, 1, 1)
+ACTIVE = torch.tensor(hexrgb(THEME['strip_active']), device=DEV, dtype=DT).view(1, 3, 1, 1)
 WHITE = torch.ones(1, 3, 1, 1, device=DEV, dtype=DT)
 _r, _g, _b, TINT_AMT = THEME['glass_tint']
 TINT = torch.tensor([_r / 255, _g / 255, _b / 255], device=DEV, dtype=DT).view(1, 3, 1, 1)
@@ -63,7 +63,7 @@ def glass(self, L, t, out):
         # track
         out = _bar(self, out, sx, by, sx + sw, 1.0, WHITE, 0.20 * o)
         if p > 0:
-            col = RED if active else WHITE
+            col = ACTIVE if active else WHITE
             out = _bar(self, out, sx, by, sx + sw * p, 1.0, col, (1.0 if active else 0.85) * o)
             if active: out = _glow(self, out, sx + sw * p, by, o)
     return out
@@ -87,7 +87,7 @@ def _glow(self, out, x, y, o):
     halo = (torch.exp(-(dd / 6.0) ** 2) * 0.55 * o)[None, None]
     dot = ((3.6 - dd).clamp(0, 1) * o)[None, None]
     reg = out[:, :, Y0:Y1, X0:X1]
-    reg = reg * (1 - halo) + RED * halo
+    reg = reg * (1 - halo) + ACTIVE * halo
     reg = reg * (1 - dot) + WHITE * dot
     out[:, :, Y0:Y1, X0:X1] = reg
     return out
