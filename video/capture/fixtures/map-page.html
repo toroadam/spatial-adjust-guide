@@ -1,0 +1,138 @@
+<!doctype html>
+<!--
+  Test page for the map treatment (video/capture/map-routes.mjs, map-treatment.js; gate G2), used by
+  map-routes.test.mjs and map-still.mjs.
+
+  It reproduces the DOM the IntelliDash dashboard map produces with Leaflet (a .leaflet-container
+  with the tile, overlay and marker panes, an OpenStreetMap street layer under a Google satellite
+  layer, SVG station circles and divIcon station labels, the attribution control) without loading
+  Leaflet itself, so it needs no network and no vendored library. Tile URLs use the real tile
+  hosts so the routes are exercised exactly as in a capture; the test harness answers every tile
+  locally and aborts any other request, so nothing here ever reaches a tile server. The tiles sit
+  at 0 degrees latitude and longitude, open sea, so not even a placeholder shows a real place.
+
+  Stations follow the <hole>AP<n> pattern with readings across all four moisture bands
+  (SpatialAdjustApp.dc.html:315). Names and readings are sample values, not demo data.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Map treatment test page</title>
+  <style>
+    html, body { margin: 0; height: 100%; font: 13px system-ui, sans-serif; }
+    .leaflet-container { position: absolute; inset: 0; overflow: hidden; background: #ddd; }
+    .leaflet-pane, .leaflet-layer, .leaflet-tile, .leaflet-marker-icon { position: absolute; left: 0; top: 0; }
+    .leaflet-tile-pane { z-index: 200; }
+    .leaflet-overlay-pane { z-index: 400; }
+    .leaflet-marker-pane { z-index: 600; }
+    .leaflet-tile { width: 256px; height: 256px; user-select: none; }
+    .leaflet-overlay-pane svg { position: absolute; left: 0; top: 0; }
+    .circle-label { display: flex; align-items: center; justify-content: center; }
+    .circle-label-content { color: #fff; font-weight: 700; font-size: 12px; text-shadow: 0 1px 2px rgba(0, 0, 0, .8); white-space: nowrap; }
+    .leaflet-control-container .leaflet-bottom.leaflet-right { position: absolute; right: 0; bottom: 0; z-index: 800; }
+    .leaflet-control-attribution { background: rgba(255, 255, 255, .8); padding: 0 5px; font-size: 12px; color: #333; }
+    #legend { position: absolute; left: 50%; bottom: 2rem; transform: translateX(-50%); z-index: 450; background: #fff;
+      border-radius: 4px; padding: 8px 16px; display: flex; flex-direction: column; gap: 6px; }
+    #legend .bands { display: flex; gap: 18px; }
+    #legend .band { display: flex; align-items: center; gap: 6px; }
+    #legend .swatch { width: 12px; height: 12px; border-radius: 50%; }
+    #legend .bar { width: 280px; height: 14px; border-radius: 7px; overflow: hidden; display: flex; }
+  </style>
+</head>
+<body>
+  <div id="map" class="leaflet-container" role="region" aria-label="Map">
+    <div class="leaflet-pane leaflet-map-pane">
+      <div class="leaflet-pane leaflet-tile-pane">
+        <div class="leaflet-layer" data-layer="street"></div>
+        <div class="leaflet-layer" data-layer="satellite"></div>
+      </div>
+      <div class="leaflet-pane leaflet-overlay-pane"><svg xmlns="http://www.w3.org/2000/svg"></svg></div>
+      <div class="leaflet-pane leaflet-marker-pane"></div>
+    </div>
+    <div class="leaflet-control-container">
+      <div class="leaflet-bottom leaflet-right">
+        <div class="leaflet-control-attribution leaflet-control">&copy; OpenStreetMap contributors | &copy; Google Maps</div>
+      </div>
+    </div>
+    <div id="legend" role="region" aria-label="Moisture legend">
+      <div class="bands"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+  <script>
+    (() => {
+      const Z = 19;
+      const TILE = 256;
+      const CENTRE = (2 ** Z * TILE) / 2; // global pixel of 0 degrees latitude and longitude
+      const BANDS = [['0-5%', '#E11837', 5, 16.6], ['6-16%', '#F3D43B', 16, 36.6], ['17-30%', '#42CE11', 30, 46.8], ['> 30%', '#3079F0', Infinity, 0]];
+      const colourFor = (vwc) => BANDS.find(([, , to]) => vwc <= to)[1];
+      // [name, moisture %, x and y as fractions of the map]
+      const STATIONS = [
+        ['1AP1', 3.4, 0.10, 0.20], ['2AP1', 12.2, 0.18, 0.34], ['3AP1', 27.6, 0.27, 0.22], ['3AP2', 30.3, 0.31, 0.30],
+        ['4AP1', 26.1, 0.38, 0.17], ['5AP1', 14.8, 0.44, 0.31], ['6AP1', 30.9, 0.36, 0.46], ['6AP2', 28.5, 0.29, 0.55],
+        ['7AP1', 50.0, 0.18, 0.62], ['9AP1', 23.0, 0.12, 0.47], ['10AP1', 34.5, 0.57, 0.20], ['11AP1', 4.6, 0.66, 0.28],
+        ['11AP2', 24.0, 0.70, 0.36], ['13AP1', 45.6, 0.80, 0.24], ['14AP1', 9.7, 0.88, 0.38], ['16AP1', 37.1, 0.77, 0.52],
+        ['17AP1', 21.3, 0.66, 0.60], ['18AP1', 61.7, 0.55, 0.50],
+      ];
+      const map = document.getElementById('map');
+      const W = map.clientWidth;
+      const H = map.clientHeight;
+      const left = CENTRE - W / 2;
+      const top = CENTRE - H / 2;
+
+      const layers = {
+        street: (x, y) => `https://${'abc'[(x + y) % 3]}.tile.openstreetmap.org/${Z}/${x}/${y}.png`,
+        satellite: (x, y) => `https://mt${(x + y) % 4}.google.com/vt/lyrs=s&x=${x}&y=${y}&z=${Z}`,
+      };
+      for (const [name, url] of Object.entries(layers)) {
+        const layer = map.querySelector(`[data-layer="${name}"]`);
+        for (let ty = Math.floor(top / TILE); ty <= Math.floor((top + H) / TILE); ty++) {
+          for (let tx = Math.floor(left / TILE); tx <= Math.floor((left + W) / TILE); tx++) {
+            const img = document.createElement('img');
+            img.className = 'leaflet-tile';
+            img.alt = '';
+            img.setAttribute('role', 'presentation');
+            img.style.transform = `translate3d(${tx * TILE - left}px, ${ty * TILE - top}px, 0)`;
+            img.src = url(tx, ty);
+            layer.append(img);
+          }
+        }
+      }
+
+      const svg = map.querySelector('.leaflet-overlay-pane svg');
+      svg.setAttribute('width', W);
+      svg.setAttribute('height', H);
+      svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+      const markers = map.querySelector('.leaflet-marker-pane');
+      const R = 30; // a 9 m station radius at zoom 19
+      for (const [name, vwc, fx, fy] of STATIONS) {
+        const x = Math.round(fx * W);
+        const y = Math.round(fy * H);
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('class', 'leaflet-interactive');
+        path.setAttribute('stroke', 'white');
+        path.setAttribute('stroke-opacity', '0.4');
+        path.setAttribute('stroke-width', '2');
+        path.setAttribute('fill', colourFor(vwc));
+        path.setAttribute('fill-opacity', '0.5');
+        path.setAttribute('d', `M${x - R},${y}a${R},${R} 0 1,0 ${2 * R},0 a${R},${R} 0 1,0 ${-2 * R},0`);
+        path.setAttribute('aria-label', `Station ${name}`);
+        svg.append(path);
+        const icon = document.createElement('div');
+        icon.className = 'leaflet-marker-icon circle-label';
+        icon.style.cssText = `width:40px;height:40px;margin-left:-20px;margin-top:-20px;transform:translate3d(${x}px, ${y}px, 0)`;
+        icon.innerHTML = `<div class="circle-label-content"><div>${name}</div></div>`;
+        markers.append(icon);
+      }
+
+      const bands = map.querySelector('#legend .bands');
+      const bar = map.querySelector('#legend .bar');
+      for (const [label, colour, , width] of BANDS) {
+        bands.insertAdjacentHTML('beforeend', `<span class="band"><span class="swatch" style="background:${colour}"></span>${label}</span>`);
+        if (width) bar.insertAdjacentHTML('beforeend', `<div style="width:${width}%;background:${colour}"></div>`);
+      }
+      document.documentElement.dataset.ready = '1';
+    })();
+  </script>
+</body>
+</html>
