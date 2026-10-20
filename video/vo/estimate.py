@@ -30,12 +30,16 @@ pilot's own rate:
 --live prints the account's remaining character credits (counts only), with the key resolved exactly as
 render-brian.py resolves it (its _key, imported). --write regenerates video/vo/series-estimate.md from the same
 numbers; give it --episode for the pilot (or it uses the 70-word placeholder) and it always includes the series.
+When --cps-from is the pilot's own render report, --write adds "Pilot, as rendered": the lines, characters and seconds
+of that report, the credits of the pilot's rows in video/vo/credits-log.md, and the take count and final render wall
+time given with --takes and --render-seconds (neither is recorded in a file the estimate could read).
 
 Usage:
   python3 video/vo/estimate.py --episode video/episodes/<id>/episode.json [--retakes 2.0]
   python3 video/vo/estimate.py --series [--cps 16.16 | --cps-from <render-report.json>] [--seconds 20 30]
   python3 video/vo/estimate.py --live
-  python3 video/vo/estimate.py --write [--episode <pilot episode.json>] [--cps-from <report>]
+  python3 video/vo/estimate.py --write [--episode <pilot episode.json>] [--cps-from <report>] [--takes N]
+                                [--render-seconds S]
   npm run video -- estimate ...
 """
 
@@ -246,12 +250,13 @@ def cps_from_report(path: str) -> tuple[float, str]:
 # Live credits and the markdown record
 # ---------------------------------------------------------------------------------------------------------------------
 
-LOG_ROW = re.compile(r"^\|[^|]*\|[^|]*\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*->\s*(\d+)\s*\|\s*$")
+LOG_ROW = re.compile(r"^\|[^|]*\|([^|]*)\|\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*->\s*(\d+)\s*\|\s*$")
 
 
-def observed_billing(path: str | None = None) -> dict:
+def observed_billing(path: str | None = None, episode: str | None = None) -> dict:
     """What the account actually charged, from the counts-only rows of video/vo/credits-log.md: characters sent
-    against the fall in remaining credits, over the runs that sent text and have both counts."""
+    against the fall in remaining credits, over the runs that sent text and have both counts (only the rows of one
+    episode when `episode` is given)."""
     path = path or rb.CREDITS_LOG_PATH
     runs = characters = credits = 0
     try:
@@ -261,13 +266,31 @@ def observed_billing(path: str | None = None) -> dict:
         rows = []
     for row in rows:
         m = LOG_ROW.match(row)
-        if not m or int(m.group(2)) == 0:
+        if not m or int(m.group(3)) == 0 or (episode is not None and m.group(1).strip() != episode):
             continue
         runs += 1
-        characters += int(m.group(2))
-        credits += int(m.group(3)) - int(m.group(4))
+        characters += int(m.group(3))
+        credits += int(m.group(4)) - int(m.group(5))
     return {"runs": runs, "characters": characters, "credits": credits,
             "per_character": credits / characters if characters else None}
+
+
+def as_rendered(report_path: str, pilot: dict, takes: int | None = None,
+                render_seconds: float | None = None) -> dict | None:
+    """The pilot's real numbers: its VO render report (lines, characters, seconds), its credits-log rows, and the take
+    count and final render wall time given on the command line. None when the report is another episode's."""
+    try:
+        with open(os.path.expanduser(report_path), encoding="utf-8") as fh:
+            report = json.load(fh)
+    except (OSError, ValueError) as err:
+        raise EstimateError(f"cannot read the render report {report_path}: {err}") from None
+    if not isinstance(report, dict) or report.get("episode") != pilot["episode"]:
+        return None
+    lines = report.get("lines") or []
+    characters = sum(int(line.get("characters") or 0) for line in lines)
+    seconds = sum(float(line.get("seconds") or 0) for line in lines)
+    return {"report": report_path, "lines": len(lines), "characters": characters, "seconds": seconds,
+            "billing": observed_billing(episode=pilot["episode"]), "takes": takes, "render_seconds": render_seconds}
 
 
 def live() -> tuple[int, int]:
@@ -275,7 +298,8 @@ def live() -> tuple[int, int]:
     return rb.ElevenLabs(rb._key()).remaining()
 
 
-def write_markdown(path: str, pilot: dict, pilot_is_placeholder: bool, series: dict, cps_source: str) -> None:
+def write_markdown(path: str, pilot: dict, pilot_is_placeholder: bool, series: dict, cps_source: str,
+                   actual: dict | None = None) -> None:
     today = _dt.date.today().isoformat()
     pilot_label = ("the 70-word placeholder script, `video/vo/fixtures/episode.vo-placeholder.json` (the pilot "
                    "episode.json does not exist yet)" if pilot_is_placeholder else f"`{_rel(pilot['path'])}`")
@@ -283,8 +307,8 @@ def write_markdown(path: str, pilot: dict, pilot_is_placeholder: bool, series: d
         "# VO credit estimate: pilot and series",
         "",
         f"Generated {today} by `python3 video/vo/estimate.py --write`. Regenerate it the same way whenever the pilot "
-        "script, the lexicon or the guides change; PI-ICNT-SW-1084-4 refreshes it with the real pilot numbers "
-        "(`--episode` for the locked pilot and `--cps-from` its render report).",
+        "script, the lexicon or the guides change, and after every pilot render with the real pilot numbers "
+        "(`--episode` for the locked pilot, `--cps-from` its render report, `--takes` and `--render-seconds`).",
         "",
         "## Pilot",
         "",
@@ -301,6 +325,37 @@ def write_markdown(path: str, pilot: dict, pilot_is_placeholder: bool, series: d
         f"{pilot['words']} words, about {pilot['characters'] / series['cps']:.1f} s of narration at "
         f"{series['cps']:g} characters per second. Retake factor {pilot['retakes']:g}.",
         "",
+    ]
+    if actual:
+        bill = actual["billing"]
+        credits = (f"{_fmt(bill['credits'])} ({bill['per_character']:.2f} per character)" if bill["runs"]
+                   else "no row in credits-log.md")
+        runs = f"{bill['runs']} {'run' if bill['runs'] == 1 else 'runs'}" if bill["runs"] else "no logged run"
+        rate = actual["characters"] / actual["seconds"] if actual["seconds"] else 0
+        takes = actual["takes"] if actual["takes"] is not None else "not given (--takes)"
+        render = (f"{actual['render_seconds']:g} s" if actual["render_seconds"] is not None
+                  else "not given (--render-seconds)")
+        lines += [
+            "## Pilot, as rendered",
+            "",
+            f"From the pilot's VO render report (`episodes/{pilot['episode']}/vo/render-report.json` under the media "
+            f"root) and the `{pilot['episode']}` rows of [`credits-log.md`](credits-log.md); the take count and the "
+            "final render's wall time are given on the command line.",
+            "",
+            "| | Estimate | Actual |",
+            "|---|---|---|",
+            f"| VO lines rendered | {len(pilot['lines'])}, or {len(pilot['lines']) * pilot['retakes']:g} with retakes | "
+            f"{actual['lines']} in {runs} |",
+            f"| Characters sent | {pilot['characters']}, or {_fmt(pilot['characters'] * pilot['retakes'])} with "
+            f"retakes | {_fmt(bill['characters']) if bill['runs'] else actual['characters']} |",
+            f"| Credits | {_fmt(pilot['credits'])}, or {_fmt(pilot['with_retakes'])} with retakes | {credits} |",
+            f"| Narration | about {pilot['characters'] / DEFAULT_CPS:.1f} s at {DEFAULT_CPS:g} characters per second | "
+            f"{actual['seconds']:.2f} s, {rate:.2f} characters per second |",
+            f"| Takes recorded | — | {takes} |",
+            f"| Final render wall time | — | {render} |",
+            "",
+        ]
+    lines += [
         "## Series",
         "",
         "Assumptions:",
@@ -348,7 +403,8 @@ def write_markdown(path: str, pilot: dict, pilot_is_placeholder: bool, series: d
         "python3 video/vo/estimate.py --episode <episode.json>        # one episode, exact",
         "python3 video/vo/estimate.py --series                        # all guides, planning estimate",
         "python3 video/vo/estimate.py --live                          # remaining credits on the account (counts only)",
-        "python3 video/vo/estimate.py --write --episode <pilot episode.json> --cps-from <pilot render-report.json>",
+        "python3 video/vo/estimate.py --write --episode <pilot episode.json> --cps-from <pilot render-report.json> \\",
+        "    --takes <takes recorded> --render-seconds <final render wall time>",
         "```",
         "",
     ]
@@ -374,6 +430,8 @@ def parse_args(argv):
     ap.add_argument("--cps-from", help="render-report.json to measure characters per second from")
     ap.add_argument("--seconds", type=float, nargs=2, metavar=("MIN", "MAX"), default=list(DEFAULT_SECONDS),
                     help="narration target per episode in seconds (default 20 30)")
+    ap.add_argument("--takes", type=int, help="with --write: takes recorded for the pilot")
+    ap.add_argument("--render-seconds", type=float, help="with --write: wall time of the pilot's final render, seconds")
     args = ap.parse_args(argv)
     if not (args.episode or args.series or args.live or args.write):
         ap.error("give --episode, --series, --live or --write")
@@ -383,6 +441,12 @@ def parse_args(argv):
         ap.error("--seconds MIN MAX must be positive with MIN <= MAX")
     if args.cps is not None and args.cps <= 0:
         ap.error("--cps must be positive")
+    if (args.takes is not None or args.render_seconds is not None) and not (args.write and args.cps_from):
+        ap.error("--takes and --render-seconds go with --write and --cps-from the pilot's render report")
+    if args.takes is not None and args.takes < 1:
+        ap.error("--takes must be 1 or more")
+    if args.render_seconds is not None and args.render_seconds <= 0:
+        ap.error("--render-seconds must be positive")
     return args
 
 
@@ -409,7 +473,11 @@ def main(argv: list[str] | None = None) -> int:
             pilot_path = args.episode or PLACEHOLDER
             pilot = episode_estimate(pilot_path, args.retakes)
             series = series_estimate(guides_from_ledger(), cps, seconds, args.retakes)
-            write_markdown(SERIES_ESTIMATE_PATH, pilot, args.episode is None, series, cps_source)
+            actual = as_rendered(args.cps_from, pilot, args.takes, args.render_seconds) if args.cps_from else None
+            if actual is None and (args.takes is not None or args.render_seconds is not None):
+                raise EstimateError(f"{args.cps_from} is not the render report of {pilot['episode']}; "
+                                    "--takes and --render-seconds describe the pilot")
+            write_markdown(SERIES_ESTIMATE_PATH, pilot, args.episode is None, series, cps_source, actual)
             if printed:
                 print()
             print(f"wrote {_rel(SERIES_ESTIMATE_PATH)}")
