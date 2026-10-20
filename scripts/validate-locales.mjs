@@ -15,6 +15,7 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { hardcodedLabels, englishInProduct, markerProblems, markersOf } from './lib/markers.mjs';
 import { loadGuides } from './lib/load-guides.mjs';
+import { present, driftedScreenLabels } from './lib/screen-labels.mjs';
 
 const dir = 'src/i18n';
 const sourceCat = JSON.parse(await readFile(`${dir}/en-us.json`, 'utf8'));
@@ -134,31 +135,12 @@ const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
   // Compare numerically so a decimal comma is not read as a changed value.
   .map((n) => n.replace(',', '.'));
 
-// A named control is "present" if it appears allowing for case and whitespace. Both differences
-// are things the reader's eye passes over and correct prose legitimately introduces: Dutch
-// lowercases and inflects an adjective mid-sentence ("de voorgestelde percentages" for a label
-// reading "Voorgesteld"), and IntelliDash's own es-es AVG_VWC ships a double space
-// ("Promedio de  CVA") that prose can only match by reproducing the typo. Demanding a verbatim
-// match reported 49 findings whose "fix" would have been to write worse prose.
-// Spaces adjacent to CJK characters are dropped before comparing. Chinese, Japanese and Thai do
-// not use the space as a word separator, so "平均 VWC" and "平均VWC" are the same label to a
-// reader — and the product ships one form while the prose uses the other. Treating them as
-// different reported seven Chinese findings that no reader could perceive.
-const stripCjkSpaces = (s) => s.replace(/(?<=[\u3000-\u9fff\uff00-\uffef\u0e00-\u0e7f])\s+|\s+(?=[\u3000-\u9fff\uff00-\uffef\u0e00-\u0e7f])/g, '');
-const present = (haystack, needle) => {
-  const flat = (s) => stripCjkSpaces(s.toLowerCase().replace(/[\s\u00a0]+/g, ' '));
-  return flat(haystack).includes(flat(needle));
-};
-
-// Longest match wins. "Suggested" is a substring of "Suggested Percent Adjust Calculation", so
-// prose naming the FIELD was also being required to name the COLUMN — two different controls that
-// merely share a word. Requiring both forces a sentence to quote a label it is not about, which is
-// how a findability check starts producing worse prose than it found.
-const shadowed = (label, named) => named.some((other) => other !== label && other.includes(label));
+// Whether prose names a control in the label's own words, allowing for case and whitespace, and
+// which labels a string names, are decided in scripts/lib/screen-labels.mjs, which
+// scripts/retranslate-drift.mjs shares so its queue is exactly what screenLabelDrift fails.
 
 const report = {};
 let totalIssues = 0;
-let advisory = 0;
 const shown = (v) => (ALL ? v : v.slice(0, 4));
 
 // labelProvenance, a GATE, on the English. A rewritten step names each control as [[Exact Label]],
@@ -263,20 +245,15 @@ for (const locale of locales) {
     if (!knownUsed.has(prefix)) issues.droppedToken.push(`${prefix.slice(0, 45)} :: stale VWC_CONCEPT_KNOWN entry; the string keeps VWC now, so delete the entry`);
   }
 
-  // Prose that names a reproduced screen label must use the label's own translation. A guide
-  // saying "open Toutes les stations" while the tab reads "Toutes les voies" sends the reader
-  // hunting for a control that is not there — which is the exact failure the guides exist to
-  // prevent, and it happened in four locales before this check existed.
+  // screenLabelDrift, a GATE since 2026-10-20. Prose that names a reproduced screen label must use
+  // the label's own translation. A guide saying "open Toutes les stations" while the tab reads
+  // "Toutes les voies" sends the reader hunting for a control that is not there, which is the exact
+  // failure the guides exist to prevent, and it happened in four locales before this check existed.
+  // Which labels count, and how loosely they match, is scripts/lib/screen-labels.mjs.
+  const labelCtx = { t, screen: SCREEN, glossary: glossary[locale] || {}, hardcoded };
   for (const [en, tr] of Object.entries(t)) {
-    if (SCREEN.has(en)) continue;                       // the label itself, not prose about it
-    const named = [...SCREEN].filter((label) => label.length >= 8
-      && en.includes(label) && (label in (glossary[locale] || {}))
-      && !hardcoded.has(label));
-    for (const label of named) {
-      if (shadowed(label, named)) continue;             // a longer label covers this one
-      if (!present(tr, t[label])) {
-        issues.screenLabelDrift.push(`${en.slice(0, 40)} :: should name "${t[label]}"`);
-      }
+    for (const label of driftedScreenLabels(en, String(tr), labelCtx)) {
+      issues.screenLabelDrift.push(`${en.slice(0, 40)} :: should name "${t[label]}"`);
     }
   }
 
@@ -307,21 +284,16 @@ for (const locale of locales) {
   }
 
   const counts = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, v.length]));
-  // screenLabelDrift is ADVISORY, not a gate. It reports prose that names a reproduced control
-  // using different words from the control itself — real signal, but there are hundreds of them:
-  // the guide prose was written independently of IntelliDash's shipped labels, so "Bulk Adjust"
-  // is "Sammelanpassung" in the prose and "Massenanpassung" on screen. Worth a dedicated pass;
-  // failing the build on it would just mean nobody runs the validator.
-  const n = Object.entries(counts)
-    .filter(([k]) => k !== 'screenLabelDrift')
-    .reduce((a, [, v]) => a + v, 0);
+  // Every class is a gate. screenLabelDrift was advisory while hundreds of findings stood (308, then
+  // 136): failing the build on them would only have meant nobody ran the validator. The 2026-09-12
+  // VWC ruling took it to 0, and on 2026-10-20 it became a gate so that every new translation,
+  // including the rewritten steps', has to name each control the way the reader's screen does.
+  const n = Object.values(counts).reduce((a, v) => a + v, 0);
   totalIssues += n;
-  advisory += counts.screenLabelDrift;
   report[locale] = { total: n, ...counts, samples: Object.fromEntries(
     Object.entries(issues).filter(([, v]) => v.length).map(([k, v]) => [k, shown(v)])) };
 }
 
 console.log(JSON.stringify(report, null, 2));
 console.log(totalIssues === 0 ? '\nVALIDATE: PASS' : `\nVALIDATE: ${totalIssues} issue(s) across ${locales.length} locale(s)`);
-if (advisory) console.log(`VALIDATE: ${advisory} advisory screen-label mismatch(es) — prose naming a control differently from the control. Not a gate; see README > Known gaps.`);
 process.exit(totalIssues === 0 ? 0 : 1);
