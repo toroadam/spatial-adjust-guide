@@ -96,6 +96,14 @@
     // the slow-connection case, and without this there is no way to know whether it is 200ms or
     // four seconds in a maintenance shed.
     'splash_dismissed',
+
+    // Double Click videos (src/media.js), with the guide key or "showcase", the locale and the kind.
+    // A start and a finish are separate events for the same reason as the feedback pair: the
+    // drop-off between them is the interesting number. One video_played per playthrough, not per
+    // press of play, so pausing to try a step in IntelliDash does not inflate the count. No watch
+    // position or timing beyond the event time is recorded.
+    'video_played',
+    'video_completed',
   ];
 
   function track(name, props) {
@@ -127,11 +135,15 @@
   // --- reporting, for moderated sessions ---------------------------------------
   window.__saReport = function () {
     var list = read();
-    var byName = {}, guides = {}, stubs = {};
+    var byName = {}, guides = {}, stubs = {}, videos = {};
     list.forEach(function (e) {
       byName[e.name] = (byName[e.name] || 0) + 1;
       if (e.name === 'guide_opened' && e.props.key) guides[e.props.key] = (guides[e.props.key] || 0) + 1;
       if (e.name === 'stub_clicked' && e.props.title) stubs[e.props.title] = (stubs[e.props.title] || 0) + 1;
+      if ((e.name === 'video_played' || e.name === 'video_completed') && e.props.key) {
+        var v = videos[e.props.key] || (videos[e.props.key] = { played: 0, completed: 0 });
+        if (e.name === 'video_played') v.played++; else v.completed++;
+      }
     });
     var sorted = function (o) {
       return Object.keys(o).sort(function (a, b) { return o[b] - o[a]; }).map(function (k) { return k + ': ' + o[k]; });
@@ -142,6 +154,8 @@
       byEvent: byName,
       guidesOpened: sorted(guides),
       stubDemand: sorted(stubs),
+      // { <guide key or "showcase">: { played, completed } }
+      videos: videos,
       raw: list,
     };
     if (window.console) console.log(JSON.stringify(out, null, 2));
