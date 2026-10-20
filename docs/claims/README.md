@@ -28,11 +28,15 @@ it by hand. Once shard edits land, rebuild it with
 | `src/transforms/changed-surfaces.mjs` | feature 6 | IntelliDash changes since 2026-08-13 folded into existing guides |
 | `src/transforms/operational-contract.mjs` | feature 5 | The push window and the Lynx prerequisites, in every guide that ends in a push |
 | `src/transforms/review-fixes.mjs` | feature 10 | Fixes that come out of the expert review |
+| `src/transforms/beta-content.mjs` | beta release epic | Steps and guides written against develop and the beta environment, each recorded in `src/release.json` |
+| `src/transforms/release-gate.mjs` | beta release epic | Removes beta content from a build with `SA_SHOW_BETA=false` and fails the build on anything left over |
 
 `transformGuide()` in `src/transform-export.mjs` calls these modules in this order:
 corrections, changed-surfaces, operational-contract, review-fixes. Every `edit()` is anchored on
 the exact text it replaces and fails the build if that text has moved. The edits that were already
 in `src/transform-export.mjs` stay there, and new edits go into the module their feature owns.
+After review-fixes it calls beta-content and then release-gate, which runs last so it sees every
+step any module added.
 
 ## Purpose
 
