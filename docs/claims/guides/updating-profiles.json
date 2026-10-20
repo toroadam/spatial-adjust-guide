@@ -130,9 +130,9 @@
       "guide": "updating-profiles",
       "step": "note",
       "field": "note",
-      "text": "Target Profiles is still in development and is not in the shipping build yet.",
+      "text": "The Target Profiles tab lists five named profile slots for each Lynx course.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -154,42 +154,22 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
           "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 52
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 55
         }
       ],
-      "note": "Target Profiles ships. The menu entry is live on production (sa-settings-dlg.component.ts:55); at the 2026-08-13 baseline it was commented out (docs/claims/changed-surfaces.md). The pane renders from the same build (sa-settings-dlg.component.html:35, :177-226). It was first built on branch feature/260812_target_profiles (menu entry :52, pane :177-226), merged to develop on 2026-09-14, and is the same on develop (:55). The status is Wrong rather than Not shipping because production contains the feature.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/note/1); docs/text-corrections.md §11 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Target Profiles is in the shipping build. Why: the Settings dialog's Target Profiles entry is live on production (sa-settings-dlg.component.ts:55) and its pane renders (sa-settings-dlg.component.html:177-226)."
+      "correction": "",
+      "previousText": "Target Profiles is still in development and is not in the shipping build yet."
     },
     {
       "id": "updating-profiles/note/2",
       "guide": "updating-profiles",
       "step": "note",
       "field": "note",
-      "text": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.",
+      "text": "If your settings dialog has no Target Profiles entry, your IntelliDash has not yet been updated to the release that includes it.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -211,27 +191,6 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
           "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 52
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 55
         },
         {
           "source": "intellidash",
@@ -262,10 +221,11 @@
           "line": "28-31"
         }
       ],
-      "note": "The tab is not \"being built\"; it ships. The rest holds: the shipped tab does list five named slots, and the figures show the earlier card design. The shipped tab is a table of five fixed slots per Lynx course, named Spring, Summer, Fall, Winter and Tournament until renamed (sa-settings-dlg.component.ts:103-109, :383-392; the server rejects any index outside 0-4, SpatialAdjustLogic.cs:28-31). Its columns are Target Profile (an editable name), Last Updated, Stations, Update from Current and Apply Profile (sa-settings-dlg.component.html:195-206).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/note/2); docs/text-corrections.md §11 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The screens here show an earlier design; the shipped tab lists five named profile slots per Lynx course, so your screen will look different. Why: the shipped pane is a five-slot table (sa-settings-dlg.component.ts:103-109, :383-392; sa-settings-dlg.component.html:195-206), not the cards in the figures."
+      "correction": "",
+      "previousText": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ."
     },
     {
       "id": "updating-profiles/before/1",
@@ -425,9 +385,9 @@
       "guide": "updating-profiles",
       "step": "2",
       "field": "title",
-      "text": "Open the profile",
+      "text": "Find the profile’s row",
       "type": "navigation",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -437,19 +397,20 @@
           "line": "203-219"
         }
       ],
-      "note": "There is nothing to open. Each profile is a row in the tab with its actions in the row (sa-settings-dlg.component.html:203-219).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/2/1); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Find the profile's row. Why: each profile is a table row with Update from Current and Apply Profile in the row itself (sa-settings-dlg.component.html:203-219)."
+      "correction": "",
+      "previousText": "Open the profile"
     },
     {
       "id": "updating-profiles/2/2",
       "guide": "updating-profiles",
       "step": "2",
       "field": "body",
-      "text": "The active profile is the one whose targets were last loaded.",
+      "text": "The profile last applied is named above the dashboard table until a station target is edited; the profile list does not mark it.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -508,10 +469,11 @@
           "line": "326-332"
         }
       ],
-      "note": "The profile list has no active marker: its columns are name, Last Updated, Stations, Update from Current and Apply Profile (sa-settings-dlg.component.html:195-219). Applying sets IsApplied on that profile and clears it on the course's other slots (SpatialAdjustService.cs:698-707), and the dashboard then shows SPATIAL_ADJUST.N_TARGET_PROFILE \"{{name}} Target Profile\" in the bar above the table (sa-dashboard.component.html:30-32). Any later Target VWC edit, single or bulk, clears the flag and the label (SpatialAdjustService.cs:1231, :2402, :2432-2447; sa-dashboard.component.ts:326-332).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/2/2); docs/text-corrections.md §13 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The profile last applied is named above the dashboard table as \"<name> Target Profile\" until a station target is edited; the profile list does not mark it. Why: applying sets the course's applied profile (SpatialAdjustService.cs:698-707), any target edit clears it (:1231, :2402), and the list has no active column (sa-settings-dlg.component.html:195-219)."
+      "correction": "",
+      "previousText": "The active profile is the one whose targets were last loaded."
     },
     {
       "id": "updating-profiles/2/3",
@@ -554,9 +516,9 @@
       "guide": "updating-profiles",
       "step": "2",
       "field": "caption",
-      "text": "The active profile, ready to be updated.",
+      "text": "The profile’s row, with Update from Current.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -573,19 +535,20 @@
           "line": "30-32"
         }
       ],
-      "note": "Figure caption. The list has no active profile to show (sa-settings-dlg.component.html:195-219); the applied profile is named only on the dashboard (sa-dashboard.component.html:30-32).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/2/4); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The profile's row, with Update from Current. Why: the list has no active marker (sa-settings-dlg.component.html:195-219); the row's Update from Current action is what updates it (:208-211)."
+      "correction": "",
+      "previousText": "The active profile, ready to be updated."
     },
     {
       "id": "updating-profiles/3/1",
       "guide": "updating-profiles",
       "step": "3",
       "field": "title",
-      "text": "Update rather than create",
+      "text": "Update this slot or capture into another",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -616,10 +579,11 @@
           "line": "28-31"
         }
       ],
-      "note": "There is no create. The shipped tab is a table of five fixed slots per Lynx course, named Spring, Summer, Fall, Winter and Tournament until renamed (sa-settings-dlg.component.ts:103-109, :383-392; the server rejects any index outside 0-4, SpatialAdjustLogic.cs:28-31). Its columns are Target Profile (an editable name), Last Updated, Stations, Update from Current and Apply Profile (sa-settings-dlg.component.html:195-206). The choice is between refreshing this slot and capturing into a different one.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/3/1); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Update this slot or capture into another. Why: the tab has five fixed slots per course and no way to add one (sa-settings-dlg.component.ts:383-392; SpatialAdjustLogic.cs:28-31)."
+      "correction": "",
+      "previousText": "Update rather than create"
     },
     {
       "id": "updating-profiles/3/2",
@@ -655,9 +619,9 @@
       "guide": "updating-profiles",
       "step": "3",
       "field": "body",
-      "text": "Create a new profile instead when the change is for one event — a new name is cheaper than losing a good baseline.",
+      "text": "Capture into a different slot instead when the change is for one event, and rename it to suit; with five slots per course that overwrites whatever the other slot held, so pick one you no longer need.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -695,10 +659,11 @@
           "line": "636-678"
         }
       ],
-      "note": "No new profile can be created; the five slots are fixed (SpatialAdjustLogic.cs:28-31). Capturing the event set into another slot overwrites whatever that slot held (SpatialAdjustService.cs:636-678), so the cost is a slot, not just a name.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/3/3); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Capture into a different slot instead when the change is for one event, and rename it to suit; with five slots per course that overwrites whatever the other slot held, so pick one you no longer need. Why: the slots are fixed (sa-settings-dlg.component.ts:383-392), and Update from Current replaces a slot's stored targets (SpatialAdjustService.cs:636-678)."
+      "correction": "",
+      "previousText": "Create a new profile instead when the change is for one event — a new name is cheaper than losing a good baseline."
     },
     {
       "id": "updating-profiles/3/4",
@@ -749,9 +714,9 @@
       "guide": "updating-profiles",
       "step": "3",
       "field": "tip",
-      "text": "Create when the change is temporary.",
+      "text": "Use another slot when the change is temporary.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -782,10 +747,11 @@
           "line": "28-31"
         }
       ],
-      "note": "There is no create; see updating-profiles/3/3.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/3/6); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Use another slot when the change is temporary. Why: profiles cannot be created, only captured into one of five fixed slots (sa-settings-dlg.component.ts:383-392)."
+      "correction": "",
+      "previousText": "Create when the change is temporary."
     },
     {
       "id": "updating-profiles/4/1",

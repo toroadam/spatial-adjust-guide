@@ -707,9 +707,9 @@
       "guide": "push-failures",
       "step": "4",
       "field": "body",
-      "text": "The stations that failed are still pending, so reopening Push Changes offers exactly them.",
+      "text": "The stations that failed are still pending, but they count as pushed today, so reopening Push Changes lists them under Pushed Today, unticked.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -754,19 +754,20 @@
           "line": 40
         }
       ],
-      "note": "The failed stations are still pending, but they are not offered the way the sentence implies. Every station that was sent, failures included, is stamped as pushed today before the comparison runs (sa-push-changes.service.ts:174-179, sa-dashboard.component.ts:214-231). Reopening Push Changes therefore lists the failures under Pushed Today, unticked (sa-confirm-push-dlg.component.ts:23-24), and the toolbar label drops its count. The dialog is not limited to the failures either. Any pending station the reader did not send earlier is back under Available to Push, ticked (sa-push-changes-station.model.ts:16), and a station the minimum threshold rewrote also stays pending under Pushed Today.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/2); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The stations that failed are still pending, but they count as pushed today, so reopening Push Changes lists them under Pushed Today, unticked. Tick them to send them again. Why: every station that was sent is stamped as pushed today before it is verified (sa-push-changes.service.ts:174-179), and Pushed Today rows arrive unticked (sa-confirm-push-dlg.component.ts:23-24)."
+      "correction": "",
+      "previousText": "The stations that failed are still pending, so reopening Push Changes offers exactly them."
     },
     {
       "id": "push-failures/4/3",
       "guide": "push-failures",
       "step": "4",
       "field": "body",
-      "text": "Untick anything that already went out rather than sending the whole set a second time.",
+      "text": "Tick them to send them again.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -797,13 +798,71 @@
           "line": "174-179"
         }
       ],
-      "note": "There is nothing that already went out to untick. Stations that verified hold the same value as Lynx, so they are no longer pending and are not listed (sa-dashboard.component.ts:659-662). The rows that do arrive ticked are pending stations that were not part of the last push, under Available to Push (sa-push-changes-station.model.ts:16). The failures arrive unticked under Pushed Today (sa-confirm-push-dlg.component.ts:23-24). Read literally, the instruction leaves the failures unsent and sends whatever else is ticked.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/3); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The stations that went through are not listed again, so you cannot send the whole set a second time. Tick the failed stations under Pushed Today, and untick anything under Available to Push that you did not mean to send. Why: verified stations are no longer pending (sa-dashboard.component.ts:659-662), failures return unticked under Pushed Today, and other pending stations return ticked."
+      "correction": "",
+      "previousText": "Untick anything that already went out rather than sending the whole set a second time."
     },
     {
       "id": "push-failures/4/4",
+      "guide": "push-failures",
+      "step": "4",
+      "field": "body",
+      "text": "The stations that went through are not listed again, so the whole set cannot go out twice; untick anything under Available to Push that you did not mean to send.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "174-179"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "214-231"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "23-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/sa-push-changes-station.model.ts",
+          "line": 16
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/2, push-failures/4/3); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/4/5",
       "guide": "push-failures",
       "step": "4",
       "field": "caption",

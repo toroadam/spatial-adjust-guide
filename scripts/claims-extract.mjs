@@ -45,7 +45,8 @@ export const STATUSES = ['Unverified', 'Verified', 'Wrong', 'Not shipping', 'Nee
 export const TYPES = ['label', 'navigation', 'behaviour', 'calculation', 'prerequisite'];
 
 // Named buckets, in reading order. Steps sit between `before` and `verify`. `note` is the guide's
-// "Concept." callout. It is published prose that makes claims (the Target Profiles disclaimers),
+// note callout ("New in IntelliDash." on the four Target Profiles guides, "Note." elsewhere). It
+// is published prose that makes claims (the Target Profiles shipping notice),
 // so it is extracted like any other field. The ID scheme in docs/claims/README.md lists it.
 const LEADING = ['tile', 'summary', 'where', 'note', 'before'];
 const TRAILING = ['verify'];

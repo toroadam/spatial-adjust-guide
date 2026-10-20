@@ -624,9 +624,9 @@
       "guide": "station-zero",
       "step": "3",
       "field": "body",
-      "text": "A station with the Enable switch off is excluded from adjustment entirely.",
+      "text": "A station with the Enable switch off is left out of every push, so Lynx keeps whatever percent adjust it already holds.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -661,13 +661,61 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "Only the push list checks the switch: stations that are disabled, or under a disabled area or hole, are left out (sa-dashboard.component.ts:615-641). Neither the daily calculation nor the settings recalculation filters on it (SpatialAdjustService.cs:2976-3043, :1876-1907), so a disabled station still shows a calculated suggestion. Since it is never pushed, Lynx keeps whatever percent adjust it already holds. It does not receive 0.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-zero/3/2); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "A station with the Enable switch off is left out of every push, so Lynx keeps whatever percent adjust it already holds. Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Why: only the push list checks the switch (sa-dashboard.component.ts:615-641); neither the daily calculation nor the recalculation filters on it (SpatialAdjustService.cs:2976-3043, :1876-1907)."
+      "correction": "",
+      "previousText": "A station with the Enable switch off is excluded from adjustment entirely."
     },
     {
       "id": "station-zero/3/3",
+      "guide": "station-zero",
+      "step": "3",
+      "field": "body",
+      "text": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-641"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2976-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1876-1907"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 51
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §4 What the station table shows"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-zero/3/2); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/3/4",
       "guide": "station-zero",
       "step": "3",
       "field": "body",
@@ -710,7 +758,7 @@
       "correction": ""
     },
     {
-      "id": "station-zero/3/4",
+      "id": "station-zero/3/5",
       "guide": "station-zero",
       "step": "3",
       "field": "caption",
@@ -1039,9 +1087,9 @@
       "guide": "station-zero",
       "step": "5",
       "field": "body",
-      "text": "It only opens once Lynx data has failed to load, which is exactly when you would want it — on a healthy dashboard the chord does nothing.",
+      "text": "It opens on a healthy dashboard once Spatial Adjust has contacted Lynx, which happens a second or so after the page loads, and it also opens when Lynx data has failed to load.",
       "type": "navigation",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1072,10 +1120,11 @@
           "line": "109-116"
         }
       ],
-      "note": "The handler ignores the chord only while Lynx has neither failed nor been pinged (sa-main-toolbar.component.ts:294). The dashboard pings Lynx about a second after a course is selected (sa-dashboard.component.ts:731-733), and the ping stores the course information at once, whatever the result (lynx-proxy.service.ts:112-113). So on a healthy dashboard the chord works within a second or so of load. A failed Lynx load also enables it (sa-main-toolbar.component.ts:221-223).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-zero/5/3); docs/text-corrections.md §27 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "It opens on a healthy dashboard once Spatial Adjust has contacted Lynx, which happens a second or so after the page loads, and it also opens when Lynx data has failed to load. Why: the chord is ignored only while Lynx has neither failed nor been pinged (sa-main-toolbar.component.ts:293-299; sa-dashboard.component.ts:731-733)."
+      "correction": "",
+      "previousText": "It only opens once Lynx data has failed to load, which is exactly when you would want it — on a healthy dashboard the chord does nothing."
     },
     {
       "id": "station-zero/5/4",

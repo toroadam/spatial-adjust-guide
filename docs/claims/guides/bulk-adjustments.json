@@ -807,9 +807,9 @@
       "guide": "bulk-adjustments",
       "step": "4",
       "field": "tip",
-      "text": "On failure. A bulk adjust error means some values may already have been written.",
+      "text": "On failure. A bulk adjust error normally means nothing was written, despite what the message says: the change is applied in one go and rolled back on failure.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -840,19 +840,64 @@
           "line": 398
         }
       ],
-      "note": "The guide repeats the product's own error text, SPATIAL_ADJUST.ERR_BULK_ADJUST_DETAIL \"An error occurred while applying bulk adjustments. Some values may have been updated. Please check values and try again.\" The server contradicts it. Every target, today's recalculated adjustments and the cleared Target Profile are written inside one transaction that is rolled back on any exception (SpatialAdjustService.cs:2363-2421), and the early failures (no site, no ET) return before anything is written (:2298-2314). The only way an error can follow a successful write is a request that fails after the server has committed, and then every value was written, not some. The product message is worth fixing too.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (bulk-adjustments/4/5); docs/text-corrections.md §21 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "On failure. A bulk adjust error normally means nothing was written, because the change is applied all at once and rolled back on failure; if the connection failed after the server finished, everything was written. Why: the server writes all targets in one transaction and rolls it back on any error (SpatialAdjustService.cs:2363-2421)."
+      "correction": "",
+      "previousText": "On failure. A bulk adjust error means some values may already have been written."
     },
     {
       "id": "bulk-adjustments/4/6",
       "guide": "bulk-adjustments",
       "step": "4",
       "field": "tip",
-      "text": "Check the column before retrying rather than applying twice.",
+      "text": "If the connection dropped after the server finished, everything was written.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2363-2421"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2298-2314"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "152-155"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 398
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (bulk-adjustments/4/5); docs/text-corrections.md §21 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Check the column before retrying rather than applying twice."
+    },
+    {
+      "id": "bulk-adjustments/4/7",
+      "guide": "bulk-adjustments",
+      "step": "4",
+      "field": "tip",
+      "text": "The table is not refreshed after an error, so reload the page and check the column before retrying rather than applying twice.",
+      "type": "behaviour",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -869,10 +914,10 @@
           "line": "288-294"
         }
       ],
-      "note": "After an error the dialog stays open and the dashboard is not reloaded; the reload is broadcast only on success (sa-bulk-adjust-dlg.component.ts:143-151, sa-dashboard.component.ts:288-294). The Target VWC column therefore still shows the values from before the attempt, so checking it cannot reveal a write that did happen. A Shift applied twice moves the targets twice.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (bulk-adjustments/4/6); docs/text-corrections.md §21 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Reload the page and check the column before retrying, rather than applying twice; the table is not refreshed after an error. Why: the table reloads only after a successful bulk adjust (sa-bulk-adjust-dlg.component.ts:143-151), so after an error it still shows the old targets."
+      "correction": ""
     },
     {
       "id": "bulk-adjustments/verify/1",

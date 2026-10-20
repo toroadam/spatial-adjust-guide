@@ -865,6 +865,56 @@
       "correction": ""
     },
     {
+      "id": "calculation-settings/4/5",
+      "guide": "calculation-settings",
+      "step": "4",
+      "field": "tip",
+      "text": "Greyed out under Option 1. Option 1 uses no ET, so the dialog disables Crop Coefficient while it is selected, along with Daily Max Amount and Lynx Reference Amount.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "112-123"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "82-110"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 367
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 389
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        }
+      ],
+      "note": "Retyped from label to behaviour. Crop Coefficient (SPATIAL_ADJUST.CROP_COEFFICIENT \"Crop Coefficient (%)\") is disabled, with its label dimmed, while the algorithm is Simple, which the dropdown labels ALGO_SIMPLE \"Option 1\" (sa-settings-dlg.component.html:113-115, en-us.json:367). Daily Max Amount and Lynx Reference Amount use the same condition (:83-85, :98-100). Option 1's formula is target over measured times the current Lynx percent adjust, with no ET term (sa-algorithm.service.ts:58-60; see calculation-methods/3/3).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "calculation-settings/5/1",
       "guide": "calculation-settings",
       "step": "5",
@@ -966,9 +1016,9 @@
       "guide": "calculation-settings",
       "step": "5",
       "field": "body",
-      "text": "Expect the Suggested column to move on every row.",
+      "text": "Expect the Suggested column to move wherever the setting you changed takes part: a new Lynx Reference Amount rescales every suggestion above zero, a new Daily Max Amount moves only the stations at the old or new cap, and stations at zero usually stay there.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -996,13 +1046,54 @@
           "ref": "docs/claims/calculations.md §2.4 Recalculation after a settings change"
         }
       ],
-      "note": "The recalculation reuses each station's stored ET and deficit and re-applies only the three settings (SpatialAdjustService.cs:1884-1894). A station at zero has a negative ET-plus-deficit, and that does not change with the cap or the reference. A new cap moves only stations whose amount reaches the old or the new cap. A new reference rescales every non-zero value. The % Adj. a user saved is stored on the station and is not cleared by a recalculation (:1019-1038), so edited rows keep their % Adj.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (calculation-settings/5/3); docs/text-corrections.md §28 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Expect the Suggested column to move wherever the setting you changed takes part: a new Lynx Reference Amount rescales every non-zero suggestion, a new Daily Max Amount moves only the stations at the old or new cap, and stations at zero usually stay at zero. A % Adj. you typed earlier keeps its value. Why: the recalculation re-applies the three settings to each station's stored ET and deficit and does not clear a saved % Adj. (SpatialAdjustService.cs:1884-1894, :1019-1038)."
+      "correction": "",
+      "previousText": "Expect the Suggested column to move on every row."
     },
     {
       "id": "calculation-settings/5/4",
+      "guide": "calculation-settings",
+      "step": "5",
+      "field": "body",
+      "text": "A % Adj. you typed earlier keeps its value.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1884-1894"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1019-1038"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.4 Recalculation after a settings change"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (calculation-settings/5/3); docs/text-corrections.md §28 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-settings/5/5",
       "guide": "calculation-settings",
       "step": "5",
       "field": "caption",
@@ -1026,6 +1117,120 @@
         }
       ],
       "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-settings/5/6",
+      "guide": "calculation-settings",
+      "step": "5",
+      "field": "tip",
+      "text": "One save for every tab. Save Changes saves the edits on every tab of Settings together.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "49-55"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "445-468"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "482-503"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 459
+        }
+      ],
+      "note": "Retyped from label to behaviour. SPATIAL_ADJUST.SAVE_CHANGES \"Save Changes\" is the dialog's only save button, in the footer under every tab (sa-settings-dlg.component.html:49-55). On save the dialog compares three groups with their opening values: the site settings (the Calculation and Minimum Threshold tabs), the user preferences (the Preferences tab) and the Target Profiles (sa-settings-dlg.component.ts:445-468). It sends one request per changed group, all together (:203, :482-503), and closes when they finish. With nothing changed it just closes (:196-199).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-settings/5/7",
+      "guide": "calculation-settings",
+      "step": "5",
+      "field": "tip",
+      "text": "With unsaved edits, Cancel asks whether you want to exit without saving: Continue Editing takes you back, and Discard Changes closes the dialog and drops every edit.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "217-229"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "235-242"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "261-270"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "107-112"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 466
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 388
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 390
+        }
+      ],
+      "note": "Retyped from label to behaviour. Cancel (STRINGS.CANCEL) runs the same change check as Save (sa-settings-dlg.component.ts:217-229). With no edits it closes at once. With edits it opens a confirmation headed SPATIAL_ADJUST.DISCARD_CHANGES \"Discard changes\" that asks SETTINGS_CONFIRM_DISCARD_CHANGES_PRIMARY \"Are you sure you want to exit without saving changes?\" (sa-settings-dlg.component.html:261-270). Its buttons are CONTINUE_EDITING \"Continue Editing\" and DISCARD_CHANGES \"Discard changes\", both shown upper-case, so the second reads \"DISCARD CHANGES\" on screen. Continue Editing hides the confirmation and leaves the dialog open with the edits. Discard changes closes the dialog without saving anything (:235-242; the toolbar removes the dialog on cancel, sa-main-toolbar.component.html:110).",
       "question": "",
       "developNote": "",
       "correction": ""

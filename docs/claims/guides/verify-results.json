@@ -101,9 +101,9 @@
       "guide": "verify-results",
       "step": "summary",
       "field": "summary",
-      "text": "Knowing them tells you whether a slow run is working or stuck.",
+      "text": "Knowing them tells you what a slow run is waiting for.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -155,10 +155,11 @@
           "line": "305-314"
         }
       ],
-      "note": "The phases tell the reader where a run is, but not whether it is stuck. The writing counter runs on a fixed timer and never waits for Lynx (sa-push-changes.service.ts:145-150, :206-211), so it cannot stall. The read-back is where a slow or silent Lynx shows, and it looks the same either way. The status line stays on \"Retrieving latest Percent Adjustments from Lynx for comparison\" while each of three Lynx requests waits up to three 60-second attempts with 5-second gaps (cloud-service-base.ts:43-45, :372-463), roughly nine and a half minutes at worst. If they all fail, the progress dialog closes with no result line (sa-main-toolbar.component.ts:174-178), and the only message is a \"Lynx Cloud Error\" (or \"Lynx Drive Error\") toast reading \"Incomplete or invalid data was received from Lynx.\" (sa-dashboard.component.ts:305-314).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (verify-results/summary/2); docs/text-corrections.md §19 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Knowing them tells you what a slow run is waiting for. Why: the writing counter runs on a timer and cannot stall, and the read-back phase looks the same whether Lynx is slow or not answering, until it gives up (cloud-service-base.ts:372-463)."
+      "correction": "",
+      "previousText": "Knowing them tells you whether a slow run is working or stuck."
     },
     {
       "id": "verify-results/where/1",
@@ -374,9 +375,9 @@
       "guide": "verify-results",
       "step": "1",
       "field": "body",
-      "text": "On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation.",
+      "text": "On a large course writing takes a while, at least a tenth of a second per station, but its counter runs on a fixed timer and does not wait for Lynx.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -421,13 +422,71 @@
           "line": "372-463"
         }
       ],
-      "note": "Transform 12 moved this sentence onto the write phase, and on production it is wrong there. Each write is fire-and-forget. processItem sends the change and returns immediately (sa-push-changes.service.ts:206-211), and neither the Lynx Cloud nor the Lynx Drive implementation waits for an answer (lynx-cloud.service.ts:80-95, lynx-drive.service.ts:67-87). The counter advances on the fixed per-station delay (:145-150) whatever the connection is doing, so a stall cannot show here. Writing costs at least 100 ms a station, about 15 s on a 148-station course. \"Slowest phase\" is not established either: the next phase waits for three sequential Lynx responses, each allowed three 60-second attempts (cloud-service-base.ts:43-45, :372-463). A dead connection shows in that phase.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (verify-results/1/4); docs/text-corrections.md §19 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "On a large course writing takes a while, about a tenth of a second per station, but its counter runs on a fixed timer and does not wait for Lynx. If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer. Why: each write is sent without waiting for a reply (sa-push-changes.service.ts:206-211), and only the read-back waits on Lynx (cloud-service-base.ts:372-463)."
+      "correction": "",
+      "previousText": "On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation."
     },
     {
       "id": "verify-results/1/5",
+      "guide": "verify-results",
+      "step": "1",
+      "field": "body",
+      "text": "If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "145-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "206-211"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-drive/lynx-drive.service.ts",
+          "line": "67-87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/cloud-service-base.ts",
+          "line": "43-45"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/cloud-service-base.ts",
+          "line": "372-463"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (verify-results/1/4); docs/text-corrections.md §19 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/1/6",
       "guide": "verify-results",
       "step": "1",
       "field": "caption",
@@ -916,9 +975,9 @@
       "guide": "verify-results",
       "step": "5",
       "field": "body",
-      "text": "Back on the dashboard the pending count is zero and the pushed-today counter has grown by what you sent.",
+      "text": "Back on the dashboard, Push Changes no longer counts the stations you sent, and the pushed-today counter has grown by what you sent.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -977,10 +1036,11 @@
           "line": "309-327"
         }
       ],
-      "note": "The pushed-today half is right: the counter is re-fetched after the push and counts every station sent today. The pending half is not. No zero is shown: when nothing pending is left outside Pushed Today, the button label drops its number and reads \"Push Changes\" (sa-main-toolbar.component.html:40). The button is disabled only when nothing at all is pending (:34). A clean run can still leave stations pending: rows the reader unticked, Pushed Today rows left unticked, and any station the minimum threshold rewrote. The threshold value is substituted only on the dialog's copy (sa-confirm-push-dlg.component.ts:20, :74-79), so the table keeps the original value while Lynx holds the threshold one (sa-dashboard.component.ts:659-662). Same finding as push-to-lynx/verify/1.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (verify-results/5/3); docs/text-corrections.md §16 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Back on the dashboard, Push Changes no longer counts the stations you sent, and the pushed-today counter has grown by what you sent. Why: the label drops its number rather than showing zero, and unticked, Pushed Today and threshold-rewritten stations stay pending (sa-dashboard.component.ts:659-662)."
+      "correction": "",
+      "previousText": "Back on the dashboard the pending count is zero and the pushed-today counter has grown by what you sent."
     },
     {
       "id": "verify-results/5/4",
@@ -1052,9 +1112,9 @@
       "guide": "verify-results",
       "step": "verify",
       "field": "verify",
-      "text": "The pending count is zero and the pushed-today counter increased.",
+      "text": "Push Changes no longer counts the stations you sent, and the pushed-today counter increased.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1085,10 +1145,11 @@
           "line": "146-164"
         }
       ],
-      "note": "Same finding as verify-results/5/3. The label never shows zero, and unticked, Pushed Today and threshold-rewritten stations stay pending after a clean run.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (verify-results/verify/2); docs/text-corrections.md §16 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Push Changes no longer counts the stations you sent, and the pushed-today counter increased. Why: the label drops its number rather than showing zero, and some stations can stay pending after a clean run (sa-dashboard.component.ts:659-662)."
+      "correction": "",
+      "previousText": "The pending count is zero and the pushed-today counter increased."
     }
   ]
 }
