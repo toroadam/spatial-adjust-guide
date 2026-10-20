@@ -1029,9 +1029,9 @@
       "guide": "calculation-questions",
       "step": "5",
       "field": "body",
-      "text": "If TurfRad access and scan data are both fine and only the date is old, request a fresh scan from the toolbar rather than waiting for one.",
+      "text": "If TurfRad access and scan data are both fine and only the date is old, use Request latest scan data in the toolbar to fetch any scans TurfRad already holds rather than waiting for the next automatic fetch.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1062,13 +1062,57 @@
           "line": 457
         }
       ],
-      "note": "\"Request latest scan data\" marks the site's data as two days old and starts a fetch from TurfRad (SpatialAdjustService.cs:978-1002). It brings in scans TurfRad already holds sooner than the automatic fetch would. It cannot make TurfRad perform a new scan.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (calculation-questions/5/4); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "If TurfRad access and scan data are both fine and only the date is old, use Request latest scan data in the toolbar to fetch any scans TurfRad already holds instead of waiting for the next automatic fetch. It cannot make TurfRad scan, so if TurfRad has nothing newer the date will not change. Why: the request only marks the site's data as out of date and starts a fetch from TurfRad (SpatialAdjustService.cs:978-1002)."
+      "correction": "",
+      "previousText": "If TurfRad access and scan data are both fine and only the date is old, request a fresh scan from the toolbar rather than waiting for one."
     },
     {
       "id": "calculation-questions/5/5",
+      "guide": "calculation-questions",
+      "step": "5",
+      "field": "body",
+      "text": "It cannot make TurfRad scan, so if TurfRad has nothing newer the date will not change.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "329-343"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "978-1002"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 454
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 457
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (calculation-questions/5/4); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/5/6",
       "guide": "calculation-questions",
       "step": "5",
       "field": "caption",

@@ -167,9 +167,9 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "body",
-      "text": "Every station is a pin placed at its real coordinates and filled with the colour of the moisture band its latest reading falls into.",
+      "text": "Each sprinkler of a station scanned in the past seven days is a pin at its own coordinates.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -211,13 +211,122 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Same finding as dashboard-overview/2/2. Pins are drawn per sprinkler record at that sprinkler's coordinates (sa-dashboard.component.ts:517-519, sa-dash-map.component.ts:307). A pin whose latest scan is not from today is drawn clear (:315, saShowCurrentOnly true at environment.toro-prod.ts:87), as 373-1135 rev 02 §Map Functionality describes. The Layers default on production is Enabled Stations (environment.toro-prod.ts:88), so disabled stations are not drawn until the user picks All Stations (sa-dash-map.component.ts:312).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (map-navigation/1/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Each sprinkler of a station scanned in the past seven days is a pin at its own coordinates. A pin scanned today is filled with the colour of the moisture band its reading falls into; a pin whose latest scan is older is drawn clear, and disabled stations are hidden while Layers is set to Enabled Stations, the default. Why: the map draws one circle per sprinkler record and colours it only when its scan is from today (sa-dash-map.component.ts:307, :315), and production defaults Layers to Enabled Stations (environment.toro-prod.ts:88)."
+      "correction": "",
+      "previousText": "Every station is a pin placed at its real coordinates and filled with the colour of the moisture band its latest reading falls into."
     },
     {
       "id": "map-navigation/1/3",
+      "guide": "map-navigation",
+      "step": "1",
+      "field": "body",
+      "text": "A pin scanned today is filled with the colour of the moisture band its reading falls into, and a pin last scanned on an earlier day is drawn clear.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (map-navigation/1/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/1/4",
+      "guide": "map-navigation",
+      "step": "1",
+      "field": "body",
+      "text": "Disabled stations are hidden while Layers is set to Enabled Stations, the default.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (map-navigation/1/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/1/5",
       "guide": "map-navigation",
       "step": "1",
       "field": "body",
@@ -246,7 +355,7 @@
       "correction": ""
     },
     {
-      "id": "map-navigation/1/4",
+      "id": "map-navigation/1/6",
       "guide": "map-navigation",
       "step": "1",
       "field": "caption",
@@ -330,9 +439,9 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "body",
-      "text": "Move one and the map recolours as you drag — useful when your course sits mostly inside one band and everything looks the same colour.",
+      "text": "Move one and the map recolours when you let go — useful when your course sits mostly inside one band and everything looks the same colour.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -363,10 +472,11 @@
           "line": "138-143"
         }
       ],
-      "note": "While a handle moves, the colour bar updates only the legend's band labels (color-range.component.ts:89-139). The map redraws when the handle is released: dragEnd fires on mouse-up or touch-end (:79-87), the overlay emits the new bands (sa-map-overlay.component.ts:120-121), and the map's setter redraws every pin (sa-dash-map.component.ts:138-143).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (map-navigation/2/3); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Move one and the map recolours when you let go — useful when your course sits mostly inside one band and everything looks the same colour. Why: the map redraws on the colour bar's dragEnd, fired on mouse-up or touch-end (color-range.component.ts:79-87); during the drag only the legend labels change (:115-139)."
+      "correction": "",
+      "previousText": "Move one and the map recolours as you drag — useful when your course sits mostly inside one band and everything looks the same colour."
     },
     {
       "id": "map-navigation/2/4",
@@ -648,6 +758,78 @@
         }
       ],
       "note": "STRINGS.LAYERS \"Layers\" is rendered upper-case, \"LAYERS\", by the uppercase pipe (sa-map-overlay.component.html:37, :42).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/4/5",
+      "guide": "map-navigation",
+      "step": "4",
+      "field": "tip",
+      "text": "Remembered. Layers saves your choice to your user preferences.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "43-54"
+        }
+      ],
+      "note": "Choosing All Stations or Enabled Stations under Layers sets the overlay's station filter, which writes it to the user's dashboard preferences as saStationFilter whenever it differs from the saved value (sa-map-overlay.component.ts:44-53). It is saved per user, not per site.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/4/6",
+      "guide": "map-navigation",
+      "step": "4",
+      "field": "tip",
+      "text": "Until you have made one, the map shows Enabled Stations only, so it can draw fewer pins than the All Stations tab counts.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 504
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 88
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "521-528"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "3-8"
+        }
+      ],
+      "note": "Retyped from label to behaviour. With no saved saStationFilter the dashboard uses environment.saStationFilterDefault (sa-dashboard.component.ts:504), which production sets to StationFilter.Enabled (environment.toro-prod.ts:88). Under Enabled the map skips every station that is not enabled (sa-dash-map.component.ts:312), while the All Stations tab counts every station on the course, disabled ones included (sa-dashboard.component.ts:521-528; see filter-adjustments/1/2).",
       "question": "",
       "developNote": "",
       "correction": ""

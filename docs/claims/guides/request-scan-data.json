@@ -36,9 +36,9 @@
       "guide": "request-scan-data",
       "step": "tile",
       "field": "summary",
-      "text": "Request a new TurfRad scan rather than waiting for one.",
+      "text": "Fetch the latest TurfRad scan data now rather than waiting for the next automatic retrieval.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -88,28 +88,22 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "api/Services/SpatialAdjustService.cs",
           "line": 2527
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2140-2153"
         }
       ],
-      "note": "The button does not order a scan. It resets the site's last-update time to two days ago (SpatialAdjustService.cs:992) and starts the background retrieval at once (:998-999). That retrieval downloads the sprinkler statistics TurfRad already holds (:2527). The same retrieval runs by itself whenever the site's update interval has passed (:1949-1958): 1800 seconds by the shipped default (appsettings.json:32), checked every 15 seconds (appsettings.json:27). A new scan exists only when TurfRad has taken one. The product's own tooltip says \"Request latest scan data\".",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/tile/2); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
-      "developNote": "On develop, TurfRad can report that it has nothing newer than the last update. The retrieval then keeps the existing scans and creates today's adjustments from them (develop SpatialAdjustService.cs:2140-2153, :2575). The button still fetches data rather than ordering a scan.",
-      "correction": "Fetch the latest TurfRad scan data now rather than waiting for the next automatic retrieval. Why: the button starts the retrieval that Spatial Adjust otherwise runs every 30 minutes by default (SpatialAdjustService.cs:978-1002, appsettings.json:32). It does not order a new scan."
+      "developNote": "",
+      "correction": "",
+      "previousText": "Request a new TurfRad scan rather than waiting for one."
     },
     {
       "id": "request-scan-data/summary/1",
       "guide": "request-scan-data",
       "step": "summary",
       "field": "summary",
-      "text": "A stale course is not something you have to wait out.",
+      "text": "A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -147,19 +141,20 @@
           "line": 24
         }
       ],
-      "note": "Only partly true. A course whose data is behind TurfRad's may only be waiting for the next automatic retrieval, and the button brings that forward. But the retrieval only fetches what TurfRad holds (SpatialAdjustService.cs:2527), and it runs by itself every 30 minutes by default (:1949-1958, appsettings.json:32). If the scan dates are days old, TurfRad has nothing newer, and nothing in Spatial Adjust changes that.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/summary/1); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Why: the button starts it now (SpatialAdjustService.cs:978-1002). It cannot make a new scan, so if the dates are still old after you reload, TurfRad has nothing newer."
+      "correction": "",
+      "previousText": "A stale course is not something you have to wait out."
     },
     {
       "id": "request-scan-data/summary/2",
       "guide": "request-scan-data",
       "step": "summary",
       "field": "summary",
-      "text": "Request a new TurfRad scan, and reload when it lands.",
+      "text": "Ask for the latest scan data TurfRad holds, and reload when it is ready.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -183,10 +178,11 @@
           "line": "181-206"
         }
       ],
-      "note": "Same finding as request-scan-data/tile/2. The reload half is right: a banner appears when the retrieval finishes, and Reload Data loads the result.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/summary/2); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
-      "developNote": "On develop, TurfRad can report that it has nothing newer than the last update. The retrieval then keeps the existing scans and creates today's adjustments from them (develop SpatialAdjustService.cs:2140-2153, :2575). The button still fetches data rather than ordering a scan.",
-      "correction": "Ask for the latest scan data TurfRad holds, and reload when it is ready. Why: the button fetches TurfRad's existing data ahead of schedule (SpatialAdjustService.cs:978-1002, :2527). It does not order a scan."
+      "developNote": "",
+      "correction": "",
+      "previousText": "Request a new TurfRad scan, and reload when it lands."
     },
     {
       "id": "request-scan-data/where/1",
@@ -215,9 +211,9 @@
       "guide": "request-scan-data",
       "step": "before",
       "field": "before",
-      "text": "When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics.",
+      "text": "When a scan is not current, what you see depends on the calculation option.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -281,19 +277,169 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": "367-368"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/before/1); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "When a scan is not current the calculation still runs — it runs on a modelled value carried forward from the last scan and the weather since, shown in grey italics."
+    },
+    {
+      "id": "request-scan-data/before/2",
+      "guide": "request-scan-data",
+      "step": "before",
+      "field": "before",
+      "text": "Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
         },
         {
           "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "68-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "107-110"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3211-3219"
+          "line": "3031-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 87
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "51-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "621-624"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "367-368"
         }
       ],
-      "note": "Retyped from prerequisite to behaviour. True under Option 2 only. A station is marked estimated when its scan is not from today and the calculation option is Option 2, Delta Plus Today ET (spatial-adjust-course.model.ts:184-188, sa-table-item.model.ts:68-70). Its moisture reading is then shown in dark grey italics with a calculator icon (sa-table-card.component.html:29-31, sa-table-card.component.less:107-110). When there is no reading from today, the server works from the previous predicted value (SpatialAdjustService.cs:3031-3043). Under Option 1 a stale station is not estimated. With saShowCurrentOnly true on production (environment.toro-prod.ts:87), its % Adj. shows a dash with no input (sa-table-card.component.html:51-62), and it is left out of the pending list (sa-dashboard.component.ts:621-624), so it cannot be pushed.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/before/1); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
-      "developNote": "On develop the same carry-forward is in CalculateAdjustment (develop SpatialAdjustService.cs:3211-3219). It is also used when TurfRad reports nothing newer (:3312).",
-      "correction": "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the moisture reading is shown in grey italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives. Why: only Option 2 marks a stale station as estimated (spatial-adjust-course.model.ts:184-188), and production hides stations that are neither current nor estimated (environment.toro-prod.ts:87, sa-table-card.component.html:51-62)."
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/before/3",
+      "guide": "request-scan-data",
+      "step": "before",
+      "field": "before",
+      "text": "Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "68-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "107-110"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 87
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "51-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "621-624"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "367-368"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/before/1); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
     },
     {
       "id": "request-scan-data/1/1",
@@ -474,9 +620,9 @@
       "guide": "request-scan-data",
       "step": "2",
       "field": "body",
-      "text": "It asks TurfRad for a new scan; it does not reload the dashboard, and it does not change a single calculation setting.",
+      "text": "It asks Spatial Adjust to fetch the latest scan data TurfRad already holds, ahead of the next automatic retrieval.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -514,13 +660,64 @@
           "line": 2527
         }
       ],
-      "note": "The second and third parts are right: the handler only calls the API and shows a toast (sa-main-toolbar.component.ts:329-343), and no setting is touched. The first part is not. The server resets the site's last-update time and starts the background retrieval (SpatialAdjustService.cs:978-1002), which downloads the sprinkler statistics TurfRad already holds (:2527). Nothing asks TurfRad to scan.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/2/3); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
-      "developNote": "On develop, TurfRad can report that it has nothing newer than the last update. The retrieval then keeps the existing scans and creates today's adjustments from them (develop SpatialAdjustService.cs:2140-2153, :2575). The button still fetches data rather than ordering a scan.",
-      "correction": "It asks Spatial Adjust to fetch the latest scan data TurfRad already holds, ahead of the next automatic retrieval. It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting. Why: the request only brings the scheduled retrieval forward (SpatialAdjustService.cs:978-1002, :2527)."
+      "developNote": "",
+      "correction": "",
+      "previousText": "It asks TurfRad for a new scan; it does not reload the dashboard, and it does not change a single calculation setting."
     },
     {
       "id": "request-scan-data/2/4",
+      "guide": "request-scan-data",
+      "step": "2",
+      "field": "body",
+      "text": "It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "329-343"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "226-232"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Controllers/SpatialAdjustController.cs",
+          "line": "222-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "978-1002"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2527
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/2/3); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/2/5",
       "guide": "request-scan-data",
       "step": "2",
       "field": "caption",
@@ -542,7 +739,7 @@
       "correction": ""
     },
     {
-      "id": "request-scan-data/2/5",
+      "id": "request-scan-data/2/6",
       "guide": "request-scan-data",
       "step": "2",
       "field": "tip",
@@ -571,7 +768,7 @@
       "correction": ""
     },
     {
-      "id": "request-scan-data/2/6",
+      "id": "request-scan-data/2/7",
       "guide": "request-scan-data",
       "step": "2",
       "field": "tip",
@@ -784,9 +981,9 @@
       "guide": "request-scan-data",
       "step": "4",
       "field": "body",
-      "text": "When the scan lands, a banner says so.",
+      "text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -831,10 +1028,11 @@
           "line": 455
         }
       ],
-      "note": "The banner marks the end of the retrieval, not the arrival of a scan. The server sends the completion signal after it has processed every course for the site, whether or not TurfRad returned anything new, and even if a course failed (SpatialAdjustService.cs:2054, :2060-2072). The toolbar shows the banner for any completion while a request is outstanding (sa-main-toolbar.component.ts:207-213). The banner reads \"The requested scan data is ready.\" (SPATIAL_ADJUST.REQUESTED_SCAN_DATA_READY).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/4/2); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
-      "developNote": "On develop the completion signal is unchanged. The banner also appears when TurfRad reports nothing newer (develop SpatialAdjustService.cs:2140-2153).",
-      "correction": "When the retrieval finishes, a banner says so. It appears whether or not TurfRad had a newer scan, so check the scan dates after you reload. Why: the server signals completion after every retrieval, whether or not there is new data (SpatialAdjustService.cs:2060-2072)."
+      "developNote": "",
+      "correction": "",
+      "previousText": "When the scan lands, a banner says so."
     },
     {
       "id": "request-scan-data/4/3",
@@ -1123,9 +1321,9 @@
       "guide": "request-scan-data",
       "step": "verify",
       "field": "verify",
-      "text": "You know the toolbar can request a scan, not only display the last one.",
+      "text": "You know the toolbar can fetch the latest scan data from TurfRad, not only display what was last retrieved.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1142,10 +1340,11 @@
           "line": 2527
         }
       ],
-      "note": "Same finding as request-scan-data/tile/2.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/verify/1); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "You know the toolbar can fetch the latest scan data from TurfRad, not only display what was last retrieved. Why: the button brings the scheduled retrieval forward (SpatialAdjustService.cs:978-1002). It does not order a scan."
+      "correction": "",
+      "previousText": "You know the toolbar can request a scan, not only display the last one."
     },
     {
       "id": "request-scan-data/verify/2",

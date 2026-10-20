@@ -36,7 +36,7 @@
       "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
       "date": "2026-10-15T13:05:13-07:00",
       "version": "2.5.261012",
-      "note": "The newest Deployments/beta/* branch, at the same SHA as develop. Content that exists on develop/beta but not on production is beta content (ER-1631)."
+      "note": "The newest Deployments/beta/* branch, at the same SHA as develop. Content that exists on develop/beta but not on production is beta content, handled by the beta-content switch."
     },
     "baseline": {
       "ref": "local develop checkout before the fetch",

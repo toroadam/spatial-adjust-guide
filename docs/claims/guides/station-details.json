@@ -649,9 +649,9 @@
       "guide": "station-details",
       "step": "4",
       "field": "body",
-      "text": "A child whose scan is older shows a modelled value in grey italics, and the parent average is then part measurement and part model.",
+      "text": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model.",
       "type": "calculation",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -707,19 +707,20 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "A modelled sprinkler row shows its modelled VWC in the normal style with an orange calculator icon beside it (sa-table-card.component.html:86-92; sa-table-card.component.less:121-130). Grey italics belong to a station row whose newest scan is not from today (sa-table-card.component.html:29; .less:107-110; sa-table-item.model.ts:59-70). The second half holds: the parent mean mixes measured and modelled sprinklers (sa-dash-table.component.ts:369-383). Only under Option 2; under Option 1 the child shows \"--\" and is left out of the mean (spatial-adjust-course.model.ts:184-188). 373-1135 rev 02 §Table Functionality describes the orange calculator for an individual sprinkler showing a calculated value. Same finding as understanding-vwc/2/3.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-details/4/2); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model. Why: sprinkler rows carry no italic style and flag a modelled reading only with the orange calculator (sa-table-card.component.html:86-92; .less:121-130), while grey italics belong to a station row with no scan today (:29; .less:107-110)."
+      "correction": "",
+      "previousText": "A child whose scan is older shows a modelled value in grey italics, and the parent average is then part measurement and part model."
     },
     {
       "id": "station-details/4/3",
       "guide": "station-details",
       "step": "4",
       "field": "body",
-      "text": "The parent row is marked the same way so you are not misled.",
+      "text": "The parent row carries a grey calculator icon beside its average, so you can tell it includes a modelled reading.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -761,10 +762,11 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "The parent row gets a calculator icon beside its Avg. VWC when any of its sprinklers is modelled (sa-table-card.component.html:29-31; sa-table-card.component.ts:398-400), and the class sa-parent makes that icon grey rather than orange (sa-table-card.component.less:112-116). The row turns grey and italic only when none of its sprinklers was scanned today, because its modelled state follows its newest scan (sa-table-item.model.ts:59-70; sa-dash-table.component.ts:391-396). 373-1135 rev 02 §Table Functionality describes the grey calculator for a station where at least one sprinkler uses a calculated value.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-details/4/3); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The parent row carries a grey calculator icon beside its Avg. VWC, so you can tell the average includes a modelled reading. Why: a station row with a modelled sprinkler gets the calculator with class sa-parent, which colours it grey (sa-table-card.component.html:29-31; .less:112-116), not the child's orange icon or italics."
+      "correction": "",
+      "previousText": "The parent row is marked the same way so you are not misled."
     },
     {
       "id": "station-details/4/4",

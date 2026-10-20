@@ -162,6 +162,44 @@
       "correction": ""
     },
     {
+      "id": "push-failures/before/2",
+      "guide": "push-failures",
+      "step": "before",
+      "field": "before",
+      "text": "Lynx itself must be set up to match Spatial Adjust.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "373-1135 rev 02 p.1 lists the Lynx settings Spatial Adjust depends on: Site Adjust and Course Adjust, Pct. Adjust, and Next Amt.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/before/3",
+      "guide": "push-failures",
+      "step": "before",
+      "field": "before",
+      "text": "Push changes to Lynx lists the settings under Before you start.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "Cross-reference within the guides: push-to-lynx/before/4 to /before/9 carry the settings, each from 373-1135 rev 02 §Settings Configuration, p.1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "push-failures/1/1",
       "guide": "push-failures",
       "step": "1",
@@ -707,9 +745,9 @@
       "guide": "push-failures",
       "step": "4",
       "field": "body",
-      "text": "The stations that failed are still pending, so reopening Push Changes offers exactly them.",
+      "text": "The stations that failed are still pending, but they count as pushed today, so reopening Push Changes lists them under Pushed Today, unticked.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -754,19 +792,20 @@
           "line": 40
         }
       ],
-      "note": "The failed stations are still pending, but they are not offered the way the sentence implies. Every station that was sent, failures included, is stamped as pushed today before the comparison runs (sa-push-changes.service.ts:174-179, sa-dashboard.component.ts:214-231). Reopening Push Changes therefore lists the failures under Pushed Today, unticked (sa-confirm-push-dlg.component.ts:23-24), and the toolbar label drops its count. The dialog is not limited to the failures either. Any pending station the reader did not send earlier is back under Available to Push, ticked (sa-push-changes-station.model.ts:16), and a station the minimum threshold rewrote also stays pending under Pushed Today.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/2); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The stations that failed are still pending, but they count as pushed today, so reopening Push Changes lists them under Pushed Today, unticked. Tick them to send them again. Why: every station that was sent is stamped as pushed today before it is verified (sa-push-changes.service.ts:174-179), and Pushed Today rows arrive unticked (sa-confirm-push-dlg.component.ts:23-24)."
+      "correction": "",
+      "previousText": "The stations that failed are still pending, so reopening Push Changes offers exactly them."
     },
     {
       "id": "push-failures/4/3",
       "guide": "push-failures",
       "step": "4",
       "field": "body",
-      "text": "Untick anything that already went out rather than sending the whole set a second time.",
+      "text": "Tick them to send them again.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -797,13 +836,71 @@
           "line": "174-179"
         }
       ],
-      "note": "There is nothing that already went out to untick. Stations that verified hold the same value as Lynx, so they are no longer pending and are not listed (sa-dashboard.component.ts:659-662). The rows that do arrive ticked are pending stations that were not part of the last push, under Available to Push (sa-push-changes-station.model.ts:16). The failures arrive unticked under Pushed Today (sa-confirm-push-dlg.component.ts:23-24). Read literally, the instruction leaves the failures unsent and sends whatever else is ticked.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/3); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The stations that went through are not listed again, so you cannot send the whole set a second time. Tick the failed stations under Pushed Today, and untick anything under Available to Push that you did not mean to send. Why: verified stations are no longer pending (sa-dashboard.component.ts:659-662), failures return unticked under Pushed Today, and other pending stations return ticked."
+      "correction": "",
+      "previousText": "Untick anything that already went out rather than sending the whole set a second time."
     },
     {
       "id": "push-failures/4/4",
+      "guide": "push-failures",
+      "step": "4",
+      "field": "body",
+      "text": "The stations that went through are not listed again, so the whole set cannot go out twice; untick anything under Available to Push that you did not mean to send.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "174-179"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "214-231"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "23-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/sa-push-changes-station.model.ts",
+          "line": 16
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/2, push-failures/4/3); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/4/5",
       "guide": "push-failures",
       "step": "4",
       "field": "caption",
@@ -828,6 +925,39 @@
       ],
       "note": "Figure caption. Correct: a station that verified matches Lynx and drops out of the pending list, and a failed one does not. Where the failed ones appear is covered under push-failures/4/2.",
       "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/4/6",
+      "guide": "push-failures",
+      "step": "4",
+      "field": "tip",
+      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "type": "prerequisite",
+      "status": "Needs expert",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
+        }
+      ],
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/4/7",
+      "guide": "push-failures",
+      "step": "4",
+      "field": "tip",
+      "text": "Outside that window the push does not reach the course, and no error tells you so.",
+      "type": "behaviour",
+      "status": "Needs expert",
+      "evidence": [],
+      "note": "373-1135 rev 02 gives the window but never says what happens outside it, and IntelliDash has no push-window logic. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "question": "Q3 and Q4: does a push made after the Lynx synchronisation time, or before 11 AM, fail to reach the course, and does anything in Spatial Adjust or Lynx report it? (The push dialog would still verify the values against Lynx and report success.)",
       "developNote": "",
       "correction": ""
     },
