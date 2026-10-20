@@ -46,7 +46,7 @@ changes; `--write` regenerates the tables. Run it again at the script gate (SC-G
 | 2 | "Double Click" | B0 | brand | — | brand, no claim needed | brand name |
 | 3 | "From scan to water" | B0 | title | `understand-spatial-adjust/summary/1`<br>`understand-spatial-adjust/5/1` | Verified<br>Verified | SpatialAdjustService.cs:3001-3012, SpatialAdjustService.cs:3031-3043, sa-push-changes.service.ts:208, lynx-cloud.service.ts:80-95<br>sa-push-changes.service.ts:208, lynx-cloud.service.ts:80-95 |
 | 4 | "Station by station" | B1 | chapter | `understand-spatial-adjust/3/3`<br>`calculation-methods/2/2` | Verified<br>Verified | sa-table-card.component.html:40-47, SpatialAdjustLogic.cs:93-105, SpatialAdjustService.cs:3128-3133<br>SpatialAdjustService.cs:2931-2932, SpatialAdjustService.cs:2973-2974, SpatialAdjustService.cs:3004-3015, SpatialAdjustService.cs:3031-3043, docs/claims/calculations.md §2.2 The chain, per station, per day |
-| 5 | "Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station." | B1 | vo | `understand-spatial-adjust/summary/1`<br>`calculation-methods/2/2` | Verified<br>Verified | SpatialAdjustService.cs:3001-3012, SpatialAdjustService.cs:3031-3043, sa-push-changes.service.ts:208, lynx-cloud.service.ts:80-95<br>SpatialAdjustService.cs:2931-2932, SpatialAdjustService.cs:2973-2974, SpatialAdjustService.cs:3004-3015, SpatialAdjustService.cs:3031-3043, docs/claims/calculations.md §2.2 The chain, per station, per day |
+| 5 | "In IntelliDash, Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station." | B1 | vo | `understand-spatial-adjust/before/1`<br>`understand-spatial-adjust/summary/1`<br>`calculation-methods/2/2` | Verified<br>Verified<br>Verified | 373-1135 rev 02 §introduction, app-routing.module.ts:19-23<br>SpatialAdjustService.cs:3001-3012, SpatialAdjustService.cs:3031-3043, sa-push-changes.service.ts:208, lynx-cloud.service.ts:80-95<br>SpatialAdjustService.cs:2931-2932, SpatialAdjustService.cs:2973-2974, SpatialAdjustService.cs:3004-3015, SpatialAdjustService.cs:3031-3043, docs/claims/calculations.md §2.2 The chain, per station, per day |
 | 6 | "Measure" | B2 | chapter | `understand-spatial-adjust/2/1` | Verified | 373-1135 rev 02 §introduction, SpatialAdjustService.cs:2505-2520 |
 | 7 | "Each station's average VWC comes from a TurfRad moisture scan, dated beside the station name." | B2 | vo | `understand-spatial-adjust/2/2`<br>`understand-spatial-adjust/2/3`<br>`request-scan-data/1/4` | Verified<br>Verified<br>Verified | sa-table-card.component.html:22-32, sa-dash-table.component.ts:365-396, 373-1135 rev 02 §Table Functionality<br>sa-table-card.component.html:22-32, sa-dash-table.component.ts:365-396, 373-1135 rev 02 §Table Functionality<br>sa-table-card.component.html:22-25 |
 | 8 | "See" | B3 | chapter | `dashboard-overview/2/1`<br>`map-navigation/1/1` | Verified<br>Verified | sa-dashboard.component.html:2-16<br>sa-dash-map.component.ts:314-315 |
@@ -67,7 +67,7 @@ changes; `--write` regenerates the tables. Run it again at the script gate (SC-G
 | 23 | "© 2026 The Toro Company. All rights reserved." | B8 | brand | — | brand, no claim needed | end-card copy decided at SC-CTA |
 | 24 | "Target minus measured, station by station. That is the whole idea." | B8 | vo | `understanding-vwc/4/4` | Verified | SpatialAdjustService.cs:3033, SpatialAdjustService.cs:3024-3028, sa-algorithm.service.ts:58-60 |
 
-**24 items:** 10 VO lines (198 words) and 14 on-screen labels, citing 42 distinct claim IDs (42 Verified).
+**24 items:** 10 VO lines (200 words) and 14 on-screen labels, citing 43 distinct claim IDs (43 Verified).
 
 **Ledger:** 871 claims; production `1aa4f28622cc3cc9637f0d61a438bf16bcf01924`, develop `bd39f465cf5a7ae0356a59825250b36044085714`, fetched 2026-10-19T17:41:40Z.
 <!-- claims:end -->
@@ -187,3 +187,12 @@ new copy).
 Unchanged: the title "From scan to water", the chapter labels Measure, See, Set the target, Calculate, Review and Push
 to Lynx, and the end card. The title, the lockup and the end card are new label items in `episode.json`; the series
 word "Double Click" and the end-card copy are brand items.
+
+### Phase 3: the script lock
+
+One change after the claims check, made when the script was timed in [`vo-script.md`](vo-script.md) and re-checked
+with `node video/showcase/check-claims.mjs --strict --write` (exit 0) before the script gate SC-G2:
+
+| Item | Checked (phase 2) | Locked (phase 3) | Why |
+|---|---|---|---|
+| `vo-b1-hook` | "Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station." | "In IntelliDash, Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station." | The film never said where Spatial Adjust lives, and the plan's intelligibility check needs Brian to say IntelliDash once. The two words are Verified: "Spatial Adjust is a feature of IntelliDash, not a separate product." (`understand-spatial-adjust/before/1`). The script grows from 198 to 200 words, the top of the 150-200 range, and from 1,162 to 1,179 characters after the lexicon. |
