@@ -136,7 +136,7 @@ that is after `transformGuide()`'s earlier edits.
 | `minimum-threshold` | 5 "Save and confirm at push time" | The threshold only takes effect when you push, and this step opens Push Changes to do it |
 | `push-failures` | 4 "Re-push only the failures" | A re-push is a push. A retry made after the synchronisation time is the likeliest silent miss. |
 | `verify-results` | 1 "It writes first, station by station" | The guide follows one push from the moment it is sent, and its success message is exactly what an out-of-window push would also show. The raw export titles this step "It reads Lynx first". `src/transform-export.mjs` reorders it. |
-| `seasonal-profiles` | 4 "Push once you agree with them" | Target Profiles is not in the shipping build, but this step is an ordinary push |
+| `seasonal-profiles` | 4 "Push once you agree with them" | Target Profiles ships in production, and this step is an ordinary push |
 
 Considered and rejected:
 

@@ -13,8 +13,8 @@ Owner: feature 3. See the shard map in [`README.md`](README.md).
 
 - Every citation is to the production SHA pinned in [`sources.json`](sources.json),
   `1aa4f28622cc3cc9637f0d61a438bf16bcf01924`, unless it says **develop**
-  (`bd39f465cf5a7ae0356a59825250b36044085714`). Production is not yet confirmed by the release
-  owner (see [`README.md`](README.md#how-production-was-identified)).
+  (`bd39f465cf5a7ae0356a59825250b36044085714`). Production was confirmed on 2026-10-19 (see
+  [`README.md`](README.md#how-production-was-identified)).
 - IntelliDash is private and this repository is public, so the arithmetic is described in prose
   and cited by `path:line`. No code is reproduced. Labels a user sees are quoted from
   `site/src/assets/i18n/en-us.json`.

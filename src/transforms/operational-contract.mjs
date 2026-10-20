@@ -65,7 +65,8 @@ export const PUSH_STEPS = [
   { guide: 'push-failures', step: 4, title: 'Re-push only the failures' },
   // The export titles this step 'It reads Lynx first'. src/transform-export.mjs reorders it.
   { guide: 'verify-results', step: 1, title: 'It writes first, station by station' },
-  // Target Profiles is not in the shipping build, but this step is an ordinary push.
+  // Target Profiles ships in production (its guides are labelled New in IntelliDash), and this
+  // step is an ordinary push.
   { guide: 'seasonal-profiles', step: 4, title: 'Push once you agree with them' },
 ];
 
