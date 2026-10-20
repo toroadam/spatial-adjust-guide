@@ -525,9 +525,9 @@
       "guide": "dashboard-overview",
       "step": "1",
       "field": "tip",
-      "text": "Note. Avg / High / Low moisture are computed across every station in the selected course, not just the ones visible in the table.",
+      "text": "Note. The average, high and low VWC figures summarise the areas of the selected course that were scanned today, whatever the table is showing.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -576,10 +576,11 @@
           "ref": "373-1135 rev 02 §Header"
         }
       ],
-      "note": "The summary is built from the selected course's areas (sa-dashboard.component.ts:531), so it ignores the table's drill-down and filter, as the note says. It is not computed across every station, though. On production saShowCurrentOnly is true (environment.toro-prod.ts:87), so only areas whose last scan is today count (spatial-adjust-main.component.ts:77). AVG. VWC is the mean of those areas' averages, not of their stations (:86), and HIGH and LOW are the lowest and highest of today's scans (:87-88; spatial-adjust-course.model.ts:98-99). Stations last scanned on an earlier day are left out. 373-1135 rev 02 §Header calls it \"the average VWC for the entire site\".",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/1/7); docs/text-corrections.md §24 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Note. AVG. VWC, HIGH and LOW summarise the areas of the selected course that were scanned today, whatever the table is showing. Why: the summary reads every area of the course but on production keeps only those whose last scan is today (spatial-adjust-main.component.ts:77), and AVG. VWC averages the area averages (:86)."
+      "correction": "",
+      "previousText": "Note. Avg / High / Low moisture are computed across every station in the selected course, not just the ones visible in the table."
     },
     {
       "id": "dashboard-overview/2/1",
@@ -608,9 +609,9 @@
       "guide": "dashboard-overview",
       "step": "2",
       "field": "body",
-      "text": "Every station is a pin coloured by its latest measured VWC against the four moisture bands in the legend.",
+      "text": "Each sprinkler of a station scanned in the past seven days is a pin.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -652,13 +653,122 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Three differences on production. Pins are drawn per sprinkler record, so a station with two sprinklers has two circles (sa-dashboard.component.ts:517-519, sa-dash-map.component.ts:307). A pin whose latest scan is not from today is drawn clear rather than coloured (:315, with saShowCurrentOnly true at environment.toro-prod.ts:87), as 373-1135 rev 02 §Map Functionality describes: coloured when scanned today, clear when scanned within the past 7 days. And the Layers default on production is Enabled Stations (environment.toro-prod.ts:88), so disabled stations are not drawn until the user picks All Stations (sa-dash-map.component.ts:312).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/2/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Each sprinkler of a station scanned in the past seven days is a pin. Pins scanned today are coloured by measured VWC against the four moisture bands in the legend; pins whose latest scan is older are drawn clear, and disabled stations stay hidden while Layers is set to Enabled Stations, the default. Why: the map draws one circle per sprinkler record and colours it only when its scan is from today (sa-dash-map.component.ts:307, :315), and production defaults Layers to Enabled Stations (environment.toro-prod.ts:88)."
+      "correction": "",
+      "previousText": "Every station is a pin coloured by its latest measured VWC against the four moisture bands in the legend."
     },
     {
       "id": "dashboard-overview/2/3",
+      "guide": "dashboard-overview",
+      "step": "2",
+      "field": "body",
+      "text": "A pin scanned today is coloured by its measured VWC against the four moisture bands in the legend, and a pin last scanned on an earlier day is drawn clear.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/2/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "dashboard-overview/2/4",
+      "guide": "dashboard-overview",
+      "step": "2",
+      "field": "body",
+      "text": "Disabled stations stay hidden while Layers is set to Enabled Stations, the default.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/2/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "dashboard-overview/2/5",
       "guide": "dashboard-overview",
       "step": "2",
       "field": "body",
@@ -701,7 +811,7 @@
       "correction": ""
     },
     {
-      "id": "dashboard-overview/2/4",
+      "id": "dashboard-overview/2/6",
       "guide": "dashboard-overview",
       "step": "2",
       "field": "caption",
@@ -723,7 +833,7 @@
       "correction": ""
     },
     {
-      "id": "dashboard-overview/2/5",
+      "id": "dashboard-overview/2/7",
       "guide": "dashboard-overview",
       "step": "2",
       "field": "caption",
@@ -752,7 +862,7 @@
       "correction": ""
     },
     {
-      "id": "dashboard-overview/2/6",
+      "id": "dashboard-overview/2/8",
       "guide": "dashboard-overview",
       "step": "2",
       "field": "tip",
@@ -832,9 +942,9 @@
       "guide": "dashboard-overview",
       "step": "3",
       "field": "body",
-      "text": "The chart above the table plots the holes you pick in the multiselect.",
+      "text": "The chart above the table plots the areas, holes or stations you pick in its multiselect, whichever level the table is showing.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -869,13 +979,61 @@
           "ref": "373-1135 rev 02 §Graph Functionality"
         }
       ],
-      "note": "The multiselect lists whatever level the table is showing: areas at the course level, holes inside an area, stations inside a hole. The chart fills the list and its SELECT_AREAS / SELECT_HOLES / SELECT_STATIONS placeholder from the table's current rows (sa-dash-chart.component.ts:83-93, :108-150). 373-1135 rev 02 §Graph Functionality agrees: \"Based on selected areas, holes, or stations\". Separately, on screens 1400 px wide or narrower the chart is hidden altogether (sa-dashboard.component.less:91-103).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/3/2); docs/text-corrections.md §24 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The chart above the table plots the areas, holes or stations you pick in its multiselect, whichever level the table is showing. On screens 1400 px wide or narrower the chart is hidden. Why: the multiselect is filled from the table's current rows (sa-dash-chart.component.ts:83-93, :108-150), and the layout hides the chart at that width (sa-dashboard.component.less:91-103)."
+      "correction": "",
+      "previousText": "The chart above the table plots the holes you pick in the multiselect."
     },
     {
       "id": "dashboard-overview/3/3",
+      "guide": "dashboard-overview",
+      "step": "3",
+      "field": "body",
+      "text": "On screens 1400 px wide or narrower the chart is hidden.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.ts",
+          "line": "83-93"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.ts",
+          "line": "108-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-chart/sa-dash-chart.component.html",
+          "line": "13-24"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.less",
+          "line": "91-103"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Graph Functionality"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/3/2); docs/text-corrections.md §24 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "dashboard-overview/3/4",
       "guide": "dashboard-overview",
       "step": "3",
       "field": "body",
@@ -932,7 +1090,7 @@
       "correction": ""
     },
     {
-      "id": "dashboard-overview/3/4",
+      "id": "dashboard-overview/3/5",
       "guide": "dashboard-overview",
       "step": "3",
       "field": "caption",
@@ -961,7 +1119,7 @@
       "correction": ""
     },
     {
-      "id": "dashboard-overview/3/5",
+      "id": "dashboard-overview/3/6",
       "guide": "dashboard-overview",
       "step": "3",
       "field": "caption",
@@ -1330,9 +1488,9 @@
       "guide": "dashboard-overview",
       "step": "5",
       "field": "body",
-      "text": "Push Changes counts stations with an unpushed edit, and the green counter beside it counts stations already pushed today.",
+      "text": "Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today; the green counter beside it counts stations already pushed today.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1381,10 +1539,11 @@
           "ref": "373-1135 rev 02 §Push Changes Functionality"
         }
       ],
-      "note": "Same finding as push-to-lynx/1/2 (feature 4). A station is pending when it is enabled down its area and hole and its % Adj. differs from what Lynx holds (sa-dashboard.component.ts:659-662). % Adj. starts as the suggestion (:597-598), so no edit is needed. The number in the button counts only pending stations not already pushed today (sa-main-toolbar.component.ts:153-160). The green counter is the server's count of stations pushed today (:404-414) with tooltip SPATIAL_ADJUST.PUSHED_TODAY \"Pushed Today\" (sa-main-toolbar.component.html:44-47); that half is right.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/5/3); docs/text-corrections.md §15 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today; the green counter beside it counts stations already pushed today. Why: pending means \"differs from Lynx\", suggestions included (sa-dashboard.component.ts:597-598, :659-662), and the label leaves out stations pushed today (sa-main-toolbar.component.ts:153-160)."
+      "correction": "",
+      "previousText": "Push Changes counts stations with an unpushed edit, and the green counter beside it counts stations already pushed today."
     },
     {
       "id": "dashboard-overview/5/4",
@@ -1478,9 +1637,9 @@
       "guide": "dashboard-overview",
       "step": "verify",
       "field": "verify",
-      "text": "The map, chart and table all name the same course.",
+      "text": "The map, chart and table all show the course selected in the toolbar.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1525,10 +1684,11 @@
           "line": 662
         }
       ],
-      "note": "None of the three panels prints the course's name. The table's first crumb is STRINGS.COURSE \"Course\" (sa-dash-table.component.ts:422-429), the chart header at course level reads the same word (:301-303), and the map has no title. The name appears only in the toolbar's course dropdown, and only when the site has more than one Lynx course (sa-main-toolbar.component.html:9-18). All three panels do draw the same course's data, loaded for the selected course (sa-dashboard.component.ts:440-540).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/verify/1); docs/text-corrections.md §24 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The map, chart and table all show the course selected in the toolbar. Why: the panels are loaded from one course's data (sa-dashboard.component.ts:440-540), but none prints its name; the breadcrumb and the chart header read \"Course\" (sa-dash-table.component.ts:301-303, :422-429)."
+      "correction": "",
+      "previousText": "The map, chart and table all name the same course."
     },
     {
       "id": "dashboard-overview/verify/2",
@@ -1618,9 +1778,9 @@
       "guide": "dashboard-overview",
       "step": "verify",
       "field": "verify",
-      "text": "The station count on the All Stations tab matches the number of pins on the map.",
+      "text": "The station count on the All Stations tab is the number of stations in the course.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1651,10 +1811,54 @@
           "line": 88
         }
       ],
-      "note": "Retyped from label to behaviour. The All Stations count is the number of unique station names in the course (sa-dashboard.component.ts:521-528). The map draws one circle per sprinkler record (:517-519, sa-dash-map.component.ts:307), so multi-sprinkler stations add pins, and on production the Layers default is Enabled Stations (environment.toro-prod.ts:88), which hides disabled stations (sa-dash-map.component.ts:312). The numbers match only when every station has one sprinkler and either all are enabled or Layers is set to All Stations.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/verify/4); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The station count on the All Stations tab is the number of stations in the course. The map can show more pins, one per sprinkler, and hides disabled stations while Layers is set to Enabled Stations. Why: the count is unique station names (sa-dashboard.component.ts:521-528), while the map draws each sprinkler record (sa-dash-map.component.ts:307) and production defaults Layers to Enabled Stations (environment.toro-prod.ts:88)."
+      "correction": "",
+      "previousText": "The station count on the All Stations tab matches the number of pins on the map."
+    },
+    {
+      "id": "dashboard-overview/verify/5",
+      "guide": "dashboard-overview",
+      "step": "verify",
+      "field": "verify",
+      "text": "The map need not match it, because it draws one pin per sprinkler and by default hides disabled stations.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-528"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "23-28"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "307-312"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 88
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/verify/4); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
     }
   ]
 }

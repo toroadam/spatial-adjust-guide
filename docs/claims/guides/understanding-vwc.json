@@ -854,9 +854,9 @@
       "guide": "understanding-vwc",
       "step": "5",
       "field": "body",
-      "text": "An italic average means at least one child is modelled.",
+      "text": "A grey calculator icon on a hole or area row means at least one station beneath it is modelled; the average turns grey and italic only when nothing beneath it was scanned today.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -898,10 +898,11 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Retyped from calculation to behaviour. The italic class on an aggregate row follows the row's own isEstimated, which is true only when the row's newest scan is not from today (sa-table-item.model.ts:59-70), that is, when nothing beneath it was scanned today. When at least one child is modelled the row instead gets a grey calculator icon (hasEstimatedChildren, spatial-adjust-course.model.ts:102, :36; sa-table-card.component.html:29-31; .less:113-117). 373-1135 rev 02 §Table Functionality describes the grey calculator the same way.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (understanding-vwc/5/3); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "A grey calculator icon on a hole or area row means at least one station beneath it is modelled; the average turns grey and italic only when nothing beneath it was scanned today. Why: aggregate rows take the grey calculator from hasEstimatedChildren (spatial-adjust-course.model.ts:102) and the italic style only from their own isEstimated, which follows their newest scan (sa-table-item.model.ts:59-70)."
+      "correction": "",
+      "previousText": "An italic average means at least one child is modelled."
     },
     {
       "id": "understanding-vwc/5/4",

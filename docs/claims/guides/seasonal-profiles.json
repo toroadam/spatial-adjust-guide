@@ -137,9 +137,9 @@
       "guide": "seasonal-profiles",
       "step": "note",
       "field": "note",
-      "text": "Target Profiles is still in development and is not in the shipping build yet.",
+      "text": "The Target Profiles tab lists five named profile slots for each Lynx course.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -161,42 +161,22 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
           "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 52
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 55
         }
       ],
-      "note": "Target Profiles ships. The menu entry is live on production (sa-settings-dlg.component.ts:55); at the 2026-08-13 baseline it was commented out (docs/claims/changed-surfaces.md). The pane renders from the same build (sa-settings-dlg.component.html:35, :177-226). It was first built on branch feature/260812_target_profiles (menu entry :52, pane :177-226), merged to develop on 2026-09-14, and is the same on develop (:55). The status is Wrong rather than Not shipping because production contains the feature.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (seasonal-profiles/note/1); docs/text-corrections.md §11 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Target Profiles is in the shipping build. Why: the Settings dialog's Target Profiles entry is live on production (sa-settings-dlg.component.ts:55) and its pane renders (sa-settings-dlg.component.html:177-226)."
+      "correction": "",
+      "previousText": "Target Profiles is still in development and is not in the shipping build yet."
     },
     {
       "id": "seasonal-profiles/note/2",
       "guide": "seasonal-profiles",
       "step": "note",
       "field": "note",
-      "text": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ.",
+      "text": "If your settings dialog has no Target Profiles entry, your IntelliDash has not yet been updated to the release that includes it.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -218,27 +198,6 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
           "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 52
-        },
-        {
-          "source": "intellidash",
-          "ref": "branch:feature/260812_target_profiles",
-          "sha": "53b5c5cde1128efabad6e1b79b9903d49a2d7c8c",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "177-226"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 55
         },
         {
           "source": "intellidash",
@@ -269,10 +228,11 @@
           "line": "28-31"
         }
       ],
-      "note": "The tab is not \"being built\"; it ships. The rest holds: the shipped tab does list five named slots, and the figures show the earlier card design. The shipped tab is a table of five fixed slots per Lynx course, named Spring, Summer, Fall, Winter and Tournament until renamed (sa-settings-dlg.component.ts:103-109, :383-392; the server rejects any index outside 0-4, SpatialAdjustLogic.cs:28-31). Its columns are Target Profile (an editable name), Last Updated, Stations, Update from Current and Apply Profile (sa-settings-dlg.component.html:195-206).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (seasonal-profiles/note/2); docs/text-corrections.md §11 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The screens here show an earlier design; the shipped tab lists five named profile slots per Lynx course, so your screen will look different. Why: the shipped pane is a five-slot table (sa-settings-dlg.component.ts:103-109, :383-392; sa-settings-dlg.component.html:195-206), not the cards in the figures."
+      "correction": "",
+      "previousText": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ."
     },
     {
       "id": "seasonal-profiles/before/1",
@@ -315,9 +275,9 @@
       "guide": "seasonal-profiles",
       "step": "1",
       "field": "title",
-      "text": "Keep the list short",
+      "text": "Plan what goes in the five slots",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -348,10 +308,11 @@
           "line": "28-31"
         }
       ],
-      "note": "The list length is fixed at five slots per course (SpatialAdjustLogic.cs:28-31; sa-settings-dlg.component.ts:383-392); there is nothing to keep short.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (seasonal-profiles/1/1); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Plan what goes in the five slots. Why: the tab always has five slots per course and cannot grow (sa-settings-dlg.component.ts:383-392; SpatialAdjustLogic.cs:28-31)."
+      "correction": "",
+      "previousText": "Keep the list short"
     },
     {
       "id": "seasonal-profiles/1/2",
@@ -438,9 +399,9 @@
       "guide": "seasonal-profiles",
       "step": "2",
       "field": "body",
-      "text": "Applying rewrites every target and recalculates every suggestion.",
+      "text": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -478,10 +439,11 @@
           "line": 447
         }
       ],
-      "note": "Applying writes the stored Target VWC to each station whose name is in the profile (SpatialAdjustService.cs:861-936) and recalculates today's suggestion where today's adjustment exists (:921-924). Stations not in the profile keep their targets, and the confirmation says so when the counts differ: SPATIAL_ADJUST.PROFILE_UNMATCHED_STATIONS_WARNING \"Matching stations will be updated, while unmatched stations will be ignored.\" (sa-settings-dlg.component.html:282-288). A station with no adjustment record at all is skipped (SpatialAdjustService.cs:911-915).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (seasonal-profiles/2/2); docs/text-corrections.md §14 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets. Why: apply writes only the stations named in the profile (SpatialAdjustService.cs:861-936), as the confirmation's unmatched-stations warning says."
+      "correction": "",
+      "previousText": "Applying rewrites every target and recalculates every suggestion."
     },
     {
       "id": "seasonal-profiles/2/3",
@@ -779,9 +741,9 @@
       "guide": "seasonal-profiles",
       "step": "verify",
       "field": "verify",
-      "text": "The intended profile is marked active.",
+      "text": "The dashboard names the intended profile above the table, for example “Summer Target Profile”.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -840,10 +802,11 @@
           "line": "326-332"
         }
       ],
-      "note": "The profile list has no active marker: its columns are name, Last Updated, Stations, Update from Current and Apply Profile (sa-settings-dlg.component.html:195-219). Applying sets IsApplied on that profile and clears it on the course's other slots (SpatialAdjustService.cs:698-707), and the dashboard then shows SPATIAL_ADJUST.N_TARGET_PROFILE \"{{name}} Target Profile\" in the bar above the table (sa-dashboard.component.html:30-32). Any later Target VWC edit, single or bulk, clears the flag and the label (SpatialAdjustService.cs:1231, :2402, :2432-2447; sa-dashboard.component.ts:326-332).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (seasonal-profiles/verify/1); docs/text-corrections.md §13 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The dashboard names the applied profile above the table as \"<name> Target Profile\"; the profile list itself has no active marker. Why: the list has no such column (sa-settings-dlg.component.html:195-219), while the dashboard shows SPATIAL_ADJUST.N_TARGET_PROFILE for the applied profile (sa-dashboard.component.html:30-32)."
+      "correction": "",
+      "previousText": "The intended profile is marked active."
     },
     {
       "id": "seasonal-profiles/verify/2",

@@ -267,9 +267,9 @@
       "guide": "threshold-questions",
       "step": "1",
       "field": "body",
-      "text": "With a 10 percent threshold set, the table still shows 6 — the threshold has not been applied yet, because nothing has been pushed.",
+      "text": "With a 10 percent threshold set, the table still shows 6, and it always will: the threshold is applied only in the Push Changes dialog and to what is sent to Lynx, never to the table.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -311,10 +311,11 @@
           "ref": "docs/claims/calculations.md §5 Minimum Threshold"
         }
       ],
-      "note": "The table shows 6 whether or not anything has been pushed. The rewrite is made on the push list and substituted only in the values sent (sa-main-toolbar.component.ts:433-460; sa-confirm-push-dlg.component.ts:74-82; sa-push-changes.service.ts:207). After a push, Current shows 10 while Suggested and % Adj. still show 6, so the station stays pending (sa-dashboard.component.ts:659-662).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (threshold-questions/1/3); docs/text-corrections.md §20 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "With a 10 percent threshold set, the table still shows 6, and it always will: the threshold is never applied to the table, only to the Push Changes dialog and to what is sent to Lynx. Why: the rewrite is made on the push list and substituted when the push is sent, and nothing writes it back to Suggested or % Adj. (sa-main-toolbar.component.ts:433-460; sa-confirm-push-dlg.component.ts:74-82)."
+      "correction": "",
+      "previousText": "With a 10 percent threshold set, the table still shows 6 — the threshold has not been applied yet, because nothing has been pushed."
     },
     {
       "id": "threshold-questions/1/4",

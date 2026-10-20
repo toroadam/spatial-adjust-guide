@@ -151,8 +151,10 @@ The extractor sets the type with a heuristic, and a verifier may change it.
 - `guide-key` is the key in `GUIDES`, for example `push-to-lynx`.
 - `step` is the 1-based step number for anything inside a step. Otherwise it is one of `tile`,
   `summary`, `where`, `note`, `before` or `verify`. `tile` is the guide's card in the catalogue,
-  meaning the tile title plus the tile summary. `note` is the guide's "Concept." callout, which
-  the four Target Profiles guides use for their "not in the shipping build" disclaimer.
+  meaning the tile title plus the tile summary. `note` is the guide's note callout before step 1.
+  The four Target Profiles guides use it for their shipping notice, labelled "New in IntelliDash."
+  (any other guide's note is labelled "Note."). It was labelled "Concept." before
+  `docs/text-corrections.md` §11.
 - `n` is the 1-based sentence index within that bucket. Inside a step it counts across the fields
   in this order: title, body, caption, tip. The tip's label and its text count as one callout.
 
