@@ -91,7 +91,7 @@ class Gfx:
         return [self.add(f'{aid}_{i}', ln, css, words=True, chars=True, pad=4) for i, ln in enumerate(lines)]
 
     def common(self, url, lockup=None, cta='Get started at', guide=None, legal='&copy; 2026 The Toro Company. All rights reserved.'):
-        """End-card assets. url: the address in the pill (PI-ICNT-SW-1081-3 supplies it). lockup: None, or
+        """End-card assets. url: the address in the pill (the end card supplies it). lockup: None, or
         dict(icon=<svg path>, wordmark=<svg path>, icon_aspect=<icon width / height>, wordmark_cut=<width of the icon part of
         the wordmark SVG / height>, wordmark_aspect=<wordmark SVG width / height>) for the logo assets 'toro2x', 'wordmark'
         and 'wordmark_end'. guide: optional second line under the CTA."""

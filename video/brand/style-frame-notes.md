@@ -1,6 +1,6 @@
 # Style frame notes (gate G3)
 
-**Feature:** PI-ICNT-SW-1081-4 · **Gate:** G3, style frame, in [`../approvals.md`](../approvals.md) · **Spec:** [`motion-system.md`](motion-system.md) · **Generator:** [`../edit/style_frame.py`](../edit/style_frame.py)
+**Gate:** G3, style frame, in [`../approvals.md`](../approvals.md) · **Spec:** [`motion-system.md`](motion-system.md) · **Generator:** [`../edit/style_frame.py`](../edit/style_frame.py)
 
 The style frame is one still of every brand element the videos draw, rendered by the compositor itself from `brand.py`, so what is reviewed is what the pipeline will render. Version v1 is the set for gate G3.
 
@@ -36,7 +36,7 @@ The window shot shows the guide site's own recreation of Spatial Adjust, not Int
 
 ## What a still cannot show
 
-Eases, durations, the title spring in motion, the wall drift and the sound targets (-14 LUFS integrated, -1 dBTP true peak, music 3 dB under the voice with a 9 dB duck) are specified in `motion-system.md` but only visible in a moving render; the pilot draft (PI-ICNT-SW-1084) is where they are first seen together.
+Eases, durations, the title spring in motion, the wall drift and the sound targets (-14 LUFS integrated, -1 dBTP true peak, music 3 dB under the voice with a 9 dB duck) are specified in `motion-system.md` but only visible in a moving render; the pilot draft is where they are first seen together.
 
 ## Decision
 

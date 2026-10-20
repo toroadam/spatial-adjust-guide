@@ -1,6 +1,6 @@
 # End-card URL options (gate G4)
 
-**Feature:** PI-ICNT-SW-1081-3 · **Gate:** G4, end-card URL, in [`../approvals.md`](../approvals.md) · **Version:** v1 · **Data:** [`end-card.json`](end-card.json) · **Code:** `end_card` in [`../edit/lib/cards.py`](../edit/lib/cards.py)
+**Gate:** G4, end-card URL, in [`../approvals.md`](../approvals.md) · **Version:** v1 · **Data:** [`end-card.json`](end-card.json) · **Code:** `end_card` in [`../edit/lib/cards.py`](../edit/lib/cards.py)
 
 Every Spatial Adjust video ends on the end card: the Spatial Adjust lockup, one line of call to action, a URL pill and the legal line, held as the last frame (see [`motion-system.md`](motion-system.md)). The iCentral series pointed at its own product site; the Spatial Adjust series needs its own destination, and that is a business decision, hence this gate. Three options:
 
@@ -10,7 +10,7 @@ Every Spatial Adjust video ends on the end card: the Spatial Adjust lockup, one 
 | **Who it serves** | Superintendents and Toro staff who want to do what the video showed: the guides teach the same Spatial Adjust tasks step by step on a reproduction of the app, so the end card hands the viewer to the next step | Prospects and customers browsing Toro products: it sells Spatial Adjust rather than teaching it | Any audience; suits a video played inside a page that already is the destination (the guides site itself, an LMS, a sales deck) |
 | **Stability of the URL** | Good today, but it will change: the site is GitHub Pages under a personal account, and the owner plans to move it to Azure web services behind Toro SSO. When it moves, every published video still shows the old address until it is re-rendered. Re-rendering is cheap (the URL is data in `end-card.json`), but copies already posted elsewhere keep the old address | High, if marketing commits to the address; product pages are renamed in site redesigns, outside this team's control | Nothing can go stale |
 | **Public?** | Yes today: anyone can open it (checked 2026-10-19, HTTP 200). Behind Toro SSO later, only people with a Toro sign-in can open it, which may exclude customers | Yes | Not applicable |
-| **Fit with the series** | Strong: the guides site is also where the videos will be delivered (ER-1621), so a viewer moves between video and guide on one site | Weak for a how-to series: it sends a viewer who wants to learn away from the guides | Neutral: no dead link ever, but no next step either |
+| **Fit with the series** | Strong: the guides site is also where the videos will be delivered, so a viewer moves between video and guide on one site | Weak for a how-to series: it sends a viewer who wants to learn away from the guides | Neutral: no dead link ever, but no next step either |
 
 ## Decision
 

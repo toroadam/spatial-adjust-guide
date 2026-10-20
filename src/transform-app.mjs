@@ -310,11 +310,10 @@ export function transformApp(src) {
 
   // The estimated-value marker was half-drawn: the reproduction dims and italicises the number
   // but never draws the icon that sits beside it, in any of the three places the table renders
-  // one. The criterion on PERS-344 reads "calculator icons replace the mock's grey italics" and
-  // that is not what the product does — GREY ITALICS ARE CORRECT, the icon is additional:
-  //
-  //   sa-table-card.component.less:107   &.sa-vwc-estimated { color: darkgray; font-style: italic; }
-  //   sa-table-card.component.html:31    <fa-icon *ngIf="..." icon="calculator"></fa-icon>
+  // one. The audit's acceptance criterion read "calculator icons replace the mock's grey italics"
+  // and that is not what the product does — GREY ITALICS ARE CORRECT, the icon is additional. The
+  // estimated class greys and italicises the reading (sa-table-card.component.less:107-110), and
+  // the same cell draws the calculator icon (sa-table-card.component.html:29-31).
   //
   // Both are applied to the same cell, so nothing is being replaced and the existing styling is
   // left alone. What matters is that the icon is the only marker carried into the push dialog
