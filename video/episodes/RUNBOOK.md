@@ -49,10 +49,10 @@ Everything else on screen, and every spoken word, cites Verified claims. The epi
 | `title` | string | the guide title as the site renders it at `#/<key>` |
 | `status` | `draft`, `script-locked`, `captured`, `edited`, `verified`, `approved` | the episode's own state, moved on by the procedure |
 | `durationTarget` | [min, max] seconds | the series range, [60, 180], unless the series entry has a `runtimeRange` |
-| `source` | `demo` or `recreation` | where the take is captured; `recreationPath` optional for a recreation |
+| `source` | `demo` or `recreation` | where the take is captured: `demo` for every episode that films IntelliDash, even when some chapters are `mixed`; a whole-recreation episode is `recreation`, with the optional `recreationPath` and `recreationFigure` ([`README.md`](README.md#top-level-fields)) |
 | `mapPolicy` | `restyle` (default), `blur`, `frame-out` | gate G2 |
 | `allowClicks` | read-only clicks | empty unless a read-only click is decided and recorded |
-| `demoWriteClicks[]` | `{name, target, reason, route, safetyRef, outcome, chapter}` | `route` is `"/demo"`; `safetyRef` is a key of the Demo Mode writes table in [`README.md`](README.md#demo-mode-writes); `outcome` is `demo` or `recreation` (`recreation` for a short-circuited write); `chapter` is the chapter that films it |
+| `demoWriteClicks[]` | `{name, target, reason, route, safetyRef, outcome, chapter}` | `route` is `"/demo"`; `safetyRef` is a key of the Demo Mode writes table in [`README.md`](README.md#demo-mode-writes); `outcome` is `demo` or `recreation` (`recreation` for a short-circuited write); `chapter` is the chapter that films it; the schema allows these clicks only on a `demo` episode |
 | `claims` | claim IDs | every claim the episode cites |
 | `titleCard` | `{text, claims}` | `text` is `"Double Click: <title>"`; `claims` are the guide's catalogue-tile claims |
 | `chapters[]` | `{id, step, label, highlight: {label, selector}, source, sourceReason, onScreen: [{text, stateShown, claims}]}` | one per rendered step, in order; `label` is the step title exactly; `highlight.label` is a bold label of the step and `selector` finds it on screen; `source` is `demo`, `recreation` or `mixed`, and the last two need a `sourceReason` |
