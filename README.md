@@ -596,6 +596,23 @@ worth knowing:
   guides: `request-scan-data` step 4 covers the update banner's Dismiss, and the guides that save
   Settings (`calculation-settings`, `calculation-methods`, `minimum-threshold` and `preferences`)
   cover the Discard changes confirmation.
+- **Beta guide candidates.** Two beta surfaces, behaviour that develop and the beta environment
+  have and production does not, cannot be drawn by the reproduction, so they have no guide text
+  and are not published in either release mode. [`docs/claims/beta-surfaces.md`](docs/claims/beta-surfaces.md)
+  is the source for both, with the develop citations. The one beta surface the reproduction can
+  draw, `stale-scans-kept`, is the beta step "A stale course keeps its last scans" in
+  `calculation-questions`.
+  - **`suggestion-held-without-new-scan`.** On a day when TurfRad has loaded nothing new, beta
+    writes today's suggestion once, at the first processing run, and later runs leave it alone,
+    modelled from the older of the station's two most recent days. Production recalculates it on
+    every run. No single figure differs from production. A guide would need the reproduction to
+    show a value changing over the day, for example two figures of the same row at two times of
+    day, and the experts to say whether the "older of the two" input is intended.
+  - **`scan-day-from-load-time`.** Beta decides whether a scan is today's from the time TurfRad
+    loaded it, while the table still dates and styles the reading by its measurement date. It
+    shows only when TurfRad loads a scan on a later day than it was measured. A guide would need
+    the reproduction to carry a scan's load time beside its measurement date, and the experts to
+    say how often a late load happens.
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
 
 ## Two export defaults corrected by transforms
