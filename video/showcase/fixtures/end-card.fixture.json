@@ -1,0 +1,8 @@
+{
+  "$comment": "Fictional end card for check-claims.test.mjs: the copy a brand item may carry once its gate is decided.",
+  "approval": "SC-CTA",
+  "url": "https://example.invalid/sample-guides/",
+  "display": "example.invalid/sample-guides",
+  "cta": "Explore the Sample Guides",
+  "legal": "© 2000 Example Company. All rights reserved."
+}

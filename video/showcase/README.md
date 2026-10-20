@@ -215,7 +215,7 @@ differs.
 |---|---|---|---|
 | Preflight | Upstream checklist and media root | the commands in the table above | done, 2026-10-20 |
 | 1 | Brief and concept | `node video/lib/episode-schema.mjs video/showcase/episode.json`; `npm run video -- capture --episode video/showcase/episode.json --take 1 --dry-run`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`; `npm run video -- estimate --episode video/showcase/episode.json` | done, 2026-10-20: all four exit 0 (see [Phase 1](#phase-1-brief-and-concept)) |
-| 2 | Claims check | planned: `node video/showcase/check-claims.mjs` | to be filled in by phase 2 |
+| 2 | Claims check | `node video/showcase/check-claims.mjs` (exit 1 on any failure or a stale `claims-check.md`; add `--strict` to fail on numbers too); `node video/showcase/check-claims.mjs --write` (regenerates the tables in `claims-check.md`); `node --test video/showcase/check-claims.test.mjs` (also in `npm run test:video`) | in progress |
 | 3 | Script, VO estimate and Brian voice | planned: `npm run video -- estimate --episode video/showcase/episode.json`, then `npm run video -- vo --episode video/showcase/episode.json --dry-run`, then without `--dry-run` | to be filled in by phase 3 |
 | 4a | Capture | planned: `npm run video -- capture --episode video/showcase/episode.json --take <N>` | to be filled in by phase 4a |
 | 4b | Edit | planned: `build`, `render` and `mix`, as in [Episode config](#episode-config) | to be filled in by phase 4b |

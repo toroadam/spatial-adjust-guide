@@ -1,0 +1,69 @@
+{
+  "$comment": "Fictional showcase episode for check-claims.test.mjs. Every item is Verified or brand-only, so the fixture passes as it stands; each test breaks one rule on a copy.",
+  "id": "sample-showcase",
+  "title": "From sample to spray",
+  "guide": "sample-map",
+  "status": "draft",
+  "durationTarget": [10, 30],
+  "source": "demo",
+  "mapPolicy": "restyle",
+  "claims": ["sample-map/tile/1", "sample-map/1/1", "sample-push/1/1", "sample-calc/1/1"],
+  "targetProfiles": { "decision": "omit", "approval": "SC-TP" },
+  "endCard": { "approval": "SC-CTA", "config": "video/showcase/fixtures/end-card.fixture.json" },
+  "chapters": [
+    { "id": "see", "label": "See the sample" },
+    { "id": "send", "label": "Send" }
+  ],
+  "vo": [
+    { "id": "vo-b1", "text": "Sample pins show sample moisture.", "claims": ["sample-map/1/1"] },
+    { "id": "vo-b2", "text": "Divide the sample deficit by 5 and send the sample changes.", "claims": ["sample-calc/1/1", "sample-push/1/1"] }
+  ],
+  "held": [
+    { "id": "held-b1", "beat": "b1", "text": "Sample soil always prefers a sample target.", "claims": ["sample-map/1/3"], "note": "Held until the sample expert answers." }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "kind": "title",
+      "hold": 1,
+      "labels": [
+        { "id": "lbl-b0-lockup", "text": "Spatial Adjust", "kind": "brand", "claims": [] },
+        { "id": "lbl-b0-series", "text": "Double Click", "kind": "brand", "claims": [] },
+        { "id": "lbl-b0-title", "text": "From sample to spray", "kind": "title", "claims": ["sample-map/tile/1"] }
+      ],
+      "actions": []
+    },
+    {
+      "id": "b1",
+      "chapter": "see",
+      "label": "See the sample",
+      "vo": "vo-b1",
+      "voLines": ["vo-b1"],
+      "hold": 4,
+      "labels": [{ "id": "lbl-b1-chapter", "text": "See the sample", "kind": "chapter", "claims": ["sample-map/1/1"] }],
+      "actions": []
+    },
+    {
+      "id": "b2",
+      "chapter": "send",
+      "label": "Send",
+      "vo": "vo-b2",
+      "voLines": ["vo-b2"],
+      "hold": 4,
+      "labels": [{ "id": "lbl-b2-chapter", "text": "Send", "kind": "chapter", "claims": ["sample-push/1/1"] }],
+      "actions": []
+    },
+    {
+      "id": "b3",
+      "kind": "end",
+      "hold": 1,
+      "labels": [
+        { "id": "lbl-b3-lockup", "text": "Toro · Spatial Adjust", "kind": "brand", "claims": [] },
+        { "id": "lbl-b3-cta", "text": "Explore the Sample Guides", "kind": "brand", "claims": [] },
+        { "id": "lbl-b3-url", "text": "example.invalid/sample-guides", "kind": "brand", "claims": [] },
+        { "id": "lbl-b3-legal", "text": "© 2000 Example Company. All rights reserved.", "kind": "brand", "claims": [] }
+      ],
+      "actions": []
+    }
+  ]
+}
