@@ -9,10 +9,14 @@ first, then g.render(), then the card functions.
   title_card(g, T, t0, t1, 'Dashboard overview', tag=None)   the series word double-clicked, the episode name springs out
   chapter_card(g, T, t0, t1, 'READ THE MAP')            typed caps on the card wall, blue block cursor
   chapter_strip(T, [dict(asset, t_in, t_out), ...])      the frosted glass chapter strip (strip_names(g, names) makes assets)
+  end_card(g, T, t0, t1=None, cfg=None, draft=False)    lockup, call to action, URL pill and legal line on the hero wall,
+                                                        from video/brand/end-card.json; needs gate G4 decided unless draft
   card_hold_problems(...)                               the hold rule (1.5 s + 0.3 s per word), checked by every card
 
 Holds are enforced here, not left to verify: a card too short for its words raises ValueError naming the shortfall.
 """
+import html
+import json
 import os
 import re
 import sys
@@ -20,7 +24,8 @@ from pathlib import Path
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-from brand import REPO, LOCKUP, TYPE, TITLE_CARD, DURATIONS, LAYOUT, SERIES_WORD, CURSOR, css, min_hold  # noqa: E402
+import approvals  # noqa: E402
+from brand import REPO, LOCKUP, TYPE, TITLE_CARD, END_CARD, DURATIONS, LAYOUT, SERIES_WORD, CURSOR, css, min_hold  # noqa: E402
 from theme import THEME, rgba  # noqa: E402
 from timeline import RATIOS  # noqa: E402
 
@@ -108,18 +113,20 @@ def lockup_geometry(g, size='open', on='dark', cx=None, cy=None):
                 tile_box=[x0, cy - th / 2, x0 + tw, cy + th / 2], tile_h=H)
 
 
-def lockup(g, T, t0, t1, size='open', wall='hero', cx=None, cy=None, on='dark'):
+def lockup(g, T, t0, t1, size='open', wall='hero', cx=None, cy=None, on='dark', fade_out=True):
     """The Spatial Adjust lockup: the tile rises in sharpening from a blur, the wordmark wipes in left to right; both fade
-    out over the exit duration at t1. wall: the wall preset behind it, or None to draw over what is there (end card)."""
+    out over the exit duration at t1 (fade_out=False: they hold to t1, as on the end card, the video's last frame).
+    wall: the wall preset behind it, or None to draw over what is there (end card)."""
     G = lockup_geometry(g, size, on, cx, cy)
     ex = DURATIONS['exit']
     if wall: T.wallpaper(wall, t0, t1)
     (tx, ty), (wx, wy) = G['tile_c'], G['word_c']
+    fade = [[t1 - ex, 1.0], [t1, 0.0, 'inCubic']] if fade_out else []
     T.L.append(dict(type='logo', asset=G['tile'], t0=t0, t1=t1, pos=[[t0, [tx, ty + 18]], [t0 + 0.5, [tx, ty], 'outCubic']],
-                    opacity=[[t0, 0.0], [t0 + 0.35, 1.0, 'outCubic'], [t1 - ex, 1.0], [t1, 0.0, 'inCubic']],
+                    opacity=[[t0, 0.0], [t0 + 0.35, 1.0, 'outCubic']] + fade,
                     blur=[[t0, 10.0], [t0 + 0.4, 0.0, 'outCubic']]))
     T.L.append(dict(type='image', asset=G['word'], t0=t0, t1=t1, pos=[wx, wy], wipe=[t0 + 0.25, t0 + 0.75], feather=80,
-                    dur_out=ex, **{'in': t0 + 0.25, 'out': t1 - ex}))
+                    dur_out=ex, **{'in': t0 + 0.25, 'out': t1 - ex if fade_out else t1 + 5}))
     T.edl.append(dict(t0=t0, t1=t1, shot='(lockup)', take='—', file='(post graphic)', effect=f'Spatial Adjust lockup ({size})',
                       label=LOCKUP['wordmark']))
     return G
@@ -218,3 +225,122 @@ def chapter_strip(T, segments):
              segs=segs, opacity=[[g0, 0.0], [g0 + fade, 1.0, 'outCubic'], [g1, 1.0], [g1 + fade, 0.0, 'inCubic']])
     T.L.append(L)
     return L
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# end card
+# ----------------------------------------------------------------------------------------------------------------------
+END_CARD_JSON = os.path.join(REPO, 'video', 'brand', 'end-card.json')
+END_GATE = 'G4'
+PENDING_URL = 'URL PENDING APPROVAL'
+END_LAYOUT = LAYOUT['end_card']      # centres of the lockup, call to action and URL pill as fractions of the frame height
+END_TIMES = END_CARD                 # (in, dur) per part in seconds from the card's start; readable from in + dur
+
+
+class EndCardError(ValueError):
+    """The end card cannot be drawn as a final: end-card.json is incomplete, or gate G4 has no recorded decision."""
+
+
+def load_end_card(path=None):
+    """video/brand/end-card.json as a dict, checked: approval 'G4', and a url, display, cta and legal line."""
+    path = path or END_CARD_JSON
+    with open(path, encoding='utf-8') as f:
+        cfg = json.load(f)
+    return check_end_card(cfg, os.path.relpath(path, REPO) if path.startswith(REPO) else path)
+
+
+def check_end_card(cfg, source='end card config'):
+    if cfg.get('approval') != END_GATE:
+        raise EndCardError(f'{source}: "approval" must be "{END_GATE}" (the end-card URL gate in video/approvals.md), '
+                           f'got {cfg.get("approval")!r}')
+    for k in ('url', 'display', 'cta', 'legal'):
+        if not isinstance(cfg.get(k), str) or not cfg[k].strip():
+            raise EndCardError(f'{source}: "{k}" must be a non-empty string')
+    if not re.match(r'^https://', cfg['url']):
+        raise EndCardError(f'{source}: "url" must be an https:// address, got {cfg["url"]!r}')
+    bare = re.sub(r'^https://', '', cfg['url']).rstrip('/')
+    if cfg['display'] != bare:
+        raise EndCardError(f'{source}: "display" must be the url without https:// and the trailing slash ({bare!r}), '
+                           f'got {cfg["display"]!r}')
+    return cfg
+
+
+def end_card_config(cfg=None, draft=False, approvals_path=None):
+    """The end card's text: cfg (default end-card.json) when gate G4 is decided; in draft mode with G4 undecided, the same
+    with the URL slot replaced by PENDING_URL. Raises EndCardError when G4 is undecided and draft is False."""
+    cfg = check_end_card(dict(cfg)) if cfg is not None else load_end_card()
+    if approvals.is_approved(END_GATE, approvals_path):
+        return dict(cfg, pending=False)
+    if not draft:
+        r = approvals.latest(END_GATE, approvals_path)
+        raise EndCardError(f'end card: gate {END_GATE} (end-card URL) has no recorded decision in video/approvals.md '
+                           f'(latest row: {r["decision"] if r else "none"}); pass draft=True for a style frame or draft render')
+    return dict(cfg, display=PENDING_URL, pending=True)
+
+
+def _url_pill(text, pending):
+    """The URL pill: frosted light pill, a blue arrow dot (grey while the URL is pending) and the address."""
+    t = TYPE['url']; fs = t['size']
+    dot = int(fs * 1.45)
+    dot_col = THEME['gray60'] if pending else THEME['highlight']
+    return ('<div style="display:flex;align-items:center;gap:%dpx;padding:%dpx %dpx %dpx %dpx;border-radius:999px;'
+            'background:%s;border:1.5px solid %s;box-shadow:0 18px 50px %s">'
+            % (int(fs * 0.55), int(fs * 0.55), int(fs), int(fs * 0.55), int(fs * 0.6),
+               rgba('gray05', 0.10), rgba('gray05', 0.28), rgba('gray100', 0.45)) +
+            f'<span style="width:{dot}px;height:{dot}px;border-radius:50%;background:{dot_col};display:flex;align-items:center;'
+            f'justify-content:center;flex:none"><svg width="{int(dot * 0.48)}" height="{int(dot * 0.48)}" viewBox="0 0 24 24">'
+            f'<path d="M5 12h12M12 6l6 6-6 6" stroke="{THEME["white"]}" stroke-width="2.6" fill="none" stroke-linecap="round" '
+            f'stroke-linejoin="round"/></svg></span>'
+            f'<span style="font-weight:{t["weight"]};font-size:{fs}px;letter-spacing:{t["tracking"]};color:{THEME[t["color"]]};'
+            f'white-space:nowrap">{html.escape(text)}</span></div>')
+
+
+def end_assets(g, cfg):
+    """Add the end card's assets for a cfg from end_card_config; returns their ids (lockup tile and wordmark first)."""
+    tile_id, word_id = lockup_assets(g, 'end')
+    url_id = 'end_url_pending' if cfg['pending'] else 'end_url'
+    g.add('end_cta', html.escape(cfg['cta']), css('cta') + ';white-space:nowrap', words=True, pad=4)
+    g.add(url_id, _url_pill(cfg['display'], cfg['pending']), 'line-height:1', pad=40)
+    g.add('end_legal', html.escape(cfg['legal']), css('legal') + ';white-space:nowrap', words=True, pad=2)
+    return [tile_id, word_id, 'end_cta', url_id, 'end_legal']
+
+
+def end_card(g, T, t0, t1=None, cfg=None, draft=False, approvals_path=None):
+    """The end card, the video's last frame (dc_build.py's end card, rebuilt on the brand): the hero wall dimmed, the lockup
+    at end size, the call to action, the URL pill and the legal line, all held to t1 with no exit. cfg defaults to
+    video/brand/end-card.json. Gate G4 must be decided in video/approvals.md; with draft=True and G4 undecided the URL pill
+    reads PENDING_URL. t1=None makes it BRAND's end_card duration. Raises EndCardError (gate, config) or ValueError (a part
+    held for less than the hold rule, or wider than title-safe). Returns dict(draft=, url=, parts=)."""
+    cfg = end_card_config(cfg, draft, approvals_path)
+    t1 = round(t0 + DURATIONS['end_card'], 3) if t1 is None else t1
+    ids = end_assets(g, cfg)
+    m = _rendered(g, ids)
+    _, _, cta_id, url_id, legal_id = ids
+    W, H = RATIOS[g.ratio]
+    sx0, sy0, sx1, sy1 = LAYOUT['title_safe_box'] if g.ratio == '16x9' else (W * 0.05, H * 0.05, W * 0.95, H * 0.95)
+    for aid in (cta_id, legal_id):
+        if m[aid]['w'] - 2 * 4 > sx1 - sx0:
+            raise ValueError(f'end card: "{m[aid].get("text", aid)}" is {m[aid]["w"]} px wide, wider than title-safe ({sx1 - sx0:.0f} px)')
+    if m[url_id]['w'] - 2 * 40 > sx1 - sx0:
+        raise ValueError(f'end card: the URL pill for {cfg["display"]!r} is {m[url_id]["w"] - 80} px wide, wider than title-safe '
+                         f'({sx1 - sx0:.0f} px); shorten "display" in end-card.json')
+    parts = [(cfg['cta'], *END_TIMES['cta']), (cfg['display'], *END_TIMES['url']), (cfg['legal'], *END_TIMES['legal'])]
+    _check_hold([(text, t0 + a + d, t1) for text, a, d in parts], 'end card')
+
+    T.L.append(dict(type='wall', file=g.wall('hero'), t0=t0, t1=t1, zoom=[[t0, END_CARD['z0']], [t1, 1.0, 'outCubic']],
+                    pan=[[t0, [0, 30]], [t1, [0, 0], 'outCubic']], dim=END_CARD['dim']))
+    lockup(g, T, t0, t1, size='end', wall=None, cy=round(H * END_LAYOUT['lockup']), fade_out=False)
+    legal_top = sy1 - m[legal_id]['h'] + 2                       # the legal line's ink sits on title-safe's bottom edge
+    for aid, y, (tin, dur), anim in ((cta_id, H * END_LAYOUT['cta'] - m[cta_id]['h'] / 2, END_TIMES['cta'], 'rise'),
+                                     (url_id, H * END_LAYOUT['url'] - m[url_id]['h'] / 2, END_TIMES['url'], 'fade'),
+                                     (legal_id, legal_top, END_TIMES['legal'], 'fade')):
+        T.L.append(dict(type='text', asset=aid, t0=t0, t1=t1, pos=[round((W - m[aid]['w']) / 2), round(y)], anim=anim,
+                        dy=22 if aid != legal_id else 0, stagger=0.05, dur_in=dur, **{'in': round(t0 + tin, 3), 'out': t1 + 5}))
+    for text, a, d in parts:
+        T.labels.append(dict(text=text, tin=round(t0 + a + d, 3), tout=t1, kind='endcard'))
+    T.sfx.append([round(t0, 3), 'hit_soft'])
+    T.edl.append(dict(t0=t0, t1=t1, shot='(end)', take='—', file='(post graphic)',
+                      effect='end card: Spatial Adjust lockup, call to action, URL pill, legal line'
+                             + (f' (DRAFT: gate {END_GATE} undecided)' if cfg['pending'] else ''),
+                      label=f'{cfg["cta"]} / {cfg["display"]}'))
+    return dict(draft=cfg['pending'], url=None if cfg['pending'] else cfg['url'], parts=ids)

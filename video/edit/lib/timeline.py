@@ -60,9 +60,15 @@ def split_lines(text, size, W, caps=False):
     return lines
 
 
+WALL_SRC = os.path.join(HERE, 'background.py')
+
+
 def _wall_key(variant, size):
-    """Cache key for a rendered wallpaper: the variant, its size and the THEME palette it was drawn with."""
-    blob = json.dumps(dict(v=variant, size=list(size), palette=THEME['wall']), sort_keys=True).encode()
+    """Cache key for a rendered wall: the variant, its size, the THEME palette and background.py's source, so a change to
+    the palette or to the drawing code renders the wall again (a wall cached by the older satin wallpaper.py never matches)."""
+    with open(WALL_SRC, 'rb') as f:
+        src = hashlib.sha256(f.read()).hexdigest()
+    blob = json.dumps(dict(v=variant, size=list(size), palette=THEME['wall'], src=src), sort_keys=True).encode()
     return hashlib.sha256(blob).hexdigest()[:10]
 
 
@@ -113,12 +119,13 @@ class Gfx:
             self.add('legal', legal, f'font-weight:400;font-size:{T["legal"]}px;color:{GRAY30};letter-spacing:0.01em', pad=2)
 
     def wall(self, v, size=WALL_SIZE):
-        """Path of the wallpaper variant v ('bloom', 'hero', 'card') in the gfx folder, rendered on first use."""
+        """Path of the wall variant v ('bloom', 'hero', 'card') in the gfx folder, rendered on first use by background.py (the
+        Spatial Adjust contour wall; wallpaper.py's satin wave is no longer drawn)."""
         if not self.dir: raise ValueError('Gfx has no folder: pass episode= or dir=')
         d = ensure_media_dir(self.dir, 'graphics folder')
         path = os.path.join(d, f'wall-{v}-{size[0]}x{size[1]}-{_wall_key(v, size)}.png')
         if not os.path.exists(path):
-            from wallpaper import render as render_wall, to_u8   # torch, only when a wallpaper is actually drawn
+            from background import render as render_wall, to_u8   # torch, only when a wall is actually drawn
             from ff import write_img
             write_img(to_u8(render_wall(size[0], size[1], v)), path)
         return path

@@ -185,6 +185,13 @@ def doc_drift(full):
         r = row(doc, k)
         got = r and [num(re.match(r'[-\d.]+', c).group()) for c in r[:2]]
         if got != [tc[k], tc['up_next'].get(k, tc[k])]: bad(f'title card {k}: doc {r and r[:2]}')
+    doc = section(full, 'Motion', after='**End card**', before='**Camera.**')
+    ec = BRAND['end_card']
+    for k in ('cta', 'url', 'legal'):
+        r = row(doc, k)
+        got = r and [num(re.match(r'[-\d.]+', c).group()) for c in r[:2]]
+        if got != list(ec[k]): bad(f'end card {k}: doc {r and r[:2]} != {ec[k]}')
+    if f'`dim` {ec["dim"]:g}' not in doc or f'`z0` {ec["z0"]:g}' not in doc: bad('end card wall dim and zoom')
     # holds
     doc = section(full, 'Holds')
     if f'**{BRAND["hold"]["base"]:g} s + {BRAND["hold"]["per_word"]:g} s per word**' not in doc: bad('hold rule')
@@ -196,6 +203,10 @@ def doc_drift(full):
     r = row(doc, 'strip')
     want = f'{tuple(s["box"])}, corner radius {s["r"]}, blur {s["blur"]}, pad {s["pad"]}, gap {s["gap"]}'
     if not r or want not in r[0]: bad(f'strip: want "{want}"')
+    e = LAYOUT['end_card']
+    r = row(doc, 'end_card')
+    want = f'{e["lockup"]:g} H (lockup), {e["cta"]:g} H (call to action) and {e["url"]:g} H (URL pill)'
+    if not r or want not in r[0]: bad(f'end card layout: want "{want}"')
     ww = LAYOUT['window_wide']
     r = row(doc, 'window_wide')
     if not r or f'scale {ww["s"]} at {tuple(ww["pos"])}' not in r[0]: bad('window_wide')
@@ -374,6 +385,8 @@ class DocMirrorTest(unittest.TestCase):
         self.assertTrue(any('strip' in p for p in doc_drift(self.doc.replace('(250, 958, 1670, 1016)', '(250, 1002, 1670, 1060)'))))
         self.assertTrue(any('title' in p for p in doc_drift(self.doc.replace('| `title` | 200 px | 700 |', '| `title` | 200 px | 600 |'))))
         self.assertTrue(any('integrated_lufs' in p for p in doc_drift(self.doc.replace('-14.0 LUFS', '-16.0 LUFS'))))
+        self.assertTrue(any('end card url' in p for p in doc_drift(self.doc.replace('| `url` | 0.75 | 0.6 |', '| `url` | 1.75 | 0.6 |'))))
+        self.assertTrue(any('end card layout' in p for p in doc_drift(self.doc.replace('0.615 H (URL pill)', '0.7 H (URL pill)'))))
 
 
 if __name__ == '__main__':

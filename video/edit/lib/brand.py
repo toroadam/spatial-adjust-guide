@@ -138,6 +138,10 @@ CAMERA = dict(tilt=True, flat_only=('title card', 'end card'))   # the window sh
 TITLE_CARD = dict(t_in=0.15, t_move=0.75, click=1.74, pop=1.98, leave=2.6, out=0.3, drop=30,
                   up_next=dict(t_in=0.1, t_move=1.45, click=2.42, pop=2.68, leave=3.2, out=0.3))
 
+# The end card (cards.end_card): when each part starts to come in and how long it takes, in seconds from the card's start
+# (it is readable from in + dur, which the hold rule counts from); the hero wall's dim and its zoom from z0 to 1.0.
+END_CARD = dict(cta=(0.50, 0.6), url=(0.75, 0.6), legal=(0.70, 0.4), dim=0.12, z0=1.08)
+
 # Holds: an on-screen label stays readable (every word at least 50 % opacity) for 1.5 s plus 0.3 s per word
 HOLD = dict(base=1.5, per_word=0.3)
 
@@ -149,6 +153,7 @@ LAYOUT = dict(
     title_safe=0.90, title_safe_box=(96, 54, 1824, 1026),
     window_wide=dict(s=0.77, pos=(962, 522)),        # window shot rest framing: the plate spans y 106-938
     strip=dict(box=(250, 958, 1670, 1016), r=20, blur=22, pad=22, gap=14),
+    end_card=dict(lockup=0.31, cta=0.475, url=0.615),  # centres as fractions of the frame height; legal on title-safe's bottom
 )
 FOCUS_BOX = dict(color=ROLES['highlight'], border=2.5, radius=10, ring=6, ring_alpha=0.16, glow=24, glow_alpha=0.25, fade=0.28)
 CURSOR = dict(view_box=(13, 20), css_size=(15.6, 24), fill=ROLES['title_cursor_fill'], stroke=ROLES['title_cursor_stroke'],
@@ -171,7 +176,7 @@ BRAND = dict(COLORS)
 BRAND.update(ROLES)
 BRAND.update(
     moisture=MOISTURE, lockup=LOCKUP, wall=WALL, type=TYPE, series_word=SERIES_WORD, eases=EASES, spring=SPRING,
-    durations=DURATIONS, camera=CAMERA, title_card=TITLE_CARD, hold=HOLD, frame=FRAME, layout=LAYOUT, focus_box=FOCUS_BOX, cursor_spec=CURSOR,
+    durations=DURATIONS, camera=CAMERA, title_card=TITLE_CARD, end_card=END_CARD, hold=HOLD, frame=FRAME, layout=LAYOUT, focus_box=FOCUS_BOX, cursor_spec=CURSOR,
     loudness=LOUDNESS, sfx_levels=SFX,
     # engine fallbacks (engine.py v1 background and defaults, engine2 peel, glass layer tint)
     bg_tint=COLORS['gray10'], bloom_a=COLORS['blue'], bloom_b=COLORS['blue_tint'], cursor=ROLES['type_cursor'],
