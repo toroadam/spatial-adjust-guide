@@ -1,0 +1,113 @@
+/* Media panel — "Watch the Double Click" at the top of a guide, and the showcase on the catalogue
+   home. Rendered by src/media.js into the empty slots src/transform-export.mjs adds; injected by
+   build.mjs after feedback.css.
+
+   A slot with nothing in it takes no space, so a guide without an episode looks exactly as it did
+   before the slot existed. The guide slot sits in the guide's 820px header column, between the
+   header block and the walkthrough; the home slot sits between the hero and the task grid and uses
+   the same 1180px column and 32px gutters as the sections either side of it. */
+
+.lsa-media-slot:empty { display: none; }
+
+.lsa-media-slot[data-sa-media-slot="guide"] { max-width: 820px; margin-top: 32px; }
+.lsa-media-slot[data-sa-media-slot="home"] { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+/* Left-aligned with the hero text above it, and no wider than the guide panel: a 16:9 frame the full
+   width of the home column would be over 600px tall. */
+.lsa-media { max-width: 820px; }
+
+/* The guide's own h2 scale. src/a11y.css sets 22px on every .lsa h2 below 768px anyway. */
+.lsa-media-title {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.4px;
+  color: var(--100, #080d12);
+  overflow-wrap: break-word;
+}
+/* Secondary text uses --60 rather than the export's --40, which fails AA on white (see a11y.css). */
+.lsa-media-dur { font-weight: 400; color: var(--60, rgb(100, 110, 115)); white-space: nowrap; }
+
+/* The frame carries the radius and the hairline; the video inside it carries the focus ring, so the
+   frame must not clip with overflow: hidden or the ring would be cut off. The radius is applied to
+   the video as well, which rounds the picture without clipping its outline. */
+.lsa-media-frame {
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px var(--20, #d9dfe2);
+  background: #000;
+}
+.lsa-media video {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 8px;
+}
+
+.lsa-media-transcript { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--100, #080d12); }
+.lsa-media-transcript summary {
+  display: inline-block;
+  padding: 6px 2px;
+  font-weight: 600;
+  color: rgb(28, 88, 193);           /* 6.1:1 on white; the export's --informative-02 is 4.1:1 */
+  cursor: pointer;
+}
+/* inline-block drops the native disclosure triangle in some engines; draw one that turns. */
+.lsa-media-transcript summary::-webkit-details-marker { display: none; }
+.lsa-media-transcript summary::before {
+  content: '';
+  display: inline-block;
+  margin: 0 8px 1px 0;
+  border-style: solid;
+  border-width: 5px 0 5px 7px;
+  border-color: transparent transparent transparent currentColor;
+  vertical-align: middle;
+  transition: transform .15s ease;
+}
+.lsa-media-transcript[open] summary::before { transform: rotate(90deg); }
+.lsa-media-transcript summary:hover { color: rgb(22, 71, 156); text-decoration: underline; }
+
+.lsa-media-transcript-body {
+  max-height: 320px;
+  overflow-y: auto;
+  margin-top: 8px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px var(--20, #d9dfe2);
+  font-size: 14px;
+  line-height: 1.6;
+  overscroll-behavior: contain;
+}
+.lsa-media-transcript-body:empty { display: none; }
+.lsa-media-transcript-body p { margin: 0 0 8px; overflow-wrap: break-word; }
+.lsa-media-transcript-body p:last-child { margin-bottom: 0; }
+.lsa-media-ts {
+  display: inline-block;
+  min-width: 3.2em;
+  margin-right: 4px;
+  color: var(--60, rgb(100, 110, 115));
+  font-variant-numeric: tabular-nums;
+}
+.lsa-media-transcript-error { margin: 8px 0 0; color: var(--60, rgb(100, 110, 115)); }
+
+/* A visible 3px ring on everything the panel makes focusable. The outline is drawn outside the
+   element, and no ancestor clips it. */
+.lsa-media video:focus-visible,
+.lsa-media summary:focus-visible,
+.lsa-media-transcript-body:focus-visible {
+  outline: 3px solid var(--informative-03, #2165db);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lsa-media, .lsa-media *, .lsa-media *::before, .lsa-media *::after { transition: none !important; }
+}
+
+/* Phone widths: the sections either side keep their 32px gutters, so the home slot does too; only
+   the gap above the guide panel tightens. */
+@media (max-width: 767px) {
+  .lsa-media-slot[data-sa-media-slot="guide"] { margin-top: 24px; }
+  .lsa-media-transcript-body { max-height: 260px; padding: 10px 12px; }
+}
