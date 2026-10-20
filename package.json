@@ -31,6 +31,7 @@
     "test:product-locales": "node scripts/product-locales.mjs",
     "test:release": "node scripts/release-unit.mjs",
     "test:leak": "node scripts/beta-leak.mjs",
+    "test:release-modes": "node scripts/release-modes.mjs http://localhost:8124/",
     "release:status": "node scripts/release-status.mjs",
     "claims:extract": "node scripts/claims-extract.mjs",
     "claims:aggregate": "node scripts/claims-extract.mjs --aggregate-only",
