@@ -214,9 +214,38 @@ differs.
 | Phase | Step | Command | Status |
 |---|---|---|---|
 | Preflight | Upstream checklist and media root | the commands in the table above | done, 2026-10-20 |
-| 1 | Brief and concept | | to be filled in by phase 1 |
+| 1 | Brief and concept | `node video/lib/episode-schema.mjs video/showcase/episode.json`; `npm run video -- capture --episode video/showcase/episode.json --take 1 --dry-run`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`; `npm run video -- estimate --episode video/showcase/episode.json` | done, 2026-10-20: all four exit 0 (see [Phase 1](#phase-1-brief-and-concept)) |
 | 2 | Claims check | planned: `node video/showcase/check-claims.mjs` | to be filled in by phase 2 |
 | 3 | Script, VO estimate and Brian voice | planned: `npm run video -- estimate --episode video/showcase/episode.json`, then `npm run video -- vo --episode video/showcase/episode.json --dry-run`, then without `--dry-run` | to be filled in by phase 3 |
 | 4a | Capture | planned: `npm run video -- capture --episode video/showcase/episode.json --take <N>` | to be filled in by phase 4a |
 | 4b | Edit | planned: `build`, `render` and `mix`, as in [Episode config](#episode-config) | to be filled in by phase 4b |
 | 5 | Review and delivery | planned: `verify`, `ocr`, `captions` and `hygiene` | to be filled in by phase 5 |
+
+## Phase 1: brief and concept
+
+[`brief.md`](brief.md) is the creative brief, [`concept.md`](concept.md) the logline and the beat sheet, and
+[`episode.json`](episode.json) the config seeded from the beat sheet: B0 title, the seven links of the chain as
+chapters B1 to B7, B8 end card, 110.8 s planned, 10 VO draft lines of 196 words. The beat sheet is timed to the
+builder as delivered (an 8.2 s open, a typed chapter card per chapter, a 5.0 s end card); `concept.md` says how.
+
+**Extension fields.** `episode.json` follows the field names of the pilot episode and `../episodes/README.md`. What the
+showcase adds is additive and read by no pipeline tool: at the top, `kind`, `plannedRuntime`, `approval`,
+`targetProfiles` and `endCard`; on each beat, `kind`, `tcIn`, `tcOut`, `card`, `footage`, `shot`, `sources`,
+`guideKeys`, `voLines`, `labels`, `claims` and `onScreen`; on one VO line, `pendingClaim`. The schema keeps unknown
+fields (`z.looseObject` at every level), and a search of `video/` and `scripts/` finds no tool that reads any of these
+names from an episode. The schema's own `label` on B1 to B7 is the chapter label, and `vo` names each beat's first VO
+line; `voLines` lists all of them.
+
+**Dry runs, 2026-10-20, at the commit that adds the beat sheet.** None started a browser, read the ElevenLabs key, sent
+a request or wrote a file.
+
+| Command | Result |
+|---|---|
+| `node video/lib/episode-schema.mjs video/showcase/episode.json` | exit 0: `ok video/showcase/episode.json (showcase, 9 beats, status draft)` |
+| `npm run video -- capture --episode video/showcase/episode.json --take 1 --dry-run` | exit 0: valid, source demo, map policy restyle, 9 beats, 0 targets, about 80.5 s of take, "click guard: no clicks". The capture config was not found (needed for a real take, not for the dry run) |
+| `npm run video -- vo --episode video/showcase/episode.json --dry-run` | exit 0: 10 lines, 1,165 characters, about 1,165 credits; the lexicon turns TurfRad, VWC, ET and Lynx into "Turf Rad", "V W C", "E T" and "Links" |
+| `npm run video -- estimate --episode video/showcase/episode.json` | exit 0: 10 lines, 196 words, 1,165 characters, 2,330 credits with the retake factor of 2, about 72.1 s of narration |
+
+The beat table and `episode.json` were compared line by line (ids, chapter labels, times, durations, guide keys and
+sources, every guide key one of the 26, each card at least as long as its label needs, runtime between 60 and 120 s):
+no difference.
