@@ -121,14 +121,14 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 22 planned, 4 blocked.
+26 episodes: 4 approved, 18 planned, 4 blocked.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 1 | `dashboard-overview` | Dashboard overview | planned | — | — | — | — |
-| 2 | 1 | `understand-spatial-adjust` | Understand Spatial Adjust | planned | — | — | — | — |
-| 3 | 1 | `map-navigation` | Map navigation | planned | — | — | — | — |
-| 4 | 1 | `understanding-vwc` | Understanding VWC | planned | — | — | — | — |
+| 1 | 1 | `dashboard-overview` | Dashboard overview | approved | 2:34 | 2026-10-20 | 2026-10-20 | executor 2026-10-20; experts in person 2026-10-22 |
+| 2 | 1 | `understand-spatial-adjust` | Understand Spatial Adjust | approved | 1:56 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
+| 3 | 1 | `map-navigation` | Map navigation | approved | 2:06 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
+| 4 | 1 | `understanding-vwc` | Understanding VWC | approved | 2:12 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
 | 5 | 2 | `suggested-adjustments` | Understand suggested adjustments | planned | — | — | — | — |
 | 6 | 2 | `filter-adjustments` | Filter by % Adj. | planned | — | — | — | — |
 | 7 | 2 | `push-to-lynx` | Push changes to Lynx | planned | — | — | — | — |
@@ -160,7 +160,7 @@ Blocked:
 
 | Wave | Name | Episodes | Estimate | Before | After | Used | Expert review |
 |---|---|---|---|---|---|---|---|
-| 1 | Getting Started | 4 | 4,680 to 9,360 | — | — | — | — |
+| 1 | Getting Started | 4 | 4,680 to 9,360 | 357,437 | 355,147 | 2,290 | decided by executor 2026-10-20 (episode 01); experts in person 2026-10-22 |
 | 2 | Review & Apply | 5 | 5,850 to 11,700 | — | — | — | — |
 | 3 | Station Management | 4 | 4,680 to 9,360 | — | — | — | — |
 | 4 | Calculations | 4 | 4,680 to 9,360 | — | — | — | — |
