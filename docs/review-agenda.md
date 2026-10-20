@@ -88,3 +88,12 @@ and never rewrite another one.
   Spanish and French. Decided by the executor under owner direction 2026-10-19; for review in person
   2026-10-22. Question: would a Spanish or French superintendent rather read VWC, as the ruling
   says, or the CVA and Hv their own screen uses for the averages?
+
+- **The label gates run on every commit, but do not block a deploy.** `npm run test:validate` now
+  fails on any `[[label]]` that is not a real IntelliDash label in the claims ledger, and on any
+  translation that names a control differently from the reader's screen. It runs in the screen
+  fidelity workflow on every push and pull request, not in the deploy job, so a red label check is
+  visible without holding the live site back before the walkthrough. Shows on: nothing on the live
+  site; the GitHub Actions run for each commit. Decided by the executor under owner direction
+  2026-10-19; for review in person 2026-10-22. Question: once the walkthrough is done, should the
+  label gates block deploys the way the fidelity gate does?
