@@ -241,6 +241,28 @@ test('fails a Target Profiles claim, even a Verified one, while the decision is 
   assert.match(r.out, /target-profiles\/1\/1: Target Profiles claim, but targetProfiles.decision is "omit" \(gate SC-TP\)/);
 });
 
+test('while Target Profiles is omitted, a Target Profiles ID fails anywhere in the config, held lines and notes included', () => {
+  const held = workspace((ep) => {
+    ep.held[0].claims = ['target-profiles/1/1'];
+  });
+  const r = check(held);
+  assert.equal(r.code, 1, r.out);
+  assert.match(r.out, /\(episode config\) "" target-profiles\/1\/1: Target Profiles claim ID in the episode config, but targetProfiles.decision is "omit" \(gate SC-TP\)/);
+
+  const note = workspace((ep) => {
+    ep.held[0].note = 'The same sentence is seasonal-profiles/4/6.';
+  });
+  const n = check(note);
+  assert.equal(n.code, 1, n.out);
+  assert.match(n.out, /seasonal-profiles\/4\/6: Target Profiles claim ID in the episode config/);
+
+  const comingSoon = workspace((ep) => {
+    ep.targetProfiles.decision = 'coming soon';
+    ep.held[0].note = 'The same sentence is seasonal-profiles/4/6.';
+  });
+  assert.doesNotMatch(check(comingSoon).out, /Target Profiles claim ID in the episode config/);
+});
+
 test('held items: a Needs expert held line passes and is listed; a held id that is also live fails', () => {
   const ws = workspace();
   assert.equal(check(ws).code, 0);
