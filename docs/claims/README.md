@@ -249,3 +249,120 @@ Document evidence:
 ```json
 { "source": "doc", "ref": "373-1135 rev 02 §x" }
 ```
+
+## Review pack
+
+The review pack is what the experts read. `scripts/review-pack.mjs` turns the ledger into one
+HTML page per guide, a combined `index.html`, and a PDF of the combined file.
+
+```sh
+npm run review-pack
+```
+
+Run it once the shards are final and `claims.json` has been rebuilt. It reads
+`docs/claims/claims.json`, `docs/claims/sources.json` and the published guide text from
+`extractGuides()`, and nothing else. It never writes to `docs/claims/`.
+
+It refuses to write anything when:
+
+- the ledger fails the lint, for example a Needs expert claim with no question;
+- the ledger no longer matches the published text, meaning a claim ID or its wording differs from
+  a fresh extraction, or `sources.json` now pins a different production SHA. Run
+  `npm run claims:extract` and try again. `--allow-stale` renders the pack anyway with a banner on
+  every page. Never send a pack that carries that banner;
+- the output directory is inside `dist/` or `docs/claims/`, contains the repository, or holds
+  files the generator did not write.
+
+| Option | What it does |
+|---|---|
+| `--ledger <file>` | Reads another ledger, such as a test fixture, instead of `docs/claims/claims.json` |
+| `--out <dir>` | Writes somewhere other than `review-pack/` |
+| `--no-pdf` | Skips the PDF and the browser check, which is quicker while working on the layout |
+| `--allow-stale` | Renders a stale ledger, marked as stale |
+
+### What it writes
+
+| File | What it is |
+|---|---|
+| `review-pack/index.html` | The badge legend, totals by status and by type, and a table of every guide with its claim, Wrong, Needs expert, Not shipping and Unverified counts. After that come all 26 guides, in catalogue order. |
+| `review-pack/<guide-key>.html` | One guide on its own, 26 files. Use these to send a single guide to the expert who owns it. |
+| `review-pack/spatial-adjust-guides-review.pdf` | `index.html` printed to A4. Each guide starts on a new page, and every page is numbered. |
+
+Each guide has, in order:
+
+1. A header with the category, the catalogue card, the pinned production and develop SHAs, the
+   time the pack was generated, and a link to the guide on the live site.
+2. For the four Target Profiles guides, the shipping notice that readers see before step 1, with
+   the status of its claims.
+3. The guide as written, section by section: the catalogue card, the summary, where to find it,
+   the concept note, before you start, each step (title, body, caption and tip), and how to know
+   it worked. Every claim in a section is listed under the published text.
+4. **Questions for the experts**: every Needs expert claim in the guide, with its claim ID, its
+   question, the sentence it is about and room for an answer.
+5. A sign-off box: Approved, Approved with changes or Rejected, plus the reviewer's role and the
+   date. It asks for the role, not a name. Feature 10 transcribes these verdicts into
+   `docs/claims/signoff.md`.
+
+The pages are self-contained. They have inline CSS, system fonts, no scripts, no images and a
+`default-src 'none'` Content-Security-Policy. Before printing the PDF, the generator opens every
+page in Chromium and fails if any page requests anything. The PDF uses the Chromium that the test
+suite already installs with `npx playwright install chromium`, so no new dependency is needed.
+
+### Where it goes
+
+`review-pack/` is gitignored, and nothing in it is ever committed. Share the PDF, or the folder
+zipped, through Toro SharePoint or Teams. It is never published on GitHub Pages. The deploy
+workflow uploads `dist/` alone, and `build.mjs` copies only `STATIC_DIRS` (assets, `_ds` and
+`vendor`, `build.mjs:30`) plus the files it generates. Do not add `review-pack` to `STATIC_DIRS`,
+and do not copy pack files into the repository.
+
+The pack follows the same no-excerpts rule as the ledger. Citations are `path:line` and all prose
+is the ledger's own, so the pack can be forwarded freely inside Toro. It is still internal: the
+verifier notes and open questions are not written for customers.
+
+### Reading the badges
+
+| Badge | Meaning | What the reviewer does |
+|---|---|---|
+| Verified | Production does what the claim says. The citation shows where. | Nothing, unless field experience says otherwise. |
+| Wrong | Production contradicts the claim. The proposed correction is shown beside it. | Check the proposed correction. |
+| Not shipping | The claim describes something that is not in the production build. | Say whether the guide should describe it at all. |
+| Needs expert | The source code cannot settle the claim. Its question is listed under Questions for the experts. | Answer in a line or two, quoting the claim ID. |
+| Unverified | Nobody has checked it yet. | Read it as unchecked. |
+
+Each claim card also shows its ID, type and field, and its citations. A citation is either an
+IntelliDash `path:line` with the ref and the short SHA it was read at, or a section of Toro user
+guide 373-1135. Where present, the card adds the correction, the question, what differs on develop
+("On develop"), the verifier's note, and the earlier wording if the sentence changed after it was
+checked.
+
+### How experts give feedback
+
+Experts comment on the live site, not in the repository. Every page of the pack links to its
+guide there. The floating **Feedback** button, bottom right, posts the comment to a Power
+Automate flow in Toro's tenant, together with the page, the step, the locale and the URL. The flow
+adds it to the *Guide feedback* SharePoint list as an item with Title (the page), Comment, Step,
+Kind, Locale and PageURL. The button and the flow are described in the top-level README (`README.md:112-165`).
+
+- The button is only on the deployed site, where `SA_FEEDBACK_ENDPOINT` is set at build time.
+  Local builds and the test suite do not render it, so experts must use the live site, after the
+  sign-in gate.
+- To comment on a step, open the guide, go to that step and press **Feedback**. The panel shows
+  the page and step it will attach. Put the claim ID in the comment when it is about one claim.
+- Answers to the questions and the sign-off verdict can be written into the pack's answer and
+  sign-off boxes and returned through the same SharePoint or Teams channel, or sent through the
+  Feedback button on that guide with the claim ID quoted.
+
+Never paste the flow's trigger URL into the pack, this README, a Teams message or an issue. Its
+`sig=` parameter is a capability: anyone holding the URL can post to the list
+(`README.md:141-148`, `:167-169`).
+
+### After the review
+
+Export the *Guide feedback* list from SharePoint and triage it. That is feature 10. Keep the
+export and any annotated PDFs in SharePoint.
+
+Raw comments and commenter names are never committed, including any name typed into a comment.
+The repository is public. Only the outcome of the review lands in it: a claim's new status,
+question or correction in its shard, a fix in `src/transforms/review-fixes.mjs`, and each guide's
+verdict with the reviewer's role and the date in `docs/claims/signoff.md`.
