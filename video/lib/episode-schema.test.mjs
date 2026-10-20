@@ -143,6 +143,10 @@ test('the write guard has exactly one definition, in scripts/lib/writes.mjs', ()
   const res = spawnSync('git', ['grep', '--untracked', '-l', '-F', WRITES.source], { cwd: REPO_ROOT, encoding: 'utf8' });
   assert.equal(res.status, 0, res.stderr);
   assert.deepEqual(res.stdout.trim().split('\n'), ['scripts/lib/writes.mjs']);
+  // The harvest reaches WRITES through the shared click guard (PI-ICNT-SW-1078), which imports it
+  // from writes.mjs.
   const harvest = readFileSync(path.join(REPO_ROOT, 'scripts', 'fidelity-harvest.mjs'), 'utf8');
-  assert.match(harvest, /import \{ WRITES \} from '\.\/lib\/writes\.mjs';/);
+  assert.match(harvest, /from '\.\/lib\/guarded-click\.mjs';/);
+  const guard = readFileSync(path.join(REPO_ROOT, 'scripts', 'lib', 'guarded-click.mjs'), 'utf8');
+  assert.match(guard, /import \{ WRITES \} from '\.\/writes\.mjs';/);
 });
