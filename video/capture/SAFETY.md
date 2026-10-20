@@ -38,7 +38,7 @@ The `/spatialadjust/demo` page is a sign-in form with an email field, a password
 
 ### The browser and its profile
 
-The director drives the owner's own Chrome over the DevTools protocol. The owner starts Chrome with `--remote-debugging-port=9222 --user-data-dir=<media root>/chrome-profile`, so the capture profile lives under the media root and never in the repository. The pipeline writes no storage state, cookie file or session file anywhere; earlier plans that mentioned `<media root>/auth/state.json` are superseded.
+The director drives the owner's own Chrome over the DevTools protocol. The owner starts Chrome with `--remote-debugging-port=9222 --user-data-dir=<media root>/auth/chrome-profile` (the director prints the exact command when no Chrome is listening), so the capture profile lives in the media root's private `auth/` folder (mode 0700) and never in the repository. The pipeline writes no storage state, cookie file or session file anywhere; earlier plans that mentioned `<media root>/auth/state.json` are superseded.
 
 ## How Demo Mode is lost
 
@@ -160,8 +160,8 @@ The director runs an episode's actions on one page under three independent safet
 ### Before anything: the browser
 
 - The director connects with `chromium.connectOverCDP` to a loopback endpoint only (`http://127.0.0.1:<port>` or `http://localhost:<port>`); any other host is refused with exit 2.
-- It opens **one new page** in the owner's browser context, sets the page's device metrics to 1920x1080 at device scale factor 2 (Emulation.setDeviceMetricsOverride; frames are 3840x2160 and show the page viewport only, no browser chrome), and installs its init scripts and request routes **on that page only**. The owner's other tabs are never touched.
-- At the end it closes only the page it opened, never the owner's browser.
+- It opens **one new page** in the owner's browser context, sets the page's device metrics to 1920x1080 at device scale factor 2 (Emulation.setDeviceMetricsOverride; frames are 3840x2160 and show the page viewport only, no browser chrome), and installs its init scripts, bindings and request routes **on that page only**. The owner's other tabs are never touched.
+- At the end it closes only the page it opened, never the owner's browser: the DevTools connection is dropped when the director exits. Ctrl-C ends the take the same way and still writes the safety report.
 - `--launch` starts Playwright's own Chromium instead. It is refused unless every allowed host is loopback (the test fixtures) or the source is the local recreation.
 
 ### Layer 1: the entry gate
@@ -170,26 +170,29 @@ The director runs an episode's actions on one page under three independent safet
 - The director then waits for the owner to sign in to the demo form and for the in-app hop to `/spatialadjust`.
 - **Arming.** The director arms only when the page is still the document it loaded (a sentinel set right after the entry load is still there), that document's boot address was the entry URL, and the address now ends `/spatialadjust`. If that does not happen within the sign-in timeout, the take ends with exit 2.
 - **Demo Mode verified** additionally requires that a demo sign-in POST was answered with a success status before the hop. Without it the take continues read-only, and every declared demo-mode click is refused.
-- After arming the director never calls `goto` or `reload` again.
+- After arming the director never navigates again. `video/capture/director.mjs` has exactly one `page.goto` and no reload at all.
 
 ### Layer 2: guarded actions
 
 - Every click is checked in Node by `guardedClick` (`scripts/lib/guarded-click.mjs`, shared with the fidelity harvest) before it reaches the page: the element's accessible name must match the episode action's name and appear in the episode's `allowClicks`; a name matching the write guard `WRITES` (`scripts/lib/writes.mjs`) is refused unless the episode declares it in `demoWriteClicks` **and** Demo Mode was verified at arming; an icon that does not match the expected icon is refused.
 - The in-page runtime (`video/capture/director-runtime.js`) checks the element's accessible name and icon again, against the same `WRITES` pattern, immediately before it dispatches the click.
-- A refusal ends the take with exit 6, before anything is dispatched.
+- Targets never reach the page as selectors. The in-page plan names each target by index, the runtime asks the director for it, and the director resolves the selector, checks the element and hands the page that one element. A click target that matches more than one element is refused. Hover and focus targets must carry the action's name too, so a drifted selector cannot even be pointed at.
+- A refusal ends the take with exit 6, before anything is dispatched. So does a target that is not on the page within 8 seconds of the step that needs it.
 - The episode schema (`video/lib/episode-schema.mjs`) has already rejected any undeclared write-like click before a browser starts.
 
 ### Layer 3: the network and navigation tripwire
 
 - Every request from the director's page goes through a page route. After arming, any request whose method is not GET, HEAD or OPTIONS is aborted inside the browser and ends the take with exit 3. The only exception is a POST to a configured SSO host (`authHosts`), for token refresh; Demo Mode does not use one today. Before arming, the demo sign-in POST and SSO-host POSTs are let through and any other write is aborted the same way.
 - In-page, the runtime also refuses non-GET `fetch`, `XMLHttpRequest` and `sendBeacon` calls once armed, so a write is stopped before it is even handed to the network.
+- A new window is outside the page route's reach, so once armed the runtime refuses `window.open` and any form that would submit into a new window with a method other than GET, and the director closes any popup that opens anyway. Either ends the take with exit 4. A form that submits into the page or one of its frames is left to the route, which aborts a POST with exit 3.
+- A JavaScript dialog (alert, confirm, prompt) is dismissed at once. Dismissing a confirm is its Cancel button.
 - Every WebSocket on the director's page is closed before it connects to a server (this is what covers the Lynx Cloud MQTT path), and one opened after arming ends the take with exit 3. The page bypasses any service worker so that every request is visible to the route.
 - After arming, any main-frame document request is aborted and ends the take with exit 4, and a lost arming sentinel or a new `domcontentloaded` does the same. A new document would boot live.
 - Layer 3 applies to declared demo-mode clicks too, so even a mis-detected live session cannot send a write.
 
 ### The overlay and the denylist
 
-- After arming the director installs the course overlay (`window.__saOverlayInstall`, PI-ICNT-SW-1079) with the pairs from the local maps and the identity from `video/brand/course.json`, then scans the page against the denylist. For a Demo Mode take the overlay must be present and the denylist must not be empty.
+- After arming the director installs the course overlay (`window.__saOverlayInstall`, PI-ICNT-SW-1079) with the pairs from the local maps and the identity from `video/brand/course.json`, then scans the page against the denylist. For a Demo Mode take the overlay must be present and the denylist must not be empty. The map treatment for the episode's `mapPolicy` (`video/capture/map-routes.mjs`) is installed before the page loads; if it cannot be (for example owned imagery without a licence reference), the take ends with exit 5.
 - The page is re-scanned every 15 frames during the take. Hits are reported by denylist index only, never by name.
 
 ### Exit codes
@@ -197,15 +200,16 @@ The director runs an episode's actions on one page under three independent safet
 | Code | Meaning |
 |---|---|
 | 0 | Take recorded (or dry run printed) |
-| 2 | Entry gate refused, capture config missing or invalid, no CDP endpoint, or arming did not happen in time |
+| 1 | Unexpected error, the plan failed in the page, or it did not finish inside the take (the partial take is deleted) |
+| 2 | Entry gate refused, capture config missing or invalid, `--source` does not match the episode, no CDP endpoint or `--launch` refused, or arming did not happen in time (including a new document before arming) |
 | 3 | A write request (or WebSocket) was aborted |
-| 4 | A new document loaded, or was about to load, after arming |
-| 5 | Overlay incomplete, or denylisted text on screen |
-| 6 | A guarded action was refused |
-| 64 | Usage error |
+| 4 | A new document loaded, or was about to load, after arming, or a new window was opened |
+| 5 | Overlay or map treatment incomplete, empty denylist for a Demo Mode take, or denylisted text on screen |
+| 6 | A guarded action was refused, or its target was not found in time |
+| 64 | Usage error, or the take already exists |
 | 65 | The episode file is not a valid episode |
 
-Each take writes `take<N>-safety.json` beside it under `<media root>/episodes/<id>/capture/raw/`: aborted requests (method, host and path only, never the query string), document loads, refusals and denylist scan counts.
+Each run writes `take<N>-safety.json` (`take<N>-recreation-safety.json` for the recreation) under `<media root>/episodes/<id>/capture/raw/`, also when it ends early or with `--no-record`: aborted requests (method, host and path only, never the query string), WebSockets, document loads, popups, dialogs, refusals, in-page trips, denylist scan counts and hit indices, the overlay's counts, the exit code and its reason. A recorded take also writes `take<N>-log.json` (cue times), `take<N>-track.json` (cursor, ripple and focus box per frame, and click times) and `take<N>_sheet.jpg` (contact sheet). An existing take is never overwritten.
 
 ## Residual risks
 
