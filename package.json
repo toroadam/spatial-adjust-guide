@@ -23,6 +23,7 @@
     "translate": "node scripts/translate.mjs",
     "test:validate": "node scripts/validate-locales.mjs",
     "test:prose": "node scripts/prose-lint.mjs",
+    "test:shape": "node scripts/step-shape.mjs",
     "test:fidelity": "node scripts/fidelity.mjs",
     "test:parity": "node scripts/fidelity-parity.mjs",
     "fidelity:harvest": "node scripts/fidelity-harvest.mjs",
