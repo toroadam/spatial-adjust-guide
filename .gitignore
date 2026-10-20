@@ -21,3 +21,7 @@ _incoming/
 
 # Translation working fragments — regenerate with npm run translate
 .translate/
+
+# Expert review pack (npm run review-pack). Internal: shared through Toro SharePoint/Teams,
+# never committed and never published. build.mjs does not copy it into dist/.
+review-pack/

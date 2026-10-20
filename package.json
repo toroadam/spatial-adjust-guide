@@ -31,7 +31,8 @@
     "test:product-locales": "node scripts/product-locales.mjs",
     "claims:extract": "node scripts/claims-extract.mjs",
     "claims:aggregate": "node scripts/claims-extract.mjs --aggregate-only",
-    "claims:lint": "node scripts/claims-extract.mjs --lint"
+    "claims:lint": "node scripts/claims-extract.mjs --lint",
+    "review-pack": "node scripts/review-pack.mjs"
   },
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.72.0",
