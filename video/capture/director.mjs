@@ -36,7 +36,9 @@
 //      document or popup ends the take.
 //   5. Installs the overlay, scans the page against the denylist, records the take while the
 //      runtime plays the episode's beats, and writes the take, its cue log, cursor track,
-//      contact sheet and safety report beside it.
+//      contact sheet and safety report beside it. A recreation episode with "recreationFigure"
+//      first has that figure of the guide page lifted to fill the viewport (liftFigure in
+//      video/capture/recreation.mjs); its targets are scoped with [data-sa-frame].
 //
 // Exit codes: see EXIT in video/capture/gates.mjs and the table in SAFETY.md.
 
@@ -216,6 +218,7 @@ function dryRun({ args, file, episode, source }) {
   try { where = path.join(mediaRoot(), 'episodes', episode.id, 'capture', 'raw', `${stem}.mp4`); } catch (err) { where = `(media root refused: ${err.message.split('\n')[0]})`; }
   log(`episode ${episode.id} (${path.relative(REPO_ROOT, file) || file}): valid, status ${episode.status}`);
   log(`source ${source}, map policy ${episode.mapPolicy}, take ${args.take} -> ${where}`);
+  if (episode.recreationFigure !== undefined) log(`figure lifted to fill the frame: "${episode.recreationFigure}"`);
   log(`plan: ${plan.beats.length} beats, ${targets.length} targets, about ${seconds.toFixed(2)} s at ${FPS} fps`);
   for (const b of plan.beats) {
     log(`  beat ${b.id}: hold ${b.hold} s${b.highlight !== null ? `, highlight #${b.highlight} ${targets[b.highlight].target}` : ''}`);
@@ -268,7 +271,7 @@ async function capture(ctx) {
     episode: episode.id, take: args.take, source, browser: args.launch ? 'launch' : 'cdp', recorded: !args.noRecord,
     startedAt: new Date(t0).toISOString(), armedAt: null, demoVerified: false, demoLogins: 0, demoLoginOk: false,
     aborted: [], websockets: [], documents: [], popups: [], dialogs: [], refusals: [], trips: [],
-    scans: { count: 0, hits: [] }, overlay: null, map: null, exit: null, reason: null, endedAt: null,
+    scans: { count: 0, hits: [] }, overlay: null, map: null, frame: null, exit: null, reason: null, endedAt: null,
   };
   const since = () => +((Date.now() - t0) / 1000).toFixed(3);
   const split = (url) => { try { const u = new URL(url); return { host: u.host, path: u.pathname }; } catch { return { host: '', path: '' }; } };
@@ -466,6 +469,15 @@ async function capture(ctx) {
     if (!armedInPage) { end(EXIT.ENTRY, 'the in-page runtime is missing; refusing to run unguarded'); return state.end.code; }
     log(`armed${source === 'demo' ? (safety.demoVerified ? ' (Demo Mode verified)' : ' (read-only: no successful demo sign-in was seen)') : ''}`);
 
+    // The recreation's figure lift: one SpatialAdjustApp figure of the guide page fills the frame.
+    if (source === 'recreation' && episode.recreationFigure !== undefined) {
+      const { liftFigure } = await import('./recreation.mjs');
+      const lifted = await liftFigure(page, episode.recreationFigure).catch((err) => ({ error: String(err?.message ?? err).split('\n')[0] }));
+      safety.frame = { figure: episode.recreationFigure, box: lifted.box ?? null, ...(lifted.error ? { error: lifted.error } : {}) };
+      if (lifted.error) { end(EXIT.FAILED, `recreationFigure: ${lifted.error}`); return state.end.code; }
+      log(`lifted the figure "${episode.recreationFigure}" to fill the frame`);
+    }
+
     // Overlay, readiness, first scan.
     const pairs = maps.pairs.map(([r, f]) => [r, f]);
     const deny = Array.from(maps.denylist);
@@ -621,6 +633,10 @@ export async function main(argv) {
   if (source !== episode.source) {
     warn(`--source ${source} does not match the episode's source "${episode.source}"; a take is always captured from the source the episode declares`);
     return EXIT.ENTRY;
+  }
+  if (episode.recreationFigure !== undefined && (source !== 'recreation' || typeof episode.recreationFigure !== 'string' || !episode.recreationFigure.trim())) {
+    warn('"recreationFigure" is the start of a figure caption, and only a recreation episode may set it');
+    return EXIT.EPISODE;
   }
   if (args.dryRun) return dryRun({ args, file, episode, source });
 
