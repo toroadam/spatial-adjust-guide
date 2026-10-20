@@ -38,6 +38,20 @@ in `src/transform-export.mjs` stay there, and new edits go into the module their
 After review-fixes it calls beta-content and then release-gate, which runs last so it sees every
 step any module added.
 
+### Release map: who edits the beta list and the release status
+
+| File | Owner | Holds |
+|---|---|---|
+| `docs/claims/beta-surfaces.md` | beta release epic | The authoritative beta list: every commit that separates the production and develop pins in `sources.json`, classified, and a stable id for each beta surface |
+| `src/release.json` | beta release epic | One release status per guide, `ga` or `beta`, and the beta sections of GA guides, addressed by exact step title. A beta guide's or beta section's `basis` names its surface id in `beta-surfaces.md` |
+
+Claims on the content `src/release.json` marks beta are judged against develop, and one that
+develop bears out is Verified (beta): see the exception in rule 1 of
+[Rules for verifiers](#rules-for-verifiers) and the [Status vocabulary](#status-vocabulary).
+[Release status](#release-status) checks `src/release.json` against the ledger. How the build
+publishes or removes beta content, and how a feature is released, is in the top-level README under
+[Beta content and the customer launch](../../README.md#beta-content-and-the-customer-launch).
+
 ## Purpose
 
 The guides make several hundred factual statements about IntelliDash's Spatial Adjust screen,
