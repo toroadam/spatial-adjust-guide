@@ -70,7 +70,7 @@ Adding a new imported component still means adding its name to `COMPONENTS` in `
 | `npm run test:keyboard` | Drives the interface: tab to a card, Enter to open, Space on Next, and asserts the live region changed. |
 | `npm run test:routing` | Deep links, Back/Forward, and an unknown key falling back to the catalog. |
 | `npm run test:a11y` | axe-core on the catalog and inside a guide, plus a keyboard-reachability probe. |
-| `npm run test:validate` | Mechanical validation of every catalogue against the English source: numbers, product names, structural characters, empties, and `Step N of M:` agreement with the standalone translation of its own tail. |
+| `npm run test:validate` | Mechanical validation of every catalogue against the English source: numbers, product names, structural characters, empties, and `Step N of M:` agreement with the standalone translation of its own tail. Also the label gates: every `[[label]]` in the guides is a real IntelliDash label recorded in the claims ledger (`labelProvenance`), and every translation names each control with the label the reader's screen shows (`markerDrift`, `screenLabelDrift`). Every finding fails the command; `--all` prints all of them. |
 | `npm run test:i18n` | Per shipped locale: that the words on screen actually change, that `<html lang>` agrees with what is served, and that a locale with no catalogue degrades to English rather than to a half-translated page. |
 | `npm run test:gate` | Drives the sign-in gate: that it hides the guides from `innerText`, rejects an outside domain and a lookalike (`nottoro.com`), admits a subdomain, persists the unlock across a reload, re-locks when storage is cleared, and is axe-clean. |
 
@@ -396,7 +396,9 @@ fluent-sounding translation:
 - product names, station identifiers, URLs and `MIN` are still present where the source had them;
 - structural characters — `←` `→` `…` `›` `÷` `×` — are not lost, so an instruction or a formula cannot silently break;
 - no empty values, and no long string returned identical to English;
-- every `Step N of M: X` contains the standalone translation of `X`, so the step list and the step heading cannot disagree.
+- every `Step N of M: X` contains the standalone translation of `X`, so the step list and the step heading cannot disagree;
+- prose that names a reproduced control uses that control's own translation (`screenLabelDrift`), and every `[[label]]` marker holds the label the reader's screen shows in that locale (`markerDrift`);
+- every `[[label]]` in the English is a key of `src/i18n/labels.en-us.json`, a fixture of IntelliDash's own English labels written by `scripts/build-label-fixture.mjs`, and is named by a Verified claim in `docs/claims/claims.json` (`labelProvenance`).
 
 It deliberately does **not** flag `—` or `%`: Romance languages routinely render an em dash as a
 colon, and Chinese spells `% Adj.` out as 调整百分比 rather than using the glyph. Both are correct, and
@@ -405,9 +407,9 @@ flagging them would bury the real defects.
 The pass found and fixed one genuine defect (Italian compounds using an em dash where their own
 standalone translations used a colon) and confirmed two behaviours that look like defects and are
 not, now encoded as documented exemptions in the validator: German couples the product name into
-compounds with hyphens (`Spatial-Adjust-Konto`, required *Durchkopplung*), and Thai keeps the Latin
-acronym where VWC is the subject of a sentence but uses IntelliDash's own shipped Thai for the named
-UI fields — matching what a Thai user actually reads on screen.
+compounds with hyphens (`Spatial-Adjust-Konto`, required *Durchkopplung*), and a control whose
+shipped label drops the VWC acronym (Thai `ปริมาตรน้ำเป้าหมาย` for Target VWC, Spanish `CVA objetivo`)
+is named with that label, while VWC as the measurement itself keeps the acronym in every locale.
 
 What this does not give you is judgement about whether the prose is good, idiomatic, or says the
 right thing to a superintendent. Nothing here substitutes for that.
@@ -494,51 +496,40 @@ worth knowing:
   existing `dialog` prop — `<dc-import>` only forwards attributes matching the component's
   *original* schema, so a transform-added prop arrives `undefined` however correctly it is declared
   and bound, whereas a new **value** on an already-bound enum passes straight through.
-- **136 places where the guide prose names a control differently from the control**, down from 308.
-  `npm run test:validate` reports these as an **advisory** count rather than failing on them.
+- **Resolved: guide prose that named a control differently from the control.** There were 308
+  such findings, then 136, and now there are none; `screenLabelDrift` in `npm run test:validate` is
+  a **gate** as of 2026-10-20 rather than an advisory count. Each finding was a translation naming a
+  reproduced control in words other than the product's own translation of it, so the reader looked
+  for a control that was not there.
 
-  The count fell for four reasons, three of them corrections to the check itself, which was
-  asserting standards that did not exist:
-  - **Provenance** (−36). Findings named a label IntelliDash does not ship: `Calculation` and
-    `Soil Factor Editor` have no key with that value in any locale, and
-    `CASE_SENSITIVE.ENABLED_STATIONS` is simply absent from `pt-pt`. Their "translations" were
-    produced by this pipeline, so prose was being measured against an invented rendering. The
-    check now requires the label to be in `src/i18n/glossary.json` for that locale.
-  - **Case and whitespace** (−49). These were grammar. Dutch inflects and lowercases an adjective
-    mid-sentence — "de voorgestelde percentages" for a label reading `Voorgesteld` — and
-    IntelliDash's own `es-es` `AVG_VWC` ships a double space (`"Promedio de  CVA"`) that prose
-    could only match by reproducing the typo.
-  - **Longest match wins** (−1 finding, but several bogus constraints). `Suggested` is a substring
-    of `Suggested Percent Adjust Calculation`, so prose about the *field* was also required to
-    name the *column* — two different controls sharing a word.
-  - **87 findings actually fixed** across seven locales, which is the real work.
+  How it got to zero:
+  - **Corrections to the check**, which was asserting standards that did not exist. Labels
+    IntelliDash does not ship (`Calculation`, `Soil Factor Editor`) have no product translation to
+    be faithful to (−36); Dutch inflects and lowercases a label mid-sentence, and IntelliDash's own
+    `es-es` `AVG_VWC` carries a double space (−49); a short label was demanded inside sentences
+    about a longer one containing it (−1).
+  - **Term swaps to the shipped label** (87 fixed), applied surgically so the reviewed prose
+    survived: „Änderungen senden“, « Transmettre changements », « Toutes les voies »,
+    «Ajuste por lote», «Applica a tutte», «Salvar alterações», “建议的”, ตัวเลือก 2.
+  - **The VWC ruling, 2026-09-12**, which cleared the 136 that remained. Prose that names a
+    control uses its shipped label even where that label has no "VWC" in it (`CVA objetivo`,
+    `Teneur en eau volumétrique cible`, `목표 체적 수분 함량`, `平均体積含水率`); prose about the
+    measurement keeps "VWC". Two last corrections to the check went with it: spaces next to
+    Chinese, Japanese or Thai text are ignored, and the Settings dialog's left rail, which the
+    product hardcodes in English, is no longer held to the catalogue's translation. Where a
+    locale ships one word for two controls (German `Einstellungen`), the step keeps the shipped
+    label and says where the control is.
 
-  **The root cause was a contradiction in the translator's own prompt.** `scripts/translate.mjs`
-  told the model to keep `VWC` untranslated *and* to follow the glossary, and in `es`/`fr`/`ko`/`th`
-  IntelliDash's label drops the acronym. The glossary itself was never wrong: it agrees with the
-  reproduced screen labels 89/89 across seven locales.
-
-  **What was fixed**, by swapping the prose's paraphrase for the shipped label — surgical term
-  edits rather than whole-sentence rewrites, so the reviewed prose survives:
-
-  | Locale | Fixed | The swap |
-  |---|---|---|
-  | `de-de` | 23 | „Änderungen übertragen“ → **„Änderungen senden“**; „Sammelanpassung“ → **„Massenanpassung“** |
-  | `fr-fr` | 28 | « Envoyer les modifications » → **« Transmettre changements »**; « Toutes les stations » → **« Toutes les voies »** (the product says *voies*, not *stations*) |
-  | `zh-cn` | 13 | 建议值 → **“建议的”** |
-  | `th-th` | 8 | ตัวเลือกที่ 2 → **ตัวเลือก 2** (the shipped label carries no classifier) |
-  | `es-es` | 6 | «Ajuste masivo» → **«Ajuste por lote»** |
-  | `it-it` | 4 | «Applica a tutti» → **«Applica a tutte»** |
-  | `pt-pt` | 3 | «Guardar alterações» → **«Salvar alterações»** |
-
-  `node scripts/retranslate-drift.mjs --all` now reports an empty queue. The 136 that remain are
-  **deferred by design**, not unfixed:
-
-  | | Findings | Why it is not a copy-edit |
-  |---|---|---|
-  | VWC family | 123 | Matching the label drops the `VWC` token and trips the `droppedToken` **gate**, so it needs an `EXEMPT` entry beside it — `validate-locales.mjs` already carries one for `th-th` for exactly this reason |
-  | `Preferences` / `Settings` | 9 | IntelliDash ships both as "Einstellungen" in German, so matching the label makes prose ambiguous where it is currently clear. Case tolerance already absorbed most of this bucket |
-  | Mixed sentences | 4 | Name a deferred label *and* a mechanical one, so they are held back rather than rewritten as a side effect |
+  Two guards keep it at zero. `droppedToken` exempts a missing VWC only when every VWC in the
+  English sits inside such a control's name and the translation uses the shipped label; the
+  per-locale exemptions it replaced also matched each locale's word for the measurement, so concept
+  prose could drop the acronym and pass. Narrowing it found four strings that had: the dashboard
+  overview's map legend and summary sentences in Spanish and French say CVA or Hv for the
+  measurement. They are listed by name in `VWC_CONCEPT_KNOWN` in `scripts/validate-locales.mjs`,
+  which may only shrink, until the next translation pass swaps in "VWC". And
+  `scripts/retranslate-drift.mjs` now shares the gate's predicate (`scripts/lib/screen-labels.mjs`),
+  so its re-translation queue is exactly what the gate fails; `--all` reports an empty queue.
+  The rules are written up in `docs/writing-guide.md` under Label markers.
 
 - **The contact modal was shipping in English to all ten non-English locales** — now fixed.
   `scripts/extract-strings.mjs` drives the contact modal and the feedback panel before
