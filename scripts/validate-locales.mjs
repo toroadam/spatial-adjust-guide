@@ -86,24 +86,48 @@ const EXEMPT = {
   // "Spatial-Adjust-Konto", "Spatial-Adjust-Kopfzeile". The trademark is intact and searchable;
   // writing "Spatial Adjust Konto" would be wrong German.
   'de-de': (en, tr, tok) => tok === 'Spatial Adjust' && tr.includes('Spatial-Adjust'),
-  // Thai keeps the Latin acronym where VWC is the subject of the sentence ("VWC คือ…") but uses
-  // IntelliDash's own shipped Thai for the named UI fields (Target VWC → ปริมาตรน้ำเป้าหมาย),
-  // because that is the label a Thai user reads on the actual screen. Matching the product beats
-  // matching the English.
-  'th-th': (en, tr, tok) => tok === 'VWC' && /ปริมาตรน้ำ/.test(tr),
-  // Ruled 2026-09-12: when prose NAMES a control it uses the product's shipped label; when it
-  // discusses the CONCEPT it keeps VWC. These four locales ship a Target/Avg. VWC label with no
-  // acronym in it — "CVA objetivo", "Teneur en eau volumétrique cible", "목표 체적 수분 함량",
-  // "平均体積含水率" — so prose that names the control correctly cannot contain the token, and the
-  // droppedToken GATE would fail it for being right. The guides exist so a reader can find the
-  // control on their own screen; a findable label beats a preserved acronym.
-  //
-  // Bare VWC as a concept is untouched and still guarded: only the compound control names were
-  // changed, so a translation that drops the acronym everywhere still fails.
-  'es-es': (en, tr, tok) => tok === 'VWC' && /CVA/.test(tr),
-  'fr-fr': (en, tr, tok) => tok === 'VWC' && /Teneur en eau volumétrique|Hv\b/.test(tr),
-  'ko-ko': (en, tr, tok) => tok === 'VWC' && /체적 수분 함량/.test(tr),
-  'ja-jp': (en, tr, tok) => tok === 'VWC' && /体積含水率/.test(tr),
+};
+
+// VWC in a control's name, in every locale. Ruled 2026-09-12: when prose NAMES a control it uses
+// the product's shipped label; when it discusses the CONCEPT it keeps VWC. Several locales ship a
+// Target/Avg. VWC label with no acronym in it ("CVA objetivo", "Teneur en eau volumétrique cible",
+// "목표 체적 수분 함량", "平均体積含水率", "ปริมาตรน้ำเป้าหมาย"), so prose that names the control
+// correctly cannot contain the token, and the droppedToken GATE would fail it for being right. A
+// findable label beats a preserved acronym.
+//
+// The exemption is narrow on purpose. It used to be one regex per locale over the translation
+// (/CVA/ in es-es, /Hv\b/ in fr-fr, ...), which also matched the locale's word for the CONCEPT, so
+// a translation could swap every bare VWC for CVA or Hv and pass. Now the English decides: every
+// VWC in it must sit inside a reproduced control label whose shipped translation drops the
+// acronym, and the translation must name each of those controls with its shipped label. One bare
+// VWC left in the English, and the token is required as before.
+const VWC = /(?<![A-Za-z])VWC(?![A-Za-z])/;
+const VWC_CONTROLS = [...SCREEN].filter((l) => l !== 'VWC' && VWC.test(l)).sort((a, b) => b.length - a.length);
+const namesVwcControlsOnly = (en, tr, t) => {
+  let rest = en;
+  const named = [];
+  for (const label of VWC_CONTROLS) {
+    if (!rest.includes(label)) continue;
+    rest = rest.split(label).join(' ');
+    named.push(label);
+  }
+  return named.length > 0 && !VWC.test(rest)
+    && named.every((label) => t[label] && !VWC.test(t[label]) && present(tr, t[label]));
+};
+
+// Concept prose whose translation replaced VWC with the locale's own acronym, found when the guard
+// above was narrowed on 2026-10-20 (the per-locale regexes had hidden them). Each is a defect under
+// the 2026-09-12 ruling and needs a one-word catalogue fix, "CVA"/"Hv" -> "VWC"; that change
+// tightened the check but left the catalogues to the next translation pass. Listed by locale and
+// English prefix so they stay visible. The list may only shrink: an entry whose string no longer
+// drops VWC is reported as stale.
+const VWC_CONCEPT_KNOWN = {
+  // es-es renders the concept as CVA (Contenido Volumétrico de Agua), the product's acronym for it.
+  'es-es': ['Each sprinkler of a station scanned in the past seven days is a pin. A pin scanned today is coloured by its measured VWC',
+    'The average, high and low VWC figures summarise'],
+  // fr-fr renders the concept as Hv (humidité volumique), from the product's "Hv moyenne".
+  'fr-fr': ['Each sprinkler of a station scanned in the past seven days is a pin. A pin scanned today is coloured by its measured VWC',
+    'The average, high and low VWC figures summarise'],
 };
 
 const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
@@ -194,6 +218,13 @@ for (const locale of locales) {
   const data = JSON.parse(await readFile(`${dir}/${locale}.json`, 'utf8'));
   const t = data.strings;
   const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [], markerDrift: [], screenLabelDrift: [] };
+  const known = VWC_CONCEPT_KNOWN[locale] || [];
+  const knownUsed = new Set();
+  const knownDrop = (en, tok) => {
+    const k = tok === 'VWC' && known.find((prefix) => en.startsWith(prefix));
+    if (k) knownUsed.add(k);
+    return Boolean(k);
+  };
 
   for (const [en, tr] of Object.entries(t)) {
     if (!tr || !String(tr).trim()) { issues.empty.push(en.slice(0, 50)); continue; }
@@ -214,7 +245,8 @@ for (const locale of locales) {
       // a Latin letter and a CJK/Thai character, so the target side is checked with an explicit
       // "not adjacent to another Latin letter" test instead.
       const bounded = new RegExp(`(?<![A-Za-z])${tok.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![A-Za-z])`);
-      if (bounded.test(en) && !bounded.test(tr) && !SCREEN.has(en) && !(EXEMPT[locale]?.(en, tr, tok))) {
+      if (bounded.test(en) && !bounded.test(tr) && !SCREEN.has(en) && !(EXEMPT[locale]?.(en, tr, tok))
+        && !(tok === 'VWC' && namesVwcControlsOnly(en, tr, t)) && !knownDrop(en, tok)) {
         issues.droppedToken.push(`${en.slice(0, 45)} :: lost "${tok}"`);
       }
     }
@@ -225,6 +257,10 @@ for (const locale of locales) {
     if (en === tr && !MAY_MATCH.test(en) && en.length > SHORT && !SCREEN.has(en)) {
       issues.untranslated.push(en.slice(0, 55));
     }
+  }
+
+  for (const prefix of known) {
+    if (!knownUsed.has(prefix)) issues.droppedToken.push(`${prefix.slice(0, 45)} :: stale VWC_CONCEPT_KNOWN entry; the string keeps VWC now, so delete the entry`);
   }
 
   // Prose that names a reproduced screen label must use the label's own translation. A guide
