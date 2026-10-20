@@ -15,7 +15,7 @@
 // from Core Design means dropping the new .dc.html files in and rebuilding.
 
 import { readFile, writeFile, mkdir, rm, cp, readdir } from 'node:fs/promises';
-import { join, relative } from 'node:path';
+import { join, relative, sep } from 'node:path';
 import { transformGuide } from './src/transform-export.mjs';
 import { transformApp } from './src/transform-app.mjs';
 import { parseShowBeta, loadRelease } from './src/release.mjs';
@@ -263,7 +263,7 @@ async function main() {
     + `${shipped} locale catalogue(s), 0 external origins`);
   console.log(`release mode: ${showBeta ? 'beta shown' : 'beta removed'} `
     + `(SA_SHOW_BETA=${rawShowBeta === undefined ? 'unset' : JSON.stringify(rawShowBeta)}), `
-    + `release file ${relative(ROOT, releaseFile) || releaseFile}`);
+    + `release file ${releaseFile.startsWith(ROOT + sep) ? relative(ROOT, releaseFile) : releaseFile}`);
 }
 
 await main();
