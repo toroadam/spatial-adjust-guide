@@ -1,1 +1,17 @@
-{ "repo": "toroadam/spatial-adjust-guide", "release": "media-v1", "items": {} }
+{
+  "repo": "toroadam/spatial-adjust-guide",
+  "release": "media-v1",
+  "items": {
+    "dashboard-overview": {
+      "kind": "episode",
+      "file": "dashboard-overview.mp4",
+      "bytes": 14900934,
+      "sha256": "8216454de7b7c00a36982c4d7a3479307257405d20506ed1fb02d8613b379be8",
+      "duration": 27.9,
+      "poster": "dashboard-overview.jpg",
+      "posterBytes": 110347,
+      "posterSha256": "aefee85cf1428585994ad2ce92b949d9601753acecde7eb82291d4bd1a7832e8",
+      "captions": "src/media/captions/dashboard-overview.en-us.vtt"
+    }
+  }
+}

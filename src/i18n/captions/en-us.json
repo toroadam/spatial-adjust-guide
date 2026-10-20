@@ -2,9 +2,27 @@
   "_meta": {
     "note": "Caption source strings harvested from src/media/captions/*.en-us.vtt by scripts/media-cues.mjs. Keys are the exact English cue text, with a multi-line cue joined by single spaces; src/media/captions.mjs matches on them verbatim when it writes the localized tracks. Regenerate after any change to an English caption track.",
     "locale": "en-us",
-    "strings": 0,
-    "words": 0
+    "strings": 4,
+    "words": 48
   },
-  "strings": {},
-  "_contexts": {}
+  "strings": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": "A pin scanned today is coloured by the moisture band its reading falls into,",
+    "as the legend shows.": "as the legend shows.",
+    "Each sprinkler of a station scanned in the past seven days is a pin.": "Each sprinkler of a station scanned in the past seven days is a pin.",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "The whole Spatial Adjust feature lives on one screen. Here is how to read its map."
+  },
+  "_contexts": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": [
+      "dashboard-overview@00:00:16.250"
+    ],
+    "as the legend shows.": [
+      "dashboard-overview@00:00:20.395"
+    ],
+    "Each sprinkler of a station scanned in the past seven days is a pin.": [
+      "dashboard-overview@00:00:11.650"
+    ],
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": [
+      "dashboard-overview@00:00:02.750"
+    ]
+  }
 }

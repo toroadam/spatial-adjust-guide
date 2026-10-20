@@ -1,0 +1,17 @@
+{
+  "_meta": {
+    "note": "Machine translation of the video caption cues in src/i18n/captions/en-us.json. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json, and a cue that names a guide step uses that step heading's translation from the page catalogue. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and step-label agreement. NOT reviewed by a native speaker. Regenerate keys with scripts/media-cues.mjs after any change to an English caption track.",
+    "locale": "ko-ko",
+    "strings": 4,
+    "identicalToEnglish": 0,
+    "machineValidated": true,
+    "nativeSpeakerReviewed": false,
+    "nativeReviewPlanned": false
+  },
+  "strings": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": "오늘 스캔된 핀은 판독값이 속하는 수분 구간의 색으로 표시됩니다.",
+    "as the legend shows.": "범례에 나와 있는 대로입니다.",
+    "Each sprinkler of a station scanned in the past seven days is a pin.": "지난 7일 동안 스캔된 스테이션의 각 스프링클러는 핀입니다.",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Spatial Adjust 기능 전체가 하나의 화면에 있습니다. 그 화면의 지도를 읽는 방법을 알아봅니다."
+  }
+}
