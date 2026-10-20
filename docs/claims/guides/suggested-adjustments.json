@@ -236,6 +236,44 @@
       "correction": ""
     },
     {
+      "id": "suggested-adjustments/before/3",
+      "guide": "suggested-adjustments",
+      "step": "before",
+      "field": "before",
+      "text": "Lynx itself must be set up to match Spatial Adjust.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "373-1135 rev 02 p.1 lists the Lynx settings Spatial Adjust depends on: Site Adjust and Course Adjust, Pct. Adjust, and Next Amt.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/before/4",
+      "guide": "suggested-adjustments",
+      "step": "before",
+      "field": "before",
+      "text": "Push changes to Lynx lists the settings under Before you start.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "Cross-reference within the guides: push-to-lynx/before/4 to /before/9 carry the settings, each from 373-1135 rev 02 §Settings Configuration, p.1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "suggested-adjustments/1/1",
       "guide": "suggested-adjustments",
       "step": "1",
@@ -907,9 +945,9 @@
       "guide": "suggested-adjustments",
       "step": "4",
       "field": "caption",
-      "text": "Editing % Adj. queues the station; the icon beside the field marks it as pending.",
+      "text": "Editing % Adj. queues the station when the new value differs from what Lynx holds; a push icon appears beside the field only on a station that has been pushed before.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -940,10 +978,11 @@
           "line": "659-662"
         }
       ],
-      "note": "Editing does queue the station when the value differs from Lynx (sa-dashboard.component.ts:659-662). The icon beside the field is drawn only when the station has a recorded last push and its % Adj. differs from Lynx (sa-table-card.component.ts:545-556). A station never pushed before shows no icon however it is edited. One pushed today shows the pushed variant. Feature 4 found the same in push-to-lynx/verify/3.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (suggested-adjustments/4/5); docs/text-corrections.md §17 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Editing % Adj. queues the station when the new value differs from what Lynx holds. A station that has been pushed before also shows a push icon beside the field; a station that has never been pushed shows none. Why: the icon is drawn only for a station with a recorded previous push (sa-table-card.component.ts:545-556)."
+      "correction": "",
+      "previousText": "Editing % Adj. queues the station; the icon beside the field marks it as pending."
     },
     {
       "id": "suggested-adjustments/5/1",
@@ -1114,9 +1153,9 @@
       "guide": "suggested-adjustments",
       "step": "verify",
       "field": "verify",
-      "text": "Every station you edited shows the pending push icon beside the % Adj. field.",
+      "text": "Every station you edited to a value different from what Lynx holds is in the Push Changes list.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1140,19 +1179,20 @@
           "line": "659-662"
         }
       ],
-      "note": "See suggested-adjustments/4/5. Only stations with a recorded previous push show the icon, and an edit back to the value Lynx already holds is not pending at all.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (suggested-adjustments/verify/1); docs/text-corrections.md §15 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Every station you edited to a value different from what Lynx holds is in the Push Changes list; stations that have been pushed before also show the push icon beside % Adj. Why: the icon is drawn only for a station with a recorded previous push (sa-table-card.component.ts:545-556)."
+      "correction": "",
+      "previousText": "Every station you edited shows the pending push icon beside the % Adj. field."
     },
     {
       "id": "suggested-adjustments/verify/2",
       "guide": "suggested-adjustments",
       "step": "verify",
       "field": "verify",
-      "text": "The Push Changes count in the toolbar matches the number of rows you changed.",
+      "text": "The Push Changes count in the toolbar is the number of enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1183,10 +1223,11 @@
           "line": "659-662"
         }
       ],
-      "note": "Unedited stations count too: % Adj. starts as the suggestion (sa-dashboard.component.ts:597-598), and any station whose % Adj. differs from Lynx is pending (:659-662). Stations already pushed today are left out of the number (sa-main-toolbar.component.ts:153-160). Feature 4 recorded the same finding for push-to-lynx/1/2.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (suggested-adjustments/verify/2); docs/text-corrections.md §15 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The Push Changes count in the toolbar is the number of stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today. Why: % Adj. starts as the suggestion, so unedited suggestions that differ from Lynx are pending too (sa-dashboard.component.ts:597-598, :659-662; sa-main-toolbar.component.ts:153-160)."
+      "correction": "",
+      "previousText": "The Push Changes count in the toolbar matches the number of rows you changed."
     },
     {
       "id": "suggested-adjustments/verify/3",

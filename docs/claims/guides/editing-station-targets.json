@@ -282,9 +282,9 @@
       "guide": "editing-station-targets",
       "step": "1",
       "field": "body",
-      "text": "The flat All Stations tab is faster when you already know the station name.",
+      "text": "If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row.",
       "type": "navigation",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -329,10 +329,11 @@
           "line": "444-469"
         }
       ],
-      "note": "Retyped from label to navigation. The All Stations tab is the drill-down table (sa-dashboard.component.html:37-43). The flat station list belongs to the Over/Under tab, SPATIAL_ADJUST.FILTER_OVER_UNDER \"Over/Under\" (:44-51; sa-dash-table.component.ts:161-266), and it lists only the stations outside the % Adj. thresholds. The quickest way to a known station is its map pin: clicking it drills the table to the station's hole and scrolls to its row (sa-dash-map.component.ts:332-335, sa-dash-table.component.ts:444-469).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (editing-station-targets/1/4); docs/text-corrections.md §29 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row. Why: the All Stations tab is the drill-down (sa-dashboard.component.html:37-43); the only flat list is the Over/Under tab, which shows just the stations outside the thresholds (:44-51), while a pin click jumps the table to the station (sa-dash-table.component.ts:444-469)."
+      "correction": "",
+      "previousText": "The flat All Stations tab is faster when you already know the station name."
     },
     {
       "id": "editing-station-targets/1/5",
@@ -557,9 +558,9 @@
       "guide": "editing-station-targets",
       "step": "3",
       "field": "body",
-      "text": "If it lands on the same number as its neighbours, the daily maximum is capping it rather than the target deciding it.",
+      "text": "If it lands on the top value, Daily Max Amount ÷ Lynx Reference Amount × 100, the daily maximum is capping it rather than the target deciding it.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -580,10 +581,11 @@
           "ref": "373-1135 rev 02 §Settings Configuration"
         }
       ],
-      "note": "The cap gives every capped station the same value, Daily Max Amount ÷ Lynx Reference Amount × 100 (SpatialAdjustService.cs:3041-3043; 373-1135 rev 02 §Settings Configuration: 10 mm over 5 mm caps at 200%). Neighbours can also share a value for other reasons: any station whose target sits below its modelled VWC by more than today's crop-adjusted ET floors at 0% (:3037-3039), and similar stations round to the same whole percent. Matching neighbours alone does not show the cap.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (editing-station-targets/3/3); docs/text-corrections.md §29 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "If it lands on the top value, Daily Max Amount ÷ Lynx Reference Amount × 100, the daily maximum is capping it rather than the target deciding it; a 0 means the target is below the modelled moisture by more than today's ET. Why: the cap sets every capped station to that one ceiling (SpatialAdjustService.cs:3041-3043), while the floor at 0 (:3037-3039) and ordinary rounding also make neighbours match."
+      "correction": "",
+      "previousText": "If it lands on the same number as its neighbours, the daily maximum is capping it rather than the target deciding it."
     },
     {
       "id": "editing-station-targets/3/4",
@@ -663,9 +665,9 @@
       "guide": "editing-station-targets",
       "step": "4",
       "field": "body",
-      "text": "Editing it queues the station for push and leaves the suggestion visible underneath for comparison.",
+      "text": "Editing it queues the station for push when the station is enabled and the new value differs from Lynx’s Current; the Suggested value stays visible beside it for comparison.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -700,10 +702,11 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "An edit is saved (sa-table-card.component.ts:146-164) and the pending list is rebuilt, but the station joins it only when its area, hole and station are enabled and the new % Adj. differs from Lynx's Current value (sa-dashboard.component.ts:607-678, :659-662); typing the Current value back takes it off. Suggested stays visible, but beside the input, not underneath it: the row runs Current, Suggested, then % Adj. (sa-table-card.component.html:48-62).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (editing-station-targets/4/3); docs/text-corrections.md §15 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Editing it queues the station for push when the station is enabled and the new value differs from Lynx's Current; the Suggested value stays visible beside it for comparison. Why: pending means enabled and different from Current (sa-dashboard.component.ts:659-662), and Suggested is the cell to the left of % Adj. (sa-table-card.component.html:48-62)."
+      "correction": "",
+      "previousText": "Editing it queues the station for push and leaves the suggestion visible underneath for comparison."
     },
     {
       "id": "editing-station-targets/4/4",
@@ -874,9 +877,9 @@
       "guide": "editing-station-targets",
       "step": "verify",
       "field": "verify",
-      "text": "The station appears in the Push Changes count only if you edited % Adj.",
+      "text": "The station appears in the Push Changes count if it is enabled and its % Adj. differs from Lynx’s Current, whether from your edit or from the new suggestion.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -904,10 +907,11 @@
           "ref": "373-1135 rev 02 §Push Changes Functionality"
         }
       ],
-      "note": "Retyped from label to behaviour. A target change alone can put the station in the count: the row's % Adj. is reset to the new suggestion and the pending list is rebuilt (sa-table-card.component.ts:465-475), and the station is pending whenever it is enabled and % Adj. differs from Lynx's Current (sa-dashboard.component.ts:659-662). Stations nobody touched are counted too, because % Adj. starts as the suggestion (:597-598). Same finding as push-to-lynx/1/2.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (editing-station-targets/verify/3); docs/text-corrections.md §15 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The station appears in the Push Changes count when it is enabled and its % Adj. differs from Lynx's Current value, whether that comes from your % Adj. edit or from the new suggestion your target change produced. Why: a target change resets % Adj. to the new suggestion (sa-table-card.component.ts:465-472), and pending means \"differs from Current\" (sa-dashboard.component.ts:659-662)."
+      "correction": "",
+      "previousText": "The station appears in the Push Changes count only if you edited % Adj."
     }
   ]
 }

@@ -374,9 +374,9 @@
       "guide": "enable-disable-stations",
       "step": "2",
       "field": "title",
-      "text": "Toggling a parent cascades",
+      "text": "Shift-click a parent to cascade",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -414,19 +414,20 @@
           "line": "355-365"
         }
       ],
-      "note": "A plain click on an area or hole switch takes the single-row path (sa-table-card.component.ts:336-338), which sets only that row's flag (SpatialAdjustService.cs:1262-1288); child switches keep their own state. The cascade runs only when Shift is held during the click (sa-table-card.component.ts:336, :339-347). No label, tooltip or en-us.json string mentions Shift, so the gesture cannot be discovered in the product; the review pack should ask whether the guide should teach it. Even without a cascade, a disabled parent takes its children out of the push and off the Enabled Stations map (sa-dashboard.component.ts:615-619; sa-dash-map.component.ts:355-365).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/2/1); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Shift-click a parent to cascade. Why: a plain click on an area or hole switch changes only that row (sa-table-card.component.ts:336-338), and the cascade runs only when Shift is held (:339-347)."
+      "correction": "",
+      "previousText": "Toggling a parent cascades"
     },
     {
       "id": "enable-disable-stations/2/2",
       "guide": "enable-disable-stations",
       "step": "2",
       "field": "body",
-      "text": "Hole and area rows carry the same switch, and turning one off turns off everything beneath it.",
+      "text": "Hole and area rows carry the same switch.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -482,13 +483,103 @@
           "ref": "373-1135 rev 02 §Push Changes Functionality"
         }
       ],
-      "note": "First half verified: the switch is rendered on every row (sa-table-card.component.html:67-69). Second half: a plain click turns off only the parent. Its stations drop out of the push list and off the Enabled Stations map because their parent is off (sa-dashboard.component.ts:615-619; sa-dash-map.component.ts:355-365; 373-1135 rev 02 §Push Changes Functionality), but their own switches stay on, and switching the parent back on restores them as they were. Only a Shift-click sets every switch beneath it (sa-table-card.component.ts:507-531; SpatialAdjustService.cs:1322-1383).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/2/2); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Hole and area rows carry the same switch. Turning one off takes everything beneath it out of the push and off the Enabled Stations map but leaves their own switches as they were; hold Shift as you click to switch everything beneath it off too. Why: a plain click sets only the parent's flag (SpatialAdjustService.cs:1262-1288), the push list skips children of a disabled parent (sa-dashboard.component.ts:615-619), and only a Shift-click cascades (sa-table-card.component.ts:336-347)."
+      "correction": "",
+      "previousText": "Hole and area rows carry the same switch, and turning one off turns off everything beneath it."
     },
     {
       "id": "enable-disable-stations/2/3",
+      "guide": "enable-disable-stations",
+      "step": "2",
+      "field": "body",
+      "text": "Turning one off takes everything beneath it out of the push and off the Enabled Stations map, but leaves their own switches as they were; hold Shift as you click to switch everything beneath it off too.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "334-348"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "488-505"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1256-1309"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-619"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "355-365"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "67-69"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "336-338"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1262-1288"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "507-531"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1322-1383"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Push Changes Functionality"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/2/1, enable-disable-stations/2/2); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "enable-disable-stations/2/4",
       "guide": "enable-disable-stations",
       "step": "2",
       "field": "body",
@@ -517,7 +608,7 @@
       "correction": ""
     },
     {
-      "id": "enable-disable-stations/2/4",
+      "id": "enable-disable-stations/2/5",
       "guide": "enable-disable-stations",
       "step": "2",
       "field": "caption",
@@ -894,9 +985,9 @@
       "guide": "enable-disable-stations",
       "step": "4",
       "field": "tip",
-      "text": "Careful. With the prompt suppressed, an area-level toggle silently changes every hole and station under it.",
+      "text": "Careful. With the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a footer message to show for it.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -934,10 +1025,11 @@
           "line": 384
         }
       ],
-      "note": "With the prompt suppressed, a Shift-click on an area switch cascades at once (sa-table-card.component.ts:340-342). A plain click on an area never cascades, prompt or not (:336-338; SpatialAdjustService.cs:1262-1274), though it still takes every hole and station beneath it out of the push (sa-dashboard.component.ts:615-619). Nor is a cascade silent: it shows \"Cascade Disable for '<area>' complete\" in the footer (sa-table-card.component.ts:532-534; en-us.json:384).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/4/5); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "Careful. With the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a brief footer message to show for it. Why: the suppressed path cascades without the dialog (sa-table-card.component.ts:340-342), and only a Shift-click cascades at all (:336-338)."
+      "correction": "",
+      "previousText": "Careful. With the prompt suppressed, an area-level toggle silently changes every hole and station under it."
     },
     {
       "id": "enable-disable-stations/5/1",
@@ -1095,9 +1187,9 @@
       "guide": "enable-disable-stations",
       "step": "verify",
       "field": "verify",
-      "text": "The stations you meant to disable show a grey switch.",
+      "text": "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -1128,10 +1220,11 @@
           "line": "67-69"
         }
       ],
-      "note": "True for a station switched off directly or by a Shift-click cascade. After a plain click on a hole or area, the stations beneath it are out of the push but their own switches stay on (sa-table-card.component.ts:336-338; SpatialAdjustService.cs:1262-1288; sa-dashboard.component.ts:615-619), so the check fails although the result is right. See also the multi-sprinkler caveat in enable-disable-stations/1/2, where the switch is grey but the station is still pushed.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/verify/1); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
-      "correction": "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey. Why: a plain click on a parent switch leaves its children's switches on while still taking them out of the push (sa-table-card.component.ts:336-338; sa-dashboard.component.ts:615-619)."
+      "correction": "",
+      "previousText": "The stations you meant to disable show a grey switch."
     },
     {
       "id": "enable-disable-stations/verify/2",
