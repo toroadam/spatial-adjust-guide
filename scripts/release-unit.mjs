@@ -3,13 +3,17 @@
 // Proves that the committed release file is valid against the published guides, that
 // validateRelease() rejects each kind of mistake it exists to catch, that SA_SHOW_BETA parses as
 // documented, and that the shipping helpers answer correctly for a GA guide, a GA guide with a beta
-// section, and a beta guide.
+// section, and a beta guide. The release gate (src/transforms/release-gate.mjs) is exercised on the
+// real export with in-memory release objects: what a build with SA_SHOW_BETA=false removes, and
+// what makes it fail.
 //
 // Usage: node scripts/release-unit.mjs   (npm run test:release). Exits 1 on any failure.
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, rmSync, readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { extractGuides } from './claims-extract.mjs';
+import { transformGuide } from '../src/transform-export.mjs';
+import { apply as applyReleaseGate, evaluateGuideData } from '../src/transforms/release-gate.mjs';
 import {
   parseShowBeta, showBetaFromEnv, loadRelease, releaseFilePath, validateRelease, findDuplicateKeys,
   isGuideShipped, betaSteps, statusOf, DEFAULT_RELEASE_FILE,
@@ -238,6 +242,91 @@ check('Beta strings', () => {
   equal(BETA_BADGE_LABEL, 'Beta', 'badge');
   equal(BETA_BANNER_LABEL, 'Beta.', 'banner label');
   equal(BETA_BANNER_TEXT, 'This feature is in testing and may change before it reaches your IntelliDash.', 'banner text');
+});
+
+// ---- the release gate ---------------------------------------------------------------------------
+
+// The export with every transform applied and beta content shown. With the committed release file
+// nothing is beta, so a hidden build of it must be the same text.
+const EXPORT_HTML = readFileSync(join(import.meta.dirname, '..', 'Learn Spatial Adjust.dc.html'), 'utf8');
+const SHOWN = transformGuide(EXPORT_HTML, { showBeta: true, release });
+const hide = (html, r) => applyReleaseGate(html, { showBeta: false, release: r });
+const tileKeys = (data) => data.CATEGORIES.flatMap((c) => c.tasks.map((t) => t.key));
+
+check('release gate: the committed release file removes nothing', () => {
+  equal(transformGuide(EXPORT_HTML, { showBeta: false, release }) === SHOWN, true, 'hidden build equals shown build');
+  equal(transformGuide(EXPORT_HTML) === SHOWN, true, 'default options show beta');
+});
+check('release gate: needs a boolean showBeta and a release', () => {
+  throws(() => applyReleaseGate(SHOWN, { showBeta: 'false', release }), /showBeta must be a boolean/, 'string showBeta');
+  throws(() => applyReleaseGate(SHOWN, { showBeta: false }), /no release status/, 'no release');
+});
+
+{
+  // One beta guide that another guide lists under Next, a category whose two guides are both beta,
+  // and a beta step in the middle of a third guide.
+  const PUSH_STEP = guides['push-to-lynx'].steps[2].title;
+  const r = clone(release);
+  r.guides['calculation-questions'] = { status: 'beta', basis: 'test' };
+  r.guides['enable-disable-stations'] = { status: 'beta', basis: 'test' };
+  r.guides['station-details'] = { status: 'beta', basis: 'test' };
+  r.guides['push-to-lynx'].sections = [{ id: 'one-step', status: 'beta', basis: 'test', steps: [PUSH_STEP] }];
+  const before = evaluateGuideData(SHOWN);
+  let hidden = null;
+  check('release gate: hides beta guides, tiles, rows, steps and Next references', () => {
+    hidden = hide(SHOWN, r);
+    const after = evaluateGuideData(hidden);
+    for (const k of ['calculation-questions', 'enable-disable-stations', 'station-details']) {
+      equal(Object.hasOwn(after.GUIDES, k), false, `GUIDES has ${k}`);
+      equal(Object.hasOwn(after.TARGETS, k), false, `TARGETS has ${k}`);
+      equal(tileKeys(after).includes(k), false, `tile ${k}`);
+    }
+    equal(Object.keys(after.GUIDES).length, 23, 'GA guide count');
+    equal(tileKeys(after).length, 23, 'tile count');
+    equal(after.CATEGORIES.some((c) => c.title === 'Station Management'), false, 'emptied category dropped');
+    equal(after.CATEGORIES.length, before.CATEGORIES.length - 1, 'category count');
+    equal(after.GUIDES['push-to-lynx'].steps.length, 5, 'push-to-lynx steps');
+    equal(after.GUIDES['push-to-lynx'].steps.some((st) => st.title === PUSH_STEP), false, 'beta step gone');
+    equal(JSON.stringify(after.TARGETS['push-to-lynx']),
+      JSON.stringify(before.TARGETS['push-to-lynx'].filter((_, i) => i !== 2)), 'cursor target left with its step');
+    equal(JSON.stringify(after.GUIDES['calculation-methods'].next), JSON.stringify(['calculation-settings']), 'Next reference removed');
+    for (const [k, g] of Object.entries(after.GUIDES)) {
+      equal(after.TARGETS[k].length, g.steps.length, `TARGETS["${k}"] length`);
+      for (const n of g.next || []) equal(Object.hasOwn(after.GUIDES, n), true, `${k} next ${n}`);
+    }
+  });
+  check('release gate: the hidden export carries no beta key or title', () => {
+    for (const needle of ["'calculation-questions'", "'station-details'", 'Calculation questions', PUSH_STEP]) {
+      equal(hidden.includes(needle), false, needle);
+    }
+  });
+  check('release gate: a build with beta shown is unchanged by beta status', () => {
+    equal(applyReleaseGate(SHOWN, { showBeta: true, release: r }) === SHOWN, true, 'shown build');
+  });
+  check('release gate: a TARGETS row out of step with its steps fails when a step is beta', () => {
+    const row = "'push-to-lynx': [P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar, P.progressClose]";
+    if (SHOWN.split(row).length !== 2) throw new Error('push-to-lynx TARGETS row anchor not found once');
+    const short = SHOWN.replace(row, "'push-to-lynx': [P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar]");
+    const one = clone(release);
+    one.guides['push-to-lynx'].sections = [{ id: 'one-step', status: 'beta', basis: 'test', steps: [PUSH_STEP] }];
+    throws(() => hide(short, one), /TARGETS\["push-to-lynx"\] has 5 cells but GUIDES\["push-to-lynx"\]\.steps has 6 steps/, 'row mismatch');
+  });
+}
+check('release gate: a beta key left in the logic fails the build with its offset', () => {
+  const r = clone(release);
+  r.guides['target-profiles'].status = 'beta';
+  throws(() => hide(SHOWN, r), /guide key 'target-profiles' at offset \d+: .*showProfilesTab/, 'showProfilesTab leftover');
+});
+check('release gate: a GA guide with every step beta fails', () => {
+  const r = clone(release);
+  r.guides.preferences.sections = [{ id: 'all', status: 'beta', basis: 'test', steps: guides.preferences.steps.map((st) => st.title) }];
+  throws(() => hide(SHOWN, r), /every step of GA guide "preferences" is beta/, 'all steps beta');
+});
+check('release gate: an invalid release file fails in either mode', () => {
+  const r = clone(release);
+  delete r.guides.preferences;
+  throws(() => applyReleaseGate(SHOWN, { showBeta: true, release: r }), /guide "preferences" has no entry/, 'shown');
+  throws(() => hide(SHOWN, r), /guide "preferences" has no entry/, 'hidden');
 });
 
 // ---- report -------------------------------------------------------------------------------------
