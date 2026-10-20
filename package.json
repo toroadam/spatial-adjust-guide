@@ -29,6 +29,7 @@
     "fidelity:inventory": "node scripts/repro-inventory.mjs http://localhost:8124/",
     "test:provenance": "node scripts/product-provenance.mjs",
     "test:product-locales": "node scripts/product-locales.mjs",
+    "test:release": "node scripts/release-unit.mjs",
     "claims:extract": "node scripts/claims-extract.mjs",
     "claims:aggregate": "node scripts/claims-extract.mjs --aggregate-only",
     "claims:lint": "node scripts/claims-extract.mjs --lint",
