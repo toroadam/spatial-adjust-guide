@@ -36,6 +36,7 @@
     "test:media-budget": "node scripts/media-budget.mjs",
     "media:fetch": "node scripts/fetch-media.mjs",
     "media:add": "node scripts/media-add.mjs",
+    "media:placeholder": "node scripts/media-placeholder.mjs",
     "test:media-git": "node scripts/media-git-guard.mjs"
   },
   "devDependencies": {
