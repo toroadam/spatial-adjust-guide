@@ -301,8 +301,9 @@ async function main() {
   // guide logic all call. gate follows it so the gate's own events are recorded, and comes
   // before the rest so the prompt is up before anything else starts wiring itself to a page
   // the reader cannot see. i18n defines window.__saLocale and must precede both i18n-apply,
-  // which reads the resolved locale, and i18n-selector, which renders from it. a11y last so it
-  // observes a fully wired tree.
+  // which reads the resolved locale, and i18n-selector, which renders from it. media follows
+  // i18n for the same reason: its caption tracks and transcript follow the locale. a11y last so
+  // it observes a fully wired tree.
   const injectedJs = [];
   // The feedback endpoint is the Power Automate trigger URL, whose sig= parameter lets anyone
   // holding it post to the list. The built page has to carry it — a browser cannot post without
@@ -314,13 +315,28 @@ async function main() {
   // string, which expands `$&`-style sequences — a `$` here would be silently rewritten. Trigger
   // URLs contain none, so refuse one rather than ship a corrupted endpoint.
   if (feedbackEndpoint.includes('$')) throw new Error('SA_FEEDBACK_ENDPOINT contains "$", which the page splice would corrupt');
-  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'a11y.js']) {
+  // The media panel's manifest: the shipped items only, as a JS object literal. Inline rather than
+  // fetched, so file:// keeps working and the page makes no extra request; it is a few hundred bytes
+  // per video. "<" is escaped so no value can close the inline <script>, and a "$" is refused for the
+  // same splice reason as the feedback endpoint. Every value is a validated key, kind, number or a
+  // media/ path, so neither should ever occur; the checks keep it that way.
+  const mediaManifest = JSON.stringify({ items: runtimeItems }).replace(/</g, '\\u003c');
+  if (mediaManifest.includes('$')) throw new Error('the media manifest contains "$", which the page splice would corrupt');
+  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'media.js', 'a11y.js']) {
     let src = await readFile(join(ROOT, 'src', name), 'utf8');
     if (name === 'feedback.js') {
       if (!src.includes('__SA_FEEDBACK_ENDPOINT__')) throw new Error('src/feedback.js lost its __SA_FEEDBACK_ENDPOINT__ placeholder');
       // A function, not a string: a replacement string would expand any `$` in the URL.
       const safe = JSON.stringify(feedbackEndpoint).slice(1, -1).replace(/'/g, "\\'");
       src = src.replace('__SA_FEEDBACK_ENDPOINT__', () => safe);
+    }
+    if (name === 'media.js') {
+      // Exactly once: String.replace touches only the first occurrence, so a second copy (in a
+      // comment, say) would leave the real one unreplaced and the page would throw on load.
+      const count = src.split('__SA_MEDIA_MANIFEST__').length - 1;
+      if (count !== 1) throw new Error(`src/media.js must contain the __SA_MEDIA_MANIFEST__ placeholder exactly once; found ${count}`);
+      // A function, not a string, for the same `$` reason as above.
+      src = src.replace('__SA_MEDIA_MANIFEST__', () => mediaManifest);
     }
     injectedJs.push(`/* --- src/${name} --- */\n` + src);
   }
