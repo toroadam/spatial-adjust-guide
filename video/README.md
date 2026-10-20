@@ -88,7 +88,7 @@ All commands go through one dispatcher, `video/bin/sa-video`. Run `npm run video
 |---|---|---|---|
 | `npm run video -- capture` | `video/capture/director.mjs` | Capture a take from IntelliDash `/demo` under three safety layers | TBD (PI-ICNT-SW-1078) |
 | `npm run video -- vo` | `video/vo/render-brian.py` | Render the episode voice-over in the Brian voice; `--dry-run` lists characters and credits without a network call (see [`vo/voice-settings.md`](vo/voice-settings.md)) | PI-ICNT-SW-1080 |
-| `npm run video -- estimate` | `video/vo/estimate.py` | Estimate characters and credits before rendering VO | TBD (PI-ICNT-SW-1080) |
+| `npm run video -- estimate` | `video/vo/estimate.py` | Estimate characters and credits before rendering VO: one episode, the whole series, or the account's remaining credits (`--live`, counts only); see [`vo/series-estimate.md`](vo/series-estimate.md) | PI-ICNT-SW-1080 |
 | `npm run video -- build` | `video/edit/build.py` | Build the timeline from episode, take and VO report | TBD (PI-ICNT-SW-1083) |
 | `npm run video -- render` | `video/edit/render.py` | Render a timeline to H.264 High, yuv420p, 60 fps (`--timeline <json>`, `--from`/`--to`, `--still t --out png`) | PI-ICNT-SW-1077 |
 | `npm run video -- style-frame` | `video/edit/style_frame.py` | Render the style frame for gate G3 | TBD (PI-ICNT-SW-1081) |
