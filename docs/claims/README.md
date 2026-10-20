@@ -370,3 +370,38 @@ Raw comments and commenter names are never committed, including any name typed i
 The repository is public. Only the outcome of the review lands in it: a claim's new status,
 question or correction in its shard, a fix in `src/transforms/review-fixes.mjs`, and each guide's
 verdict with the reviewer's role and the date in `docs/claims/signoff.md`.
+
+## Handover
+
+### 2026-10-19: published, and handed over for the in-person review on 2026-10-22
+
+- **Published.** The live site, https://toroadam.github.io/spatial-adjust-guide/, carries every
+  correction, the changed-surfaces callouts, the "New in IntelliDash" banner and tile badges on the
+  four Target Profiles guides, and the push window and Lynx prerequisites in all eleven languages.
+  The guide content was last changed by `d264376`, and `bebdde6` was deployed by the
+  "Build and deploy to Pages" run 39363468912, which passed, as did "Screen fidelity" on the same
+  commit.
+- **Pinned sources.** Production `1aa4f28622cc3cc9637f0d61a438bf16bcf01924`
+  (`origin/Deployments/release/261014_phase_3a`, 2.5.261015, confirmed 2026-10-19). Develop and
+  beta `bd39f465cf5a7ae0356a59825250b36044085714`.
+- **Ledger.** 871 claims across 26 guides: 843 Verified, 28 Needs expert, 0 Wrong, 0 Not shipping
+  and 0 Unverified.
+- **Expert questions.** 20 in all. Seven are the push-window and Lynx questions Q1-Q7 in
+  [`operational-contract.md`](operational-contract.md). The wording that rests on them was
+  published before they were answered, by the guides owner's decision, so 15 of the Needs expert
+  claims are that wording and are settled by Q1-Q7. The other 13 Needs expert claims are questions
+  about the guides themselves.
+- **No sign-off gate.** Nothing was held back for Needs expert or for sign-off. The experts
+  review the live site in person on 2026-10-22, page by page.
+- **The pack.** `npm run review-pack` wrote it to `review-pack/` in the local checkout: 26 guide
+  pages, `push-window-questions.html` ("Questions for the experts: push window and Lynx
+  prerequisites", the agenda: Q1-Q7 and the 13 other questions, each with its live page and
+  step), `index.html` and `spatial-adjust-guides-review.pdf`. `review-pack/BRIEF.md` is the
+  owner's covering note. All of it is gitignored. The owner shares it with the expert team through
+  Toro SharePoint or Teams, never through GitHub.
+- **What the experts are asked to do.** Walk the live site with the agenda, answer Q1-Q7 and the
+  13 other questions, check that each guide matches what they see in IntelliDash and Lynx, and give
+  each guide a verdict in its sign-off box. Comments go through the site's Feedback button, which
+  adds them to the *Guide feedback* SharePoint list, or into the pack's answer boxes. Feature 10
+  records the answers in `operational-contract.md` and the shards, and the verdicts in
+  `signoff.md`.
