@@ -1,0 +1,67 @@
+[
+  {
+    "written": "\\b(\\d{1,2})AP(\\d{1,2})\\b",
+    "spoken": "hole $1, A P $2",
+    "regex": true,
+    "note": "Station ids are <hole>AP<n> (SpatialAdjustApp.dc.html:169-186; the guides name 3AP1, 3AP2, 4AP1, 6AP1, 6AP2, 11AP2 and others). Read as the hole, then the area letters, then the station number: 3AP1 is 'hole 3, A P 1'."
+  },
+  {
+    "written": "AP",
+    "spoken": "A P",
+    "note": "The area name on its own, as in the caption 'Station-level rows for hole 3 of area AP'. Letters, not the word 'ap'. Runs after the station rule, so only a bare AP is left to match."
+  },
+  {
+    "written": "IntelliDash",
+    "spoken": "Intelli-Dash",
+    "note": "The product Spatial Adjust lives inside ('Spatial Adjust is a feature of IntelliDash'). The hyphen makes the model stress both halves instead of running them into one word."
+  },
+  {
+    "written": "TurfRad",
+    "spoken": "Turf Rad",
+    "note": "The scan service that supplies the measured moisture ('TurfRad scan data', 'a TurfRad moisture scan'). Two words when spoken."
+  },
+  {
+    "written": "Lynx",
+    "spoken": "Links",
+    "note": "Toro Lynx, the central control that receives the pushed adjustments ('push the right percent adjustment to Lynx'). Said like 'links'; spelled that way so the model never spells it out or reads it as 'lunks'."
+  },
+  {
+    "written": "Spatial Adjust",
+    "spoken": "Spatial Adjust",
+    "note": "The feature name, as the guides write it (two words, both capitalised). Read correctly as written; listed so its spoken form is pinned and covered by the lexicon check line."
+  },
+  {
+    "written": "\\bAvg\\b\\.?",
+    "spoken": "average",
+    "regex": true,
+    "note": "The column label 'Avg. VWC' and the toolbar summary 'Avg / High / Low'. Said as the full word; the abbreviation's full stop is consumed so it does not become a pause."
+  },
+  {
+    "written": "%\\s?Adj\\b\\.?",
+    "spoken": "percent adjustment",
+    "regex": true,
+    "note": "The editable column label '% Adj.' ('your own % Adj. value', 'Editing % Adj. queues the station'). Runs before the general percent rule, which needs a number in front of the sign."
+  },
+  {
+    "written": "VWC",
+    "spoken": "V W C",
+    "note": "Volumetric water content, as in 'Avg. VWC' and 'Target VWC'. Spelled out letter by letter, the way the column labels are read."
+  },
+  {
+    "written": "ET",
+    "spoken": "E T",
+    "note": "Evapotranspiration, as in 'today's ET' and 'Calculation ET'. Letters, so the model does not say 'et'. Case-sensitive and whole-word, so 'Et', 'ETo' and words containing ET are left alone."
+  },
+  {
+    "written": "(\\d+(?:\\.\\d+)?)\\s?%",
+    "spoken": "$1 percent",
+    "regex": true,
+    "note": "A number followed by the percent sign: '17%' becomes '17 percent', '27.6%' becomes '27.6 percent'. The guides write 'percent' in captions and '%' in values such as 'Lynx receives 0%'."
+  },
+  {
+    "written": "(\\d+(?:\\.\\d+)?)\\s?mm\\b",
+    "spoken": "$1 millimetres",
+    "regex": true,
+    "note": "Millimetres for Max Amount and Lynx Reference Amount values ('A 10 mm cap against a 3 mm reference'). The model can read 'mm' as 'em em' or as a hum; the unit is spelled out. Always plural: no guide writes 1 mm, so a script that needs it should say 'one millimetre'."
+  }
+]
