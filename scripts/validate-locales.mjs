@@ -5,9 +5,16 @@
 // from the standalone translation of its own parts. None of it judges whether the prose is any
 // good — that needs a human — but all of it is the kind of mistake a reader would act on.
 //
-// Usage: node scripts/validate-locales.mjs [locale ...]
+// It also checks the English side of the label rule once, whatever locales are named:
+// labelProvenance, a GATE, requires every [[Exact Label]] marker in the published guides to be a
+// label IntelliDash renders (src/i18n/labels.en-us.json) and to be named by a Verified claim in the
+// claims ledger (docs/claims/claims.json).
+//
+// Usage: node scripts/validate-locales.mjs [locale ...] [--all]
+//   --all   print every finding instead of the first four of each kind
 import { readFile, readdir } from 'node:fs/promises';
-import { hardcodedLabels, englishInProduct, markerProblems } from './lib/markers.mjs';
+import { hardcodedLabels, englishInProduct, markerProblems, markersOf } from './lib/markers.mjs';
+import { loadGuides } from './lib/load-guides.mjs';
 
 const dir = 'src/i18n';
 const sourceCat = JSON.parse(await readFile(`${dir}/en-us.json`, 'utf8'));
@@ -43,7 +50,9 @@ const glossary = JSON.parse(await readFile(`${dir}/glossary.json`, 'utf8'));
 const hardcoded = hardcodedLabels();
 // Labels IntelliDash leaves English in a locale (src/i18n/product-untranslated.json); markerDrift only.
 const english = englishInProduct();
-const only = process.argv.slice(2);
+const argv = process.argv.slice(2);
+const ALL = argv.includes('--all');
+const only = argv.filter((a) => !a.startsWith('--'));
 const locales = (await readdir(dir))
   .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json')
   .map((f) => f.replace('.json', ''))
@@ -126,6 +135,60 @@ const shadowed = (label, named) => named.some((other) => other !== label && othe
 const report = {};
 let totalIssues = 0;
 let advisory = 0;
+const shown = (v) => (ALL ? v : v.slice(0, 4));
+
+// labelProvenance, a GATE, on the English. A rewritten step names each control as [[Exact Label]],
+// and the renderer draws it bold as the words to look for on screen, so the words must exist there.
+// Two sources, both committed so the verdict is the same with and without an IntelliDash checkout:
+//   - src/i18n/labels.en-us.json, written by scripts/build-label-fixture.mjs from IntelliDash's
+//     en-us.json and the hardcoded Settings rail at the production pin. The label must be a key,
+//     exactly: same case, spacing and punctuation (docs/writing-guide.md > Label markers).
+//   - the claims ledger, docs/claims/claims.json. Some Verified claim must name the label in its
+//     text or its verifier's note, matched exactly and not as part of a longer word. A label that
+//     only an Unverified or Needs-expert sentence mentions has not been checked against the product.
+// Every marker in the guide data counts, wherever it sits (do, see, ifNot, why, start, ...), and in
+// every guide, pending or not: a marker exists only once someone has written it as a label.
+{
+  const fixture = JSON.parse(await readFile(`${dir}/labels.en-us.json`, 'utf8')).labels || {};
+  const verified = JSON.parse(await readFile('docs/claims/claims.json', 'utf8')).claims
+    .filter((c) => c.status === 'Verified');
+  const ledgerHit = new Map();
+  const inLedger = (label) => {
+    if (!ledgerHit.has(label)) {
+      const re = new RegExp(`(?<![\\p{L}\\p{N}])${label.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![\\p{L}\\p{N}])`, 'u');
+      ledgerHit.set(label, verified.find((c) => re.test(c.text) || re.test(c.note || ''))?.id);
+    }
+    return ledgerHit.get(label);
+  };
+  // Every string in a guide, with the path that reaches it ("steps[1].do", "start.needs").
+  const stringsOf = (v, path, out = []) => {
+    if (typeof v === 'string') out.push([path, v]);
+    else if (Array.isArray(v)) v.forEach((x, i) => stringsOf(x, `${path}[${i}]`, out));
+    else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) stringsOf(x, path ? `${path}.${k}` : k, out);
+    return out;
+  };
+  const where = (path) => path.replace(/^steps\[(\d+)\]\./, (_, i) => `step ${Number(i) + 1} `);
+
+  const { GUIDES, keys } = loadGuides();
+  const labelProvenance = [];
+  let markers = 0;
+  for (const key of keys) {
+    for (const [path, text] of stringsOf(GUIDES[key], '')) {
+      for (const label of markersOf(text)) {
+        markers++;
+        const at = `${key} ${where(path)}: [[${label}]]`;
+        if (!Object.hasOwn(fixture, label)) {
+          labelProvenance.push(`${at} is not a label IntelliDash renders (src/i18n/labels.en-us.json); copy the catalogue value exactly`);
+        } else if (!inLedger(label)) {
+          labelProvenance.push(`${at} is named by no Verified claim in docs/claims/claims.json`);
+        }
+      }
+    }
+  }
+  totalIssues += labelProvenance.length;
+  report['en-us'] = { total: labelProvenance.length, markers, labelProvenance: labelProvenance.length,
+    samples: labelProvenance.length ? { labelProvenance: shown(labelProvenance) } : {} };
+}
 
 for (const locale of locales) {
   const data = JSON.parse(await readFile(`${dir}/${locale}.json`, 'utf8'));
@@ -219,7 +282,7 @@ for (const locale of locales) {
   totalIssues += n;
   advisory += counts.screenLabelDrift;
   report[locale] = { total: n, ...counts, samples: Object.fromEntries(
-    Object.entries(issues).filter(([, v]) => v.length).map(([k, v]) => [k, v.slice(0, 4)])) };
+    Object.entries(issues).filter(([, v]) => v.length).map(([k, v]) => [k, shown(v)])) };
 }
 
 console.log(JSON.stringify(report, null, 2));

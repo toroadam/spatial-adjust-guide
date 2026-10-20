@@ -11,8 +11,9 @@ This guide is the one standard every rewritten step meets. The field names below
 shared by the transform layer that applies the rewrites, the renderer that draws them and the
 checks that enforce them, so do not rename a field or invent a new one.
 
-Two checks enforce it today: `npm run test:shape` (the step shape, the 8-step limit, the start
-state and the cursor targets) and `npm run test:readability` (Flesch-Kincaid grade 8 or below).
+Three checks enforce it today: `npm run test:shape` (the step shape, the 8-step limit, the start
+state and the cursor targets), `npm run test:readability` (Flesch-Kincaid grade 8 or below) and
+`npm run test:validate` (every label marker is a real label, in English and in every locale).
 See [Checks](#checks).
 
 ## Sources of truth
@@ -22,9 +23,11 @@ Every label and every claim in a rewritten step comes from one of these, in this
 1. **The labels IntelliDash renders.** IntelliDash's English catalogue,
    `site/src/assets/i18n/en-us.json`, at the production commit pinned in
    [`docs/claims/sources.json`](claims/sources.json). The repository reads it through a committed
-   fixture, `src/i18n/labels.en-us.json`, which the exact-label work adds so that CI needs no
-   IntelliDash checkout. Until the fixture lands, look the label up in the pinned catalogue.
-   IntelliDash is read-only: read it with `git show <sha>:<path>`, and never change it.
+   fixture, `src/i18n/labels.en-us.json`, so that CI needs no IntelliDash checkout. The fixture
+   maps each label to its catalogue key, or to the source line of a hardcoded literal, and
+   `node scripts/build-label-fixture.mjs` regenerates it when the production pin moves (`--check`
+   reports whether it is out of date). Never edit it by hand. IntelliDash is read-only: read it
+   with `git show <sha>:<path>`, and never change it.
 2. **The claims ledger**, [`docs/claims/claims.json`](claims/claims.json), with one shard per guide
    in [`docs/claims/guides/<key>.json`](claims/guides/). Every sentence the guides publish is a
    claim there with an ID of the form `<guide-key>/<step>/<n>`, a status and a citation.
@@ -116,8 +119,12 @@ tooling uses it to substitute the product's own translated label. The rules:
   all ten. A marker for one stays English in those locales, for the same reason.
   `src/i18n/product-untranslated.json` lists them per locale; regenerate it with
   `node scripts/product-untranslated.mjs` when the production pin moves.
-- **Every marker is checked.** Each `[[label]]` must exist in the label fixture and be recorded in
-  the claims ledger. A marker that is not a real label is a bug, not a style choice.
+- **Every marker is checked.** Each `[[label]]` must be a key of the label fixture,
+  `src/i18n/labels.en-us.json`, exactly, and a Verified claim in the claims ledger must name it in
+  its text or note. `npm run test:validate` fails otherwise (`labelProvenance`), naming the guide,
+  the step, the field and the label. A marker that is not a real label is a bug, not a style
+  choice. If the product really shows a label the fixture lacks, extend the rules in
+  `scripts/build-label-fixture.mjs` and regenerate; do not add it by hand.
 - **Not a label, not a marker.** Product names (Spatial Adjust, IntelliDash, Lynx, TurfRad),
   glossary terms and screen regions are plain text.
 
@@ -329,16 +336,19 @@ This repository is public.
 |---|---|
 | `npm run test:shape` | Every step has non-empty `do`, `see` and `ifNot`; `do` has a `[[label]]` unless `region: true` (region steps are listed); no rewritten step keeps `body`; at most 8 steps; `start` has `page`, `open` and `needs`; `TARGETS[key]` has one point per step; a part is first in the previous part's `next`. `--json` prints the raw result. |
 | `npm run test:readability` | Flesch-Kincaid grade per step, over `do`, `see`, `ifNot`, `why` and any remaining `body`, with markers stripped. Lists the 10 hardest steps. `--selftest` checks the scorer against reference sentences. |
+| `npm run test:validate` | The `en-us` entry is `labelProvenance`: every `[[label]]` in any guide, pending or not, is a key of `src/i18n/labels.en-us.json` and is named by a Verified ledger claim. The locale entries check every translation, including `markerDrift` (each marker holds the label the reader's screen shows in that locale) and `screenLabelDrift` (see [Label markers](#label-markers)). `--all` prints every finding rather than four of each kind. |
 
-Both read the guides through `scripts/lib/load-guides.mjs`, which applies `transformGuide()` to the
-export and evaluates the guide data in `node:vm`, so they need no browser and see exactly what the
-page publishes.
+All three read the guides through `scripts/lib/load-guides.mjs`, which applies `transformGuide()`
+to the export and evaluates the guide data in `node:vm`, so they need no browser and see exactly
+what the page publishes.
 
 **The ratchet.** `scripts/lib/rewrite-status.mjs` lists the guides not yet rewritten in `PENDING`.
 A guide in `PENDING` is reported but never fails a check. A guide not in `PENDING` fails the
 command if it breaks the standard. Remove a guide's key from `PENDING` in the same change that
 lands its rewrite. A part follows its parent key. When all 26 have landed, the module is deleted
 and the checks become unconditional.
+`labelProvenance` in `npm run test:validate` ignores the ratchet: a marker exists only once
+someone has written it as a label, so it is checked in every guide.
 
 The grade formula is `0.39 × (words ÷ sentences) + 11.8 × (syllables ÷ words) − 15.59`. Sentences
 end at `.`, `!` or `?` followed by a space or the end of the text. Syllables are counted by vowel
