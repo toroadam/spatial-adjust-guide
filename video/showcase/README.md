@@ -216,7 +216,7 @@ differs.
 | Preflight | Upstream checklist and media root | the commands in the table above | done, 2026-10-20 |
 | 1 | Brief and concept | `node video/lib/episode-schema.mjs video/showcase/episode.json`; `npm run video -- capture --episode video/showcase/episode.json --take 1 --dry-run`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`; `npm run video -- estimate --episode video/showcase/episode.json` | done, 2026-10-20: all four exit 0 (see [Phase 1](#phase-1-brief-and-concept)) |
 | 2 | Claims check | `node video/showcase/check-claims.mjs` (exit 1 on any failure or a stale `claims-check.md`; add `--strict` to fail on numbers too); `node video/showcase/check-claims.mjs --write` (regenerates the tables in `claims-check.md`); `node --test video/showcase/check-claims.test.mjs` (also in `npm run test:video`) | done, 2026-10-20: `--strict`, `--write` and a plain run exit 0 (24 items, 42 claim IDs, all Verified; 2 held); 28 tests pass (see [Phase 2](#phase-2-claims-check)) |
-| 3 | Script, VO estimate and Brian voice | planned: `npm run video -- estimate --episode video/showcase/episode.json`, then `npm run video -- vo --episode video/showcase/episode.json --dry-run`, then without `--dry-run` | to be filled in by phase 3 |
+| 3 | Script, VO estimate and Brian voice | `npm run video -- estimate --episode video/showcase/episode.json`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`, then without `--dry-run`; `python3 video/showcase/vo-stem.py --episode video/showcase/episode.json [--lock]`; `$SA_VIDEO_PYTHON video/showcase/whisper-roundtrip.py --audio ~/Documents/SpatialAdjust_MarCom/showcase/vo/showcase-vo-full-48k24.wav --episode video/showcase/episode.json --out ~/Documents/SpatialAdjust_MarCom/showcase/vo/whisper-report.json`; `python3 -m unittest video.showcase.test_vo_tools` (also in `npm run test:video:py`) | script locked 2026-10-20 (SC-G2); render **blocked** on the ElevenLabs account (see [Phase 3](#phase-3-script-and-brian-voice)) |
 | 4a | Capture | planned: `npm run video -- capture --episode video/showcase/episode.json --take <N>` | to be filled in by phase 4a |
 | 4b | Edit | planned: `build`, `render` and `mix`, as in [Episode config](#episode-config) | to be filled in by phase 4b |
 | 5 | Review and delivery | planned: `verify`, `ocr`, `captions` and `hygiene` | to be filled in by phase 5 |
@@ -290,3 +290,64 @@ owner, and what the film needs from it is raised as a note on the phase 2 featur
 | `node video/showcase/check-claims.mjs` | exit 0: `claims-check.md` is up to date |
 | `node --test video/showcase/check-claims.test.mjs` | 28 tests pass |
 | `node video/lib/episode-schema.mjs video/showcase/episode.json` | exit 0: `ok video/showcase/episode.json (showcase, 9 beats, status draft)` |
+
+## Phase 3: script and Brian voice
+
+[`vo-script.md`](vo-script.md) is the timed narration: ten lines, 200 words, each with a window in film time, the
+pronunciation lexicon for TurfRad, Lynx, VWC, ET and IntelliDash, and the fit, credits and Whisper results. The lines
+themselves live in `episode.json`, which phase 3 extends:
+
+| Field | Where | Meaning |
+|---|---|---|
+| `line` | each `vo[]` line | `L1` to `L10`, the numbering of `vo-script.md`. The ids (`vo-b1-hook` and so on) are unchanged, because the beats, the held lines and the claims check name them |
+| `windowIn`, `windowOut` | each `vo[]` line | Seconds of the finished film the line must start and finish inside: from its chapter's footage plus the builder's 0.55 s lead (0.30 s on the end card) to the end of the beat's footage. The capture phase puts each line's cue inside its window |
+| `ttsText` | each `vo[]` line | What `render-brian.py` sends to ElevenLabs: `text` with `video/vo/lexicon.json` applied. A record, not an input: the renderer never reads it, and `whisper-roundtrip.py` and `test_vo_tools.py` fail if it drifts from the lexicon. Pronunciation is changed in the lexicon, which belongs to the video pipeline |
+
+**Tools.** Both read `episode.json`, write only under the media root and use the pipeline as delivered: the renderer
+is run, and imported for its lexicon, never copied.
+
+- [`vo-stem.py`](vo-stem.py) checks every rendered line (`vo/render-report.json`) against its window. With `--lock`,
+  once every line fits, it copies the WAVs into `vo/masters-48k24/` with a `manifest.json` (SHA-256, seconds, text
+  hash, voice, model, settings and commit), then places every master at its `windowIn` on silence the length of the
+  film, with ffmpeg and no level change: `vo/showcase-vo-full-48k24.wav` (48 kHz, 24-bit, mono) and
+  `vo/showcase-vo-REVIEW.mp3` (192 kbit/s). Exit 0 done, 1 a line missing or over its window, 2 configuration.
+- [`whisper-roundtrip.py`](whisper-roundtrip.py) transcribes the stem (or, in phase 5, the final mix with `--offset`)
+  with OpenAI Whisper on this machine, with word timestamps, cuts the words into lines by window (0.3 s before, 0.5 s
+  after), and scores each line by word error rate against the written text after normalising both sides. A line
+  passes at WER 0.2 or less with every scripted TurfRad, Lynx and IntelliDash heard ("links" fails Lynx). Whisper is
+  given the film's vocabulary as its initial prompt, because Lynx and "links" sound the same; `--no-prompt` runs
+  without it for comparison. Exit 0 every line passes, 1 a line fails, 2 configuration (including a stale `ttsText`).
+- [`test_vo_tools.py`](test_vo_tools.py): 32 tests of both scripts' logic and of `episode.json` itself (ttsText
+  against the lexicon, window gaps, the prompt), with no model, ffmpeg, key or media.
+
+**Whisper install.** `openai-whisper` 20250625 was already in the media-root venv
+(`~/Documents/SpatialAdjust_MarCom/.venv`, installed 2026-10-20 09:52 local time for another episode), and the
+`small.en` model was already in `~/.cache/whisper/small.en.pt` (downloaded 2026-10-20 09:58), so this phase installed
+nothing and downloaded nothing. On a new machine: `~/Documents/SpatialAdjust_MarCom/.venv/bin/pip install
+openai-whisper`; the first run downloads the model (about 460 MB), the only network access the script makes. No
+audio leaves the machine.
+
+**Tool check, 2026-10-20,** on real Brian audio and not on the showcase: the pilot's three VO lines and the lexicon
+check line (which says IntelliDash, TurfRad and Lynx), copied into a test media root
+(`~/Documents/SpatialAdjust_MarCom/_tests/showcase-vo/`) and given windows. `vo-stem.py --lock` placed every master
+sample-exactly at its `windowIn` (maximum difference 0.0, silence before each); `whisper-roundtrip.py` passed all four
+lines (WER 0.000, 0.000, 0.000 and 0.103) and heard each of the three terms; `--no-prompt` also heard all three in
+that line.
+
+**Runs, 2026-10-20:**
+
+| Command | Result |
+|---|---|
+| `node video/showcase/check-claims.mjs --strict --write`, then `node video/showcase/check-claims.mjs` | exit 0 both: 24 items, 10 VO lines (200 words) and 14 labels, 43 claim IDs all Verified, 2 held |
+| `node video/lib/episode-schema.mjs video/showcase/episode.json` | exit 0: `ok video/showcase/episode.json (showcase, 9 beats, status script-locked)` |
+| `npm run video -- estimate --episode video/showcase/episode.json` | exit 0: 10 lines, 200 words, 1,179 characters, about 73.0 s |
+| `npm run video -- vo --episode video/showcase/episode.json --dry-run` | exit 0: 10 lines, 1,179 characters, about 1,179 credits |
+| `npm run video -- vo --episode video/showcase/episode.json` (13:47 local time, after SC-G2) | **exit 1**: HTTP 403 `output_format_not_allowed`, "Output format 'mp3_44100_192' is only available on the Creator tier and above." The account the key now resolves to reports 30,000 characters remaining of a 30,000 limit; the renders at 09:29 to 09:53 the same day ran on an account with about 357,500. Nothing was rendered and no credits were spent; the renderer logged the run in `video/vo/credits-log.md` |
+| `python3 -m unittest video.showcase.test_vo_tools` | 32 tests pass |
+
+**Blocked: the ElevenLabs account.** `video/vo/render-brian.py` asks for `mp3_44100_192`, the iCentral format, and
+the account behind the one ElevenLabs key in `~/.claude.json` no longer allows it. The showcase cannot change that
+without forking the renderer. One of two things unblocks it: the owner restores a Creator-tier (or higher) key or
+plan in the `elevenlabs` MCP entry, or the video pipeline lets the renderer fall back to a format the account allows,
+such as `mp3_44100_128`. Then the rest of phase 3 is four commands: the render, `vo-stem.py`, `vo-stem.py --lock`
+and `whisper-roundtrip.py`.

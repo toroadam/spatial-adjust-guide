@@ -125,7 +125,15 @@ pipeline's retake factor of 2), and about 73.0 s of narration at 16.16 character
 
 ## Render
 
-*Filled in by the render (phase 3, task 3).*
+Command, from the repository root, after SC-G2 (the key is read by the renderer in process; nothing else touches it):
+
+```bash
+python3 video/vo/render-brian.py --episode video/showcase/episode.json
+```
+
+| Run | Lines sent | Characters sent | Credits before | Credits after | Used | Result |
+|---|---|---|---|---|---|---|
+| 2026-10-20 13:47 local time | 0 | 0 | 30,000 (limit 30,000) | 30,000 | 0 | **Blocked.** HTTP 403 `output_format_not_allowed`: "Output format 'mp3_44100_192' is only available on the Creator tier and above." The renderer asks for the iCentral format, and the account the ElevenLabs key now resolves to is below the Creator tier (the renders of 09:29 to 09:53 that day ran on an account with about 357,500 credits). Logged in `video/vo/credits-log.md`. Waiting on a Creator-tier key or plan, or on the video pipeline allowing another output format; see [`README.md`](README.md#phase-3-script-and-brian-voice). |
 
 ## Fit check
 
