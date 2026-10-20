@@ -532,6 +532,28 @@ export function transformGuide(src) {
       + '              <div class="lsa-sr-only" aria-live="polite" aria-atomic="true">{{ guide.player.announcement }}</div>',
   });
 
+  // --- media panel slots -------------------------------------------------------
+  // Empty mount points for src/media.js, which renders the "Watch the Double Click" panel into
+  // them. They are added here rather than appended by the script because the panel has to sit
+  // inside the guide's own layout: above the walkthrough, under the guide header, and on the
+  // catalogue home between the hero and the task grid. The runtime renders them childless, and
+  // React leaves DOM children it did not create alone while their parent stays mounted, so the
+  // panel (and a playing video) survives step changes, Play all and locale switches. Guide-to-guide
+  // navigation keeps the same slot; media.js swaps its content on hashchange. src/media.css hides a
+  // slot while it is empty, so a guide with no episode shows no gap.
+  s = edit(s, {
+    name: 'media slot: guide header',
+    pattern: /<section id="walkthrough" style="margin-top:40px;scroll-margin-top:96px">/,
+    replace: '<div class="lsa-media-slot" data-sa-media-slot="guide"></div>\n'
+      + '      <section id="walkthrough" style="margin-top:40px;scroll-margin-top:96px">',
+  });
+  s = edit(s, {
+    name: 'media slot: catalogue home',
+    pattern: /<section id="tasks" style="max-width:1180px;margin:0 auto;padding:24px 32px 120px">/,
+    replace: '<div class="lsa-media-slot" data-sa-media-slot="home"></div>\n'
+      + '      <section id="tasks" style="max-width:1180px;margin:0 auto;padding:24px 32px 120px">',
+  });
+
   // --- logic: card metadata ---------------------------------------------------
   s = edit(s, {
     name: 'buildCard metadata',

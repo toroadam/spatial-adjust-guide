@@ -53,6 +53,8 @@ const A11Y_GUARDS = [
   ['aria-live="polite"', 'step-change announcements for screen readers'],
   ['class="lsa-stage-frame"', 'stage hook used by the small-screen fallback'],
   ['{{ task.ariaLabel }}', 'accessible names on guide cards'],
+  ['data-sa-media-slot="guide"', 'media panel slot (guide)'],
+  ['data-sa-media-slot="home"', 'media panel slot (catalogue home)'],
 ];
 
 const CDN_MAP = {
