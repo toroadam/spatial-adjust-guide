@@ -1,0 +1,19 @@
+# Python packages for the video pipeline (compositor, audio, verify).
+#
+# Pinned to the iCentral MarCom compositor environment the pipeline is ported from, so ported
+# code behaves the same. Versions were read from that venv's site-packages *.dist-info folder
+# names (read only, nothing copied): ~/Documents/iCentral_MarCom/.venv/lib/python3.12/
+# site-packages/, dist-info folders modified 2026-10-06 13:26 local time; interpreter Python 3.12.13.
+#
+# Install into a venv at the media root, never in the repo (see video/README.md):
+#   python3.12 -m venv ~/Documents/SpatialAdjust_MarCom/.venv
+#   ~/Documents/SpatialAdjust_MarCom/.venv/bin/pip install -r video/requirements.txt
+#   export SA_VIDEO_PYTHON=~/Documents/SpatialAdjust_MarCom/.venv/bin/python
+#
+# The scaffold itself (media root guard, local maps loader and their tests) needs only the
+# standard library.
+torch==2.14.1
+numpy==2.5.3
+scipy==1.18.1
+soundfile==0.14.0
+Pillow==12.3.0
