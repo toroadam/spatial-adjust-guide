@@ -106,9 +106,9 @@ All under `spatial-adjust/components/`.
 
 The plan listed the two dashboard lines as write guards. They are network guards: they keep Demo Mode from talking to Lynx at all, which matters, but they guard reads.
 
-## Correction to ER-1618
+## Correction to the video pipeline plan
 
-ER-1618 says that save, push and threshold actions in Demo Mode route to `demo-mode-mock-data.service.ts`. They do not. Writes are short-circuited where they start: the manager guards and component guards above call `showUnsupportedMsg` and return (for example `api/spatial-adjust/spatial-adjust-manager.service.ts:114-117`, `sa-main-toolbar.component.ts:259-262`, `sa-cfg-threshold-dlg.component.ts:73-76`). Nothing is mocked, nothing is stored and nothing reaches the network.
+The video pipeline plan says that save, push and threshold actions in Demo Mode route to `demo-mode-mock-data.service.ts`. They do not. Writes are short-circuited where they start: the manager guards and component guards above call `showUnsupportedMsg` and return (for example `api/spatial-adjust/spatial-adjust-manager.service.ts:114-117`, `sa-main-toolbar.component.ts:259-262`, `sa-cfg-threshold-dlg.component.ts:73-76`). Nothing is mocked, nothing is stored and nothing reaches the network.
 
 The mock data service only answers **reads**: its Spatial Adjust getters are at `demo/demo-mode-mock-data.service.ts:1580-1626` (unchanged on `develop`), and its Spatial Adjust data comes from the demo data module it imports at `:79`. The manager's read methods return those getters in Demo Mode (`api/spatial-adjust/spatial-adjust-manager.service.ts:78`, `:85`, `:92`, `:100`, `:108`, `:201`, `:211`, `:249`, `:256`).
 
@@ -150,7 +150,7 @@ Both hazards, and the single-guard push path, are reported to the owner. The dir
 
 - **The demo course name and the names of people** come from the demo data, the module imported at `demo/demo-mode-mock-data.service.ts:79` and the files beside it under `site/src/app/demo/spatial-adjust/`. Its file and class names carry the demo course name. In this repository it is only ever called **the demo course name, see `overlay.local.json`**: `video/capture/overlay.local.json` (gitignored) holds the real-to-fictional pairs and the denylist, and `video/lib/local-maps.mjs` reads it without printing it.
 - **Station names, readings and dates** come from the same demo data. The toolbar and table card shift the demo dates forward to today (`sa-main-toolbar.component.ts:153-157`, `sa-table-card.component.ts:219-224`).
-- **The map** shows satellite imagery of a real place. It is never shown untreated: the episode's `mapPolicy` (blur, restyle, owned imagery or frame-out) decides, and the treatment is applied at capture time by the course overlay and map routes (PI-ICNT-SW-1079).
+- **The map** shows satellite imagery of a real place. It is never shown untreated: the episode's `mapPolicy` (blur, restyle, owned imagery or frame-out) decides, and the treatment is applied at capture time by the course overlay and map routes.
 - **Site name and toolbar readings** are visible once the demo user has signed in (`sa-main-toolbar.component.ts:391-393`).
 
 ## Director rules
@@ -193,7 +193,7 @@ The director runs an episode's actions on one page under three independent safet
 
 ### The overlay and the denylist
 
-- After arming the director installs the course overlay (`window.__saOverlayInstall`, PI-ICNT-SW-1079) with the pairs from the local maps and the identity from `video/brand/course.json`, then scans the page against the denylist. For a Demo Mode take the overlay must be present and the denylist must not be empty. The map treatment for the episode's `mapPolicy` (`video/capture/map-routes.mjs`) is installed before the page loads; if it cannot be (for example owned imagery without a licence reference), the take ends with exit 5.
+- After arming the director installs the course overlay (`window.__saOverlayInstall`) with the pairs from the local maps and the identity from `video/brand/course.json`, then scans the page against the denylist. For a Demo Mode take the overlay must be present and the denylist must not be empty. The map treatment for the episode's `mapPolicy` (`video/capture/map-routes.mjs`) is installed before the page loads; if it cannot be (for example owned imagery without a licence reference), the take ends with exit 5.
 - The page is re-scanned every 15 frames during the take. Hits are reported by denylist index only, never by name.
 
 ### Exit codes

@@ -96,7 +96,7 @@ Decision Tree, DTN Weather, Weather Averages", a commit develop does not have an
 makes sense on a snapshot bound for production. And the newest `Deployments/beta/*` branch,
 `261015_tr_v3_api_sprt`, sits on exactly the develop SHA, so develop is what the beta environment
 runs. `sources.json` records `confirmed: true` and a `beta` entry. Content that is on develop but
-not on production is beta content, which ER-1631 handles. If a newer `Deployments/release/*`
+not on production is beta content, which the beta-content switch handles. If a newer `Deployments/release/*`
 branch appears, re-pin `sources.json` and re-check every claim whose evidence cites a file that
 differs between the two SHAs.
 

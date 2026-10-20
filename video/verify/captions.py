@@ -22,7 +22,7 @@ An empty denylist is reported on stderr and does not stop the captions: their te
 repository hygiene check already scans.
 
 Output: <media root>/episodes/<episode id>/renders/<episode id>.en.vtt, or --out (which must resolve under the media root).
-Captions stay with the render they describe until the guides site decides where published captions live (ER-1621, which
+Captions stay with the render they describe until the guides site decides where published captions live (the video embedding work, which
 also translates them).
 
 Exit codes: 0 written, 1 a check failed, 2 the input cannot be read or the output path is refused. Standard library only.
