@@ -14,6 +14,7 @@ import { apply as applyCorrections } from './transforms/corrections.mjs';
 import { apply as applyChangedSurfaces } from './transforms/changed-surfaces.mjs';
 import { apply as applyOperationalContract } from './transforms/operational-contract.mjs';
 import { apply as applyReviewFixes } from './transforms/review-fixes.mjs';
+import { REWRITES } from './rewrite/index.mjs';
 
 /** Controls the export builds from <div onClick>, which have no keyboard behaviour. */
 const CONTROLS = [
@@ -39,6 +40,236 @@ const TP_NOTE_WALKTHROUGH = 'The Target Profiles tab lists five profile slots fo
   + 'named Spring, Summer, Fall, Winter and Tournament until you rename them, with Last Updated, '
   + 'Stations, Update from Current and Apply Profile columns. If your settings dialog has no Target '
   + 'Profiles entry, your IntelliDash has not yet been updated to the release that includes it.';
+
+// --- exact-text rewrite helpers ------------------------------------------------------------------
+// The followability rewrite (src/rewrite/*.mjs) changes whole steps rather than single sentences,
+// so a regex per sentence would be unreadable and fragile. These helpers keep edit()'s contract
+// instead: every anchor is exact text, every lookup must match exactly once, and every field the
+// rewrite replaces is first asserted to still hold the text the rewrite was written against. A
+// re-export, or a correction elsewhere that changes that text, fails the build naming the
+// transform, so nobody rewrites a sentence they have not read in its current form.
+//
+// Literals are located by bracket matching that skips string literals, template literals and
+// comments, because guide prose is full of parentheses and brackets.
+
+const CLOSER = { '{': '}', '[': ']', '(': ')' };
+
+function fail(name, message) {
+  throw new Error(
+    `Transform "${name}": ${message}\n`
+    + '  The export or an earlier transform has changed this text. Re-read the current text and\n'
+    + '  update the rewrite in src/rewrite/ — do not loosen or skip the anchor.',
+  );
+}
+
+/** Index just past the string or template literal whose opening quote is at `i`. */
+function skipString(src, i, name) {
+  const q = src[i];
+  for (let j = i + 1; j < src.length; j++) {
+    const c = src[j];
+    if (c === '\\') { j++; continue; }
+    if (c === q) return j + 1;
+    if (q === '`' && c === '$' && src[j + 1] === '{') { j = matchBracket(src, j + 1, name) - 1; continue; }
+    if (q !== '`' && c === '\n') fail(name, `unterminated string literal at offset ${i}`);
+  }
+  return fail(name, `unterminated string literal at offset ${i}`);
+}
+
+/** Index just past the bracket that closes the one opening at `open`. */
+function matchBracket(src, open, name) {
+  const stack = [];
+  for (let i = open; i < src.length; i++) {
+    const c = src[i];
+    if (c === "'" || c === '"' || c === '`') { i = skipString(src, i, name) - 1; continue; }
+    if (c === '/' && src[i + 1] === '/') { const nl = src.indexOf('\n', i); i = nl === -1 ? src.length : nl; continue; }
+    if (c === '/' && src[i + 1] === '*') { const e = src.indexOf('*/', i + 2); i = e === -1 ? src.length : e + 1; continue; }
+    if (CLOSER[c]) stack.push(CLOSER[c]);
+    else if (c === '}' || c === ']' || c === ')') {
+      if (stack.pop() !== c) fail(name, `unbalanced "${c}" at offset ${i}`);
+      if (!stack.length) return i + 1;
+    }
+  }
+  return fail(name, `no closing bracket for the "${src[open]}" at offset ${open}`);
+}
+
+/** Offsets of every occurrence of `needle` in `hay`. */
+function occurrences(hay, needle) {
+  const at = [];
+  for (let i = hay.indexOf(needle); i !== -1; i = hay.indexOf(needle, i + 1)) at.push(i);
+  return at;
+}
+
+/** Splits an object literal's source text into its top-level `key: value` entries.
+ *  Returns the text before the first entry, each entry, the separators and the closing text,
+ *  so a rebuild can leave every untouched byte exactly where it was. */
+function parseObject(lit, name, what) {
+  const entries = [];
+  let i = 1;
+  const ws = () => { while (i < lit.length && /\s/.test(lit[i])) i++; };
+  ws();
+  const head = lit.slice(0, i);
+  while (i < lit.length - 1) {
+    const start = i;
+    let key;
+    if (lit[i] === "'" || lit[i] === '"') {
+      const e = skipString(lit, i, name);
+      key = Function(`"use strict"; return (${lit.slice(i, e)});`)();
+      i = e;
+    } else {
+      const m = /^[A-Za-z_$][\w$]*/.exec(lit.slice(i));
+      if (!m) fail(name, `cannot read a key in ${what} at "${lit.slice(i, i + 30)}"`);
+      key = m[0];
+      i += key.length;
+    }
+    ws();
+    if (lit[i] !== ':') fail(name, `${what}: expected ":" after key "${key}"`);
+    i++;
+    ws();
+    const valStart = i;
+    let last = i;
+    for (; i < lit.length - 1; i++) {
+      const c = lit[i];
+      if (c === ',') break;
+      if (c === "'" || c === '"' || c === '`') { i = skipString(lit, i, name) - 1; last = i + 1; continue; }
+      if (CLOSER[c]) { i = matchBracket(lit, i, name) - 1; last = i + 1; continue; }
+      if (!/\s/.test(c)) last = i + 1;
+    }
+    entries.push({ key, start, valStart, end: last });
+    if (lit[i] === ',') {
+      // A trailing comma before the closing brace belongs to the tail, not to a next entry.
+      let j = i + 1;
+      while (j < lit.length && /\s/.test(lit[j])) j++;
+      if (j >= lit.length - 1) break;
+      i = j;
+    }
+  }
+  if (!entries.length) fail(name, `${what} has no entries`);
+  const parts = entries.map((e, k) => ({
+    key: e.key,
+    keyText: lit.slice(e.start, e.valStart),
+    value: lit.slice(e.valStart, e.end),
+    after: lit.slice(e.end, k + 1 < entries.length ? entries[k + 1].start : lit.length),
+  }));
+  return { head, parts };
+}
+
+const STRING_LITERAL = /^(?:'(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*")$/s;
+
+/** The text a field's value means: a string literal is decoded, anything else is its source. */
+function valueText(raw) {
+  return STRING_LITERAL.test(raw) ? Function(`"use strict"; return (${raw});`)() : raw;
+}
+
+/** Serialises a rewrite value as source: single-quoted strings, arrays, plain objects. */
+function literal(v, name) {
+  if (typeof v === 'string') {
+    // The guide data sits inside an inline <script>; either sequence would end or corrupt it.
+    if (/<\/script|<!--/i.test(v)) fail(name, 'a rewrite string may not contain "</script" or "<!--"');
+    return "'" + v.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/\r/g, '\\r')
+      .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029') + "'";
+  }
+  if (typeof v === 'number' && Number.isFinite(v)) return String(v);
+  if (typeof v === 'boolean' || v === null) return String(v);
+  if (Array.isArray(v)) return '[' + v.map((x) => literal(x, name)).join(', ') + ']';
+  if (v && typeof v === 'object') {
+    const body = Object.entries(v).map(([k, x]) => `${/^[A-Za-z_$][\w$]*$/.test(k) ? k : literal(k, name)}: ${literal(x, name)}`);
+    return body.length ? `{ ${body.join(', ')} }` : '{}';
+  }
+  return fail(name, `cannot serialise a value of type ${typeof v}`);
+}
+
+/** Applies expect / set / drop to one object literal's source text. */
+function rewriteObject(lit, { name, what, expect = {}, set = {}, drop = [] }) {
+  const { head, parts } = parseObject(lit, name, what);
+  const find = (key) => parts.findIndex((p) => p.key === key);
+
+  for (const [key, want] of Object.entries(expect)) {
+    const k = find(key);
+    if (want === null || want === undefined) {
+      if (k !== -1) fail(name, `${what}: expected no "${key}" field, but it has one`);
+      continue;
+    }
+    if (k === -1) fail(name, `${what}: expected a "${key}" field, but it has none`);
+    const have = valueText(parts[k].value);
+    if (have !== want) {
+      fail(name, `${what}: "${key}" does not match the expected text.\n`
+        + `  expected: ${JSON.stringify(want)}\n  found:    ${JSON.stringify(have)}`);
+    }
+  }
+
+  for (const key of drop) {
+    const k = find(key);
+    if (k === -1) fail(name, `${what}: cannot drop "${key}", the field is not there`);
+    if (key in set) fail(name, `${what}: "${key}" is both set and dropped`);
+    if (k === parts.length - 1 && k > 0) parts[k - 1].after = parts[k].after;
+    parts.splice(k, 1);
+  }
+  if (!parts.length) fail(name, `${what}: dropping every field leaves an empty literal`);
+
+  for (const [key, v] of Object.entries(set)) {
+    const value = literal(v, name);
+    const k = find(key);
+    if (k !== -1) { parts[k].value = value; continue; }
+    // New fields follow the last one, separated the way the literal already separates its fields.
+    const last = parts[parts.length - 1];
+    const sep = parts.length > 1 ? parts[parts.length - 2].after : ', ';
+    parts.push({ key, keyText: `${key}: `, value, after: last.after });
+    last.after = sep.trimStart().startsWith(',') ? sep : ', ';
+  }
+
+  return head + parts.map((p) => p.keyText + p.value + p.after).join('');
+}
+
+/** Bounds of one guide's literal in GUIDES, found by the exact text `  '<guide>': {`. */
+function guideBlock(src, name, guide) {
+  const needle = `\n  '${guide}': {`;
+  const at = occurrences(src, needle);
+  if (at.length !== 1) fail(name, `expected the guide "${guide}" exactly once, found ${at.length}`);
+  const open = at[0] + needle.length - 1;
+  return { open, close: matchBracket(src, open, name) };
+}
+
+/** Rewrites one step of one guide. `title` is the step's title exactly as the source writes it,
+ *  escapes included (a curly apostrophe may be written ’). `expect` maps a field to the exact
+ *  text it must hold now (decoded, for a string), or to null when the field must be absent; `set`
+ *  replaces or appends fields; `drop` removes fields that must be there. */
+export function editStep(src, { name, guide, title, expect = {}, set = {}, drop = [] }) {
+  const g = guideBlock(src, name, guide);
+  const needle = `{ title: '${title}'`;
+  const at = occurrences(src.slice(g.open, g.close), needle);
+  if (at.length !== 1) fail(name, `expected the step "${title}" in "${guide}" exactly once, found ${at.length}`);
+  const open = g.open + at[0];
+  const close = matchBracket(src, open, name);
+  const what = `step "${title}" of "${guide}"`;
+  return src.slice(0, open) + rewriteObject(src.slice(open, close), { name, what, expect, set, drop }) + src.slice(close);
+}
+
+/** Rewrites a guide's own fields (title, summary, start, before, verify, next, ...), with the
+ *  same expect / set / drop contract as editStep. */
+export function editGuide(src, { name, guide, expect = {}, set = {}, drop = [] }) {
+  const { open, close } = guideBlock(src, name, guide);
+  const what = `guide "${guide}"`;
+  return src.slice(0, open) + rewriteObject(src.slice(open, close), { name, what, expect, set, drop }) + src.slice(close);
+}
+
+/** Replaces a guide's TARGETS entry. `expect` is its exact current text, `'<guide>': [ ... ]` or
+ *  just the `[ ... ]`; `replace` is the new text in either form. TARGETS is positional, so a
+ *  rewrite that changes the number or order of steps re-authors the entry in the same change. */
+export function editTargets(src, { name, guide, expect, replace }) {
+  const prefix = `'${guide}': `;
+  const full = (t) => (t.startsWith(prefix) ? t : prefix + t);
+  const at = occurrences(src, `${prefix}[`);
+  if (at.length !== 1) fail(name, `expected the TARGETS entry for "${guide}" exactly once, found ${at.length}`);
+  const close = matchBracket(src, at[0] + prefix.length, name);
+  const current = src.slice(at[0], close);
+  if (typeof expect !== 'string' || current !== full(expect)) {
+    fail(name, `the TARGETS entry for "${guide}" does not match the expected text.\n`
+      + `  expected: ${typeof expect === 'string' ? full(expect) : '(none given)'}\n  found:    ${current}`);
+  }
+  const next = full(replace);
+  if (!/^'[^']+': \[[\s\S]*\]$/.test(next)) fail(name, `the TARGETS replacement for "${guide}" is not an array entry`);
+  return src.slice(0, at[0]) + next + src.slice(close);
+}
 
 export function transformGuide(src) {
   let s = src;
@@ -861,6 +1092,12 @@ export function transformGuide(src) {
   s = applyChangedSurfaces(s);
   s = applyOperationalContract(s);
   s = applyReviewFixes(s);
+
+  // --- followability rewrites ---------------------------------------------------
+  // Last on purpose: a rewrite anchors on the text every correction above has already produced,
+  // so it is written against what readers see today. One module per catalogue category; see the
+  // header of src/rewrite/index.mjs.
+  for (const r of REWRITES) s = r(s, { edit, editStep, editGuide, editTargets });
 
   return s;
 }
