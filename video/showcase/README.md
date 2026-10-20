@@ -249,3 +249,10 @@ a request or wrote a file.
 The beat table and `episode.json` were compared line by line (ids, chapter labels, times, durations, guide keys and
 sources, every guide key one of the 26, each card at least as long as its label needs, runtime between 60 and 120 s):
 no difference.
+
+**Gates.** SC-G1 (the brief and the concept, as written), SC-TP (Target Profiles: omitted; a COMING SOON tag would
+misstate a shipped feature) and SC-CTA (the end card decided at G4: "Explore the Spatial Adjust Guides" and the guides
+site) are recorded in the Showcase section of [`../approvals.md`](../approvals.md#showcase) as decided by the executor
+under the owner's direction, and each call, with its question for the review, is on
+[`docs/review-agenda.md`](../../docs/review-agenda.md). That settles rule 5's open question for now: the film omits
+Target Profiles.
