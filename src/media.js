@@ -373,6 +373,39 @@
     if (key === 'Escape' && target.closest('video')) ev.stopPropagation();
   });
 
+  // ---- events ------------------------------------------------------------------
+  // Media events do not bubble, but every event passes document in the capture phase on its way to
+  // its target, so one listener here sees the video of whichever panel is mounted, real playback and
+  // synthetic test events alike. video_played counts playthroughs, not presses of play: the flag on
+  // the element is set by the first play after the panel was built or after the video last ended,
+  // so pausing to try a step in IntelliDash and resuming records nothing new. Key, locale and kind
+  // only; no watch position (see src/analytics.js).
+  function panelOf(ev) {
+    var v = ev.target;
+    if (!v || v.tagName !== 'VIDEO' || typeof v.closest !== 'function') return null;
+    var panel = v.closest('.' + PANEL);
+    return panel && panel.__sa && panel.__sa.video === v ? panel : null;
+  }
+
+  function eventProps(panel) {
+    var loc = window.__saLocale;
+    return { key: panel.__sa.key, locale: (loc && loc.get && loc.get()) || 'en-us', kind: panel.__sa.item.kind };
+  }
+
+  document.addEventListener('play', function (ev) {
+    var panel = panelOf(ev);
+    if (!panel || ev.target.__saPlayed) return;
+    ev.target.__saPlayed = true;
+    track('video_played', eventProps(panel));
+  }, true);
+
+  document.addEventListener('ended', function (ev) {
+    var panel = panelOf(ev);
+    if (!panel) return;
+    ev.target.__saPlayed = false;
+    track('video_completed', eventProps(panel));
+  }, true);
+
   if (window.__saLocale && window.__saLocale.onChange) window.__saLocale.onChange(onLocaleChange);
   window.addEventListener('hashchange', schedule);
   window.addEventListener('popstate', schedule);
