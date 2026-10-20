@@ -56,3 +56,26 @@
   .lsa .lsa-start-row { flex-direction: column; gap: 2px; }
   .lsa .lsa-start-row dt { width: auto; }
 }
+
+/* Glossary at point of use: the dl.lsa-terms that defines a term from src/terms.json where it is
+   first used in a guide, under the step's text (article and player panel) or under Before you
+   start. Small and quiet so it never competes with the step: 13px body grey, the term bold, set off
+   by an informative-blue rule (the colour of the guide's Concept label) rather than a box. Each
+   term and definition run on as one line that wraps, with no fixed widths, so it fits a 375px
+   screen and the 360px player panel. No animation. */
+.lsa .lsa-terms {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 20px 0 0;
+  padding: 2px 0 2px 12px;
+  border-left: 2px solid var(--informative-02);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--60);
+  text-wrap: pretty;
+}
+.lsa .lsa-terms-panel { margin-top: 14px; }
+.lsa .lsa-terms-start { margin-top: 18px; }
+.lsa .lsa-terms dt { display: inline; margin: 0 6px 0 0; font-weight: 700; color: var(--100); }
+.lsa .lsa-terms dd { display: inline; margin: 0; }
