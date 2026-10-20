@@ -32,3 +32,26 @@ and never rewrite another one.
   executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: should the
   German reproduction show these six labels in English to match production, keep its own German
   wording, or adopt develop's wording?
+- **How beta content is labelled when it is shown.** A beta guide's catalogue tile carries a
+  "Beta" text badge above its title, ahead of any New in IntelliDash badge, and a screen reader
+  hears "Beta" in the tile's name. The guide opens with a banner: "Beta. This feature is in
+  testing and may change before it reaches your IntelliDash." A beta step inside a GA guide shows
+  an inline "Beta" marker after its heading, in the written steps and in the walkthrough panel.
+  The steps of a wholly beta guide carry no marker, because the banner already covers them. The
+  accent is the design system's violet, chosen because it is distinct from the blue of the
+  informative note and the New badge, and it meets the 4.5:1 contrast minimum. Shows on: nothing
+  on the live site yet, because nothing in `src/release.json` is beta. It will appear on the first
+  beta guide or step, for example the planned beta step in Calculation questions. Decided by the
+  executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: does
+  "Beta" plus that banner sentence say the right thing to a superintendent, or should it name
+  what changes, for example "available on the beta environment only"? Is violet acceptable on the
+  Spatial Adjust brand?
+- **The Beta label and banner are machine-translated, using IntelliDash's own word for Beta.**
+  IntelliDash's shipped catalogues label one menu item "(Beta)". The guides follow that rendering
+  in each locale: "Beta" stays untranslated in German, Spanish, Italian, Korean and Portuguese. It
+  becomes "Bêta" in French, "Bèta" in Dutch, "ベータ版" in Japanese, "เบต้า" in Thai and "测试版" in
+  Chinese. The banner sentence is a new machine translation with no native review, like the rest
+  of the catalogues. Shows on: the badge and banner under `?lang=` for any locale, once a guide or
+  step is beta. Decided by the executor under owner direction 2026-10-19; for review in person
+  2026-10-22. Question: do the regional teams want "Beta" left in English where IntelliDash leaves
+  it, and does the banner sentence read naturally in each language?
