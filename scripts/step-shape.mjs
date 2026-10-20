@@ -19,7 +19,9 @@
 // or not, because one file serves all 26 guides: a zod schema for its shape, then exactly the eight
 // term ids, each once; match spellings that are unique, carry no [[ ]] marker and are whole words;
 // a definition that is one sentence at Flesch-Kincaid grade 8 or below (scripts/readability.mjs);
-// and ledger ids that are Verified claims in docs/claims/claims.json. Any problem exits 1.
+// and ledger ids that are Verified claims in docs/claims/claims.json. Then firstTermUses(), the
+// function the page runs, is checked against made-up guides: a [[label]] is not a use, matches are
+// whole words, the acronyms are case-sensitive and a term is defined once. Any problem exits 1.
 //
 // The ratchet. A guide listed in PENDING (scripts/lib/rewrite-status.mjs) has not been rewritten
 // yet: it is reported, never failed. The command exits 1 only when a guide that is not pending
@@ -36,6 +38,7 @@ import { z } from 'zod';
 import { loadGuides, partOf } from './lib/load-guides.mjs';
 import { PENDING, isPending } from './lib/rewrite-status.mjs';
 import { score, MAX_GRADE } from './readability.mjs';
+import { firstTermUses } from '../src/transform-export.mjs';
 
 export const MAX_STEPS = 8;
 const SHAPE_FIELDS = ['do', 'see', 'ifNot'];
@@ -210,6 +213,44 @@ export function checkTerms(file, claims) {
   return errors;
 }
 
+/**
+ * Checks firstTermUses() (src/transform-export.mjs, the function the page runs) against small
+ * made-up guides: a term inside a [[label]] marker is not a use, a match is a whole word, the
+ * acronyms are case-sensitive, a term is defined once, and start and before come first.
+ */
+export function checkFirstUse(terms) {
+  const errors = [];
+  const by = (id) => terms.find((t) => t.id === id);
+  if (!by('target') || !by('vwc') || !by('et')) return errors; // checkTerms() already reports it
+  const names = (l) => l.map((x) => x.term).join(', ');
+  const cases = [
+    {
+      what: 'a label marker is not a use',
+      guide: { steps: [{ do: 'Select [[Target VWC]] in the table.' }, { see: 'The target you set shows in the row.' }] },
+      start: '', steps: ['', by('target').term],
+    },
+    {
+      what: 'whole words only, and the acronyms are case-sensitive',
+      guide: { steps: [{ body: 'Let the targeted ETA settle; the vwc and et columns stay.' }, { body: 'Today’s ET and the VWC.' }] },
+      start: '', steps: ['', `${by('et').term}, ${by('vwc').term}`],
+    },
+    {
+      what: 'start and before come first, and a term is defined once',
+      guide: { start: { page: 'The dashboard.', open: 'No dialog open.', needs: 'A VWC scan.' }, before: ['Set a target.'], steps: [{ do: 'Check the VWC and the target.' }] },
+      start: `${by('vwc').term}, ${by('target').term}`, steps: [''],
+    },
+  ];
+  for (const c of cases) {
+    const got = firstTermUses(c.guide, terms);
+    const want = { start: c.start, steps: c.steps };
+    const have = { start: names(got.start), steps: got.steps.map(names) };
+    if (JSON.stringify(have) !== JSON.stringify(want)) {
+      errors.push(`first use: ${c.what}: expected ${JSON.stringify(want)}, found ${JSON.stringify(have)}`);
+    }
+  }
+  return errors;
+}
+
 /** Reads src/terms.json and the claims ledger from `root` and checks them. */
 export function checkTermsFile({ root = process.cwd() } = {}) {
   let file;
@@ -219,7 +260,8 @@ export function checkTermsFile({ root = process.cwd() } = {}) {
     return [`${TERMS_FILE} cannot be read as JSON: ${err.message}`];
   }
   const claims = JSON.parse(readFileSync(join(root, CLAIMS_FILE), 'utf8')).claims;
-  return checkTerms(file, claims);
+  const errors = checkTerms(file, claims);
+  return errors.length ? errors : checkFirstUse(file.terms);
 }
 
 function printTable(result, { verbose }) {

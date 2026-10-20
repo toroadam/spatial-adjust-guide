@@ -76,3 +76,18 @@ and never rewrite another one.
   guide, in any language but English, stepping through the player. Decided by the executor under
   owner direction 2026-10-19; for review in person 2026-10-22. Question: has anyone in the field
   seen a translated guide that looked stuck, and if so, was it anywhere other than the player?
+
+- **Eight terms are defined where each is first used in a guide, in wording the executor chose.**
+  VWC, ET, delta, Lynx Reference Amount, aggregate row, measured, modelled and target each get one
+  plain sentence (`src/terms.json`), shown once per guide under the step that first uses the term,
+  in the article and in the player panel, or under Before you start when the start or before list
+  uses it first. The term is bold, set off by a thin blue rule, 13px. A label in bold such as
+  Target VWC does not count as a use of "target", and a word in a step title or tip does. Each
+  sentence is grade 8 or below and backed by Verified claims in `docs/claims/claims.json`. Delta
+  reads "The target minus the station’s moisture: the gap the suggestion tries to close."; Lynx
+  Reference Amount reads "The amount of water a station applies at 100 percent."; modelled reads
+  "From the model when there was no scan that day, shown in grey italics with a calculator icon."
+  Shows on: every guide that uses a term, for example `#/understanding-vwc` (all eight) and
+  `#/dashboard-overview`. Decided by the executor under owner direction 2026-10-19; for review in
+  person 2026-10-22. Question: is each definition how you would explain the term to a new
+  superintendent, and is a definition in the narrow player panel helpful or clutter?

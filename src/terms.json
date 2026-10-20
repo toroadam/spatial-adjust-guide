@@ -24,7 +24,7 @@
       "term": "Delta",
       "match": ["delta"],
       "caseSensitive": false,
-      "definition": "The target minus the station's moisture: the gap the suggestion tries to close.",
+      "definition": "The target minus the station’s moisture: the gap the suggestion tries to close.",
       "ledger": ["understanding-vwc/4/1", "understanding-vwc/4/2", "seasonal-profiles/3/2"]
     },
     {

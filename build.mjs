@@ -62,8 +62,28 @@ const FONT_LOCAL = 'vendor/fonts/satoshi.css';
 const enc = (s) =>
   JSON.stringify(s).replace(/<\/(script)/gi, '<\\/$1').replace(/<!--/g, '<\\!--');
 
-/** Bootstrap that must execute before support.js reads the two hooks. */
-function bootstrap(componentSources) {
+// The glossary: src/terms.json, defined at each term's first use in a guide by the renderer that
+// src/transform-export.mjs installs (glossary at point of use). Only the fields the page reads ship;
+// the ledger ids are for npm run test:shape, which checks the whole file.
+const TERM_FIELDS = ['id', 'term', 'match', 'caseSensitive', 'definition'];
+
+async function loadTerms() {
+  const { terms } = JSON.parse(await readFile(join(ROOT, 'src', 'terms.json'), 'utf8'));
+  if (!Array.isArray(terms) || !terms.length) throw new Error('src/terms.json has no terms; run npm run test:shape');
+  const out = terms.map((t, i) => {
+    if (typeof t.term !== 'string' || typeof t.definition !== 'string' || !Array.isArray(t.match)) {
+      throw new Error(`src/terms.json term ${i + 1} is malformed; run npm run test:shape`);
+    }
+    return Object.fromEntries(TERM_FIELDS.map((f) => [f, t[f]]));
+  });
+  // The bootstrap is spliced in with a replacement string, which would expand a `$&`-style sequence.
+  if (JSON.stringify(out).includes('$')) throw new Error('src/terms.json contains "$", which the bootstrap splice would corrupt');
+  return out;
+}
+
+/** Bootstrap that must execute before support.js reads the two hooks, and before the guide's
+ *  first render reads window.__saTerms. */
+function bootstrap(componentSources, terms) {
   const blobEntries = Object.entries(componentSources)
     .map(([url, src]) => `  ${enc(url)}: new Blob([${enc(src)}], { type: 'text/html' }),`)
     .join('\n');
@@ -76,6 +96,8 @@ ${Object.entries(CDN_MAP).map(([k, v]) => `  ${enc(k)}: ${enc(v)},`).join('\n')}
 window.__resourceBlobs = {
 ${blobEntries}
 };
+// The glossary terms (src/terms.json), read by the guide's renderVals.
+window.__saTerms = ${enc(terms)};
 </script>`;
 }
 
@@ -202,7 +224,7 @@ async function main() {
 
   const supportTag = '<script src="./support.js"></script>';
   if (!html.includes(supportTag)) throw new Error('support.js script tag not found in entry document');
-  html = html.replace(supportTag, `${bootstrap(componentSources)}\n${supportTag}`);
+  html = html.replace(supportTag, `${bootstrap(componentSources, await loadTerms())}\n${supportTag}`);
 
   // Every inline <script> must parse. Injecting into this document is error-prone because
   // the bootstrap embeds a whole HTML file as a JS string literal — a naive replace on

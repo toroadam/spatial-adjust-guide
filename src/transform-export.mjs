@@ -393,6 +393,111 @@ function stepShape(src) {
   return s;
 }
 
+// --- glossary at point of use ------------------------------------------------------------------------
+// The eight terms in src/terms.json (VWC, ET, delta, Lynx Reference Amount, aggregate row, measured,
+// modelled, target) are defined where each is first used in a guide, so a reader never has to go
+// back to Getting Started. build.mjs injects the terms as window.__saTerms in its bootstrap, which
+// runs before support.js, so they are there on the first render.
+//
+// First use is found in renderVals on the guide's English source, so it is the same in every
+// locale. The guide is read in page order: start (page, open, needs) and before, which render under
+// Before you start, then each step's title, do, see, ifNot, why, body, caption and tip. Text inside a
+// [[label]] marker is not a use, so [[Target VWC]] does not define "target", and a match must be a
+// whole word. A term defined once is not defined again later in the same guide.
+//
+// The definitions render as a dl.lsa-terms (div > dt term + dd definition) under Before you start,
+// and under the step's text in both the article and the player panel. They are plain text nodes, not
+// data-sa-src lines, so the DOM pass in src/i18n-apply.js translates them from the catalogue like
+// any other text and a locale switch needs no re-render.
+
+/**
+ * Where each glossary term is first used in one guide. `g` is a GUIDES entry and `terms` the list
+ * from src/terms.json. Returns { start: [...], steps: [[...], ...] }, each item { term, definition },
+ * in the order the terms appear. Self-contained on purpose: transformGuide injects its source into
+ * the export, so the page and the node checks run the same function.
+ */
+export function firstTermUses(g, terms) {
+  const FIELDS = ['title', 'do', 'see', 'ifNot', 'why', 'body', 'caption', 'tip'];
+  const strip = (t) => (typeof t === 'string' ? t.replace(/\[\[[^\]]*\]\]/g, ' ') : '');
+  const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const st = g.start || {};
+  const blocks = [[st.page, st.open, st.needs].concat(g.before || [])]
+    .concat((g.steps || []).map((s) => FIELDS.map((f) => s[f])))
+    .map((list) => list.map(strip).join('\n'));
+  const found = blocks.map(() => []);
+  for (const t of terms || []) {
+    const words = (t.match || []).map(esc).join('|');
+    if (!words) continue;
+    const re = new RegExp('(^|[^\\p{L}\\p{N}])(?:' + words + ')(?![\\p{L}\\p{N}])', t.caseSensitive ? 'u' : 'iu');
+    for (let b = 0; b < blocks.length; b++) {
+      const m = re.exec(blocks[b]);
+      if (m) { found[b].push({ at: m.index + m[1].length, term: t.term, definition: t.definition }); break; }
+    }
+  }
+  const out = found.map((list) => list.sort((a, b) => a.at - b.at).map((x) => ({ term: x.term, definition: x.definition })));
+  return { start: out[0], steps: out.slice(1) };
+}
+
+/** The dl for one list of terms: `has` and `list` are the view-model paths of its flag and items. */
+const termsList = (has, list, extraClass) =>
+  `<sc-if value="{{ ${has} }}" hint-placeholder-val="{{ false }}"><dl class="lsa-terms ${extraClass}">`
+  + `<sc-for list="{{ ${list} }}" as="tm" hint-placeholder-count="1">`
+  + '<div class="lsa-terms-row"><dt>{{ tm.term }}</dt><dd>{{ tm.definition }}</dd></div>'
+  + '</sc-for></dl></sc-if>';
+
+function glossary(src) {
+  let s = src;
+
+  s = edit(s, {
+    name: 'glossary: firstTermUses() and saTermsFor() in the guide script',
+    pattern: /\nconst DIFFICULTY_LABEL = \{ 1: /,
+    replace: () => '\n// Added by src/transform-export.mjs (glossary at point of use). window.__saTerms comes from\n'
+      + '// build.mjs; the first uses of a guide never change, so they are worked out once per guide.\n'
+      + firstTermUses.toString() + '\n'
+      + 'const SA_TERM_USES = {};\n'
+      + 'function saTermsFor(key, g) {\n'
+      + "  const terms = (typeof window !== 'undefined' && window.__saTerms) || [];\n"
+      + '  return SA_TERM_USES[key] || (SA_TERM_USES[key] = firstTermUses(g, terms));\n'
+      + '}\n'
+      + '\nconst DIFFICULTY_LABEL = { 1: ',
+  });
+
+  // The step objects are shared by the article and the player panel (player.step is steps[pi]).
+  s = edit(s, {
+    name: 'glossary: terms on each step in renderVals',
+    pattern: exact('const pi = Math.min(this.state.playerStep, steps.length - 1);'),
+    replace: () => 'const termUses = saTermsFor(key, g);\n'
+      + '      steps.forEach((st, i) => { st.terms = termUses.steps[i] || []; st.hasTerms = st.terms.length > 0; });\n'
+      + '      const pi = Math.min(this.state.playerStep, steps.length - 1);',
+  });
+  s = edit(s, {
+    name: 'glossary: Before you start terms on the guide in renderVals',
+    pattern: exact('steps, stepCount: steps.length, toc, next'),
+    replace: () => 'steps, stepCount: steps.length, toc, next,\n'
+      + '        hasStartTerms: termUses.start.length > 0, startTerms: termUses.start',
+  });
+
+  // Each dl sits flush against the element before it, so a guide or step with no terms renders no
+  // extra whitespace node. The anchors stop short of attributes other transforms add.
+  s = edit(s, {
+    name: 'glossary: terms under the step text in the article',
+    pattern: /\n\n {12}<figure class="lsa-step-figure"/,
+    replace: (m) => termsList('step.hasTerms', 'step.terms', 'lsa-terms-article') + m,
+  });
+  s = edit(s, {
+    name: 'glossary: terms under the step text in the player panel',
+    pattern: exact('\n            </div>\n\n            <div style="flex:1;min-height:0;overflow-y:auto;padding:10px 14px">'),
+    replace: (m) => termsList('guide.player.step.hasTerms', 'guide.player.step.terms', 'lsa-terms-panel') + m,
+  });
+  s = edit(s, {
+    name: 'glossary: terms under Before you start',
+    pattern: exact('\n        </section>\n\n        <sc-for list="{{ guide.steps }}"'),
+    replace: (m) => termsList('guide.hasStartTerms', 'guide.startTerms', 'lsa-terms-start') + m,
+  });
+
+  return s;
+}
+
 export function transformGuide(src) {
   let s = src;
 
@@ -1220,6 +1325,10 @@ export function transformGuide(src) {
   // render-time translation hooks in src/i18n-apply.js, so the renderer cannot change a guide
   // that has not been rewritten. Its anchors are still checked on every build that has a rewrite.
   if (REWRITES.length) s = stepShape(s);
+
+  // Glossary at point of use: every guide, rewritten or not. It anchors on the template and on
+  // renderVals, never on guide data, so it composes with any rewrite below.
+  s = glossary(s);
 
   // --- followability rewrites ---------------------------------------------------
   // Last on purpose: a rewrite anchors on the text every correction above has already produced,
