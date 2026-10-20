@@ -98,9 +98,11 @@ if P.IN_PIPELINE:
             a = read_png(out)
             self.assertEqual(a.shape[:2], (1080, 1920))
             self.assertGreater(float(a[..., :3].std()), 10.0)
-            # the glass strip is drawn at 1.0 s: its region differs from the wallpaper just above it
-            strip = a[1010:1052, 300:1620, :3].astype(float).mean(); above = a[930:972, 300:1620, :3].astype(float).mean()
-            self.assertGreater(abs(strip - above), 1.0)
+            # the glass strip is drawn at 1.0 s: the first chapter is done, so its 3 px track (y 1002 + 58 * 0.74) is a white
+            # bar, far brighter than the frosted glass around it, whatever the wall's palette
+            track = a[1043:1047, 300:900, :3].astype(float).max(axis=0).mean(); glass = a[1020:1036, 300:900, :3].astype(float).mean()
+            self.assertGreater(track, 150.0)
+            self.assertGreater(track - glass, 60.0)
 else:
     class SmokeTest(unittest.TestCase):
         def test_in_pipeline_python(self):
