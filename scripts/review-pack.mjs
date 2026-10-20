@@ -75,6 +75,7 @@ const noteLabel = (guide) => (guide.newInIntelliDash ? 'New in IntelliDash.' : '
 // Display order and meaning of each status. Mirrors the status vocabulary in docs/claims/README.md.
 const STATUS_INFO = [
   ['Verified', 'verified', 'Production does what the claim says.'],
+  ['Verified (beta)', 'verified-beta', 'Develop and the beta environment do what the claim says, and the content is marked Beta. The citation is at the pinned develop SHA.'],
   ['Wrong', 'wrong', 'Production contradicts the claim. A correction is proposed beside it.'],
   ['Not shipping', 'not-shipping', 'The claim describes something that is not in the production build.'],
   ['Needs expert', 'needs-expert', 'The source cannot settle it. The question for you is listed under Questions for the experts.'],
@@ -241,7 +242,7 @@ const CSS = `
 :root { --ink: #1d1d1f; --muted: #5f6368; --rule: #d9dadc; --soft: #f5f6f7; --accent: #b3261e;
   --verified: #1e6b34; --verified-bg: #e3f3e7; --wrong: #a3161a; --wrong-bg: #fde7e7;
   --not-shipping: #5b2a86; --not-shipping-bg: #efe6f8; --needs-expert: #7a4a00; --needs-expert-bg: #fff1d6;
-  --unverified: #4a4f55; --unverified-bg: #eceef0; }
+  --unverified: #4a4f55; --unverified-bg: #eceef0; --verified-beta: #0b5566; --verified-beta-bg: #e0f1f4; }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body { margin: 0; color: var(--ink); background: #fff;
@@ -273,6 +274,7 @@ tr.cat td { background: var(--soft); font-weight: 600; }
 .b-not-shipping { color: var(--not-shipping); background: var(--not-shipping-bg); }
 .b-needs-expert { color: var(--needs-expert); background: var(--needs-expert-bg); }
 .b-unverified { color: var(--unverified); background: var(--unverified-bg); }
+.b-verified-beta { color: var(--verified-beta); background: var(--verified-beta-bg); }
 .tally { display: flex; flex-wrap: wrap; gap: .35rem .75rem; margin: .5rem 0; font-size: .9rem; }
 .banner { border: 2px solid var(--accent); background: #fff4f2; padding: .6rem .8rem; margin: 1rem 0; border-radius: 4px; }
 .notice { border-left: 4px solid var(--not-shipping); background: var(--not-shipping-bg); padding: .6rem .8rem; margin: 1rem 0; }
@@ -288,6 +290,7 @@ tr.cat td { background: var(--soft); font-weight: 600; }
 .claim.s-not-shipping { border-left-color: var(--not-shipping); }
 .claim.s-needs-expert { border-left-color: var(--needs-expert); }
 .claim.s-unverified { border-left-color: var(--unverified); }
+.claim.s-verified-beta { border-left-color: var(--verified-beta); }
 .claim-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: .25rem .6rem; font-size: .85rem; }
 .claim-head .ctype { color: var(--muted); }
 .ctext { margin: .25rem 0; }
