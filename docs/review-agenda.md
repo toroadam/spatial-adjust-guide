@@ -55,3 +55,27 @@ and never rewrite another one.
   step is beta. Decided by the executor under owner direction 2026-10-19; for review in person
   2026-10-22. Question: do the regional teams want "Beta" left in English where IntelliDash leaves
   it, and does the banner sentence read naturally in each language?
+- **The `stale-scans-kept` beta step is written, shown by default and checked against develop.**
+  Calculation questions gains a sixth step, "A stale course keeps its last scans", marked Beta. It
+  says that when TurfRad has loaded nothing new, Spatial Adjust keeps the course's last scans
+  beyond seven days, the stations stay in the table and on the map as clear pins, Option 2 still
+  models a value and a suggestion every day, and Request latest scan data looks back only two
+  days. Its figure is the existing map, pointing at a clear pin. Four of its five sentences are
+  Verified (beta) at develop `bd39f465`; the caption, "A pin last scanned on an earlier day is
+  drawn clear.", is true on production too and is plain Verified. The two surfaces the
+  reproduction cannot draw are listed in `README.md` under Known gaps as beta guide candidates.
+  Shows on: https://toroadam.github.io/spatial-adjust-guide/#/calculation-questions, step 6, in
+  English and the ten other languages. Decided by the executor under owner direction 2026-10-19;
+  for review in person 2026-10-22. Question: is keeping a stale course's scans and suggestions
+  indefinitely the intended TurfRad v3 behaviour for production, and should the step warn that a
+  suggestion modelled from scans weeks old needs checking before a push?
+- **GA sentences that tie a pin to a scan within seven days stay as they are.** Dashboard overview
+  ("Read the map") and Map navigation ("Pins are coloured by measured moisture") say a pin means a
+  scan within the past seven days, which is production behaviour. On beta a course that TurfRad
+  has stopped updating keeps its pins, clear, beyond seven days. The beta list keeps those
+  sentences GA and puts the beta behaviour in one place, the Calculation questions step above.
+  Shows on: https://toroadam.github.io/spatial-adjust-guide/#/dashboard-overview and
+  https://toroadam.github.io/spatial-adjust-guide/#/map-navigation, unchanged. Decided by the
+  executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: should
+  those two guides gain a beta step of their own, or is one step in Calculation questions enough
+  for beta users?

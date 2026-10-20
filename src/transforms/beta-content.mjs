@@ -42,15 +42,18 @@
 // docs/claims/guides/calculation-questions.json (claims calculation-questions/6/*). Citations, as
 // path:line on develop, with "SAS" for api/Services/SpatialAdjustService.cs and "TRS" for
 // api/Services/TerraRadService.cs:
-//   - nothing new keeps the scans: SAS:2139-2152 (no deletion, today's adjustments instead),
+//   - nothing new keeps the scans: SAS:2140-2153 (no deletion, today's adjustments instead),
 //     SAS:2575, TRS:104-134 (the "anything new?" question); production deletes them instead
 //     (production SAS:2134-2146, :2510, :2817-2836).
-//   - stations stay in the table and on the map: SAS:205-208 (only stations with stored scans are
-//     listed), sa-dash-map.component.ts:315 and environment.toro-beta.ts:89 (a pin not scanned today
-//     is filled transparent), spatial-adjust-course.model.ts:173-188 (current and modelled).
+//   - stations stay in the table and on the map: SAS:199-208 (only stations with stored scans are
+//     listed), sa-table-card.component.html:22-25 (the scan date beside the name),
+//     sa-dash-map.component.ts:315 and environment.toro-beta.ts:89 (a pin not scanned today is
+//     filled transparent), spatial-adjust-course.model.ts:173-188 (current and modelled).
 //   - a modelled value and a suggestion every day under Option 2: SAS:3266-3326 (writes today's
 //     adjustment once, from the station's last two), sa-algorithm.service.ts:48-49, :62-65.
-//   - Request latest scan data looks back two days: SAS:978-992, TRS:114-117, :206-210.
+//   - Request latest scan data looks back two days: SAS:978-1002, TRS:114-134, :205-210.
+//   - the caption is true on production too: sa-dash-map.component.ts:315 and
+//     environment.toro-prod.ts:87 at production, so its claim is plain Verified.
 import { edit } from './edit.mjs';
 
 // ---- the steps ----------------------------------------------------------------------------------
