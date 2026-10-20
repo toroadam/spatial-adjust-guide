@@ -27,3 +27,49 @@ The iCentral folder is a read-only source. Its tools were changing on the day of
 |---|---|
 | `lib/theme.py` | `THEME`: every colour and font the compositor draws with. Starts with the iCentral values; PI-ICNT-SW-1081-1 sets the Spatial Adjust values. Fonts are the repository's `_ds` Golos UI files (400, 500, 700). |
 | `lib/media.py` | Episode folders under the media root (`episode_dir`, with the reserved test episode `_test`) and the output guard `require_media_path`, both on top of `video/lib/media_root.py`. |
+| `lib/layers/__init__.py` | Imports every module in `lib/layers/` so each layer type registers itself with `renderer.register_layer` on import. |
+| `__init__.py`, `tests/__init__.py` | Package markers so `npm run test:video:py` (`unittest discover -s video`) finds `edit/tests`. `lib/` is deliberately not a package: the ported modules import each other flat, as in the source, and `video/lib` is already the package `lib`. |
+| `tests/_pipeline.py` | Test helpers: run in place when torch, numpy and scipy import, otherwise rerun the test file with the pipeline Python (`$SA_VIDEO_PYTHON`, else `<media root>/.venv/bin/python`), else skip naming what is missing; skip when ffmpeg, node or Playwright Chromium is missing. |
+| `tests/make_test_clip.py` | Synthetic take: ffmpeg `testsrc2`, 3840x2160, 60 fps, 3 s, into `<media root>/episodes/_test/capture/raw/test_take.mp4`, with `test_take-track.json` in the `take.mjs:65` track format (`[t, x, y, a, ripple, focusBox or null]` frames, `clicks: []`). |
+| `tests/test_smoke.py` | End to end: TL wallpaper, one window shot of the test take, a two-segment glass strip and one typed label, 2 s, rendered by `render.py`; ffprobe must report h264 High, yuv420p, 1920x1080, 60 fps, 2.0 +/- 0.05 s. A `--still` at 1.0 s must not be uniform and must show the glass strip. |
+| `tests/test_timeline.py` | Gfx asset sizes and metrics, Golos UI 400 vs 700 from `_ds` (same uniwidth box, more ink at 700), 600 drawn as 500, no default music, window shots from capture rows with `camplan.plan`, `dc_plan` and the FLAT no-drift framing, timeline output paths. |
+| `tests/test_renderer.py`, `tests/dummy_layer.py` | A layer type registered from a test-only module is applied without editing `renderer.py`; registered layers draw above base layers; inactive layers are skipped; base type names are refused. |
+| `tests/test_render_paths.py` | `render.py` exits 2 for an output under `/tmp`, `/private/tmp`, the temp directory, a scratchpad, the repository or anywhere outside the media root, for `video_out`, `--out` and `--still`. Standard library only. |
+
+## Not ported
+
+| Source | Why | Where it goes |
+|---|---|---|
+| `double-clicks/tools/dc_build.py` (140 lines at snapshot; 135 when planned) | A hard-coded Double Click #1 episode script (iCentral paths, take numbers, cue names, the hero's music). Its patterns survive in the port: 5-column cursor rows (line 35) are `timeline.cursor_frames`, the FLAT framing and `drift=None` (lines 39-42) are `dc_camplan.FLAT`, `no_drift` and `window_shot(drift=None)`. | PI-ICNT-SW-1083-1, a data-driven builder from `episode.json` |
+| `double-clicks/tools/dctitle.py` and `RendererDC.dctitle` | The series title card, iCentral branded. | PI-ICNT-SW-1081-2, as `lib/layers/dctitle.py` with Spatial Adjust branding |
+| `v5_build.py` line 23 `TRACK` | A music preview without a licence for publication. Music comes from the episode (`TL.json(duration, music, vo)` has no default). | PI-ICNT-SW-1083-2 (music bed and licence record) |
+| `v5_build.py` line 16 `SVG` | A path into the iCentral phase2 build's SVG folder. Logos come from the episode or brand folder through `Gfx.common(lockup=...)`. | PI-ICNT-SW-1081-3 (end card and lockup) |
+| `v5_build.py` lines 1-20, 24-48, 208-557 | The hero and cut-down episode scripts, their schedules, VO and music blocks, `clicks_of`, `track_of`, `wall`, `dialog_focus`, `lift_dialog`, `edl_rows`, `main`. | Not needed; builders are data-driven (PI-ICNT-SW-1083) |
+| Audio: `06-edit/compositor/audio/`, `mux.py`, `double-clicks/tools/dc_mix.py` | Mixing and muxing are a separate step. | PI-ICNT-SW-1083-2 |
+| `verify.py`, `d28_ocr.py` | Render verification and OCR. | PI-ICNT-SW-1082 |
+| `lib/engine_apple.py` (`Renderer3`, timeline `engine: 3`) | Not used by the Double Click look; `render.py` refuses engine 3. | Not planned |
+| `gfx/fonts/golos-ui_vf.woff2`, `gfx/logos/` | Binary assets from the iCentral folder: fonts come from `_ds` (SIL OFL, already in this repository), logos from the episode. | Not copied |
+
+No proprietary asset (font, LUT, music, logo) is copied: only code. Nothing under `video/edit` imports from or points at the iCentral folder; the paths in the tables above are provenance only.
+
+## Type: Golos UI weights
+
+The iCentral graphics used Golos UI SemiBold (600) from a variable font. The repository's `_ds` ships Golos UI as three static TTFs, 400, 500 and 700, so:
+
+- the ported CSS that asked for 600 (`Gfx.typed`, the CTA) now asks for `THEME['heading_weight']`, 500;
+- `render_gfx.mjs` draws any element whose computed weight is 600 at 500 (`THEME['weight_map']`) and prints one warning line per asset, so episode HTML that still says 600 renders predictably instead of falling through to 700;
+- `split_lines` keeps the SemiBold average advance; Golos UI is uniwidth, so line breaks do not depend on the weight.
+
+PI-ICNT-SW-1081-1 may set `heading_weight` to 700 if the Spatial Adjust motion system calls for a heavier title.
+
+## Running it
+
+Python: the venv at the media root (`video/README.md`, Prerequisites), created from `video/requirements.txt` (torch 2.14.1, numpy, scipy, soundfile, Pillow). The engine runs on Apple MPS and falls back to CPU when MPS is absent; `SA_VIDEO_DEV=cpu` forces CPU. ffmpeg and ffprobe come from `$FFMPEG` / `$FFPROBE` or PATH. Graphics need Node and the repository's Playwright Chromium (`npm ci`, `npx playwright install chromium`).
+
+```bash
+~/Documents/SpatialAdjust_MarCom/.venv/bin/python video/edit/render.py --timeline <timeline.json>
+python3 video/edit/tests/test_smoke.py      # reruns itself in the pipeline Python when python3 has no torch
+npm run test:video:py
+```
+
+The smoke render (120 frames at 1920x1080) takes about 6 s on an Apple Silicon GPU. Test media stays under `<media root>/episodes/_test`.
