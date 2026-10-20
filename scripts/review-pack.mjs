@@ -11,6 +11,9 @@
 //   docs/claims/claims.json     the canonical ledger (statuses, evidence, questions, corrections)
 //   docs/claims/sources.json    the pinned IntelliDash SHAs shown in every page header
 //   extractGuides()             the published guide text, from scripts/claims-extract.mjs
+//   docs/claims/operational-contract.md and src/transforms/operational-contract.mjs
+//                               the push-window and Lynx questions (Q1-Q7), the rules they belong
+//                               to, and the sentences that rest on them and where they appear
 // It never writes to docs/claims/. The prose comes from extractGuides() rather than from a fresh
 // parse of the export, so the pack shows exactly the text the ledger describes (see
 // docs/audit-verification.md for what a lossy re-parse once got wrong).
@@ -20,6 +23,12 @@
 // verdict about a different one beside it, so it refuses unless --allow-stale is given, and then
 // every page says it is stale. It also runs the ledger lint, so for example every Needs expert
 // claim is guaranteed to carry a question.
+//
+// Besides one page per guide, the pack has a questions page (OC_PAGE): the seven push-window and
+// Lynx questions, each with the published sentences that rest on it and the live page where each
+// appears, then every other Needs expert claim with its guide, step and live page. It is the
+// agenda for a review that walks the live site, and it says whether the operational wording is
+// published or held back, from PUBLISH in operational-contract.mjs.
 //
 // The output is self-contained: inline CSS, system fonts, no scripts, no images, and a
 // Content-Security-Policy of default-src 'none'. After writing, every page is opened in Chromium
@@ -40,10 +49,14 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, rmSync
 import { join, resolve, relative, isAbsolute, dirname } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { extractGuides, claimsForGuide, lintShard, STATUSES, TYPES } from './claims-extract.mjs';
+import * as OC from '../src/transforms/operational-contract.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 const LEDGER = join(ROOT, 'docs', 'claims', 'claims.json');
 const SOURCES = join(ROOT, 'docs', 'claims', 'sources.json');
+const OC_DOC = join(ROOT, 'docs', 'claims', 'operational-contract.md');
+export const OC_PAGE = 'push-window-questions.html';
+const OC_TITLE = 'Questions for the experts: push window and Lynx prerequisites';
 const DEFAULT_OUT = join(ROOT, 'review-pack');
 const DIST = join(ROOT, 'dist');
 const CLAIMS_DIR = join(ROOT, 'docs', 'claims');
@@ -53,9 +66,11 @@ export const PDF_NAME = 'spatial-adjust-guides-review.pdf';
 const MARKER = '.review-pack';
 const SITE = 'https://toroadam.github.io/spatial-adjust-guide/';
 
-// The four Target Profiles guides. Each opens with a notice about whether the feature ships,
+// The four Target Profiles guides. Each opens with a notice that the feature is new in IntelliDash,
 // which the pack lifts to the top of the page so the expert judges it first.
 const TARGET_PROFILE_GUIDES = ['target-profiles', 'creating-profiles', 'updating-profiles', 'seasonal-profiles'];
+/** The label the site prints before a guide's note, as src/transform-export.mjs renders it. */
+const noteLabel = (guide) => (guide.newInIntelliDash ? 'New in IntelliDash.' : 'Note.');
 
 // Display order and meaning of each status. Mirrors the status vocabulary in docs/claims/README.md.
 const STATUS_INFO = [
@@ -97,6 +112,15 @@ const count = (claims, field, values) => {
   return out;
 };
 const badge = (status) => `<span class="badge b-${STATUS_CLASS[status] ?? 'unverified'}">${esc(status)}</span>`;
+/** Whether sources.json records the production pin as the deployed build. */
+const confirmation = (prod) => (prod.confirmed
+  ? ' <span class="muted">(confirmed as the production build)</span>'
+  : ' <span class="muted">(not yet confirmed as the deployed build)</span>');
+const liveUrl = (key) => `${SITE}#/${key}`;
+/** Where a claim sits in its guide, in the words the guide page uses. */
+const sectionName = (step) => (/^\d+$/.test(step) ? `step ${step}`
+  : { tile: 'catalogue card', summary: 'summary', where: 'Where', note: 'banner before step 1',
+    before: 'Before you start', verify: 'How to know it worked' }[step] ?? step);
 const fmtDate = (d) => `${d.toISOString().slice(0, 16).replace('T', ' ')} UTC`;
 const isInside = (child, parent) => {
   const rel = relative(parent, child);
@@ -150,7 +174,65 @@ export function load({ ledgerPath = LEDGER, sourcesPath = SOURCES } = {}) {
       stale.push(`${key}: the ledger and the published text differ on ${plural(differ, 'claim')}`);
     }
   }
-  return { ledger, sources, guides, categories, tiles, keys, byGuide, stale, staleByGuide, lintErrors };
+  const oc = loadOperational({ byGuide, tiles });
+  return { ledger, sources, guides, categories, tiles, keys, byGuide, stale, staleByGuide, lintErrors, oc };
+}
+
+/** Rows of the first markdown table under the line `heading`, as objects keyed by its header cells. */
+function mdTable(md, heading) {
+  const lines = md.split('\n');
+  const at = lines.findIndex((l) => l.trim() === heading);
+  if (at < 0) throw new Error(`operational-contract.md has no "${heading}" heading`);
+  const rows = [];
+  for (const line of lines.slice(at + 1)) {
+    if (line.startsWith('|')) rows.push(line.replace(/^\|/, '').replace(/\|\s*$/, '').split('|').map((c) => c.trim()));
+    else if (rows.length) break;
+  }
+  const [head, , ...body] = rows;
+  if (!head || !body.length) throw new Error(`operational-contract.md has no table under "${heading}"`);
+  return body.map((r) => Object.fromEntries(head.map((h, i) => [h, r[i] ?? ''])));
+}
+/** Markdown to plain text: a link keeps its text, and emphasis and code marks are dropped. */
+const plainMd = (t) => String(t ?? '').replace(/\[([^\]]+)\]\([^)]*\)/g, '$1').replace(/\*\*|`/g, '');
+
+/**
+ * The push-window and Lynx questions. Q1-Q7 and the rules come from operational-contract.md, and
+ * the sentences, where each is placed and which questions it rests on come from the module that
+ * publishes them. Each placement carries the ledger claims that hold the sentence, if published.
+ */
+export function loadOperational({ byGuide, tiles }, docPath = OC_DOC) {
+  const md = readFileSync(docPath, 'utf8');
+  const questions = mdTable(md, '## Questions for the expert review')
+    .map((r) => ({ id: r.Q, rule: r.Rule, text: plainMd(r.Question) }));
+  const rules = [
+    // "See below" points into the markdown file, so it is dropped here.
+    ...mdTable(md, '### The push window').map((r) => ({
+      id: r.ID, rule: plainMd(r.Rule), source: plainMd(r.Source).replace(/\s*See below\.?/, ''), status: plainMd(r.Status) })),
+    ...mdTable(md, '### The Lynx prerequisites').map((r) => ({
+      id: r.ID, rule: plainMd(`${r['Setting and where it is set']} Required value: ${r['Required value']}.`),
+      source: plainMd(r.Source), status: plainMd(r.Status) })),
+  ];
+  const at = (guide, step, label) => ({ guide, step: String(step), label, title: tiles[guide]?.title ?? guide });
+  const callout = OC.PUSH_WINDOW.label.replace(/\.$/, '');
+  const sentences = [
+    ...OC.PUSH_WINDOW.sentences.map((s) => ({ ...s, part: 'W1',
+      where: OC.PUSH_STEPS.map((p) => at(p.guide, p.step, `step ${p.step}, the “${callout}” callout`)) })),
+    ...OC.PREREQUISITES.flatMap((p) => p.sentences.map((s) => ({ ...s, part: p.id,
+      where: [at('push-to-lynx', 'before', 'Before you start')] }))),
+    ...OC.CROSS_REFERENCE.sentences.map((s) => ({ ...s, part: OC.CROSS_REFERENCE.id,
+      where: OC.GATED_GUIDES.map((g) => at(g.guide, 'before', 'Before you start')) })),
+  ];
+  for (const s of sentences) {
+    for (const w of s.where) {
+      w.claims = (byGuide.get(w.guide) ?? []).filter((c) => c.step === w.step && c.text.includes(s.text));
+    }
+  }
+  const known = new Set(questions.map((q) => q.id));
+  const unknown = [...new Set(sentences.flatMap((s) => s.open))].filter((q) => !known.has(q));
+  if (unknown.length) {
+    throw new Error(`operational-contract.mjs names questions that operational-contract.md does not list: ${unknown.join(', ')}`);
+  }
+  return { published: OC.PUBLISH, unsettledPublished: OC.PUBLISH && Boolean(OC.PUBLISH_UNSETTLED), questions, rules, sentences };
 }
 
 // ---- rendering ----------------------------------------------------------------------------------
@@ -303,7 +385,8 @@ function sections(guide, tile) {
     prose: `<p><strong>${esc(tile.title)}</strong></p>${para(tile.summary)}` });
   out.push({ step: 'summary', heading: 'Summary', prose: para(guide.summary) });
   out.push({ step: 'where', heading: 'Where', prose: para(guide.where) });
-  out.push({ step: 'note', heading: 'Concept note', prose: guide.note ? `<p><strong>Concept.</strong> ${esc(guide.note)}</p>` : '' });
+  out.push({ step: 'note', heading: 'Banner before step 1',
+    prose: guide.note ? `<p><strong>${esc(noteLabel(guide))}</strong> ${esc(guide.note)}</p>` : '' });
   out.push({ step: 'before', heading: 'Before you start', prose: list(guide.before) });
   // Each step's fields are labelled, because each claim names the field it came from.
   const field = (label, html, cls = '') => (html ? `<p${cls ? ` class="${cls}"` : ''}><span class="label">${label}</span> ${html}</p>` : '');
@@ -343,7 +426,7 @@ ${guide.title && guide.title !== tile.title ? `<dt>Page title</dt><dd>${esc(guid
 <dt>Category</dt><dd>${esc(category?.title ?? guide.category)}</dd>
 <dt>Card</dt><dd>${esc(tile.minutes)} · difficulty ${esc(tile.difficulty)} of 3</dd>
 <dt>Live page</dt><dd><a href="${esc(`${SITE}#/${key}`)}">${esc(`${SITE}#/${key}`)}</a></dd>
-<dt>Production</dt><dd><code>${esc(short(prod.sha))}</code> ${esc(prod.ref)}, ${esc(prod.date)}${prod.confirmed ? '' : ' <span class="muted">(not yet confirmed as the deployed build)</span>'}</dd>
+<dt>Production</dt><dd><code>${esc(short(prod.sha))}</code> ${esc(prod.ref)}, ${esc(prod.date)}${confirmation(prod)}</dd>
 <dt>Develop</dt><dd><code>${esc(short(dev.sha))}</code> ${esc(dev.ref)}, ${esc(dev.date)}</dd>
 <dt>Generated</dt><dd>${esc(fmtDate(generatedAt))}</dd>
 </dl>
@@ -359,7 +442,7 @@ ${tallyLine(claims)}
     parts.push(`<section class="notice">
 <h3>Target Profiles: shipping notice</h3>
 ${guide.note
-    ? `<p>Readers see this notice before step 1:</p><p><strong>Concept.</strong> ${esc(guide.note)}</p>
+    ? `<p>Readers see this notice before step 1, and the guide's catalogue tile carries a “New in IntelliDash” badge:</p><p><strong>${esc(noteLabel(guide))}</strong> ${esc(guide.note)}</p>
 <p class="small">${noteClaims.map((c) => `<a href="#${anchor(c.id)}"><span class="cid">${esc(c.id)}</span></a> ${badge(c.status)}`).join(' · ')}</p>
 <p class="small">Please say whether this still describes what customers have.</p>`
     : '<p>This guide covers Target Profiles but carries no shipping notice. Please say whether it needs one.</p>'}
@@ -406,6 +489,88 @@ ${questions.length ? `<p class="small muted">Please answer each in a line or two
   return { html: parts.join('\n'), rendered };
 }
 
+/** Every Needs expert claim, split into those that rest on Q1-Q7 and the rest. */
+function expertClaims(ctx) {
+  const all = ctx.keys.flatMap((k) => ctx.byGuide.get(k));
+  const operational = new Set(ctx.oc.sentences.flatMap((s) => s.where.flatMap((w) => w.claims.map((c) => c.id))));
+  const needs = all.filter((c) => c.status === 'Needs expert');
+  return { operational: needs.filter((c) => operational.has(c.id)), guides: needs.filter((c) => !operational.has(c.id)) };
+}
+
+/**
+ * The questions page: Q1-Q7 with the wording that rests on each and the live pages where it
+ * appears, the rules behind them, and every other Needs expert claim with its live page. In
+ * index.html it comes before the guides; it is also written on its own as OC_PAGE.
+ */
+function renderOperational(ctx) {
+  const { oc, tiles } = ctx;
+  const { operational, guides: others } = expertClaims(ctx);
+  const claimRef = (c) => `<a href="${esc(c.guide)}.html#${anchor(c.id)}"><span class="cid">${esc(c.id)}</span></a> ${badge(c.status)}`;
+  const placeList = (s) => `<ul>${s.where.map((w) => `<li><a href="${esc(liveUrl(w.guide))}">${esc(w.title)}</a>, ${esc(w.label)}`
+    + `${w.claims.length ? ` · ${w.claims.map(claimRef).join(' ')}` : ''}</li>`).join('')}</ul>`;
+  const state = !oc.published
+    ? '<p><strong>Held back.</strong> None of the wording below is on the live site. It is published once these questions are answered.</p>'
+    : oc.unsettledPublished
+      ? '<p><strong>Live on the site.</strong> Every sentence below is published in all eleven languages, including the ones that rest on a question that is still open. Your answers decide whether those sentences stay as they are, change, or come out.</p>'
+      : '<p><strong>Live on the site.</strong> Every sentence below is published, and none rests on an open question.</p>';
+
+  const questions = oc.questions.map((q) => {
+    const rule = oc.rules.find((r) => r.id === q.rule);
+    const resting = oc.sentences.filter((s) => s.open.includes(q.id));
+    return `<li id="oc-${esc(q.id)}">
+<p><span class="cid">${esc(q.id)}</span> <span class="muted small">rule ${esc(q.rule)}</span></p>
+<p><strong>${esc(q.text)}</strong></p>
+${rule ? `<p class="small muted">The rule: ${esc(rule.rule)} Source: ${esc(rule.source.replace(/\.$/, ''))}.</p>` : ''}
+${resting.length ? `<p class="small">${oc.published ? 'Published' : 'Drafted'} wording that rests on it, and where to find it on the live site:</p>
+${resting.map((s) => `<div class="as-written small"><p>“${esc(s.text)}”</p>${placeList(s)}</div>`).join('')}` : ''}
+<div class="answer">Answer:</div>
+</li>`;
+  }).join('');
+
+  const wording = oc.sentences.map((s) => `<tr><td><code>${esc(s.part)}</code></td><td>${esc(s.text)}</td>`
+    + `<td>${s.source ? esc(s.source) : '<span class="none">none</span>'}</td>`
+    + `<td>${s.open.length ? s.open.map((q) => `<a href="#oc-${esc(q)}">${esc(q)}</a>`).join(', ') : '<span class="none">settled</span>'}</td>`
+    + `<td>${[...new Set(s.where.map((w) => w.guide))].map((k) => `<a href="${esc(liveUrl(k))}">${esc(tiles[k]?.title ?? k)}</a>`).join(', ')}</td></tr>`).join('\n');
+
+  const rules = oc.rules.map((r) => `<tr><td><code>${esc(r.id)}</code></td><td>${esc(r.rule)}</td><td>${esc(r.source)}</td><td>${esc(r.status)}</td></tr>`).join('\n');
+
+  const guideQuestions = others.map((c) => `<li>
+<p><a href="${esc(c.guide)}.html#${anchor(c.id)}"><span class="cid">${esc(c.id)}</span></a> · <a href="${esc(liveUrl(c.guide))}">${esc(tiles[c.guide]?.title ?? c.guide)}</a>, ${esc(sectionName(c.step))} <span class="muted small">${esc(liveUrl(c.guide))}</span></p>
+<p><strong>${esc(c.question)}</strong></p>
+<p class="small muted">The guide says: ${esc(c.text)}</p>
+<div class="answer">Answer:</div>
+</li>`).join('');
+
+  return `<article class="guide" id="operational-questions">
+<header>
+<p><span class="internal">Internal review</span> <span class="muted small">Agenda</span></p>
+<h2>${esc(OC_TITLE)}</h2>
+<p>The push window and the Lynx settings come from Toro user guide 373-1135 rev 02 (docs/claims/operational-contract.md). Where the document is silent, the rule is one of the seven questions below. After them come the other ${esc(plural(others.length, 'question'))} the source code could not settle, about the guides themselves. Each item names the live page where it appears. The live site links to a guide, not a step, so open the guide and go to the step named.</p>
+${state}
+<div class="tally"><span><strong>${esc(plural(oc.questions.length, 'operational question'))}</strong></span><span>${esc(plural(operational.length, 'Needs expert claim'))} rest on them</span><span><strong>${esc(plural(others.length, 'question'))} about the guides</strong></span></div>
+</header>
+<section class="questions"><h3>The push window and the Lynx prerequisites: ${esc(plural(oc.questions.length, 'question'))}</h3>
+<p class="small muted">Please answer each in a line or two, quoting the question number.</p>
+<ol>${questions}</ol>
+</section>
+<section><h3>All of the wording, and where it appears</h3>
+<table><thead><tr><th>Part</th><th>Sentence</th><th>373-1135 source</th><th>Open questions</th><th>Live pages</th></tr></thead>
+<tbody>
+${wording}
+</tbody></table>
+</section>
+<section><h3>The rules</h3>
+<table><thead><tr><th>Rule</th><th>Setting or rule</th><th>Source</th><th>Status</th></tr></thead>
+<tbody>
+${rules}
+</tbody></table>
+</section>
+<section class="questions"><h3>Questions about the guides: ${esc(plural(others.length, 'question'))}</h3>
+${others.length ? `<p class="small muted">Every other Needs expert claim, in catalogue order. Each is also listed at the end of its guide.</p><ol>${guideQuestions}</ol>` : '<p class="none">No other open questions.</p>'}
+</section>
+</article>`;
+}
+
 function legend() {
   return `<section class="legend"><h3>How to read the badges</h3>
 <table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody>
@@ -425,6 +590,8 @@ function renderIndex(ctx, articles) {
   const byType = count(all, 'type', TYPES);
   const { production: prod, develop: dev } = sources.intellidash;
   const questions = all.filter((c) => c.status === 'Needs expert').length;
+  const experts = expertClaims(ctx);
+  const ocLink = `<a href="#operational-questions">${esc(OC_TITLE)}</a> <a class="screen-only small" href="${esc(OC_PAGE)}">(page)</a>`;
 
   const rows = [];
   for (const cat of categories) {
@@ -443,7 +610,7 @@ function renderIndex(ctx, articles) {
 <h1>Spatial Adjust guides: expert review pack</h1>
 <p>Every statement the ${keys.length} published guides make about the Spatial Adjust screen, as a claim with its status and the IntelliDash source it was checked against. Please read each guide, answer its questions, and record a verdict at the end of it.</p>
 <dl class="meta">
-<dt>Production</dt><dd><code>${esc(short(prod.sha))}</code> ${esc(prod.ref)}, version ${esc(prod.version)}, ${esc(prod.date)}${prod.confirmed ? '' : ' <span class="muted">(not yet confirmed as the deployed build)</span>'}</dd>
+<dt>Production</dt><dd><code>${esc(short(prod.sha))}</code> ${esc(prod.ref)}, version ${esc(prod.version)}, ${esc(prod.date)}${confirmation(prod)}</dd>
 <dt>Develop</dt><dd><code>${esc(short(dev.sha))}</code> ${esc(dev.ref)}, version ${esc(dev.version)}, ${esc(dev.date)}</dd>
 <dt>Source fetched</dt><dd>${esc(sources.fetchedAt)}</dd>
 <dt>Generated</dt><dd>${esc(fmtDate(generatedAt))}</dd>
@@ -452,7 +619,9 @@ function renderIndex(ctx, articles) {
 </header>
 ${stale.length ? `<div class="banner"><strong>Stale ledger.</strong> This pack was generated with --allow-stale and must not be sent for review:<ul>${stale.map((s) => `<li>${esc(s)}</li>`).join('')}</ul></div>` : ''}
 <section><h3>How to review</h3>
+<p>${ctx.oc.published ? 'Everything in this pack is already on the live site, including the push-window and Lynx wording.' : 'The guides in this pack are on the live site. The push-window and Lynx wording is held back until its questions are answered.'} The review walks the live site page by page, with this pack as its agenda and its record.</p>
 <ol>
+<li>Start with ${ocLink}: the ${esc(plural(ctx.oc.questions.length, 'question'))} about the push window and the Lynx settings, then the ${esc(plural(experts.guides.length, 'other question'))}, each with the live page where it appears.</li>
 <li>Read each guide as written, then the claims under it. The badge says whether the claim has been checked, and the citation says against what.</li>
 <li>Where a claim is <strong>Wrong</strong>, check the proposed correction. Where it is <strong>Not shipping</strong>, say whether the guide should describe it at all.</li>
 <li>Answer every item under <strong>Questions for the experts</strong>, quoting the claim ID.</li>
@@ -463,7 +632,7 @@ ${stale.length ? `<div class="banner"><strong>Stale ledger.</strong> This pack w
 ${legend()}
 <section class="totals"><h3>Totals</h3>
 ${tallyLine(all)}
-<p class="small">${plural(keys.length, 'guide')}, ${plural(questions, 'question')} for the experts.</p>
+<p class="small">${plural(keys.length, 'guide')}, ${plural(questions, 'Needs expert claim')}: ${experts.operational.length} rest on the ${plural(ctx.oc.questions.length, 'push-window and Lynx question')} and ${experts.guides.length} are questions about the guides (see ${ocLink}).</p>
 <table><thead><tr><th>Status</th><th class="n">Claims</th></tr></thead><tbody>
 ${STATUS_INFO.map(([s]) => `<tr><td>${badge(s)}</td><td class="n">${byStatus[s]}</td></tr>`).join('\n')}
 <tr><th>Total</th><th class="n">${all.length}</th></tr>
@@ -479,6 +648,7 @@ ${TYPE_INFO.map(([t]) => `<tr><td><code>${esc(t)}</code></td><td class="n">${byT
 ${rows.join('\n')}
 </tbody></table>
 </section>
+${renderOperational(ctx)}
 ${articles.join('\n')}
 <p class="pack-end muted small">End of the review pack. ${plural(keys.length, 'guide')}, ${plural(all.length, 'claim')}.</p>`;
   return documentShell({ title: 'Spatial Adjust guides: expert review pack', body });
@@ -509,6 +679,8 @@ export function render(ctx) {
     files.push([`${key}.html`, renderStandalone(ctx, key, html, i)]);
   });
   if (missing.length) throw new Error(`claims left off their guide page: ${missing.join(', ')}`);
+  const nav = '<nav class="pager screen-only"><a href="index.html">All guides</a></nav>';
+  files.push([OC_PAGE, documentShell({ title: OC_TITLE, body: `${nav}\n${renderOperational(ctx)}\n${legend()}` })]);
   files.push(['index.html', renderIndex(ctx, articles)]);
   return files;
 }
@@ -631,11 +803,14 @@ async function main(argv) {
   const shown = isInside(out, process.cwd()) ? relative(process.cwd(), out) || '.' : out;
   if (opts.pdf) {
     // Guide pages first, so index.html is still open when the PDF is printed.
-    await browserPass(out, [...ctx.keys.map((k) => `${k}.html`), 'index.html'], ctx.generatedAt);
+    await browserPass(out, [...ctx.keys.map((k) => `${k}.html`), OC_PAGE, 'index.html'], ctx.generatedAt);
   }
-  console.log(`review pack: ${ctx.keys.length} guide pages and index.html${opts.pdf ? ` and ${PDF_NAME}` : ''} in ${shown}/`);
+  console.log(`review pack: ${ctx.keys.length} guide pages, ${OC_PAGE} and index.html${opts.pdf ? ` and ${PDF_NAME}` : ''} in ${shown}/`);
   if (opts.pdf) console.log(`  all ${files.length} pages opened in Chromium with zero requests`);
   console.log(`  ${all.length} claims: ${STATUS_INFO.map(([s]) => `${s} ${by[s]}`).join(', ')}`);
+  const experts = expertClaims(ctx);
+  console.log(`  ${ctx.oc.questions.length} operational questions (${ctx.oc.published ? 'wording published' : 'wording held back'}), `
+    + `${experts.operational.length} Needs expert claims resting on them, ${experts.guides.length} other questions`);
   if (ctx.stale.length) console.log('  marked STALE: do not send this pack for review');
   return 0;
 }
