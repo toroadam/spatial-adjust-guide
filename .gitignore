@@ -25,3 +25,8 @@ _incoming/
 # Expert review pack (npm run review-pack). Internal: shared through Toro SharePoint/Teams,
 # never committed and never published. build.mjs does not copy it into dist/.
 review-pack/
+
+# Release media staged for the build (npm run media:fetch) and the test fixture media. Videos are
+# GitHub Release assets and never enter git; see README > Video.
+.media/
+.media-fixture/

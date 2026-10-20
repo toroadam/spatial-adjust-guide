@@ -14,10 +14,17 @@
 // Keeping support.js untouched preserves the Core Design -> web round-trip: re-exporting
 // from Core Design means dropping the new .dc.html files in and rebuilding.
 
-import { readFile, writeFile, mkdir, rm, cp, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { existsSync } from 'node:fs';
+import { readFile, writeFile, mkdir, rm, cp, copyFile, readdir } from 'node:fs/promises';
+import { isAbsolute, join, relative, resolve } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { transformGuide } from './src/transform-export.mjs';
 import { transformApp } from './src/transform-app.mjs';
+import {
+  DEFAULT_MANIFEST, DEFAULT_MEDIA_DIR, SHOWCASE_KEY,
+  guideKeysFrom, loadManifest, validateManifest, verifyItem,
+} from './src/media/manifest.mjs';
+import { checkItems, checkSite } from './scripts/media-budget.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -79,6 +86,108 @@ ${blobEntries}
 </script>`;
 }
 
+// ---- media --------------------------------------------------------------------------------------
+//
+// Videos are GitHub Release assets, never git objects. src/media/manifest.json pins each one by byte
+// count and SHA-256. They cannot be downloaded straight into dist/media/, because main() starts by
+// deleting dist/, so `npm run media:fetch` stages them in .media/ (gitignored) and the build copies
+// each one in only after it matches its pin. dist/media/ is still what the Pages artifact ships, on
+// the site's own origin.
+//
+//   SA_MEDIA_MANIFEST  another manifest file, for tests (default src/media/manifest.json)
+//   SA_MEDIA_DIR       another staging directory, for tests (default .media)
+//   SA_MEDIA_REQUIRED  1: a missing staged asset fails the build, which is what CI sets.
+//                      Unset, empty or 0: the item is dropped with a warning and its guide shows no
+//                      video, the same way the Feedback button is simply absent without an endpoint.
+//                      That keeps local builds and clean clones passing with nothing staged.
+// A staged file whose size or hash differs from its pin fails the build in every mode.
+
+/** Parse SA_MEDIA_REQUIRED. A value other than unset, empty, 0 or 1 is a typo, so it fails the build. */
+function mediaRequired(value) {
+  const text = (value ?? '').trim();
+  if (text === '1') return true;
+  if (text === '' || text === '0') return false;
+  throw new Error(`SA_MEDIA_REQUIRED must be unset, empty, 0 or 1; received ${JSON.stringify(value)}`);
+}
+
+/**
+ * Which guides ship in this build, and so which episodes may: the release rule in src/release.mjs
+ * (src/release.json plus SA_SHOW_BETA, read only through that module). When SA_SHOW_BETA is false a
+ * beta guide's episode, captions and transcript must be absent from dist/, not hidden. The module is
+ * loaded only when present so this step also runs on a tree that predates it; there every guide
+ * ships. A release file without its module is refused rather than guessed at. The showcase is not
+ * a guide and always ships.
+ */
+async function releaseGate() {
+  const releaseModule = join(ROOT, 'src', 'release.mjs');
+  if (!existsSync(releaseModule)) {
+    if (existsSync(join(ROOT, 'src', 'release.json'))) {
+      throw new Error('src/release.json exists without src/release.mjs, so the media step cannot tell which guides ship');
+    }
+    return { knownKeys: [], isShipped: () => true };
+  }
+  const { loadRelease, showBetaFromEnv, isGuideShipped } = await import(pathToFileURL(releaseModule).href);
+  const showBeta = showBetaFromEnv();
+  const { release } = loadRelease();
+  return {
+    // Every guide the release file knows, so a beta guide's item still validates when the release
+    // transforms have already removed that guide from the catalogue.
+    knownKeys: Object.keys((release && release.guides) || {}),
+    isShipped: (key) => key === SHOWCASE_KEY || isGuideShipped(release, key, showBeta),
+  };
+}
+
+/**
+ * Validate the media manifest against the catalogue in the transformed export, check the size caps,
+ * verify every staged asset of every shipped item and copy the verified ones into dist/media/.
+ * Returns the shipped items, keyed by guide key or "showcase". Everything later that publishes
+ * media (caption tracks, transcripts, the page's media list) must be derived from this object and
+ * never from the raw manifest, so an item that is left out leaves nothing behind in dist/.
+ */
+async function stageMedia(html) {
+  const required = mediaRequired(process.env.SA_MEDIA_REQUIRED);
+  const manifestPath = resolve(ROOT, process.env.SA_MEDIA_MANIFEST || DEFAULT_MANIFEST);
+  const mediaDir = resolve(ROOT, process.env.SA_MEDIA_DIR || DEFAULT_MEDIA_DIR);
+  const gate = await releaseGate();
+  const guideKeys = new Set([...guideKeysFrom(html), ...gate.knownKeys]);
+
+  const manifest = validateManifest(await loadManifest(manifestPath), { guideKeys });
+  const overCap = checkItems(manifest);
+  if (overCap.length) throw new Error(`media budget exceeded:\n- ${overCap.join('\n- ')}`);
+
+  const where = (name) => {
+    const path = join(mediaDir, name);
+    const rel = relative(ROOT, path);
+    return rel.startsWith('..') || isAbsolute(rel) ? path : rel;
+  };
+  const mediaItems = {};
+  const fatal = [];
+  for (const [key, item] of Object.entries(manifest.items)) {
+    if (!gate.isShipped(key)) {
+      console.log(`media: ${key} left out - its guide is beta and SA_SHOW_BETA is false`);
+      continue;
+    }
+    const { ok, missing, mismatched } = await verifyItem(item, mediaDir);
+    for (const m of mismatched) {
+      fatal.push(`media: ${key} ${m.name} ${m.field === 'bytes' ? 'byte count' : 'SHA-256'} mismatch - `
+        + `manifest pins ${m.expected}, staged file has ${m.actual}; delete ${where(m.name)} and run npm run media:fetch`);
+    }
+    if (missing.length) {
+      const line = `media: ${key} missing ${missing.join(', ')} - run npm run media:fetch`;
+      if (required) fatal.push(line);
+      else console.warn(`warning: ${line}. Building without this video (set SA_MEDIA_REQUIRED=1 to fail instead).`);
+    }
+    if (ok) mediaItems[key] = item;
+  }
+  if (fatal.length) throw new Error(fatal.join('\n'));
+
+  if (Object.keys(mediaItems).length) await mkdir(join(DIST, 'media'), { recursive: true });
+  for (const item of Object.values(mediaItems)) {
+    for (const name of [item.file, item.poster]) await copyFile(join(mediaDir, name), join(DIST, 'media', name));
+  }
+  return mediaItems;
+}
+
 async function main() {
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
@@ -107,6 +216,9 @@ async function main() {
   // makes re-exports free. Each transform asserts its own anchor, so a shape change fails
   // the build rather than quietly dropping keyboard support.
   html = transformGuide(html);
+
+  // Run after the transforms, so the catalogue keys include the guides they add.
+  const mediaItems = await stageMedia(html);
 
   // Belt and braces: confirm the transforms actually produced what the runtime needs.
   for (const [marker, what] of A11Y_GUARDS) {
@@ -248,8 +360,12 @@ async function main() {
 
   await writeFile(join(DIST, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
+  // Last, after every write: the whole site, videos and posters included, against the Pages budget.
+  const site = await checkSite(DIST);
+  if (site.problems.length) throw new Error(`media budget exceeded:\n- ${site.problems.join('\n- ')}`);
+
   console.log(`built dist/ — entry index.html, ${COMPONENTS.length} component(s) inlined, `
-    + `${shipped} locale catalogue(s), 0 external origins`);
+    + `${shipped} locale catalogue(s), 0 external origins, ${Object.keys(mediaItems).length} video(s)`);
 }
 
 await main();
