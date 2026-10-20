@@ -18,19 +18,19 @@ const VIDEO = join(import.meta.dirname, '..');
 const REPO = join(VIDEO, '..');
 const EX_USAGE = 64;
 
-// subcommand -> [script relative to video/, runtime, feature that delivers it, one-line purpose]
+// subcommand -> [script relative to video/, runtime, the work that delivers it, one-line purpose]
 const COMMANDS = {
-  capture: ['capture/director.mjs', 'node', 'PI-ICNT-SW-1078', 'Capture a take from IntelliDash /demo under the three safety layers'],
-  vo: ['vo/render-brian.py', 'python', 'PI-ICNT-SW-1080', 'Render the episode voice-over in the Brian voice (ElevenLabs)'],
-  build: ['edit/build.py', 'python', 'PI-ICNT-SW-1083', 'Build the episode timeline from episode.json, a take and the VO report'],
-  render: ['edit/render.py', 'python', 'PI-ICNT-SW-1077', 'Render a timeline to frames and H.264 under the media root'],
-  mix: ['edit/mix.py', 'python', 'PI-ICNT-SW-1083', 'Mix VO, SFX and music to -14 LUFS and mux it with the rendered picture'],
-  verify: ['verify/verify.py', 'python', 'PI-ICNT-SW-1082', 'Check format, duration, loudness, holds and frames of a render'],
-  ocr: ['verify/ocr_check.py', 'python', 'PI-ICNT-SW-1082', 'OCR sampled frames against the local denylist'],
-  captions: ['verify/captions.py', 'python', 'PI-ICNT-SW-1082', 'Write WebVTT captions from the timeline'],
-  'style-frame': ['edit/style_frame.py', 'python', 'PI-ICNT-SW-1081', 'Render the style frame for owner approval (gate G3)'],
-  estimate: ['vo/estimate.py', 'python', 'PI-ICNT-SW-1080', 'Estimate ElevenLabs characters and credits before rendering'],
-  hygiene: ['verify/hygiene.mjs', 'node', 'PI-ICNT-SW-1076', 'Fail if media, the ElevenLabs key, a denylisted name or Claude attribution reached git'],
+  capture: ['capture/director.mjs', 'node', 'the capture director', 'Capture a take from IntelliDash /demo under the three safety layers'],
+  vo: ['vo/render-brian.py', 'python', 'the voice-over renderer', 'Render the episode voice-over in the Brian voice (ElevenLabs)'],
+  build: ['edit/build.py', 'python', 'the timeline builder', 'Build the episode timeline from episode.json, a take and the VO report'],
+  render: ['edit/render.py', 'python', 'the compositor port', 'Render a timeline to frames and H.264 under the media root'],
+  mix: ['edit/mix.py', 'python', 'the audio mix', 'Mix VO, SFX and music to -14 LUFS and mux it with the rendered picture'],
+  verify: ['verify/verify.py', 'python', 'the release gate', 'Check format, duration, loudness, holds and frames of a render'],
+  ocr: ['verify/ocr_check.py', 'python', 'the release gate', 'OCR sampled frames against the local denylist'],
+  captions: ['verify/captions.py', 'python', 'the release gate', 'Write WebVTT captions from the timeline'],
+  'style-frame': ['edit/style_frame.py', 'python', 'the motion system', 'Render the style frame for owner approval (gate G3)'],
+  estimate: ['vo/estimate.py', 'python', 'the voice-over renderer', 'Estimate ElevenLabs characters and credits before rendering'],
+  hygiene: ['verify/hygiene.mjs', 'node', 'the pipeline foundations', 'Fail if media, the ElevenLabs key, a denylisted name, an internal tracker ID or Claude attribution reached git'],
 };
 
 function usage(stream = process.stderr) {
@@ -69,7 +69,7 @@ if (!sub || !Object.hasOwn(COMMANDS, sub)) {
 const [script, runtime, feature] = COMMANDS[sub];
 const scriptPath = join(VIDEO, script);
 if (!existsSync(scriptPath)) {
-  process.stderr.write(`sa-video: "${sub}" is not implemented yet (video/${script} lands in ${feature})\n\n`);
+  process.stderr.write(`sa-video: "${sub}" is not implemented yet (video/${script} lands with ${feature})\n\n`);
   usage();
   process.exit(EX_USAGE);
 }

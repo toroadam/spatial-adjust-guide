@@ -1,6 +1,6 @@
 # Sound effects: source and licence
 
-**Feature:** PI-ICNT-SW-1083-2 · **Code:** [`../edit/audio/build_audio.py`](../edit/audio/build_audio.py) · **Levels:** `sfx_levels` in [`motion-system.md`](motion-system.md), section 9
+**Code:** [`../edit/audio/build_audio.py`](../edit/audio/build_audio.py) · **Levels:** `sfx_levels` in [`motion-system.md`](motion-system.md), section 9
 
 Every sound effect in the Spatial Adjust videos is synthesised by code in this repository, from white noise (a NumPy generator with the fixed seed 871, reset for every mix) and sine partials, at 48 kHz. No recording, sample or library file is used, so there is nothing to license and nothing to credit. The recipes are ported unchanged from the iCentral MarCom mixer (`~/Documents/iCentral_MarCom/06-edit/compositor/audio/build_audio.py`, lines 73-163, modified 2026-10-04 17:25:32), which synthesised them the same way and says so ("SFX (synthesized here; fully owned, no licence)"). The iCentral folder holds no SFX audio files; checked on 2026-10-20 by searching it for files named `*sfx*`.
 
