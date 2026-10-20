@@ -3,7 +3,7 @@
 
 Palette: THEME['wall'] in theme.py (red, shade, tint, g100, g90, g80, g70, g40, g20). The iCentral values are the phase2 design
 tokens $toro-red, $toro-red-shade, $toro-red-tint and $gray-100 .. $gray-20; deep folds are the shade and g100 mixed (no
-new hue). PI-ICNT-SW-1081-1 re-skins it by changing THEME only.
+new hue). The Spatial Adjust brand re-skins it by changing THEME only.
 
   render(W, H, variant) -> float32 HxWx3 in 0..1 (linear blend in sRGB space, dithered on export)
   variants: 'bloom' (feature shots, bloom low behind the window), 'hero' (brand intro / end card, bloom fuller, centred),

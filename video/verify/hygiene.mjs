@@ -9,12 +9,16 @@
 //   key          the ElevenLabs API key (video/lib/elevenlabs-key.mjs) appears in a tracked
 //                file, in any commit's diff or in any commit message;
 //   denylist     a denylisted real name (video/lib/local-maps.mjs) appears in the same places;
+//   tracker      a tracked text file in the working tree holds an internal tracker ID (a
+//                work-item, feature or epic number; TRACKER_ID below). The repository is
+//                public, so work is described in words, never by its tracker number;
 //   attribution  a commit message in origin/main..HEAD (the last 200 commits when origin/main
 //                does not exist) carries Claude attribution.
 //
 // It reports locations only. Media file names and paths are printed; the key and denylisted
 // terms never are: a key hit reads "ElevenLabs key found in <file> | commit <sha>", a denylist
-// hit "[denylisted #N] found in <file> | commit <sha>".
+// hit "[denylisted #N] found in <file> | commit <sha>", a tracker hit "tracker ID found in
+// <file>:<line>", without the line's text (which could hold a denylisted name).
 //
 // Secrets never leave this process. git is spawned only with fixed arguments and paths; the key
 // and the denylist terms are searched for in Node, in git's stdout, and never placed in a child
@@ -43,6 +47,11 @@ export const ATTRIBUTION_FALLBACK_COMMITS = 200;
 //   longer                         anywhere, so "name" is caught inside "namegolfclub.com".
 export const DENY_MIN_LENGTH = 4;
 export const DENY_SUBSTRING = 6;
+// Internal tracker identifiers: the private trackers' feature and epic numbers, enhancement
+// requests, personal work items and user stories. Case-sensitive, as the trackers write them.
+export const TRACKER_ID = /(PI-ICNT-SW-[0-9E]+|ER-1[0-9]{3}|PERS-[0-9]+|US-[0-9]{4,})/;
+// git's own test for binary content: a NUL byte in the first 8000 bytes.
+const BINARY_PROBE = 8000;
 export const ATTRIBUTION = [
   ['Co-Authored-By: Claude', /co-authored-by:[^\n]*\b(claude|anthropic)\b/i],
   ['Claude-Session trailer', /claude-session:/i],
@@ -236,6 +245,32 @@ export async function checkSecrets(repo, { keys, maps }) {
   return { key: scanner.keyHits, denylist: scanner.denyHits };
 }
 
+// --- tracker IDs -------------------------------------------------------------------------------
+
+// Every tracked text file as it stands in the working tree, line by line. History is not
+// scanned: published commits cannot be rewritten, and the rule is that nothing new carries an ID.
+// Findings name the file and line only, never the matched text or the rest of the line.
+export function checkTrackerIds(repo) {
+  const top = git(repo, ['rev-parse', '--show-toplevel']).trim();
+  const findings = [];
+  for (const file of git(repo, ['ls-files', '-z']).split('\0')) {
+    if (!file) continue;
+    let buf;
+    try {
+      const abs = path.join(top, file);
+      if (!lstatSync(abs).isFile()) continue; // symlinks and submodules hold no text of their own
+      buf = readFileSync(abs);
+    } catch {
+      continue; // tracked but deleted in the working tree
+    }
+    if (buf.subarray(0, BINARY_PROBE).includes(0)) continue;
+    buf.toString('utf8').split('\n').forEach((line, i) => {
+      if (TRACKER_ID.test(line)) findings.push(`tracker ID found in ${file}:${i + 1}`);
+    });
+  }
+  return findings;
+}
+
 // --- attribution -------------------------------------------------------------------------------
 
 export function attributionRange(repo) {
@@ -284,9 +319,10 @@ export async function runHygiene({ repo = REPO_ROOT, range, keys, maps, warn = (
 
   const media = checkMedia(repo);
   const secrets = await checkSecrets(repo, { keys: k, maps: m });
+  const tracker = checkTrackerIds(repo);
   const attribution = checkAttribution(repo, range);
   return {
-    findings: { media, key: secrets.key, denylist: secrets.denylist, attribution: attribution.findings },
+    findings: { media, key: secrets.key, denylist: secrets.denylist, tracker, attribution: attribution.findings },
     notes,
     attributionRange: attribution.label,
   };
@@ -296,6 +332,7 @@ const DESCRIBE = {
   media: 'no media files tracked or in git history',
   key: 'ElevenLabs key not in tracked files, history or commit messages',
   denylist: 'no denylisted names in tracked files, history or commit messages',
+  tracker: 'no internal tracker IDs in tracked text files',
   attribution: 'no Claude attribution in commit messages',
 };
 

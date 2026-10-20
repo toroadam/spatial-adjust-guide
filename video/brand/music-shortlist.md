@@ -1,6 +1,6 @@
 # Music shortlist (gate G5)
 
-**Feature:** PI-ICNT-SW-1083-3 · **Gate:** G5, music licence, in [`../approvals.md`](../approvals.md) · **Version:** v1 · **Record:** [`music.json`](music.json) · **Code:** [`../edit/audio/music_bed.py`](../edit/audio/music_bed.py), [`../edit/mix.py`](../edit/mix.py), [`../edit/audio/loop_points.py`](../edit/audio/loop_points.py)
+**Gate:** G5, music licence, in [`../approvals.md`](../approvals.md) · **Version:** v1 · **Record:** [`music.json`](music.json) · **Code:** [`../edit/audio/music_bed.py`](../edit/audio/music_bed.py), [`../edit/mix.py`](../edit/mix.py), [`../edit/audio/loop_points.py`](../edit/audio/loop_points.py)
 
 Every Spatial Adjust video has one music bed under the voice: 3 dB under the VO, ducked a further 9 dB while Brian speaks, mastered with the VO and SFX to -14 LUFS ([`motion-system.md`](motion-system.md), section 9). `video/edit/build.py` re-cuts the bed on its bar grid to each episode's length (the intro, whole bars of a loop, then the outro, with the last chord landed on the end card), so the bed needs a clean intro, a loopable middle and a real ending. One bed serves the whole series: 26 guide episodes, the pilot, and the showcase.
 
