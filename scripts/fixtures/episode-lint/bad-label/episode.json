@@ -1,0 +1,180 @@
+{
+  "id": "fixture-guide",
+  "title": "Read the fixture dashboard",
+  "guide": "fixture-guide",
+  "status": "edited",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "demo",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [
+    {
+      "name": "Push",
+      "target": "role=button[name=\"Push\"]",
+      "reason": "Shows the push being confirmed; Demo Mode short-circuits it, so the progress is filmed on the recreation.",
+      "route": "/demo",
+      "safetyRef": "push-send",
+      "outcome": "recreation",
+      "chapter": "c2"
+    }
+  ],
+  "claims": [
+    "fixture-guide/tile/1",
+    "fixture-guide/1/1",
+    "fixture-guide/1/2",
+    "fixture-guide/2/1",
+    "fixture-guide/2/2"
+  ],
+  "titleCard": {
+    "text": "Double Click: Read the fixture dashboard",
+    "claims": [
+      "fixture-guide/tile/1"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Open the toolbar",
+      "highlight": {
+        "label": "Settings",
+        "selector": "role=button[name=\"Settings\"]"
+      },
+      "source": "demo",
+      "onScreen": [
+        {
+          "text": "The Settings dialog opens over the dashboard.",
+          "stateShown": true,
+          "claims": [
+            "fixture-guide/1/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Send changes",
+      "highlight": {
+        "label": "Push Changes",
+        "selector": "role=button[name=\"Push Changes\"]"
+      },
+      "source": "mixed",
+      "sourceReason": "Demo Mode short-circuits the push, so the progress bar is filmed on the recreation.",
+      "onScreen": [
+        {
+          "text": "Double Click",
+          "stateShown": false,
+          "claims": []
+        }
+      ]
+    }
+  ],
+  "vo": [
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "Select Settings in the toolbar.",
+      "next_text": "The Settings dialog opens over the dashboard.",
+      "claims": [
+        "fixture-guide/1/1"
+      ]
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The Settings dialog opens over the dashboard.",
+      "previous_text": "Select Settings in the toolbar.",
+      "claims": [
+        "fixture-guide/1/2"
+      ]
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "Select Push Changes, then Push in the dialog.",
+      "claims": [
+        "fixture-guide/2/1"
+      ]
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "The progress bar counts the stations as they are sent.",
+      "claims": [
+        "fixture-guide/2/2"
+      ]
+    }
+  ],
+  "beats": [
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 4,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "focus",
+          "target": "role=button[name=\"Settings\"]",
+          "name": "Settings"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 3,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 4,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "click",
+          "target": "role=button[name=\"Push\"]",
+          "name": "Push"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 3,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "fixture-next",
+    "text": "Next on Double Click: Check the fixture results",
+    "address": "#/fixture-guide"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}

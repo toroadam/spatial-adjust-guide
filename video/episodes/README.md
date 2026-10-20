@@ -1,8 +1,174 @@
 # Episodes
 
-One folder per episode: `video/episodes/<id>/episode.json`, plus the `script.md` it was locked from. `episode.json` is the one contract that capture, voice-over, build, verify and captions all read. Its schema is `video/lib/episode-schema.mjs` (zod); this page is the field-by-field reference.
+One folder per episode: `video/episodes/<id>/episode.json`, plus the `script.md` it was locked from. `episode.json` is the one contract that capture, voice-over, build, verify and captions all read. Its schema is `video/lib/episode-schema.mjs` (zod). This page holds the Double Click series' readiness check and tracker, then the field-by-field reference for `episode.json`.
 
 Only the episode definition lives here. Takes, VO, renders and every other media file go under the media root, `~/Documents/SpatialAdjust_MarCom/episodes/<id>/` (see [`../README.md`](../README.md)), never in this folder.
+
+## The Double Click series
+
+Twenty-six Double Click episodes, one per guide, in six waves. Each episode walks the steps of one guide in IntelliDash Demo Mode: one chapter per guide step, labelled with the step title, narrated in the Brian voice with the guide's own Do and You-should-see lines, and closed on the next episode and the guide's address on the site. Every episode follows the same procedure, [`RUNBOOK.md`](RUNBOOK.md), from preflight to commit.
+
+- [`series.json`](series.json) is the machine-readable source for the series: order, waves, status, runtime, loudness, timestamps, credits per wave, the voice constants and the music bed.
+- The tracker below is generated from it by `node scripts/episode-lint.mjs <url> --write-tracker`; edit `series.json`, never the table.
+- `npm run test:episodes` holds every episode that has left `planned` to the series rules; see RUNBOOK.md, "Formats", for what it checks.
+
+## Readiness
+
+Checked 2026-10-20 on the branch the series is built on. The series depends on three pieces of upstream work that were planned in parallel with it, and this section records what each had delivered when the series started. It only reads their outputs; anything missing goes back to the work that owns it.
+
+### Upstream work
+
+| Upstream work | What the series needs from it | State on 2026-10-20 |
+|---|---|---|
+| Video pipeline (capture, voice, edit, verify; the Double Click toolchain ported into `video/`) | Every tool an episode is made with | Active, 87% complete. 8 of 9 parts done, the verify gate and the episode builder with the audio mix among them. The 20-30 s Dashboard overview pilot has not been produced yet. |
+| Claims ledger (every claim in the 26 guides checked against IntelliDash) | Verified claim IDs for every narrated line and on-screen text | Active, 87% complete. The ledger is in `docs/claims/claims.json`: 871 claims, 843 Verified, 28 Needs expert, 0 Wrong. Publishing the corrected guides and the post-review sign-off are still open. |
+| Followability rewrite (every step as Do, You should see and If not, with exact labels) | The Do, You-should-see and If-not lines each chapter narrates, and the bold labels the highlights land on | Active, 12% complete. The writing standard and its checks are done on their own branch; no guide renders the new step shape on this branch yet (0 of 26). |
+
+### Pipeline paths
+
+Each path the series needs from the video pipeline, checked on disk. All are present, so the series is not blocked.
+
+| Path | What it is | Present |
+|---|---|---|
+| `video/README.md` | Pipeline overview, media root, safety rules, commands | yes |
+| `video/capture/director.mjs` | The capture director: one page, one navigation to the `/spatialadjust/demo` entry, no reload | yes |
+| `video/capture/gates.mjs` and `scripts/lib/guarded-click.mjs` | The director's gate: the entry URL must end `/spatialadjust/demo` (`checkEntryUrl`), any document load after arming ends the take, and every request other than GET, HEAD or OPTIONS is aborted (`video/capture/SAFETY.md:167-191`); the click guard refuses undeclared write-like clicks | yes |
+| `video/capture/course-overlay.js` | The fictional course overlay applied at capture time | yes |
+| `video/capture/SAFETY.md` | The Demo Mode audit, with `file:line` citations for every write guard | yes |
+| `video/vo/render-brian.py` | The Brian voice renderer | yes |
+| `video/edit/` (`lib/engine.py`, `lib/renderer.py`, `render.py`, `build.py`, `mix.py`) | The compositor, the episode builder and the audio mix | yes |
+| `video/verify/verify.py` | The release gate (format, loudness, holds, black and frozen frames), with `ocr_check.py` and `captions.py` | yes |
+| `video/approvals.md` G1 fictional course, G2 map approach, G3 style frame, G5 music licence | Each gate decided by the executor under the owner's direction of 2026-10-19 (Riverbend National; restyled map tiles; the Spatial Adjust brand; the original music bed `sa-bed-v1`) | yes |
+| A passing verify report for the pilot | Proof the whole chain runs end to end | not yet: the pilot has not been produced. Not a path the episodes need on disk; the first episode of wave 1 proves the chain instead. |
+
+### Demo Mode writes
+
+Every write the series films, and what Demo Mode does with it according to the audit in [`../capture/SAFETY.md`](../capture/SAFETY.md). Demo Mode mocks **none** of them: each is short-circuited where it starts, most with the "unsupported in Demo Mode" message (`showUnsupportedMsg`), so nothing is stored and nothing reaches the network. An episode that films one of these clicks films the click in Demo Mode and its result on the guide site's recreation: the chapter's `source` is `mixed` (or `recreation`) and the `demoWriteClicks` entry's `outcome` is `recreation` (RUNBOOK.md, "Demo Mode writes rule"). The first column is the `safetyRef` an episode's `demoWriteClicks` entry names; `scripts/episode-lint.mjs` reads this table.
+
+| safetyRef | Write the series films | Guides | Demo Mode | SAFETY.md |
+|---|---|---|---|---|
+| `push-open` | Push Changes in the toolbar: opens the confirmation dialog | push-to-lynx, reviewing-changes, verify-results, push-failures | no write | `video/capture/SAFETY.md:85` |
+| `push-send` | Push Changes confirmed in the dialog: the push to Lynx | push-to-lynx, verify-results, push-failures | short-circuited | `video/capture/SAFETY.md:87` |
+| `settings-save` | Settings dialog Save: calculation settings, calculation method, minimum threshold, units | calculation-settings, calculation-methods, minimum-threshold, preferences | short-circuited | `video/capture/SAFETY.md:98` |
+| `preferences-save` | User preferences dialog Save | preferences | short-circuited | `video/capture/SAFETY.md:99` |
+| `filter-save` | Over/Under threshold (% Adj. filter) Save | filter-adjustments, threshold-questions | short-circuited | `video/capture/SAFETY.md:100` |
+| `bulk-apply` | Bulk Adjust Save | bulk-adjustments | short-circuited | `video/capture/SAFETY.md:101` |
+| `target-edit` | Target VWC edit in the table | editing-station-targets, understanding-vwc | short-circuited (silently, no message) | `video/capture/SAFETY.md:102` |
+| `adjust-edit` | % Adj. edit in the table (user percent adjust) | suggested-adjustments | short-circuited | `video/capture/SAFETY.md:68` |
+| `enable-toggle` | Enable toggle and its cascade to the hole and area rows | enable-disable-stations | short-circuited (silently, no message) | `video/capture/SAFETY.md:103` |
+| `recalculate` | Recalculate adjustments | calculation-settings, calculation-questions | short-circuited | `video/capture/SAFETY.md:65` |
+| `scan-request` | Request latest scan data | request-scan-data | short-circuited | `video/capture/SAFETY.md:75` |
+| `profile-apply-save` | Target Profiles Update from Current or Apply Profile, then Save | target-profiles, creating-profiles, updating-profiles, seasonal-profiles | short-circuited (by the Settings dialog Save guard) | `video/capture/SAFETY.md:98` |
+
+The `Demo Mode` column takes one of three values: `mocked` (Demo Mode performs the write against mock data, so its result may be filmed in Demo Mode), `short-circuited` (the result must come from the recreation) or `no write` (the click only opens something, so its result is filmed in Demo Mode).
+
+### Claims ledger
+
+Claims per guide in `docs/claims/claims.json`, by status (counts only). No guide has a Wrong or Not shipping claim. A Needs-expert claim is never narrated: the episode's lines cite Verified claims only.
+
+| Wave | Guide | Verified | Wrong | Not shipping | Needs expert |
+|---|---|---|---|---|---|
+| 1 | `dashboard-overview` | 48 | 0 | 0 | 0 |
+| 1 | `understand-spatial-adjust` | 31 | 0 | 0 | 1 |
+| 1 | `map-navigation` | 32 | 0 | 0 | 0 |
+| 1 | `understanding-vwc` | 29 | 0 | 0 | 1 |
+| 2 | `suggested-adjustments` | 34 | 0 | 0 | 2 |
+| 2 | `filter-adjustments` | 41 | 0 | 0 | 0 |
+| 2 | `push-to-lynx` | 43 | 0 | 0 | 5 |
+| 2 | `reviewing-changes` | 31 | 0 | 0 | 2 |
+| 2 | `verify-results` | 34 | 0 | 0 | 2 |
+| 3 | `editing-station-targets` | 29 | 0 | 0 | 0 |
+| 3 | `bulk-adjustments` | 31 | 0 | 0 | 0 |
+| 3 | `enable-disable-stations` | 28 | 0 | 0 | 1 |
+| 3 | `station-details` | 25 | 0 | 0 | 1 |
+| 4 | `minimum-threshold` | 39 | 0 | 0 | 3 |
+| 4 | `calculation-settings` | 37 | 0 | 0 | 0 |
+| 4 | `calculation-methods` | 33 | 0 | 0 | 0 |
+| 4 | `preferences` | 30 | 0 | 0 | 0 |
+| 5 | `station-zero` | 35 | 0 | 0 | 2 |
+| 5 | `request-scan-data` | 37 | 0 | 0 | 0 |
+| 5 | `threshold-questions` | 29 | 0 | 0 | 0 |
+| 5 | `calculation-questions` | 32 | 0 | 0 | 0 |
+| 5 | `push-failures` | 29 | 0 | 0 | 3 |
+| 6 | `target-profiles` | 28 | 0 | 0 | 1 |
+| 6 | `creating-profiles` | 25 | 0 | 0 | 0 |
+| 6 | `updating-profiles` | 28 | 0 | 0 | 0 |
+| 6 | `seasonal-profiles` | 25 | 0 | 0 | 4 |
+| | **Total** | **843** | **0** | **0** | **28** |
+
+### Step rewrite coverage
+
+Whether each guide renders the new step shape (a Do, a You-should-see and an If-not line on every step), read from the built site at `#/<key>`. No guide does yet on this branch. An episode's preflight (RUNBOOK.md, EP-0) re-checks its own guide, so a wave starts as soon as its guides are rewritten; until then an episode narrates the guide's current text and is flagged for a re-check when the rewrite lands.
+
+| Wave | Guides | Rewritten |
+|---|---|---|
+| 1 Getting Started | 4 | 0 of 4 |
+| 2 Review & Apply | 5 | 0 of 5 |
+| 3 Station Management | 4 | 0 of 4 |
+| 4 Calculations | 4 | 0 of 4 |
+| 5 Troubleshooting | 5 | 0 of 5 |
+| 6 Target Profiles | 4 | 0 of 4 |
+
+### Voice-over credits
+
+- **Method.** 26 scripts of 150 to 300 words, about 900 to 1,800 characters each at the Brian voice's measured 16.16 characters per spoken second (iCentral Double Click #1: 1,469 characters in 90.9 s; the pilot has no render report yet), so 55 to 110 s of narration per episode. Plus 30% for re-renders. Billed at 1 credit per character, the upper bound `video/vo/series-estimate.md` keeps; the one real render so far billed 0.44 credits per character (`video/vo/credits-log.md`).
+- **Estimate.** 30,420 to 60,840 credits for the series at 1 credit per character (23,400 to 46,800 characters plus 30%); about 13,400 to 26,800 at the observed 0.44.
+- **Balance.** 357,546 credits remaining on 2026-10-20, read with `npm run video -- estimate --live` (counts only; the key is resolved in process and never printed).
+- **Verdict.** The balance covers the whole series about six times over at the upper bound. Not a constraint.
+
+## Series tracker
+
+<!-- tracker:start -->
+<!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
+
+26 episodes: 22 planned, 4 blocked.
+
+| # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
+|---|---|---|---|---|---|---|---|---|
+| 1 | 1 | `dashboard-overview` | Dashboard overview | planned | — | — | — | — |
+| 2 | 1 | `understand-spatial-adjust` | Understand Spatial Adjust | planned | — | — | — | — |
+| 3 | 1 | `map-navigation` | Map navigation | planned | — | — | — | — |
+| 4 | 1 | `understanding-vwc` | Understanding VWC | planned | — | — | — | — |
+| 5 | 2 | `suggested-adjustments` | Understand suggested adjustments | planned | — | — | — | — |
+| 6 | 2 | `filter-adjustments` | Filter by % Adj. | planned | — | — | — | — |
+| 7 | 2 | `push-to-lynx` | Push changes to Lynx | planned | — | — | — | — |
+| 8 | 2 | `reviewing-changes` | Reviewing changes | planned | — | — | — | — |
+| 9 | 2 | `verify-results` | Verify results | planned | — | — | — | — |
+| 10 | 3 | `editing-station-targets` | Editing station targets | planned | — | — | — | — |
+| 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | planned | — | — | — | — |
+| 12 | 3 | `enable-disable-stations` | Enable and disable stations | planned | — | — | — | — |
+| 13 | 3 | `station-details` | Station details | planned | — | — | — | — |
+| 14 | 4 | `minimum-threshold` | Set a minimum threshold | planned | — | — | — | — |
+| 15 | 4 | `calculation-settings` | Calculation settings | planned | — | — | — | — |
+| 16 | 4 | `calculation-methods` | Calculation methods | planned | — | — | — | — |
+| 17 | 4 | `preferences` | Preferences | planned | — | — | — | — |
+| 18 | 5 | `station-zero` | Why is this station 0%? | planned | — | — | — | — |
+| 19 | 5 | `request-scan-data` | Get fresh scan data | planned | — | — | — | — |
+| 20 | 5 | `threshold-questions` | Threshold questions | planned | — | — | — | — |
+| 21 | 5 | `calculation-questions` | Calculation questions | planned | — | — | — | — |
+| 22 | 5 | `push-failures` | Push failures | planned | — | — | — | — |
+| 23 | 6 | `target-profiles` | Apply a target profile | blocked | — | — | — | — |
+| 24 | 6 | `creating-profiles` | Capturing profiles | blocked | — | — | — | — |
+| 25 | 6 | `updating-profiles` | Updating profiles | blocked | — | — | — | — |
+| 26 | 6 | `seasonal-profiles` | Managing seasonal profiles | blocked | — | — | — | — |
+
+Blocked:
+
+- #23 `target-profiles`, #24 `creating-profiles`, #25 `updating-profiles`, #26 `seasonal-profiles` (checked 2026-10-20): Waits for the corrected Target Profiles guides to be published on the live site, which is in progress on 2026-10-20 as the last step of the claims audit. Target Profiles ships in production, so no approval gate applies: produce these four episodes as soon as their guides are live, and re-check the claims for each guide at preflight.
+
+**Credits per wave** (ElevenLabs credits; estimate from RUNBOOK.md, before and after from the account, counts only)
+
+| Wave | Name | Episodes | Estimate | Before | After | Used | Expert review |
+|---|---|---|---|---|---|---|---|
+| 1 | Getting Started | 4 | 4,680 to 9,360 | — | — | — | — |
+| 2 | Review & Apply | 5 | 5,850 to 11,700 | — | — | — | — |
+| 3 | Station Management | 4 | 4,680 to 9,360 | — | — | — | — |
+| 4 | Calculations | 4 | 4,680 to 9,360 | — | — | — | — |
+| 5 | Troubleshooting | 5 | 5,850 to 11,700 | — | — | — | — |
+| 6 | Target Profiles | 4 | 4,680 to 9,360 | — | — | — | — |
+<!-- tracker:end -->
+
+## Episode format
 
 Validate an episode before anything reads it:
 
