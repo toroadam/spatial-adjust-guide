@@ -150,6 +150,22 @@ def title_assets(g, sub_id, episode_title, tag=None):
     return ['sa_series', sub_id, 'sa_cursor'] + ([tag_id] if tag_id else [])
 
 
+def _fit_title(g, sub_id, episode_title):
+    """The episode name is one line at TYPE title size; a name wider than title-safe is set again, smaller, so it fits
+    (for example "Understand suggested adjustments"). Returns the asset id to use."""
+    W, _ = RATIOS[g.ratio]
+    sx0, _, sx1, _ = LAYOUT['title_safe_box'] if g.ratio == '16x9' else (W * 0.05, 0, W * 0.95, 0)
+    avail = sx1 - sx0
+    ink = _rendered(g, [sub_id])[sub_id]['w'] - 2 * 4
+    if ink <= avail:
+        return sub_id
+    size = int(TYPE['title']['size'] * avail / ink * 0.97)
+    fit_id = f'{sub_id}_{size}px'
+    g.add(fit_id, episode_title, css('title') + f';font-size:{size}px', pad=4)
+    _rendered(g, [fit_id])
+    return fit_id
+
+
 def title_card(g, T, t0, t1, episode_title, tag=None, sub_id=None, **timing):
     """Series title moment on the card wall (dc_build.py:78-91). timing: t_in, t_move, click, pop, leave, out in seconds from
     t0; defaults are BRAND title_card (its up_next set when tag is given). Raises ValueError when a hold is too short."""
@@ -160,6 +176,8 @@ def title_card(g, T, t0, t1, episode_title, tag=None, sub_id=None, **timing):
     sub_id = sub_id or 'title_' + re.sub(r'[^a-z0-9]+', '_', episode_title.lower()).strip('_')
     ids = title_assets(g, sub_id, episode_title, tag)
     m = _rendered(g, ids)
+    sub_id = _fit_title(g, sub_id, episode_title)
+    m = g.m
     tag_id = ids[3] if tag else None
     a = lambda d: round(t0 + d, 3)
     gap = DURATIONS['double_click_gap']

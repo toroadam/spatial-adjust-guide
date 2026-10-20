@@ -131,6 +131,36 @@ class GateTest(unittest.TestCase):
         self.assertIn('script-locked', r.stderr)
 
 
+class UpNextTest(unittest.TestCase):
+    """The closing "Next on Double Click" card: drawn only when endCard names an open next episode, and long enough for
+    its label's hold (standard library only)."""
+
+    @classmethod
+    def setUpClass(cls):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('sa_build', BUILD)
+        cls.B = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.B)
+
+    def test_title_from_end_card(self):
+        ep = dict(endCard=dict(next='map-navigation', text='Next on Double Click: Map navigation', address='#/x'))
+        self.assertEqual(self.B.up_next_title(ep), 'Map navigation')
+
+    def test_series_end_has_no_up_next(self):
+        line = "That's the latest Double Click. Find every guide on the Spatial Adjust Guides site."
+        self.assertIsNone(self.B.up_next_title(dict(endCard=dict(next=None, text=line, address='#/x'))))
+        self.assertIsNone(self.B.up_next_title(dict()))
+
+    def test_card_holds_its_label(self):
+        from brand import TITLE_CARD, min_hold
+        un = TITLE_CARD['up_next']
+        for title in ('Map navigation', 'Understand suggested adjustments', 'Why is this station 0%?'):
+            secs = self.B.up_next_seconds(title)
+            label = f'Next on / Double Click / {title}'
+            self.assertGreaterEqual(secs - un['out'] - un['pop'], min_hold(label), title)
+            self.assertGreaterEqual(secs, self.B.DURATIONS['up_next_card'])
+
+
 if P.IN_PIPELINE:
     class BuildTest(unittest.TestCase):
         @classmethod
