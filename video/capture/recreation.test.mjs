@@ -130,10 +130,32 @@ test('liftFigure lifts exactly one captioned figure to fill the viewport, and re
     assert.ok(await legend.isVisible());
     const box = await legend.boundingBox();
     assert.ok(box.y > 540 && box.y + box.height <= 1080, `the legend sits in the lower half of the frame (${JSON.stringify(box)})`);
+    // A second lift (a beat's figure action) swaps the figure: still exactly one lifted app,
+    // and it is the new figure's.
+    const swapped = await liftFigure(page, 'Station-level rows for hole 3');
+    assert.deepEqual(swapped, { box: [0, 0, 1920, 1080] });
+    assert.equal(await page.locator(`[${FRAME_ATTR}]`).count(), 1);
+    assert.equal(await page.locator(`[${FRAME_ATTR}-wrap]`).count(), 1);
+    const caption = await page.locator(`[${FRAME_ATTR}]`).evaluate((el) => el.closest('figure').querySelector('figcaption').textContent);
+    assert.match(caption, /^\s*Station-level rows for hole 3/);
   } finally {
     await browser.close();
     await srv.close();
   }
+});
+
+test('a figure action is allowed on a recreation episode only', async () => {
+  const { validateEpisode } = await import('../lib/episode-schema.mjs');
+  const base = {
+    id: 'figure-swap', title: 'Dashboard overview', guide: 'dashboard-overview', status: 'draft', durationTarget: [60, 180],
+    source: 'recreation', mapPolicy: 'restyle',
+    beats: [{ id: 'b1', hold: 1, actions: [{ type: 'figure', caption: 'Station-level rows' }, { type: 'wait', ms: 100 }] }],
+  };
+  assert.ok(validateEpisode(base).success);
+  const demo = validateEpisode({ ...base, source: 'demo' });
+  assert.ok(!demo.success);
+  assert.match(demo.issues.join('\n'), /figure action .* only allowed when source is "recreation"/);
+  assert.ok(!validateEpisode({ ...base, beats: [{ id: 'b1', hold: 1, actions: [{ type: 'figure' }] }] }).success);
 });
 
 test('a recreation rehearsal with a lifted figure records the lift in the safety report (exit 0)', { timeout: 180000 }, async (t) => {
