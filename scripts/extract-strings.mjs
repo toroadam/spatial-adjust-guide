@@ -149,6 +149,10 @@ await page.route(STUB, async (r) => {
   await new Promise((res) => setTimeout(res, 600));
   return r.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*' }, body: '' });
 });
+// The walk above leaves the page on this same document, so going to another #/ route would be a
+// same-document navigation that never re-runs the init script. Leave the document first, so the
+// next load is a fresh one and sees the stub endpoint.
+await page.goto('about:blank');
 await page.goto(`${url}/#/${GUIDES[0]}`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1600);
 const fab = await page.$('.lsa-fb-fab');
