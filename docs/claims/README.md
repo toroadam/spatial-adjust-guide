@@ -152,7 +152,8 @@ it exactly one of these:
 | Needs expert | The source cannot settle the claim, for example an agronomic judgement or Lynx-side behaviour | `question`: phrased so an agronomist can answer it in one line |
 
 Verified (beta) counts as verified. Any check that passes a Verified claim, such as a claims check
-in CI, passes a Verified (beta) claim too.
+in CI, passes a Verified (beta) claim too. `scripts/release-status.mjs` reads the same statuses to
+propose a release status for each guide and section (see "Release status" below).
 
 ## Claim types
 
@@ -228,6 +229,7 @@ note, before, step title, body, caption, tip and verify.
 | `npm run claims:extract` | Re-extracts every guide, merges into the existing shards, rebuilds `claims.json`, then lints. Run it after any change to the export or the transform layer. |
 | `npm run claims:aggregate` | Rebuilds `claims.json` from the shards alone. It lints first and refuses to write if any shard is invalid. Run it after editing a shard. |
 | `npm run claims:lint` | Validates every shard and writes nothing. `node scripts/claims-extract.mjs --lint <guide-key> ...` checks only the shards named. Exits 1 on any error. |
+| `npm run release:status` | Proposes a release status for each guide and section from the ledger and compares it with `src/release.json` (see "Release status" below). Advisory: exits 0 unless `--strict` is given. |
 
 What the lint enforces:
 
@@ -278,6 +280,41 @@ Document evidence:
 ```json
 { "source": "doc", "ref": "373-1135 rev 02 §x" }
 ```
+
+## Release status
+
+`src/release.json` records which guides and steps are GA and which are beta. The ledger records
+what each sentence was checked against. `scripts/release-status.mjs` reads both and reports where
+they tell different stories. It writes nothing.
+
+```sh
+npm run release:status                     # table, then "release-status: N disagreements, M pending"
+node scripts/release-status.mjs --strict   # exit 1 on any disagreement
+node scripts/release-status.mjs --json     # machine-readable
+node scripts/release-status.mjs --self-test
+```
+
+It reads `src/release.json` through `src/release.mjs` (so `SA_RELEASE_FILE` points it at a
+fixture), `docs/claims/claims.json` (`--ledger <file>` reads another) and the shown-mode step
+titles from `extractGuides()`.
+
+There is one row per guide, in catalogue order, and one per section that `src/release.json`
+records for a GA guide. A beta guide's row covers every claim in it. A GA guide's row covers its
+tile, summary, where, note, before and verify claims and every step outside its recorded
+sections. A section's row covers the claims of the steps it names.
+
+| Recorded | What the ledger shows | Proposed | Verdict |
+|---|---|---|---|
+| ga | no Verified (beta) claim | ga | agrees |
+| ga | any Verified (beta) claim | beta for a guide whose tile cites develop, and for a section; otherwise ga | **disagreement**: "GA content cites develop only" |
+| beta | any Verified (beta) claim | beta | agrees |
+| beta | no Verified (beta) claim, and at least one claim Verified with a production citation | ga | **disagreement**: "marked beta but the evidence is production" |
+| beta | no Verified (beta) claim and no production-Verified one, for example all Unverified | pending | pending, not a disagreement |
+
+It is advisory by design: it exits 0 by default, 1 with `--strict` when anything disagrees, and 2
+when it cannot run (an invalid release file or an unreadable ledger). `--self-test` runs the rules
+on a crafted in-memory ledger and checks that both kinds of disagreement and the pending case are
+found.
 
 ## Review pack
 
