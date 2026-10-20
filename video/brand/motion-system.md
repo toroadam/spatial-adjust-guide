@@ -163,6 +163,16 @@ The series word is `series_word`: "Double Click", the series name the Spatial Ad
 | `out` | 0.3 | 0.3 | everything fades this long before the card ends |
 | `drop` | 30 px | 30 px | the episode name's drop under the word's baseline |
 
+**End card** (`end_card`): the video's last frame, held with no exit. The `hero` wall dimmed by `dim` 0.12 settles from zoom `z0` 1.08 to 1.0 on the `enter` ease; the lockup comes in at end size as on the opening, then the call to action rises in, the legal line and the URL pill fade in. Each part is readable from its start plus its duration, and the hold rule counts from there to the card's end. Times in seconds from the card's start:
+
+| Key | Starts | Takes | What |
+|---|---|---|---|
+| `cta` | 0.5 | 0.6 | the call to action rises in |
+| `url` | 0.75 | 0.6 | the URL pill fades in |
+| `legal` | 0.7 | 0.4 | the legal line fades in |
+
+The URL comes from `video/brand/end-card.json` and needs gate G4 decided in `video/approvals.md`; a draft shows `URL PENDING APPROVAL` in a pill with a grey dot (the options and the decision: [`end-card-options.md`](end-card-options.md)).
+
 **Camera.** Window shots use the tilted window plate with push-ins from the cursor-follow camera plan (the hero look): the window floats on the wall with a slight perspective tilt and the camera pushes in on what the cursor does. The plate is flat (no tilt, no drift) only on the title card and the end card, where there is no window. Between moves the camera keeps drifting, so no UI shot is ever static.
 
 ## 6. Holds
@@ -176,6 +186,7 @@ The series word is `series_word`: "Double Click", the series name the Spatial Ad
 | `title_safe` | 0.90: every word on screen sits inside the title-safe box (96, 54, 1824, 1026) |
 | `window_wide` | window shot rest framing: scale 0.77 at (962, 522), so the plate spans y 106 to 938 |
 | `strip` | chapter strip box (250, 958, 1670, 1016), corner radius 20, blur 22, pad 22, gap 14 |
+| `end_card` | end card centres at 0.31 H (lockup), 0.475 H (call to action) and 0.615 H (URL pill); the legal line sits on title-safe's bottom edge, and every part must fit inside title-safe |
 
 The chapter strip is frosted dark glass (the frame under it blurred, tinted #080D12 at 46 %), with a hairline edge and a soft shadow. Each chapter has its name and a 3 px track that fills while the chapter plays: blue while active, with a glowing head, white once done. The strip sits 20 px under the window's rest framing and inside title-safe, above the bottom 64 px where a web player draws its controls. (The iCentral Double Click strip sat at y 1002 to 1060, outside title-safe.)
 
