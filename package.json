@@ -30,6 +30,7 @@
     "test:provenance": "node scripts/product-provenance.mjs",
     "test:product-locales": "node scripts/product-locales.mjs",
     "test:release": "node scripts/release-unit.mjs",
+    "test:leak": "node scripts/beta-leak.mjs",
     "release:status": "node scripts/release-status.mjs",
     "claims:extract": "node scripts/claims-extract.mjs",
     "claims:aggregate": "node scripts/claims-extract.mjs --aggregate-only",
