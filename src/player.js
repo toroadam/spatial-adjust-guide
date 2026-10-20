@@ -129,6 +129,10 @@
     return { l: (r.left - ar.left) / k, t: (r.top - ar.top) / k, w: r.width / k, h: r.height / k };
   }
 
+  function holds(box, pt) {
+    return pt.x >= box.l - 1 && pt.x <= box.l + box.w + 1 && pt.y >= box.t - 1 && pt.y <= box.t + box.h + 1;
+  }
+
   /** The ring's box in the container's coordinates, under the transform the camera is heading to. */
   function ringBox(c, app, box) {
     var frame = frameOf(c, app);
@@ -209,11 +213,16 @@
     if (!app || !c.offsetParent) { hide(hl); c.__lsaPick = null; return; }
     var key = pt.x + ',' + pt.y + '|' + c.getAttribute('data-sa-step');
     var p = c.__lsaPick;
-    if (c.__lsaDirty || !p || p.key !== key || p.app !== app || !p.el || !p.el.isConnected || !app.contains(p.el)) {
+    var stale = c.__lsaDirty || !p || p.key !== key || p.app !== app || !p.el || !p.el.isConnected || !app.contains(p.el);
+    var box = !stale && appBox(app, p.el);
+    // A layout shift with no mutation in this container (an image or webfont arriving, the toolbar
+    // reflowing around it) moves elements without telling anyone. A cached pick that no longer
+    // contains the point is stale too.
+    if (stale || !box || !holds(box, pt)) {
       p = c.__lsaPick = { key: key, app: app, el: pick(app, pt) };
+      box = p.el && appBox(app, p.el);
     }
     c.__lsaDirty = false;
-    var box = p.el && appBox(app, p.el);
     var b = box && ringBox(c, app, box);
     if (!b) { hide(hl); hl.removeAttribute('data-sa-for'); c.__lsaBox = null; return; }
     hl.setAttribute('data-sa-for', key);
@@ -424,6 +433,8 @@
   }
   document.addEventListener('transitionend', settled, true);
   document.addEventListener('animationend', settled, true);
+  // An image arriving inside the reproduction (the toolbar logo) reflows what sits beside it.
+  document.addEventListener('load', settled, true);
 
   window.addEventListener('resize', schedule);
   // A locale switch re-lays out the reproduction's labels; webfonts arriving do the same.
