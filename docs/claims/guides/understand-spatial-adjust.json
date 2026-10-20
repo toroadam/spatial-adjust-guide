@@ -59,9 +59,9 @@
       "guide": "understand-spatial-adjust",
       "step": "summary",
       "field": "summary",
-      "text": "What the feature actually does: turn yesterday’s moisture scan into today’s percent adjustment, and write it to Lynx.",
+      "text": "What the feature actually does: turn the latest moisture scan into today’s percent adjustment, and write it to Lynx when you push.",
       "type": "behaviour",
-      "status": "Wrong",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -90,26 +90,13 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
           "line": "80-95"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3211-3232"
-        },
-        {
-          "source": "intellidash",
-          "ref": "develop",
-          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3280-3325"
         }
       ],
-      "note": "Today's suggestion uses the mean of today's scans for the station (SpatialAdjustService.cs:3001-3012). Only when there is no scan today does it fall back to the previous day's predicted result, the model carried forward (:3031-3032), so \"yesterday's scan\" describes the fallback rather than the normal case. The write to Lynx happens only when the user pushes (sa-push-changes.service.ts:208).",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (understand-spatial-adjust/summary/1); docs/text-corrections.md §29 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
-      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325).",
-      "correction": "What the feature actually does: turn the latest moisture scan into today's percent adjustment, and write it to Lynx when you push. Why: the calculation uses today's scan when there is one and carries the model forward when there is not (SpatialAdjustService.cs:3001-3043), and only Push Changes writes to Lynx (sa-push-changes.service.ts:208)."
+      "developNote": "",
+      "correction": "",
+      "previousText": "What the feature actually does: turn yesterday’s moisture scan into today’s percent adjustment, and write it to Lynx."
     },
     {
       "id": "understand-spatial-adjust/where/1",

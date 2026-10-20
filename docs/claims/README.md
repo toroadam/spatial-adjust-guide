@@ -96,7 +96,7 @@ Decision Tree, DTN Weather, Weather Averages", a commit develop does not have an
 makes sense on a snapshot bound for production. And the newest `Deployments/beta/*` branch,
 `261015_tr_v3_api_sprt`, sits on exactly the develop SHA, so develop is what the beta environment
 runs. `sources.json` records `confirmed: true` and a `beta` entry. Content that is on develop but
-not on production is beta content, which ER-1631 handles. If a newer `Deployments/release/*`
+not on production is beta content, which the beta-content switch handles. If a newer `Deployments/release/*`
 branch appears, re-pin `sources.json` and re-check every claim whose evidence cites a file that
 differs between the two SHAs.
 
@@ -151,8 +151,10 @@ The extractor sets the type with a heuristic, and a verifier may change it.
 - `guide-key` is the key in `GUIDES`, for example `push-to-lynx`.
 - `step` is the 1-based step number for anything inside a step. Otherwise it is one of `tile`,
   `summary`, `where`, `note`, `before` or `verify`. `tile` is the guide's card in the catalogue,
-  meaning the tile title plus the tile summary. `note` is the guide's "Concept." callout, which
-  the four Target Profiles guides use for their "not in the shipping build" disclaimer.
+  meaning the tile title plus the tile summary. `note` is the guide's note callout before step 1.
+  The four Target Profiles guides use it for their shipping notice, labelled "New in IntelliDash."
+  (any other guide's note is labelled "Note."). It was labelled "Concept." before
+  `docs/text-corrections.md` §11.
 - `n` is the 1-based sentence index within that bucket. Inside a step it counts across the fields
   in this order: title, body, caption, tip. The tip's label and its text count as one callout.
 
@@ -249,3 +251,157 @@ Document evidence:
 ```json
 { "source": "doc", "ref": "373-1135 rev 02 §x" }
 ```
+
+## Review pack
+
+The review pack is what the experts read. `scripts/review-pack.mjs` turns the ledger into one
+HTML page per guide, a combined `index.html`, and a PDF of the combined file.
+
+```sh
+npm run review-pack
+```
+
+Run it once the shards are final and `claims.json` has been rebuilt. It reads
+`docs/claims/claims.json`, `docs/claims/sources.json`, the published guide text from
+`extractGuides()`, and the push-window and Lynx questions from `operational-contract.md` and
+`src/transforms/operational-contract.mjs`, and nothing else. It never writes to `docs/claims/`.
+
+It refuses to write anything when:
+
+- the ledger fails the lint, for example a Needs expert claim with no question;
+- the ledger no longer matches the published text, meaning a claim ID or its wording differs from
+  a fresh extraction, or `sources.json` now pins a different production SHA. Run
+  `npm run claims:extract` and try again. `--allow-stale` renders the pack anyway with a banner on
+  every page. Never send a pack that carries that banner;
+- the output directory is inside `dist/` or `docs/claims/`, contains the repository, or holds
+  files the generator did not write.
+
+| Option | What it does |
+|---|---|
+| `--ledger <file>` | Reads another ledger, such as a test fixture, instead of `docs/claims/claims.json` |
+| `--out <dir>` | Writes somewhere other than `review-pack/` |
+| `--no-pdf` | Skips the PDF and the browser check, which is quicker while working on the layout |
+| `--allow-stale` | Renders a stale ledger, marked as stale |
+
+### What it writes
+
+| File | What it is |
+|---|---|
+| `review-pack/index.html` | The badge legend, totals by status and by type, and a table of every guide with its claim, Wrong, Needs expert, Not shipping and Unverified counts. Then the questions page, then all 26 guides, in catalogue order. |
+| `review-pack/push-window-questions.html` | "Questions for the experts: push window and Lynx prerequisites". The seven questions Q1-Q7 from `operational-contract.md`, each with the wording that rests on it and the live page and step where it appears, then the rules, then every other Needs expert claim with its guide, step, question and live page. It says whether the operational wording is published or held back. It is the agenda for a review that walks the live site. |
+| `review-pack/<guide-key>.html` | One guide on its own, 26 files. Use these to send a single guide to the expert who owns it. |
+| `review-pack/spatial-adjust-guides-review.pdf` | `index.html` printed to A4. Each guide starts on a new page, and every page is numbered. |
+
+Each guide has, in order:
+
+1. A header with the category, the catalogue card, the pinned production and develop SHAs, the
+   time the pack was generated, and a link to the guide on the live site.
+2. For the four Target Profiles guides, the "New in IntelliDash" notice that readers see before
+   step 1, with the status of its claims.
+3. The guide as written, section by section: the catalogue card, the summary, where to find it,
+   the banner before step 1, before you start, each step (title, body, caption and tip), and how
+   to know it worked. Every claim in a section is listed under the published text.
+4. **Questions for the experts**: every Needs expert claim in the guide, with its claim ID, its
+   question, the sentence it is about and room for an answer.
+5. A sign-off box: Approved, Approved with changes or Rejected, plus the reviewer's role and the
+   date. It asks for the role, not a name. Feature 10 transcribes these verdicts into
+   `docs/claims/signoff.md`.
+
+The pages are self-contained. They have inline CSS, system fonts, no scripts, no images and a
+`default-src 'none'` Content-Security-Policy. Before printing the PDF, the generator opens every
+page in Chromium and fails if any page requests anything. The PDF uses the Chromium that the test
+suite already installs with `npx playwright install chromium`, so no new dependency is needed.
+
+### Where it goes
+
+`review-pack/` is gitignored, and nothing in it is ever committed. Share the PDF, or the folder
+zipped, through Toro SharePoint or Teams. It is never published on GitHub Pages. The deploy
+workflow uploads `dist/` alone, and `build.mjs` copies only `STATIC_DIRS` (assets, `_ds` and
+`vendor`, `build.mjs:30`) plus the files it generates. Do not add `review-pack` to `STATIC_DIRS`,
+and do not copy pack files into the repository.
+
+The pack follows the same no-excerpts rule as the ledger. Citations are `path:line` and all prose
+is the ledger's own, so the pack can be forwarded freely inside Toro. It is still internal: the
+verifier notes and open questions are not written for customers.
+
+### Reading the badges
+
+| Badge | Meaning | What the reviewer does |
+|---|---|---|
+| Verified | Production does what the claim says. The citation shows where. | Nothing, unless field experience says otherwise. |
+| Wrong | Production contradicts the claim. The proposed correction is shown beside it. | Check the proposed correction. |
+| Not shipping | The claim describes something that is not in the production build. | Say whether the guide should describe it at all. |
+| Needs expert | The source code cannot settle the claim. Its question is listed under Questions for the experts. | Answer in a line or two, quoting the claim ID. |
+| Unverified | Nobody has checked it yet. | Read it as unchecked. |
+
+Each claim card also shows its ID, type and field, and its citations. A citation is either an
+IntelliDash `path:line` with the ref and the short SHA it was read at, or a section of Toro user
+guide 373-1135. Where present, the card adds the correction, the question, what differs on develop
+("On develop"), the verifier's note, and the earlier wording if the sentence changed after it was
+checked.
+
+### How experts give feedback
+
+Experts comment on the live site, not in the repository. Every page of the pack links to its
+guide there. The floating **Feedback** button, bottom right, posts the comment to a Power
+Automate flow in Toro's tenant, together with the page, the step, the locale and the URL. The flow
+adds it to the *Guide feedback* SharePoint list as an item with Title (the page), Comment, Step,
+Kind, Locale and PageURL. The button and the flow are described in the top-level README (`README.md:112-165`).
+
+- The button is only on the deployed site, where `SA_FEEDBACK_ENDPOINT` is set at build time.
+  Local builds and the test suite do not render it, so experts must use the live site, after the
+  sign-in gate.
+- To comment on a step, open the guide, go to that step and press **Feedback**. The panel shows
+  the page and step it will attach. Put the claim ID in the comment when it is about one claim.
+- Answers to the questions and the sign-off verdict can be written into the pack's answer and
+  sign-off boxes and returned through the same SharePoint or Teams channel, or sent through the
+  Feedback button on that guide with the claim ID quoted.
+
+Never paste the flow's trigger URL into the pack, this README, a Teams message or an issue. Its
+`sig=` parameter is a capability: anyone holding the URL can post to the list
+(`README.md:141-148`, `:167-169`).
+
+### After the review
+
+Export the *Guide feedback* list from SharePoint and triage it. That is feature 10. Keep the
+export and any annotated PDFs in SharePoint.
+
+Raw comments and commenter names are never committed, including any name typed into a comment.
+The repository is public. Only the outcome of the review lands in it: a claim's new status,
+question or correction in its shard, a fix in `src/transforms/review-fixes.mjs`, and each guide's
+verdict with the reviewer's role and the date in `docs/claims/signoff.md`.
+
+## Handover
+
+### 2026-10-19: published, and handed over for the in-person review on 2026-10-22
+
+- **Published.** The live site, https://toroadam.github.io/spatial-adjust-guide/, carries every
+  correction, the changed-surfaces callouts, the "New in IntelliDash" banner and tile badges on the
+  four Target Profiles guides, and the push window and Lynx prerequisites in all eleven languages.
+  The guide content was last changed by `d264376`, and `bebdde6` was deployed by the
+  "Build and deploy to Pages" run 39363468912, which passed, as did "Screen fidelity" on the same
+  commit.
+- **Pinned sources.** Production `1aa4f28622cc3cc9637f0d61a438bf16bcf01924`
+  (`origin/Deployments/release/261014_phase_3a`, 2.5.261015, confirmed 2026-10-19). Develop and
+  beta `bd39f465cf5a7ae0356a59825250b36044085714`.
+- **Ledger.** 871 claims across 26 guides: 843 Verified, 28 Needs expert, 0 Wrong, 0 Not shipping
+  and 0 Unverified.
+- **Expert questions.** 20 in all. Seven are the push-window and Lynx questions Q1-Q7 in
+  [`operational-contract.md`](operational-contract.md). The wording that rests on them was
+  published before they were answered, by the guides owner's decision, so 15 of the Needs expert
+  claims are that wording and are settled by Q1-Q7. The other 13 Needs expert claims are questions
+  about the guides themselves.
+- **No sign-off gate.** Nothing was held back for Needs expert or for sign-off. The experts
+  review the live site in person on 2026-10-22, page by page.
+- **The pack.** `npm run review-pack` wrote it to `review-pack/` in the local checkout: 26 guide
+  pages, `push-window-questions.html` ("Questions for the experts: push window and Lynx
+  prerequisites", the agenda: Q1-Q7 and the 13 other questions, each with its live page and
+  step), `index.html` and `spatial-adjust-guides-review.pdf`. `review-pack/BRIEF.md` is the
+  owner's covering note. All of it is gitignored. The owner shares it with the expert team through
+  Toro SharePoint or Teams, never through GitHub.
+- **What the experts are asked to do.** Walk the live site with the agenda, answer Q1-Q7 and the
+  13 other questions, check that each guide matches what they see in IntelliDash and Lynx, and give
+  each guide a verdict in its sign-off box. Comments go through the site's Feedback button, which
+  adds them to the *Guide feedback* SharePoint list, or into the pack's answer boxes. Feature 10
+  records the answers in `operational-contract.md` and the shards, and the verdicts in
+  `signoff.md`.
