@@ -20,6 +20,7 @@
     "byStatus": {
       "Unverified": 0,
       "Verified": 843,
+      "Verified (beta)": 0,
       "Wrong": 0,
       "Not shipping": 0,
       "Needs expert": 28

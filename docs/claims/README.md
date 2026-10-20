@@ -50,6 +50,11 @@ The ledger describes the **published** text, which is the export after `transfor
 run. That includes every correction already in `src/transform-export.mjs` and the two guides
 it adds (`request-scan-data`, `filter-adjustments`).
 
+It is always the text with beta content shown, whatever `SA_SHOW_BETA` says.
+`extractGuides()` calls `transformGuide(src, { showBeta: true })`, so the ledger covers every
+sentence any build can publish, and step numbers in claim IDs count the beta steps. A build with
+`SA_SHOW_BETA=false` publishes a subset of it.
+
 ## Pinned sources
 
 Every citation is pinned to one of these commits. The machine-readable copy is
@@ -112,6 +117,15 @@ differs between the two SHAs.
    (`sa-settings-dlg.component.ts:55`, see [`changed-surfaces.md`](changed-surfaces.md)), so its
    claims are judged against production as well. The two feature branches above are history, kept
    for citing where something was first built.
+
+   **The exception is beta content.** A guide that `src/release.json` marks beta, and a step in
+   a beta section of a GA guide, describe develop and the beta environment, not production (see
+   [`beta-surfaces.md`](beta-surfaces.md)). Judge their claims against the develop SHA. When
+   develop does what the claim says, the status is **Verified (beta)**, with a develop citation at
+   the pinned SHA. When the sentence is also true on production, it may be plain Verified with a
+   production citation instead. Wrong and Needs expert keep their meaning, read against develop.
+   Everything else in a GA guide stays production content: its tile, summary, where, note, before
+   and verify, and every step outside a beta section, can never be Verified (beta).
 2. **No excerpts.** The guide repository is public and IntelliDash is not. Cite `path:line` and
    describe the behaviour in prose. Never paste IntelliDash code, templates or comments. Product
    copy is the exception: an `en-us.json` key name and its English label are text a user sees, so
@@ -132,9 +146,13 @@ it exactly one of these:
 | Status | Meaning | Required alongside it |
 |---|---|---|
 | Verified | Production does what the claim says | at least one citation |
+| Verified (beta) | Develop and the beta environment do what the claim says, and `src/release.json` marks the content beta: a beta guide, or a step in a beta section of a GA guide | a `develop` citation at the develop SHA pinned in `sources.json`. Production citations may sit beside it. |
 | Wrong | Production contradicts the claim | a citation, plus `correction`: replacement wording and one sentence on why |
 | Not shipping | The claim describes something that is not in the production build | the production citation showing it absent (for example a commented-out menu entry), plus the branch file that implements it |
 | Needs expert | The source cannot settle the claim, for example an agronomic judgement or Lynx-side behaviour | `question`: phrased so an agronomist can answer it in one line |
+
+Verified (beta) counts as verified. Any check that passes a Verified claim, such as a claims check
+in CI, passes a Verified (beta) claim too.
 
 ## Claim types
 
@@ -201,7 +219,7 @@ wording in `previousText`.
 | `docs/claims/sources.json` | The pinned IntelliDash SHAs | Feature 1. The lint checks every citation against it. |
 
 `scripts/claims-extract.mjs` builds the ledger from the published text, which means the export
-after `transformGuide()` has applied every correction. It evaluates the guide data block in
+after `transformGuide()` has applied every correction, with beta content shown. It evaluates the guide data block in
 `node:vm` rather than scraping it, so it sees all 26 guides and every field: tile, summary, where,
 note, before, step title, body, caption, tip and verify.
 
@@ -215,13 +233,18 @@ What the lint enforces:
 
 - Shards and claims carry only the documented keys, and every claim has all of them except
   `previousText`, which is optional.
-- `status` is one of the five statuses and `type` is one of the five types.
+- `status` is one of the six statuses (Unverified and the five in the status table) and `type` is
+  one of the five types.
 - `id` is `<guide-key>/<step>/<n>`, matches the claim's `guide` and `step`, and is unique. `field`
   is valid for its bucket, and claims are in reading order.
 - Verified, Wrong and Not shipping each have at least one citation. Wrong has a `correction`, and
   Needs expert has a `question`.
 - Every IntelliDash citation has a full 40-character SHA, a repository-relative path and a line
   or line range. A `production` or `develop` citation must use the SHA pinned in `sources.json`.
+- Verified (beta) has at least one `develop` citation at the pinned develop SHA, and sits on
+  content `src/release.json` marks beta: a beta guide, or a numbered step whose shown-mode title
+  is in a beta section of a GA guide. Otherwise the lint fails and names the claim ID. It reads
+  `src/release.json` through `src/release.mjs`, so `SA_RELEASE_FILE` points it at a test fixture.
 
 How a re-extraction merges:
 
@@ -333,6 +356,7 @@ verifier notes and open questions are not written for customers.
 | Badge | Meaning | What the reviewer does |
 |---|---|---|
 | Verified | Production does what the claim says. The citation shows where. | Nothing, unless field experience says otherwise. |
+| Verified (beta) | Develop and the beta environment do what the claim says, and the content is marked Beta. The citation is at the pinned develop SHA. | Check it against the beta environment, and say whether it may change before it reaches production. |
 | Wrong | Production contradicts the claim. The proposed correction is shown beside it. | Check the proposed correction. |
 | Not shipping | The claim describes something that is not in the production build. | Say whether the guide should describe it at all. |
 | Needs expert | The source code cannot settle the claim. Its question is listed under Questions for the experts. | Answer in a line or two, quoting the claim ID. |
