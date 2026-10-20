@@ -1,0 +1,84 @@
+{
+  "$comment": "Stub series for the --series self-test: two approved episodes 1.2 LU apart, the second voiced with another voice id.",
+  "series": "Fixture series",
+  "mediaRoot": "media",
+  "siteBase": "http://localhost:8124/",
+  "voice": {
+    "id": "Gubgw9l4dtIoQA9YZHgx",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.5,
+      "similarity_boost": 0.75,
+      "style": 0,
+      "use_speaker_boost": true,
+      "speed": 1
+    }
+  },
+  "musicBed": "sa-bed-v1",
+  "targets": {
+    "runtimeSec": [
+      60,
+      180
+    ],
+    "lufs": -14,
+    "lufsTolerance": 0.5,
+    "truePeakMax": -1,
+    "lufsSpreadMax": 1,
+    "wordsPerSecond": 2.3
+  },
+  "waves": [
+    {
+      "n": 1,
+      "name": "Fixture wave",
+      "creditsEstimate": [
+        0,
+        0
+      ],
+      "creditsBefore": null,
+      "creditsAfter": null,
+      "expertSignoff": null
+    }
+  ],
+  "episodes": [
+    {
+      "n": 1,
+      "key": "fixture-a",
+      "id": "fixture-a",
+      "wave": 1,
+      "title": "Fixture A",
+      "status": "approved",
+      "blockedReason": null,
+      "checkedAt": null,
+      "firstOfWave": true,
+      "runtimeSec": 90,
+      "lufs": -13.4,
+      "truePeak": -1.4,
+      "startedAt": null,
+      "approvedAt": "2026-10-20",
+      "expertReview": null,
+      "media": "episodes/fixture-a",
+      "treatment": "standard",
+      "approvalsRef": null
+    },
+    {
+      "n": 2,
+      "key": "fixture-b",
+      "id": "fixture-b",
+      "wave": 1,
+      "title": "Fixture B",
+      "status": "approved",
+      "blockedReason": null,
+      "checkedAt": null,
+      "firstOfWave": false,
+      "runtimeSec": 120,
+      "lufs": -14.6,
+      "truePeak": -1.2,
+      "startedAt": null,
+      "approvedAt": "2026-10-20",
+      "expertReview": null,
+      "media": "episodes/fixture-b",
+      "treatment": "standard",
+      "approvalsRef": null
+    }
+  ]
+}

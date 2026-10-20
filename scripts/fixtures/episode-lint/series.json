@@ -1,0 +1,84 @@
+{
+  "$comment": "Stub series for the episode lint self-test.",
+  "series": "Fixture series",
+  "mediaRoot": "~/Documents/SpatialAdjust_MarCom",
+  "siteBase": "http://localhost:8124/",
+  "voice": {
+    "id": "Gubgw9l4dtIoQA9YZHgx",
+    "model": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.5,
+      "similarity_boost": 0.75,
+      "style": 0,
+      "use_speaker_boost": true,
+      "speed": 1
+    }
+  },
+  "musicBed": "sa-bed-v1",
+  "targets": {
+    "runtimeSec": [
+      60,
+      180
+    ],
+    "lufs": -14,
+    "lufsTolerance": 0.5,
+    "truePeakMax": -1,
+    "lufsSpreadMax": 1,
+    "wordsPerSecond": 2.3
+  },
+  "waves": [
+    {
+      "n": 1,
+      "name": "Fixture wave",
+      "creditsEstimate": [
+        0,
+        0
+      ],
+      "creditsBefore": null,
+      "creditsAfter": null,
+      "expertSignoff": null
+    }
+  ],
+  "episodes": [
+    {
+      "n": 1,
+      "key": "fixture-guide",
+      "id": "fixture-guide",
+      "wave": 1,
+      "title": "Read the fixture dashboard",
+      "status": "edited",
+      "blockedReason": null,
+      "checkedAt": null,
+      "firstOfWave": true,
+      "runtimeSec": 92,
+      "lufs": -14.2,
+      "truePeak": -1.3,
+      "startedAt": "2026-10-20",
+      "approvedAt": null,
+      "expertReview": null,
+      "media": "episodes/fixture-guide",
+      "treatment": "standard",
+      "approvalsRef": null
+    },
+    {
+      "n": 2,
+      "key": "fixture-next",
+      "id": "fixture-next",
+      "wave": 1,
+      "title": "Check the fixture results",
+      "status": "planned",
+      "blockedReason": null,
+      "checkedAt": null,
+      "firstOfWave": false,
+      "runtimeSec": null,
+      "lufs": null,
+      "truePeak": null,
+      "startedAt": null,
+      "approvedAt": null,
+      "expertReview": null,
+      "media": "episodes/fixture-next",
+      "treatment": "standard",
+      "approvalsRef": null
+    }
+  ]
+}

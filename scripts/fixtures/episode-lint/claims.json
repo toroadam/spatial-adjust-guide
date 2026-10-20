@@ -1,0 +1,61 @@
+{
+  "_meta": {
+    "description": "Stub claims ledger for the episode lint self-test (scripts/episode-lint.mjs --fixtures). Invented guide, invented claims."
+  },
+  "claims": [
+    {
+      "id": "fixture-guide/tile/1",
+      "guide": "fixture-guide",
+      "step": "tile",
+      "field": "body",
+      "text": "The fixture dashboard shows one invented course.",
+      "type": "fact",
+      "status": "Verified"
+    },
+    {
+      "id": "fixture-guide/1/1",
+      "guide": "fixture-guide",
+      "step": "1",
+      "field": "body",
+      "text": "Settings is in the toolbar.",
+      "type": "fact",
+      "status": "Verified"
+    },
+    {
+      "id": "fixture-guide/1/2",
+      "guide": "fixture-guide",
+      "step": "1",
+      "field": "body",
+      "text": "The Settings dialog opens over the dashboard.",
+      "type": "fact",
+      "status": "Verified"
+    },
+    {
+      "id": "fixture-guide/2/1",
+      "guide": "fixture-guide",
+      "step": "2",
+      "field": "body",
+      "text": "Push Changes opens the push dialog.",
+      "type": "fact",
+      "status": "Verified"
+    },
+    {
+      "id": "fixture-guide/2/2",
+      "guide": "fixture-guide",
+      "step": "2",
+      "field": "body",
+      "text": "The progress bar counts the stations as they are sent.",
+      "type": "fact",
+      "status": "Verified"
+    },
+    {
+      "id": "fixture-guide/2/3",
+      "guide": "fixture-guide",
+      "step": "2",
+      "field": "body",
+      "text": "A push always finishes within a minute.",
+      "type": "fact",
+      "status": "Needs expert"
+    }
+  ]
+}
