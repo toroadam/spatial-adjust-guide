@@ -10,7 +10,7 @@
       "sha": "bd39f465cf5a7ae0356a59825250b36044085714"
     },
     "derivedFrom": "docs/claims/beta-surfaces.md",
-    "updated": "2026-10-19"
+    "updated": "2026-10-20"
   },
   "guides": {
     "dashboard-overview": {
@@ -107,7 +107,15 @@
     },
     "calculation-questions": {
       "status": "ga",
-      "basis": "Checked against production 1aa4f286 in docs/claims/guides/calculation-questions.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/calculation-questions.json; only the step in its stale-scans-kept section is a beta surface in docs/claims/beta-surfaces.md",
+      "sections": [
+        {
+          "id": "stale-scans-kept",
+          "status": "beta",
+          "steps": ["A stale course keeps its last scans"],
+          "basis": "docs/claims/beta-surfaces.md#stale-scans-kept"
+        }
+      ]
     },
     "push-failures": {
       "status": "ga",
