@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 987,
-    "words": 12194
+    "strings": 990,
+    "words": 12209
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -144,6 +144,8 @@
     "Before a tournament.": "Before a tournament.",
     "Before you start": "Before you start",
     "Below-threshold behaviour, with the second option selected.": "Below-threshold behaviour, with the second option selected.",
+    "Beta": "Beta",
+    "Beta.": "Beta.",
     "Bulk Adjust": "Bulk Adjust",
     "BULK ADJUST": "BULK ADJUST",
     "Bulk Adjust dialog. The count confirms your selection.": "Bulk Adjust dialog. The count confirms your selection.",
@@ -876,6 +878,7 @@
     "These are site-level settings — they apply to every user on the site.": "These are site-level settings — they apply to every user on the site.",
     "These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.": "These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.",
     "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.": "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.",
+    "This feature is in testing and may change before it reaches your IntelliDash.": "This feature is in testing and may change before it reaches your IntelliDash.",
     "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.": "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.",
     "This is the common answer. When measured VWC is comfortably above the station target, the required amount is zero and so is the suggestion. Station 10AP1 read 34.5 percent against a target of 16 — it does not need water today.": "This is the common answer. When measured VWC is comfortably above the station target, the required amount is zero and so is the suggestion. Station 10AP1 read 34.5 percent against a target of 16 — it does not need water today.",
     "Three different numbers wear the label VWC. Knowing which one you are reading explains most surprises.": "Three different numbers wear the label VWC. Knowing which one you are reading explains most surprises.",
@@ -1313,6 +1316,14 @@
     ],
     "Below-threshold behaviour, with the second option selected.": [
       "minimum-threshold"
+    ],
+    "Beta": [
+      "catalog (beta chrome)",
+      "chrome (beta chrome)",
+      "dashboard-overview (beta chrome)"
+    ],
+    "Beta.": [
+      "request-scan-data (beta chrome)"
     ],
     "Bulk Adjust dialog. The count confirms your selection.": [
       "bulk-adjustments"
@@ -3658,6 +3669,9 @@
     ],
     "This button and Reload Data are two different things. One asks for new data; the other brings data that has already arrived into the page.": [
       "request-scan-data"
+    ],
+    "This feature is in testing and may change before it reaches your IntelliDash.": [
+      "request-scan-data (beta chrome)"
     ],
     "This is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference. Set it too low and every suggestion looks enormous.": [
       "calculation-settings"
