@@ -67,7 +67,7 @@ def plan(track, src_in, src_out, speed, t0, clicks, Z, wide, macro, focus_overri
         ud = up_dur if up_dur is not None else lead * 0.8
         up = ease((ts_src - (a - lead)) / ud); dn = 1 - ease((ts_src - (b + hold)) / down_dur)
         z = np.maximum(z, np.minimum(up, dn))
-    for (a, b, cap) in (z_cap or []):   # v5 (ER-1581): pull the zoom back over a source window (eased by the zero-phase pass below)
+    for (a, b, cap) in (z_cap or []):   # v5: pull the zoom back over a source window (eased by the zero-phase pass below)
         m = (ts_src >= a) & (ts_src < b); z[m] = np.minimum(z[m], cap)
     if z_start is not None: z[:int(0.05 * FPS)] = np.maximum(z[:int(0.05 * FPS)], z_start)
     z = np.clip(zero_phase(z, omega_z), 0, 1)

@@ -21,7 +21,7 @@ import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'nod
 import os from 'node:os';
 import path from 'node:path';
 import { readElevenLabsKey, readElevenLabsKeys } from '../lib/elevenlabs-key.mjs';
-import { ATTRIBUTION, DENY_MIN_LENGTH, denylistMatcher } from './hygiene.mjs';
+import { ATTRIBUTION, DENY_MIN_LENGTH, TRACKER_ID, denylistMatcher } from './hygiene.mjs';
 
 const HERE = import.meta.dirname;
 const HYGIENE = path.join(HERE, 'hygiene.mjs');
@@ -34,6 +34,10 @@ const TEST_KEY = `sk_test_${randomBytes(16).toString('hex')}`;
 const FIXTURE_NAME = 'Ovelgrin Marsh'; // invented
 const SANITIZE = path.join(TMP, 'sanitize.fixture.local.json');
 writeFileSync(SANITIZE, JSON.stringify({ [FIXTURE_NAME]: 'Riverbend National' }));
+// Tracker IDs are assembled at run time so that this file never holds one: the check below scans
+// this repository too.
+const trackerId = (...parts) => parts.join('-');
+const TRACKER = trackerId('PI', 'ICNT', 'SW', '9999', '1'); // invented
 const GITCONFIG = path.join(TMP, 'gitconfig');
 writeFileSync(GITCONFIG, '');
 
@@ -102,6 +106,7 @@ test('a clean repository passes with exit 0', () => {
   assert.match(r.out, /^ok {4}media:/m);
   assert.match(r.out, /^ok {4}key:/m);
   assert.match(r.out, /^ok {4}denylist:/m);
+  assert.match(r.out, /^ok {4}tracker:/m);
   assert.match(r.out, /^ok {4}attribution: .*\(the last 200 commits \(origin\/main not found\)\)/m);
   assert.match(r.out, /^hygiene: clean$/m);
 });
@@ -166,6 +171,53 @@ test('a denylisted name fails as [denylisted #N] without being printed', () => {
   assert.ok(r.out.includes('[denylisted #1] found in docs/guide.md | working tree'), r.out);
   assert.ok(r.out.includes(`[denylisted #1] found in docs/guide.md | commit ${sha}`), r.out);
   assertNoSecrets(r.all);
+});
+
+test('a tracker ID in a tracked text file fails as file:line, printing neither the ID, the line nor a denylisted name', () => {
+  const dir = cleanRepo();
+  write(dir, 'docs/plan.md', `# Plan\n\nDelivered by ${TRACKER} on ${FIXTURE_NAME}.\n`);
+  write(dir, 'src/notes.mjs', `// fine\n// fine\n// see ${trackerId('ER', '1999')}\n`);
+  commit(dir, 'Add a plan and notes');
+  write(dir, 'staged.txt', `${trackerId('US', '123456')}\n`);
+  git(dir, 'add', 'staged.txt'); // tracked once added, before any commit
+  write(dir, 'untracked.md', `${TRACKER}\n`); // not tracked: not scanned
+  write(dir, 'image.bin', Buffer.concat([Buffer.from([0x89, 0, 1, 2]), Buffer.from(TRACKER)]));
+  git(dir, 'add', 'image.bin'); // binary: not scanned
+  const r = run(dir);
+  assert.equal(r.code, 1, r.all);
+  assert.match(r.out, /^FAIL {2}tracker: 3 findings/m);
+  assert.ok(r.out.includes('tracker ID found in docs/plan.md:3'), r.out);
+  assert.ok(r.out.includes('tracker ID found in src/notes.mjs:3'), r.out);
+  assert.ok(r.out.includes('tracker ID found in staged.txt:1'), r.out);
+  assert.equal(r.out.includes('untracked.md'), false, r.out);
+  assert.equal(r.out.includes('image.bin'), false, r.out);
+  assert.equal(TRACKER_ID.test(r.all), false, 'output contains a tracker ID');
+  assert.equal(r.all.includes('Delivered by'), false, 'output quotes the line');
+  assertNoSecrets(r.all);
+});
+
+test('a tracker ID removed from the working tree passes, though history still holds it', () => {
+  const dir = cleanRepo();
+  write(dir, 'README.md', `# Guides\n\nBuilt for ${TRACKER}.\n`);
+  commit(dir, 'Add the purpose');
+  write(dir, 'README.md', '# Guides\n\nBuilt for the video pipeline.\n');
+  commit(dir, 'Describe the purpose in words');
+  const r = run(dir);
+  assert.equal(r.code, 0, r.all);
+  assert.match(r.out, /^ok {4}tracker:/m);
+});
+
+test('the tracker pattern covers every ID family, and nothing shorter', () => {
+  for (const id of [
+    trackerId('PI', 'ICNT', 'SW', '1084', '4'),
+    trackerId('PI', 'ICNT', 'SW', 'E200'),
+    trackerId('ER', '1618'),
+    trackerId('PERS', '348'),
+    trackerId('US', '21136'),
+  ]) assert.equal(TRACKER_ID.test(`see ${id}.`), true, `${id.slice(0, 4)}... not matched`);
+  for (const text of ['ER-618', 'US-123', 'PERS-', 'PI-ICNT-SW-', 'gate G4', 'the video pipeline', 'er-1618']) {
+    assert.equal(TRACKER_ID.test(text), false, `${text} matched`);
+  }
 });
 
 test('a Claude-Session trailer fails', () => {

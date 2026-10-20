@@ -1,6 +1,6 @@
 # Motion system: Spatial Adjust videos
 
-**Feature:** PI-ICNT-SW-1081 · **Gate:** G3, style frame, in [`../approvals.md`](../approvals.md) · **Code:** [`../edit/lib/brand.py`](../edit/lib/brand.py)
+**Gate:** G3, style frame, in [`../approvals.md`](../approvals.md) · **Code:** [`../edit/lib/brand.py`](../edit/lib/brand.py)
 
 The look of every Spatial Adjust video: the lockup, colour, background, type, motion, holds, layout, cursor and highlight, and sound. It replaces the iCentral MarCom motion system for this series. The structure (eased camera on real UI, a window floating on a soft wall, crisp kinetic type, no people) carries over; the identity changes: the Spatial Adjust lockup instead of the iCentral one, Oasis neutrals with the moisture-band colours as accents instead of the red wave, design-system blue where iCentral used red, and golf framing allowed, because Spatial Adjust is a golf product.
 

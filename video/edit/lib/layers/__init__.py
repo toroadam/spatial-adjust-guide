@@ -2,7 +2,7 @@
 renderer.register_layer on import. Add a layer by adding a module; renderer.py does not change.
 
   glass    the frosted chapter strip (glass.py)
-  dctitle  the series title card (dctitle.py, PI-ICNT-SW-1081-2): the series word double-clicked, the episode name springs out
+  dctitle  the series title card (dctitle.py): the series word double-clicked, the episode name springs out
 """
 import importlib
 import os
