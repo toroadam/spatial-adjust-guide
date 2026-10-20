@@ -150,6 +150,8 @@ async function main() {
   // BEFORE the bootstrap is inserted: the inlined component source contains its own </head>,
   // and a string-pattern replace would otherwise match that one and corrupt the JS literal.
   const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
+  // The Do / You should see / If not rows and start state rendered by src/transform-export.mjs.
+  const stepsCss = await readFile(join(ROOT, 'src', 'steps.css'), 'utf8');
   const gateCss = await readFile(join(ROOT, 'src', 'gate.css'), 'utf8');
   const contactCss = await readFile(join(ROOT, 'src', 'contact.css'), 'utf8');
   const feedbackCss = await readFile(join(ROOT, 'src', 'feedback.css'), 'utf8');
@@ -188,7 +190,7 @@ async function main() {
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
-<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n</style>
+<style>\n${a11yCss}\n${stepsCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 

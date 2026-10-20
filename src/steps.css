@@ -1,0 +1,58 @@
+/* Step shape: the Do / You should see / If not / Why rows that a rewritten step shows instead of
+   its body paragraph, in the player panel and in the article, and the start rows that lead
+   Before you start. The markup comes from src/transform-export.mjs (step shape rendering);
+   build.mjs injects this file after a11y.css.
+
+   The row labels follow the guide's existing small labels (TIME, DIFFICULTY, ON THIS PAGE): 11px
+   caps with wide tracking. Their colour is the contrast-corrected grey from a11y.css (5.2:1 on
+   white) rather than var(--40), which a11y.css documents as 2.29:1. */
+
+.lsa .lsa-shape { display: flex; flex-direction: column; gap: 14px; }
+
+.lsa .lsa-shape-row {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--60);
+  text-wrap: pretty;
+}
+
+.lsa .lsa-shape-article { gap: 18px; }
+.lsa .lsa-shape-article .lsa-shape-row { font-size: 16px; line-height: 1.7; gap: 4px; }
+
+.lsa .lsa-shape-k {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  line-height: 1.5;
+  text-transform: uppercase;
+  color: rgb(100, 110, 115);
+}
+
+/* The exact on-screen label the line names, written [[Label]] in the source. Brackets never
+   render; saLine() strips them and wraps the label in <b>. */
+.lsa .lsa-label { font-weight: 700; color: var(--100); }
+
+/* If not is set apart with a neutral grey rule, never red: in this product red is a moisture
+   reading (the map paints the wettest band red), so a red rule would read as product state. */
+.lsa .lsa-ifnot { border-left: 2px solid var(--30); padding-left: 12px; }
+
+/* Start state: key on the left, the line beside it, above the existing Before you start list. */
+.lsa .lsa-start {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 22px;
+  padding: 0 0 18px;
+  border-bottom: 1px solid var(--20);
+}
+.lsa .lsa-start-row { display: flex; gap: 16px; align-items: baseline; }
+.lsa .lsa-start-row dt { flex: none; width: 112px; margin: 0; }
+.lsa .lsa-start-row dd { margin: 0; font-size: 15px; line-height: 1.6; color: var(--60); text-wrap: pretty; }
+
+@media (max-width: 767px) {
+  .lsa .lsa-start-row { flex-direction: column; gap: 2px; }
+  .lsa .lsa-start-row dt { width: auto; }
+}
