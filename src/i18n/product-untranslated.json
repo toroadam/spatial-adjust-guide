@@ -1,0 +1,878 @@
+{
+  "_meta": {
+    "note": "Spatial Adjust labels with no translation under any key in the listed locales, so IntelliDash renders them in English there (setDefaultLang en-us). Read by scripts/lib/markers.mjs: a [[label]] marker for one of these stays English in those locales. Regenerate with scripts/product-untranslated.mjs when the production pin in docs/claims/sources.json moves.",
+    "source": "IntelliDash site/src/assets/i18n/*.json",
+    "productionSha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+    "labels": 89
+  },
+  "labels": {
+    "1 station will be adjusted according to the minimum threshold rules.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "All selected changes successfully pushed to Lynx.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "All Stations": [
+      "de-de",
+      "pt-pt"
+    ],
+    "Applying target values to matching stations": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Are you sure you want to exit without saving changes?": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Area": [
+      "es-es",
+      "it-it"
+    ],
+    "Bunkers": [
+      "fr-fr",
+      "nl-nl",
+      "pt-pt"
+    ],
+    "Calculation ET": [
+      "de-de",
+      "pt-pt",
+      "ja-jp"
+    ],
+    "CLUB HOUSE": [
+      "es-es",
+      "fr-fr",
+      "it-it"
+    ],
+    "Configure how Spatial Adjust calculates irrigation recommendations.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Configure how Spatial Adjust calculates, filters, and applies irrigation adjustments across your course.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Confirm": [
+      "fr-fr"
+    ],
+    "Continue": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Continue Editing": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Copyright © 2026 The Toro Company. All Rights Reserved.": [
+      "ja-jp",
+      "ko-ko"
+    ],
+    "Customize language, units, and regional formatting used throughout Spatial Adjust.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Date": [
+      "es-es",
+      "fr-fr",
+      "th-th"
+    ],
+    "disable": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Disable": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Discard changes": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Dismiss": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Don’t ask to confirm cascading enable/disable changes again": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "DR TEE": [
+      "es-es",
+      "it-it",
+      "nl-nl",
+      "ja-jp"
+    ],
+    "Driving Range": [
+      "de-de"
+    ],
+    "enable": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Enabled Stations": [
+      "de-de",
+      "pt-pt"
+    ],
+    "ET": [
+      "de-de",
+      "es-es",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th"
+    ],
+    "Exclude Zeros": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Failed to apply target values to matching stations": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Fairways": [
+      "de-de",
+      "fr-fr",
+      "nl-nl",
+      "pt-pt"
+    ],
+    "Fall": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Greens": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "nl-nl",
+      "pt-pt"
+    ],
+    "Hole": [
+      "nl-nl"
+    ],
+    "in": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th"
+    ],
+    "Layers": [
+      "de-de",
+      "pt-pt"
+    ],
+    "Lynx Push Complete.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Matching Stations": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Matching stations will be updated, while unmatched stations will be ignored.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Minimum Threshold (%)": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "mm": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Mounds": [
+      "nl-nl"
+    ],
+    "No": [
+      "ja-jp"
+    ],
+    "No results found": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th"
+    ],
+    "Option 1": [
+      "de-de",
+      "fr-fr"
+    ],
+    "Option 2": [
+      "de-de",
+      "fr-fr"
+    ],
+    "Profile": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Putting Green": [
+      "de-de",
+      "es-es",
+      "it-it",
+      "nl-nl",
+      "pt-pt"
+    ],
+    "Reload Data": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Replace": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "pt-pt",
+      "th-th"
+    ],
+    "Request Failed": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Request latest scan data": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Request Queued": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Retrieval Failed": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Retrieval may take several minutes. We’ll notify you when it’s ready.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Retrieving Course Information": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Retrieving Current Percent Adjustments from Lynx": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Retrieving latest Percent Adjustments from Lynx for comparison": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Retrieving Station and Scan Data": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Review Threshold": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Roughs": [
+      "de-de",
+      "nl-nl",
+      "pt-pt"
+    ],
+    "Save, manage, and apply target profiles for seasonal and event-based irrigation strategies.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Set to the minimum threshold value when pushed to Lynx": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Set to zero when pushed to Lynx": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Setting a minimum threshold will prevent very small adjustments from being pushed to Lynx. Set to 0 to disable the minimum threshold.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Shift": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "pt-pt",
+      "th-th"
+    ],
+    "Soil Factor (%)": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Spatial Adjust found differences between the stations saved in this profile and those actively being scanned.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Spring": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Station": [
+      "de-de",
+      "fr-fr",
+      "nl-nl"
+    ],
+    "Stations in Profile": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Suggested Percent Adjust values below the minimum threshold will be": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Summary": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Summer": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Surrounds": [
+      "nl-nl"
+    ],
+    "Target values applied to matching stations": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Tees": [
+      "es-es",
+      "fr-fr",
+      "nl-nl",
+      "pt-pt"
+    ],
+    "The requested scan data is ready.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Toggle VWC or Variance View": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ko-ko",
+      "th-th"
+    ],
+    "Tournament": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Unable to queue the scan data request. Please try again.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Unable to retrieve scan data. Please try again.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Use Target Profile?": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Verifying adjustments sent to Lynx": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "VWC": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "th-th",
+      "zh-cn"
+    ],
+    "When you save, the current target values for matching stations will be replaced with the values stored in this profile. Your current target values will not be saved automatically.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Winter": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "You have unsaved changes to your Spatial Adjust settings. If you leave now, all changes made during this session will be lost.": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "nl-nl",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Zoom in": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ],
+    "Zoom out": [
+      "de-de",
+      "es-es",
+      "fr-fr",
+      "it-it",
+      "pt-pt",
+      "ja-jp",
+      "ko-ko",
+      "th-th",
+      "zh-cn"
+    ]
+  }
+}

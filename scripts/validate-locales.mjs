@@ -7,7 +7,7 @@
 //
 // Usage: node scripts/validate-locales.mjs [locale ...]
 import { readFile, readdir } from 'node:fs/promises';
-import { hardcodedLabels, markerProblems } from './lib/markers.mjs';
+import { hardcodedLabels, englishInProduct, markerProblems } from './lib/markers.mjs';
 
 const dir = 'src/i18n';
 const sourceCat = JSON.parse(await readFile(`${dir}/en-us.json`, 'utf8'));
@@ -41,6 +41,8 @@ const glossary = JSON.parse(await readFile(`${dir}/glossary.json`, 'utf8'));
 // from the checkout alone, so CI, which has none, knew of no hardcoded label and reached a
 // different verdict from a laptop. The markerDrift gate below depends on it, so it cannot differ.
 const hardcoded = hardcodedLabels();
+// Labels IntelliDash leaves English in a locale (src/i18n/product-untranslated.json); markerDrift only.
+const english = englishInProduct();
 const only = process.argv.slice(2);
 const locales = (await readdir(dir))
   .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json')
@@ -182,10 +184,10 @@ for (const locale of locales) {
   // markerDrift, a GATE. A rewritten step names each control as [[Exact Label]], and the renderer
   // shows whatever is inside the brackets in bold, as the thing to find on screen. So a translation
   // must keep every marker, and each marker must hold the label the reader's screen shows in this
-  // locale: English for a label IntelliDash hardcodes, otherwise the locale's translation of the
-  // screen label (scripts/lib/markers.mjs > expectedLabel). A marker that drifts is worse than
+  // locale: English for a label IntelliDash hardcodes or ships untranslated here, otherwise the
+  // locale's translation of the screen label (scripts/lib/markers.mjs > expectedLabel). A marker that drifts is worse than
   // prose that drifts, because it is drawn as the exact label.
-  const markerCtx = { t, screen: SCREEN, glossary: glossary[locale] || {}, hardcoded };
+  const markerCtx = { t, screen: SCREEN, glossary: glossary[locale] || {}, hardcoded, english, locale };
   for (const [en, tr] of Object.entries(t)) {
     if (!en.includes('[[') && !String(tr).includes('[[')) continue;
     for (const p of markerProblems(en, String(tr), markerCtx)) {
