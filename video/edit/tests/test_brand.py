@@ -173,12 +173,18 @@ def doc_drift(full):
         if not r or r[0] != name or r[1] != '(' + ', '.join(f'{x:g}' for x in bz) + ')': bad(f'ease {k}: doc {r and r[:2]}')
     sp = BRAND['spring']
     if f'w = {sp["w"]:g}, z = {sp["z"]:g}' not in doc: bad('title spring')
-    doc = section(full, 'Motion', after='**Durations**')
+    doc = section(full, 'Motion', after='**Durations**', before='**Title card**')
     for k, v in DURATIONS.items():
         r = row(doc, k)
         m = r and re.match(r'([\d.]+)(?:-([\d.]+))?', r[0])
         got = m and ((num(m.group(1)), num(m.group(2))) if m.group(2) else num(m.group(1)))
         if got != v: bad(f'duration {k}: doc {r and r[0]} != {v}')
+    doc = section(full, 'Motion', after='**Title card**')
+    tc = BRAND['title_card']
+    for k in ('t_in', 't_move', 'click', 'pop', 'leave', 'out', 'drop'):
+        r = row(doc, k)
+        got = r and [num(re.match(r'[-\d.]+', c).group()) for c in r[:2]]
+        if got != [tc[k], tc['up_next'].get(k, tc[k])]: bad(f'title card {k}: doc {r and r[:2]}')
     # holds
     doc = section(full, 'Holds')
     if f'**{BRAND["hold"]["base"]:g} s + {BRAND["hold"]["per_word"]:g} s per word**' not in doc: bad('hold rule')
