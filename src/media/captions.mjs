@@ -35,6 +35,47 @@ export const DEFAULT_CAPTIONS_DIR = 'src/i18n/captions';
 /** Where a track lands, relative to dist/ (and so to the page). */
 export const trackPath = (key, locale) => `media/captions/${key}.${locale}.vtt`;
 
+// ---- step labels ---------------------------------------------------------------------------------
+//
+// Narration that names a guide step has to use the step's own heading, in every language, or the
+// caption says one thing while the heading on screen says another. The headings are already in the
+// page catalogue as "Step N of M: <label>" keys, with <label> translated on its own, so that is the
+// source: scripts/translate.mjs requires the label's translation in any cue that names it, and
+// scripts/validate-locales.mjs checks it afterwards (stepLabelDrift).
+
+const STEP_KEY = /^Step \d+ of \d+: (.+)$/;
+
+/**
+ * The step labels in a page catalogue's strings: the tails of its "Step N of M: <label>" keys that
+ * have two or more words, longest first. A one-word label ("Overview") is an ordinary word far more
+ * often than it is a reference to the step.
+ */
+export function stepLabelsFrom(strings) {
+  const labels = new Set();
+  for (const key of Object.keys(strings || {})) {
+    const m = STEP_KEY.exec(key);
+    if (m && m[1].trim().split(/\s+/).length >= 2) labels.add(m[1]);
+  }
+  return [...labels].sort((a, b) => b.length - a.length || a.localeCompare(b));
+}
+
+const escapeRegExp = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+/**
+ * A function from English cue text to the step labels it names. Matching is exact and case-sensitive,
+ * on whole words: a cue names a step when it quotes the heading, as in "Next: Select the stations.",
+ * not when the same words happen to occur in lowercase mid-sentence. The longest label wins, the
+ * same rule as shadowed() in scripts/validate-locales.mjs: a label inside a longer one the cue also
+ * names is not required separately.
+ */
+export function stepLabelMatcher(labels) {
+  const tests = labels.map((label) => [label, new RegExp(`(?<![\\p{L}\\p{N}])${escapeRegExp(label)}(?![\\p{L}\\p{N}])`, 'u')]);
+  return (text) => {
+    const found = tests.filter(([, re]) => re.test(text)).map(([label]) => label);
+    return found.filter((label) => !found.some((other) => other !== label && other.includes(label)));
+  };
+}
+
 /** The distinct cue texts of a track, in first-seen order. These are the catalogue keys. */
 export function cueStrings(cues) {
   return [...new Set(cues.map((cue) => cue.text))];
