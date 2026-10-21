@@ -100,6 +100,35 @@ Claims per guide in `docs/claims/claims.json`, by status (counts only). No guide
 | 6 | `seasonal-profiles` | 25 | 0 | 0 | 4 |
 | | **Total** | **843** | **0** | **0** | **28** |
 
+### Wave 6 gate
+
+**Wave 6 gate: open (A), 2026-10-20.** Checked on branch `e196-wave6` before any wave 6 script was written. Target Profiles ships in production, so the gate is condition A (shipped, Verified, reachable in `/demo`). Route B, a COMING SOON treatment, is retired: no wave 6 episode carries `treatment: coming-soon`, and none cites a Not shipping claim (there are none).
+
+Claims for the four Target Profiles guides in `docs/claims/guides/`, by status, after the claims audit corrected and re-verified them:
+
+| Guide | Verified | Needs expert | Wrong | Not shipping | Unverified | Verified claims citing production `1aa4f286` |
+|---|---|---|---|---|---|---|
+| `target-profiles` | 28 | 1 | 0 | 0 | 0 | 28 |
+| `creating-profiles` | 25 | 0 | 0 | 0 | 0 | 25 |
+| `updating-profiles` | 28 | 0 | 0 | 0 | 0 | 28 |
+| `seasonal-profiles` | 25 | 4 | 0 | 0 | 0 | 23; `before/2` and `before/3` cite the Lynx manual 373-1135 rev 02 instead |
+| **Total** | **106** | **5** | **0** | **0** | **0** | **104** |
+
+| Check | Evidence | Result |
+|---|---|---|
+| Claims | The table above: 0 Wrong, 0 Not shipping, 0 Unverified. The 5 Needs expert claims are operational judgements put to the experts for the in-person review (`target-profiles/3/5`, the tournament routine; `seasonal-profiles/1/2`, which set of profiles covers most courses; `seasonal-profiles/2/1`, the step title "Apply the evening before"; `seasonal-profiles/4/6` and `4/7`, the push window). None is Wrong | open, with the call below |
+| Production | `docs/claims/sources.json` pins production to `origin/Deployments/release/261014_phase_3a` at `1aa4f28622cc3cc9637f0d61a438bf16bcf01924`, `confirmed: true`. After `git fetch` on 2026-10-20 it is still the newest `Deployments/release/*` branch (the next is `260921_*`), and at that SHA `site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55` still lists Target Profiles in the settings menu | holds |
+| `/demo` menu | Checked in the IntelliDash source at the production SHA, read-only: the settings dialog's menu list (`sa-settings-dlg.component.ts:53-58`) is a fixed list with no Demo Mode condition, Target Profiles third of four (`:55`); the dialog's only Demo Mode guard is on Save (`:186-190`, the unsupported-feature message). In Demo Mode the profile and applied-profile loads return empty lists (`site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts:247-259`), so the tab opens on the five default slots, empty. Not opened in a live `/demo` session: that needs the owner's hand sign-in to the demo form and the local capture config, which this machine does not have (as for wave 1) | holds, by the source |
+| Release status | `src/release.json` on `main` (commit 06196c6, updated 2026-10-20) records `target-profiles`, `creating-profiles`, `updating-profiles` and `seasonal-profiles` as `ga`, basis the menu entry at `sa-settings-dlg.component.ts:55` on production `1aa4f286` | GA: every build shows them, whatever `SA_SHOW_BETA` says |
+| Live guides | The corrected guides are published: the live site carries the corrected Target Profiles text ("Five profile slots; an empty slot shows -- for Last Updated and Stations.") | live |
+| Figures | The guide site's recreation draws the production table, five slots per Lynx course with the Target Profile, Last Updated, Stations, Update from Current and Apply Profile columns (`src/transform-app.mjs`, edit "target profiles: card list becomes the real five-column table"), not the earlier three-card design | matches production |
+
+**The call.** The gate as planned asks for every claim of the four guides to be Verified; 5 are Needs expert. Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22: those 5 are questions for the experts, not a gate, so the wave opens. No wave 6 line narrates them and none is on screen as a label, with one exception: the template puts each step title on its chapter card (episode lint (b)), so episode 26's second chapter card reads APPLY THE EVENING BEFORE, as the live guide's step title does; its narration cites only Verified claims. If the experts change that step title, the chapter card is rebuilt with it.
+
+**Footage.** Like wave 1, wave 6 is captured from the guide site's recreation, one lifted figure per chapter, because no Demo Mode session is available on this machine; no footage comes from a Target Profiles feature-branch build, and no Target Profiles write is clicked (hover and focus only).
+
+**Episode 22's end card.** Push failures (episode 22) is produced in parallel by wave 5 on its own branch, where episodes 23-26 are still blocked, so its end card may carry the series-end line. Once the branches are merged, `npm run test:episodes -- push-failures` asks for "Next on Double Click: Apply a target profile" (check (d)), and the end card is rebuilt, re-verified and re-delivered as "When a blocked episode opens" in [`RUNBOOK.md`](RUNBOOK.md#procedure) says.
+
 ### Step rewrite coverage
 
 Whether each guide renders the new step shape (a Do, a You-should-see and an If-not line on every step), read from the built site at `#/<key>`. No guide does yet on this branch. An episode's preflight (RUNBOOK.md, EP-0) re-checks its own guide, so a wave starts as soon as its guides are rewritten; until then an episode narrates the guide's current text and is flagged for a re-check when the rewrite lands.
@@ -138,7 +167,7 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 22 approved, 4 blocked.
+26 episodes: 26 approved.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
@@ -164,14 +193,10 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 20 | 5 | `threshold-questions` | Threshold questions | approved | 2:06 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 21 | 5 | `calculation-questions` | Calculation questions | approved | 2:01 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 22 | 5 | `push-failures` | Push failures | approved | 1:38 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 23 | 6 | `target-profiles` | Apply a target profile | blocked | — | — | — | — |
-| 24 | 6 | `creating-profiles` | Capturing profiles | blocked | — | — | — | — |
-| 25 | 6 | `updating-profiles` | Updating profiles | blocked | — | — | — | — |
-| 26 | 6 | `seasonal-profiles` | Managing seasonal profiles | blocked | — | — | — | — |
-
-Blocked:
-
-- #23 `target-profiles`, #24 `creating-profiles`, #25 `updating-profiles`, #26 `seasonal-profiles` (checked 2026-10-20): Waits for the corrected Target Profiles guides to be published on the live site, which is in progress on 2026-10-20 as the last step of the claims audit. Target Profiles ships in production, so no approval gate applies: produce these four episodes as soon as their guides are live, and re-check the claims for each guide at preflight.
+| 23 | 6 | `target-profiles` | Apply a target profile | approved | 1:58 | 2026-10-20 | 2026-10-21 | executor 2026-10-21; experts in person 2026-10-22 |
+| 24 | 6 | `creating-profiles` | Capturing profiles | approved | 1:50 | 2026-10-20 | 2026-10-21 | — |
+| 25 | 6 | `updating-profiles` | Updating profiles | approved | 1:48 | 2026-10-20 | 2026-10-21 | — |
+| 26 | 6 | `seasonal-profiles` | Managing seasonal profiles | approved | 1:47 | 2026-10-20 | 2026-10-21 | — |
 
 **Credits per wave** (ElevenLabs credits; estimate from series.json, method under Voice-over credits above; before and after from the account, counts only)
 
@@ -182,7 +207,7 @@ Blocked:
 | 3 | Station Management | 4 | 4,680 to 9,360 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-20 (episode 10); experts in person 2026-10-22 |
 | 4 | Calculations | 4 | 4,680 to 9,360 | 29,148 | 17,717 | 11,431 | decided by executor 2026-10-20 (episode 14); experts in person 2026-10-22 |
 | 5 | Troubleshooting | 5 | 5,850 to 11,700 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-21 (episode 18); experts in person 2026-10-22 |
-| 6 | Target Profiles | 4 | 4,680 to 9,360 | — | — | — | — |
+| 6 | Target Profiles | 4 | 4,680 to 9,360 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-21 (episode 23); experts in person 2026-10-22 |
 <!-- tracker:end -->
 
 ## Episode format
