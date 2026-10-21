@@ -25,3 +25,7 @@ _incoming/
 # Expert review pack (npm run review-pack). Internal: shared through Toro SharePoint/Teams,
 # never committed and never published. build.mjs does not copy it into dist/.
 review-pack/
+
+# Moderated-session raw files (__saExport() events and moderator sheets). Participant data: never
+# committed. docs/test-protocol.md > A note on the data; scripts/session-readout.mjs reads them.
+_sessions/
