@@ -16,6 +16,10 @@
 //   4. Every key whose value is a label the reproduction draws (src/i18n/en-us.json
 //      _screenStrings), compared ignoring case and spacing because the product draws some labels
 //      in capitals with CSS ("REVIEW THRESHOLD" on screen, "Review Threshold" in the catalogue).
+//   5. The hardcoded column headers of the Target Profiles tab. The settings dialog's template writes
+//      them as translate-pipe literals ({{ 'Update from Current' | translate }}) that are not keys of
+//      any catalogue, so every locale of the product shows them in English. The provenance is the
+//      template line that holds the literal.
 // Where several keys share a value, a SPATIAL_ADJUST key is recorded first, then a key the module
 // names, then the alphabetically first. Values with markup, placeholders ({{ num }}, {0}) or URLs
 // are dropped, as scripts/product-untranslated.mjs drops them: they are messages, and a marker never
@@ -42,6 +46,7 @@ const argv = process.argv.slice(2);
 const check = argv.includes('--check');
 const ID = argv.find((a) => !a.startsWith('--')) || '/Users/adammunir/IntelliDash';
 const DIALOG = 'site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts';
+const DIALOG_HTML = 'site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html';
 
 const sources = JSON.parse(await readFile('docs/claims/sources.json', 'utf8'));
 const { sha: pin, ref } = sources.intellidash.production;
@@ -103,6 +108,17 @@ for (const item of menu) {
   }
 }
 
+// The Target Profiles column headers: a <th> whose translate-pipe literal is not a catalogue key.
+// A literal that IS a key of en-us.json is translated by the product, and a value that is already
+// a catalogue label above keeps that provenance, so both are left out here.
+const headerLiterals = new Map();
+git(['cat-file', '-p', `${pin}:${DIALOG_HTML}`]).split('\n').forEach((line, i) => {
+  for (const m of line.matchAll(/<th[^>]*>\s*\{\{\s*'([^']+)'\s*\|\s*translate\s*\}\}/g)) {
+    if (en[m[1]] === undefined && !catalogueLabels.has(m[1]) && !headerLiterals.has(m[1])) headerLiterals.set(m[1], `hardcoded: ${DIALOG_HTML}:${i + 1}`);
+  }
+});
+for (const [label, where] of headerLiterals) hardcoded.set(label, where);
+
 const labels = {};
 for (const [label, keys] of catalogueLabels) labels[label] = keys.sort((a, b) => rank(a) - rank(b) || a.localeCompare(b))[0];
 for (const [label, where] of hardcoded) labels[label] = where;
@@ -119,7 +135,8 @@ const meta = {
   harvestedAt: new Date().toISOString(),
   rules: 'SPATIAL_ADJUST.* values; values of other keys the spatial-adjust module names; values matching a '
     + 'reproduced screen label (src/i18n/en-us.json _screenStrings), ignoring case and spacing; the hardcoded '
-    + 'Settings rail titles and descriptions (src/i18n/product-labels.json surfaces.settings.menu). Values '
+    + 'Settings rail titles and descriptions (src/i18n/product-labels.json surfaces.settings.menu); the hardcoded '
+    + 'Target Profiles column headers (translate-pipe literals that no catalogue holds). Values '
     + 'with markup, placeholders or URLs are dropped.',
   labels: Object.keys(sorted).length,
 };

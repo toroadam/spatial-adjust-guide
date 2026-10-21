@@ -235,6 +235,157 @@
       "previousText": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ."
     },
     {
+      "id": "seasonal-profiles/start/1",
+      "guide": "seasonal-profiles",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/where/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/start/2",
+      "guide": "seasonal-profiles",
+      "step": "start",
+      "field": "open",
+      "text": "The Target Profiles tab of the Settings dialog.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 35
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim target-profiles/1/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/start/3",
+      "guide": "seasonal-profiles",
+      "step": "start",
+      "field": "needs",
+      "text": "Profiles captured for the conditions you plan for.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims seasonal-profiles/1/1, seasonal-profiles/1/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/start/4",
+      "guide": "seasonal-profiles",
+      "step": "start",
+      "field": "needs",
+      "text": "Capturing profiles shows how.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "207-212"
+        }
+      ],
+      "note": "Cross-reference to the guide on capturing a profile (Update from Current icon, sa-settings-dlg.component.html:207-212).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "seasonal-profiles/before/1",
       "guide": "seasonal-profiles",
       "step": "before",
@@ -356,17 +507,155 @@
       "id": "seasonal-profiles/1/2",
       "guide": "seasonal-profiles",
       "step": "1",
-      "field": "body",
-      "text": "Three or four profiles covers most courses: a summer baseline, a shoulder-season set, a tournament set, and a recovery set for after aeration or overseed.",
+      "field": "do",
+      "text": "In the [[Target Profile]] column, name each slot for a condition you plan for.",
       "type": "behaviour",
-      "status": "Needs expert",
+      "status": "Verified",
       "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 204
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "18-26"
+        },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
           "line": "103-109"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims creating-profiles/3/1, creating-profiles/3/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Three or four profiles covers most courses: a summer baseline, a shoulder-season set, a tournament set, and a recovery set for after aeration or overseed."
+    },
+    {
+      "id": "seasonal-profiles/1/3",
+      "guide": "seasonal-profiles",
+      "step": "1",
+      "field": "see",
+      "text": "Each box shows its new name, such as Summer Baseline or Tournament Week.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 204
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "18-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim creating-profiles/3/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/1/4",
+      "guide": "seasonal-profiles",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If a new name is lost, the dialog was cancelled.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "217-229"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "261-270"
+        }
+      ],
+      "note": "Cancel with unsaved changes asks whether to discard them; choosing Discard changes closes the dialog and loses the names (sa-settings-dlg.component.ts:217-229).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/1/5",
+      "guide": "seasonal-profiles",
+      "step": "1",
+      "field": "ifNot",
+      "text": "Rename the slot again and select [[Save Changes]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "48-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 204
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/1/6",
+      "guide": "seasonal-profiles",
+      "step": "1",
+      "field": "why",
+      "text": "With only 5 slots per course, name each one for a condition, not a date.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 205
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
         },
         {
           "source": "intellidash",
@@ -376,13 +665,13 @@
           "line": "28-31"
         }
       ],
-      "note": "The product's own defaults are Spring, Summer, Fall, Winter and Tournament (sa-settings-dlg.component.ts:103-109), which differs from the set the guide recommends. Which set covers most courses is an agronomic judgement.",
-      "question": "Do three or four profiles (summer baseline, shoulder season, tournament, post-aeration or overseed recovery) cover most courses better than the product's default Spring, Summer, Fall, Winter and Tournament slots?",
+      "note": "Evidence carried over from the earlier ledger claim creating-profiles/3/3; the sentence was reworded for the step standard.",
+      "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/1/3",
+      "id": "seasonal-profiles/1/7",
       "guide": "seasonal-profiles",
       "step": "1",
       "field": "caption",
@@ -436,58 +725,118 @@
       "id": "seasonal-profiles/2/2",
       "guide": "seasonal-profiles",
       "step": "2",
-      "field": "body",
-      "text": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "On the profile’s row, select the icon under [[Apply Profile]].",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "861-936"
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "213-218"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "911-915"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "921-924"
-        },
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "253-266"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets."
+    },
+    {
+      "id": "seasonal-profiles/2/3",
+      "guide": "seasonal-profiles",
+      "step": "2",
+      "field": "see",
+      "text": "The [[Use Target Profile?]] dialog opens, with a count of [[Matching Stations]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "282-288"
+          "line": "272-314"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
-          "line": 447
+          "line": "490-491"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 421
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (seasonal-profiles/2/2); docs/text-corrections.md §14 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "The confirmation is titled SPATIAL_ADJUST.USE_TARGET_PROFILE \"Use Target Profile?\" and its summary table has a SPATIAL_ADJUST.MATCHING_STATIONS \"Matching Stations\" row (sa-settings-dlg.component.html:272-314).",
       "question": "",
       "developNote": "",
       "correction": "",
-      "previousText": "Applying rewrites every target and recalculates every suggestion."
+      "previousText": "The [[Use Target Profile?]]"
     },
     {
-      "id": "seasonal-profiles/2/3",
+      "id": "seasonal-profiles/2/4",
       "guide": "seasonal-profiles",
       "step": "2",
-      "field": "body",
+      "field": "ifNot",
+      "text": "If nothing opens, you may have cleared an earlier choice on that row.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "253-261"
+        }
+      ],
+      "note": "onApplyTargetProfile toggles: when the row is already marked it clears the mark and returns without opening the dialog (sa-settings-dlg.component.ts:257-261).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/2/5",
+      "guide": "seasonal-profiles",
+      "step": "2",
+      "field": "ifNot",
+      "text": "Select the icon again.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "253-266"
+        }
+      ],
+      "note": "A second selection after clearing opens the confirmation (sa-settings-dlg.component.ts:263-265).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/2/6",
+      "guide": "seasonal-profiles",
+      "step": "2",
+      "field": "why",
       "text": "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan.",
       "type": "behaviour",
       "status": "Verified",
@@ -513,7 +862,7 @@
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/2/4",
+      "id": "seasonal-profiles/2/7",
       "guide": "seasonal-profiles",
       "step": "2",
       "field": "caption",
@@ -546,6 +895,400 @@
       "guide": "seasonal-profiles",
       "step": "3",
       "field": "title",
+      "text": "Confirm the profile",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "272-280"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "268-279"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/3/2",
+      "guide": "seasonal-profiles",
+      "step": "3",
+      "field": "do",
+      "text": "In the [[Use Target Profile?]] dialog, select [[Confirm]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "272-280"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 654
+        }
+      ],
+      "note": "The dialog confirm button is STRINGS.CONFIRM \"Confirm\" (uppercased on screen) and calls onApplyProfile (sa-settings-dlg.component.html:276-279).",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "In the [[Use Target Profile?]]"
+    },
+    {
+      "id": "seasonal-profiles/3/3",
+      "guide": "seasonal-profiles",
+      "step": "3",
+      "field": "see",
+      "text": "The dialog closes, and an exclamation mark on the icon shows the profile will be applied on save.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "268-279"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 216
+        }
+      ],
+      "note": "Confirming sets applyProfile on the chosen slot and closes the dialog; the exclamation icon has tooltip \"Will be applied on save\" (sa-settings-dlg.component.html:216).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/3/4",
+      "guide": "seasonal-profiles",
+      "step": "3",
+      "field": "ifNot",
+      "text": "If there is no exclamation mark, the choice was cancelled.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "281-285"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 216
+        }
+      ],
+      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/3/5",
+      "guide": "seasonal-profiles",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Select the icon under [[Apply Profile]] again.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "253-261"
+        }
+      ],
+      "note": "A second selection on a marked row clears the mark (sa-settings-dlg.component.ts:257-261); a further selection then opens the confirmation again (:263-265).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/3/6",
+      "guide": "seasonal-profiles",
+      "step": "3",
+      "field": "why",
+      "text": "Stations in the profile that are no longer scanned are skipped, which is why [[Matching Stations]] can be lower.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "282-288"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "310-313"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "446-447"
+        }
+      ],
+      "note": "The dialog warns when matching stations differ from the stations saved in the profile and says \"Matching stations will be updated, while unmatched stations will be ignored.\" (SPATIAL_ADJUST.PROFILE_UNMATCHED_STATIONS_WARNING).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/3/7",
+      "guide": "seasonal-profiles",
+      "step": "3",
+      "field": "caption",
+      "text": "A chosen profile waits for Save Changes.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "493-499"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 491
+        }
+      ],
+      "note": "SPATIAL_ADJUST.USE_TARGET_PROFILE_INFO says the replacement happens when you save; the mark is only a flag on the dialog until onSave sends it.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/4/1",
+      "guide": "seasonal-profiles",
+      "step": "4",
+      "field": "title",
+      "text": "Save the change",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "48-62"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/4/2",
+      "guide": "seasonal-profiles",
+      "step": "4",
+      "field": "do",
+      "text": "Select [[Save Changes]] at the bottom of the dialog.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "48-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 459
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The push dialog is the same as any other day."
+    },
+    {
+      "id": "seasonal-profiles/4/3",
+      "guide": "seasonal-profiles",
+      "step": "4",
+      "field": "see",
+      "text": "A busy sign shows while the profile is applied, then the dialog closes and the dashboard reloads.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 45
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "201-209"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "493-499"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "543-546"
+        }
+      ],
+      "note": "onSave sets isBusy, which shows the waiting indicator (html:45), waits for the queued profile operation to finish, then reloads the dashboard through saBulkAdjustCompleted and closes (sa-settings-dlg.component.ts:201-209, :543-546).",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The difference is the size of the change set: a profile switch usually queues most of the course at once."
+    },
+    {
+      "id": "seasonal-profiles/4/4",
+      "guide": "seasonal-profiles",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If the dialog stays open with [[Unable to save data]], the save did not finish.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "208-213"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 166
+        }
+      ],
+      "note": "On error onSave shows the generic save error, GENERIC_SAVE_ERROR_SUMMARY \"Unable to save data\", and does not emit save, so the dialog stays open (sa-settings-dlg.component.ts:208-213).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/4/5",
+      "guide": "seasonal-profiles",
+      "step": "4",
+      "field": "ifNot",
+      "text": "Reload the page and check the profile list before you try again.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "510-518"
+        }
+      ],
+      "note": "The profile operation can fail or time out after ten minutes with advice to refresh before trying again (sa-settings-dlg.component.ts:510-518); a failed save does not reload the list, so reloading is the way to see what was stored.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/4/6",
+      "guide": "seasonal-profiles",
+      "step": "4",
+      "field": "caption",
+      "text": "Nothing is applied until Save Changes.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "493-499"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 491
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/5/1",
+      "guide": "seasonal-profiles",
+      "step": "5",
+      "field": "title",
       "text": "Read the new suggestions before pushing",
       "type": "behaviour",
       "status": "Verified",
@@ -571,10 +1314,153 @@
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/3/2",
+      "id": "seasonal-profiles/5/2",
       "guide": "seasonal-profiles",
-      "step": "3",
-      "field": "body",
+      "step": "5",
+      "field": "do",
+      "text": "Read the [[Suggested]] column the next morning.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3001-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "288-294"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims seasonal-profiles/2/3, seasonal-profiles/2/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/5/3",
+      "guide": "seasonal-profiles",
+      "step": "5",
+      "field": "see",
+      "text": "Stations far below their new target rise toward the cap; stations far above it fall toward 0%.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "76-81"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "64-91"
+        }
+      ],
+      "note": "The amount is the target minus the working VWC plus today’s adjusted ET, capped at the daily maximum and floored at 0 (SpatialAdjustLogic.cs:64-91). Evidence carried over from the earlier ledger claim seasonal-profiles/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/5/4",
+      "guide": "seasonal-profiles",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If the profile’s name is not above the table, it was not applied, or a target has been edited since.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-219"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "698-707"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "30-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 432
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 1231
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2432-2447"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "326-332"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim target-profiles/verify/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/5/5",
+      "guide": "seasonal-profiles",
+      "step": "5",
+      "field": "why",
       "text": "A profile changes targets, and targets change deficits.",
       "type": "behaviour",
       "status": "Verified",
@@ -600,38 +1486,9 @@
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/3/3",
+      "id": "seasonal-profiles/5/6",
       "guide": "seasonal-profiles",
-      "step": "3",
-      "field": "body",
-      "text": "Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3037-3043"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustLogic.cs",
-          "line": "76-81"
-        }
-      ],
-      "note": "A suggestion reaches the cap when the new target sits far enough above the station's moisture (SpatialAdjustService.cs:3037-3043). A target far below the station's moisture shows the other extreme, 0%, so scan for both.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "seasonal-profiles/3/4",
-      "guide": "seasonal-profiles",
-      "step": "3",
+      "step": "5",
       "field": "caption",
       "text": "New targets, new suggestions — review before pushing.",
       "type": "behaviour",
@@ -651,9 +1508,228 @@
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/4/1",
+      "id": "seasonal-profiles/6/1",
       "guide": "seasonal-profiles",
-      "step": "4",
+      "step": "6",
+      "field": "title",
+      "text": "Open Push Changes",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "34-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-99"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/6/2",
+      "guide": "seasonal-profiles",
+      "step": "6",
+      "field": "do",
+      "text": "At the right of the toolbar, select [[Push Changes]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "255-267"
+        }
+      ],
+      "note": "Push Changes is the first control in the toolbar’s right-hand group, #sa-tb-right, and opens the push dialog (sa-main-toolbar.component.html:33-42, :94-99).",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "At the bottom of the [[Push Changes]] dialog, select the push button."
+    },
+    {
+      "id": "seasonal-profiles/6/3",
+      "guide": "seasonal-profiles",
+      "step": "6",
+      "field": "see",
+      "text": "The [[Push Changes]] dialog opens, with the changes it will send.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-99"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "14-30"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "68-104"
+        }
+      ],
+      "note": "The dialog is headed Push Changes and lists the stations available to push and those already pushed today (sa-confirm-push-dlg.component.html:14-30, :68-104).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/6/4",
+      "guide": "seasonal-profiles",
+      "step": "6",
+      "field": "ifNot",
+      "text": "If [[Push Changes]] is greyed out, nothing is waiting.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 34
+        }
+      ],
+      "note": "The button is disabled when stationsPendingUpdate is empty or a push is running (sa-main-toolbar.component.html:34).",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "If the [[Push Changes]] dialog is not open, select [[Push Changes]] at the right of the toolbar."
+    },
+    {
+      "id": "seasonal-profiles/6/5",
+      "guide": "seasonal-profiles",
+      "step": "6",
+      "field": "ifNot",
+      "text": "Check that the profile was applied.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-219"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "698-707"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "30-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 432
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 1231
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2432-2447"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "326-332"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "30-31"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim target-profiles/verify/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "After a profile, the button’s count, as in Push 148 changes to Lynx, is often most of the course."
+    },
+    {
+      "id": "seasonal-profiles/6/6",
+      "guide": "seasonal-profiles",
+      "step": "6",
+      "field": "caption",
+      "text": "Push Changes sits at the left of the toolbar’s right-hand group.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-47"
+        }
+      ],
+      "note": "Push Changes is the first child of #sa-tb-right, ahead of the Pushed Today counter and the tool buttons (sa-main-toolbar.component.html:33-47).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/7/1",
+      "guide": "seasonal-profiles",
+      "step": "7",
       "field": "title",
       "text": "Push once you agree with them",
       "type": "behaviour",
@@ -673,12 +1749,70 @@
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/4/2",
+      "id": "seasonal-profiles/7/2",
       "guide": "seasonal-profiles",
-      "step": "4",
-      "field": "body",
-      "text": "The push dialog is the same as any other day.",
-      "type": "behaviour",
+      "step": "7",
+      "field": "do",
+      "text": "Select the footer button of the [[Push Changes]] dialog, such as Push 148 changes to Lynx.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "142-147"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 907
+        }
+      ],
+      "note": "The dialog footer has a Push button labelled STRINGS.PUSH_N_CHANGES_TO_LYNX \"Push {{num}} changes to Lynx\" and a Cancel button (sa-confirm-push-dlg.component.html:142-147). The number in the guide is an example.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/7/3",
+      "guide": "seasonal-profiles",
+      "step": "7",
+      "field": "see",
+      "text": "A progress dialog opens and counts the stations as they are sent to Lynx.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "189-200"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 415
+        }
+      ],
+      "note": "Push progress is reported as LYNX_PUSH_PUSHING \"Pushing Percent Adjustments to Lynx ({{index}} of {{count}})\" (sa-main-toolbar.component.ts:189-200).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/7/4",
+      "guide": "seasonal-profiles",
+      "step": "7",
+      "field": "ifNot",
+      "text": "If the [[Push Changes]] dialog is not open, select [[Push Changes]] at the right of the toolbar first.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -686,27 +1820,27 @@
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
-          "line": "94-99"
+          "line": "34-42"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
-          "line": 208
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-99"
         }
       ],
-      "note": "There is no profile-specific push path; the same Push Changes dialog is used (sa-main-toolbar.component.html:94-99).",
+      "note": "",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/4/3",
+      "id": "seasonal-profiles/7/5",
       "guide": "seasonal-profiles",
-      "step": "4",
-      "field": "body",
-      "text": "The difference is the size of the change set: a profile switch usually queues most of the course at once.",
+      "step": "7",
+      "field": "why",
+      "text": "After a profile, the count on that button is often most of the course.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -725,15 +1859,15 @@
           "line": "659-662"
         }
       ],
-      "note": "After the reload, stations without a % Adj. override take the new suggestion (sa-dashboard.component.ts:597-598), and every enabled one whose value now differs from Lynx's Current is pending (:659-662). Stations with an override keep it and may not join the change set.",
+      "note": "Evidence carried over from the earlier ledger claims seasonal-profiles/4/3, seasonal-profiles/4/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/4/4",
+      "id": "seasonal-profiles/7/6",
       "guide": "seasonal-profiles",
-      "step": "4",
+      "step": "7",
       "field": "caption",
       "text": "A profile switch queues a large push.",
       "type": "behaviour",
@@ -753,9 +1887,9 @@
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/4/5",
+      "id": "seasonal-profiles/7/7",
       "guide": "seasonal-profiles",
-      "step": "4",
+      "step": "7",
       "field": "caption",
       "text": "Review it as one.",
       "type": "behaviour",
@@ -775,9 +1909,9 @@
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/4/6",
+      "id": "seasonal-profiles/7/8",
       "guide": "seasonal-profiles",
-      "step": "4",
+      "step": "7",
       "field": "tip",
       "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
       "type": "prerequisite",
@@ -794,9 +1928,9 @@
       "correction": ""
     },
     {
-      "id": "seasonal-profiles/4/7",
+      "id": "seasonal-profiles/7/9",
       "guide": "seasonal-profiles",
-      "step": "4",
+      "step": "7",
       "field": "tip",
       "text": "Outside that window the push does not reach the course, and no error tells you so.",
       "type": "behaviour",

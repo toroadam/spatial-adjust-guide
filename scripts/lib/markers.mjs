@@ -53,6 +53,12 @@ export function hardcodedLabels(root = '.') {
     if (item.title) out.add(item.title);
     if (item.description) out.add(item.description);
   }
+  // The Target Profiles column headers are translate-pipe literals no catalogue holds. The label
+  // fixture records each with a "hardcoded:" provenance (scripts/build-label-fixture.mjs).
+  try {
+    const labels = JSON.parse(readFileSync(`${root}/src/i18n/labels.en-us.json`, 'utf8')).labels || {};
+    for (const [label, where] of Object.entries(labels)) if (String(where).startsWith('hardcoded:')) out.add(label);
+  } catch { /* no fixture yet: the rail alone */ }
   try {
     const dlg = readFileSync(DIALOG, 'utf8');
     for (const m of dlg.matchAll(/new SaDlgMenuItem\('([^']+)',\s*'([^']+)'/g)) {

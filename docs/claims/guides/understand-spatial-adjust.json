@@ -121,6 +121,90 @@
       "correction": ""
     },
     {
+      "id": "understand-spatial-adjust/start/1",
+      "guide": "understand-spatial-adjust",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/where/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understand-spatial-adjust/start/2",
+      "guide": "understand-spatial-adjust",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-112"
+        }
+      ],
+      "note": "The push, settings and announcement dialogs open over the dashboard from the toolbar (:94-112); the guide starts with none open.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understand-spatial-adjust/start/3",
+      "guide": "understand-spatial-adjust",
+      "step": "start",
+      "field": "needs",
+      "text": "An IntelliDash sign-in with Spatial Adjust access, on a desktop or tablet.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/spatial-adjust-routing.module.ts",
+          "line": "10-13"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/before/2, understand-spatial-adjust/before/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "understand-spatial-adjust/before/1",
       "guide": "understand-spatial-adjust",
       "step": "before",
@@ -227,8 +311,8 @@
       "id": "understand-spatial-adjust/1/2",
       "guide": "understand-spatial-adjust",
       "step": "1",
-      "field": "body",
-      "text": "The route is /spatialadjust, all lowercase, inside the IntelliDash site.",
+      "field": "do",
+      "text": "Look at the address in your browser.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -240,17 +324,85 @@
           "line": "19-23"
         }
       ],
-      "note": "Root route path 'spatialadjust'.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/1/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "The route is /spatialadjust, all lowercase, inside the IntelliDash site."
     },
     {
       "id": "understand-spatial-adjust/1/3",
       "guide": "understand-spatial-adjust",
       "step": "1",
-      "field": "body",
-      "text": "A camelCase URL does not resolve — it redirects to the generic error page.",
+      "field": "see",
+      "text": "It ends in /spatialadjust, all lowercase, and the Spatial Adjust toolbar shows at the top of the page.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "1-92"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/1/2, understand-spatial-adjust/1/5; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "A camelCase URL does not resolve — it redirects to the generic error page."
+    },
+    {
+      "id": "understand-spatial-adjust/1/4",
+      "guide": "understand-spatial-adjust",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If you see an error page, check the address.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": 25
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/root-components/ah-snap/ah-snap.component.html",
+          "line": "1-5"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "20-34"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/1/3, understand-spatial-adjust/1/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Access is checked per user before the view loads."
+    },
+    {
+      "id": "understand-spatial-adjust/1/5",
+      "guide": "understand-spatial-adjust",
+      "step": "1",
+      "field": "ifNot",
+      "text": "A camelCase address such as /spatialAdjust does not work.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -269,17 +421,17 @@
           "line": "1-5"
         }
       ],
-      "note": "Angular matches route paths case-sensitively. Anything other than 'spatialadjust' hits the wildcard route and is redirected to /ah-snap, the generic error page.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/1/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understand-spatial-adjust/1/4",
+      "id": "understand-spatial-adjust/1/6",
       "guide": "understand-spatial-adjust",
       "step": "1",
-      "field": "body",
-      "text": "Access is checked per user before the view loads.",
+      "field": "why",
+      "text": "IntelliDash checks each user’s access before the page loads.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -291,13 +443,13 @@
           "line": "20-34"
         }
       ],
-      "note": "SpatialAdjustGuardService runs before the module loads.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/1/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understand-spatial-adjust/1/5",
+      "id": "understand-spatial-adjust/1/7",
       "guide": "understand-spatial-adjust",
       "step": "1",
       "field": "caption",
@@ -355,8 +507,8 @@
       "id": "understand-spatial-adjust/2/2",
       "guide": "understand-spatial-adjust",
       "step": "2",
-      "field": "body",
-      "text": "Each station’s Avg.",
+      "field": "do",
+      "text": "In the table, find the [[Avg. VWC]] column.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -379,17 +531,18 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Read with understand-spatial-adjust/2/3; the sentence splitter cut \"Avg. VWC\" in two. See that claim's note.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/2/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "In the table, find the [[Avg."
     },
     {
       "id": "understand-spatial-adjust/2/3",
       "guide": "understand-spatial-adjust",
       "step": "2",
-      "field": "body",
-      "text": "VWC comes from a TurfRad moisture scan — the mean volumetric water content measured across the station, with the date it was captured beside the station name.",
+      "field": "see",
+      "text": "Each station shows the mean VWC that a TurfRad scan measured, with the scan date beside the station name.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -412,13 +565,155 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "A station's Avg. VWC is the TurfRad moisture mean of its sprinkler, or the mean across its sprinklers for a multi-sprinkler station, and the latest scan date sits beside the name (sa-dash-table.component.ts:365-396, sa-table-card.component.html:22-25). 373-1135 rev 02 §Table Functionality: \"Avg. VWC: Average of scans within the sprinkler boundary from TurfRad\". On a day with no scan the figure is the model's estimate under Option 2, drawn grey and italic (see dashboard-overview/4/7), or \"--\" under Option 1.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/2/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "understand-spatial-adjust/2/4",
+      "guide": "understand-spatial-adjust",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If a value is grey and italic, no scan arrived today.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3032"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3042
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "374-375"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3280-3325"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-130"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understand-spatial-adjust/2/5",
+      "guide": "understand-spatial-adjust",
+      "step": "2",
+      "field": "ifNot",
+      "text": "It is modelled instead.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3032"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3042
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "374-375"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3280-3325"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-130"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understand-spatial-adjust/2/6",
       "guide": "understand-spatial-adjust",
       "step": "2",
       "field": "caption",
@@ -465,8 +760,8 @@
       "id": "understand-spatial-adjust/3/2",
       "guide": "understand-spatial-adjust",
       "step": "3",
-      "field": "body",
-      "text": "Target VWC is the moisture you want that station to hold.",
+      "field": "do",
+      "text": "In a station row, find the [[Target VWC]] box.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -482,17 +777,18 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "373-1135 rev 02 §Table Functionality: Target VWC is user-defined and can be unique for each station.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/3/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Target VWC is the moisture you want that station to hold."
     },
     {
       "id": "understand-spatial-adjust/3/3",
       "guide": "understand-spatial-adjust",
       "step": "3",
-      "field": "body",
-      "text": "It is yours to set, station by station, between 0 and 50 percent.",
+      "field": "see",
+      "text": "It holds a whole number from 0 to 50 that you set for that station.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -518,17 +814,109 @@
           "line": "3128-3133"
         }
       ],
-      "note": "The input takes whole numbers 0-50 (sa-table-card.component.html:40-47), and bulk changes are clamped to the same range (SpatialAdjustLogic.cs:93-105). Until the user sets one, the target starts at the station's measured VWC (SpatialAdjustService.cs:3128-3133).",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/3/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "It is yours to set, station by station, between 0 and 50 percent."
     },
     {
       "id": "understand-spatial-adjust/3/4",
       "guide": "understand-spatial-adjust",
       "step": "3",
-      "field": "body",
-      "text": "The gap between measured and target is what the calculation works on.",
+      "field": "ifNot",
+      "text": "If the row shows [[Avg. Target VWC]], it is a hole or area row.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-13"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "25-33"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "72-96"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 376
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 409
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/5/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "If the row shows [[Avg."
+    },
+    {
+      "id": "understand-spatial-adjust/3/5",
+      "guide": "understand-spatial-adjust",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Select a hole row to see its stations.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "268-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "108-118"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/4/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understand-spatial-adjust/3/6",
+      "guide": "understand-spatial-adjust",
+      "step": "3",
+      "field": "why",
+      "text": "The gap between the measured value and the target is what the calculation works on.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -554,13 +942,13 @@
           "line": "58-60"
         }
       ],
-      "note": "Under Option 2 the gap is Target VWC minus the modelled VWC, which is the measured mean on a day with a scan (SpatialAdjustService.cs:3033). Option 1 uses the ratio of target to measured instead (sa-algorithm.service.ts:58-60).",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/3/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understand-spatial-adjust/3/5",
+      "id": "understand-spatial-adjust/3/7",
       "guide": "understand-spatial-adjust",
       "step": "3",
       "field": "caption",
@@ -607,9 +995,109 @@
       "id": "understand-spatial-adjust/4/2",
       "guide": "understand-spatial-adjust",
       "step": "4",
-      "field": "body",
-      "text": "The difference between target and measured moisture becomes an amount of water, today’s ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.",
-      "type": "calculation",
+      "field": "do",
+      "text": "Find the [[Suggested]] column, next to [[Current]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "43-65"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 49
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "14-26"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/4/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The difference between target and measured moisture becomes an amount of water, today’s ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage."
+    },
+    {
+      "id": "understand-spatial-adjust/4/3",
+      "guide": "understand-spatial-adjust",
+      "step": "4",
+      "field": "see",
+      "text": "Each station shows a percent: the result of the calculation.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "43-65"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 49
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/4/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understand-spatial-adjust/4/4",
+      "guide": "understand-spatial-adjust",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If [[Suggested]] shows the same top value on many rows, the daily maximum is capping it.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "76-81"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim editing-station-targets/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "In one line. Suggested % = the applied amount ÷ the Lynx reference amount × 100, rounded."
+    },
+    {
+      "id": "understand-spatial-adjust/4/5",
+      "guide": "understand-spatial-adjust",
+      "step": "4",
+      "field": "why",
+      "text": "It adds today’s ET to the delta, caps the amount, and divides by the Lynx Reference Amount.",
+      "type": "label",
       "status": "Verified",
       "evidence": [
         {
@@ -650,15 +1138,29 @@
           "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
           "path": "api/Services/SpatialAdjustService.cs",
           "line": "3211-3232"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3043
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": 81
         }
       ],
-      "note": "Option 2 on the server: delta = Target VWC − modelled VWC (SpatialAdjustService.cs:3033); amount = (today's ET + delta) × soil factor, floored at 0 (:3037-3039); capped at the Daily Max Amount (:3041); suggested % = capped amount ÷ Lynx Reference Amount × 100, rounded (:3043). Two details the sentence leaves out: ET is first multiplied by the Crop Coefficient (:2972-2974), and the soil factor applies only when SpatialAdjust:UseSoilFactor is on (SpatialAdjustLogic.cs:142-147). Option 1 does not use this chain.",
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/4/2, understand-spatial-adjust/4/4; the sentence was reworded for the step standard.",
       "question": "",
-      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325).",
+      "developNote": "",
       "correction": ""
     },
     {
-      "id": "understand-spatial-adjust/4/3",
+      "id": "understand-spatial-adjust/4/6",
       "guide": "understand-spatial-adjust",
       "step": "4",
       "field": "caption",
@@ -682,35 +1184,6 @@
         }
       ],
       "note": "Under Option 2, the default, Suggested is the server's stored value (sa-algorithm.service.ts:62-65). Under Option 1 it is Target VWC ÷ measured VWC × Lynx Current instead (:58-60).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "understand-spatial-adjust/4/4",
-      "guide": "understand-spatial-adjust",
-      "step": "4",
-      "field": "tip",
-      "text": "In one line. Suggested % = the applied amount ÷ the Lynx reference amount × 100, rounded.",
-      "type": "calculation",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": 3043
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustLogic.cs",
-          "line": 81
-        }
-      ],
-      "note": "Rounded half away from zero to a whole percent.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -748,8 +1221,8 @@
       "id": "understand-spatial-adjust/5/2",
       "guide": "understand-spatial-adjust",
       "step": "5",
-      "field": "body",
-      "text": "Spatial Adjust never waters anything.",
+      "field": "do",
+      "text": "At the right of the toolbar, find [[Push Changes]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -766,21 +1239,29 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
           "line": "80-95"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "34-47"
         }
       ],
-      "note": "The only Lynx write from Spatial Adjust is requestChangePercentAdjust (lynx-cloud.service.ts:80-95), called from the push service (sa-push-changes.service.ts:208). Nothing in IntelliDash starts a program or a valve.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/5/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Spatial Adjust never waters anything."
     },
     {
       "id": "understand-spatial-adjust/5/3",
       "guide": "understand-spatial-adjust",
       "step": "5",
-      "field": "body",
-      "text": "It writes a percent adjust value onto each station in Lynx, and Lynx applies that percentage to the station’s programmed run time.",
+      "field": "see",
+      "text": "It is the only control that sends your changes to Lynx.",
       "type": "behaviour",
-      "status": "Needs expert",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -801,17 +1282,41 @@
           "ref": "373-1135 rev 02 §Settings Configuration"
         }
       ],
-      "note": "First half verified: the push writes one percent adjust value per station to Lynx (sa-push-changes.service.ts:208, lynx-cloud.service.ts:80-95). How Lynx applies it is Lynx-side behaviour the IntelliDash source cannot settle. 373-1135 rev 02 §Settings Configuration ties the Lynx Reference Amount to the program's Next Amt., which suggests Lynx scales an amount rather than a time.",
-      "question": "When Spatial Adjust writes a station's Pct Adjust to Lynx, does Lynx scale the station's programmed run time, or its programmed amount (Next Amt.) before converting that to run time?",
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/5/3, understand-spatial-adjust/5/5; the sentence was reworded for the step standard.",
+      "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "It writes a percent adjust value onto each station in Lynx, and Lynx applies that percentage to the station’s programmed run time."
     },
     {
       "id": "understand-spatial-adjust/5/4",
       "guide": "understand-spatial-adjust",
       "step": "5",
-      "field": "body",
-      "text": "Nothing changes until you push.",
+      "field": "ifNot",
+      "text": "If [[Push Changes]] is greyed out, no change is waiting.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 34
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/5/6; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Nothing changes until you push."
+    },
+    {
+      "id": "understand-spatial-adjust/5/5",
+      "guide": "understand-spatial-adjust",
+      "step": "5",
+      "field": "why",
+      "text": "Spatial Adjust never waters anything, and nothing changes in Lynx until you push.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -826,17 +1331,24 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "api/Services/SpatialAdjustService.cs",
           "line": "1153-1254"
         }
       ],
-      "note": "Read as \"nothing changes in Lynx\". Target VWC and % Adj. edits are saved to IntelliDash straight away (SpatialAdjustService.cs:1153-1254), but they reach the controller only through the push.",
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/5/2, understand-spatial-adjust/5/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understand-spatial-adjust/5/5",
+      "id": "understand-spatial-adjust/5/6",
       "guide": "understand-spatial-adjust",
       "step": "5",
       "field": "caption",
@@ -869,8 +1381,56 @@
       "guide": "understand-spatial-adjust",
       "step": "verify",
       "field": "verify",
-      "text": "You can name the three inputs: measured VWC, target VWC and today’s ET.",
+      "text": "A station row shows its Avg.",
       "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2968-2974"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/verify/1, understand-spatial-adjust/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "You can name the three inputs: measured VWC, target VWC and today’s ET."
+    },
+    {
+      "id": "understand-spatial-adjust/verify/2",
+      "guide": "understand-spatial-adjust",
+      "step": "verify",
+      "field": "verify",
+      "text": "VWC, its Target VWC and a Suggested percent.",
+      "type": "label",
       "status": "Verified",
       "evidence": [
         {
@@ -888,18 +1448,19 @@
           "line": "2968-2974"
         }
       ],
-      "note": "These are the three per-station inputs under Option 2. The calculation also uses the Daily Max Amount, the Lynx Reference Amount, the Crop Coefficient and, when enabled, the station's soil factor (SpatialAdjustService.cs:2968-2974, :3036-3043). Option 1 uses measured VWC, Target VWC and the Lynx Current percentage, and no ET.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/verify/1; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "You know that nothing reaches Lynx until Push Changes is used."
     },
     {
-      "id": "understand-spatial-adjust/verify/2",
+      "id": "understand-spatial-adjust/verify/3",
       "guide": "understand-spatial-adjust",
       "step": "verify",
       "field": "verify",
-      "text": "You know that nothing reaches Lynx until Push Changes is used.",
-      "type": "behaviour",
+      "text": "Nothing reaches Lynx until you select Push Changes.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -917,7 +1478,7 @@
           "line": "80-95"
         }
       ],
-      "note": "Retyped from label to behaviour.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/verify/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""

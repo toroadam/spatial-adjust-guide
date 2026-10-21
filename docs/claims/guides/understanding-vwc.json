@@ -169,6 +169,132 @@
       "correction": ""
     },
     {
+      "id": "understanding-vwc/start/1",
+      "guide": "understanding-vwc",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, with a hole’s stations in the table.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-15"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/where/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/start/2",
+      "guide": "understanding-vwc",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-112"
+        }
+      ],
+      "note": "The push, settings and announcement dialogs open over the dashboard from the toolbar (:94-112); the guide starts with none open.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/start/3",
+      "guide": "understanding-vwc",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data, on a desktop or tablet.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2510
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 3
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 36
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 846
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/before/1, dashboard-overview/before/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "understanding-vwc/before/1",
       "guide": "understanding-vwc",
       "step": "before",
@@ -234,8 +360,8 @@
       "id": "understanding-vwc/1/2",
       "guide": "understanding-vwc",
       "step": "1",
-      "field": "body",
-      "text": "When the scan date is today, Avg.",
+      "field": "do",
+      "text": "In the [[Avg. VWC]] column, find a station scanned today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -265,17 +391,18 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Read with understanding-vwc/1/3; the sentence splitter cut \"Avg. VWC\" in two. See that claim's note.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/1/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "In the [[Avg."
     },
     {
       "id": "understanding-vwc/1/3",
       "guide": "understanding-vwc",
       "step": "1",
-      "field": "body",
-      "text": "VWC is the mean moisture TurfRad measured across that station.",
+      "field": "see",
+      "text": "Its value is in plain black text: the mean VWC that TurfRad measured across the station.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -305,17 +432,101 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "A scan is current when its date is today in the site's time zone (spatial-adjust-course.model.ts:173-182, spatial-adjust.util.ts:16-19). A single-sprinkler station then shows its TurfRad moisture_mean, and a multi-sprinkler station the mean across its sprinklers (sa-dash-table.component.ts:365-383). 373-1135 rev 02 §Table Functionality: \"Average of scans within the sprinkler boundary from TurfRad\".",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/1/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "It is a measurement, and it is the number the calculation prefers."
     },
     {
       "id": "understanding-vwc/1/4",
       "guide": "understanding-vwc",
       "step": "1",
-      "field": "body",
-      "text": "It is a measurement, and it is the number the calculation prefers.",
+      "field": "ifNot",
+      "text": "If every value is grey and italic, nothing was scanned today.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "173-182"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/utils/spatial-adjust.util.ts",
+          "line": "16-19"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-117"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/1/2, understanding-vwc/1/5; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/1/5",
+      "guide": "understanding-vwc",
+      "step": "1",
+      "field": "ifNot",
+      "text": "See Get fresh scan data.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "49-59"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2510
+        }
+      ],
+      "note": "Cross-reference to the guide that explains the scan request. The toolbar button with tooltip SPATIAL_ADJUST.REQUEST_SCAN_DATA is the control that guide covers (:49-59); scans are requested from TurfRad for the last seven days (SpatialAdjustService.cs:2510).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/1/6",
+      "guide": "understanding-vwc",
+      "step": "1",
+      "field": "why",
+      "text": "The calculation uses a measured value whenever there is one.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -334,13 +545,13 @@
           "line": 3032
         }
       ],
-      "note": "The server uses the mean of today's scans when there is one and falls back to the model only when there is none (SpatialAdjustService.cs:3032).",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/1/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understanding-vwc/1/5",
+      "id": "understanding-vwc/1/7",
       "guide": "understanding-vwc",
       "step": "1",
       "field": "caption",
@@ -401,8 +612,80 @@
       "id": "understanding-vwc/2/2",
       "guide": "understanding-vwc",
       "step": "2",
-      "field": "body",
-      "text": "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since.",
+      "field": "do",
+      "text": "Find a station whose [[Avg. VWC]] is grey and italic, with a calculator icon.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3032"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3042
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "374-375"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3280-3325"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "97-130"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Find a station whose [[Avg."
+    },
+    {
+      "id": "understanding-vwc/2/3",
+      "guide": "understanding-vwc",
+      "step": "2",
+      "field": "see",
+      "text": "That value is modelled: carried forward from the last scan and the weather since.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -442,17 +725,17 @@
           "line": "3280-3325"
         }
       ],
-      "note": "With no scan today the server takes the previous adjustment's predicted result as the modelled VWC (SpatialAdjustService.cs:3031-3032). That prediction is the earlier modelled VWC minus that day's crop-adjusted ET plus the water the suggestion assumed would be applied (:3042), so it carries the last scan forward through the weather and the assumed irrigation. Only under Option 2; under Option 1 nothing is modelled and the cell shows \"--\" (sa-table-card.component.ts:374-375).",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/2/2; the sentence was reworded for the step standard.",
       "question": "",
-      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325).",
+      "developNote": "",
       "correction": ""
     },
     {
-      "id": "understanding-vwc/2/3",
+      "id": "understanding-vwc/2/4",
       "guide": "understanding-vwc",
       "step": "2",
-      "field": "body",
-      "text": "It is shown in grey italics so you can tell it apart at a glance.",
+      "field": "ifNot",
+      "text": "If no value is grey, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -460,31 +743,66 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": "29-31"
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3032"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
-          "line": "97-130"
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3042
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": "86-92"
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "374-375"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3280-3325"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "43-65"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2931-2932"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
         }
       ],
-      "note": "On a station row the modelled value gets class sa-vwc-estimated, dark grey and italic, with a calculator icon (sa-table-card.component.html:29-31; .less:97-117). The expanded sprinkler rows of a multi-sprinkler station are not italic; a modelled sprinkler is marked by an orange calculator icon instead (sa-table-card.component.html:86-92; .less:121-130).",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, dashboard-overview/1/5; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understanding-vwc/2/4",
+      "id": "understanding-vwc/2/5",
       "guide": "understanding-vwc",
       "step": "2",
       "field": "caption",
@@ -538,8 +856,8 @@
       "id": "understanding-vwc/3/2",
       "guide": "understanding-vwc",
       "step": "3",
-      "field": "body",
-      "text": "Target VWC is a whole number from 0 to 50 that you set per station.",
+      "field": "do",
+      "text": "Find the [[Target VWC]] box on the same row.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -558,16 +876,144 @@
           "line": "1215-1229"
         }
       ],
-      "note": "Numeric input with 0 decimal places, min 0, max 50 (sa-table-card.component.html:40-47). The value is stored for the station and copied to its other sprinklers (SpatialAdjustService.cs:1215-1229).",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/3/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Target VWC is a whole number from 0 to 50 that you set per station."
     },
     {
       "id": "understanding-vwc/3/3",
       "guide": "understanding-vwc",
       "step": "3",
-      "field": "body",
+      "field": "see",
+      "text": "It holds a whole number from 0 to 50 that you set, the only VWC on the row you can type into.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1215-1229"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-47"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/3/2, understanding-vwc/3/4, understanding-vwc/3/5; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/3/4",
+      "guide": "understanding-vwc",
+      "step": "3",
+      "field": "ifNot",
+      "text": "If the row shows [[Avg. Target VWC]], it is a hole or area row.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-13"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "25-33"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "72-96"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 376
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 409
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/5/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "If the row shows [[Avg."
+    },
+    {
+      "id": "understanding-vwc/3/5",
+      "guide": "understanding-vwc",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Select a hole row to see its stations.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "268-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "108-118"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/4/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/3/6",
+      "guide": "understanding-vwc",
+      "step": "3",
+      "field": "why",
       "text": "Higher targets ask for more water.",
       "type": "behaviour",
       "status": "Verified",
@@ -593,29 +1039,7 @@
       "correction": ""
     },
     {
-      "id": "understanding-vwc/3/4",
-      "guide": "understanding-vwc",
-      "step": "3",
-      "field": "body",
-      "text": "It is the only VWC on the row you can type into.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": "29-47"
-        }
-      ],
-      "note": "Avg. VWC is a read-only cell and Target VWC is the only VWC input. The % Adj. input on the same row is a percentage of the Lynx run, not a VWC.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "understanding-vwc/3/5",
+      "id": "understanding-vwc/3/7",
       "guide": "understanding-vwc",
       "step": "3",
       "field": "caption",
@@ -662,9 +1086,9 @@
       "id": "understanding-vwc/4/2",
       "guide": "understanding-vwc",
       "step": "4",
-      "field": "body",
-      "text": "Subtract the working VWC from the target and you have the deficit the calculation must close.",
-      "type": "calculation",
+      "field": "do",
+      "text": "Compare a station’s [[Target VWC]] with its [[Avg. VWC]].",
+      "type": "behaviour",
       "status": "Verified",
       "evidence": [
         {
@@ -682,18 +1106,19 @@
           "line": 74
         }
       ],
-      "note": "Retyped from prerequisite to calculation. Delta = Target VWC − modelled VWC (SpatialAdjustService.cs:3033), where the working VWC is today's scan mean or, without one, the modelled value. If the modelled VWC is 0 the delta is set to 0.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/4/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Compare a station’s [[Target VWC]] with its [[Avg."
     },
     {
       "id": "understanding-vwc/4/3",
       "guide": "understanding-vwc",
       "step": "4",
-      "field": "body",
-      "text": "Add today’s ET, cap it at the daily maximum, and express it against the Lynx reference amount.",
-      "type": "calculation",
+      "field": "see",
+      "text": "The bigger the delta, the higher the [[Suggested]] percent, up to the daily maximum.",
+      "type": "behaviour",
       "status": "Verified",
       "evidence": [
         {
@@ -722,13 +1147,115 @@
           "line": "3211-3232"
         }
       ],
-      "note": "Amount = (ET × Crop Coefficient + delta) × soil factor, floored at 0 (SpatialAdjustService.cs:2972-2974, :3037-3039), capped at the Daily Max Amount (:3041), then ÷ Lynx Reference Amount × 100 (:3043). The sentence omits the Crop Coefficient and the optional soil factor. 373-1135 rev 02 §Settings Configuration gives the cap's effect: Daily Max 10 mm over Reference 5 mm caps the suggestion at 200%.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/4/3; the sentence was reworded for the step standard.",
       "question": "",
-      "developNote": "On develop (bd39f465) the same arithmetic moves into CalculateAdjustment (SpatialAdjustService.cs:3211-3232), and a new pass writes today's adjustment from the carried-forward model on days with no new scan (:3280-3325).",
+      "developNote": "",
       "correction": ""
     },
     {
       "id": "understanding-vwc/4/4",
+      "guide": "understanding-vwc",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If [[Suggested]] sits at the same top value on many rows, the daily maximum is capping it.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "76-81"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim editing-station-targets/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/4/5",
+      "guide": "understanding-vwc",
+      "step": "4",
+      "field": "ifNot",
+      "text": "See Calculation settings.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 33
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        }
+      ],
+      "note": "Cross-reference to the Calculation tab of the Settings dialog, first in the rail (sa-settings-dlg.component.ts:52-57; html:33).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/4/6",
+      "guide": "understanding-vwc",
+      "step": "4",
+      "field": "why",
+      "text": "Today’s ET is added to the delta, so a hot, dry day raises the suggestions.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2972-2974"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3211-3232"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/4/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/4/7",
       "guide": "understanding-vwc",
       "step": "4",
       "field": "caption",
@@ -796,8 +1323,66 @@
       "id": "understanding-vwc/5/2",
       "guide": "understanding-vwc",
       "step": "5",
-      "field": "body",
-      "text": "At hole and area level the same two columns show averages rather than readings, and the scan date column shows the most recent scan beneath that row.",
+      "field": "do",
+      "text": "Find a hole row, with [[Avg. Target VWC]] and [[Last Scan]] columns.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-13"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "25-33"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "72-96"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 376
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 409
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/5/2, understanding-vwc/5/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Find a hole row, with [[Avg."
+    },
+    {
+      "id": "understanding-vwc/5/3",
+      "guide": "understanding-vwc",
+      "step": "5",
+      "field": "see",
+      "text": "Each value averages the stations under the row, and [[Last Scan]] is the newest scan beneath it.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -844,17 +1429,89 @@
           "line": 409
         }
       ],
-      "note": "Hole and area rows show SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\", SPATIAL_ADJUST.AVG_TARGET_VWC \"Avg. Target VWC\" and SPATIAL_ADJUST.LAST_SCAN \"Last Scan\" (sa-dash-table.component.html:9-13). A hole averages its sprinkler records that are current or modelled, averages targets per station name, and takes the newest scan beneath it as Last Scan (spatial-adjust-course.model.ts:72-96). An area averages its holes (:25-33).",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/5/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understanding-vwc/5/3",
+      "id": "understanding-vwc/5/4",
       "guide": "understanding-vwc",
       "step": "5",
-      "field": "body",
-      "text": "A grey calculator icon on a hole or area row means at least one station beneath it is modelled; the average turns grey and italic only when nothing beneath it was scanned today.",
+      "field": "ifNot",
+      "text": "If you see [[Target VWC]] boxes, you are at station level.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-47"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "40-47"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/3/4, understanding-vwc/3/5; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/5/5",
+      "guide": "understanding-vwc",
+      "step": "5",
+      "field": "ifNot",
+      "text": "Select the area’s name at the top left to go up.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "3-6"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "124-141"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "422-429"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 662
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/4/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understanding-vwc/5/6",
+      "guide": "understanding-vwc",
+      "step": "5",
+      "field": "why",
+      "text": "A grey calculator icon means at least one station beneath the row is modelled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -898,14 +1555,13 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (understanding-vwc/5/3); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/5/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "An italic average means at least one child is modelled."
+      "correction": ""
     },
     {
-      "id": "understanding-vwc/5/4",
+      "id": "understanding-vwc/5/7",
       "guide": "understanding-vwc",
       "step": "5",
       "field": "caption",
