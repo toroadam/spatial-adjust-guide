@@ -116,12 +116,25 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 - **Balance.** 357,546 credits remaining on 2026-10-20, read with `npm run video -- estimate --live` (counts only; the key is resolved in process and never printed).
 - **Verdict.** The balance covers the whole series about six times over at the upper bound. Not a constraint.
 
+- **Wave 2 actual.** The five wave 2 renders billed 11,812 credits (29,529 before, 17,717 after, on an account other waves were drawing on at the same time), at the top of the 5,850 to 11,700 estimate. The balance quoted under Balance above was for a different reading of the account and is out of date: read it again with `npm run video -- estimate --live` before starting a wave.
+
+### Time per episode
+
+`series.json` records `startedAt` and `approvedAt` per episode. Any episode that takes more than half a day from start to approval gets a note here with its cause.
+
+- **Wave 1 (episodes 01 to 04).** Started and approved on 2026-10-20.
+- **Wave 2 (episodes 05 to 09).** Started 2026-10-20, approved 2026-10-21: about 7.8 hours of wall time for all five, which crossed midnight. The machine was saturated by other waves recording in parallel (load average 160 to 270), so each take ran at about 0.3 frames per second and took about 3.9 hours, against about 45 minutes idle; the 4K frame-stepped recorder costs about 1.5 CPU-seconds per frame, so the cost is in the capture, not the edit. Run waves one at a time, or set `SA_CAPTURE_X264_PRESET` to a faster x264 preset, when the machine is shared.
+
+### Director refusal test
+
+`node --test video/capture/refusal.test.mjs` is run before any capture. Wave 2: 15 of 15 passed before the first take (refuses entry without `/spatialadjust/demo` with exit 2, a reload after arming with exit 4, a declared push without a verified Demo Mode sign-in with exit 6, and stops a push in verified Demo Mode with exit 3). All five wave 2 episodes are `source: recreation` with empty `allowClicks` and `demoWriteClicks`, so no Push Changes send exists to declare on /demo.
+
 ## Series tracker
 
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 4 approved, 18 planned, 4 blocked.
+26 episodes: 9 approved, 13 planned, 4 blocked.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
@@ -129,11 +142,11 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 2 | 1 | `understand-spatial-adjust` | Understand Spatial Adjust | approved | 1:56 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
 | 3 | 1 | `map-navigation` | Map navigation | approved | 2:06 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
 | 4 | 1 | `understanding-vwc` | Understanding VWC | approved | 2:12 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
-| 5 | 2 | `suggested-adjustments` | Understand suggested adjustments | planned | — | — | — | — |
-| 6 | 2 | `filter-adjustments` | Filter by % Adj. | planned | — | — | — | — |
-| 7 | 2 | `push-to-lynx` | Push changes to Lynx | planned | — | — | — | — |
-| 8 | 2 | `reviewing-changes` | Reviewing changes | planned | — | — | — | — |
-| 9 | 2 | `verify-results` | Verify results | planned | — | — | — | — |
+| 5 | 2 | `suggested-adjustments` | Understand suggested adjustments | approved | 2:17 | 2026-10-20 | 2026-10-21 | decided by executor 2026-10-21; experts in person 2026-10-22 |
+| 6 | 2 | `filter-adjustments` | Filter by % Adj. | approved | 2:23 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 7 | 2 | `push-to-lynx` | Push changes to Lynx | approved | 2:34 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 8 | 2 | `reviewing-changes` | Reviewing changes | approved | 1:52 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 9 | 2 | `verify-results` | Verify results | approved | 2:09 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 10 | 3 | `editing-station-targets` | Editing station targets | planned | — | — | — | — |
 | 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | planned | — | — | — | — |
 | 12 | 3 | `enable-disable-stations` | Enable and disable stations | planned | — | — | — | — |
@@ -161,7 +174,7 @@ Blocked:
 | Wave | Name | Episodes | Estimate | Before | After | Used | Expert review |
 |---|---|---|---|---|---|---|---|
 | 1 | Getting Started | 4 | 4,680 to 9,360 | 357,437 | 355,147 | 2,290 | decided by executor 2026-10-20 (episode 01); experts in person 2026-10-22 |
-| 2 | Review & Apply | 5 | 5,850 to 11,700 | — | — | — | — |
+| 2 | Review & Apply | 5 | 5,850 to 11,700 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-21 (episode 05); experts in person 2026-10-22 |
 | 3 | Station Management | 4 | 4,680 to 9,360 | — | — | — | — |
 | 4 | Calculations | 4 | 4,680 to 9,360 | — | — | — | — |
 | 5 | Troubleshooting | 5 | 5,850 to 11,700 | — | — | — | — |

@@ -2,7 +2,7 @@
   "id": "verify-results",
   "title": "Verify results",
   "guide": "verify-results",
-  "status": "captured",
+  "status": "approved",
   "durationTarget": [
     60,
     180
