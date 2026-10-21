@@ -154,9 +154,9 @@
 }
 
 /* ---------- section tracker ("On this page") ----------
-   Pinned just below the sticky 65px header by a transform. The longest guide has 28 steps,
-   so the list can exceed the viewport — cap it and let it scroll rather than run off the
-   bottom with no way to reach the later entries. */
+   Pinned just below the sticky 65px header by a transform. A guide has at most 8 steps
+   (scripts/step-shape.mjs), but a short window can still be shorter than the list, so cap it
+   and let it scroll rather than run off the bottom with no way to reach the later entries. */
 .lsa-toc {
   max-height: calc(100vh - 89px - 24px);
   overflow-y: auto;

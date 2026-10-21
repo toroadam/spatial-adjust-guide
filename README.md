@@ -14,7 +14,7 @@ Two Core Design exports drive everything:
 
 | File | Role |
 |---|---|
-| `Learn Spatial Adjust.dc.html` | The guide system — 6 categories, **24 authored guides**, TOC scroll-spy, step player. A `DCLogic` class component. |
+| `Learn Spatial Adjust.dc.html` | The guide system — 6 categories, **26 guides**, TOC scroll-spy, step player. A `DCLogic` class component. The export holds 24 of the guides; `src/transform-export.mjs` adds the other two (`request-scan-data`, `filter-adjustments`) and, at build time, rewrites every guide's step copy from `src/rewrite/*.mjs` (see *Writing the guides*). |
 | `SpatialAdjustApp.dc.html` | A 1920×1080 recreation of the Spatial Adjust UI. Deliberately stateless — every visual state comes from its 26 typed props. |
 
 The guide `<import>`s the app component and drives it through those props, then uses a `camera(target, stageW)` pan-and-zoom to frame whichever region a given step is describing. **The guide puppets a live component rather than embedding screenshots, so figures cannot drift out of sync with the app.** Preserve this when changing either file.
@@ -63,6 +63,31 @@ Those changes now live in `src/transform-export.mjs` and are applied to the raw 
 
 Adding a new imported component still means adding its name to `COMPONENTS` in `build.mjs`.
 
+## Writing the guides
+
+Every step follows one standard, written down in [`docs/writing-guide.md`](docs/writing-guide.md): **Do** (one action, naming the control in `[[Exact Label]]` markers), **You should see**, **If not**, and an optional **Why**, with a start state ("Before you start") for each guide, at most eight steps per guide, a cursor target for every step, and a Flesch-Kincaid grade of 8 or below. Read it before changing any guide copy.
+
+Guide copy is not edited in the `.dc.html` export. It lives in `src/rewrite/*.mjs`, one module per catalogue category, and `transformGuide()` applies it to the export at build time. Each edit is anchored on the exact text it replaces, with the match count asserted, so a re-export that moves a sentence fails the build instead of silently dropping the rewrite. Every sentence needs a Verified claim in the ledger under `docs/claims/` (`docs/claims/README.md` explains it).
+
+The standard is enforced, not advisory, and there is no per-guide exemption:
+
+- `npm run build` runs the step-shape check in memory on the transformed page and fails before writing `dist/` if any step lacks Do, You should see or If not.
+- `.github/workflows/deploy.yml` runs `test:validate`, `test:prose`, `test:shape` and `test:readability` as blocking steps, then `npm test`, `test:parity` and `test:fidelity`. The first four need no browser, credentials or IntelliDash checkout.
+
+## Guide player
+
+`src/player.js` and `src/player.css` add the iCentral Double Click treatment to the player. Like `a11y.css`, `steps.css` and the other runtime layers, they are injected by `build.mjs` and live outside the Core Design export, so a re-export cannot discard them. Only the data they read is put into the export, by `src/transform-export.mjs`: each step's resolved cursor target and where it came from (`data-sa-target`, `data-sa-target-src`) on the stage and on every article figure.
+
+- **Highlight ring.** A `#3079F0` ring (`--informative-02`, 4.1:1 on white, above the 3:1 a non-text indicator needs) outlines the smallest reproduced element containing the step's cursor target, on the stage and in every article figure. It is a sibling overlay, not a child of the reproduction, which the runtime re-renders on every step. It travels with the camera, using the camera's own duration and easing.
+- **Chapter label and chapter strip.** The step title shows as a caps chapter label on the stage, and a strip of real buttons runs under it, one per step, named "Step N of M: title" with `aria-current` on the current one.
+- **Step shape and start state.** The Do / You should see / If not / Why rows and the "Before you start" rows are drawn by `src/transform-export.mjs` with `src/steps.css`, and the labels are translated at render time. The first use of each of the eight glossary terms in `src/terms.json` is defined where the reader meets it.
+- **Keyboard.** Every chapter segment is reachable with Tab, in step order. Enter or Space on a segment moves the player, the live region announces the step and `aria-current` follows. Space does not start play-all.
+- **Reduced motion.** Under `prefers-reduced-motion: reduce` neither the ring nor the camera moves.
+- **Screen readers.** The ring and the caps label are `aria-hidden`: the live region already announces the step.
+- **Small screens.** Below 768px the ring, the label and the strip are hidden with the stage, and the written steps take the full width.
+
+`npm run test:cursor-target` fails a step whose target fell back to the default coordinate or whose ring contains no element. `npm run test:keyboard` and `npm run test:a11y` cover the strip and the overlay.
+
 ## Tests
 
 | Command | What it checks |
@@ -72,13 +97,22 @@ Adding a new imported component still means adding its name to `COMPONENTS` in `
 | `npm run test:media-budget` | Each manifest item's declared size against its cap, and the `dist/` total against 900,000,000 bytes. Exits 1 on anything over. See **Video › Size budget**. |
 | `npm run test:media-git` | No tracked video file (`.mp4` `.m4v` `.mov` `.webm` `.mkv` `.avi`, any letter case) and no Git LFS filter in any `.gitattributes`; in a full clone, also that no commit on any ref ever added one. CI's depth-1 checkout sees the tracked tree only, and the first line of output says which mode ran. The deploy runs it before building. |
 | `npm run test:guides` | Discovers every guide from the page and walks each one the build ships, stepping through each and fingerprinting the rendered DOM. Used to prove a change is render-neutral — diff against a known-good run. |
-| `npm run test:keyboard` | Drives the interface: tab to a card, Enter to open, Space on Next, and asserts the live region changed. Then, on `dashboard-overview` with fixture media, that Tab reaches the video and then the transcript toggle, each with a visible focus ring, and that Enter opens the transcript. |
+| `npm run test:keyboard` | Drives the interface: tab to a card, Enter to open, Space on Next, and asserts the live region changed. Then the chapter strip: Tab reaches every segment in order, Enter and Space on a segment move the player with the live region and `aria-current` following, and Space does not start play-all. Then, on `dashboard-overview` with fixture media, that Tab reaches the video and then the transcript toggle, each with a visible focus ring, and that Enter opens the transcript. |
+| `npm run test:shape` | Browser-free, over the guide data after `transformGuide()`. Every step has non-empty `do`, `see` and `ifNot`; `do` names a `[[Exact Label]]` unless the step is a deliberate `region: true`; no step with `do` keeps `body`; at most eight steps a guide; `start` has `page`, `open` and `needs`; `TARGETS[key]` has one point per step; a `<key>-part-N` is first in the previous part's `next`. Also checks `src/terms.json`, the eight glossary terms. Blocking for all 26 guides, and `build.mjs` runs the same check. |
+| `npm run test:readability` | Browser-free. Flesch-Kincaid grade per step over `do`, `see`, `ifNot`, `why` and any `body`, markers stripped. Fails on any step above grade 8. `-- --selftest` checks the scorer against hand-counted reference texts. |
+| `npm run test:prose` | Browser-free. Mechanical grammar checks over every translated catalogue (Korean particle agreement, French elision, doubled spaces and similar). Blocking. |
 | `npm run test:routing` | Deep links, Back/Forward, and an unknown key falling back to the catalog. |
-| `npm run test:a11y` | axe-core on the catalog and inside a guide, plus a keyboard-reachability probe. Then `dashboard-overview` again with fixture media, the player mounted and the transcript open, and once more scoped to the video panel. A violation the plain guide scan does not have, or any violation inside the panel, is listed as `newViolations` and is the only thing that fails the run; the other scans report. |
-| `npm run test:instrumentation` | The Feedback panel against a stub endpoint (see **Instrumentation and feedback**), and the video events: `play`, `play`, `ended` on the fixture video must record exactly one `video_played` and one `video_completed`, each with the guide key and a locale, in `__saReport().videos`, with no unknown-event warning. |
-| `npm run test:responsive` | Horizontal overflow at 375, 768, 1024, 1440 and 1920px on the catalog (or a guide, with `-- guide`), report only. `npm run test:responsive -- media` opens `dashboard-overview` with fixture media and the transcript open, and fails if the panel leaves the viewport or the page scrolls sideways at any width; `node scripts/overflow.mjs http://localhost:8124/ media` does the same and also names any element inside the panel that sticks out. |
-| `npm run test:validate` | Mechanical validation of every catalogue against the English source: numbers, product names, structural characters, empties, and `Step N of M:` agreement with the standalone translation of its own tail. The video caption catalogues follow, under `captions:<locale>`, with two more gates: a cue left untranslated, and a cue that quotes a step heading in words other than the heading's own translation. |
+| `npm run test:a11y` | axe-core on the catalog and inside a guide, plus a keyboard-reachability probe. The guide is scanned with the highlight ring, chapter label and chapter strip on screen, normally and with `prefers-reduced-motion: reduce`; it fails on a violation on the overlay, a rule only the reduced-motion scan finds, or anything still animating under reduced motion. Then `dashboard-overview` again with fixture media, the player mounted and the transcript open, and once more scoped to the video panel. A violation the plain guide scan does not have, or any violation inside the panel, is listed as `newViolations` and also fails the run. |
+| `npm run test:cursor-target` | Walks every step of every guide by URL. Fails when a step fell back to the default coordinate (`FALLBACK-COORDINATE`), when no highlight ring contains the cursor's end point on the stage or the target in the article figure (`NO-HIGHLIGHT`), or when the cursor is off the stage or over nothing. |
+| `npm run test:validate` | Mechanical validation of every catalogue against the English source: numbers, product names, structural characters, empties, and `Step N of M:` agreement with the standalone translation of its own tail. Also the label gates: every `[[label]]` in the guides is a real IntelliDash label recorded in the claims ledger (`labelProvenance`), and every translation names each control with the label the reader's screen shows (`markerDrift`, `screenLabelDrift`). Every finding fails the command; `--all` prints all of them. Browser-free, and it reads only committed fixtures, so it gives the same verdict with and without an IntelliDash checkout. The video caption catalogues follow, under `captions:<locale>`, with two more gates: a cue left untranslated, and a cue that quotes a step heading in words other than the heading's own translation. |
 | `npm run test:i18n` | Per shipped locale: that the words on screen actually change, that `<html lang>` agrees with what is served, and that a locale with no catalogue degrades to English rather than to a half-translated page. With fixture media on `dashboard-overview`, every shipped locale must make the caption track in its own language the default and the one showing, and switching from English to French at run time must move the showing captions with it. The transcript is left out of the coverage count: it is caption text, not page text. |
+| `npm run test:responsive` | Horizontal overflow at 375, 768, 1024, 1440 and 1920px on the catalog (or a guide, with `-- guide`), report only. `npm run test:responsive -- media` opens `dashboard-overview` with fixture media and the transcript open, and fails if the panel leaves the viewport or the page scrolls sideways at any width; `node scripts/overflow.mjs http://localhost:8124/ media` does the same and also names any element inside the panel that sticks out. |
+| `npm run test:instrumentation` | The Feedback panel against a stub endpoint (see **Instrumentation and feedback**), and the video events: `play`, `play`, `ended` on the fixture video must record exactly one `video_played` and one `video_completed`, each with the guide key and a locale, in `__saReport().videos`, with no unknown-event warning. |
+| `npm run test:splash` | The boot splash's timing and lifecycle: the markup is in the served document, it holds for its minimum, clears once content has painted and is removed rather than merely hidden. |
+| `npm run test:fidelity` | The screen-fidelity gate: every label observed on a harvested product surface appears in the reproduction. Blocking in the deploy workflow. |
+| `npm run test:parity` | Asserts the fidelity gate gives the same verdict with and without an IntelliDash checkout. Blocking in the deploy workflow. |
+| `npm run test:provenance` | Self-check of the label-provenance classifier (keyed, hardcoded or live-observed). |
+| `npm run test:product-locales` | Reports where IntelliDash's own catalogues are missing, untranslated or misspelled for a label the guides use. Always exits 0: the findings are product bugs this repository cannot fix. |
 | `npm run test:gate` | Drives the sign-in gate: that it hides the guides from `innerText`, rejects an outside domain and a lookalike (`nottoro.com`), admits a subdomain, persists the unlock across a reload, re-locks when storage is cleared, and is axe-clean. |
 | `npm run test:release` | Unit tests for `src/release.mjs` and `src/release.json`, with no browser: the committed release is valid against the guides, each kind of invalid release is rejected, `SA_SHOW_BETA` parses as documented, and the release gate removes, labels and fails as it should on the real export. |
 | `npm run test:leak` | The whole-`dist/` beta leak check (see **Beta content and the customer launch**). In a build made with `SA_SHOW_BETA=false`, any beta guide key, title, step or string in any file or locale fails it; with beta shown it reports and passes, and `npm run test:leak -- --expect-shown` also asserts the beta content is there. |
@@ -96,11 +130,12 @@ The fingerprint harness verified the original port: output was **identical** bet
 - **Keyboard.** The export built its controls from `<div onClick>`, which browsers give no keyboard behaviour — only 3 elements on the whole page were focusable against 26 with click handlers (now 29 focusable). Controls now carry `role="button"` and `tabindex`, and a delegated listener supplies Enter/Space activation. Verified end to end by `npm run test:keyboard`, which tabs to a card, opens it with Enter, and advances a step with Space.
 - **Screen readers.** Cards have accessible names including duration and difficulty; the difficulty dots are `aria-hidden` with a text equivalent; step changes are announced through an `aria-live` region, since the camera move that conveys them is purely visual.
 - **Contrast.** Guide chrome is at zero axe violations (was 66 on the catalog, 28 in a guide).
+- **Highlight, chapter label and chapter strip.** Described under *Guide player* above.
 - **Responsive.** Zero horizontal overflow from 375px to 1920px, verified without `overflow:hidden` masking. Below 768px the fixed 1920×1080 stage is replaced with a short explanation and the written steps take the full width — at phone size the stage would need ~23% scale to fit, which is unreadable.
 
 ### Deliberately not fixed
 
-Fourteen contrast failures remain inside `.sa-app`. That component is a faithful reproduction of the real IntelliDash screen, so correcting its colours would make the guides misrepresent the product. **These are a finding against IntelliDash itself, not against this site.**
+Fifteen contrast failures remain inside `.sa-app` in the Dashboard overview guide. That component is a faithful reproduction of the real IntelliDash screen, so correcting its colours would make the guides misrepresent the product. **These are a finding against IntelliDash itself, not against this site.**
 
 ## URL routing
 
@@ -552,6 +587,8 @@ By default the transport is **`local`**: events are buffered in `localStorage` a
 | `__saExport()` | download the raw events as JSON |
 | `__saClear()` | reset before a session |
 
+After a moderated session, `node scripts/session-readout.mjs _sessions/round1` turns the exported files into the per-task table (completion rate, median time on task, stuck steps), and `--compare` sets round 2 against round 1. `_sessions/` is gitignored: raw exports and moderator sheets never enter the repository. `node scripts/session-readout.mjs --selftest` checks the scoring on made-up sessions.
+
 That's sufficient for moderated sessions. **It does not collect from remote users.** For that, set `TRANSPORT = 'beacon'` and `SA_ENDPOINT` at the top of `src/analytics.js`, and add that origin to the allowlist in `scripts/smoke.mjs` — otherwise the smoke test will correctly fail the build for reaching a third party. Choosing that endpoint is an open decision.
 
 **Feedback** (`src/feedback.js`) is a floating **Feedback** button, bottom right, on every page
@@ -755,7 +792,7 @@ on every state change — neither is reachable from our code. So `src/i18n-apply
   again within a frame.
 
 `scripts/extract-strings.mjs` harvests the source catalogue from the **rendered page**, walking all
-24 guides and every step. That is deliberate: a key harvested from source is not necessarily what
+26 guides and every step. That is deliberate: a key harvested from source is not necessarily what
 the runtime paints, and a key that never matches is a silent no-op. Harvesting what is on screen
 makes the key set and the match set the same set. Re-run it after any Core Design re-export.
 
@@ -784,7 +821,7 @@ step list and the step heading cannot disagree.
 Catalogues are keyed on the exact English, so editing a sentence orphans its ten translations
 silently — the runtime finds no key and paints English. `scripts/translate.mjs` computes its
 `todo` as the source keys with no fragment yet, which for an empty `.translate/<locale>/` is all
-972 strings: the right behaviour for a new locale, and entirely the wrong one after a six-word fix.
+1418 strings: the right behaviour for a new locale, and entirely the wrong one after a six-word fix.
 
 `scripts/seed-translate-fragments.mjs` closes that gap. It seeds `.translate/<locale>/` from the
 catalogue already in `src/i18n/`, keeping every key the source still asks for and dropping the ones
@@ -792,7 +829,7 @@ whose English has moved on, so `todo` resolves to exactly the strings that chang
 
 ```sh
 node scripts/seed-translate-fragments.mjs           # all ten; prints the todo for each
-node scripts/translate.mjs --locale de-de           # de-de: 972 strings, 966 already done, 6 to translate
+node scripts/translate.mjs --locale de-de           # de-de: 1418 strings, 1412 already done, 6 to translate
 node scripts/assemble-locale.mjs de-de .translate/de-de
 ```
 
@@ -814,18 +851,33 @@ the harvest, which would otherwise pull every cue into the page catalogue. The p
 strings, harvested with the panel open against the test fixture and translated in all ten page
 catalogues.
 
+**The harvest.** `scripts/extract-strings.mjs` also drives the contact modal and the feedback panel
+before it harvests, the way it opens the language menu, so text that only exists once a dialog is
+open reaches the catalogue. Serve `dist/` on a free port, harvest to a scratch file, and **diff and
+add** into `src/i18n/en-us.json` rather than overwriting it: `en-us.json` is the harvest **plus**
+`scripts/app-strings.mjs`, so the raw harvest drops the screen labels. A clean sweep is a harvest
+with no key missing from `en-us.json` and `node scripts/seed-translate-fragments.mjs` reporting
+`0 to translate` in all ten locales. After `scripts/assemble-locale.mjs`, restore each catalogue's
+`_meta` from `HEAD` (keeping the new string count), then run `npm run test:validate`,
+`npm run test:i18n` and `npm run test:prose`.
+
+The guide-request dialog's two strings cannot be harvested: no catalogue card carries
+`data-stub="true"` now that all 26 guides are written, so the dialog is unreachable and the harvester
+prints a note instead of failing. If an unwritten guide is ever added back, re-run the harvest before
+relying on those two strings.
+
 ### Coverage
 
 | Locale | Catalogue | Coverage |
 |---|---|---|
 | `en-us` | source | — |
-| `de-de` `es-es` `fr-fr` `it-it` | ✅ 776 strings | 97.8% / 97.9% / 95.7% / 97.9% |
-| `ja-jp` `ko-ko` `nl-nl` `pt-pt` | ✅ 776 strings | 97.6% / 97.5% / 97.9% / 97.9% |
-| `th-th` `zh-cn` | ✅ 776 strings | 97.8% / 97.5% |
+| `de-de` `es-es` `fr-fr` `it-it` | ✅ 1418 strings | 93.1% / 93.5% / 91.8% / 93.5% |
+| `ja-jp` `ko-ko` `nl-nl` `pt-pt` | ✅ 1418 strings | 92.6% / 92.3% / 92.7% / 93.5% |
+| `th-th` `zh-cn` | ✅ 1418 strings | 93.5% / 91.8% |
 
 All eleven locales now serve translated content. Coverage is measured by `npm run test:i18n` against a
-rendered guide; the residual few per cent are strings that are legitimately identical — URLs, station
-identifiers, `N MIN`, the copyright line — plus the `.sa-app` seam described above.
+rendered guide; the residual 6 to 8 per cent are strings that are legitimately identical — URLs, station
+identifiers, `N MIN`, the copyright line — plus the `.sa-app` seam described above and the labels IntelliDash itself leaves in English, such as the Settings dialog's left rail (`Minimum Threshold`, `Calculation`), which the guides name in `[[ ]]` markers exactly as the screen shows them.
 
 Regenerate a locale with `npm run translate -- --locale <code>`, then
 `node scripts/assemble-locale.mjs <code> .translate/<code>`, then add the code to `CONTENT_LOCALES`.
@@ -855,7 +907,9 @@ fluent-sounding translation:
 - product names, station identifiers, URLs and `MIN` are still present where the source had them;
 - structural characters — `←` `→` `…` `›` `÷` `×` — are not lost, so an instruction or a formula cannot silently break;
 - no empty values, and no long string returned identical to English;
-- every `Step N of M: X` contains the standalone translation of `X`, so the step list and the step heading cannot disagree.
+- every `Step N of M: X` contains the standalone translation of `X`, so the step list and the step heading cannot disagree;
+- prose that names a reproduced control uses that control's own translation (`screenLabelDrift`), and every `[[label]]` marker holds the label the reader's screen shows in that locale (`markerDrift`);
+- every `[[label]]` in the English is a key of `src/i18n/labels.en-us.json`, a fixture of IntelliDash's own English labels written by `scripts/build-label-fixture.mjs`, and is named by a Verified claim in `docs/claims/claims.json` (`labelProvenance`).
 
 It deliberately does **not** flag `—` or `%`: Romance languages routinely render an em dash as a
 colon, and Chinese spells `% Adj.` out as 调整百分比 rather than using the glyph. Both are correct, and
@@ -864,9 +918,18 @@ flagging them would bury the real defects.
 The pass found and fixed one genuine defect (Italian compounds using an em dash where their own
 standalone translations used a colon) and confirmed two behaviours that look like defects and are
 not, now encoded as documented exemptions in the validator: German couples the product name into
-compounds with hyphens (`Spatial-Adjust-Konto`, required *Durchkopplung*), and Thai keeps the Latin
-acronym where VWC is the subject of a sentence but uses IntelliDash's own shipped Thai for the named
-UI fields — matching what a Thai user actually reads on screen.
+compounds with hyphens (`Spatial-Adjust-Konto`, required *Durchkopplung*), and a control whose
+shipped label drops the VWC acronym (Thai `ปริมาตรน้ำเป้าหมาย` for Target VWC, Spanish `CVA objetivo`)
+is named with that label, while VWC as the measurement itself keeps the acronym in every locale.
+
+`screenLabelDrift` is a **gate**, held at zero findings. Prose that names a control uses the
+product's shipped label even where that label has no "VWC" in it (`CVA objetivo`, `Teneur en eau
+volumétrique cible`); prose about the measurement keeps "VWC". `droppedToken` exempts a missing VWC
+only when every VWC in the English sits inside such a control's name, and `VWC_CONCEPT_KNOWN` in
+`scripts/validate-locales.mjs`, the list of concept strings allowed to say CVA or Hv, is empty and
+may only shrink. `scripts/retranslate-drift.mjs` shares the gate's predicate
+(`scripts/lib/screen-labels.mjs`), so its re-translation queue is exactly what the gate fails. The
+rules are written up in `docs/writing-guide.md` under Label markers.
 
 What this does not give you is judgement about whether the prose is good, idiomatic, or says the
 right thing to a superintendent. Nothing here substitutes for that.
@@ -926,6 +989,15 @@ on the *translated* heading text so they work in every locale.
 | `lynxcloud.toro.com` | the same environment file |
 | the three legal URLs | `TORO.*_LINK` — identical in all eleven locale files, every one pointing at `/en/`, so there is nothing to localise |
 
+IntelliDash ships a per-region support number (`TORO.HELP_LINE` is `00-800-8040-8040` in German,
+`900-973-219` in Spanish, `800-791-226` in Italian), so the modal translates the *value* as well as
+the row label, and the `tel:` href is built from the translated string so the link dials what the
+row displays. `pt-pt` and `zh-cn` have no `HELP_LINE` in IntelliDash's catalogue and keep the US
+number. `validate-locales.mjs` compares the numbers in a string with its translation, and a regional
+number legitimately shares no digits with `1-800-ASK-TORO`, so that check is skipped when the
+translation *is* IntelliDash's own shipped rendering, the same principle as the `_screenStrings`
+exemption.
+
 **There is no Lynx Drive URL anywhere in the IntelliDash source.** The Product column links Lynx
 Cloud instead, which is the nearest thing that actually exists. If Lynx Drive has an information
 page, it needs to be supplied — it cannot be derived.
@@ -953,82 +1025,6 @@ worth knowing:
   existing `dialog` prop — `<dc-import>` only forwards attributes matching the component's
   *original* schema, so a transform-added prop arrives `undefined` however correctly it is declared
   and bound, whereas a new **value** on an already-bound enum passes straight through.
-- **136 places where the guide prose names a control differently from the control**, down from 308.
-  `npm run test:validate` reports these as an **advisory** count rather than failing on them.
-
-  The count fell for four reasons, three of them corrections to the check itself, which was
-  asserting standards that did not exist:
-  - **Provenance** (−36). Findings named a label IntelliDash does not ship: `Calculation` and
-    `Soil Factor Editor` have no key with that value in any locale, and
-    `CASE_SENSITIVE.ENABLED_STATIONS` is simply absent from `pt-pt`. Their "translations" were
-    produced by this pipeline, so prose was being measured against an invented rendering. The
-    check now requires the label to be in `src/i18n/glossary.json` for that locale.
-  - **Case and whitespace** (−49). These were grammar. Dutch inflects and lowercases an adjective
-    mid-sentence — "de voorgestelde percentages" for a label reading `Voorgesteld` — and
-    IntelliDash's own `es-es` `AVG_VWC` ships a double space (`"Promedio de  CVA"`) that prose
-    could only match by reproducing the typo.
-  - **Longest match wins** (−1 finding, but several bogus constraints). `Suggested` is a substring
-    of `Suggested Percent Adjust Calculation`, so prose about the *field* was also required to
-    name the *column* — two different controls sharing a word.
-  - **87 findings actually fixed** across seven locales, which is the real work.
-
-  **The root cause was a contradiction in the translator's own prompt.** `scripts/translate.mjs`
-  told the model to keep `VWC` untranslated *and* to follow the glossary, and in `es`/`fr`/`ko`/`th`
-  IntelliDash's label drops the acronym. The glossary itself was never wrong: it agrees with the
-  reproduced screen labels 89/89 across seven locales.
-
-  **What was fixed**, by swapping the prose's paraphrase for the shipped label — surgical term
-  edits rather than whole-sentence rewrites, so the reviewed prose survives:
-
-  | Locale | Fixed | The swap |
-  |---|---|---|
-  | `de-de` | 23 | „Änderungen übertragen“ → **„Änderungen senden“**; „Sammelanpassung“ → **„Massenanpassung“** |
-  | `fr-fr` | 28 | « Envoyer les modifications » → **« Transmettre changements »**; « Toutes les stations » → **« Toutes les voies »** (the product says *voies*, not *stations*) |
-  | `zh-cn` | 13 | 建议值 → **“建议的”** |
-  | `th-th` | 8 | ตัวเลือกที่ 2 → **ตัวเลือก 2** (the shipped label carries no classifier) |
-  | `es-es` | 6 | «Ajuste masivo» → **«Ajuste por lote»** |
-  | `it-it` | 4 | «Applica a tutti» → **«Applica a tutte»** |
-  | `pt-pt` | 3 | «Guardar alterações» → **«Salvar alterações»** |
-
-  `node scripts/retranslate-drift.mjs --all` now reports an empty queue. The 136 that remain are
-  **deferred by design**, not unfixed:
-
-  | | Findings | Why it is not a copy-edit |
-  |---|---|---|
-  | VWC family | 123 | Matching the label drops the `VWC` token and trips the `droppedToken` **gate**, so it needs an `EXEMPT` entry beside it — `validate-locales.mjs` already carries one for `th-th` for exactly this reason |
-  | `Preferences` / `Settings` | 9 | IntelliDash ships both as "Einstellungen" in German, so matching the label makes prose ambiguous where it is currently clear. Case tolerance already absorbed most of this bucket |
-  | Mixed sentences | 4 | Name a deferred label *and* a mechanical one, so they are held back rather than rewritten as a side effect |
-
-- **The contact modal was shipping in English to all ten non-English locales** — now fixed.
-  `scripts/extract-strings.mjs` drives the contact modal and the feedback panel before
-  harvesting, the way it already opened the language menu, so text that only exists once a dialog
-  is open finally reaches the catalogue. That surfaced twelve keys, including the modal's lede and
-  its `Email` / `Phone` / `Support portal` row labels, which had never been translated while every
-  string around them was. All twelve are now in all ten catalogues; every locale is complete at
-  972/972.
-
-  Regenerating rather than merging would have been a mistake: `en-us.json` is harvest **plus**
-  `scripts/app-strings.mjs`, so overwriting it with the raw harvest drops the 107 screen labels.
-  The safe operation is to diff and add.
-
-- **IntelliDash ships a per-region support number, and the modal was ignoring it.**
-  `TORO.HELP_LINE` is `00-800-8040-8040` in German, `900-973-219` in Spanish, `800-791-226` in
-  Italian — but `src/contact.js` rendered the raw `1-800-ASK-TORO` because only the row *label*
-  went through `t()`, never the value. A German superintendent mid-failed-push was being shown a
-  US number. The value is now translated and the `tel:` href is built from the translated string,
-  so the link dials what the row displays. `pt-pt` and `zh-cn` have no `HELP_LINE` in IntelliDash's
-  catalogue, so they keep the US number by default.
-
-  This needed one exemption: `validate-locales.mjs` compares the numbers in a string against its
-  translation, and a regional number legitimately shares no digits with `1-800-ASK-TORO`. The
-  number check is now skipped when the translation *is* IntelliDash's own shipped rendering — the
-  same principle as the `_screenStrings` exemption.
-
-- **The guide-request dialog's strings cannot be harvested,** so they are absent from the
-  catalogue and would render in English. All 26 guides are now written, so no catalogue card
-  carries `data-stub="true"` and the dialog is unreachable — the harvester prints a note when it
-  finds no stub rather than failing. If an unwritten guide is ever added back, re-run the harvest
-  before relying on those two strings.
 - **New-guide candidates.** Three production surfaces need figures the reproduction cannot draw,
   so they wait on extending `SpatialAdjustApp.dc.html` in Core Design instead of being folded into
   a guide. [`docs/claims/changed-surfaces.md`](docs/claims/changed-surfaces.md) gives the
@@ -1078,7 +1074,7 @@ worth knowing:
 
 The export ships a shortcut hint of its own (`← → step · space play · esc back`), so the build must not add a second one — it did briefly, and the duplicate was visible right below the original.
 
-The export also sticks the "On this page" tracker at `top: 742px`. That offset suits the walkthrough stage but strands the tracker near the bottom of the window for the rest of the guide, where it is least useful. A transform re-pins it to `top: 89px`, just below the 65px sticky header, and `src/a11y.css` caps its height so the 28-step guide's list scrolls rather than running off screen.
+The export also sticks the "On this page" tracker at `top: 742px`. That offset suits the walkthrough stage but strands the tracker near the bottom of the window for the rest of the guide, where it is least useful. A transform re-pins it to `top: 89px`, just below the 65px sticky header, and `src/a11y.css` caps its height so a list longer than the window scrolls rather than running off screen.
 
 ## Data
 

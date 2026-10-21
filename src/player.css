@@ -1,0 +1,135 @@
+/* The Double Click treatment in the guide player. Injected by build.mjs, outside the Core Design
+   export, so a re-export keeps it. src/player.js places these elements; see its header.
+
+   Colour. #3079F0 is the design system's --informative-02, already this site's click pulse and
+   the iCentral Double Click highlight. It reads as interface chrome rather than product state,
+   which red would not: the map paints its wettest band red. As a non-text indicator it needs 3:1
+   against what it sits on (WCAG 1.4.11); it is 4.1:1 on white, and the white halo carries it over
+   the dark map and the blue selected rows. */
+
+/* The stage and the figures become stacking contexts, so the overlay's z-index stays local and
+   cannot paint over the sticky site header when the page scrolls beneath it. */
+.lsa-stage,
+.lsa-step-figure { isolation: isolate; }
+.lsa-step-figure { position: relative; }
+
+/* ---------- highlight ring ---------- */
+.lsa-hl {
+  position: absolute;
+  z-index: 1;
+  box-sizing: border-box;
+  border: 2px solid var(--informative-02, #3079F0);
+  border-radius: 6px;
+  background: rgba(48, 121, 240, .12);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .85);
+  pointer-events: none;
+  /* The camera's own duration and easing, so on the stage the ring travels with the picture. */
+  transition: left .85s cubic-bezier(.4, 0, .2, 1), top .85s cubic-bezier(.4, 0, .2, 1),
+              width .85s cubic-bezier(.4, 0, .2, 1), height .85s cubic-bezier(.4, 0, .2, 1);
+}
+.lsa-hl[data-sa-hl="off"] { display: none; }
+
+/* The export's cursor and click pulse stay above the ring: the pulse marks the click point, the
+   ring outlines the element around it. */
+.lsa-stage .sa-cursor,
+.lsa-stage .sa-ring { z-index: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lsa-hl { transition: none !important; }
+}
+
+/* Below the tablet breakpoint src/a11y.css hides the stage and the figures; the overlay goes too. */
+@media (max-width: 767px) {
+  .lsa-hl { display: none !important; }
+}
+
+/* ---------- chapter label ----------
+   The Double Click chapter card: SemiBold caps on a white card. Top-left of the stage unless that
+   would cover the highlighted control; src/player.js then moves it to the first free corner. */
+.lsa-chapter {
+  position: absolute;
+  z-index: 3;
+  top: 12px;
+  left: 12px;
+  max-width: calc(60% - 24px);
+  box-sizing: border-box;
+  padding: 7px 12px 7px 10px;
+  border-left: 3px solid var(--informative-02, #3079F0);
+  border-radius: 6px;
+  background: var(--white, #fff);
+  box-shadow: 0 2px 10px rgba(8, 13, 18, .22);
+  color: var(--100, #080d12);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+.lsa-chapter[data-sa-pos="tr"] { left: auto; right: 12px; }
+.lsa-chapter[data-sa-pos="bl"] { top: auto; bottom: 12px; }
+.lsa-chapter[data-sa-pos="br"] { top: auto; left: auto; right: 12px; bottom: 12px; }
+.lsa-chapter:empty { display: none; }
+
+/* ---------- chapter strip ----------
+   One segment per step, under the stage rather than over it, so it never covers a control the
+   camera has framed near the bottom edge. Each segment has a progress bar and its step title; the
+   current one is a filled chip. White on --informative-02 is 4.1:1, short of the 4.5:1 small text
+   needs, so the chip uses the next shade, --informative-03, at 5.3:1; its bar stays #3079F0. */
+.lsa-strip {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px 10px;
+  border-top: 1px solid var(--20, #d9dfe2);
+  background: var(--white, #fff);
+}
+.lsa-strip-seg {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: rgb(76, 84, 89);              /* 7.6:1 on white */
+  font: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+.lsa-strip-bar {
+  display: block;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--20, #d9dfe2);
+}
+.lsa-strip-seg[data-sa-state="done"] .lsa-strip-bar,
+.lsa-strip-seg[data-sa-state="current"] .lsa-strip-bar { background: var(--informative-02, #3079F0); }
+.lsa-strip-label {
+  display: block;
+  padding: 4px 6px;
+  border-radius: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lsa-strip-seg:hover .lsa-strip-label { background: var(--05, #f5f7f8); color: var(--100, #080d12); }
+.lsa-strip-seg[aria-current="step"] { flex-grow: 2.5; }
+.lsa-strip-seg[aria-current="step"] .lsa-strip-label,
+.lsa-strip-seg[aria-current="step"]:hover .lsa-strip-label {
+  background: var(--informative-03, #2165db);
+  color: var(--white, #fff);
+}
+
+@media (max-width: 767px) {
+  .lsa-chapter,
+  .lsa-strip { display: none !important; }
+}

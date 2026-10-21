@@ -28,6 +28,28 @@ jobs:
 
       - run: npm ci
 
+      # The followability gates. Each needs no browser, no credentials and no IntelliDash
+      # checkout (they read the guide data in memory and the committed fixtures), so they run
+      # first and fail fast, before Chromium is installed. All four block the deploy; left
+      # advisory they would have become furniture, as the screen-label findings did below.
+      #   test:validate     every locale catalogue against the English, plus label provenance and marker drift
+      #   test:prose        mechanical grammar checks over the translated catalogues
+      #   test:shape        every step has Do, You should see and If not; the glossary is sound
+      #   test:readability  no step above Flesch-Kincaid grade 8
+      # build.mjs runs the shape check again inside `npm test`, so dist/ cannot be built from a
+      # guide that breaks the step standard even if this step were removed.
+      - name: Locale catalogues (test:validate)
+        run: npm run test:validate
+
+      - name: Prose lint (test:prose)
+        run: npm run test:prose
+
+      - name: Step shape (test:shape)
+        run: npm run test:shape
+
+      - name: Readability, grade 8 or below (test:readability)
+        run: npm run test:readability
+
       # The smoke test drives a real browser, so it needs the matching Chromium.
       - run: npx playwright install --with-deps chromium
 

@@ -26,6 +26,8 @@ import {
 } from './src/media/manifest.mjs';
 import { checkItems, checkSite } from './scripts/media-budget.mjs';
 import { DEFAULT_CAPTIONS_DIR, writeCaptionTracks } from './src/media/captions.mjs';
+import { loadGuidesFromHtml } from './scripts/lib/load-guides.mjs';
+import { checkShape } from './scripts/step-shape.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -72,8 +74,28 @@ const FONT_LOCAL = 'vendor/fonts/satoshi.css';
 const enc = (s) =>
   JSON.stringify(s).replace(/<\/(script)/gi, '<\\/$1').replace(/<!--/g, '<\\!--');
 
-/** Bootstrap that must execute before support.js reads the two hooks. */
-function bootstrap(componentSources) {
+// The glossary: src/terms.json, defined at each term's first use in a guide by the renderer that
+// src/transform-export.mjs installs (glossary at point of use). Only the fields the page reads ship;
+// the ledger ids are for npm run test:shape, which checks the whole file.
+const TERM_FIELDS = ['id', 'term', 'match', 'caseSensitive', 'definition'];
+
+async function loadTerms() {
+  const { terms } = JSON.parse(await readFile(join(ROOT, 'src', 'terms.json'), 'utf8'));
+  if (!Array.isArray(terms) || !terms.length) throw new Error('src/terms.json has no terms; run npm run test:shape');
+  const out = terms.map((t, i) => {
+    if (typeof t.term !== 'string' || typeof t.definition !== 'string' || !Array.isArray(t.match)) {
+      throw new Error(`src/terms.json term ${i + 1} is malformed; run npm run test:shape`);
+    }
+    return Object.fromEntries(TERM_FIELDS.map((f) => [f, t[f]]));
+  });
+  // The bootstrap is spliced in with a replacement string, which would expand a `$&`-style sequence.
+  if (JSON.stringify(out).includes('$')) throw new Error('src/terms.json contains "$", which the bootstrap splice would corrupt');
+  return out;
+}
+
+/** Bootstrap that must execute before support.js reads the two hooks, and before the guide's
+ *  first render reads window.__saTerms. */
+function bootstrap(componentSources, terms) {
   const blobEntries = Object.entries(componentSources)
     .map(([url, src]) => `  ${enc(url)}: new Blob([${enc(src)}], { type: 'text/html' }),`)
     .join('\n');
@@ -86,6 +108,8 @@ ${Object.entries(CDN_MAP).map(([k, v]) => `  ${enc(k)}: ${enc(v)},`).join('\n')}
 window.__resourceBlobs = {
 ${blobEntries}
 };
+// The glossary terms (src/terms.json), read by the guide's renderVals.
+window.__saTerms = ${enc(terms)};
 </script>`;
 }
 
@@ -262,6 +286,27 @@ async function main() {
     captions: captionTracks[key],
   }]));
 
+  // Enforce the step standard (docs/writing-guide.md) on the transformed page, in memory: every
+  // step has Do, You should see and If not, a Do names an exact [[label]] unless it is a region
+  // step, at most eight steps a guide, and a cursor target for each step. This is the same check
+  // as `npm run test:shape`, so a guide that breaks the standard cannot reach dist.
+  {
+    const data = loadGuidesFromHtml(html);
+    const shape = checkShape(data);
+    if (shape.failed.length) {
+      const lines = shape.guides.filter((g) => g.errors.length)
+        .flatMap((g) => g.errors.map((e) => `  ${g.key}: ${e}`));
+      throw new Error(`Step shape check failed for ${shape.failed.join(', ')}:\n${lines.join('\n')}\n`
+        + '  See docs/writing-guide.md, then run `npm run test:shape` for the full table.');
+    }
+    // The hero link states the catalogue's guide count in plain text. Keep it honest.
+    const cards = data.CATEGORIES.reduce((n, c) => n + c.tasks.length, 0);
+    if (!html.includes(`or browse all ${cards} tasks ↓`)) {
+      throw new Error(`The catalogue has ${cards} guides but the hero link does not say "or browse all ${cards} tasks ↓".\n`
+        + '  Update the count in src/transform-export.mjs and the translated key in every src/i18n catalogue.');
+    }
+  }
+
   // Belt and braces: confirm the transforms actually produced what the runtime needs.
   for (const [marker, what] of A11Y_GUARDS) {
     if (!html.includes(marker)) {
@@ -304,6 +349,8 @@ async function main() {
   // BEFORE the bootstrap is inserted: the inlined component source contains its own </head>,
   // and a string-pattern replace would otherwise match that one and corrupt the JS literal.
   const a11yCss = await readFile(join(ROOT, 'src', 'a11y.css'), 'utf8');
+  // The Do / You should see / If not rows and start state rendered by src/transform-export.mjs.
+  const stepsCss = await readFile(join(ROOT, 'src', 'steps.css'), 'utf8');
   const gateCss = await readFile(join(ROOT, 'src', 'gate.css'), 'utf8');
   const contactCss = await readFile(join(ROOT, 'src', 'contact.css'), 'utf8');
   const feedbackCss = await readFile(join(ROOT, 'src', 'feedback.css'), 'utf8');
@@ -312,6 +359,8 @@ async function main() {
   // The Beta badge, banner and step marker styles ship only with the markup they style: a build with
   // beta content removed carries none of their class names (src/transforms/release-gate.mjs).
   const releaseCss = showBeta ? await readFile(join(ROOT, 'src', 'release.css'), 'utf8') : '';
+  // The Double Click treatment in the player: highlight ring, chapter label and chapter strip.
+  const playerCss = await readFile(join(ROOT, 'src', 'player.css'), 'utf8');
   // Resolved in <head>, synchronously, so the gate decision is made before the first paint
   // rather than after — see the header of src/gate-boot.js.
   const gateBoot = await readFile(join(ROOT, 'src', 'gate-boot.js'), 'utf8');
@@ -320,8 +369,9 @@ async function main() {
   // before the rest so the prompt is up before anything else starts wiring itself to a page
   // the reader cannot see. i18n defines window.__saLocale and must precede both i18n-apply,
   // which reads the resolved locale, and i18n-selector, which renders from it. media follows
-  // i18n for the same reason: its caption tracks and transcript follow the locale. a11y last so
-  // it observes a fully wired tree.
+  // i18n for the same reason: its caption tracks and transcript follow the locale. player after
+  // i18n-apply, so on a step change the translated labels are in place before the highlight is
+  // measured in the same frame. a11y last so it observes a fully wired tree.
   const injectedJs = [];
   // The feedback endpoint is the Power Automate trigger URL, whose sig= parameter lets anyone
   // holding it post to the list. The built page has to carry it — a browser cannot post without
@@ -340,7 +390,7 @@ async function main() {
   // media/ path, so neither should ever occur; the checks keep it that way.
   const mediaManifest = JSON.stringify({ items: runtimeItems }).replace(/</g, '\\u003c');
   if (mediaManifest.includes('$')) throw new Error('the media manifest contains "$", which the page splice would corrupt');
-  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'media.js', 'a11y.js']) {
+  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'media.js', 'player.js', 'a11y.js']) {
     let src = await readFile(join(ROOT, 'src', name), 'utf8');
     if (name === 'feedback.js') {
       if (!src.includes('__SA_FEEDBACK_ENDPOINT__')) throw new Error('src/feedback.js lost its __SA_FEEDBACK_ENDPOINT__ placeholder');
@@ -363,7 +413,7 @@ async function main() {
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="sa-release-mode" content="${showBeta ? 'with-beta' : 'ga-only'}">
-<style>\n${a11yCss}\n${releaseCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${mediaCss}\n${splashCss}\n</style>
+<style>\n${a11yCss}\n${stepsCss}\n${releaseCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${mediaCss}\n${splashCss}\n${playerCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 
@@ -375,7 +425,7 @@ async function main() {
 
   const supportTag = '<script src="./support.js"></script>';
   if (!html.includes(supportTag)) throw new Error('support.js script tag not found in entry document');
-  html = html.replace(supportTag, `${bootstrap(componentSources)}\n${supportTag}`);
+  html = html.replace(supportTag, `${bootstrap(componentSources, await loadTerms())}\n${supportTag}`);
 
   // Every inline <script> must parse. Injecting into this document is error-prone because
   // the bootstrap embeds a whole HTML file as a JS string literal — a naive replace on

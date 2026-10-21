@@ -297,6 +297,12 @@ check('Beta strings', () => {
 const EXPORT_HTML = readFileSync(join(import.meta.dirname, '..', 'Learn Spatial Adjust.dc.html'), 'utf8');
 const SHOWN = transformGuide(EXPORT_HTML, { showBeta: true, release });
 const PLAIN = transformGuide(EXPORT_HTML, { showBeta: false, release });
+// The rewritten start state of push-failures names the guide "Push changes to Lynx" in its needs
+// line. A beta guide is removed by title, and the gate fails on a mention left behind, so the tests
+// that make push-to-lynx beta start from a build whose needs line points at it without the title.
+const PUSH_NEEDS = 'Lynx must be set up as Push changes to Lynx describes,';
+if (PLAIN.split(PUSH_NEEDS).length !== 2) throw new Error('the push-failures needs line anchor was not found once');
+const PLAIN_PUSH = PLAIN.replace(PUSH_NEEDS, 'Lynx must be set up as the Lynx guide describes,');
 const GA_ONLY = clone(release);
 for (const [key, entry] of Object.entries(GA_ONLY.guides)) {
   if (entry.status === 'beta') { delete GA_ONLY.guides[key]; continue; }
@@ -403,9 +409,10 @@ check('release gate: needs a boolean showBeta and a release', () => {
     throws(() => show(flagged, GA_ONLY), /tile "push-failures" has beta true; expected no beta member/, 'flag in the data');
   });
   check('release gate: a TARGETS row out of step with its steps fails when a step is beta', () => {
-    const row = "'push-to-lynx': [P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar, P.progressClose]";
+    const row = /'push-to-lynx': \[[^\]]*\]/.exec(PLAIN)[0];
     if (PLAIN.split(row).length !== 2) throw new Error('push-to-lynx TARGETS row anchor not found once');
-    const short = PLAIN.replace(row, "'push-to-lynx': [P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar]");
+    const cells = row.slice(row.indexOf('[') + 1, -1).split(', ');
+    const short = PLAIN.replace(row, `'push-to-lynx': [${cells.slice(0, -1).join(', ')}]`);
     const one = clone(GA_ONLY);
     one.guides['push-to-lynx'].sections = [{ id: 'one-step', status: 'beta', basis: 'test', steps: [PUSH_STEP] }];
     throws(() => hide(short, one), /TARGETS\["push-to-lynx"\] has 5 cells but GUIDES\["push-to-lynx"\]\.steps has 6 steps/, 'row mismatch');
@@ -449,7 +456,7 @@ check('cutSentence takes the joining space with the sentence', () => {
     equal(named.length, 7, 'guides naming Push changes to Lynx');
     const r = pushBeta(named.map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })));
     equal(crossReferencesOf(r).length, 7, 'registered');
-    const hidden = hide(PLAIN, r);
+    const hidden = hide(PLAIN_PUSH, r);
     const after = evaluateGuideData(hidden);
     for (const k of named) {
       const before = after.GUIDES[k].before;
@@ -462,7 +469,7 @@ check('cutSentence takes the joining space with the sentence', () => {
   });
   check('release gate: an unregistered mention of a beta guide fails, naming guide, field and sentence', () => {
     const r = pushBeta(named.filter((k) => k !== 'push-failures').map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })));
-    throws(() => hide(PLAIN, r),
+    throws(() => hide(PLAIN_PUSH, r),
       /guide "push-failures" before\[\d+\]: "Push changes to Lynx lists the settings under Before you start\." names the title of beta guide "push-to-lynx"\. Register it in src\/release\.json under guides\."push-to-lynx"\.crossReferences/,
       'unregistered');
   });
@@ -568,7 +575,7 @@ check('cutSentence takes the joining space with the sentence', () => {
     const named = Object.keys(guides).filter((k) => (guides[k].before || []).some((b) => b.includes(PUSH_SENTENCE)));
     const pr = clone(GA_ONLY);
     pr.guides['push-to-lynx'] = { status: 'beta', basis: 'test', crossReferences: named.map((guide) => ({ guide, field: 'before', text: PUSH_SENTENCE })) };
-    const shipped = evaluateGuideData(hide(PLAIN, pr));
+    const shipped = evaluateGuideData(hide(PLAIN_PUSH, pr));
     const set = betaOnlyStrings({ allData, shippedData: shipped, release: pr });
     const original = guides['push-failures'].before.find((b) => b.includes(PUSH_SENTENCE));
     equal(set.has(PUSH_SENTENCE), true, 'sentence');

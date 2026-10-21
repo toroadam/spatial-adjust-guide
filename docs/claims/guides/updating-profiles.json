@@ -228,6 +228,86 @@
       "previousText": "The screens here show a proposed design; the tab being built lists five named profile slots, so what you see on your own screen may differ."
     },
     {
+      "id": "updating-profiles/start/1",
+      "guide": "updating-profiles",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/where/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/start/2",
+      "guide": "updating-profiles",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-112"
+        }
+      ],
+      "note": "The push, settings and announcement dialogs open over the dashboard from the toolbar (:94-112); the guide starts with none open.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/start/3",
+      "guide": "updating-profiles",
+      "step": "start",
+      "field": "needs",
+      "text": "A saved profile whose targets you have since changed in the table.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 1231
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "326-332"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1153-1254"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims updating-profiles/1/2, updating-profiles/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "updating-profiles/before/1",
       "guide": "updating-profiles",
       "step": "before",
@@ -311,104 +391,8 @@
       "id": "updating-profiles/1/2",
       "guide": "updating-profiles",
       "step": "1",
-      "field": "body",
-      "text": "After a fortnight of individual target edits, the course no longer matches the profile you applied.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": 1231
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "326-332"
-        }
-      ],
-      "note": "Any target edit also clears the applied flag (SpatialAdjustService.cs:1231).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "updating-profiles/1/3",
-      "guide": "updating-profiles",
-      "step": "1",
-      "field": "body",
-      "text": "The profile is still valid, it is simply out of date.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "1153-1254"
-        }
-      ],
-      "note": "Target edits do not touch the stored profile (SpatialAdjustService.cs:1153-1254 writes stations and adjustments only).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "updating-profiles/1/4",
-      "guide": "updating-profiles",
-      "step": "1",
-      "field": "caption",
-      "text": "Individually edited targets drift away from the profile.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "1153-1254"
-        }
-      ],
-      "note": "Figure caption.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "updating-profiles/2/1",
-      "guide": "updating-profiles",
-      "step": "2",
-      "field": "title",
-      "text": "Find the profile’s row",
-      "type": "navigation",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "203-219"
-        }
-      ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/2/1); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
-      "question": "",
-      "developNote": "",
-      "correction": "",
-      "previousText": "Open the profile"
-    },
-    {
-      "id": "updating-profiles/2/2",
-      "guide": "updating-profiles",
-      "step": "2",
-      "field": "body",
-      "text": "The profile last applied is named above the dashboard table until a station target is edited; the profile list does not mark it.",
+      "field": "do",
+      "text": "Look above the table for the name of the profile you applied.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -467,20 +451,262 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
           "line": "326-332"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "30-31"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/2/2); docs/text-corrections.md §13 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Evidence carried over from the earlier ledger claim updating-profiles/2/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": "",
-      "previousText": "The active profile is the one whose targets were last loaded."
+      "previousText": "After a fortnight of individual target edits, the course no longer matches the profile you applied."
     },
     {
-      "id": "updating-profiles/2/3",
+      "id": "updating-profiles/1/3",
       "guide": "updating-profiles",
-      "step": "2",
-      "field": "body",
-      "text": "Editing a station target after applying leaves the profile intact but no longer exactly matched.",
+      "step": "1",
+      "field": "see",
+      "text": "After any station target edit, the name is gone, because the course no longer matches the profile.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 1231
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "326-332"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-219"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "698-707"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "30-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 432
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2432-2447"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1153-1254"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims updating-profiles/1/2, updating-profiles/2/2, updating-profiles/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The profile is still valid, it is simply out of date."
+    },
+    {
+      "id": "updating-profiles/1/4",
+      "guide": "updating-profiles",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If the name is still there, no target has changed since you applied it.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-219"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "698-707"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "30-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 432
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 1231
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2432-2447"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "326-332"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1153-1254"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims updating-profiles/2/2, updating-profiles/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/1/5",
+      "guide": "updating-profiles",
+      "step": "1",
+      "field": "ifNot",
+      "text": "There is nothing to update.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-219"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "698-707"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "30-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 432
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 1231
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2432-2447"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "326-332"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1153-1254"
+        }
+      ],
+      "note": "While the name shows, no target has changed since the profile was applied, so the stored profile and the course agree. Evidence carried over from the earlier ledger claims updating-profiles/2/2, updating-profiles/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/1/6",
+      "guide": "updating-profiles",
+      "step": "1",
+      "field": "why",
+      "text": "The stored profile is not changed by those edits; it is simply out of date.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -506,15 +732,743 @@
           "line": "326-332"
         }
       ],
-      "note": "The stored profile is untouched by a target edit. The edit also clears the applied flag, so the dashboard stops naming the profile (SpatialAdjustService.cs:1231; sa-dashboard.component.ts:326-332).",
+      "note": "Evidence carried over from the earlier ledger claims updating-profiles/1/3, updating-profiles/2/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
+      "id": "updating-profiles/1/7",
+      "guide": "updating-profiles",
+      "step": "1",
+      "field": "caption",
+      "text": "Individually edited targets drift away from the profile.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1153-1254"
+        }
+      ],
+      "note": "Figure caption.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/2/1",
+      "guide": "updating-profiles",
+      "step": "2",
+      "field": "title",
+      "text": "Open Settings",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/2/2",
+      "guide": "updating-profiles",
+      "step": "2",
+      "field": "do",
+      "text": "At the right of the toolbar, select the gear button, [[Settings]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 33
+        }
+      ],
+      "note": "The gear button has tooltip STRINGS.SETTINGS \"Settings\" and opens the Settings dialog (sa-main-toolbar.component.html:69-72).",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The profile last applied is named above the dashboard table until a station target is edited; the profile list does not mark it."
+    },
+    {
+      "id": "updating-profiles/2/3",
+      "guide": "updating-profiles",
+      "step": "2",
+      "field": "see",
+      "text": "The Settings dialog opens, with a rail of tabs down its left side.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "21-30"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "1-13"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Editing a station target after applying leaves the profile intact but no longer exactly matched."
+    },
+    {
       "id": "updating-profiles/2/4",
       "guide": "updating-profiles",
       "step": "2",
+      "field": "ifNot",
+      "text": "If another dialog is open, close it first.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "1-13"
+        }
+      ],
+      "note": "Dialogs here are modal (sa-settings-dlg.component.html:3), so a second dialog cannot be reached while one is open.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/2/5",
+      "guide": "updating-profiles",
+      "step": "2",
+      "field": "ifNot",
+      "text": "The gear is just right of [[Announcements]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "62-72"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/2/6",
+      "guide": "updating-profiles",
+      "step": "2",
+      "field": "caption",
+      "text": "The gear button sits in the toolbar’s right-hand group.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 33
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/3/1",
+      "guide": "updating-profiles",
+      "step": "3",
+      "field": "title",
+      "text": "Open the Target Profiles tab",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "22-29"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim target-profiles/1/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/3/2",
+      "guide": "updating-profiles",
+      "step": "3",
+      "field": "do",
+      "text": "In the left rail, select [[Target Profiles]], below [[Minimum Threshold]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 35
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "21-30"
+        }
+      ],
+      "note": "The rail lists Calculation, Minimum Threshold, Target Profiles, then Preferences (sa-settings-dlg.component.ts:52-57). Evidence carried over from the earlier ledger claims target-profiles/note/1, target-profiles/note/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Overwrite the stored targets with the current ones when the drift is an improvement."
+    },
+    {
+      "id": "updating-profiles/3/3",
+      "guide": "updating-profiles",
+      "step": "3",
+      "field": "see",
+      "text": "The right side lists 5 profile slots, with [[Update from Current]] and [[Apply Profile]] columns.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "191-221"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        }
+      ],
+      "note": "Five slots per course, indexes 0 to 4 (SpatialAdjustLogic.cs:28-31, sa-settings-dlg.component.ts:383-392). Column headings at sa-settings-dlg.component.html:195-199.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Capture into a different slot instead when the change is for one event, and rename it to suit; with five slots per course that overwrites whatever the other slot held, so pick one you no longer need."
+    },
+    {
+      "id": "updating-profiles/3/4",
+      "guide": "updating-profiles",
+      "step": "3",
+      "field": "ifNot",
+      "text": "If the rail has no [[Target Profiles]], your IntelliDash predates it.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 35
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim target-profiles/note/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/3/5",
+      "guide": "updating-profiles",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Change targets in the table instead.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 35
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim target-profiles/note/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Rule of thumb. Update when the course has genuinely moved on."
+    },
+    {
+      "id": "updating-profiles/3/6",
+      "guide": "updating-profiles",
+      "step": "3",
+      "field": "caption",
+      "text": "The Target Profiles tab in the settings dialog.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 55
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 35
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "177-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "103-109"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "383-392"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "28-31"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim target-profiles/1/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Use another slot when the change is temporary."
+    },
+    {
+      "id": "updating-profiles/4/1",
+      "guide": "updating-profiles",
+      "step": "4",
+      "field": "title",
+      "text": "Find the profile’s row",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "203-219"
+        }
+      ],
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/2/1); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Open the profile"
+    },
+    {
+      "id": "updating-profiles/4/2",
+      "guide": "updating-profiles",
+      "step": "4",
+      "field": "do",
+      "text": "Find the profile in the [[Target Profile]] column.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 195
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 204
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Updating a profile writes to the profile, not to the stations."
+    },
+    {
+      "id": "updating-profiles/4/3",
+      "guide": "updating-profiles",
+      "step": "4",
+      "field": "see",
+      "text": "Its row shows when it was last updated and how many stations it holds.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "196-197"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "205-206"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The Suggested column should be exactly as it was — if it moved, something applied rather than updated."
+    },
+    {
+      "id": "updating-profiles/4/4",
+      "guide": "updating-profiles",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If no name looks right, a slot may have been renamed.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "195-219"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "698-707"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "30-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 432
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 1231
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2432-2447"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "326-332"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 625
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim updating-profiles/2/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/4/5",
+      "guide": "updating-profiles",
+      "step": "4",
+      "field": "ifNot",
+      "text": "A rename also changes its date, which can help.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "625-627"
+        }
+      ],
+      "note": "Renaming a slot sets its last-updated time as well as capturing does (SpatialAdjustService.cs:625-627), so the Last Updated column moves with a rename.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/4/6",
+      "guide": "updating-profiles",
+      "step": "4",
+      "field": "why",
+      "text": "The list does not mark which profile was applied, so go by its name.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "203-219"
+        }
+      ],
+      "note": "The profile table has name, Last Updated, Stations and the two icon columns and no applied marker; the only exclamation is the pending-on-save flag (sa-settings-dlg.component.html:203-219).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/4/7",
+      "guide": "updating-profiles",
+      "step": "4",
       "field": "caption",
       "text": "The profile’s row, with Update from Current.",
       "type": "behaviour",
@@ -542,9 +1496,9 @@
       "previousText": "The active profile, ready to be updated."
     },
     {
-      "id": "updating-profiles/3/1",
+      "id": "updating-profiles/5/1",
       "guide": "updating-profiles",
-      "step": "3",
+      "step": "5",
       "field": "title",
       "text": "Update this slot or capture into another",
       "type": "behaviour",
@@ -586,11 +1540,40 @@
       "previousText": "Update rather than create"
     },
     {
-      "id": "updating-profiles/3/2",
+      "id": "updating-profiles/5/2",
       "guide": "updating-profiles",
-      "step": "3",
-      "field": "body",
-      "text": "Overwrite the stored targets with the current ones when the drift is an improvement.",
+      "step": "5",
+      "field": "do",
+      "text": "On the profile’s row, select the icon under [[Update from Current]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "207-212"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "249-251"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/5/3",
+      "guide": "updating-profiles",
+      "step": "5",
+      "field": "see",
+      "text": "An exclamation mark appears on the icon: the slot will take the current targets when you save.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -599,7 +1582,14 @@
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "208-211"
+          "line": 210
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "249-251"
         },
         {
           "source": "intellidash",
@@ -609,17 +1599,61 @@
           "line": "636-678"
         }
       ],
-      "note": "Update from Current, run on Save Changes.",
+      "note": "The icon shows an exclamation with tooltip \"Will update on save\" once the slot is marked (sa-settings-dlg.component.html:210).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "updating-profiles/3/3",
+      "id": "updating-profiles/5/4",
       "guide": "updating-profiles",
-      "step": "3",
-      "field": "body",
-      "text": "Capture into a different slot instead when the change is for one event, and rename it to suit; with five slots per course that overwrites whatever the other slot held, so pick one you no longer need.",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If the mark goes away, you selected the icon twice.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "249-251"
+        }
+      ],
+      "note": "onUpdateTargetProfile flips updateFromCurrent on each selection (sa-settings-dlg.component.ts:249-251).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/5/5",
+      "guide": "updating-profiles",
+      "step": "5",
+      "field": "ifNot",
+      "text": "Select it once more.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "249-251"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/5/6",
+      "guide": "updating-profiles",
+      "step": "5",
+      "field": "why",
+      "text": "For a one-off event, capture into a spare slot instead, so this profile stays as it is.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -659,16 +1693,15 @@
           "line": "636-678"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/3/3); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Evidence carried over from the earlier ledger claims updating-profiles/3/3, updating-profiles/3/6; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "Create a new profile instead when the change is for one event — a new name is cheaper than losing a good baseline."
+      "correction": ""
     },
     {
-      "id": "updating-profiles/3/4",
+      "id": "updating-profiles/5/7",
       "guide": "updating-profiles",
-      "step": "3",
+      "step": "5",
       "field": "caption",
       "text": "Updating overwrites the stored targets in place.",
       "type": "behaviour",
@@ -688,14 +1721,166 @@
       "correction": ""
     },
     {
-      "id": "updating-profiles/3/5",
+      "id": "updating-profiles/6/1",
       "guide": "updating-profiles",
-      "step": "3",
-      "field": "tip",
-      "text": "Rule of thumb. Update when the course has genuinely moved on.",
+      "step": "6",
+      "field": "title",
+      "text": "Save the change",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "48-62"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/6/2",
+      "guide": "updating-profiles",
+      "step": "6",
+      "field": "do",
+      "text": "Select [[Save Changes]] at the bottom of the dialog.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "48-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 459
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/6/3",
+      "guide": "updating-profiles",
+      "step": "6",
+      "field": "see",
+      "text": "A busy sign shows while the profile is saved, then the dialog closes.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 45
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "201-209"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "493-499"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/6/4",
+      "guide": "updating-profiles",
+      "step": "6",
+      "field": "ifNot",
+      "text": "If the dialog stays open with [[Unable to save data]], the save did not finish.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "208-213"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 166
+        }
+      ],
+      "note": "On error onSave shows the generic save error, GENERIC_SAVE_ERROR_SUMMARY \"Unable to save data\", and does not emit save, so the dialog stays open (sa-settings-dlg.component.ts:208-213).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/6/5",
+      "guide": "updating-profiles",
+      "step": "6",
+      "field": "ifNot",
+      "text": "Reload the page and check the profile list before you try again.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "510-518"
+        }
+      ],
+      "note": "The profile operation can fail or time out after ten minutes with advice to refresh before trying again (sa-settings-dlg.component.ts:510-518); a failed save does not reload the list, so reloading is the way to see what was stored.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/6/6",
+      "guide": "updating-profiles",
+      "step": "6",
+      "field": "caption",
+      "text": "Nothing is captured until Save Changes.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "493-499"
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -704,59 +1889,15 @@
           "line": "636-678"
         }
       ],
-      "note": "Editorial rule of thumb; Update from Current is the mechanism.",
+      "note": "",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "updating-profiles/3/6",
+      "id": "updating-profiles/7/1",
       "guide": "updating-profiles",
-      "step": "3",
-      "field": "tip",
-      "text": "Use another slot when the change is temporary.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "103-109"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "383-392"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "195-206"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustLogic.cs",
-          "line": "28-31"
-        }
-      ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (updating-profiles/3/6); docs/text-corrections.md §12 gives the claimed and actual behaviour. Verified against production at the cited lines.",
-      "question": "",
-      "developNote": "",
-      "correction": "",
-      "previousText": "Create when the change is temporary."
-    },
-    {
-      "id": "updating-profiles/4/1",
-      "guide": "updating-profiles",
-      "step": "4",
+      "step": "7",
       "field": "title",
       "text": "Confirm nothing moved",
       "type": "behaviour",
@@ -776,11 +1917,11 @@
       "correction": ""
     },
     {
-      "id": "updating-profiles/4/2",
+      "id": "updating-profiles/7/2",
       "guide": "updating-profiles",
-      "step": "4",
-      "field": "body",
-      "text": "Updating a profile writes to the profile, not to the stations.",
+      "step": "7",
+      "field": "do",
+      "text": "In the table, read [[Target VWC]] and [[Suggested]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -797,19 +1938,33 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "api/Services/SpatialAdjustService.cs",
           "line": "636-678"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "528-560"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "541-546"
         }
       ],
-      "note": "Unless Apply Profile is staged in the same save.",
+      "note": "Evidence carried over from the earlier ledger claims updating-profiles/4/2, updating-profiles/4/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "updating-profiles/4/3",
+      "id": "updating-profiles/7/3",
       "guide": "updating-profiles",
-      "step": "4",
-      "field": "body",
-      "text": "The Suggested column should be exactly as it was — if it moved, something applied rather than updated.",
+      "step": "7",
+      "field": "see",
+      "text": "They are as they were.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -828,15 +1983,87 @@
           "line": "541-546"
         }
       ],
-      "note": "An update-only save does not reload the dashboard or recalculate anything (sa-settings-dlg.component.ts:528-560); only an apply broadcasts the reload (:541-546). The Suggested column therefore stays as it was unless something else in the same save, such as a calculation setting, changed.",
+      "note": "Evidence carried over from the earlier ledger claims updating-profiles/4/3, updating-profiles/4/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "updating-profiles/4/4",
+      "id": "updating-profiles/7/4",
       "guide": "updating-profiles",
-      "step": "4",
+      "step": "7",
+      "field": "see",
+      "text": "The update changed only the stored profile.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "566-580"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "636-678"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "528-560"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims updating-profiles/4/2, updating-profiles/4/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/7/5",
+      "guide": "updating-profiles",
+      "step": "7",
+      "field": "ifNot",
+      "text": "If they changed, the save did more, such as applying a profile or changing a calculation setting.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "528-560"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "541-546"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "528-561"
+        }
+      ],
+      "note": "A save can also carry settings changes that recalculate adjustments or an applied profile, which reload the dashboard (sa-settings-dlg.component.ts:528-561). Evidence carried over from the earlier ledger claim updating-profiles/4/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "updating-profiles/7/6",
+      "guide": "updating-profiles",
+      "step": "7",
       "field": "caption",
       "text": "Suggestions unchanged: the update touched only the stored profile.",
       "type": "behaviour",

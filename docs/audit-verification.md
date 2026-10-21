@@ -1,5 +1,7 @@
 # Coherence findings — re-verification
 
+> Historical record. It describes the export as it was when audited, with 24 guides and no rewritten steps. The site now publishes 26 guides, with step copy from `src/rewrite/*.mjs`.
+
 Re-check of the figure/step coherence findings before any correction is made, because the
 extraction used during the audit was lossy and could have produced artefacts.
 

@@ -17,6 +17,7 @@ import { apply as applyReviewFixes } from './transforms/review-fixes.mjs';
 import { apply as applyBetaContent } from './transforms/beta-content.mjs';
 import { apply as applyReleaseGate } from './transforms/release-gate.mjs';
 import { loadRelease } from './release.mjs';
+import { REWRITES } from './rewrite/index.mjs';
 
 /** Controls the export builds from <div onClick>, which have no keyboard behaviour. */
 const CONTROLS = [
@@ -43,6 +44,463 @@ const TP_NOTE_WALKTHROUGH = 'The Target Profiles tab lists five profile slots fo
   + 'Stations, Update from Current and Apply Profile columns. If your settings dialog has no Target '
   + 'Profiles entry, your IntelliDash has not yet been updated to the release that includes it.';
 
+// --- exact-text rewrite helpers ------------------------------------------------------------------
+// The followability rewrite (src/rewrite/*.mjs) changes whole steps rather than single sentences,
+// so a regex per sentence would be unreadable and fragile. These helpers keep edit()'s contract
+// instead: every anchor is exact text, every lookup must match exactly once, and every field the
+// rewrite replaces is first asserted to still hold the text the rewrite was written against. A
+// re-export, or a correction elsewhere that changes that text, fails the build naming the
+// transform, so nobody rewrites a sentence they have not read in its current form.
+//
+// Literals are located by bracket matching that skips string literals, template literals and
+// comments, because guide prose is full of parentheses and brackets.
+
+const CLOSER = { '{': '}', '[': ']', '(': ')' };
+
+function fail(name, message) {
+  throw new Error(
+    `Transform "${name}": ${message}\n`
+    + '  The export or an earlier transform has changed this text. Re-read the current text and\n'
+    + '  update the rewrite in src/rewrite/ — do not loosen or skip the anchor.',
+  );
+}
+
+/** Index just past the string or template literal whose opening quote is at `i`. */
+function skipString(src, i, name) {
+  const q = src[i];
+  for (let j = i + 1; j < src.length; j++) {
+    const c = src[j];
+    if (c === '\\') { j++; continue; }
+    if (c === q) return j + 1;
+    if (q === '`' && c === '$' && src[j + 1] === '{') { j = matchBracket(src, j + 1, name) - 1; continue; }
+    if (q !== '`' && c === '\n') fail(name, `unterminated string literal at offset ${i}`);
+  }
+  return fail(name, `unterminated string literal at offset ${i}`);
+}
+
+/** Index just past the bracket that closes the one opening at `open`. */
+function matchBracket(src, open, name) {
+  const stack = [];
+  for (let i = open; i < src.length; i++) {
+    const c = src[i];
+    if (c === "'" || c === '"' || c === '`') { i = skipString(src, i, name) - 1; continue; }
+    if (c === '/' && src[i + 1] === '/') { const nl = src.indexOf('\n', i); i = nl === -1 ? src.length : nl; continue; }
+    if (c === '/' && src[i + 1] === '*') { const e = src.indexOf('*/', i + 2); i = e === -1 ? src.length : e + 1; continue; }
+    if (CLOSER[c]) stack.push(CLOSER[c]);
+    else if (c === '}' || c === ']' || c === ')') {
+      if (stack.pop() !== c) fail(name, `unbalanced "${c}" at offset ${i}`);
+      if (!stack.length) return i + 1;
+    }
+  }
+  return fail(name, `no closing bracket for the "${src[open]}" at offset ${open}`);
+}
+
+/** Offsets of every occurrence of `needle` in `hay`. */
+function occurrences(hay, needle) {
+  const at = [];
+  for (let i = hay.indexOf(needle); i !== -1; i = hay.indexOf(needle, i + 1)) at.push(i);
+  return at;
+}
+
+/** Splits an object literal's source text into its top-level `key: value` entries.
+ *  Returns the text before the first entry, each entry, the separators and the closing text,
+ *  so a rebuild can leave every untouched byte exactly where it was. */
+function parseObject(lit, name, what) {
+  const entries = [];
+  let i = 1;
+  const ws = () => { while (i < lit.length && /\s/.test(lit[i])) i++; };
+  ws();
+  const head = lit.slice(0, i);
+  while (i < lit.length - 1) {
+    const start = i;
+    let key;
+    if (lit[i] === "'" || lit[i] === '"') {
+      const e = skipString(lit, i, name);
+      key = Function(`"use strict"; return (${lit.slice(i, e)});`)();
+      i = e;
+    } else {
+      const m = /^[A-Za-z_$][\w$]*/.exec(lit.slice(i));
+      if (!m) fail(name, `cannot read a key in ${what} at "${lit.slice(i, i + 30)}"`);
+      key = m[0];
+      i += key.length;
+    }
+    ws();
+    if (lit[i] !== ':') fail(name, `${what}: expected ":" after key "${key}"`);
+    i++;
+    ws();
+    const valStart = i;
+    let last = i;
+    for (; i < lit.length - 1; i++) {
+      const c = lit[i];
+      if (c === ',') break;
+      if (c === "'" || c === '"' || c === '`') { i = skipString(lit, i, name) - 1; last = i + 1; continue; }
+      if (CLOSER[c]) { i = matchBracket(lit, i, name) - 1; last = i + 1; continue; }
+      if (!/\s/.test(c)) last = i + 1;
+    }
+    entries.push({ key, start, valStart, end: last });
+    if (lit[i] === ',') {
+      // A trailing comma before the closing brace belongs to the tail, not to a next entry.
+      let j = i + 1;
+      while (j < lit.length && /\s/.test(lit[j])) j++;
+      if (j >= lit.length - 1) break;
+      i = j;
+    }
+  }
+  if (!entries.length) fail(name, `${what} has no entries`);
+  const parts = entries.map((e, k) => ({
+    key: e.key,
+    keyText: lit.slice(e.start, e.valStart),
+    value: lit.slice(e.valStart, e.end),
+    after: lit.slice(e.end, k + 1 < entries.length ? entries[k + 1].start : lit.length),
+  }));
+  return { head, parts };
+}
+
+const STRING_LITERAL = /^(?:'(?:[^'\\\n]|\\.)*'|"(?:[^"\\\n]|\\.)*")$/s;
+
+/** The text a field's value means: a string literal is decoded, anything else is its source. */
+function valueText(raw) {
+  return STRING_LITERAL.test(raw) ? Function(`"use strict"; return (${raw});`)() : raw;
+}
+
+/** Serialises a rewrite value as source: single-quoted strings, arrays, plain objects. */
+function literal(v, name) {
+  if (typeof v === 'string') {
+    // The guide data sits inside an inline <script>; either sequence would end or corrupt it.
+    if (/<\/script|<!--/i.test(v)) fail(name, 'a rewrite string may not contain "</script" or "<!--"');
+    return "'" + v.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/\r/g, '\\r')
+      .replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029') + "'";
+  }
+  if (typeof v === 'number' && Number.isFinite(v)) return String(v);
+  if (typeof v === 'boolean' || v === null) return String(v);
+  if (Array.isArray(v)) return '[' + v.map((x) => literal(x, name)).join(', ') + ']';
+  if (v && typeof v === 'object') {
+    const body = Object.entries(v).map(([k, x]) => `${/^[A-Za-z_$][\w$]*$/.test(k) ? k : literal(k, name)}: ${literal(x, name)}`);
+    return body.length ? `{ ${body.join(', ')} }` : '{}';
+  }
+  return fail(name, `cannot serialise a value of type ${typeof v}`);
+}
+
+/** Applies expect / set / drop to one object literal's source text. */
+function rewriteObject(lit, { name, what, expect = {}, set = {}, drop = [] }) {
+  const { head, parts } = parseObject(lit, name, what);
+  const find = (key) => parts.findIndex((p) => p.key === key);
+
+  for (const [key, want] of Object.entries(expect)) {
+    const k = find(key);
+    if (want === null || want === undefined) {
+      if (k !== -1) fail(name, `${what}: expected no "${key}" field, but it has one`);
+      continue;
+    }
+    if (k === -1) fail(name, `${what}: expected a "${key}" field, but it has none`);
+    const have = valueText(parts[k].value);
+    if (have !== want) {
+      fail(name, `${what}: "${key}" does not match the expected text.\n`
+        + `  expected: ${JSON.stringify(want)}\n  found:    ${JSON.stringify(have)}`);
+    }
+  }
+
+  for (const key of drop) {
+    const k = find(key);
+    if (k === -1) fail(name, `${what}: cannot drop "${key}", the field is not there`);
+    if (key in set) fail(name, `${what}: "${key}" is both set and dropped`);
+    if (k === parts.length - 1 && k > 0) parts[k - 1].after = parts[k].after;
+    parts.splice(k, 1);
+  }
+  if (!parts.length) fail(name, `${what}: dropping every field leaves an empty literal`);
+
+  for (const [key, v] of Object.entries(set)) {
+    const value = literal(v, name);
+    const k = find(key);
+    if (k !== -1) { parts[k].value = value; continue; }
+    // New fields follow the last one, separated the way the literal already separates its fields.
+    const last = parts[parts.length - 1];
+    const sep = parts.length > 1 ? parts[parts.length - 2].after : ', ';
+    parts.push({ key, keyText: `${key}: `, value, after: last.after });
+    last.after = sep.trimStart().startsWith(',') ? sep : ', ';
+  }
+
+  return head + parts.map((p) => p.keyText + p.value + p.after).join('');
+}
+
+/** Bounds of one guide's literal in GUIDES, found by the exact text `  '<guide>': {`. */
+function guideBlock(src, name, guide) {
+  const needle = `\n  '${guide}': {`;
+  const at = occurrences(src, needle);
+  if (at.length !== 1) fail(name, `expected the guide "${guide}" exactly once, found ${at.length}`);
+  const open = at[0] + needle.length - 1;
+  return { open, close: matchBracket(src, open, name) };
+}
+
+/** Rewrites one step of one guide. `title` is the step's title exactly as the source writes it,
+ *  escapes included (a curly apostrophe may be written ’). `expect` maps a field to the exact
+ *  text it must hold now (decoded, for a string), or to null when the field must be absent; `set`
+ *  replaces or appends fields; `drop` removes fields that must be there. */
+export function editStep(src, { name, guide, title, expect = {}, set = {}, drop = [] }) {
+  const g = guideBlock(src, name, guide);
+  const needle = `{ title: '${title}'`;
+  const at = occurrences(src.slice(g.open, g.close), needle);
+  if (at.length !== 1) fail(name, `expected the step "${title}" in "${guide}" exactly once, found ${at.length}`);
+  const open = g.open + at[0];
+  const close = matchBracket(src, open, name);
+  const what = `step "${title}" of "${guide}"`;
+  return src.slice(0, open) + rewriteObject(src.slice(open, close), { name, what, expect, set, drop }) + src.slice(close);
+}
+
+/** Rewrites a guide's own fields (title, summary, start, before, verify, next, ...), with the
+ *  same expect / set / drop contract as editStep. */
+export function editGuide(src, { name, guide, expect = {}, set = {}, drop = [] }) {
+  const { open, close } = guideBlock(src, name, guide);
+  const what = `guide "${guide}"`;
+  return src.slice(0, open) + rewriteObject(src.slice(open, close), { name, what, expect, set, drop }) + src.slice(close);
+}
+
+/** Replaces a guide's TARGETS entry. `expect` is its exact current text, `'<guide>': [ ... ]` or
+ *  just the `[ ... ]`; `replace` is the new text in either form. TARGETS is positional, so a
+ *  rewrite that changes the number or order of steps re-authors the entry in the same change. */
+export function editTargets(src, { name, guide, expect, replace }) {
+  const prefix = `'${guide}': `;
+  const full = (t) => (t.startsWith(prefix) ? t : prefix + t);
+  const at = occurrences(src, `${prefix}[`);
+  if (at.length !== 1) fail(name, `expected the TARGETS entry for "${guide}" exactly once, found ${at.length}`);
+  const close = matchBracket(src, at[0] + prefix.length, name);
+  const current = src.slice(at[0], close);
+  if (typeof expect !== 'string' || current !== full(expect)) {
+    fail(name, `the TARGETS entry for "${guide}" does not match the expected text.\n`
+      + `  expected: ${typeof expect === 'string' ? full(expect) : '(none given)'}\n  found:    ${current}`);
+  }
+  const next = full(replace);
+  if (!/^'[^']+': \[[\s\S]*\]$/.test(next)) fail(name, `the TARGETS replacement for "${guide}" is not an array entry`);
+  return src.slice(0, at[0]) + next + src.slice(close);
+}
+
+// --- step shape rendering --------------------------------------------------------------------------
+// A rewritten step carries do / see / ifNot (and optionally why) instead of body, and a rewritten
+// guide carries start. This renders them in the player panel, in the article step and under
+// Before you start. A step without do keeps its body paragraph exactly as before, and until a
+// rewrite is registered the renderer is not installed at all (see transformGuide).
+//
+// The lines are translated whole, at render time, through window.__saT (src/i18n-apply.js), not
+// by the DOM pass that translates everything else. A sentence with a bold label inside it is
+// three DOM text nodes, so the DOM pass would either harvest fragments ("Select", "in the list.")
+// that no language can reorder, or split text nodes React owns. saLine() keeps one catalogue key
+// per sentence, turns each [[Exact Label]] into <b class="lsa-label">, and marks its span with
+// data-sa-src so the DOM pass and the harvester leave the inside alone. The component re-renders
+// on the 'sa:locale-applied' event, which is how a locale switch reaches these lines.
+
+/** Exact text as a pattern for edit(). */
+const exact = (text) => new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+
+const SHAPE_ROWS = (v) => [
+  `<div class="lsa-shape-row lsa-do"><span class="lsa-shape-k">Do</span>{{ ${v}.doLine }}</div>`,
+  `<div class="lsa-shape-row lsa-see"><span class="lsa-shape-k">You should see</span>{{ ${v}.see }}</div>`,
+  `<div class="lsa-shape-row lsa-ifnot"><span class="lsa-shape-k">If not</span>{{ ${v}.ifNot }}</div>`,
+  `<sc-if value="{{ ${v}.hasWhy }}" hint-placeholder-val="{{ false }}"><div class="lsa-shape-row lsa-why"><span class="lsa-shape-k">Why</span>{{ ${v}.why }}</div></sc-if>`,
+].join('');
+
+/** The body paragraph when the step has no shape, the shape rows when it does. The two sc-if
+ *  blocks sit flush against each other and against the paragraph, so a step without do renders
+ *  exactly the DOM it rendered before: no extra element and no extra whitespace node. */
+const shapeBlock = (v, para, extraClass) =>
+  `<sc-if value="{{ ${v}.noShape }}" hint-placeholder-val="{{ true }}">${para}</sc-if>`
+  + `<sc-if value="{{ ${v}.hasShape }}" hint-placeholder-val="{{ false }}">`
+  + `<div class="lsa-shape ${extraClass}">${SHAPE_ROWS(v)}</div></sc-if>`;
+
+function stepShape(src) {
+  let s = src;
+
+  const PANEL_BODY = '<p style="margin:0;font-size:14px;line-height:1.65;color:var(--60);text-wrap:pretty">{{ guide.player.step.body }}</p>';
+  s = edit(s, {
+    name: 'step shape: player panel rows',
+    pattern: exact(PANEL_BODY),
+    replace: () => shapeBlock('guide.player.step', PANEL_BODY, 'lsa-shape-panel'),
+  });
+
+  const ARTICLE_BODY = '<p style="margin:0;font-size:16px;line-height:1.7;color:var(--60);text-wrap:pretty">{{ step.body }}</p>';
+  s = edit(s, {
+    name: 'step shape: article step rows',
+    pattern: exact(ARTICLE_BODY),
+    replace: () => shapeBlock('step', ARTICLE_BODY, 'lsa-shape-article'),
+  });
+
+  // The start state leads Before you start: where to begin, what to have open, what you need.
+  const BEFORE_LIST = '>Before you start</h2>\n          <div style="display:flex;flex-direction:column;gap:10px">';
+  s = edit(s, {
+    name: 'step shape: start state under Before you start',
+    pattern: exact(BEFORE_LIST),
+    replace: () => BEFORE_LIST.replace('\n          <div', '\n          '
+      + '<sc-if value="{{ guide.hasStart }}" hint-placeholder-val="{{ false }}"><dl class="lsa-start">'
+      + '<sc-for list="{{ guide.start }}" as="r" hint-placeholder-count="3">'
+      + '<div class="lsa-start-row"><dt class="lsa-shape-k">{{ r.k }}</dt><dd>{{ r.v }}</dd></div>'
+      + '</sc-for></dl></sc-if><div'),
+  });
+
+  s = edit(s, {
+    name: 'step shape: saLine() renders a translated line with bold labels',
+    pattern: /\nconst GUIDES = \{\n/,
+    replace: () => '\n// Added by src/transform-export.mjs (step shape rendering). One line of a step, translated whole\n'
+      + '// through window.__saT, with each [[Exact Label]] shown bold and no brackets. data-sa-src keeps\n'
+      + '// the English, which is the catalogue key and tells src/i18n-apply.js to leave the inside alone.\n'
+      + 'function saLine(text) {\n'
+      + '  if (!text) return null;\n'
+      + '  const src = String(text);\n'
+      + "  const tr = (typeof window !== 'undefined' && window.__saT) ? window.__saT(src) : src;\n"
+      + '  const parts = String(tr).split(/\\[\\[([^\\]]+)\\]\\]/);\n'
+      + "  return React.createElement('span', { 'data-sa-src': src, className: 'lsa-line' },\n"
+      + "    ...parts.map((p, i) => (i % 2 ? React.createElement('b', { className: 'lsa-label', key: i }, p) : p)));\n"
+      + '}\n'
+      + '\nconst GUIDES = {\n',
+  });
+
+  s = edit(s, {
+    name: 'step shape: step fields in renderVals',
+    pattern: /tip: s\.tip \|\| ''\n/,
+    replace: () => "tip: s.tip || '',\n"
+      + '          hasShape: !!s.do,\n'
+      + '          noShape: !s.do,\n'
+      + '          doLine: saLine(s.do),\n'
+      + '          see: saLine(s.see),\n'
+      + '          ifNot: saLine(s.ifNot),\n'
+      + '          why: saLine(s.why),\n'
+      + '          hasWhy: !!s.why\n',
+  });
+
+  s = edit(s, {
+    name: 'step shape: guide start rows in renderVals',
+    pattern: /before: g\.before, verify: g\.verify, player,/,
+    replace: () => 'before: g.before, verify: g.verify, player,\n'
+      + '        hasStart: !!g.start,\n'
+      + "        start: g.start ? [{ k: 'Start on', v: saLine(g.start.page) }, { k: 'Have open', v: saLine(g.start.open) },\n"
+      + "          { k: 'You need', v: saLine(g.start.needs) }].filter((r) => r.v) : [],",
+  });
+
+  // A locale switch changes what saLine() returns, so it has to reach the component as a render.
+  s = edit(s, {
+    name: 'step shape: re-render on sa:locale-applied',
+    pattern: exact("window.addEventListener('scroll', this._onScroll, { passive: true });"),
+    replace: () => "window.addEventListener('scroll', this._onScroll, { passive: true });\n\n"
+      + '    // Step-shape lines are translated at render time (saLine), so a locale change needs a render.\n'
+      + '    this._onLocale = () => {\n'
+      + "      if (typeof this.forceUpdate === 'function') this.forceUpdate();\n"
+      + '      else this.setState({ _saLocale: Date.now() });\n'
+      + '    };\n'
+      + "    window.addEventListener('sa:locale-applied', this._onLocale);",
+  });
+  s = edit(s, {
+    name: 'step shape: remove the sa:locale-applied listener',
+    pattern: exact("if (this._onScroll) window.removeEventListener('scroll', this._onScroll);"),
+    replace: () => "if (this._onScroll) window.removeEventListener('scroll', this._onScroll);\n"
+      + "    if (this._onLocale) window.removeEventListener('sa:locale-applied', this._onLocale);",
+  });
+
+  return s;
+}
+
+// --- glossary at point of use ------------------------------------------------------------------------
+// The eight terms in src/terms.json (VWC, ET, delta, Lynx Reference Amount, aggregate row, measured,
+// modelled, target) are defined where each is first used in a guide, so a reader never has to go
+// back to Getting Started. build.mjs injects the terms as window.__saTerms in its bootstrap, which
+// runs before support.js, so they are there on the first render.
+//
+// First use is found in renderVals on the guide's English source, so it is the same in every
+// locale. The guide is read in page order: start (page, open, needs) and before, which render under
+// Before you start, then each step's title, do, see, ifNot, why, body, caption and tip. Text inside a
+// [[label]] marker is not a use, so [[Target VWC]] does not define "target", and a match must be a
+// whole word. A term defined once is not defined again later in the same guide.
+//
+// The definitions render as a dl.lsa-terms (div > dt term + dd definition) under Before you start,
+// and under the step's text in both the article and the player panel. They are plain text nodes, not
+// data-sa-src lines, so the DOM pass in src/i18n-apply.js translates them from the catalogue like
+// any other text and a locale switch needs no re-render.
+
+/**
+ * Where each glossary term is first used in one guide. `g` is a GUIDES entry and `terms` the list
+ * from src/terms.json. Returns { start: [...], steps: [[...], ...] }, each item { term, definition },
+ * in the order the terms appear. Self-contained on purpose: transformGuide injects its source into
+ * the export, so the page and the node checks run the same function.
+ */
+export function firstTermUses(g, terms) {
+  const FIELDS = ['title', 'do', 'see', 'ifNot', 'why', 'body', 'caption', 'tip'];
+  const strip = (t) => (typeof t === 'string' ? t.replace(/\[\[[^\]]*\]\]/g, ' ') : '');
+  const esc = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const st = g.start || {};
+  const blocks = [[st.page, st.open, st.needs].concat(g.before || [])]
+    .concat((g.steps || []).map((s) => FIELDS.map((f) => s[f])))
+    .map((list) => list.map(strip).join('\n'));
+  const found = blocks.map(() => []);
+  for (const t of terms || []) {
+    const words = (t.match || []).map(esc).join('|');
+    if (!words) continue;
+    const re = new RegExp('(^|[^\\p{L}\\p{N}])(?:' + words + ')(?![\\p{L}\\p{N}])', t.caseSensitive ? 'u' : 'iu');
+    for (let b = 0; b < blocks.length; b++) {
+      const m = re.exec(blocks[b]);
+      if (m) { found[b].push({ at: m.index + m[1].length, term: t.term, definition: t.definition }); break; }
+    }
+  }
+  const out = found.map((list) => list.sort((a, b) => a.at - b.at).map((x) => ({ term: x.term, definition: x.definition })));
+  return { start: out[0], steps: out.slice(1) };
+}
+
+/** The dl for one list of terms: `has` and `list` are the view-model paths of its flag and items. */
+const termsList = (has, list, extraClass) =>
+  `<sc-if value="{{ ${has} }}" hint-placeholder-val="{{ false }}"><dl class="lsa-terms ${extraClass}">`
+  + `<sc-for list="{{ ${list} }}" as="tm" hint-placeholder-count="1">`
+  + '<div class="lsa-terms-row"><dt>{{ tm.term }}</dt><dd>{{ tm.definition }}</dd></div>'
+  + '</sc-for></dl></sc-if>';
+
+function glossary(src) {
+  let s = src;
+
+  s = edit(s, {
+    name: 'glossary: firstTermUses() and saTermsFor() in the guide script',
+    pattern: /\nconst DIFFICULTY_LABEL = \{ 1: /,
+    replace: () => '\n// Added by src/transform-export.mjs (glossary at point of use). window.__saTerms comes from\n'
+      + '// build.mjs; the first uses of a guide never change, so they are worked out once per guide.\n'
+      + firstTermUses.toString() + '\n'
+      + 'const SA_TERM_USES = {};\n'
+      + 'function saTermsFor(key, g) {\n'
+      + "  const terms = (typeof window !== 'undefined' && window.__saTerms) || [];\n"
+      + '  return SA_TERM_USES[key] || (SA_TERM_USES[key] = firstTermUses(g, terms));\n'
+      + '}\n'
+      + '\nconst DIFFICULTY_LABEL = { 1: ',
+  });
+
+  // The step objects are shared by the article and the player panel (player.step is steps[pi]).
+  s = edit(s, {
+    name: 'glossary: terms on each step in renderVals',
+    pattern: exact('const pi = Math.min(this.state.playerStep, steps.length - 1);'),
+    replace: () => 'const termUses = saTermsFor(key, g);\n'
+      + '      steps.forEach((st, i) => { st.terms = termUses.steps[i] || []; st.hasTerms = st.terms.length > 0; });\n'
+      + '      const pi = Math.min(this.state.playerStep, steps.length - 1);',
+  });
+  s = edit(s, {
+    name: 'glossary: Before you start terms on the guide in renderVals',
+    pattern: exact('steps, stepCount: steps.length, toc, next'),
+    replace: () => 'steps, stepCount: steps.length, toc, next,\n'
+      + '        hasStartTerms: termUses.start.length > 0, startTerms: termUses.start',
+  });
+
+  // Each dl sits flush against the element before it, so a guide or step with no terms renders no
+  // extra whitespace node. The anchors stop short of attributes other transforms add.
+  s = edit(s, {
+    name: 'glossary: terms under the step text in the article',
+    pattern: /\n\n {12}<figure class="lsa-step-figure"/,
+    replace: (m) => termsList('step.hasTerms', 'step.terms', 'lsa-terms-article') + m,
+  });
+  s = edit(s, {
+    name: 'glossary: terms under the step text in the player panel',
+    pattern: exact('\n            </div>\n\n            <div style="flex:1;min-height:0;overflow-y:auto;padding:10px 14px">'),
+    replace: (m) => termsList('guide.player.step.hasTerms', 'guide.player.step.terms', 'lsa-terms-panel') + m,
+  });
+  s = edit(s, {
+    name: 'glossary: terms under Before you start',
+    pattern: exact('\n        </section>\n\n        <sc-for list="{{ guide.steps }}"'),
+    replace: (m) => termsList('guide.hasStartTerms', 'guide.startTerms', 'lsa-terms-start') + m,
+  });
+
+  return s;
+}
+
 /**
  * Transform the raw Core Design export into the published guide.
  *
@@ -66,6 +524,81 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
     name: 'step figure hook',
     pattern: /<figure style="margin:28px 0 0">/,
     replace: '<figure class="lsa-step-figure" style="margin:28px 0 0">',
+  });
+
+  // --- each step's cursor target, exposed in the DOM ---------------------------
+  // The player resolves a step's target as TARGETS first, then the step's own `t`, then a hard
+  // default of [800, 500] that points at nothing in particular. The resolved point and WHICH of
+  // the three supplied it go on the player stage and on every article figure as data attributes,
+  // for two readers outside the export: src/player.js, which outlines the element under the point
+  // (the Double Click highlight), and scripts/cursor-target.mjs, which fails the build on a step
+  // that fell back to the default. Reporting the source directly is the point: inferring a
+  // fallback from the coordinates would miss a TARGETS entry that happens to be [800, 500].
+  // The point is in the reproduction's 1920x1080 design space, the space TARGETS is written in.
+  s = edit(s, {
+    name: 'cursor target: resolved point and its source in the step view-model',
+    pattern: exact("target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],"),
+    replace: () => "target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],\n"
+      + "          targetSrc: (TARGETS[key] && TARGETS[key][i]) ? 'targets' : (s.t ? 'step' : 'default'),\n"
+      + "          targetAttr: ((TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500]).join(','),",
+  });
+  s = edit(s, {
+    name: 'cursor target: data attributes on the player stage',
+    pattern: exact('<div ref="{{ setStageEl }}" style="{{ guide.player.stageStyle }}">'),
+    replace: () => '<div ref="{{ setStageEl }}" style="{{ guide.player.stageStyle }}" class="lsa-stage" '
+      + 'data-sa-target="{{ guide.player.step.targetAttr }}" data-sa-target-src="{{ guide.player.step.targetSrc }}" '
+      + 'data-sa-step="{{ guide.player.step.n }}">',
+  });
+  s = edit(s, {
+    name: 'cursor target: data attributes on each article figure',
+    pattern: exact('<figure class="lsa-step-figure" style="margin:28px 0 0">'),
+    replace: () => '<figure class="lsa-step-figure" style="margin:28px 0 0" '
+      + 'data-sa-target="{{ step.targetAttr }}" data-sa-target-src="{{ step.targetSrc }}" data-sa-step="{{ step.n }}">',
+  });
+
+  // --- each article figure frames its step's target --------------------------------
+  // src/player.js outlines the step's target in every article figure, which exposed figures whose
+  // fixed crop leaves the target out: 12 of 122 had nothing to outline. Most are a table crop
+  // showing the first five rows while the caption names a row further down ("Station 7AP1 has no
+  // current scan" over a crop that ends at row 4), or a tall dialog crop that stops just short of
+  // the footer button the step is about. camera() already pans the stage to keep the target in
+  // view; fig() now does the same, by the same rule: a crop moves only when the target is outside
+  // it or within PAD of its edge, and then only far enough to bring it PAD inside. PAD is half the
+  // height of a table row, so the control around the point is in view, not just the point.
+  s = edit(s, {
+    name: 'figure frame: fig() pans its crop to include the target',
+    pattern: exact('function fig(kind, k) {\n  const f = FIGURES[kind] || FIGURES.full;'),
+    replace: () => '// Added by src/transform-export.mjs (figure frames the target). A crop moved, minimally, so the\n'
+      + "// step's target is at least PAD inside it, as camera() does for the stage.\n"
+      + 'function saFrame(f, t) {\n'
+      + '  if (!t) return f;\n'
+      + '  const PAD = 32, vw = f.w / f.s, vh = f.h / f.s;\n'
+      + '  let x = f.x, y = f.y;\n'
+      + '  if (t[0] < x + PAD) x = t[0] - PAD;\n'
+      + '  if (t[0] > x + vw - PAD) x = t[0] - vw + PAD;\n'
+      + '  if (t[1] < y + PAD) y = t[1] - PAD;\n'
+      + '  if (t[1] > y + vh - PAD) y = t[1] - vh + PAD;\n'
+      + '  x = Math.max(0, Math.min(x, 1920 - vw));\n'
+      + '  y = Math.max(0, Math.min(y, 1080 - vh));\n'
+      + '  return x === f.x && y === f.y ? f : Object.assign({}, f, { x: x, y: y });\n'
+      + '}\n\n'
+      + 'function fig(kind, k, target) {\n  const f = saFrame(FIGURES[kind] || FIGURES.full, target);',
+  });
+  s = edit(s, {
+    name: "figure frame: each step's figure is given its target",
+    pattern: exact('const f = fig(s.fig, ratio);'),
+    replace: () => 'const f = fig(s.fig, ratio, (TARGETS[key] && TARGETS[key][i]) || s.t);',
+  });
+
+  // --- rail chips carry their step number and English title -------------------
+  // The chapter strip in src/player.js mirrors the rail: one segment per chip, activated by clicking
+  // the chip, so the export's setPlayerStep, step_advanced and the live region are unchanged. The
+  // title is the English catalogue key, which a data attribute keeps when src/i18n-apply.js
+  // translates the chip's visible text.
+  s = edit(s, {
+    name: 'chapter strip: step number and title on each rail chip',
+    pattern: exact('<div onClick="{{ chip.onClick }}" style="{{ chip.style }}"'),
+    replace: () => '<div onClick="{{ chip.onClick }}" data-sa-chip="{{ chip.n }}" data-sa-title="{{ chip.label }}" style="{{ chip.style }}"',
   });
 
   // --- keyboard semantics on the div-based controls ---------------------------
@@ -885,6 +1418,18 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
     replace: '$1.5$2',
   });
 
+  // --- the catalogue's guide count ----------------------------------------------
+  // The hero link says how many guides the catalogue holds, as plain text in the export, and the
+  // export still says 24 although the catalogue now has 26 cards (24 authored plus the two this
+  // file adds). build.mjs checks the number against the catalogue on every build, so it cannot
+  // go stale again unnoticed. Changing it changes a translated string: update the key in every
+  // src/i18n catalogue, as the localisation notes in README.md describe.
+  s = edit(s, {
+    name: 'catalogue guide count in the hero link',
+    pattern: exact('or browse all 24 tasks ↓'),
+    replace: () => 'or browse all 26 tasks ↓',
+  });
+
   // --- per-concern modules ------------------------------------------------------
   // Each module under src/transforms/ is owned by one feature (see the module map in
   // docs/claims/README.md), so features can work in parallel without editing this file.
@@ -897,10 +1442,27 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
   s = applyOperationalContract(s);
   s = applyReviewFixes(s);
 
-  // Beta content and the release gate run after the four modules above. beta-content adds the
-  // steps and guides written against develop. release-gate runs last of all, so it sees every
-  // guide and step any module added, and in a build with SA_SHOW_BETA=false it deletes the beta
-  // ones and fails the build on anything left over.
+  // The step-shape renderer is installed only once a rewrite is registered. With none, the page
+  // is the page as it was before the rewrite began, byte for byte apart from src/steps.css and the
+  // render-time translation hooks in src/i18n-apply.js, so the renderer cannot change a guide
+  // that has not been rewritten. Its anchors are still checked on every build that has a rewrite.
+  if (REWRITES.length) s = stepShape(s);
+
+  // Glossary at point of use: every guide, rewritten or not. It anchors on the template and on
+  // renderVals, never on guide data, so it composes with any rewrite below.
+  s = glossary(s);
+
+  // --- followability rewrites ---------------------------------------------------
+  // After every correction above, because a rewrite anchors on the text those have already
+  // produced, so it is written against what readers see today. Before beta-content and the release
+  // gate, which anchor on the rewritten steps. One module per catalogue category; see the
+  // header of src/rewrite/index.mjs.
+  for (const r of REWRITES) s = r(s, { edit, editStep, editGuide, editTargets });
+
+  // Beta content and the release gate run after the followability rewrites. beta-content adds the
+  // steps and guides written against develop and anchors on the rewritten steps. release-gate runs
+  // last of all, so it sees every guide and step any module added, and in a build with
+  // SA_SHOW_BETA=false it deletes the beta ones and fails the build on anything left over.
   s = applyBetaContent(s);
   s = applyReleaseGate(s, { showBeta, release: release || loadRelease().release });
 

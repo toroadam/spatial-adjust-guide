@@ -158,6 +158,118 @@
       "correction": ""
     },
     {
+      "id": "bulk-adjustments/start/1",
+      "guide": "bulk-adjustments",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/where/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "bulk-adjustments/start/2",
+      "guide": "bulk-adjustments",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-112"
+        }
+      ],
+      "note": "The push, settings and announcement dialogs open over the dashboard from the toolbar (:94-112); the guide starts with none open.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "bulk-adjustments/start/3",
+      "guide": "bulk-adjustments",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data, on a desktop or tablet.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2510
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 3
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 36
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 846
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/before/1, dashboard-overview/before/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "bulk-adjustments/before/1",
       "guide": "bulk-adjustments",
       "step": "before",
@@ -262,8 +374,8 @@
       "id": "bulk-adjustments/1/2",
       "guide": "bulk-adjustments",
       "step": "1",
-      "field": "body",
-      "text": "Tick the checkbox on each station row.",
+      "field": "do",
+      "text": "Tick the checkbox on each station row you want to change.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -275,17 +387,84 @@
           "line": "6-10"
         }
       ],
-      "note": "A checkbox on each station row; area and hole rows have a three-state checkbox (:11-15).",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/1/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Tick the checkbox on each station row."
     },
     {
       "id": "bulk-adjustments/1/3",
       "guide": "bulk-adjustments",
       "step": "1",
-      "field": "body",
-      "text": "Ticking an area or hole row cascades the selection to everything beneath it, so you can take a whole hole in one click.",
+      "field": "see",
+      "text": "The [[Bulk Adjust]] link above the table becomes active.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-29"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/1/5; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Ticking an area or hole row cascades the selection to everything beneath it, so you can take a whole hole in one click."
+    },
+    {
+      "id": "bulk-adjustments/1/4",
+      "guide": "bulk-adjustments",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If [[Bulk Adjust]] stays grey, no row is ticked.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-29"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "95-99"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 380
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1510-1571"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/before/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "bulk-adjustments/1/5",
+      "guide": "bulk-adjustments",
+      "step": "1",
+      "field": "ifNot",
+      "text": "Tick a station row, or a hole row to take all its stations.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -322,13 +501,13 @@
           "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
         }
       ],
-      "note": "Retyped from navigation to behaviour. Ticking an area or hole marks every station beneath it selected, on the server (sa-table-card.component.ts:318-332, SpatialAdjustService.cs:1510-1571) and in the table (sa-table-card.component.ts:558-573). 373-1135 rev 02 §Bulk Adjust Functionality: \"Select individual stations or select an entire area or hole\".",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/1/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "bulk-adjustments/1/4",
+      "id": "bulk-adjustments/1/6",
       "guide": "bulk-adjustments",
       "step": "1",
       "field": "caption",
@@ -357,7 +536,7 @@
       "correction": ""
     },
     {
-      "id": "bulk-adjustments/1/5",
+      "id": "bulk-adjustments/1/7",
       "guide": "bulk-adjustments",
       "step": "1",
       "field": "caption",
@@ -404,9 +583,9 @@
       "id": "bulk-adjustments/2/2",
       "guide": "bulk-adjustments",
       "step": "2",
-      "field": "body",
-      "text": "The link sits above the table beside the threshold filter.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "Select [[Bulk Adjust]], above the table.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -424,18 +603,19 @@
           "line": "22-28"
         }
       ],
-      "note": "Above the table, in the same bar as the All Stations and Over/Under tabs, immediately left of the threshold filter link.",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/2/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "The link sits above the table beside the threshold filter."
     },
     {
       "id": "bulk-adjustments/2/3",
       "guide": "bulk-adjustments",
       "step": "2",
-      "field": "body",
-      "text": "The dialog opens with the count of stations you selected at the top — check it before going further.",
-      "type": "behaviour",
+      "field": "see",
+      "text": "The [[Bulk Adjust]] dialog opens with the number of stations you ticked at the top, as in 5 Stations selected.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -467,13 +647,64 @@
           "line": 431
         }
       ],
-      "note": "Retyped from navigation to behaviour. The dialog fetches the selected count from the server (sa-bulk-adjust-dlg.component.ts:91-112; SpatialAdjustService.cs:329-343, unique station names) and shows SPATIAL_ADJUST.N_STATIONS_SELECTED \"{{num}} Stations selected\" at the top. Apply to all is disabled when the count is 0 (sa-bulk-adjust-dlg.component.html:77).",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The dialog opens with the count of stations you selected at the top — check it before going further."
+    },
+    {
+      "id": "bulk-adjustments/2/4",
+      "guide": "bulk-adjustments",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If the count is not what you expect, select [[Cancel]] and fix the ticks first.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "18-20"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "91-112"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "329-343"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 431
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "80-84"
+        }
+      ],
+      "note": "The dialog footer has a Cancel button beside Apply to all (sa-bulk-adjust-dlg.component.html:80-84), so a wrong selection can be backed out of before anything is written. Evidence carried over from the earlier ledger claim bulk-adjustments/2/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "bulk-adjustments/2/4",
+      "id": "bulk-adjustments/2/5",
       "guide": "bulk-adjustments",
       "step": "2",
       "field": "caption",
@@ -495,7 +726,7 @@
       "correction": ""
     },
     {
-      "id": "bulk-adjustments/2/5",
+      "id": "bulk-adjustments/2/6",
       "guide": "bulk-adjustments",
       "step": "2",
       "field": "caption",
@@ -542,8 +773,77 @@
       "id": "bulk-adjustments/3/2",
       "guide": "bulk-adjustments",
       "step": "3",
-      "field": "body",
-      "text": "Replace overwrites every selected station with the value you enter.",
+      "field": "do",
+      "text": "Select [[Shift]] to move each target by the same amount, or [[Replace]] to set them all to one value.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "26-43"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2372-2383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 68
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 918
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 69
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 987
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims bulk-adjustments/3/1, bulk-adjustments/3/2, bulk-adjustments/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Replace overwrites every selected station with the value you enter."
+    },
+    {
+      "id": "bulk-adjustments/3/3",
+      "guide": "bulk-adjustments",
+      "step": "3",
+      "field": "see",
+      "text": "The box below takes −40 to 40 for [[Shift]], or 0 to 50 for [[Replace]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -574,20 +874,76 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 918
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 69
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 987
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "68-69"
         }
       ],
-      "note": "Replace sets every selected station, and all its sprinklers, to the entered value (SpatialAdjustLogic.cs:100-102; SpatialAdjustService.cs:2372-2383). The Replace input accepts 0-50 and defaults to 24 (sa-bulk-adjust-dlg.component.ts:68).",
+      "note": "Evidence carried over from the earlier ledger claims bulk-adjustments/3/2, bulk-adjustments/3/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Shift moves each station up or down by that amount, keeping the differences between them."
     },
     {
-      "id": "bulk-adjustments/3/3",
+      "id": "bulk-adjustments/3/4",
       "guide": "bulk-adjustments",
       "step": "3",
-      "field": "body",
-      "text": "Shift moves each station up or down by that amount, keeping the differences between them.",
-      "type": "calculation",
+      "field": "ifNot",
+      "text": "If the box shows a number you did not expect, check which choice is marked.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "68-69"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "172-198"
+        }
+      ],
+      "note": "The dialog restores the last saved choice and the last amount saved for it, or the defaults (Replace 24, Shift 2) (sa-bulk-adjust-dlg.component.ts:172-186), so the box can open on a value from an earlier visit.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Shift is the safer choice when the stations were individually tuned."
+    },
+    {
+      "id": "bulk-adjustments/3/5",
+      "guide": "bulk-adjustments",
+      "step": "3",
+      "field": "why",
+      "text": "[[Shift]] keeps the differences between stations you tuned one by one.",
+      "type": "behaviour",
       "status": "Verified",
       "evidence": [
         {
@@ -616,35 +972,13 @@
           "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
         }
       ],
-      "note": "Shift adds the entered value, -40 to 40 (sa-bulk-adjust-dlg.component.ts:69), to each station's own target (SpatialAdjustLogic.cs:100-102). Results are clamped to 0-50 (:104), so a station pushed past either end stops there and its difference from the others is not kept. 373-1135 rev 02 §Bulk Adjust Functionality: \"Shift by -2% lowers Target VWC by 2%\".",
+      "note": "Evidence carried over from the earlier ledger claims bulk-adjustments/3/4, bulk-adjustments/3/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "bulk-adjustments/3/4",
-      "guide": "bulk-adjustments",
-      "step": "3",
-      "field": "body",
-      "text": "Shift is the safer choice when the stations were individually tuned.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustLogic.cs",
-          "line": "100-104"
-        }
-      ],
-      "note": "Follows from bulk-adjustments/3/3: Shift keeps per-station differences, except at the 0 and 50 clamps, while Replace overwrites them. \"Safer\" is the guide's judgement on that basis.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "bulk-adjustments/3/5",
+      "id": "bulk-adjustments/3/6",
       "guide": "bulk-adjustments",
       "step": "3",
       "field": "caption",
@@ -677,6 +1011,315 @@
       "guide": "bulk-adjustments",
       "step": "4",
       "field": "title",
+      "text": "Type the amount",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2372-2383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 68
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 918
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 69
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 987
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "45-59"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims bulk-adjustments/3/2, bulk-adjustments/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "bulk-adjustments/4/2",
+      "guide": "bulk-adjustments",
+      "step": "4",
+      "field": "do",
+      "text": "Type the amount in the box under [[Shift]] and [[Replace]].",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2372-2383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 68
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 918
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 69
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 987
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "45-59"
+        }
+      ],
+      "note": "The amount is a numeric box under the Replace and Shift choices (:45-59). Evidence carried over from the earlier ledger claims bulk-adjustments/3/2, bulk-adjustments/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Apply to all writes the new targets and closes the dialog."
+    },
+    {
+      "id": "bulk-adjustments/4/3",
+      "guide": "bulk-adjustments",
+      "step": "4",
+      "field": "see",
+      "text": "The box shows your amount with a % sign.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "45-59"
+        }
+      ],
+      "note": "The input has suffix \" %\" (sa-bulk-adjust-dlg.component.html:54).",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The suggested percentages recalculate against the new targets straight away, so the Suggested column will move."
+    },
+    {
+      "id": "bulk-adjustments/4/4",
+      "guide": "bulk-adjustments",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If the box already holds a number, it is your last amount for that choice, or the default.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "172-198"
+        }
+      ],
+      "note": "The amount saved for each choice is restored when the dialog opens (sa-bulk-adjust-dlg.component.ts:172-186), or the default.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "If the box already holds a number, it is the last amount you used with that choice."
+    },
+    {
+      "id": "bulk-adjustments/4/5",
+      "guide": "bulk-adjustments",
+      "step": "4",
+      "field": "ifNot",
+      "text": "Type over it.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "45-59"
+        }
+      ],
+      "note": "The box is an editable numeric input; typing replaces its value.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "On failure. A bulk adjust error normally means nothing was written, despite what the message says: the change is applied in one go and rolled back on failure."
+    },
+    {
+      "id": "bulk-adjustments/4/6",
+      "guide": "bulk-adjustments",
+      "step": "4",
+      "field": "why",
+      "text": "Targets stop at 0 and 50, so a shift past either end lands there.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 69
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 987
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "If the connection dropped after the server finished, everything was written."
+    },
+    {
+      "id": "bulk-adjustments/4/7",
+      "guide": "bulk-adjustments",
+      "step": "4",
+      "field": "caption",
+      "text": "Shift accepts −40 to 40; Replace accepts 0 to 50.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "100-104"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2372-2383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 68
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 918
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": 69
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 987
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims bulk-adjustments/3/2, bulk-adjustments/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "The table is not refreshed after an error, so reload the page and check the column before retrying rather than applying twice."
+    },
+    {
+      "id": "bulk-adjustments/5/1",
+      "guide": "bulk-adjustments",
+      "step": "5",
+      "field": "title",
       "text": "Apply to all",
       "type": "behaviour",
       "status": "Verified",
@@ -702,11 +1345,40 @@
       "correction": ""
     },
     {
-      "id": "bulk-adjustments/4/2",
+      "id": "bulk-adjustments/5/2",
       "guide": "bulk-adjustments",
-      "step": "4",
-      "field": "body",
-      "text": "Apply to all writes the new targets and closes the dialog.",
+      "step": "5",
+      "field": "do",
+      "text": "Select [[Apply to all]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.html",
+          "line": "74-79"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 370
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/4/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "bulk-adjustments/5/3",
+      "guide": "bulk-adjustments",
+      "step": "5",
+      "field": "see",
+      "text": "The dialog closes.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -725,17 +1397,17 @@
           "line": "2363-2412"
         }
       ],
-      "note": "On success the dialog asks the dashboard to reload and closes (sa-bulk-adjust-dlg.component.ts:143-151). On an error it stays open and shows the error toast (:152-155).",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/4/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "bulk-adjustments/4/3",
+      "id": "bulk-adjustments/5/4",
       "guide": "bulk-adjustments",
-      "step": "4",
-      "field": "body",
-      "text": "The suggested percentages recalculate against the new targets straight away, so the Suggested column will move.",
+      "step": "5",
+      "field": "see",
+      "text": "The ticked stations show new targets, and [[Suggested]] changes.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -768,15 +1440,72 @@
           "line": "288-294"
         }
       ],
-      "note": "For every selected station with an adjustment dated today the server recalculates today's suggestion against the new target (SpatialAdjustService.cs:2389-2398, SpatialAdjustLogic.cs:107-140), and the dashboard reloads on success (sa-bulk-adjust-dlg.component.ts:145; sa-dashboard.component.ts:288-294). Unlike a single target edit, a bulk change leaves any % Adj. override in place, so those stations' % Adj. does not follow the new suggestion.",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/4/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "bulk-adjustments/4/4",
+      "id": "bulk-adjustments/5/5",
       "guide": "bulk-adjustments",
-      "step": "4",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If [[Bulk Adjust Error]] appears, reload the page and check [[Target VWC]] before you try again.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2363-2421"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2298-2314"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "152-155"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 398
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
+          "line": "142-156"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "288-294"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims bulk-adjustments/4/5, bulk-adjustments/4/7; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "bulk-adjustments/5/6",
+      "guide": "bulk-adjustments",
+      "step": "5",
       "field": "caption",
       "text": "Targets updated; suggestions recalculated against them.",
       "type": "behaviour",
@@ -798,123 +1527,6 @@
         }
       ],
       "note": "Figure caption.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "bulk-adjustments/4/5",
-      "guide": "bulk-adjustments",
-      "step": "4",
-      "field": "tip",
-      "text": "On failure. A bulk adjust error normally means nothing was written, despite what the message says: the change is applied in one go and rolled back on failure.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2363-2421"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2298-2314"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
-          "line": "152-155"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 398
-        }
-      ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (bulk-adjustments/4/5); docs/text-corrections.md §21 gives the claimed and actual behaviour. Verified against production at the cited lines.",
-      "question": "",
-      "developNote": "",
-      "correction": "",
-      "previousText": "On failure. A bulk adjust error means some values may already have been written."
-    },
-    {
-      "id": "bulk-adjustments/4/6",
-      "guide": "bulk-adjustments",
-      "step": "4",
-      "field": "tip",
-      "text": "If the connection dropped after the server finished, everything was written.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2363-2421"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2298-2314"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
-          "line": "152-155"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 398
-        }
-      ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (bulk-adjustments/4/5); docs/text-corrections.md §21 gives the claimed and actual behaviour. Verified against production at the cited lines.",
-      "question": "",
-      "developNote": "",
-      "correction": "",
-      "previousText": "Check the column before retrying rather than applying twice."
-    },
-    {
-      "id": "bulk-adjustments/4/7",
-      "guide": "bulk-adjustments",
-      "step": "4",
-      "field": "tip",
-      "text": "The table is not refreshed after an error, so reload the page and check the column before retrying rather than applying twice.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-bulk-adjust-dlg/sa-bulk-adjust-dlg.component.ts",
-          "line": "142-156"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "288-294"
-        }
-      ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (bulk-adjustments/4/6); docs/text-corrections.md §21 gives the claimed and actual behaviour. Verified against production at the cited lines.",
       "question": "",
       "developNote": "",
       "correction": ""

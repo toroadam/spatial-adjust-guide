@@ -184,6 +184,90 @@
       "correction": ""
     },
     {
+      "id": "verify-results/start/1",
+      "guide": "verify-results",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The route is /spatialadjust. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/start/2",
+      "guide": "verify-results",
+      "step": "start",
+      "field": "open",
+      "text": "The push progress window, just after you select the footer button of the [[Push Changes]] dialog.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "121-153"
+        }
+      ],
+      "note": "The progress window opens when the footer button of the Push Changes dialog is used. Reworded from verify-results/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/start/3",
+      "guide": "verify-results",
+      "step": "start",
+      "field": "needs",
+      "text": "Lynx must be reachable, and Site Adjust and Course Adjust must both be 100% in Lynx.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-proxy/lynx-proxy.service.ts",
+          "line": "148-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-proxy/lynx-proxy.service.ts",
+          "line": "71-75"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 386
+        }
+      ],
+      "note": "Lynx must be reachable, and Site Adjust and Course Adjust must be 100% in Lynx. Reworded from push-to-lynx/before/4, push-to-lynx/before/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "verify-results/before/1",
       "guide": "verify-results",
       "step": "before",
@@ -333,37 +417,8 @@
       "id": "verify-results/1/2",
       "guide": "verify-results",
       "step": "1",
-      "field": "body",
-      "text": "Nothing is read before the push begins.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "255-270"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
-          "line": "134-141"
-        }
-      ],
-      "note": "Re-confirmed on production (docs/text-corrections.md section 6). The first progress event is the writing step at 0%, and no Lynx read is requested before the write loop. The Current column in the push dialog comes from the last read before the dialog was opened, not from a read at push time.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "verify-results/1/3",
-      "guide": "verify-results",
-      "step": "1",
-      "field": "body",
-      "text": "Stations are written in sequence with a short pause between each, and the progress line names which one it is on.",
+      "field": "do",
+      "text": "Watch the line under the progress bar as each station is written.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -403,7 +458,57 @@
           "line": 415
         }
       ],
-      "note": "Stations are written one after another, with a 100 ms delay on the first pass and 250 ms on retry passes. The progress line identifies the station by position (\"({{index}} of {{count}})\"), not by name.",
+      "note": "The line under the bar names the phase. Reworded from verify-results/1/3, verify-results/1/6.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/1/3",
+      "guide": "verify-results",
+      "step": "1",
+      "field": "see",
+      "text": "It reads Pushing Percent Adjustments to Lynx with a count, such as 4 of 6, and the bar fills at a steady pace.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "145-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": 269
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 100
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "418-419"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 415
+        }
+      ],
+      "note": "The first phase reads Pushing Percent Adjustments to Lynx, with a count (en-us.json:415). Reworded from verify-results/1/3, verify-results/1/6.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -412,8 +517,8 @@
       "id": "verify-results/1/4",
       "guide": "verify-results",
       "step": "1",
-      "field": "body",
-      "text": "On a large course writing takes a while, at least a tenth of a second per station, but its counter runs on a fixed timer and does not wait for Lynx.",
+      "field": "ifNot",
+      "text": "If the bar seems slow on a large course, that is normal: each station takes at least a tenth of a second.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -460,18 +565,17 @@
           "line": "372-463"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (verify-results/1/4); docs/text-corrections.md §19 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Each write takes at least a tenth of a second. Reworded from verify-results/1/4.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "On a large course this is the slowest phase, and a stalled counter here means the connection, not the calculation."
+      "correction": ""
     },
     {
       "id": "verify-results/1/5",
       "guide": "verify-results",
       "step": "1",
-      "field": "body",
-      "text": "If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer.",
+      "field": "why",
+      "text": "This phase cannot stall, because its count runs on a timer and does not wait for Lynx.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -518,7 +622,7 @@
           "line": "372-463"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (verify-results/1/4); docs/text-corrections.md §19 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "The write count runs on a timer, so the stall risk is in the later phases. Reworded from verify-results/1/4, verify-results/1/5.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -611,9 +715,9 @@
       "id": "verify-results/2/2",
       "guide": "verify-results",
       "step": "2",
-      "field": "body",
-      "text": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "Look for [[Retrieving latest Percent Adjustments from Lynx for comparison]] under the bar.",
+      "type": "label",
       "status": "Verified",
       "evidence": [
         {
@@ -645,7 +749,7 @@
           "line": "395-440"
         }
       ],
-      "note": "After the last write, the step changes to Fetching and the service asks Lynx for the stations, the program topology and the percent adjustments again.",
+      "note": "The second phase reads Retrieving latest Percent Adjustments from Lynx for comparison (en-us.json:416). Reworded from verify-results/2/2, verify-results/2/4.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -654,8 +758,8 @@
       "id": "verify-results/2/3",
       "guide": "verify-results",
       "step": "2",
-      "field": "body",
-      "text": "This is a read-back, not a baseline — it is collecting what Lynx actually holds now so the next phase has something to check the push against.",
+      "field": "see",
+      "text": "The bar holds still while Spatial Adjust reads back what Lynx now holds.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -679,15 +783,157 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/docs/SPATIAL-ADJUST-LYNX-INTEGRATION.md",
           "line": 186
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "420-421"
         }
       ],
-      "note": "The data read here is what the comparison uses, a few seconds after the writes. The product's own status line says \"for comparison\", which is the source of the old read-before-write wording. SPATIAL-ADJUST-LYNX-INTEGRATION.md:186 describes the same re-request to validate the new values.",
+      "note": "The read-back is a single request, so the bar holds. Reworded from verify-results/2/3, verify-results/2/4.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "verify-results/2/4",
+      "guide": "verify-results",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If the run stalls here, Spatial Adjust is waiting for Lynx to answer.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "145-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "206-211"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-drive/lynx-drive.service.ts",
+          "line": "67-87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/cloud-service-base.ts",
+          "line": "43-45"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/cloud-service-base.ts",
+          "line": "372-463"
+        }
+      ],
+      "note": "A stall happens while Spatial Adjust waits for Lynx. Reworded from verify-results/1/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/2/5",
+      "guide": "verify-results",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If it never moves on, check the connection to Lynx.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "145-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "206-211"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-95"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-drive/lynx-drive.service.ts",
+          "line": "67-87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/cloud-service-base.ts",
+          "line": "43-45"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/cloud-service-base.ts",
+          "line": "372-463"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-proxy/lynx-proxy.service.ts",
+          "line": "148-150"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-proxy/lynx-proxy.service.ts",
+          "line": "71-75"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 386
+        }
+      ],
+      "note": "Lynx must be reachable for the read-back. Reworded from verify-results/1/5, push-to-lynx/before/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/2/6",
       "guide": "verify-results",
       "step": "2",
       "field": "caption",
@@ -755,8 +1001,51 @@
       "id": "verify-results/3/2",
       "guide": "verify-results",
       "step": "3",
-      "field": "body",
-      "text": "Spatial Adjust re-reads the station list and compares each value it sent against what Lynx now reports.",
+      "field": "do",
+      "text": "Look for [[Verifying adjustments sent to Lynx]] under the bar.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "62-65"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "422-423"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 419
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "75-81"
+        }
+      ],
+      "note": "The third phase reads Verifying adjustments sent to Lynx (en-us.json:419). Reworded from verify-results/3/1, verify-results/3/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/3/3",
+      "guide": "verify-results",
+      "step": "3",
+      "field": "see",
+      "text": "The bar moves forward while each value sent is checked against what Lynx now reports.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -766,19 +1055,33 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
           "line": "56-81"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "75-81"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 419
         }
       ],
-      "note": "When the read-back arrives, each value sent is compared with the percent adjust Lynx reports for the same station. \"Re-reads\" refers to the phase-two read-back. There is no second read in this phase, but the reader does nothing differently because of it.",
+      "note": "Each value is compared with what Lynx reports. Reworded from verify-results/3/2, verify-results/3/4.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "verify-results/3/3",
+      "id": "verify-results/3/4",
       "guide": "verify-results",
       "step": "3",
-      "field": "body",
-      "text": "Anything that does not match is treated as failed rather than assumed good.",
+      "field": "ifNot",
+      "text": "If a value does not match, the station is treated as failed, and the next phase retries it.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -795,15 +1098,22 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
           "line": "91-107"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "91-101"
         }
       ],
-      "note": "A station whose reported value differs from what was sent goes to the retry list, and after the last retry to the failure count. The exception is a station Lynx leaves out of its reply altogether, which is treated as matched (sa-push-changes.service.ts:78).",
+      "note": "A mismatch is treated as failed and retried. Reworded from verify-results/3/3, verify-results/4/1.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "verify-results/3/4",
+      "id": "verify-results/3/5",
       "guide": "verify-results",
       "step": "3",
       "field": "caption",
@@ -857,8 +1167,8 @@
       "id": "verify-results/4/2",
       "guide": "verify-results",
       "step": "4",
-      "field": "body",
-      "text": "Stations that did not take are re-pushed, up to two further attempts after the first.",
+      "field": "do",
+      "text": "Watch for the bar to drop back to 0.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -867,30 +1177,29 @@
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
-          "line": 30
+          "line": "95-97"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
-          "line": "91-104"
-        }
-      ],
-      "note": "Re-confirmed on production. MAX_RETRY_COUNT is 2 and the retry counter is checked before each retry, so failed stations get two further passes after the first, three attempts in all, before Errors is reported.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "verify-results/4/3",
-      "guide": "verify-results",
-      "step": "4",
-      "field": "body",
-      "text": "The progress line names how many are being retried, so a retry is information rather than an error.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
+          "line": "99-101"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "134-141"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "213-223"
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -906,7 +1215,64 @@
           "line": 417
         }
       ],
-      "note": "SPATIAL_ADJUST.LYNX_PUSH_RETRYING \"Push Changes failed for {{count}} station(s). Retrying\". The product's own wording reads like an error, which is why the guide's reassurance helps.",
+      "note": "The fourth phase restarts the bar at zero. Reworded from verify-results/4/4, verify-results/4/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/4/3",
+      "guide": "verify-results",
+      "step": "4",
+      "field": "see",
+      "text": "The bar restarts at zero and counts only the stations being retried, and the line says how many.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "95-97"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "99-101"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "134-141"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "213-223"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "424-425"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 417
+        }
+      ],
+      "note": "The retry pass counts only the failed stations, and the line names how many (en-us.json:417). Reworded from verify-results/4/4, verify-results/4/3.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -915,8 +1281,8 @@
       "id": "verify-results/4/4",
       "guide": "verify-results",
       "step": "4",
-      "field": "body",
-      "text": "The bar restarts at zero for the retry pass and counts only the failed stations, so a drop from nearly complete back to nothing is the retry beginning, not the push collapsing.",
+      "field": "ifNot",
+      "text": "If the bar drops from nearly full to 0, that is the retry starting, not the push failing.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -949,13 +1315,49 @@
           "line": "213-223"
         }
       ],
-      "note": "Settled fact re-confirmed on production (docs/text-corrections.md section 7, transform 12's second edit). The step counter is reset to 0 and the total is recalculated for the failed stations alone. Five seconds later the retry write pass starts again from 0% over those stations.",
+      "note": "The drop to zero is the retry starting. Reworded from verify-results/4/4.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "verify-results/4/5",
+      "guide": "verify-results",
+      "step": "4",
+      "field": "why",
+      "text": "Each failed station is tried up to 2 more times before the result is shown.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 30
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "91-104"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "91-101"
+        }
+      ],
+      "note": "Failed stations get up to two further attempts (push-changes.service.ts:30). Reworded from verify-results/4/2, verify-results/4/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/4/6",
       "guide": "verify-results",
       "step": "4",
       "field": "caption",
@@ -1009,8 +1411,172 @@
       "id": "verify-results/5/2",
       "guide": "verify-results",
       "step": "5",
-      "field": "body",
-      "text": "A clean run confirms that every selected change reached Lynx and verified.",
+      "field": "do",
+      "text": "Read the result line above [[Close]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "155-164"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "108-110"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "156-159"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 418
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "142"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 648
+        }
+      ],
+      "note": "The result line sits above the Close button. Reworded from verify-results/5/1, verify-results/5/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/5/3",
+      "guide": "verify-results",
+      "step": "5",
+      "field": "see",
+      "text": "It reads [[All selected changes successfully pushed to Lynx.]]",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "156-159"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 418
+        }
+      ],
+      "note": "The success line is LYNX_PUSH_SUCCESS (en-us.json:418). Reworded from verify-results/5/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/5/4",
+      "guide": "verify-results",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If it names stations that could not be updated, select [[Close]] and follow Push failures.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "160-163"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 413
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "174-175"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "214-231"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "23-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "142"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "155-164"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 648
+        }
+      ],
+      "note": "A failure names the stations that could not be updated. Reworded from push-to-lynx/6/3, push-to-lynx/6/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "verify-results/5/5",
+      "guide": "verify-results",
+      "step": "5",
+      "field": "why",
+      "text": "Success means every change was read back from Lynx and matched what was sent.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1034,87 +1600,22 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 418
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "56-81"
         }
       ],
-      "note": "Complete is reported only when the read-back shows no mismatch, and it reads \"All selected changes successfully pushed to Lynx.\" See verify-results/before/2 for the missing-station gap and the push-window question.",
+      "note": "Success follows the read-back and comparison. Reworded from verify-results/5/2, verify-results/3/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "verify-results/5/3",
-      "guide": "verify-results",
-      "step": "5",
-      "field": "body",
-      "text": "Back on the dashboard, Push Changes no longer counts the stations you sent, and the pushed-today counter has grown by what you sent.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
-          "line": 34
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
-          "line": 40
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "153-160"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "659-662"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
-          "line": 20
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
-          "line": "74-79"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": 163
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "309-327"
-        }
-      ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (verify-results/5/3); docs/text-corrections.md §16 gives the claimed and actual behaviour. Verified against production at the cited lines.",
-      "question": "",
-      "developNote": "",
-      "correction": "",
-      "previousText": "Back on the dashboard the pending count is zero and the pushed-today counter has grown by what you sent."
-    },
-    {
-      "id": "verify-results/5/4",
+      "id": "verify-results/5/6",
       "guide": "verify-results",
       "step": "5",
       "field": "caption",
