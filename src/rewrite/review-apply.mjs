@@ -48,13 +48,14 @@ function start(src, h, guide, value) {
 
 /** Named cursor points this category adds to P, measured in the reproduction's 1920 x 1080 space.
  *  filterOver is the Over checkbox label and filterSave the Save Changes button of Over/Under
- *  Options; soilSave is Save in the Soil Factor Editor. The anchor stays intact, so another module
+ *  Options; soilSave is Save in the Soil Factor Editor; pushBox is the tick box of the first row
+ *  under Available to Push. The anchor stays intact, so another module
  *  can add its own points the same way. */
 function points(src, h) {
   return h.edit(src, {
     name: 'rewrite: Review & Apply cursor points',
     pattern: /const P = \{\n/,
-    replace: () => 'const P = {\n  filterOver: [830, 511], filterSave: [1055, 653], soilSave: [1208, 788],\n',
+    replace: () => 'const P = {\n  filterOver: [830, 511], filterSave: [1055, 653], soilSave: [1208, 788], pushBox: [1290, 391],\n',
   });
 }
 
@@ -311,12 +312,12 @@ function pushToLynx(src, h) {
     },
   });
 
-  // Step 2 now names the toolbar button and step 4 the rows, so the two points swap places.
+  // Step 2 now names the toolbar button and step 4 the tick boxes, so the points move with them.
   return h.editTargets(s, {
     name: 'rewrite: push-to-lynx targets',
     guide,
     expect: '[P.push, P.pushRow, P.pushReview, P.pushFooter, P.progressBar, P.progressClose]',
-    replace: '[P.push, P.push, P.pushReview, P.pushRow, P.pushFooter, P.progressClose]',
+    replace: '[P.push, P.push, P.pushReview, P.pushBox, P.pushFooter, P.progressClose]',
   });
 }
 
