@@ -133,6 +133,32 @@ class Assign(unittest.TestCase):
         self.assertEqual(len(by_line["one"]), 1)
 
 
+class PlaceOnTimeline(unittest.TestCase):
+    def _timeline(self, vo):
+        fd, path = tempfile.mkstemp(suffix=".json")
+        with os.fdopen(fd, "w") as fh:
+            json.dump({"vo": vo}, fh)
+        self.addCleanup(os.remove, path)
+        return path
+
+    def test_windows_move_to_the_placement_and_keep_their_length(self):
+        lines = [line("a", "one", 10.0, 14.0), line("b", "two", 20.0, 23.5)]
+        moved = wr.place_on_timeline(lines, self._timeline([["a", 9.6], ["b", 19.56]]))
+        self.assertEqual([(m["windowIn"], m["windowOut"]) for m in moved], [(9.6, 13.6), (19.56, 23.06)])
+        self.assertEqual(lines[0]["windowIn"], 10.0)                     # the input is not changed
+
+    def test_an_unplaced_line_is_a_configuration_error(self):
+        with self.assertRaises(wr.ConfigError):
+            wr.place_on_timeline([line("a", "one", 1.0, 2.0)], self._timeline([["b", 1.0]]))
+
+    def test_a_line_placed_ahead_of_its_window_still_gets_its_first_word(self):
+        lines = wr.place_on_timeline([line("a", "one two", 10.0, 14.0)], self._timeline([["a", 9.56]]))
+        words = [{"word": " one", "start": 9.6, "end": 10.0}, {"word": " two", "start": 10.1, "end": 10.5}]
+        by_line, outside = wr.assign(words, lines)
+        self.assertEqual(len(by_line["a"]), 2)
+        self.assertEqual(outside, [])
+
+
 class Score(unittest.TestCase):
     def test_pass_and_fail(self):
         lines = [line("a", "Then reads Lynx back.", 0, 2), line("b", "Then reads Lynx back.", 3, 5)]

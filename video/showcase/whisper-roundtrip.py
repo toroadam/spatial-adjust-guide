@@ -25,6 +25,11 @@ Before anything is transcribed, each line's ttsText in episode.json is compared 
 sends, which is the line's text with video/vo/lexicon.json applied. They must be equal: ttsText is a record of the
 renderer's input, and a stale one would describe audio that was never rendered. The renderer is imported, not copied.
 
+With --timeline (the final mix, where the builder places each line on its cue and the cards are a little shorter than
+the windows were worked out for), each line's window is moved to where the timeline places the line: windowIn becomes
+the placement time and windowOut keeps its length. Without it the windows are used as written, which is right for the
+stem, where every line sits exactly at its windowIn.
+
 Windows are seconds of the finished film (windowIn, windowOut on each vo[] line), shifted by --offset when the audio
 does not start at 0:00 of the film. A word belongs to a line when its timestamps overlap windowIn - 0.3 s to
 windowOut + 0.5 s; where two lines' margins overlap, the word goes to the line whose window it overlaps most.
@@ -34,6 +39,7 @@ Usage (in the media-root venv, which has openai-whisper; see video/showcase/READ
       --audio ~/Documents/SpatialAdjust_MarCom/showcase/vo/showcase-vo-full-48k24.wav \\
       --episode video/showcase/episode.json \\
       --out ~/Documents/SpatialAdjust_MarCom/showcase/vo/whisper-report.json [--model small.en] [--offset 0]
+      [--timeline ~/Documents/SpatialAdjust_MarCom/showcase/edit/timeline.json]    (for the final mix)
 
 The audio never leaves this machine. The only network access is Whisper's one-time model download into
 ~/.cache/whisper when the model is not there yet. The report goes under the media root: a path in /tmp, an agent
@@ -227,6 +233,29 @@ def vocabulary_prompt(lines: list[dict], renderer=None) -> str:
 
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Placing the windows on the timeline
+# ---------------------------------------------------------------------------------------------------------------------
+
+def place_on_timeline(lines: list[dict], timeline_path: str) -> list[dict]:
+    """Copies of the lines with each window moved to where the timeline places the line (windowIn = its t0)."""
+    try:
+        with open(timeline_path, encoding="utf-8") as fh:
+            tl = json.load(fh)
+        placed = {str(pair[0]): float(pair[1]) for pair in tl["vo"]}
+    except (OSError, ValueError, KeyError, TypeError, IndexError) as err:
+        raise ConfigError(f"cannot read the vo placements of {timeline_path}: {type(err).__name__}") from None
+    out = []
+    for line in lines:
+        t0 = placed.get(line["id"])
+        if t0 is None:
+            raise ConfigError(f"{timeline_path}: line {line['id']!r} is not placed in the timeline")
+        moved = dict(line)
+        moved["windowOut"] = round(t0 + (line["windowOut"] - line["windowIn"]), 3)
+        moved["windowIn"] = round(t0, 3)
+        out.append(moved)
+    return out
+
+
 # Assigning transcript words to lines
 # ---------------------------------------------------------------------------------------------------------------------
 
@@ -333,6 +362,8 @@ def parse_args(argv):
     ap.add_argument("--model", default=DEFAULT_MODEL, help=f"Whisper model (default {DEFAULT_MODEL})")
     ap.add_argument("--offset", type=float, default=0.0,
                     help="seconds of audio before 0:00 of the film (default 0: the stem starts at 0:00)")
+    ap.add_argument("--timeline", help="the film's timeline JSON: score each line at the time the timeline places it "
+                                       "(use with the final mix)")
     ap.add_argument("--max-wer", type=float, default=MAX_WER, help=f"highest passing WER per line (default {MAX_WER})")
     ap.add_argument("--no-prompt", action="store_true",
                     help="transcribe without the vocabulary prompt (for diagnosis; Lynx then usually comes back as links)")
@@ -350,6 +381,8 @@ def main(argv: list[str] | None = None) -> int:
         if reason:
             raise ConfigError(f"refusing report path {out}: {reason}; reports go under the media root")
         ep, lines = load_lines(args.episode)
+        if args.timeline:
+            lines = place_on_timeline(lines, os.path.abspath(os.path.expanduser(args.timeline)))
         rb = load_renderer()
         stale = check_tts(lines, rb)
         if stale:
@@ -372,6 +405,7 @@ def main(argv: list[str] | None = None) -> int:
         "whisperVersion": version,
         "initialPrompt": prompt,
         "offset": args.offset,
+        "timeline": os.path.abspath(os.path.expanduser(args.timeline)) if args.timeline else None,
         "maxWer": args.max_wer,
         "margins": {"beforeWindowIn": LEAD_S, "afterWindowOut": TAIL_S},
         "generatedAt": _dt.datetime.now(_dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
