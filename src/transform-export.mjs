@@ -1251,14 +1251,14 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
   //    note it introduces. A guide carrying the newInIntelliDash flag (set on the four Target
   //    Profiles guides by src/transforms/corrections.mjs) gets the label "New in IntelliDash." and
   //    any other note gets "Note.", which the locale catalogues already translate. The callout is a
-  //    role="note" landmark with an accent rule, so it reads as a banner ahead of step 1 rather
-  //    than as part of the header. The note text says what the shipped tab holds and what a reader
+  //    role="note" landmark with a blue label and the same plain box as the other callouts, so it reads
+  //    as a banner ahead of step 1 rather than as part of the header. The note text says what the shipped tab holds and what a reader
   //    whose IntelliDash predates the release will see, so it follows the label without repeating it.
   s = edit(s, {
     name: 'note callout: banner label and role',
     pattern: /<div style="margin-top:24px;padding:16px 20px;border-radius:8px;background:var\(--05\);box-shadow:inset 0 0 0 1px var\(--20\);(font-size:14px;line-height:1\.6;color:var\(--60\))"><span style="font-weight:700;color:var\(--informative-03\)">Concept\.<\/span> \{\{ guide\.note \}\}<\/div>/,
     replace: '<div role="note" style="margin-top:24px;padding:16px 20px;border-radius:8px;background:var(--05);'
-      + 'box-shadow:inset 0 0 0 1px var(--20),inset 4px 0 0 var(--informative-03);$1">'
+      + 'box-shadow:inset 0 0 0 1px var(--20);$1">'
       + '<span style="font-weight:700;color:var(--informative-03)">{{ guide.noteLabel }}</span> {{ guide.note }}</div>',
   });
   s = edit(s, {
