@@ -1,0 +1,696 @@
+{
+  "id": "push-to-lynx",
+  "title": "Push changes to Lynx",
+  "guide": "push-to-lynx",
+  "status": "approved",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/push-to-lynx",
+  "recreationFigure": "Six changes pending",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "push-to-lynx/tile/1",
+    "push-to-lynx/tile/2",
+    "push-to-lynx/summary/1",
+    "push-to-lynx/1/2",
+    "push-to-lynx/1/3",
+    "push-to-lynx/1/4",
+    "push-to-lynx/2/2",
+    "push-to-lynx/2/3",
+    "push-to-lynx/2/4",
+    "push-to-lynx/3/2",
+    "push-to-lynx/3/3",
+    "push-to-lynx/4/2",
+    "push-to-lynx/4/4",
+    "push-to-lynx/4/3",
+    "push-to-lynx/5/2",
+    "push-to-lynx/5/3",
+    "push-to-lynx/6/2",
+    "push-to-lynx/6/3",
+    "push-to-lynx/6/4"
+  ],
+  "titleCard": {
+    "text": "Double Click: Push changes to Lynx",
+    "claims": [
+      "push-to-lynx/tile/1",
+      "push-to-lynx/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Check the pending count",
+      "highlight": {
+        "label": "% Adj.",
+        "selector": "[data-sa-frame] >> text=/Push.*Changes/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Review the two lists",
+      "highlight": {
+        "label": "Current",
+        "selector": "[data-sa-frame] >> text=\"Current\" >> nth=1"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Look for threshold adjustments",
+      "highlight": {
+        "label": "Settings",
+        "selector": "[data-sa-frame] >> text=/2 stations will be adjusted/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Untick anything you are not sure about",
+      "highlight": {
+        "label": "footer button",
+        "selector": "[data-sa-frame] >> text=/Push 6 changes to Lynx/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "Send and watch the progress",
+      "highlight": {
+        "label": "progress",
+        "selector": "[data-sa-frame] >> text=/Pushing Percent/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c6",
+      "step": 6,
+      "label": "Confirm the result",
+      "highlight": {
+        "label": "Push Changes",
+        "selector": "[data-sa-frame] >> text=/All selected changes/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Review every pending adjustment, drop the ones you do not want, and send the rest to the controller.",
+      "claims": [
+        "push-to-lynx/summary/1"
+      ],
+      "next_text": "The button counts the enabled stations whose percent adjustment differs from what Lynx holds, whether you edited it or left the suggestion, leaving out any already pushed today."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "The button counts the enabled stations whose percent adjustment differs from what Lynx holds, whether you edited it or left the suggestion, leaving out any already pushed today.",
+      "claims": [
+        "push-to-lynx/1/2"
+      ],
+      "previous_text": "Review every pending adjustment, drop the ones you do not want, and send the rest to the controller.",
+      "next_text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued.",
+      "claims": [
+        "push-to-lynx/1/3",
+        "push-to-lynx/1/4"
+      ],
+      "previous_text": "The button counts the enabled stations whose percent adjustment differs from what Lynx holds, whether you edited it or left the suggestion, leaving out any already pushed today.",
+      "next_text": "The dialog puts the current value on the left and the change on the right."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "The dialog puts the current value on the left and the change on the right.",
+      "claims": [
+        "push-to-lynx/2/2"
+      ],
+      "previous_text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued.",
+      "next_text": "Available to Push comes first, with everything ticked. Pushed Today follows, unticked. Tick a pushed station only if you genuinely mean to adjust it a second time today."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "Available to Push comes first, with everything ticked. Pushed Today follows, unticked. Tick a pushed station only if you genuinely mean to adjust it a second time today.",
+      "claims": [
+        "push-to-lynx/2/3",
+        "push-to-lynx/2/4"
+      ],
+      "previous_text": "The dialog puts the current value on the left and the change on the right.",
+      "next_text": "If a minimum threshold is set, a pink banner counts the stations it altered. Each affected row shows the original percentage and the value that will actually be sent."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "If a minimum threshold is set, a pink banner counts the stations it altered. Each affected row shows the original percentage and the value that will actually be sent.",
+      "claims": [
+        "push-to-lynx/3/2"
+      ],
+      "previous_text": "Available to Push comes first, with everything ticked. Pushed Today follows, unticked. Tick a pushed station only if you genuinely mean to adjust it a second time today.",
+      "next_text": "Review Threshold opens Settings on the threshold tab if the numbers look wrong."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "Review Threshold opens Settings on the threshold tab if the numbers look wrong.",
+      "claims": [
+        "push-to-lynx/3/3"
+      ],
+      "previous_text": "If a minimum threshold is set, a pink banner counts the stations it altered. Each affected row shows the original percentage and the value that will actually be sent.",
+      "next_text": "The footer button counts only the ticked rows, so it always names the number of changes that will be sent."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "The footer button counts only the ticked rows, so it always names the number of changes that will be sent.",
+      "claims": [
+        "push-to-lynx/4/2",
+        "push-to-lynx/4/4"
+      ],
+      "previous_text": "Review Threshold opens Settings on the threshold tab if the numbers look wrong.",
+      "next_text": "Unticking is not the same as reverting. The station keeps its edited value in the table and will be offered again next time."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "Unticking is not the same as reverting. The station keeps its edited value in the table and will be offered again next time.",
+      "claims": [
+        "push-to-lynx/4/3"
+      ],
+      "previous_text": "The footer button counts only the ticked rows, so it always names the number of changes that will be sent.",
+      "next_text": "Spatial Adjust writes station by station first, then reads the adjustments back from Lynx and checks each one against what it sent."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "Spatial Adjust writes station by station first, then reads the adjustments back from Lynx and checks each one against what it sent.",
+      "claims": [
+        "push-to-lynx/5/2"
+      ],
+      "previous_text": "Unticking is not the same as reverting. The station keeps its edited value in the table and will be offered again next time.",
+      "next_text": "Failed stations are retried automatically before the run is declared finished."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "Failed stations are retried automatically before the run is declared finished.",
+      "claims": [
+        "push-to-lynx/5/3"
+      ],
+      "previous_text": "Spatial Adjust writes station by station first, then reads the adjustments back from Lynx and checks each one against what it sent.",
+      "next_text": "A successful run confirms every selected change reached Lynx."
+    },
+    {
+      "id": "V6a",
+      "chapter": "c6",
+      "text": "A successful run confirms every selected change reached Lynx.",
+      "claims": [
+        "push-to-lynx/6/2"
+      ],
+      "previous_text": "Failed stations are retried automatically before the run is declared finished.",
+      "next_text": "A failure names the number of stations that could not be updated. Check the Lynx connection, then reopen Push Changes: the failed stations are listed under Pushed Today, unticked, so tick them to send them again."
+    },
+    {
+      "id": "V6b",
+      "chapter": "c6",
+      "text": "A failure names the number of stations that could not be updated. Check the Lynx connection, then reopen Push Changes: the failed stations are listed under Pushed Today, unticked, so tick them to send them again.",
+      "claims": [
+        "push-to-lynx/6/3",
+        "push-to-lynx/6/4"
+      ],
+      "previous_text": "A successful run confirms every selected change reached Lynx."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 11.56,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Push.*Changes/",
+          "name": "Push 6 Changes"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Push.*Changes/",
+          "name": "Push 6 Changes"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "wait",
+          "ms": 5450
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"6\" >> nth=0",
+          "name": "6"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 8.26,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"6\" >> nth=0",
+          "name": "6"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"6\" >> nth=0",
+          "name": "6"
+        },
+        {
+          "type": "wait",
+          "ms": 3333
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Push.*Changes/",
+          "name": "Push 6 Changes"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 6.35,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Push dialog. Current"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Current\" >> nth=1",
+          "name": "Current"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Current\" >> nth=1",
+          "name": "Current"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 1777
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Changes\" >> nth=0",
+          "name": "Changes"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 11.88,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Available to Push/ >> nth=1",
+          "name": "6 Available to Push"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Available to Push/ >> nth=1",
+          "name": "6 Available to Push"
+        },
+        {
+          "type": "wait",
+          "ms": 4256
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Pushed Today/ >> nth=1",
+          "name": "6 Pushed Today"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 13.62,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Two stations were"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/2 stations will be adjusted/",
+          "name": "2 stations will be adjusted according to the minimum threshold rules."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/2 stations will be adjusted/",
+          "name": "2 stations will be adjusted according to the minimum threshold rules."
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 5610
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Adjusted to 10%/ >> nth=0",
+          "name": "→ Adjusted to 10%"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 4.87,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"REVIEW THRESHOLD\"",
+          "name": "REVIEW THRESHOLD"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"REVIEW THRESHOLD\"",
+          "name": "REVIEW THRESHOLD"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 8.3,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The footer button"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Push 6 changes to Lynx/",
+          "name": "Push 6 changes to Lynx"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Push 6 changes to Lynx/",
+          "name": "Push 6 changes to Lynx"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "wait",
+          "ms": 2950
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> nth=1",
+          "name": "3AP1"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 8.96,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> nth=1",
+          "name": "4AP1"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> nth=1",
+          "name": "4AP1"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 11.41,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Push in progress"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Pushing Percent/",
+          "name": "Pushing Percent Adjustments to Lynx (4 of 6)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Pushing Percent/",
+          "name": "Pushing Percent Adjustments to Lynx (4 of 6)"
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        },
+        {
+          "type": "wait",
+          "ms": 4505
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 4.98,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Pushing Percent/",
+          "name": "Pushing Percent Adjustments to Lynx (4 of 6)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Pushing Percent/",
+          "name": "Pushing Percent Adjustments to Lynx (4 of 6)"
+        }
+      ]
+    },
+    {
+      "id": "b6a",
+      "chapter": "c6",
+      "vo": "V6a",
+      "hold": 6.21,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "All selected changes pushed"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c6-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/All selected changes/",
+          "name": "All selected changes successfully pushed to Lynx."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/All selected changes/",
+          "name": "All selected changes successfully pushed to Lynx."
+        },
+        {
+          "type": "cue",
+          "id": "V6a"
+        },
+        {
+          "type": "wait",
+          "ms": 1905
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b6b",
+      "chapter": "c6",
+      "vo": "V6b",
+      "hold": 14.54,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V6b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/All selected changes/",
+          "name": "All selected changes successfully pushed to Lynx."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/All selected changes/",
+          "name": "All selected changes successfully pushed to Lynx."
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "reviewing-changes",
+    "text": "Next on Double Click: Reviewing changes",
+    "address": "#/push-to-lynx"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}

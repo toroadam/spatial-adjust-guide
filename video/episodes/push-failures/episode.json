@@ -1,0 +1,469 @@
+{
+  "id": "push-failures",
+  "title": "Push failures",
+  "guide": "push-failures",
+  "status": "approved",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/push-failures",
+  "recreationFigure": "Two stations could not be updated. The other four are done.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "push-failures/tile/1",
+    "push-failures/tile/2",
+    "push-failures/summary/1",
+    "push-failures/1/2",
+    "push-failures/1/4",
+    "push-failures/1/3",
+    "push-failures/1/5",
+    "push-failures/2/2",
+    "push-failures/2/4",
+    "push-failures/2/5",
+    "push-failures/3/2",
+    "push-failures/3/4",
+    "push-failures/3/3",
+    "push-failures/4/2",
+    "push-failures/4/5",
+    "push-failures/4/3",
+    "push-failures/4/4"
+  ],
+  "titleCard": {
+    "text": "Double Click: Push failures",
+    "claims": [
+      "push-failures/tile/1",
+      "push-failures/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Read the count, not the colour",
+      "highlight": {
+        "label": "could not be updated",
+        "selector": "[data-sa-frame] >> text=\"2 stations could not be updated in Lynx.\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a push that failed for two stations, which Demo Mode short-circuits and which a live course must never be asked to produce; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Know what has already been tried",
+      "highlight": {
+        "label": "re-pushed automatically",
+        "selector": "[data-sa-frame] >> text=\"Push Changes failed for 2 station(s). Retrying\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the automatic retry pass of a push, which Demo Mode never reaches; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Check the connection to Lynx",
+      "highlight": {
+        "label": "Diagnostics",
+        "selector": "[data-sa-frame] >> text=\"Lynx interconnect:\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the diagnostics dialog, whose reads Demo Mode sends to the real API; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Re-push only the failures",
+      "highlight": {
+        "label": "Push Changes",
+        "selector": "[data-sa-frame] >> text=\"6 Pushed Today\" >> nth=0"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the Push Changes dialog after a partial failure, whose list Demo Mode never produces; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Read the failure count, understand what has already been tried, and re-push only what failed.",
+      "claims": [
+        "push-failures/summary/1"
+      ],
+      "next_text": "The message names how many stations could not be updated: here, two."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "The message names how many stations could not be updated: here, two.",
+      "claims": [
+        "push-failures/1/2",
+        "push-failures/1/4"
+      ],
+      "previous_text": "Read the failure count, understand what has already been tried, and re-push only what failed.",
+      "next_text": "The rest of the push succeeded. A failure is partial, and the stations that verified are already live in Lynx. The other four are done."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The rest of the push succeeded. A failure is partial, and the stations that verified are already live in Lynx. The other four are done.",
+      "claims": [
+        "push-failures/1/3",
+        "push-failures/1/5"
+      ],
+      "previous_text": "The message names how many stations could not be updated: here, two.",
+      "next_text": "Failed stations are re-pushed automatically, up to two further attempts."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "Failed stations are re-pushed automatically, up to two further attempts.",
+      "claims": [
+        "push-failures/2/2"
+      ],
+      "previous_text": "The rest of the push succeeded. A failure is partial, and the stations that verified are already live in Lynx. The other four are done.",
+      "next_text": "This is the automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "This is the automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried.",
+      "claims": [
+        "push-failures/2/4",
+        "push-failures/2/5"
+      ],
+      "previous_text": "Failed stations are re-pushed automatically, up to two further attempts.",
+      "next_text": "Diagnostics reports the Lynx interconnect, whether the cloud can be pinged, and the installation and course identifiers."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Diagnostics reports the Lynx interconnect, whether the cloud can be pinged, and the installation and course identifiers.",
+      "claims": [
+        "push-failures/3/2",
+        "push-failures/3/4"
+      ],
+      "previous_text": "This is the automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried.",
+      "next_text": "If the ping is failing, no amount of re-pushing will help."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "If the ping is failing, no amount of re-pushing will help.",
+      "claims": [
+        "push-failures/3/3"
+      ],
+      "previous_text": "Diagnostics reports the Lynx interconnect, whether the cloud can be pinged, and the installation and course identifiers.",
+      "next_text": "The stations that failed are still pending, but they count as pushed today, so reopening Push Changes lists them under Pushed Today, unticked."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "The stations that failed are still pending, but they count as pushed today, so reopening Push Changes lists them under Pushed Today, unticked.",
+      "claims": [
+        "push-failures/4/2",
+        "push-failures/4/5"
+      ],
+      "previous_text": "If the ping is failing, no amount of re-pushing will help.",
+      "next_text": "Tick them to send them again. Stations that went through are not listed again, so the whole set cannot go out twice. Untick anything under Available to Push that you did not mean to send."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "Tick them to send them again. Stations that went through are not listed again, so the whole set cannot go out twice. Untick anything under Available to Push that you did not mean to send.",
+      "claims": [
+        "push-failures/4/3",
+        "push-failures/4/4"
+      ],
+      "previous_text": "The stations that failed are still pending, but they count as pushed today, so reopening Push Changes lists them under Pushed Today, unticked."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 5.49,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"2 stations could not be updated in Lynx.\"",
+          "name": "2 stations could not be updated in Lynx."
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 10.27,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "wait",
+          "ms": 447
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Unable to Push Changes for 2 Station(s). Check the connection to Lynx and try again.\"",
+          "name": "Unable to Push Changes for 2 Station(s). Check the connection to Lynx and try again."
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 5.98,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The automatic retry pass, before the failure is reported."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Push Changes failed for 2 station(s). Retrying\"",
+          "name": "Push Changes failed for 2 station(s). Retrying"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 9.55,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "wait",
+          "ms": 375
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 9.1,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Diagnostics: Lynx interconnect, ping, installation ID."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Lynx interconnect:\"",
+          "name": "Lynx interconnect:"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Lynx interconnect:\"",
+          "name": "Lynx interconnect:"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 2230
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Can ping cloud:\"",
+          "name": "Can ping cloud:"
+        },
+        {
+          "type": "wait",
+          "ms": 1560
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Installation ID:\"",
+          "name": "Installation ID:"
+        },
+        {
+          "type": "wait",
+          "ms": 890
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Lynx course ID:\"",
+          "name": "Lynx course ID:"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 4.3,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Can ping cloud:\"",
+          "name": "Can ping cloud:"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Can ping cloud:\"",
+          "name": "Can ping cloud:"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 11.32,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The failed stations are still queued; the successful ones are not."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Last Push\"",
+          "name": "Last Push"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"6 Pushed Today\" >> nth=0",
+          "name": "6 Pushed Today"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 12.75,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"6 Pushed Today\" >> nth=0",
+          "name": "6 Pushed Today"
+        },
+        {
+          "type": "wait",
+          "ms": 6420
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"6 Available to Push\" >> nth=0",
+          "name": "6 Available to Push"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "target-profiles",
+    "text": "Next on Double Click: Apply a target profile",
+    "address": "#/push-failures"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}

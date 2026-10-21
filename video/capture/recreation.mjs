@@ -19,7 +19,9 @@
 //        serves the recreation until Ctrl-C, to look at it or to pick targets
 //
 //   liftFigure(page, caption)  lifts one SpatialAdjustApp figure of the guide page to fill the
-//                              viewport, for an episode that sets "recreationFigure" (see below)
+//                              viewport, for an episode that sets "recreationFigure" (see below);
+//                              called again by a beat's figure action, it swaps the lifted figure
+//                              for another one of the same page
 //
 // The director calls ensureRecreationServer itself for --source recreation, so
 // `node video/capture/director.mjs --source recreation ...` works the same way. A recreation take
@@ -174,6 +176,10 @@ export async function liftFigure(page, caption, { timeout = 30000 } = {}) {
         + 'margin:0!important;width:1920px!important;height:1080px!important;z-index:2147483000!important}';
       document.head.appendChild(style);
     }
+    // A second lift (the episode's figure action) puts the figure lifted before back in the page,
+    // so exactly one app ever carries the frame attribute and [data-sa-frame] targets resolve in it.
+    for (const el of document.querySelectorAll(`[${attr}-wrap]`)) if (el !== wrap) el.removeAttribute(`${attr}-wrap`);
+    for (const el of document.querySelectorAll(`[${attr}]`)) if (el !== app) el.removeAttribute(attr);
     wrap.setAttribute(`${attr}-wrap`, '');
     app.setAttribute(attr, '');
     window.scrollTo(0, 0);

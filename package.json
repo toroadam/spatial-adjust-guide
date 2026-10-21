@@ -11,6 +11,7 @@
     "video": "node video/bin/sa-video",
     "test:video": "node --test 'video/**/*.test.mjs'",
     "test:video:py": "python3 -m unittest discover -s video -p 'test_*.py'",
+    "test:episodes": "node scripts/episode-lint.mjs http://localhost:8124/",
     "test": "npm run build && node scripts/test.mjs && npm run test:media",
     "test:media": "node --test scripts/media.test.mjs",
     "test:guides": "node scripts/compare-guides.mjs http://localhost:8124/",

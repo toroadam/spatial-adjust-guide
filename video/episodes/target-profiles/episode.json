@@ -1,0 +1,564 @@
+{
+  "id": "target-profiles",
+  "title": "Apply a target profile",
+  "guide": "target-profiles",
+  "status": "approved",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/target-profiles",
+  "recreationFigure": "The Target Profiles tab in the settings dialog.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "target-profiles/tile/1",
+    "target-profiles/tile/2",
+    "target-profiles/summary/1",
+    "target-profiles/where/1",
+    "target-profiles/1/1",
+    "target-profiles/1/2",
+    "target-profiles/note/1",
+    "target-profiles/2/2",
+    "target-profiles/2/4",
+    "target-profiles/3/2",
+    "target-profiles/3/3",
+    "target-profiles/3/4",
+    "target-profiles/3/6",
+    "target-profiles/4/2",
+    "target-profiles/4/3",
+    "target-profiles/4/4"
+  ],
+  "titleCard": {
+    "text": "Double Click: Apply a target profile",
+    "claims": [
+      "target-profiles/tile/1",
+      "target-profiles/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Open the Target Profiles tab",
+      "highlight": {
+        "label": "Calculation",
+        "selector": "[data-sa-frame] >> text=\"Calculation\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Read the profile list",
+      "highlight": {
+        "label": "Current",
+        "selector": "[data-sa-frame] >> text=\"Update from Current\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Apply and confirm",
+      "highlight": {
+        "label": "Target VWC",
+        "selector": "[data-sa-frame] >> text=\"Target VWC\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Save your current targets into a profile slot",
+      "highlight": {
+        "label": "Save",
+        "selector": "[data-sa-frame] >> text=\"Target VWC\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Save a full set of station targets under a name, then switch the whole course between seasonal and event strategies in one action.",
+      "claims": [
+        "target-profiles/summary/1"
+      ],
+      "next_text": "Open Settings, then the Target Profiles tab."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "Open Settings, then the Target Profiles tab.",
+      "claims": [
+        "target-profiles/where/1",
+        "target-profiles/1/1"
+      ],
+      "previous_text": "Save a full set of station targets under a name, then switch the whole course between seasonal and event strategies in one action.",
+      "next_text": "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit.",
+      "claims": [
+        "target-profiles/1/2"
+      ],
+      "previous_text": "Open Settings, then the Target Profiles tab.",
+      "next_text": "The tab lists five profile slots for each Lynx course, with Last Updated, Stations, Update from Current and Apply Profile columns."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "The tab lists five profile slots for each Lynx course, with Last Updated, Stations, Update from Current and Apply Profile columns.",
+      "claims": [
+        "target-profiles/note/1"
+      ],
+      "previous_text": "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit.",
+      "next_text": "Each profile shows when it was last updated, by renaming it or with Update from Current, and how many stations it holds. An empty slot shows two dashes for Last Updated and Stations."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "Each profile shows when it was last updated, by renaming it or with Update from Current, and how many stations it holds. An empty slot shows two dashes for Last Updated and Stations.",
+      "claims": [
+        "target-profiles/2/2",
+        "target-profiles/2/4"
+      ],
+      "previous_text": "The tab lists five profile slots for each Lynx course, with Last Updated, Stations, Update from Current and Apply Profile columns.",
+      "next_text": "Applying overwrites the Target VWC of every station the profile covers. Because that is a recalculation input, the dashboard reloads and the Suggested column changes across the course."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Applying overwrites the Target VWC of every station the profile covers. Because that is a recalculation input, the dashboard reloads and the Suggested column changes across the course.",
+      "claims": [
+        "target-profiles/3/2",
+        "target-profiles/3/3"
+      ],
+      "previous_text": "Each profile shows when it was last updated, by renaming it or with Update from Current, and how many stations it holds. An empty slot shows two dashes for Last Updated and Stations.",
+      "next_text": "Applying a profile is a course-wide change. Applying and pushing in the same minute leaves no time to sanity-check."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "Applying a profile is a course-wide change. Applying and pushing in the same minute leaves no time to sanity-check.",
+      "claims": [
+        "target-profiles/3/4",
+        "target-profiles/3/6"
+      ],
+      "previous_text": "Applying overwrites the Target VWC of every station the profile covers. Because that is a recalculation input, the dashboard reloads and the Suggested column changes across the course.",
+      "next_text": "Once the course is tuned the way you want it, save the state as a profile so you can return to it. Name it for the condition rather than the date, the reason you set those targets is what you will be looking for later."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "Once the course is tuned the way you want it, save the state as a profile so you can return to it. Name it for the condition rather than the date, the reason you set those targets is what you will be looking for later.",
+      "claims": [
+        "target-profiles/4/2",
+        "target-profiles/4/3"
+      ],
+      "previous_text": "Applying a profile is a course-wide change. Applying and pushing in the same minute leaves no time to sanity-check.",
+      "next_text": "The station targets currently in the table are what a new profile would capture."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "The station targets currently in the table are what a new profile would capture.",
+      "claims": [
+        "target-profiles/4/4"
+      ],
+      "previous_text": "Once the course is tuned the way you want it, save the state as a profile so you can return to it. Name it for the condition rather than the date, the reason you set those targets is what you will be looking for later."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 4.28,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target Profiles\"",
+          "name": "Target Profiles"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target Profiles\"",
+          "name": "Target Profiles"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 9.33,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Calculation\" >> xpath=../..",
+          "name": "Calculation Configure calculation preferences Minimum Threshold Ignore insignificant irrigation adjustments Target Profiles Save seasonal and event-based target profiles Preferences Configure calculation preferences"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Calculation\" >> xpath=../..",
+          "name": "Calculation Configure calculation preferences Minimum Threshold Ignore insignificant irrigation adjustments Target Profiles Save seasonal and event-based target profiles Preferences Configure calculation preferences"
+        },
+        {
+          "type": "wait",
+          "ms": 485
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Calculation\"",
+          "name": "Calculation"
+        },
+        {
+          "type": "wait",
+          "ms": 444
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold\"",
+          "name": "Minimum Threshold"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 12.12,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Five profile slots; an empty slot shows"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
+          "name": "Target Profile Last Updated Stations Update from Current Apply Profile Spring -- -- Summer Baseline 14 Jun 2026 148 Fall -- -- Winter -- -- Tournament Week 02 May 2026 148"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
+          "name": "Target Profile Last Updated Stations Update from Current Apply Profile Spring -- -- Summer Baseline 14 Jun 2026 148 Fall -- -- Winter -- -- Tournament Week 02 May 2026 148"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 3928
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Last Updated\"",
+          "name": "Last Updated"
+        },
+        {
+          "type": "wait",
+          "ms": 548
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Stations\"",
+          "name": "Stations"
+        },
+        {
+          "type": "wait",
+          "ms": 263
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Update from Current\"",
+          "name": "Update from Current"
+        },
+        {
+          "type": "wait",
+          "ms": 1261
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Apply Profile\"",
+          "name": "Apply Profile"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 12.63,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
+          "name": "Summer Baseline 14 Jun 2026 148"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
+          "name": "Summer Baseline 14 Jun 2026 148"
+        },
+        {
+          "type": "wait",
+          "ms": 414
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../../*[2]",
+          "name": "14 Jun 2026"
+        },
+        {
+          "type": "wait",
+          "ms": 4278
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../../*[3]",
+          "name": "148"
+        },
+        {
+          "type": "wait",
+          "ms": 1339
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Spring\" >> xpath=../..",
+          "name": "Spring -- --"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 14.97,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Applying a profile is a course-wide change."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Apply Profile\"",
+          "name": "Apply Profile"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Apply Profile\"",
+          "name": "Apply Profile"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 1230
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "wait",
+          "ms": 7256
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 7.95,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "wait",
+          "ms": 1859
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Apply Profile\"",
+          "name": "Apply Profile"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 15.25,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The station targets currently in the table"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "wait",
+          "ms": 5281
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "54"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 5.16,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[2]",
+          "name": "69"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[2]",
+          "name": "69"
+        },
+        {
+          "type": "wait",
+          "ms": 916
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "creating-profiles",
+    "text": "Next on Double Click: Capturing profiles",
+    "address": "#/target-profiles"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}

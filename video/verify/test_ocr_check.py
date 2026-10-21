@@ -216,6 +216,17 @@ class RenderTest(unittest.TestCase):
         self.assertTrue(MR.is_inside(rep['frames_dir'], MR.media_root()))
         self.assertTrue(rep['frames_dir'].endswith(os.path.join('episodes', TEST_EPISODE, 'frames', 'ocr')))
 
+    def test_frames_are_selected_in_chunks(self):
+        """A long episode's frames are selected in chunks (one select of a few hundred eq() terms runs ffmpeg out of
+        memory); the frames still come back in order, numbered on from chunk to chunk."""
+        import ff
+        out = episode_dir(TEST_EPISODE, 'frames', 'chunks')
+        with mock.patch.object(OC, 'SELECT_CHUNK', 2):
+            got = OC.extract_frames(ff, self.clean, [0, 30, 42, 60, 90], out)
+        self.assertEqual([n for n, _ in got], [0, 30, 42, 60, 90])
+        self.assertEqual([os.path.basename(p) for _, p in got], [f'f_{i:05d}.png' for i in range(1, 6)])
+        OC.remove_frames(out)
+
     def test_clean_clip_passes_and_deletes_frames(self):
         r, text = self.ocr(self.clean, 'ocr-report-clean.json')
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)

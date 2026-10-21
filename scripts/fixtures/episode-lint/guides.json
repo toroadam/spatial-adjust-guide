@@ -1,0 +1,48 @@
+{
+  "fixture-guide": {
+    "key": "fixture-guide",
+    "title": "Read the fixture dashboard",
+    "summary": "An invented guide for the episode lint self-test.",
+    "url": "http://localhost:8124/#/fixture-guide",
+    "shape": true,
+    "steps": [
+      {
+        "n": 1,
+        "title": "Open the toolbar",
+        "doLine": "Select Settings in the toolbar.",
+        "seeLine": "The Settings dialog opens over the dashboard.",
+        "ifNotLine": "If nothing opens, close any open dialog and select Settings again.",
+        "whyLine": null,
+        "boldLabels": [
+          "Settings"
+        ],
+        "shape": true,
+        "body": null,
+        "caption": null
+      },
+      {
+        "n": 2,
+        "title": "Send the changes",
+        "doLine": "Select Push Changes, then Push in the dialog.",
+        "seeLine": "The progress bar counts the stations as they are sent.",
+        "ifNotLine": "If Push is greyed out, tick at least one station.",
+        "whyLine": null,
+        "boldLabels": [
+          "Push Changes",
+          "Push"
+        ],
+        "shape": true,
+        "body": null,
+        "caption": null
+      }
+    ]
+  },
+  "fixture-next": {
+    "key": "fixture-next",
+    "title": "Check the fixture results",
+    "summary": null,
+    "url": "http://localhost:8124/#/fixture-next",
+    "shape": true,
+    "steps": []
+  }
+}

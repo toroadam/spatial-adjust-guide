@@ -326,6 +326,12 @@
       case 'focus': { const a = await target(step.i, 'focus'); beatBoxes.push(hl(a.node, 8)); return; }
       case 'scroll': { const a = await target(step.i, 'scroll'); await scrollBy(a.node, step.dy || 0); return; }
       case 'click': await click(step); return;
+      case 'figure': {
+        // The director swaps the lifted recreation figure in Node while the recorder waits.
+        const r = await ask(step.i, 'figure');
+        if (!r || !r.ok) throw new Error(`step ${step.i}: figure not lifted${r && r.reason ? ` (${r.reason})` : ''}`);
+        return;
+      }
       default: throw new Error(`unknown action type "${step.type}"`);
     }
   };

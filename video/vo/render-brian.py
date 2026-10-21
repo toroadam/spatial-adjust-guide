@@ -99,7 +99,10 @@ MODEL = VOICE_CONFIG["model_id"]
 SETTINGS = VOICE_CONFIG["voice_settings"]
 # An account below the Creator tier is refused mp3_44100_192 (HTTP 403 output_format_not_allowed). SA_VO_OUTPUT_FORMAT
 # asks for another MP3 format instead (for example mp3_44100_128); unset, the voice definition above is used unchanged.
-_FORMAT_OVERRIDE = os.environ.get("SA_VO_OUTPUT_FORMAT", "").strip()
+# SA_ELEVENLABS_OUTPUT_FORMAT is the older name for the same setting and is still read. The audio is trimmed, levelled
+# and converted to the 48 kHz 24-bit master either way, and the format is part of each line's text_hash, so a change
+# re-renders the lines.
+_FORMAT_OVERRIDE = (os.environ.get("SA_VO_OUTPUT_FORMAT") or os.environ.get("SA_ELEVENLABS_OUTPUT_FORMAT") or "").strip()
 if _FORMAT_OVERRIDE and not re.fullmatch(r"mp3_\d{5}_\d{2,3}", _FORMAT_OVERRIDE):
     raise SystemExit("render-brian: SA_VO_OUTPUT_FORMAT must look like mp3_44100_128")
 OUTPUT_FORMAT = _FORMAT_OVERRIDE or VOICE_CONFIG["output_format"]

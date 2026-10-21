@@ -143,6 +143,8 @@ export function buildPlan(episode) {
         case 'wait': return { type: 'wait', ms: a.ms };
         case 'cue': return { type: 'cue', id: a.id };
         case 'scroll': return { type: 'scroll', i: ref(a.target, null, 'scroll'), dy: a.dy };
+        // The caption stays in Node like every target; the page asks for the swap by index.
+        case 'figure': return { type: 'figure', i: ref(a.caption, null, 'figure') };
         default: return { type: a.type, i: ref(a.target, a.name, a.type), name: a.name };
       }
     });
@@ -225,6 +227,7 @@ function dryRun({ args, file, episode, source }) {
     for (const a of b.actions) {
       if (a.type === 'wait') log(`    wait ${a.ms} ms`);
       else if (a.type === 'cue') log(`    cue ${a.id}`);
+      else if (a.type === 'figure') log(`    #${a.i} figure: lift "${targets[a.i].target}"`);
       else log(`    #${a.i} ${a.type}${a.name ? ` "${a.name}"` : ''} ${targets[a.i].target}${a.type === 'scroll' ? ` by ${a.dy} px` : ''}`);
     }
   }
@@ -329,6 +332,16 @@ async function capture(ctx) {
       if (!state.armed || state.end) return { fatal: true, reason: state.end ? 'the take has ended' : 'not armed' };
       const t = targets[req?.i];
       if (!t || t.kind !== req.kind) return { fatal: true, reason: 'unknown target' };
+      if (t.kind === 'figure') {
+        // Swap the lifted recreation figure: only a stylesheet attribute moves, nothing is
+        // navigated, clicked or sent. The schema allows the action on recreation episodes only.
+        if (source !== 'recreation') return { fatal: true, reason: 'a figure action needs the recreation source' };
+        const { liftFigure } = await import('./recreation.mjs');
+        const lifted = await liftFigure(page, t.target, { timeout: 5000 }).catch((err) => ({ error: String(err?.message ?? err).split('\n')[0] }));
+        safety.figures = [...(safety.figures ?? []), { t: since(), figure: t.target, box: lifted.box ?? null, ...(lifted.error ? { error: lifted.error } : {}) }];
+        if (lifted.error) { end(EXIT.FAILED, `figure #${req.i}: ${lifted.error}`); return { fatal: true, reason: lifted.error }; }
+        return { ok: true };
+      }
       const loc = page.locator(t.target);
       const n = await loc.count();
       if (n === 0) return { ok: false };

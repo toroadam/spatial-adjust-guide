@@ -1,0 +1,528 @@
+{
+  "id": "updating-profiles",
+  "title": "Updating profiles",
+  "guide": "updating-profiles",
+  "status": "approved",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/updating-profiles",
+  "recreationFigure": "Individually edited targets drift away from the profile.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "updating-profiles/tile/1",
+    "updating-profiles/tile/2",
+    "updating-profiles/summary/1",
+    "updating-profiles/1/2",
+    "updating-profiles/1/3",
+    "updating-profiles/1/4",
+    "updating-profiles/2/1",
+    "updating-profiles/2/4",
+    "updating-profiles/2/2",
+    "updating-profiles/2/3",
+    "updating-profiles/3/2",
+    "updating-profiles/3/5",
+    "updating-profiles/3/3",
+    "updating-profiles/4/2",
+    "updating-profiles/4/3",
+    "updating-profiles/4/4"
+  ],
+  "titleCard": {
+    "text": "Double Click: Updating profiles",
+    "claims": [
+      "updating-profiles/tile/1",
+      "updating-profiles/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Notice the drift",
+      "highlight": {
+        "label": "drift",
+        "selector": "[data-sa-frame] >> text=\"Target VWC\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Find the profile’s row",
+      "highlight": {
+        "label": "Current",
+        "selector": "[data-sa-frame] >> text=\"Update from Current\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Update this slot or capture into another",
+      "highlight": {
+        "label": "Update this slot",
+        "selector": "[data-sa-frame] >> text=\"Update from Current\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Confirm nothing moved",
+      "highlight": {
+        "label": "Suggested",
+        "selector": "[data-sa-frame] >> text=\"Suggested\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Fold this week's adjustments back into a saved profile without applying it to the course.",
+      "claims": [
+        "updating-profiles/summary/1"
+      ],
+      "next_text": "After a fortnight of individual target edits, the course no longer matches the profile you applied."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "After a fortnight of individual target edits, the course no longer matches the profile you applied.",
+      "claims": [
+        "updating-profiles/1/2"
+      ],
+      "previous_text": "Fold this week's adjustments back into a saved profile without applying it to the course.",
+      "next_text": "The profile is still valid, it is simply out of date. Individually edited targets drift away from the profile."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The profile is still valid, it is simply out of date. Individually edited targets drift away from the profile.",
+      "claims": [
+        "updating-profiles/1/3",
+        "updating-profiles/1/4"
+      ],
+      "previous_text": "After a fortnight of individual target edits, the course no longer matches the profile you applied.",
+      "next_text": "Find the profile’s row, with Update from Current."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "Find the profile’s row, with Update from Current.",
+      "claims": [
+        "updating-profiles/2/1",
+        "updating-profiles/2/4"
+      ],
+      "previous_text": "The profile is still valid, it is simply out of date. Individually edited targets drift away from the profile.",
+      "next_text": "The profile list does not mark the profile you applied. Editing a station target after applying leaves the profile intact but no longer exactly matched."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "The profile list does not mark the profile you applied. Editing a station target after applying leaves the profile intact but no longer exactly matched.",
+      "claims": [
+        "updating-profiles/2/2",
+        "updating-profiles/2/3"
+      ],
+      "previous_text": "Find the profile’s row, with Update from Current.",
+      "next_text": "Overwrite the stored targets with the current ones when the drift is an improvement. Rule of thumb. Update when the course has genuinely moved on."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Overwrite the stored targets with the current ones when the drift is an improvement. Rule of thumb. Update when the course has genuinely moved on.",
+      "claims": [
+        "updating-profiles/3/2",
+        "updating-profiles/3/5"
+      ],
+      "previous_text": "The profile list does not mark the profile you applied. Editing a station target after applying leaves the profile intact but no longer exactly matched.",
+      "next_text": "Capture into a different slot instead when the change is for one event, and rename it to suit; with five slots per course that overwrites whatever the other slot held, so pick one you no longer need."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "Capture into a different slot instead when the change is for one event, and rename it to suit; with five slots per course that overwrites whatever the other slot held, so pick one you no longer need.",
+      "claims": [
+        "updating-profiles/3/3"
+      ],
+      "previous_text": "Overwrite the stored targets with the current ones when the drift is an improvement. Rule of thumb. Update when the course has genuinely moved on.",
+      "next_text": "Updating a profile writes to the profile, not to the stations."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "Updating a profile writes to the profile, not to the stations.",
+      "claims": [
+        "updating-profiles/4/2"
+      ],
+      "previous_text": "Capture into a different slot instead when the change is for one event, and rename it to suit; with five slots per course that overwrites whatever the other slot held, so pick one you no longer need.",
+      "next_text": "The Suggested column should be exactly as it was — if it moved, something applied rather than updated. Suggestions unchanged: the update touched only the stored profile."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "The Suggested column should be exactly as it was — if it moved, something applied rather than updated. Suggestions unchanged: the update touched only the stored profile.",
+      "claims": [
+        "updating-profiles/4/3",
+        "updating-profiles/4/4"
+      ],
+      "previous_text": "Updating a profile writes to the profile, not to the stations."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 7.35,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "wait",
+          "ms": 827
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "54"
+        },
+        {
+          "type": "wait",
+          "ms": 1568
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 8.07,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        },
+        {
+          "type": "wait",
+          "ms": 4470
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[2]",
+          "name": "69"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 5.78,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The profile’s row, with Update from Current."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
+          "name": "Summer Baseline 14 Jun 2026 148"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
+          "name": "Summer Baseline 14 Jun 2026 148"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 1384
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Update from Current\"",
+          "name": "Update from Current"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 9.91,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Last Updated\"",
+          "name": "Last Updated"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Last Updated\"",
+          "name": "Last Updated"
+        },
+        {
+          "type": "wait",
+          "ms": 2482
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../../*[2]",
+          "name": "14 Jun 2026"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 10.4,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Updating overwrites the stored targets in place."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Update from Current\"",
+          "name": "Update from Current"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Update from Current\"",
+          "name": "Update from Current"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 4045
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
+          "name": "Summer Baseline 14 Jun 2026 148"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 12.53,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
+          "name": "Target Profile Last Updated Stations Update from Current Apply Profile Spring -- -- Summer Baseline 14 Jun 2026 148 Fall -- -- Winter -- -- Tournament Week 02 May 2026 148"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
+          "name": "Target Profile Last Updated Stations Update from Current Apply Profile Spring -- -- Summer Baseline 14 Jun 2026 148 Fall -- -- Winter -- -- Tournament Week 02 May 2026 148"
+        },
+        {
+          "type": "wait",
+          "ms": 3603
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Fall\"",
+          "name": "Fall"
+        },
+        {
+          "type": "wait",
+          "ms": 940
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Winter\"",
+          "name": "Winter"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 6.51,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Suggestions unchanged: the update touched only the stored profile."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 11.66,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "wait",
+          "ms": 1155
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "wait",
+          "ms": 1631
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "seasonal-profiles",
+    "text": "Next on Double Click: Managing seasonal profiles",
+    "address": "#/updating-profiles"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}
