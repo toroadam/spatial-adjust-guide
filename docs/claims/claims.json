@@ -16,10 +16,10 @@
       "fetchedAt": "2026-10-19T17:41:40Z"
     },
     "guides": 26,
-    "claims": 1327,
+    "claims": 1325,
     "byStatus": {
       "Unverified": 0,
-      "Verified": 1308,
+      "Verified": 1306,
       "Wrong": 0,
       "Not shipping": 0,
       "Needs expert": 19
@@ -27,7 +27,7 @@
     "byType": {
       "label": 66,
       "navigation": 243,
-      "behaviour": 930,
+      "behaviour": 928,
       "calculation": 47,
       "prerequisite": 41
     }
@@ -35712,7 +35712,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "do",
-      "text": "Compare the station’s [[Avg.",
+      "text": "Compare the station’s [[Avg. VWC]] with the readings on its sprinkler rows.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -35736,79 +35736,15 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
           "line": "365-383"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
-          "line": "9"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": "377"
         }
       ],
-      "note": "SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\" heads the column at station level (sa-dash-table.component.html:9; en-us.json:377). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together as one sentence.",
+      "note": "SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\" heads the column at station level (sa-dash-table.component.html:9; en-us.json:377).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "station-details/3/3",
-      "guide": "station-details",
-      "step": "3",
-      "field": "do",
-      "text": "VWC]] with the readings on its sprinkler rows.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
-          "line": 9
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 377
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
-          "line": "365-383"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
-          "line": "9"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": "377"
-        }
-      ],
-      "note": "SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\" heads the column at station level (sa-dash-table.component.html:9; en-us.json:377). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together as one sentence.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "station-details/3/4",
       "guide": "station-details",
       "step": "3",
       "field": "see",
@@ -35858,7 +35794,7 @@
       "correction": ""
     },
     {
-      "id": "station-details/3/5",
+      "id": "station-details/3/4",
       "guide": "station-details",
       "step": "3",
       "field": "ifNot",
@@ -35901,7 +35837,7 @@
       "correction": ""
     },
     {
-      "id": "station-details/3/6",
+      "id": "station-details/3/5",
       "guide": "station-details",
       "step": "3",
       "field": "ifNot",
@@ -35944,7 +35880,7 @@
       "correction": ""
     },
     {
-      "id": "station-details/3/7",
+      "id": "station-details/3/6",
       "guide": "station-details",
       "step": "3",
       "field": "why",
@@ -35973,7 +35909,7 @@
       "correction": ""
     },
     {
-      "id": "station-details/3/8",
+      "id": "station-details/3/7",
       "guide": "station-details",
       "step": "3",
       "field": "caption",
@@ -36397,7 +36333,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "do",
-      "text": "Look for a grey calculator icon beside the station’s [[Avg.",
+      "text": "Look for a grey calculator icon beside the station’s [[Avg. VWC]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -36453,13 +36389,6 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 377
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
-          "line": "9"
         }
       ],
       "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together.",
@@ -36469,81 +36398,6 @@
     },
     {
       "id": "station-details/5/3",
-      "guide": "station-details",
-      "step": "5",
-      "field": "do",
-      "text": "VWC]].",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": "29-31"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
-          "line": "112-116"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
-          "line": "398-400"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
-          "line": "59-70"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
-          "line": "391-396"
-        },
-        {
-          "source": "doc",
-          "ref": "373-1135 rev 02 §Table Functionality"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
-          "line": 9
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 377
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
-          "line": "9"
-        }
-      ],
-      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "station-details/5/4",
       "guide": "station-details",
       "step": "5",
       "field": "see",
@@ -36639,7 +36493,7 @@
       "correction": ""
     },
     {
-      "id": "station-details/5/5",
+      "id": "station-details/5/4",
       "guide": "station-details",
       "step": "5",
       "field": "ifNot",
@@ -36693,7 +36547,7 @@
       "correction": ""
     },
     {
-      "id": "station-details/5/6",
+      "id": "station-details/5/5",
       "guide": "station-details",
       "step": "5",
       "field": "caption",
