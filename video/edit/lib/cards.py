@@ -49,7 +49,9 @@ def _rendered(g, ids):
 
 
 def _words(text):
-    return len(re.findall(r"[\w'%-]+", text))
+    # The same count verify.py's hold check uses (str.split), so a title with a lone dash ("Option 1 — ratio")
+    # is held for the words verify counts.
+    return len(text.split())
 
 
 def _ink_rows(g, aid):
