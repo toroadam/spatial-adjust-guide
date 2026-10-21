@@ -306,6 +306,14 @@ def up_next_seconds(next_title):
     return round(max(DURATIONS['up_next_card'], un['pop'] + min_hold(label) + un['out'] + 0.05), 2)
 
 
+def title_card_seconds(title):
+    """The title card's length: BRAND's title_card, or longer when its label needs a longer hold (1.5 s + 0.3 s per word of
+    "Double Click / <title>", counted as verify.py counts them: the slash is a word). A title of four words or fewer keeps
+    BRAND's length; "Why is this station 0%?" (five) needs 0.33 s more."""
+    from brand import TITLE_CARD, SERIES_WORD, min_hold
+    return round(max(DURATIONS['title_card'], TITLE_CARD['pop'] + min_hold(f'{SERIES_WORD} / {title}') + TITLE_CARD['out'] + 0.05), 2)
+
+
 def chapter_plan(ep, LOG, src, F, E, vo_len):
     """Per chapter: dict(id, label, cue, s0, s1). Raises BuildError when a chapter has no cue in the take's log."""
     beats = ep.get('beats', [])
@@ -460,7 +468,8 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
         t = 0.0
         cards.lockup(g, T, t, t + DURATIONS['lockup']); t = round(t + DURATIONS['lockup'], 3)
         t_title = t
-        cards.title_card(g, T, t, round(t + DURATIONS['title_card'], 3), ep['title'], sub_id=sub_id); t = round(t + DURATIONS['title_card'], 3)
+        title_len = title_card_seconds(ep['title'])
+        cards.title_card(g, T, t, round(t + title_len, 3), ep['title'], sub_id=sub_id); t = round(t + title_len, 3)
         ww = LAYOUT['window_wide']
         wide_over = dict(s=ww['s'], pos=list(ww['pos']))
         macro_over, drift = None, (1.0, 0.5, 7.0)
