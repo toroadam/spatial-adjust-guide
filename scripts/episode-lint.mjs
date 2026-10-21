@@ -243,7 +243,8 @@ export function lintEpisode(ep, { ctx, entry, guide, nextTitle = null, folder = 
 
   // (b) chapters = rendered steps
   const chapters = Array.isArray(ep.chapters) ? ep.chapters : [];
-  const steps = guide.steps;
+  // A step the build marks beta is not narrated: an episode covers the shipped steps only.
+  const steps = guide.steps.filter((s) => !s.beta);
   if (chapters.length !== steps.length) add(`${chapters.length} chapters != ${steps.length} rendered steps`);
   chapters.forEach((c, i) => {
     const s = steps[i];

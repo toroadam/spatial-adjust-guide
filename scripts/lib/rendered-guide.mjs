@@ -105,7 +105,8 @@ function scrape() {
     const body = norm(bodyEl?.textContent);
     const bodyBold = bodyEl ? [...bodyEl.querySelectorAll('b, strong')].map((b) => norm(b.textContent)) : [];
     const caption = norm(sec.querySelector('figcaption')?.textContent);
-    return { n, title, lines, body, bodyBold, caption };
+    const beta = Boolean(sec.querySelector('.lsa-beta-badge'));
+    return { n, title, lines, body, bodyBold, caption, beta };
   });
   const summary = norm(h1?.parentElement?.querySelector('h1 + p')?.textContent);
   return { cards, title: norm(h1?.textContent), summary, steps, hash: location.hash };
@@ -167,7 +168,7 @@ export async function readGuide(page, baseUrl, key, { screenLabels = loadScreenL
   if (!raw.steps.length) throw new GuideNotFound(key, 'no steps rendered');
   if (raw.hash !== `#/${key}`) throw new GuideNotFound(key, `the address became ${raw.hash || '(none)'}`);
   const steps = raw.steps.map((s) => ({
-    n: s.n, title: s.title, ...shapeStep(s, screenLabels), body: s.body || null, caption: s.caption || null,
+    n: s.n, title: s.title, beta: s.beta, ...shapeStep(s, screenLabels), body: s.body || null, caption: s.caption || null,
   }));
   return { key, title: raw.title, summary: raw.summary || null, url, shape: steps.every((s) => s.shape), steps };
 }
