@@ -23,12 +23,11 @@
 // The heuristic miscounts some words ("dialog" 2, "calculates" 4). --selftest checks it against
 // four reference texts whose syllables were counted by hand.
 //
-// The ratchet. A guide in PENDING (scripts/lib/rewrite-status.mjs) has not been rewritten yet: its
-// steps are scored and reported as advisory, never failed. The command exits 1 only when a step
-// of a guide that is not pending scores above 8.0.
+// Blocking. Every step of every guide must score 8.0 or below; there is no ratchet and no pending
+// list. The command exits 1 when any step scores above 8.0.
 //
 // Usage:
-//   node scripts/readability.mjs              the 10 hardest steps; exit 1 on a failing rewritten step
+//   node scripts/readability.mjs              the 10 hardest steps; exit 1 on any step above grade 8
 //   node scripts/readability.mjs --selftest   check the scorer against the reference texts
 //   node scripts/readability.mjs --json       print every step's score
 import { pathToFileURL } from 'node:url';
@@ -80,15 +79,13 @@ export function score(text) {
 }
 
 /** Scores every step of every guide in `data` (as returned by loadGuides). */
-export function scoreGuides(data, { pending = new Set(), isPending = (k, p) => p.has(k) } = {}) {
+export function scoreGuides(data) {
   const keys = data.keys || Object.keys(data.GUIDES);
   const steps = [];
   for (const key of keys) {
-    const pend = isPending(key, pending);
     (data.GUIDES[key].steps || []).forEach((step, i) => {
       const s = score(stepText(step));
-      steps.push({ guide: key, step: i + 1, pending: pend, ...s,
-        fails: !pend && s.grade !== null && s.grade > MAX_GRADE });
+      steps.push({ guide: key, step: i + 1, ...s, fails: s.grade !== null && s.grade > MAX_GRADE });
     });
   }
   return steps;
@@ -132,19 +129,15 @@ function report(steps) {
   console.log('Flesch-Kincaid grade per step (do, see, ifNot, why and any remaining body; English only).');
   console.log(`\nThe 10 hardest steps:\n  Grade  Step  Guide`);
   for (const s of hardest) {
-    console.log(`  ${s.grade.toFixed(1).padStart(5)}  ${String(s.step).padStart(4)}  ${s.guide}${s.pending ? ' (pending)' : ''}`);
+    console.log(`  ${s.grade.toFixed(1).padStart(5)}  ${String(s.step).padStart(4)}  ${s.guide}`);
   }
 
-  const rewritten = scored.filter((s) => !s.pending);
-  const failing = rewritten.filter((s) => s.fails);
-  const pend = scored.filter((s) => s.pending);
-  const pendOver = pend.filter((s) => s.grade > MAX_GRADE);
+  const failing = scored.filter((s) => s.fails);
   if (failing.length) {
-    console.log(`\nAbove grade ${MAX_GRADE.toFixed(1)} in rewritten guides:`);
+    console.log(`\nAbove grade ${MAX_GRADE.toFixed(1)}:`);
     for (const s of failing) console.log(`  FAIL  ${s.guide} step ${s.step}: grade ${s.grade.toFixed(1)}`);
   }
-  console.log(`\nRewritten guides: ${rewritten.length} step(s) scored, ${failing.length} above grade ${MAX_GRADE.toFixed(1)}.`);
-  console.log(`Pending guides (advisory): ${pendOver.length} of ${pend.length} step(s) above grade ${MAX_GRADE.toFixed(1)}.`);
+  console.log(`\n${scored.length} step(s) scored, ${failing.length} above grade ${MAX_GRADE.toFixed(1)}.`);
   const unscored = steps.length - scored.length;
   if (unscored) console.log(`warning: ${unscored} step(s) have no text to score.`);
   return failing.length === 0;
@@ -157,8 +150,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   } else {
     // Imported here rather than at the top, so --selftest runs without the export or the transform.
     const { loadGuides } = await import('./lib/load-guides.mjs');
-    const { PENDING, isPending } = await import('./lib/rewrite-status.mjs');
-    const steps = scoreGuides(loadGuides(), { pending: PENDING, isPending });
+    const steps = scoreGuides(loadGuides());
     if (args.includes('--json')) {
       console.log(JSON.stringify(steps, null, 2));
       process.exitCode = steps.some((s) => s.fails) ? 1 : 0;

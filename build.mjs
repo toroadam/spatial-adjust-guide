@@ -18,6 +18,8 @@ import { readFile, writeFile, mkdir, rm, cp, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { transformGuide } from './src/transform-export.mjs';
 import { transformApp } from './src/transform-app.mjs';
+import { loadGuidesFromHtml } from './scripts/lib/load-guides.mjs';
+import { checkShape } from './scripts/step-shape.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -129,6 +131,20 @@ async function main() {
   // makes re-exports free. Each transform asserts its own anchor, so a shape change fails
   // the build rather than quietly dropping keyboard support.
   html = transformGuide(html);
+
+  // Enforce the step standard (docs/writing-guide.md) on the transformed page, in memory: every
+  // step has Do, You should see and If not, a Do names an exact [[label]] unless it is a region
+  // step, at most eight steps a guide, and a cursor target for each step. This is the same check
+  // as `npm run test:shape`, so a guide that breaks the standard cannot reach dist.
+  {
+    const shape = checkShape(loadGuidesFromHtml(html));
+    if (shape.failed.length) {
+      const lines = shape.guides.filter((g) => g.errors.length)
+        .flatMap((g) => g.errors.map((e) => `  ${g.key}: ${e}`));
+      throw new Error(`Step shape check failed for ${shape.failed.join(', ')}:\n${lines.join('\n')}\n`
+        + '  See docs/writing-guide.md, then run `npm run test:shape` for the full table.');
+    }
+  }
 
   // Belt and braces: confirm the transforms actually produced what the runtime needs.
   for (const [marker, what] of A11Y_GUARDS) {
