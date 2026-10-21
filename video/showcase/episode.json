@@ -5,7 +5,7 @@
   "guide": "understand-spatial-adjust",
   "status": "script-locked",
   "durationTarget": [60, 120],
-  "source": "demo",
+  "source": "recreation",
   "mapPolicy": "restyle",
   "allowClicks": [],
   "demoWriteClicks": [],
@@ -123,7 +123,34 @@
       ],
       "claims": [],
       "onScreen": "Chapter card STATION BY STATION. The dashboard floats in: map left, table right. The camera pushes in on one hole where pins sit side by side in different moisture bands, red and yellow next to green and blue.",
-      "actions": []
+      "actions": [{ "type": "cue", "id": "vo-b1-hook" }],
+      "capture": {
+        "source": "recreation",
+        "why": "Demo Mode needs the owner's hand sign-in to the demo form, the local capture config and the demo data's name maps, none of which an executor can provide, so this cut is captured from the guide site's own recreation (gate SC-G4). Demo Mode could show this read-only view; a Demo Mode take can replace it beat for beat.",
+        "route": "/#/map-navigation",
+        "takeSeconds": 9.3,
+        "declaredClicks": [],
+        "shots": [
+          {
+            "id": "b1-s1", "take": 111, "route": "/#/map-navigation", "seconds": 7.6,
+            "figure": "The course, coloured by measured moisture.",
+            "why": "the dashboard wide, then a push-in on one hole where red, yellow, green and blue pins sit side by side",
+            "highlights": ["[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"15\")"],
+            "actions": [
+              { "type": "wait", "ms": 1500 },
+              { "type": "focus", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"15\")", "name": "15" },
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"4\")", "name": "4" },
+              { "type": "wait", "ms": 450 },
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"15\")", "name": "15" },
+              { "type": "wait", "ms": 400 },
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"19\")", "name": "19" },
+              { "type": "wait", "ms": 400 },
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"30\")", "name": "30" },
+              { "type": "wait", "ms": 300 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "b2",
@@ -145,7 +172,59 @@
       ],
       "claims": [],
       "onScreen": "Chapter card MEASURE. Push-in on the table: the drill-down from course to areas, holes and stations; the highlight on the Avg. VWC column and the scan date beside each station name; a multi-sprinkler station expanded to show each head's own reading; the highlight on Request latest scan data in the toolbar (shown, not pressed).",
-      "actions": []
+      "actions": [{ "type": "cue", "id": "vo-b2-measure" }],
+      "capture": {
+        "source": "recreation",
+        "why": "Demo Mode needs the owner's hand sign-in to the demo form, the local capture config and the demo data's name maps, none of which an executor can provide, so this cut is captured from the guide site's own recreation (gate SC-G4). Demo Mode could show these reads; a Demo Mode take can replace it.",
+        "route": "/#/editing-station-targets",
+        "takeSeconds": 15.1,
+        "declaredClicks": [],
+        "shots": [
+          {
+            "id": "b2-s1", "take": 211, "route": "/#/editing-station-targets", "seconds": 3,
+            "figure": "Hole rows for area AP.",
+            "why": "the drill-down: course, area AP, its holes",
+            "highlights": ["[data-sa-frame] >> text=\"Avg. VWC\" >> xpath=../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Avg. VWC\" >> xpath=../..", "name": "Riverbend National / AP Avg. VWC Target VWC Adjustment Current Suggested % Adj. Enable" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=1", "name": "Riverbend National" },
+              { "type": "wait", "ms": 200 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"/\" >> xpath=.. >> text=\"AP\"", "name": "AP" },
+              { "type": "wait", "ms": 200 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"3\" >> nth=0", "name": "3" }
+            ]
+          },
+          {
+            "id": "b2-s2", "take": 221, "route": "/#/understand-spatial-adjust", "seconds": 4,
+            "figure": "Measured moisture and its scan date, per station.",
+            "why": "a station's Avg. VWC and the scan date beside its name",
+            "highlights": ["[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../..", "name": "3AP1 08-08-25 27.6% 54 % 100% 333% 333 %" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\"", "name": "3AP1" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> text=\"08-08-25\"", "name": "08-08-25" },
+              { "type": "wait", "ms": 450 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> text=\"27.6%\"", "name": "27.6%" },
+              { "type": "wait", "ms": 400 }
+            ]
+          },
+          {
+            "id": "b2-s3", "take": 231, "route": "/#/station-details", "seconds": 3,
+            "figure": "Two sprinklers under 6AP1, each with its own reading.",
+            "why": "a multi-sprinkler station expanded: each head's own reading",
+            "highlights": ["[data-sa-frame] >> text=\"6AP1\" >> xpath=../../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"6AP1\" >> xpath=../../..", "name": "❯ 6AP1 08-08-25 30.9% 31 % 100% 293% 293 %" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"6AP1-1\"", "name": "6AP1-1" },
+              { "type": "wait", "ms": 300 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"31.4%\"", "name": "31.4%" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"30.4%\"", "name": "30.4%" }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "b3",
@@ -167,7 +246,62 @@
       ],
       "claims": [],
       "onScreen": "Chapter card SEE. The map, pins coloured by measured moisture; push-in on the legend's colour bar and its band handles; the variance view, each pin coloured by its distance from target; Layers with All Stations and Enabled Stations; a station selected in the table lights up its pin, map and table in sync. Band moves and the variance toggle save to user preferences, so they are demo only if the capture trial shows Demo Mode allows them, and recreation otherwise.",
-      "actions": []
+      "actions": [{ "type": "cue", "id": "vo-b3-see" }],
+      "capture": {
+        "source": "recreation",
+        "why": "Demo Mode needs the owner's hand sign-in to the demo form, the local capture config and the demo data's name maps, none of which an executor can provide, so this cut is captured from the guide site's own recreation (gate SC-G4). Band moves and the variance toggle also save to user preferences, which Demo Mode blocks.",
+        "route": "/#/map-navigation",
+        "takeSeconds": 15.9,
+        "declaredClicks": [],
+        "shots": [
+          {
+            "id": "b3-s1", "take": 311, "route": "/#/map-navigation", "seconds": 4.4,
+            "figure": "Dragging a handle changes the boundary",
+            "why": "pins coloured by measured moisture, then the legend's bands",
+            "highlights": ["[data-sa-frame] >> text=\"0-5%\" >> xpath=.."],
+            "actions": [
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"4\")", "name": "4" },
+              { "type": "wait", "ms": 200 },
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"15\")", "name": "15" },
+              { "type": "wait", "ms": 200 },
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"35\")", "name": "35" },
+              { "type": "wait", "ms": 250 },
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"0-5%\" >> xpath=..", "name": "0-5% 6-19% 20-30% > 30%" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"6-19%\"", "name": "6-19%" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"20-30%\"", "name": "20-30%" }
+            ]
+          },
+          {
+            "id": "b3-s2", "take": 321, "route": "/#/map-navigation", "seconds": 3.6,
+            "figure": "Variance view: three bands, centred on target.",
+            "why": "the variance view: each pin against its target",
+            "highlights": ["[data-sa-frame] >> text=\"-10 to 10%\" >> xpath=.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"-10 to 10%\" >> xpath=..", "name": "< -11% -10 to 10% > 10%" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"< -11%\"", "name": "< -11%" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"-10 to 10%\"", "name": "-10 to 10%" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"> 10%\"", "name": "> 10%" },
+              { "type": "wait", "ms": 300 }
+            ]
+          },
+          {
+            "id": "b3-s3", "take": 331, "route": "/#/map-navigation", "seconds": 2.8,
+            "figure": "One selection, shown in both panels.",
+            "why": "a station selected in the table, then the cursor on its two sprinklers' pins on the map",
+            "highlights": ["[data-sa-frame] >> text=\"6AP1\" >> xpath=../../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"6AP1\" >> xpath=../../..", "name": "❯ 6AP1 08-08-25 30.9% 31 % 100% 293% 293 %" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"6AP1\"", "name": "6AP1" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"31\")", "name": "31" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"30\") >> nth=1", "name": "30" }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "b4",
@@ -189,7 +323,57 @@
       ],
       "claims": [],
       "onScreen": "Chapter card SET THE TARGET. Push-in on a station row: the Target VWC field beside Avg. VWC (demo), then the new target and the Suggested value following it (recreation, a write); a brief look at the Soil Factor Editor (recreation: it opens with Shift + Alt on the gear, which the director cannot press).",
-      "actions": []
+      "actions": [{ "type": "cue", "id": "vo-b4-target" }],
+      "capture": {
+        "source": "recreation",
+        "why": "Demo Mode needs the owner's hand sign-in to the demo form, the local capture config and the demo data's name maps, none of which an executor can provide, so this cut is captured from the guide site's own recreation (gate SC-G4). The new target and the Suggested value following it are a write, and the Soil Factor Editor opens only with Shift + Alt on the gear, which the director cannot press.",
+        "route": "/#/editing-station-targets",
+        "takeSeconds": 13.1,
+        "declaredClicks": [],
+        "shots": [
+          {
+            "id": "b4-s1", "take": 411, "route": "/#/editing-station-targets", "seconds": 3.2,
+            "figure": "Target VWC on station 9AP1.",
+            "why": "the Target VWC field on a station row, beside Avg. VWC",
+            "highlights": ["[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../..", "name": "9AP1 08-08-25 23.0% 18 % 100% 121% 121 %" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"9AP1\"", "name": "9AP1" },
+              { "type": "wait", "ms": 300 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> text=\"23.0%\"", "name": "23.0%" },
+              { "type": "wait", "ms": 300 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> text=\"18\"", "name": "18" },
+              { "type": "wait", "ms": 300 }
+            ]
+          },
+          {
+            "id": "b4-s2", "take": 421, "route": "/#/editing-station-targets", "seconds": 1.8,
+            "figure": "Suggested follows the target you just set.",
+            "why": "the Suggested value following the new target (a write: recreation)",
+            "highlights": ["[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../..", "name": "9AP1 08-08-25 23.0% 18 % 100% 121% 121 %" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> text=\"121%\"", "name": "121%" },
+              { "type": "wait", "ms": 400 }
+            ]
+          },
+          {
+            "id": "b4-s3", "take": 431, "route": "/#/suggested-adjustments", "seconds": 3,
+            "figure": "Soil Factor Editor, opened with Shift + Alt on the toolbar gear.",
+            "why": "the Soil Factor Editor (it opens only with Shift + Alt on the gear, which the director cannot press)",
+            "highlights": ["[data-sa-frame] >> text=\"120%\""],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"120%\"", "name": "120%" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Soil Factor (%)\"", "name": "Soil Factor (%)" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"120%\"", "name": "120%" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"85%\"", "name": "85%" },
+              { "type": "wait", "ms": 200 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "b5",
@@ -211,7 +395,70 @@
       ],
       "claims": [],
       "onScreen": "Chapter card CALCULATE. Push-in on Current and Suggested side by side under Adjustment, then a run of identical suggestions where Daily Max Amount caps them. The window morphs to Settings, Calculation tab: Daily Max Amount, Lynx Reference Amount and Crop Coefficient, with the method selector (Option 1 or Option 2) only if the demo site shows it, since production hides it unless a site is on Option 1. Then the Minimum Threshold tab: the percentage and what happens below it. Nothing is saved.",
-      "actions": []
+      "actions": [{ "type": "cue", "id": "vo-b5-calculate" }, { "type": "cue", "id": "vo-b5-threshold" }],
+      "capture": {
+        "source": "recreation",
+        "why": "Demo Mode needs the owner's hand sign-in to the demo form, the local capture config and the demo data's name maps, none of which an executor can provide, so this cut is captured from the guide site's own recreation (gate SC-G4). Demo Mode could show these reads and the Settings tabs; nothing is saved either way.",
+        "route": "/#/suggested-adjustments",
+        "takeSeconds": 23.3,
+        "declaredClicks": [],
+        "shots": [
+          {
+            "id": "b5-s1", "take": 511, "route": "/#/suggested-adjustments", "seconds": 4.8,
+            "figure": "Current and Suggested sit side by side under the Adjustment heading.",
+            "why": "Current and Suggested under Adjustment, then the day's calculation ET",
+            "highlights": ["[data-sa-frame] >> text=\"Adjustment\" >> xpath=.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Adjustment\" >> xpath=..", "name": "Adjustment Current Suggested" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> text=\"100%\"", "name": "100%" },
+              { "type": "wait", "ms": 500 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> text=\"333%\"", "name": "333%" },
+              { "type": "wait", "ms": 600 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Calculation ET: 0.34 in\"", "name": "Calculation ET: 0.34 in" },
+              { "type": "wait", "ms": 800 }
+            ]
+          },
+          {
+            "id": "b5-s2", "take": 521, "route": "/#/calculation-settings", "seconds": 2.2,
+            "figure": "Settings dialog, Calculation tab.",
+            "why": "Settings, Calculation tab: Daily Max Amount",
+            "highlights": ["[data-sa-frame] >> text=\"Daily Max Amount (in)\""],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Daily Max Amount (in)\"", "name": "Daily Max Amount (in)" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"0.39\"", "name": "0.39" },
+              { "type": "wait", "ms": 500 }
+            ]
+          },
+          {
+            "id": "b5-s3", "take": 531, "route": "/#/suggested-adjustments", "seconds": 2.75,
+            "figure": "A run of identical suggestions is the signature of the Max Amount cap.",
+            "why": "the suggested percent adjust: a run of identical, capped suggestions",
+            "highlights": ["[data-sa-frame] >> text=\"Suggested\" >> xpath=.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Suggested\" >> xpath=..", "name": "Current Suggested" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> text=\"333%\"", "name": "333%" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../.. >> text=\"333%\"", "name": "333%" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../.. >> text=\"333%\"", "name": "333%" }
+            ]
+          },
+          {
+            "id": "b5-s4", "take": 541, "route": "/#/minimum-threshold", "seconds": 6.75, "vo": "vo-b5-threshold",
+            "figure": "Settings dialog, Minimum Threshold tab.",
+            "why": "Settings, Minimum Threshold tab: the percentage and what happens below it. Nothing is saved",
+            "highlights": ["[data-sa-frame] >> text=\"Minimum Threshold (%)\""],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\"", "name": "Minimum Threshold (%)" },
+              { "type": "wait", "ms": 300 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"10\" >> nth=0", "name": "10" },
+              { "type": "wait", "ms": 900 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Set to zero when pushed to Lynx\"", "name": "Set to zero when pushed to Lynx" },
+              { "type": "wait", "ms": 900 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Set to the minimum threshold value when pushed to Lynx\"", "name": "Set to the minimum threshold value when pushed to Lynx" },
+              { "type": "wait", "ms": 1200 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "b6",
@@ -233,7 +480,66 @@
       ],
       "claims": [],
       "onScreen": "Chapter card REVIEW. The % Adj. field overridden on one station, with Suggested beside it; Bulk Adjust with stations ticked and Shift chosen, the targets moving together; the Over/Under tab catching the extremes at both ends, over 200 % and under 10 %; a hole's Enable switch turned off. Reads are demo; the override, the bulk-adjust result, the filter settings and the switch are writes, so their results are recreation.",
-      "actions": []
+      "actions": [{ "type": "cue", "id": "vo-b6-review" }],
+      "capture": {
+        "source": "recreation",
+        "why": "Demo Mode needs the owner's hand sign-in to the demo form, the local capture config and the demo data's name maps, none of which an executor can provide, so this cut is captured from the guide site's own recreation (gate SC-G4). The override, the bulk-adjust result, the filter settings and the Enable switch are writes, so their results are recreation in any case.",
+        "route": "/#/suggested-adjustments",
+        "takeSeconds": 18.4,
+        "declaredClicks": [],
+        "shots": [
+          {
+            "id": "b6-s1", "take": 611, "route": "/#/suggested-adjustments", "seconds": 2.8,
+            "figure": "Editing % Adj. queues the station",
+            "why": "% Adj. overridden on one station, with Suggested beside it (a write: recreation)",
+            "highlights": ["[data-sa-frame] >> text=\"11AP2\" >> xpath=../../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../..", "name": "11AP2 08-08-25 24.0% 17 % 100% 6% 6 %" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../.. >> text=\"6%\"", "name": "6%" },
+              { "type": "wait", "ms": 250 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../.. >> text=\"6\"", "name": "6" },
+              { "type": "wait", "ms": 300 }
+            ]
+          },
+          {
+            "id": "b6-s2", "take": 621, "route": "/#/bulk-adjustments", "seconds": 2.3,
+            "figure": "Shift by",
+            "why": "Bulk Adjust with stations ticked and Shift chosen (the result is a write: recreation)",
+            "highlights": ["[data-sa-frame] >> text=\"Adjust Target VWC %\" >> xpath=.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Adjust Target VWC %\" >> xpath=..", "name": "5 Stations selected Adjust Target VWC % Replace Shift − -5 % + Use replace to overwrite all values, or shift to move them up/down by the entered amount." },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Replace\"", "name": "Replace" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Shift\"", "name": "Shift" },
+              { "type": "wait", "ms": 150 }
+            ]
+          },
+          {
+            "id": "b6-s3", "take": 631, "route": "/#/filter-adjustments", "seconds": 2.3,
+            "figure": "The filtered tab: the extremes at both ends, not the middle.",
+            "why": "the Over/Under tab: the extremes at both ends, over 200 % and under 10 %",
+            "highlights": ["[data-sa-frame] >> text=\"Over/Under\" >> xpath=../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Over/Under\" >> xpath=../..", "name": "23 Over/Under" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Over/Under\"", "name": "Over/Under" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"% ADJ. OVER 200%, UNDER 10%\"", "name": "% ADJ. OVER 200%, UNDER 10%" },
+              { "type": "wait", "ms": 150 }
+            ]
+          },
+          {
+            "id": "b6-s4", "take": 641, "route": "/#/enable-disable-stations", "seconds": 4.2,
+            "figure": "A disabled station: the switch on its row is grey.",
+            "why": "a station taken out of adjustment: its Enable switch off (a write: recreation)",
+            "highlights": ["[data-sa-frame] >> text=\"5AP1\" >> xpath=../../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../..", "name": "5AP1 08-08-25 27.9% 30 % 100% 333% 333 %" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"5AP1\"", "name": "5AP1" },
+              { "type": "wait", "ms": 500 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../.. >> text=\"333\"", "name": "333" },
+              { "type": "wait", "ms": 900 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "b7",
@@ -255,7 +561,100 @@
       ],
       "claims": [],
       "onScreen": "Chapter card PUSH TO LYNX. Push-in on Push Changes and its pending count, the green pushed-today counter beside it; the Push dialog with Available to Push ticked and Pushed Today unticked, Current on the left and the change on the right; one row unticked and the footer count dropping by one; then send, the progress line station by station, and the confirmation. Send, progress and confirmation are recreation: nothing is ever pushed, and Demo Mode blocks the send. No real Lynx is involved.",
-      "actions": []
+      "actions": [{ "type": "cue", "id": "vo-b7-push" }, { "type": "cue", "id": "vo-b7-lynx" }],
+      "capture": {
+        "source": "recreation",
+        "why": "Demo Mode needs the owner's hand sign-in to the demo form, the local capture config and the demo data's name maps, none of which an executor can provide, so this cut is captured from the guide site's own recreation (gate SC-G4). The send, the progress and the confirmation are recreation in any case: Demo Mode blocks the send, and nothing is ever pushed.",
+        "route": "/#/push-to-lynx",
+        "takeSeconds": 32.9,
+        "declaredClicks": [],
+        "shots": [
+          {
+            "id": "b7-s1", "take": 711, "route": "/#/push-to-lynx", "seconds": 2.3,
+            "figure": "Six changes pending, six already pushed today.",
+            "why": "Push Changes and its pending count, the pushed-today counter beside it",
+            "highlights": ["[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../../.."],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../../..", "name": "Push 6 Changes" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Push 6 Changes\"", "name": "Push 6 Changes" },
+              { "type": "wait", "ms": 600 }
+            ]
+          },
+          {
+            "id": "b7-s2", "take": 721, "route": "/#/push-to-lynx", "seconds": 2.7,
+            "figure": "Push dialog. Current on the left, the proposed change on the right.",
+            "why": "the Push dialog: the two lists, Available to Push ticked and Pushed Today unticked",
+            "highlights": [],
+            "actions": [
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"6 Available to Push\" >> nth=1", "name": "6 Available to Push" },
+              { "type": "wait", "ms": 500 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"6 Pushed Today\" >> nth=1", "name": "6 Pushed Today" },
+              { "type": "wait", "ms": 500 }
+            ]
+          },
+          {
+            "id": "b7-s3", "take": 731, "route": "/#/reviewing-changes", "seconds": 2.25,
+            "figure": "The footer count is the contract.",
+            "why": "one change under review, and the footer count of what will be sent (nothing is sent)",
+            "highlights": [],
+            "actions": [
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"% Adjust: 4%\"", "name": "% Adjust: 4%→ Adjusted to 10%" },
+              { "type": "wait", "ms": 200 },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Push 6 changes to Lynx\"", "name": "Push 6 changes to Lynx" },
+              { "type": "wait", "ms": 300 }
+            ]
+          },
+          {
+            "id": "b7-s4", "take": 741, "route": "/#/verify-results", "seconds": 1.25,
+            "figure": "Phase one: writing, four of six.",
+            "why": "the push, phase one: writing each station (recreation: Demo Mode blocks the send)",
+            "highlights": ["[data-sa-frame] >> text=\"Pushing Percent Adjustments to Lynx (4 of 6)\""],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Pushing Percent Adjustments to Lynx (4 of 6)\"", "name": "Pushing Percent Adjustments to Lynx (4 of 6)" }
+            ]
+          },
+          {
+            "id": "b7-s5", "take": 751, "route": "/#/verify-results", "seconds": 1.25,
+            "figure": "Phase two: reading back what Lynx now holds.",
+            "why": "phase two: reading back what Lynx now holds",
+            "highlights": ["[data-sa-frame] >> text=\"Retrieving latest Percent Adjustments from Lynx for comparison\""],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Retrieving latest Percent Adjustments from Lynx for comparison\"", "name": "Retrieving latest Percent Adjustments from Lynx for comparison" }
+            ]
+          },
+          {
+            "id": "b7-s6", "take": 761, "route": "/#/verify-results", "seconds": 3,
+            "figure": "Phase three: comparing what Lynx reports against what was sent.",
+            "why": "phase three: checking each station against what was sent",
+            "highlights": ["[data-sa-frame] >> text=\"Verifying adjustments sent to Lynx\""],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Verifying adjustments sent to Lynx\"", "name": "Verifying adjustments sent to Lynx" }
+            ]
+          },
+          {
+            "id": "b7-s7", "take": 771, "route": "/#/verify-results", "seconds": 2.6, "vo": "vo-b7-lynx",
+            "figure": "All selected changes pushed and verified.",
+            "why": "the confirmation",
+            "highlights": ["[data-sa-frame] >> text=\"All selected changes successfully pushed to Lynx.\""],
+            "actions": [
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"All selected changes successfully pushed to Lynx.\"", "name": "All selected changes successfully pushed to Lynx." },
+              { "type": "wait", "ms": 1200 }
+            ]
+          },
+          {
+            "id": "b7-s8", "take": 781, "route": "/#/push-to-lynx", "seconds": 3.95,
+            "figure": "Six changes pending, six already pushed today.",
+            "why": "Lynx: the connection the push depends on",
+            "highlights": ["[data-sa-frame] >> text=\"Lynx Cloud connected\""],
+            "actions": [
+              { "type": "wait", "ms": 600 },
+              { "type": "focus", "target": "[data-sa-frame] >> text=\"Lynx Cloud connected\"", "name": "Lynx Cloud connected" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"Lynx Cloud connected\"", "name": "Lynx Cloud connected" },
+              { "type": "wait", "ms": 1500 }
+            ]
+          }
+        ]
+      }
     },
     {
       "id": "b8",
