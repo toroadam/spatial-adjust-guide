@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "ja-jp",
-    "strings": 1438,
+    "strings": 1439,
     "identicalToEnglish": 38,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -367,6 +367,7 @@
     "Grey italics mean modelled": "グレーの斜体はモデル値を意味します",
     "Group and Decimal Separator, under Temperature Scale.": "グループと小数点以下の区切り記号（温度スケールの下）。",
     "Guide": "ガイド",
+    "Guides": "ガイド",
     "Have open": "開いておくもの",
     "High": "高",
     "Higher targets ask for more water.": "ターゲットを高くすると、より多くの水が必要になります。",

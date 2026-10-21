@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 1438,
-    "words": 14930
+    "strings": 1439,
+    "words": 14931
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -363,6 +363,7 @@
     "Grey italics mean modelled": "Grey italics mean modelled",
     "Group and Decimal Separator, under Temperature Scale.": "Group and Decimal Separator, under Temperature Scale.",
     "Guide": "Guide",
+    "Guides": "Guides",
     "Have open": "Have open",
     "High": "High",
     "Higher targets ask for more water.": "Higher targets ask for more water.",
@@ -2472,9 +2473,11 @@
     ],
     "Guide": [
       "catalog",
-      "chrome",
       "dashboard-overview",
       "understand-spatial-adjust"
+    ],
+    "Guides": [
+      "chrome"
     ],
     "Have open": [
       "dashboard-overview",

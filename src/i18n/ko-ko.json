@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "ko-ko",
-    "strings": 1438,
+    "strings": 1439,
     "identicalToEnglish": 39,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -367,6 +367,7 @@
     "Grey italics mean modelled": "회색 이탤릭체는 모델 추정값을 뜻합니다",
     "Group and Decimal Separator, under Temperature Scale.": "그룹 및 소수 구분 기호, 온도 단위 아래에 있습니다.",
     "Guide": "가이드",
+    "Guides": "가이드",
     "Have open": "열어 둘 화면",
     "High": "높음",
     "Higher targets ask for more water.": "목표값이 높을수록 더 많은 물을 요구합니다.",

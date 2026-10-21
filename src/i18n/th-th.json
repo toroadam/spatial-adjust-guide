@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "th-th",
-    "strings": 1438,
+    "strings": 1439,
     "identicalToEnglish": 36,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -367,6 +367,7 @@
     "Grey italics mean modelled": "ตัวเอียงสีเทาหมายถึงค่าจากแบบจำลอง",
     "Group and Decimal Separator, under Temperature Scale.": "แยกกลุ่มและแยกด้วยการใช้จุด ใต้ สเกลอุณหภูมิ",
     "Guide": "คู่มือ",
+    "Guides": "คู่มือ",
     "Have open": "เปิดไว้",
     "High": "สูง",
     "Higher targets ask for more water.": "ค่าเป้าหมายที่สูงขึ้นจะต้องการน้ำมากขึ้น",

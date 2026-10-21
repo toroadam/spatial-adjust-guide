@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "fr-fr",
-    "strings": 1438,
-    "identicalToEnglish": 44,
+    "strings": 1439,
+    "identicalToEnglish": 45,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
     "nativeReviewPlanned": false,
@@ -367,6 +367,7 @@
     "Grey italics mean modelled": "L'italique gris signifie modélisé",
     "Group and Decimal Separator, under Temperature Scale.": "Groupe et séparateur décimal, sous Échelle de température.",
     "Guide": "Guide",
+    "Guides": "Guides",
     "Have open": "À garder ouvert",
     "High": "Haute",
     "Higher targets ask for more water.": "Des cibles plus élevées demandent davantage d’eau.",

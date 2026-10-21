@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "de-de",
-    "strings": 1438,
+    "strings": 1439,
     "identicalToEnglish": 42,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -367,6 +367,7 @@
     "Grey italics mean modelled": "Graue Kursivschrift bedeutet modelliert",
     "Group and Decimal Separator, under Temperature Scale.": "Gruppen- und Dezimaltrennzeichen, unter Temperaturskala.",
     "Guide": "Leitfaden",
+    "Guides": "Leitfäden",
     "Have open": "Geöffnet haben",
     "High": "Hoch",
     "Higher targets ask for more water.": "Höhere Zielwerte erfordern mehr Wasser.",
