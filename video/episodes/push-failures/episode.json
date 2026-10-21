@@ -459,8 +459,8 @@
     }
   ],
   "endCard": {
-    "next": null,
-    "text": "That's the latest Double Click. Find every guide on the Spatial Adjust Guides site.",
+    "next": "target-profiles",
+    "text": "Next on Double Click: Apply a target profile",
     "address": "#/push-failures"
   },
   "music": "sa-bed-v1",
