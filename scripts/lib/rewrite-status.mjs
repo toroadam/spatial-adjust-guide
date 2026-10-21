@@ -12,10 +12,6 @@ import { partOf } from './load-guides.mjs';
 
 export const PENDING = new Set([
   // The 24 guides of the export, in catalogue order.
-  // Calculations
-  'minimum-threshold', 'calculation-settings', 'calculation-methods', 'preferences',
-  // Station Management
-  'enable-disable-stations', 'station-details',
   // Review & Apply
   'suggested-adjustments', 'push-to-lynx', 'reviewing-changes', 'verify-results',
   // Troubleshooting
