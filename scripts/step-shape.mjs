@@ -15,28 +15,27 @@
 // It also rejects a malformed marker ("[[" without "]]", or an empty one) and an empty `why`.
 //
 // The glossary. src/terms.json holds the eight terms defined at their first use in each guide
-// (docs/writing-guide.md > Why lines and the glossary). It is checked on every run, pending guides
-// or not, because one file serves all 26 guides: a zod schema for its shape, then exactly the eight
+// (docs/writing-guide.md > Why lines and the glossary). It is checked on every run, because one
+// file serves all 26 guides: a zod schema for its shape, then exactly the eight
 // term ids, each once; match spellings that are unique, carry no [[ ]] marker and are whole words;
 // a definition that is one sentence at Flesch-Kincaid grade 8 or below (scripts/readability.mjs);
 // and ledger ids that are Verified claims in docs/claims/claims.json. Then firstTermUses(), the
 // function the page runs, is checked against made-up guides: a [[label]] is not a use, matches are
 // whole words, the acronyms are case-sensitive and a term is defined once. Any problem exits 1.
 //
-// The ratchet. A guide listed in PENDING (scripts/lib/rewrite-status.mjs) has not been rewritten
-// yet: it is reported, never failed. The command exits 1 only when a guide that is not pending
-// fails. checkShape() is exported so build.mjs can call it once every guide has landed.
+// Blocking. Every guide must pass; there is no ratchet and no pending list. The command exits 1 when
+// any guide fails. build.mjs calls checkShape() on the transformed page, so `npm run build` fails
+// on the same problems before anything is written to dist.
 //
 // Usage:
-//   node scripts/step-shape.mjs             per-guide table; exit 1 if a non-pending guide fails
-//   node scripts/step-shape.mjs --verbose   also list the problems in pending guides
+//   node scripts/step-shape.mjs             per-guide table; exit 1 if any guide fails
+//   node scripts/step-shape.mjs --verbose   also list the warnings of passing guides
 //   node scripts/step-shape.mjs --json      print the raw result instead of the table
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { z } from 'zod';
 import { loadGuides, partOf } from './lib/load-guides.mjs';
-import { PENDING, isPending } from './lib/rewrite-status.mjs';
 import { score, MAX_GRADE } from './readability.mjs';
 import { firstTermUses } from '../src/transform-export.mjs';
 
@@ -116,32 +115,28 @@ export function checkGuide(key, guide, data) {
 }
 
 /**
- * Checks every guide in `data` (as returned by loadGuides). A guide in `pending` is reported but
- * cannot fail. Returns { guides: [...], failed: [...keys], counts }.
+ * Checks every guide in `data` (as returned by loadGuides or loadGuidesFromHtml).
+ * Returns { guides: [...], failed: [...keys], counts }.
  */
-export function checkShape(data, { pending = new Set() } = {}) {
+export function checkShape(data) {
   const keys = data.keys || Object.keys(data.GUIDES);
   const guides = keys.map((key) => {
     const guide = data.GUIDES[key];
     const { errors, warnings } = checkGuide(key, guide, data);
-    const isPend = isPending(key, pending);
-    const status = isPend ? 'PENDING' : errors.length ? 'FAIL' : 'OK';
+    const status = errors.length ? 'FAIL' : 'OK';
     const steps = Array.isArray(guide.steps) ? guide.steps.length : 0;
     const targets = Array.isArray(data.TARGETS[key]) ? data.TARGETS[key].length : null;
     return { key, status, steps, targets, errors, warnings };
   });
-  const unknownPending = [...pending].filter((k) => !data.GUIDES[k]);
   const failed = guides.filter((g) => g.status === 'FAIL').map((g) => g.key);
   const counts = {
     guides: guides.length,
     ok: guides.filter((g) => g.status === 'OK').length,
     fail: failed.length,
-    pending: guides.filter((g) => g.status === 'PENDING').length,
-    pendingWithProblems: guides.filter((g) => g.status === 'PENDING' && g.errors.length).length,
     targetMismatches: guides.filter((g) => g.targets !== g.steps).length,
     regionSteps: guides.reduce((n, g) => n + g.warnings.filter((w) => w.includes('region step')).length, 0),
   };
-  return { guides, failed, unknownPending, counts };
+  return { guides, failed, counts };
 }
 
 // --- the glossary: src/terms.json ------------------------------------------------------------------
@@ -281,34 +276,26 @@ function printTable(result, { verbose }) {
   for (const r of rows) console.log(line(r));
 
   for (const g of result.guides) {
-    const label = g.status === 'PENDING' ? 'pending' : 'FAIL';
-    // A rewritten guide shows everything. A pending one shows only a TARGETS mismatch, because
-    // that already misplaces the cursor on the live site, unless --verbose asks for the rest.
-    const lines = g.status !== 'PENDING' || verbose
-      ? [...g.errors.map((e) => `${label}: ${e}`), ...g.warnings.map((w) => `warning: ${w}`)]
-      : g.errors.filter((e) => e.startsWith('TARGETS')).map((e) => `${label}: ${e}`);
+    // A failing guide shows everything. A passing one shows its warnings only with --verbose.
+    const lines = g.errors.length || verbose
+      ? [...g.errors.map((e) => `FAIL: ${e}`), ...g.warnings.map((w) => `warning: ${w}`)]
+      : [];
     if (!lines.length) continue;
     console.log(`\n${g.key} (${g.status})`);
     for (const l of lines) console.log(`  ${l}`);
   }
 
   const c = result.counts;
-  console.log(`\n${c.guides} guides: ${c.ok} OK, ${c.fail} FAIL, ${c.pending} PENDING `
-    + `(${c.pendingWithProblems} not yet to the standard). TARGETS length differs from the step count in `
+  console.log(`\n${c.guides} guides: ${c.ok} OK, ${c.fail} FAIL. TARGETS length differs from the step count in `
     + `${c.targetMismatches}. Region steps: ${c.regionSteps}.`);
-  if (result.unknownPending.length) {
-    console.log(`warning: PENDING lists keys that are not guides: ${result.unknownPending.join(', ')}`);
-  }
   if (c.fail) {
-    console.log(`\nFAIL: ${result.failed.join(', ')} ${c.fail === 1 ? 'is not pending and breaks' : 'are not pending and break'} `
-      + 'the step standard (docs/writing-guide.md).');
+    console.log(`\nFAIL: ${result.failed.join(', ')} ${c.fail === 1 ? 'breaks' : 'break'} the step standard (docs/writing-guide.md).`);
   }
-  else if (c.pending && !verbose) console.log('Pending guides are advisory. Run with --verbose to list their problems.');
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const args = process.argv.slice(2);
-  const result = checkShape(loadGuides(), { pending: PENDING });
+  const result = checkShape(loadGuides());
   const termErrors = checkTermsFile();
   if (args.includes('--json')) console.log(JSON.stringify({ ...result, terms: termErrors }, null, 2));
   else {
