@@ -254,12 +254,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"⚙\"",
-          "name": "Settings"
+          "name": "⚙"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"⚙\"",
-          "name": "Settings"
+          "name": "⚙"
         },
         {
           "type": "cue",
@@ -323,12 +323,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount"
+          "name": "Daily Max Amount (in) 0.39"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount"
+          "name": "Daily Max Amount (in) 0.39"
         },
         {
           "type": "cue",
@@ -349,12 +349,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount"
+          "name": "Daily Max Amount (in) 0.39"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount"
+          "name": "Daily Max Amount (in) 0.39"
         }
       ]
     },
@@ -383,12 +383,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Lynx Reference Amount/ >> xpath=..",
-          "name": "Lynx Reference Amount"
+          "name": "Lynx Reference Amount (in) 0.12"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Lynx Reference Amount/ >> xpath=..",
-          "name": "Lynx Reference Amount"
+          "name": "Lynx Reference Amount (in) 0.12"
         },
         {
           "type": "cue",
@@ -409,12 +409,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Lynx Reference Amount/ >> xpath=..",
-          "name": "Lynx Reference Amount"
+          "name": "Lynx Reference Amount (in) 0.12"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Lynx Reference Amount/ >> xpath=..",
-          "name": "Lynx Reference Amount"
+          "name": "Lynx Reference Amount (in) 0.12"
         }
       ]
     },
@@ -443,12 +443,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Crop Coefficient/ >> xpath=..",
-          "name": "Crop Coefficient"
+          "name": "Crop Coefficient (%) 100"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Crop Coefficient/ >> xpath=..",
-          "name": "Crop Coefficient"
+          "name": "Crop Coefficient (%) 100"
         },
         {
           "type": "cue",
@@ -469,12 +469,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Crop Coefficient/ >> xpath=..",
-          "name": "Crop Coefficient"
+          "name": "Crop Coefficient (%) 100"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Crop Coefficient/ >> xpath=..",
-          "name": "Crop Coefficient"
+          "name": "Crop Coefficient (%) 100"
         }
       ]
     },
