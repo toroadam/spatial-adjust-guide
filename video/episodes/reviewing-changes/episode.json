@@ -225,7 +225,7 @@
       "id": "b1a",
       "chapter": "c1",
       "vo": "V1a",
-      "hold": 9.51,
+      "hold": 9.68,
       "actions": [
         {
           "type": "cue",
@@ -251,7 +251,7 @@
         },
         {
           "type": "wait",
-          "ms": 4323
+          "ms": 4416
         },
         {
           "type": "hover",
@@ -264,7 +264,7 @@
       "id": "b1b",
       "chapter": "c1",
       "vo": "V1b",
-      "hold": 7.27,
+      "hold": 6.62,
       "actions": [
         {
           "type": "cue",
@@ -286,7 +286,7 @@
       "id": "b2a",
       "chapter": "c2",
       "vo": "V2a",
-      "hold": 7.76,
+      "hold": 6.24,
       "actions": [
         {
           "type": "figure",
@@ -320,7 +320,7 @@
         },
         {
           "type": "wait",
-          "ms": 2680
+          "ms": 1920
         },
         {
           "type": "hover",
@@ -333,7 +333,7 @@
       "id": "b2b",
       "chapter": "c2",
       "vo": "V2b",
-      "hold": 6.56,
+      "hold": 5.43,
       "actions": [
         {
           "type": "cue",
@@ -351,7 +351,7 @@
         },
         {
           "type": "wait",
-          "ms": 1862
+          "ms": 1353
         },
         {
           "type": "hover",
@@ -364,7 +364,7 @@
       "id": "b3a",
       "chapter": "c3",
       "vo": "V3a",
-      "hold": 10.97,
+      "hold": 11.24,
       "actions": [
         {
           "type": "figure",
@@ -398,7 +398,7 @@
         },
         {
           "type": "wait",
-          "ms": 3428
+          "ms": 3536
         },
         {
           "type": "hover",
@@ -411,7 +411,7 @@
       "id": "b3b",
       "chapter": "c3",
       "vo": "V3b",
-      "hold": 9.77,
+      "hold": 9.37,
       "actions": [
         {
           "type": "cue",
@@ -429,7 +429,7 @@
         },
         {
           "type": "wait",
-          "ms": 3735
+          "ms": 3535
         },
         {
           "type": "hover",
@@ -442,7 +442,7 @@
       "id": "b4a",
       "chapter": "c4",
       "vo": "V4a",
-      "hold": 7.4,
+      "hold": 6.47,
       "actions": [
         {
           "type": "figure",
@@ -463,12 +463,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/2 stations will be adjusted/",
-          "name": "2 stations will be adjusted"
+          "name": "2 stations will be adjusted according to the minimum threshold rules."
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/2 stations will be adjusted/",
-          "name": "2 stations will be adjusted"
+          "name": "2 stations will be adjusted according to the minimum threshold rules."
         },
         {
           "type": "cue",
@@ -476,7 +476,7 @@
         },
         {
           "type": "wait",
-          "ms": 2500
+          "ms": 2035
         },
         {
           "type": "hover",
@@ -489,7 +489,7 @@
       "id": "b4b",
       "chapter": "c4",
       "vo": "V4b",
-      "hold": 6.56,
+      "hold": 5.26,
       "actions": [
         {
           "type": "cue",
@@ -498,21 +498,21 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Adjusted to 10%/ >> nth=0",
-          "name": "Adjusted to 10%"
+          "name": "→ Adjusted to 10%"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Adjusted to 10%/ >> nth=0",
-          "name": "Adjusted to 10%"
+          "name": "→ Adjusted to 10%"
         },
         {
           "type": "wait",
-          "ms": 2130
+          "ms": 1479
         },
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Adjusted to 10%/ >> nth=1",
-          "name": "Adjusted to 10%"
+          "name": "→ Adjusted to 10%"
         }
       ]
     },
@@ -520,7 +520,7 @@
       "id": "b5a",
       "chapter": "c5",
       "vo": "V5a",
-      "hold": 8.47,
+      "hold": 6.9,
       "actions": [
         {
           "type": "figure",
@@ -554,7 +554,7 @@
         },
         {
           "type": "wait",
-          "ms": 3035
+          "ms": 2250
         },
         {
           "type": "hover",
@@ -567,7 +567,7 @@
       "id": "b5b",
       "chapter": "c5",
       "vo": "V5b",
-      "hold": 7.99,
+      "hold": 6.04,
       "actions": [
         {
           "type": "cue",
