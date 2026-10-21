@@ -32,6 +32,7 @@
 import { readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 import { loadGuides } from './lib/load-guides.mjs';
+import { showBetaFromEnv } from '../src/release.mjs';
 
 const url = process.argv[2];
 if (!url) throw new Error('usage: cursor-target.mjs <url> [--json] [--only <key>[,<key>...]]');
@@ -63,7 +64,8 @@ const page = await (await browser.newContext({ viewport: { width: 1440, height: 
 await page.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
 // Every guide key, parts included, in catalogue order. Clicking catalogue cards could not reach a
 // <key>-part-N guide, which has no card.
-const { keys: allKeys, GUIDES } = loadGuides();
+// The steps the served build holds: a build with beta content removed has no beta step to walk.
+const { keys: allKeys, GUIDES } = loadGuides({ showBeta: showBetaFromEnv() });
 if (only) for (const k of only) if (!GUIDES[k]) throw new Error(`--only: no guide with key ${k}`);
 const guides = only ? allKeys.filter((k) => only.includes(k)) : allKeys;
 

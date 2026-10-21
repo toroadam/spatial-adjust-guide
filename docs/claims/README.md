@@ -495,3 +495,17 @@ verdict with the reviewer's role and the date in `docs/claims/signoff.md`.
   adds them to the *Guide feedback* SharePoint list, or into the pack's answer boxes. Feature 10
   records the answers in `operational-contract.md` and the shards, and the verdicts in
   `signoff.md`.
+
+### 2026-10-21: the step-by-step rewrite is published
+
+- **Published.** All 26 guides are in the Do / You should see / If not shape, with the glossary
+  definitions at first use and the chapter strip under the step player. No guide is still pending.
+- **Ledger.** 1,332 claims across 26 guides: 1,307 Verified, 6 Verified (beta), 19 Needs expert,
+  0 Wrong, 0 Not shipping and 0 Unverified. The six Verified (beta) claims are the title and five
+  sentences of the one beta step, "A stale course keeps its last scans" in Calculation questions,
+  re-read against the pinned develop commit when the step was moved into the step shape. The earlier
+  871-claim figure above describes the text of 2026-10-19, before the rewrite split the prose into
+  one claim per sentence of each Do, You should see, If not and Why line.
+- **The extractor.** `scripts/claims-extract.mjs` reads `start`, `do`, `see`, `ifNot` and `why` as
+  well as the title, body, caption and tip, and treats a `[[Label]]` marker as part of one sentence.
+  Running it without that would drop claims such as minimum-threshold/2/2.

@@ -138,9 +138,11 @@ export function loadGuidesFromHtml(html) {
 
 /**
  * Reads the export from `root`, applies transformGuide() and evaluates the guide data.
- * transformGuide is this repository's src/transform-export.mjs.
+ * transformGuide is this repository's src/transform-export.mjs. `showBeta` is whether beta content
+ * is published (src/release.mjs); it defaults to true, the text every check reads unless it says
+ * otherwise. A check that compares the data with a served page passes the mode the page was built in.
  */
-export function loadGuides({ root = process.cwd() } = {}) {
+export function loadGuides({ root = process.cwd(), showBeta = true } = {}) {
   const html = readFileSync(join(root, EXPORT_FILE), 'utf8');
-  return loadGuidesFromHtml(transformGuide(html));
+  return loadGuidesFromHtml(transformGuide(html, { showBeta }));
 }
