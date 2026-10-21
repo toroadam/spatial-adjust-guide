@@ -503,5 +503,28 @@ class Audio(unittest.TestCase):
             shutil.rmtree(tmp, ignore_errors=True)
 
 
+
+class OutputFormatOverride(unittest.TestCase):
+    """SA_VO_OUTPUT_FORMAT: an account below the Creator tier is refused mp3_44100_192, so another MP3 format can be asked for."""
+
+    def load_with(self, value):
+        env = {k: v for k, v in os.environ.items() if k != "SA_VO_OUTPUT_FORMAT"}
+        if value is not None:
+            env["SA_VO_OUTPUT_FORMAT"] = value
+        with mock.patch.dict(os.environ, env, clear=True):
+            return load_renderer()
+
+    def test_default_is_the_voice_definition(self):
+        self.assertEqual(self.load_with(None).OUTPUT_FORMAT, "mp3_44100_192")
+        self.assertEqual(self.load_with("").OUTPUT_FORMAT, "mp3_44100_192")
+
+    def test_override_is_used(self):
+        self.assertEqual(self.load_with("mp3_44100_128").OUTPUT_FORMAT, "mp3_44100_128")
+
+    def test_anything_else_is_refused(self):
+        for bad in ("pcm_44100", "mp3_44100_128&voice=x", "../x"):
+            with self.assertRaises(SystemExit):
+                self.load_with(bad)
+
 if __name__ == "__main__":
     unittest.main()

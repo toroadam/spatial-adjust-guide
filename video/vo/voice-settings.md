@@ -35,7 +35,7 @@ rms_target_dbfs: -19.3451
 | Style | 0.0 | |
 | Speaker boost | on | |
 | Speed | 1.0 | |
-| API format | `mp3_44100_192` | What the API is asked for, as in the iCentral renderer. The MP3 is kept under `vo/raw/` so a re-level costs no credits. |
+| API format | `mp3_44100_192` | What the API is asked for, as in the iCentral renderer. The MP3 is kept under `vo/raw/` so a re-level costs no credits. An account below the Creator tier is refused this format (HTTP 403); `SA_VO_OUTPUT_FORMAT=mp3_44100_128` asks for another MP3 format instead, and is recorded in the masters' manifest. Unset, nothing changes. |
 | Master format | 48 kHz, 24-bit PCM WAV, mono | ffmpeg decodes the MP3 to 48 kHz mono floats; the script trims, levels and writes the WAV. |
 | Trim | -45 dB below the line's peak | On a 240-sample moving average of the absolute signal, padded by 0.06 s each side, with 10 ms linear fades. Identical to the iCentral `trim()`; `test_render_brian.py` checks the port against a NumPy copy of the original. |
 | Loudness | RMS -19.3451 dBFS | Each line is scaled to this RMS, then pulled down if its peak would pass 0.98. |
