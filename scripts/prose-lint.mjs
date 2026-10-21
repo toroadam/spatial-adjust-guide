@@ -114,7 +114,10 @@ for (const locale of locales) {
         findings.push({ rule: 'fr-elision', where, detail: `"${m}" precedes a consonant` });
       }
     }
-    if (DOUBLE_SPACE.test(tr)) findings.push({ rule: 'double-space', where, detail: tr.match(/\S {2,}\S/)[0] });
+    // A [[marker]] reproduces the label as the product ships it, and IntelliDash's es-es and nl-nl
+    // catalogues ship double spaces inside some column names, which markerDrift requires verbatim.
+    const outsideMarkers = tr.replace(/\[\[[^\]]*\]\]/g, ' ');
+    if (DOUBLE_SPACE.test(outsideMarkers)) findings.push({ rule: 'double-space', where, detail: outsideMarkers.match(/\S {2,}\S/)[0] });
     const orp = tr.match(ORPHAN_PUNCT);
     if (orp) findings.push({ rule: 'orphan-punctuation', where, detail: JSON.stringify(orp[0]) });
   }
