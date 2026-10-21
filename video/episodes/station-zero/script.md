@@ -29,7 +29,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:51 | 2:01 | 17 Step 5 result | Hold on the screen; the cursor moves to SA has org access:, then Org has scan data:, then Last scan date:, then Can ping cloud: |  | "It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable." | `station-zero/5/4` |
 | 2:01 | 2:10 | 18 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; up next **Next on Double Click: Get fresh scan data**; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/station-zero` goes in the published description | — | — | — |
 
-**VO total:** 252 words in 11 lines, about 92 s spoken (measured). **Running time:** about 2:10 (131 s); the series range is 60-180 s.
+**VO total:** 252 words in 11 lines, about 92 s spoken (measured). **Running time:** about 2:10 (131 s); the series range is 60-180 s. **Measured:** 2:25 (145.7 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/station-zero`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- station-zero` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 
@@ -39,7 +39,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-To be recorded after the Whisper round-trip (video/vo/whisper_check.py).
+Whisper small.en on all 11 lines, medium.en on V3a. 6 lines differ, all judged Whisper's: "A P 1" heard as "AP1", "Links" as "link"/"Lynx", US for UK spelling ("modelled", "grey"), "Turf Rad" as two words. One line is worth a listen: V3a, where both models hear "percent adjust it" as "percent adjusted"; the audio reads naturally and the written text is unchanged. No line was re-rendered.
 
 ## Never on camera
 

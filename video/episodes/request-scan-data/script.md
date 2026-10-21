@@ -29,7 +29,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:44 | 1:52 | 17 Step 5 result | Push in on **Last scan date:**, highlighted; the cursor moves to Last scan date: |  | "A course-wide problem is almost always there, rather than in your settings. Check the last scan date." | `request-scan-data/5/3`, `request-scan-data/5/4` |
 | 1:52 | 2:01 | 18 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; up next **Next on Double Click: Threshold questions**; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/request-scan-data` goes in the published description | — | — | — |
 
-**VO total:** 260 words in 11 lines, about 87 s spoken (measured). **Running time:** about 2:01 (122 s); the series range is 60-180 s.
+**VO total:** 260 words in 11 lines, about 87 s spoken (measured). **Running time:** about 2:01 (122 s); the series range is 60-180 s. **Measured:** 2:16 (136.7 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/request-scan-data`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- request-scan-data` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 
@@ -39,7 +39,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-To be recorded after the Whisper round-trip (video/vo/whisper_check.py).
+Whisper small.en on all 11 lines, medium.en on V5a. Differences are Whisper's: US for UK spelling ("organisation", "dialog"), "Turf Rad" as one word, "straight away" as "straightaway". V5a ("scan" heard as "scanned" in one pass) is worth a listen. No line was re-rendered.
 
 ## Never on camera
 

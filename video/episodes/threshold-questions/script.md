@@ -29,7 +29,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:33 | 1:41 | 17 Step 5 result | Hold on the screen; the cursor moves to Set to zero when pushed to Lynx |  | "If the push dialog shows no banner, check this first. The setting is site-level, and someone else may have cleared it." | `threshold-questions/5/3` |
 | 1:41 | 1:50 | 18 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; up next **Next on Double Click: Calculation questions**; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/threshold-questions` goes in the published description | — | — | — |
 
-**VO total:** 208 words in 11 lines, about 72 s spoken (measured). **Running time:** about 1:50 (111 s); the series range is 60-180 s.
+**VO total:** 208 words in 11 lines, about 72 s spoken (measured). **Running time:** about 1:50 (111 s); the series range is 60-180 s. **Measured:** 2:05 (125.7 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/threshold-questions`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- threshold-questions` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 
@@ -39,7 +39,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-To be recorded after the Whisper round-trip (video/vo/whisper_check.py).
+Whisper small.en on all 11 lines, medium.en on the 2 flagged. Differences are Whisper's: "A P 2" heard as "AP2", "behaviours" as "behaviors", and the punctuation after "Links receives 0 percent" run together. No line was re-rendered.
 
 ## Never on camera
 

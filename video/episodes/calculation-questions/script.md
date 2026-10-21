@@ -29,7 +29,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:22 | 1:35 | 17 Step 5 result | Hold on the screen; the cursor moves to Last scan date:, then ⟳ |  | "If access and scan data are both fine and only the date is old, use Request latest scan data in the toolbar. It cannot make TurfRad scan, so if TurfRad has nothing newer, the date will not change." | `calculation-questions/5/4`, `calculation-questions/5/5` |
 | 1:35 | 1:45 | 18 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; up next **Next on Double Click: Push failures**; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/calculation-questions` goes in the published description | — | — | — |
 
-**VO total:** 208 words in 11 lines, about 68 s spoken (measured). **Running time:** about 1:45 (106 s); the series range is 60-180 s.
+**VO total:** 208 words in 11 lines, about 68 s spoken (measured). **Running time:** about 1:45 (106 s); the series range is 60-180 s. **Measured:** 2:01 (121 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/calculation-questions`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- calculation-questions` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 
@@ -39,7 +39,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-To be recorded after the Whisper round-trip (video/vo/whisper_check.py).
+Whisper small.en on all 11 lines, medium.en on the 3 flagged. Differences are Whisper's: "modelled", "greyed" (heard as "great" by small.en and "grayed" by medium.en), "organisation", "dialog", and "Turf Rad" heard as "turf rat". No line was re-rendered.
 
 ## Never on camera
 

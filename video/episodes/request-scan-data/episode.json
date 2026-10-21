@@ -2,7 +2,7 @@
   "id": "request-scan-data",
   "title": "Get fresh scan data",
   "guide": "request-scan-data",
-  "status": "script-locked",
+  "status": "approved",
   "durationTarget": [
     60,
     180
