@@ -2,7 +2,7 @@
   "id": "seasonal-profiles",
   "title": "Managing seasonal profiles",
   "guide": "seasonal-profiles",
-  "status": "script-locked",
+  "status": "approved",
   "durationTarget": [
     60,
     180
@@ -213,12 +213,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
-          "name": "Target Profile table"
+          "name": "Target Profile Last Updated Stations Update from Current Apply Profile Spring -- -- Summer Baseline 14 Jun 2026 148 Fall -- -- Winter -- -- Tournament Week 02 May 2026 148"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
-          "name": "Target Profile table"
+          "name": "Target Profile Last Updated Stations Update from Current Apply Profile Spring -- -- Summer Baseline 14 Jun 2026 148 Fall -- -- Winter -- -- Tournament Week 02 May 2026 148"
         },
         {
           "type": "cue",
@@ -257,12 +257,12 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
-          "name": "Summer Baseline row"
+          "name": "Summer Baseline 14 Jun 2026 148"
         },
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
-          "name": "Summer Baseline row"
+          "name": "Summer Baseline 14 Jun 2026 148"
         },
         {
           "type": "wait",
@@ -318,7 +318,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../../*[3]",
-          "name": "Stations Summer Baseline"
+          "name": "148"
         }
       ]
     },
@@ -335,12 +335,12 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
-          "name": "Summer Baseline row"
+          "name": "Summer Baseline 14 Jun 2026 148"
         },
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
-          "name": "Summer Baseline row"
+          "name": "Summer Baseline 14 Jun 2026 148"
         },
         {
           "type": "wait",
@@ -405,7 +405,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "Suggested 3AP1"
+          "name": "333%"
         },
         {
           "type": "wait",
@@ -414,7 +414,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "Suggested 4AP1"
+          "name": "333%"
         }
       ]
     },
@@ -431,12 +431,12 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "Suggested 5AP1"
+          "name": "333%"
         },
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "Suggested 5AP1"
+          "name": "333%"
         }
       ]
     },
