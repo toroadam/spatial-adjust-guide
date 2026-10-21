@@ -35,3 +35,9 @@ The builder (`video/edit/build.py`) writes the timeline; these are the keys `ver
 | `music` | `{..., licenceRef}` or `null` | h |
 | `holds` (optional) | `[[t0, t1], ...]` | g: other stretches where a still picture is intended |
 | `layers[].intentional` (optional) | `true`, or a list naming `"black"` and/or `"freeze"`, with the layer's `t0` and `t1` | f and g |
+
+## Changes after the port
+
+| Date | File | Change |
+|---|---|---|
+| 2026-10-21 | `ocr_check.py`, `test_ocr_check.py` | `extract_frames` builds the ffmpeg `select` expression in groups of 20 terms (`select_expr`). A flat sum of about 100 `eq(n,N)` terms or more is refused by ffmpeg's expression parser, so the gate exited 2 on any render over about 50 s (the showcase master: 240 frames). Frames, matching and report are unchanged. |
