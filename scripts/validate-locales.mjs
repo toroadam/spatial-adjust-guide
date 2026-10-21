@@ -116,12 +116,10 @@ const namesVwcControlsOnly = (en, tr, t) => {
     && named.every((label) => t[label] && !VWC.test(t[label]) && present(tr, t[label]));
 };
 
-// Concept prose whose translation replaced VWC with the locale's own acronym, found when the guard
-// above was narrowed on 2026-10-20 (the per-locale regexes had hidden them). Each is a defect under
-// the 2026-09-12 ruling and needs a one-word catalogue fix, "CVA"/"Hv" -> "VWC"; that change
-// tightened the check but left the catalogues to the next translation pass. Listed by locale and
-// English prefix so they stay visible. The list may only shrink: an entry whose string no longer
-// drops VWC is reported as stale.
+// Concept prose whose translation replaced VWC with the locale's own acronym, listed by locale and
+// English prefix so it stays visible while it waits for a one-word catalogue fix. Empty since the
+// rewrites replaced the two es-es and fr-fr strings that were on it. The list may only shrink: an
+// entry whose string no longer drops VWC is reported as stale.
 const VWC_CONCEPT_KNOWN = {};
 
 const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
