@@ -68,7 +68,7 @@
         9360
       ],
       "creditsBefore": 29148,
-      "creditsAfter": null,
+      "creditsAfter": 17717,
       "expertSignoff": "decided by executor 2026-10-20 (episode 14); experts in person 2026-10-22"
     },
     {
@@ -421,16 +421,16 @@
       "id": "preferences",
       "wave": 4,
       "title": "Preferences",
-      "status": "captured",
+      "status": "approved",
       "blockedReason": null,
       "checkedAt": null,
       "firstOfWave": false,
-      "runtimeSec": null,
-      "lufs": null,
-      "truePeak": null,
+      "runtimeSec": 139.7,
+      "lufs": -14.1,
+      "truePeak": -1.6,
       "startedAt": "2026-10-20",
-      "approvedAt": null,
-      "expertReview": null,
+      "approvedAt": "2026-10-20",
+      "expertReview": "spot-check in person 2026-10-22",
       "media": "episodes/preferences",
       "treatment": "standard",
       "approvalsRef": null

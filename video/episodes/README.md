@@ -121,7 +121,7 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 4 approved, 18 planned, 4 blocked.
+26 episodes: 8 approved, 14 planned, 4 blocked.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
@@ -138,10 +138,10 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | planned | — | — | — | — |
 | 12 | 3 | `enable-disable-stations` | Enable and disable stations | planned | — | — | — | — |
 | 13 | 3 | `station-details` | Station details | planned | — | — | — | — |
-| 14 | 4 | `minimum-threshold` | Set a minimum threshold | planned | — | — | — | — |
-| 15 | 4 | `calculation-settings` | Calculation settings | planned | — | — | — | — |
-| 16 | 4 | `calculation-methods` | Calculation methods | planned | — | — | — | — |
-| 17 | 4 | `preferences` | Preferences | planned | — | — | — | — |
+| 14 | 4 | `minimum-threshold` | Set a minimum threshold | approved | 2:14 | 2026-10-20 | 2026-10-20 | first of wave 4: decided by executor 2026-10-20; experts in person 2026-10-22 |
+| 15 | 4 | `calculation-settings` | Calculation settings | approved | 2:43 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
+| 16 | 4 | `calculation-methods` | Calculation methods | approved | 2:37 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
+| 17 | 4 | `preferences` | Preferences | approved | 2:20 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
 | 18 | 5 | `station-zero` | Why is this station 0%? | planned | — | — | — | — |
 | 19 | 5 | `request-scan-data` | Get fresh scan data | planned | — | — | — | — |
 | 20 | 5 | `threshold-questions` | Threshold questions | planned | — | — | — | — |
@@ -163,7 +163,7 @@ Blocked:
 | 1 | Getting Started | 4 | 4,680 to 9,360 | 357,437 | 355,147 | 2,290 | decided by executor 2026-10-20 (episode 01); experts in person 2026-10-22 |
 | 2 | Review & Apply | 5 | 5,850 to 11,700 | — | — | — | — |
 | 3 | Station Management | 4 | 4,680 to 9,360 | — | — | — | — |
-| 4 | Calculations | 4 | 4,680 to 9,360 | — | — | — | — |
+| 4 | Calculations | 4 | 4,680 to 9,360 | 29,148 | 17,717 | 11,431 | decided by executor 2026-10-20 (episode 14); experts in person 2026-10-22 |
 | 5 | Troubleshooting | 5 | 5,850 to 11,700 | — | — | — | — |
 | 6 | Target Profiles | 4 | 4,680 to 9,360 | — | — | — | — |
 <!-- tracker:end -->
