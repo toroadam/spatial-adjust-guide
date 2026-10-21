@@ -30,10 +30,14 @@ import { apply as gettingStarted } from './getting-started.mjs';
 import { apply as calculations } from './calculations.mjs';
 import { apply as targets } from './targets.mjs';
 import { apply as stationManagement } from './station-management.mjs';
+import { apply as reviewApply } from './review-apply.mjs';
+import { apply as troubleshooting } from './troubleshooting.mjs';
 
 export const REWRITES = [
   gettingStarted,
   calculations,
   targets,
   stationManagement,
+  reviewApply,
+  troubleshooting,
 ];

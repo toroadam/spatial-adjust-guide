@@ -12,12 +12,6 @@ import { partOf } from './load-guides.mjs';
 
 export const PENDING = new Set([
   // The 24 guides of the export, in catalogue order.
-  // Review & Apply
-  'suggested-adjustments', 'push-to-lynx', 'reviewing-changes', 'verify-results',
-  // Troubleshooting
-  'station-zero', 'threshold-questions', 'calculation-questions', 'push-failures',
-  // The two guides src/transform-export.mjs adds.
-  'request-scan-data', 'filter-adjustments',
 ]);
 
 /** True when `key`, or the guide a `<key>-part-N` continues, is still waiting for its rewrite. */
