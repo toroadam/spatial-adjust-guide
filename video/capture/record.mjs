@@ -337,7 +337,7 @@ export class Recorder {
    *     result.probe, and a throw aborts the take (the partial file is deleted)
    *   cursor: draw the recorder's own cursor (default false: the director draws its own)
    */
-  async take({ file, seconds, build = () => {}, probe, cursor = false, startCursor, crf = 12, preset = 'slow' }) {
+  async take({ file, seconds, build = () => {}, probe, cursor = false, startCursor, crf = 12, preset = process.env.SA_CAPTURE_X264_PRESET || 'slow' }) {
     const out = assertRawPath(file);
     const ffmpeg = resolveFfmpeg();
     if (!(seconds > 0)) throw new RecorderError('take needs a positive length in seconds');
