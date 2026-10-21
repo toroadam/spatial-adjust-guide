@@ -1,0 +1,575 @@
+{
+  "id": "verify-results",
+  "title": "Verify results",
+  "guide": "verify-results",
+  "status": "script-locked",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/verify-results",
+  "recreationFigure": "Phase one",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "verify-results/tile/1",
+    "verify-results/tile/2",
+    "verify-results/summary/1",
+    "verify-results/summary/2",
+    "verify-results/1/2",
+    "verify-results/1/3",
+    "verify-results/1/4",
+    "verify-results/1/5",
+    "verify-results/2/2",
+    "verify-results/2/3",
+    "verify-results/3/2",
+    "verify-results/3/3",
+    "verify-results/4/2",
+    "verify-results/4/3",
+    "verify-results/4/4",
+    "verify-results/5/2",
+    "verify-results/verify/1"
+  ],
+  "titleCard": {
+    "text": "Double Click: Verify results",
+    "claims": [
+      "verify-results/tile/1",
+      "verify-results/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "It writes first, station by station",
+      "highlight": {
+        "label": "progress line",
+        "selector": "[data-sa-frame] >> text=/Pushing Percent/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Then it reads Lynx back",
+      "highlight": {
+        "label": "Lynx",
+        "selector": "[data-sa-frame] >> text=/Retrieving/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Then it verifies",
+      "highlight": {
+        "label": "verifies",
+        "selector": "[data-sa-frame] >> text=/Verifying adjustments/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Failures are retried automatically",
+      "highlight": {
+        "label": "progress line",
+        "selector": "[data-sa-frame] >> text=/failed for/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "Read the outcome",
+      "highlight": {
+        "label": "Push Changes",
+        "selector": "[data-sa-frame] >> text=/All selected changes/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the guide site's recreation shows the push dialog and its progress and result states, which Demo Mode short-circuits (safetyRef push-send, `video/capture/SAFETY.md:87`) and a Demo Mode take would need the owner's hand sign-in this machine does not have; no click is made on IntelliDash and nothing is sent (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "A push is four phases, not one. Knowing them tells you what a slow run is waiting for.",
+      "claims": [
+        "verify-results/summary/1",
+        "verify-results/summary/2"
+      ],
+      "next_text": "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on.",
+      "claims": [
+        "verify-results/1/2",
+        "verify-results/1/3"
+      ],
+      "previous_text": "A push is four phases, not one. Knowing them tells you what a slow run is waiting for.",
+      "next_text": "The writing counter runs on a fixed timer and does not wait for Lynx. If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The writing counter runs on a fixed timer and does not wait for Lynx. If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer.",
+      "claims": [
+        "verify-results/1/4",
+        "verify-results/1/5"
+      ],
+      "previous_text": "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on.",
+      "next_text": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx.",
+      "claims": [
+        "verify-results/2/2"
+      ],
+      "previous_text": "The writing counter runs on a fixed timer and does not wait for Lynx. If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer.",
+      "next_text": "This is a read-back, not a baseline. It is collecting what Lynx actually holds now, so the next phase has something to check the push against."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "This is a read-back, not a baseline. It is collecting what Lynx actually holds now, so the next phase has something to check the push against.",
+      "claims": [
+        "verify-results/2/3"
+      ],
+      "previous_text": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx.",
+      "next_text": "Spatial Adjust re-reads the station list and compares each value it sent against what Lynx now reports."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Spatial Adjust re-reads the station list and compares each value it sent against what Lynx now reports.",
+      "claims": [
+        "verify-results/3/2"
+      ],
+      "previous_text": "This is a read-back, not a baseline. It is collecting what Lynx actually holds now, so the next phase has something to check the push against.",
+      "next_text": "Anything that does not match is treated as failed rather than assumed good."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "Anything that does not match is treated as failed rather than assumed good.",
+      "claims": [
+        "verify-results/3/3"
+      ],
+      "previous_text": "Spatial Adjust re-reads the station list and compares each value it sent against what Lynx now reports.",
+      "next_text": "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error.",
+      "claims": [
+        "verify-results/4/2",
+        "verify-results/4/3"
+      ],
+      "previous_text": "Anything that does not match is treated as failed rather than assumed good.",
+      "next_text": "The bar restarts at zero for the retry pass and counts only the failed stations. A drop from nearly complete back to nothing is the retry beginning, not the push collapsing."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "The bar restarts at zero for the retry pass and counts only the failed stations. A drop from nearly complete back to nothing is the retry beginning, not the push collapsing.",
+      "claims": [
+        "verify-results/4/4"
+      ],
+      "previous_text": "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error.",
+      "next_text": "A clean run confirms that every selected change reached Lynx and verified."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "A clean run confirms that every selected change reached Lynx and verified.",
+      "claims": [
+        "verify-results/5/2"
+      ],
+      "previous_text": "The bar restarts at zero for the retry pass and counts only the failed stations. A drop from nearly complete back to nothing is the retry beginning, not the push collapsing.",
+      "next_text": "The dialog reports success rather than a failure count."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "The dialog reports success rather than a failure count.",
+      "claims": [
+        "verify-results/verify/1"
+      ],
+      "previous_text": "A clean run confirms that every selected change reached Lynx and verified."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 11.65,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Pushing Percent/",
+          "name": "Pushing Percent Adjustments to Lynx (4 of 6)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Pushing Percent/",
+          "name": "Pushing Percent Adjustments to Lynx (4 of 6)"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "wait",
+          "ms": 5500
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 12.63,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Pushing Percent/",
+          "name": "Pushing Percent Adjustments to Lynx (4 of 6)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Pushing Percent/",
+          "name": "Pushing Percent Adjustments to Lynx (4 of 6)"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 7.04,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Phase two"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Retrieving/",
+          "name": "Retrieving latest Percent Adjustments from Lynx for comparison"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Retrieving/",
+          "name": "Retrieving latest Percent Adjustments from Lynx for comparison"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 2320
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 10.49,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Retrieving/",
+          "name": "Retrieving latest Percent Adjustments from Lynx for comparison"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Retrieving/",
+          "name": "Retrieving latest Percent Adjustments from Lynx for comparison"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 8.47,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Phase three"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Verifying adjustments/",
+          "name": "Verifying adjustments sent to Lynx"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Verifying adjustments/",
+          "name": "Verifying adjustments sent to Lynx"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 3035
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 5.84,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Verifying adjustments/",
+          "name": "Verifying adjustments sent to Lynx"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Verifying adjustments/",
+          "name": "Verifying adjustments sent to Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 14.19,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Phase four"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/failed for/",
+          "name": "Push Changes failed for 2 station(s). Retrying"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/failed for/",
+          "name": "Push Changes failed for 2 station(s). Retrying"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "wait",
+          "ms": 5895
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 12.27,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/failed for/",
+          "name": "Push Changes failed for 2 station(s). Retrying"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/failed for/",
+          "name": "Push Changes failed for 2 station(s). Retrying"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 6.69,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "All selected changes pushed and verified"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/All selected changes/",
+          "name": "All selected changes successfully pushed to Lynx."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/All selected changes/",
+          "name": "All selected changes successfully pushed to Lynx."
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        },
+        {
+          "type": "wait",
+          "ms": 2145
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"",
+          "name": "Pushing Changes To Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 4.41,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/All selected changes/",
+          "name": "All selected changes successfully pushed to Lynx."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/All selected changes/",
+          "name": "All selected changes successfully pushed to Lynx."
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "editing-station-targets",
+    "text": "Next on Double Click: Editing station targets",
+    "address": "#/verify-results"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}
