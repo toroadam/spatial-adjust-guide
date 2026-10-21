@@ -137,12 +137,19 @@ async function main() {
   // step, at most eight steps a guide, and a cursor target for each step. This is the same check
   // as `npm run test:shape`, so a guide that breaks the standard cannot reach dist.
   {
-    const shape = checkShape(loadGuidesFromHtml(html));
+    const data = loadGuidesFromHtml(html);
+    const shape = checkShape(data);
     if (shape.failed.length) {
       const lines = shape.guides.filter((g) => g.errors.length)
         .flatMap((g) => g.errors.map((e) => `  ${g.key}: ${e}`));
       throw new Error(`Step shape check failed for ${shape.failed.join(', ')}:\n${lines.join('\n')}\n`
         + '  See docs/writing-guide.md, then run `npm run test:shape` for the full table.');
+    }
+    // The hero link states the catalogue's guide count in plain text. Keep it honest.
+    const cards = data.CATEGORIES.reduce((n, c) => n + c.tasks.length, 0);
+    if (!html.includes(`or browse all ${cards} tasks ↓`)) {
+      throw new Error(`The catalogue has ${cards} guides but the hero link does not say "or browse all ${cards} tasks ↓".\n`
+        + '  Update the count in src/transform-export.mjs and the translated key in every src/i18n catalogue.');
     }
   }
 
