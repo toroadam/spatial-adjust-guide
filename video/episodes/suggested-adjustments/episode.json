@@ -1,0 +1,662 @@
+{
+  "id": "suggested-adjustments",
+  "title": "Understand suggested adjustments",
+  "guide": "suggested-adjustments",
+  "status": "approved",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/suggested-adjustments",
+  "recreationFigure": "Current and Suggested sit",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "suggested-adjustments/tile/1",
+    "suggested-adjustments/tile/2",
+    "suggested-adjustments/summary/1",
+    "suggested-adjustments/1/2",
+    "suggested-adjustments/1/3",
+    "suggested-adjustments/1/4",
+    "suggested-adjustments/1/5",
+    "suggested-adjustments/2/3",
+    "suggested-adjustments/2/4",
+    "suggested-adjustments/3/2",
+    "suggested-adjustments/3/3",
+    "suggested-adjustments/3/4",
+    "suggested-adjustments/3/6",
+    "suggested-adjustments/4/2",
+    "suggested-adjustments/4/3",
+    "suggested-adjustments/4/4",
+    "suggested-adjustments/4/5",
+    "suggested-adjustments/5/3",
+    "suggested-adjustments/5/4",
+    "suggested-adjustments/5/5"
+  ],
+  "titleCard": {
+    "text": "Double Click: Understand suggested adjustments",
+    "claims": [
+      "suggested-adjustments/tile/1",
+      "suggested-adjustments/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Find the two adjustment columns",
+      "highlight": {
+        "label": "Current",
+        "selector": "[data-sa-frame] >> text=\"Current\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Read it against Avg. VWC and Target VWC",
+      "highlight": {
+        "label": "Avg. VWC",
+        "selector": "[data-sa-frame] >> text=\"Avg. VWC\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Notice where suggestions cluster",
+      "highlight": {
+        "label": "suggested",
+        "selector": "[data-sa-frame] >> text=\"Suggested\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Override where you disagree",
+      "highlight": {
+        "label": "% Adj.",
+        "selector": "[data-sa-frame] >> text=\"% Adj.\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "Set a soil factor for persistent offsets",
+      "highlight": {
+        "label": "Shift",
+        "selector": "[data-sa-frame] >> text=\"Soil Factor Editor\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Where the suggested percentage comes from, why it caps out, and when you should override it.",
+      "claims": [
+        "suggested-adjustments/summary/1"
+      ],
+      "next_text": "Current is the percent adjust Lynx holds for the station right now. Suggested is what Spatial Adjust calculated from this morning's scan."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "Current is the percent adjust Lynx holds for the station right now. Suggested is what Spatial Adjust calculated from this morning's scan.",
+      "claims": [
+        "suggested-adjustments/1/2",
+        "suggested-adjustments/1/3"
+      ],
+      "previous_text": "Where the suggested percentage comes from, why it caps out, and when you should override it.",
+      "next_text": "The gap between them is the change you are being asked to make. Current and Suggested sit side by side under the Adjustment heading."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The gap between them is the change you are being asked to make. Current and Suggested sit side by side under the Adjustment heading.",
+      "claims": [
+        "suggested-adjustments/1/4",
+        "suggested-adjustments/1/5"
+      ],
+      "previous_text": "Current is the percent adjust Lynx holds for the station right now. Suggested is what Spatial Adjust calculated from this morning's scan.",
+      "next_text": "A station well under target asks for more water; one over target asks for less."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "A station well under target asks for more water; one over target asks for less.",
+      "claims": [
+        "suggested-adjustments/2/3"
+      ],
+      "previous_text": "The gap between them is the change you are being asked to make. Current and Suggested sit side by side under the Adjustment heading.",
+      "next_text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole.",
+      "claims": [
+        "suggested-adjustments/2/4"
+      ],
+      "previous_text": "A station well under target asks for more water; one over target asks for less.",
+      "next_text": "Several stations show the same suggested value. That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Several stations show the same suggested value. That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage.",
+      "claims": [
+        "suggested-adjustments/3/2",
+        "suggested-adjustments/3/3"
+      ],
+      "previous_text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole.",
+      "next_text": "If most of your course reads identically, the cap is doing the deciding, not the scan. Raise Daily Max Amount in Settings, Calculation, or accept that the course is being deliberately limited."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "If most of your course reads identically, the cap is doing the deciding, not the scan. Raise Daily Max Amount in Settings, Calculation, or accept that the course is being deliberately limited.",
+      "claims": [
+        "suggested-adjustments/3/4",
+        "suggested-adjustments/3/6"
+      ],
+      "previous_text": "Several stations show the same suggested value. That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage.",
+      "next_text": "The percent adjustment column is yours. Type over the suggestion for a station you know behaves differently, and the row is queued for push."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "The percent adjustment column is yours. Type over the suggestion for a station you know behaves differently, and the row is queued for push.",
+      "claims": [
+        "suggested-adjustments/4/2",
+        "suggested-adjustments/4/3"
+      ],
+      "previous_text": "If most of your course reads identically, the cap is doing the deciding, not the scan. Raise Daily Max Amount in Settings, Calculation, or accept that the course is being deliberately limited.",
+      "next_text": "The suggested value is left untouched underneath. Editing queues the station when the new value differs from what Lynx holds."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "The suggested value is left untouched underneath. Editing queues the station when the new value differs from what Lynx holds.",
+      "claims": [
+        "suggested-adjustments/4/4",
+        "suggested-adjustments/4/5"
+      ],
+      "previous_text": "The percent adjustment column is yours. Type over the suggestion for a station you know behaves differently, and the row is queued for push.",
+      "next_text": "The soil factor editor scales a station's calculated amount by 1 to 200 percent, permanently."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "The soil factor editor scales a station's calculated amount by 1 to 200 percent, permanently.",
+      "claims": [
+        "suggested-adjustments/5/3"
+      ],
+      "previous_text": "The suggested value is left untouched underneath. Editing queues the station when the new value differs from what Lynx holds.",
+      "next_text": "It is opened with Shift plus Alt on the gear button in the toolbar."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "It is opened with Shift plus Alt on the gear button in the toolbar.",
+      "claims": [
+        "suggested-adjustments/5/4",
+        "suggested-adjustments/5/5"
+      ],
+      "previous_text": "The soil factor editor scales a station's calculated amount by 1 to 200 percent, permanently."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 9.61,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Current\"",
+          "name": "Current"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Current\"",
+          "name": "Current"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "wait",
+          "ms": 2388
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[3]",
+          "name": "100%"
+        },
+        {
+          "type": "wait",
+          "ms": 2047
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 8.57,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Adjustment\"",
+          "name": "Adjustment"
+        },
+        {
+          "type": "wait",
+          "ms": 3135
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[3]",
+          "name": "100%"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 7.46,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Station 3AP1 measured"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Avg. VWC\"",
+          "name": "Avg. VWC"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Avg. VWC\"",
+          "name": "Avg. VWC"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 2276
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 11.51,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"27.6%\"",
+          "name": "27.6%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../..",
+          "name": "3AP1 08-08-25 27.6% 54 % 100% 333% 333 %"
+        },
+        {
+          "type": "wait",
+          "ms": 4605
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "54"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 13.01,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "A run of identical"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 2652
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "wait",
+          "ms": 1091
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "wait",
+          "ms": 1091
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "wait",
+          "ms": 1091
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 12.83,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"6AP2\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "wait",
+          "ms": 4683
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 10.36,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Editing % Adj. queues"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"% Adj.\"",
+          "name": "% Adj."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"% Adj.\"",
+          "name": "% Adj."
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "wait",
+          "ms": 2388
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[5]",
+          "name": "333 %"
+        },
+        {
+          "type": "wait",
+          "ms": 2047
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[5]",
+          "name": "333 %"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 8.92,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[5]",
+          "name": "333 %"
+        },
+        {
+          "type": "wait",
+          "ms": 3696
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Push.*Changes/",
+          "name": "Push 6 Changes"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 8.2,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Soil Factor Editor, opened"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Soil Factor Editor\"",
+          "name": "Soil Factor Editor"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Soil Factor Editor\"",
+          "name": "Soil Factor Editor"
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        },
+        {
+          "type": "wait",
+          "ms": 2320
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Soil Factor (%)\"",
+          "name": "Soil Factor (%)"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 4.45,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"⚙\"",
+          "name": "⚙"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"⚙\"",
+          "name": "⚙"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "filter-adjustments",
+    "text": "Next on Double Click: Filter by % Adj.",
+    "address": "#/suggested-adjustments"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}

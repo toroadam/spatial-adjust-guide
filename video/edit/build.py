@@ -75,6 +75,8 @@ VO_GAP = 0.15        # two VO lines closer than this overlap (dc_build.py:139)
 MIN_SHOT = 0.5       # a chapter's footage must be at least this long
 CSS_W = 1920         # capture CSS width: the take's pixel width over this is its dsf (2 for a 3840x2160 take)
 FPS = 60
+UP_NEXT_PREFIX = 'Next on Double Click: '   # endCard.text when endCard.next names an open episode (video/episodes/RUNBOOK.md)
+UP_NEXT_TAG = 'Next on'                   # the up-next card's eyebrow, over the series word and the next episode's title
 MUSIC_FADE_IN, MUSIC_FADE_OUT, MUSIC_XFADE = 0.4, 0.6, 0.08     # dc_build.py:132, v5 timelines' xfade
 
 EXIT_BUILD, EXIT_CONFIG, EXIT_GATE = 1, 2, 3
@@ -285,6 +287,33 @@ def camera_mode():
     return 'tilt' if BRAND.get('camera', {}).get('tilt', True) else 'flat'
 
 
+def up_next_title(ep):
+    """The next episode's title when episode.json's endCard names one ("Next on Double Click: <title>"), else None: the
+    episode then closes on the end card alone (the series-end line, RUNBOOK.md)."""
+    end = ep.get('endCard') or {}
+    text = end.get('text') or ''
+    if end.get('next') and text.startswith(UP_NEXT_PREFIX) and text[len(UP_NEXT_PREFIX):].strip():
+        return text[len(UP_NEXT_PREFIX):].strip()
+    return None
+
+
+def up_next_seconds(next_title):
+    """The up-next card's length: BRAND's up_next_card, or longer when its label needs a longer hold (1.5 s + 0.3 s per
+    word of "Next on / Double Click / <title>", counted as verify.py counts them)."""
+    from brand import TITLE_CARD, SERIES_WORD, min_hold
+    un = TITLE_CARD['up_next']
+    label = f'{UP_NEXT_TAG} / {SERIES_WORD} / {next_title}'
+    return round(max(DURATIONS['up_next_card'], un['pop'] + min_hold(label) + un['out'] + 0.05), 2)
+
+
+def title_card_seconds(title):
+    """The title card's length: BRAND's title_card, or longer when its label needs a longer hold (1.5 s + 0.3 s per word of
+    "Double Click / <title>", counted as verify.py counts them: the slash is a word). A title of four words or fewer keeps
+    BRAND's length; "Why is this station 0%?" (five) needs 0.33 s more."""
+    from brand import TITLE_CARD, SERIES_WORD, min_hold
+    return round(max(DURATIONS['title_card'], TITLE_CARD['pop'] + min_hold(f'{SERIES_WORD} / {title}') + TITLE_CARD['out'] + 0.05), 2)
+
+
 def chapter_plan(ep, LOG, src, F, E, vo_len):
     """Per chapter: dict(id, label, cue, s0, s1). Raises BuildError when a chapter has no cue in the take's log."""
     beats = ep.get('beats', [])
@@ -428,6 +457,10 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
     for c in chapters:
         g.typed(ch_aid[c['id']], c['label'], caps=True)
     strip = cards.strip_names(g, [c['label'] for c in chapters])
+    nxt = up_next_title(ep)
+    nxt_id = 'next_' + slug(nxt) if nxt else None
+    if nxt:
+        cards.title_assets(g, nxt_id, nxt, tag=UP_NEXT_TAG)
     cards.end_assets(g, end_cfg)
     g.render()
 
@@ -435,7 +468,8 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
         t = 0.0
         cards.lockup(g, T, t, t + DURATIONS['lockup']); t = round(t + DURATIONS['lockup'], 3)
         t_title = t
-        cards.title_card(g, T, t, round(t + DURATIONS['title_card'], 3), ep['title'], sub_id=sub_id); t = round(t + DURATIONS['title_card'], 3)
+        title_len = title_card_seconds(ep['title'])
+        cards.title_card(g, T, t, round(t + title_len, 3), ep['title'], sub_id=sub_id); t = round(t + title_len, 3)
         ww = LAYOUT['window_wide']
         wide_over = dict(s=ww['s'], pos=list(ww['pos']))
         macro_over, drift = None, (1.0, 0.5, 7.0)
@@ -459,6 +493,11 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
             segs.append(dict(asset=strip[k], t_in=t_in, t_out=t))
         cards.chapter_strip(T, segs)
         t_end = t
+        if nxt:                                     # "Next on Double Click: <next title>" (RUNBOOK.md, template Close)
+            t1 = round(t + up_next_seconds(nxt), 3)
+            cards.title_card(g, T, t, t1, nxt, tag=UP_NEXT_TAG, sub_id=nxt_id)
+            t = t1
+        t_card = t
         end = cards.end_card(g, T, t, None, draft=mode == 'draft', approvals_path=ap)
         D = round(t + DURATIONS['end_card'], 3)
     except cards.EndCardError as err:
@@ -483,7 +522,7 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
         lic = cfg.get('licence') or {}
         music = dict(track=music_file, id=tr['id'], sha256=tr['sha256'], licence=lic or None,
                      licenceRef=lic.get('reference'), bpm=tr.get('bpm'), bar=tr['bar'],
-                     segments=music_segments(D, tr['sections'], tr['bar'], land=t_end), fade_in=MUSIC_FADE_IN, fade_out=[round(D - MUSIC_FADE_OUT, 3), D],
+                     segments=music_segments(D, tr['sections'], tr['bar'], land=t_card), fade_in=MUSIC_FADE_IN, fade_out=[round(D - MUSIC_FADE_OUT, 3), D],
                      xfade=MUSIC_XFADE, source=os.path.relpath(cfg['_source'], REPO) if cfg['_source'].startswith(REPO) else cfg['_source'],
                      notes='intro, whole bars of the loop, then the outro, its final chord on the end card')
 
@@ -491,7 +530,7 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
     gates = {gid: (lambda r: dict(decision=r['decision'], date=r['date'], version=r['version']) if r else None)(approvals.latest(gid, ap))
              for gid in GATES['final']}
     d.update(mode=mode, episode=ep['id'], title=ep['title'], take=take, source=source, vo_dir=vo_dir, camera=cam,
-             end_card=dict(draft=end['draft'], url=end['url']), gates=gates,
+             end_card=dict(draft=end['draft'], url=end['url'], up_next=nxt), gates=gates,
              approvals=os.path.relpath(ap, REPO) if ap.startswith(REPO) else ap,
              chapters=[dict(id=c['id'], label=c['label'], t0=round(s[0], 3), t1=round(s[1], 3), src_in=round(c['s0'], 3), src_out=round(c['s1'], 3))
                        for c, s in zip(chapters, shots)],

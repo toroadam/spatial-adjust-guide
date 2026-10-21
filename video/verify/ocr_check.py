@@ -237,6 +237,9 @@ def sample_frames(duration, fps, nb_frames, every, labels):
     return sorted({min(last, int(round(t * fps))) for t in times})
 
 
+SELECT_CHUNK = 60                   # frames per ffmpeg select
+
+
 def select_expr(frames, group=20):
     """The select filter's expression for these frame numbers: eq(n,A)+eq(n,B)+... in parenthesised groups.
 
@@ -253,12 +256,16 @@ def extract_frames(ff, render, frames, out_dir):
     for name in os.listdir(out_dir):
         if FRAME_GLOB.match(name):
             os.remove(os.path.join(out_dir, name))
-    expr = select_expr(frames)
     pattern = os.path.join(out_dir, 'f_%05d.png')
-    r = subprocess.run([ff.FFMPEG, '-hide_banner', '-loglevel', 'error', '-y', '-i', render, '-map', '0:v:0',
-                        '-vf', f"select='{expr}'", '-fps_mode', 'passthrough', pattern], capture_output=True, text=True)
-    if r.returncode != 0:
-        raise OcrError(f'ffmpeg could not extract frames from {render}: {r.stderr.strip()[-300:]}')
+    # ffmpeg's expression parser runs out of memory on a select of a few hundred eq() terms (a two-minute episode at
+    # one frame every 0.5 s), so the frames are selected in chunks, each numbered on from the last.
+    for i in range(0, len(frames), SELECT_CHUNK):
+        expr = select_expr(frames[i:i + SELECT_CHUNK])
+        r = subprocess.run([ff.FFMPEG, '-hide_banner', '-loglevel', 'error', '-y', '-i', render, '-map', '0:v:0',
+                            '-vf', f"select='{expr}'", '-fps_mode', 'passthrough', '-start_number', str(i + 1), pattern],
+                           capture_output=True, text=True)
+        if r.returncode != 0:
+            raise OcrError(f'ffmpeg could not extract frames from {render}: {r.stderr.strip()[-300:]}')
     files = sorted(n for n in os.listdir(out_dir) if FRAME_GLOB.match(n))
     if len(files) != len(frames):
         raise OcrError(f'ffmpeg wrote {len(files)} frames, expected {len(frames)}')

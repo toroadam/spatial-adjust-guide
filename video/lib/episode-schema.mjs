@@ -10,7 +10,8 @@
 // The write guard is WRITES from scripts/lib/writes.mjs, the same pattern the fidelity harvest
 // trusts. A click whose name or target matches it is valid only when the episode declares it in
 // demoWriteClicks with a reason AND the episode's source is "demo". Everything else that matches
-// is rejected here, long before a browser is involved.
+// is rejected here, long before a browser is involved. A recreation episode may still declare a
+// write it only shows (outcome "recreation"), but can never click it.
 //
 // Objects are loose: unknown fields are kept, so later episodes can extend the format without
 // breaking earlier ones.
@@ -48,8 +49,11 @@ const Scroll = z.looseObject({ type: z.literal('scroll'), target: text, dy: z.nu
 // focus draws the highlight box around the target only; it never clicks.
 const Focus = z.looseObject({ type: z.literal('focus'), target: text, name: text });
 const Click = z.looseObject({ type: z.literal('click'), target: text, name: text });
+// figure swaps the lifted recreation figure for another figure of the same guide page (the start of
+// its caption), so a chapter can show the state its step's figure shows. Recreation episodes only.
+const Figure = z.looseObject({ type: z.literal('figure'), caption: text });
 
-export const Action = z.discriminatedUnion('type', [Wait, Cue, Hover, Scroll, Focus, Click]);
+export const Action = z.discriminatedUnion('type', [Wait, Cue, Hover, Scroll, Focus, Click, Figure]);
 
 export const Chapter = z.looseObject({ id: text, label: text });
 
@@ -126,8 +130,14 @@ function crossFieldRules(ep, ctx) {
     }
   });
   if (ep.source !== 'demo') {
-    declared.forEach((d, i) => add(['demoWriteClicks', i],
-      `demoWriteClicks entry "${d.name}" is only allowed when source is "demo" (source is "${ep.source}")`));
+    // A recreation episode may declare a write it shows without performing it: the entry says
+    // outcome "recreation" (the result comes from the guide site's own mockup), and no click
+    // action may press it (checked below). Anything else stays Demo Mode only.
+    declared.forEach((d, i) => {
+      if (ep.source === 'recreation' && d.outcome === 'recreation') return;
+      add(['demoWriteClicks', i],
+        `demoWriteClicks entry "${d.name}" is only allowed when source is "demo" (source is "${ep.source}"), or when source is "recreation" and its outcome is "recreation"`);
+    });
   }
 
   const voIds = new Set(vo.map((l) => l.id));
@@ -154,6 +164,9 @@ function crossFieldRules(ep, ctx) {
       if (action.type === 'cue') {
         if (cueIds.has(action.id)) add(['beats', i, 'actions', j, 'id'], `${where(beat, j, action)}: duplicate cue id "${action.id}" (first used in beat "${cueIds.get(action.id)}")`);
         else cueIds.set(action.id, beat.id);
+      }
+      if (action.type === 'figure' && ep.source !== 'recreation') {
+        add(['beats', i, 'actions', j], `${where(beat, j, action)}: a figure action swaps the lifted recreation figure, so it is only allowed when source is "recreation" (source is "${ep.source}")`);
       }
       if (action.type !== 'click') return;
       const writeLike = WRITES.test(action.name) || WRITES.test(action.target);

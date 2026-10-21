@@ -60,6 +60,21 @@ test('the recreation fixture also flags the declaration itself', () => {
   assert.match(err.message, /demoWriteClicks\[0\]: .* only allowed when source is "demo"/);
 });
 
+test('a recreation episode may declare a write it shows (outcome recreation) but not click it', () => {
+  const ep = load('episode.valid.json');
+  ep.source = 'recreation';
+  ep.demoWriteClicks = [{ name: 'Target VWC', target: 'input.target', reason: 'shown from the recreation', route: '/demo', outcome: 'recreation' }];
+  assert.equal(validateEpisode(ep).success, true);
+  ep.demoWriteClicks[0].outcome = 'demo';
+  const res = validateEpisode(ep);
+  assert.equal(res.success, false);
+  assert.match(res.issues.join('\n'), /only allowed when source is "demo"/);
+  ep.demoWriteClicks[0].outcome = 'recreation';
+  ep.beats[1].actions.push({ type: 'click', name: 'Target VWC', target: 'input.target' });
+  ep.allowClicks = ['Target VWC'];
+  assert.equal(validateEpisode(ep).success, true, 'a click that does not match the write guard is a read-only click, listed in allowClicks');
+});
+
 test('a write-like target is refused even when the name is allowed', () => {
   const ep = load('episode.valid.json');
   ep.allowClicks = ['Open legend'];

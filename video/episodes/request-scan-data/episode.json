@@ -1,0 +1,567 @@
+{
+  "id": "request-scan-data",
+  "title": "Get fresh scan data",
+  "guide": "request-scan-data",
+  "status": "approved",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/request-scan-data",
+  "recreationFigure": "Scan dates sit beside the station name in the table.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "request-scan-data/tile/1",
+    "request-scan-data/tile/2",
+    "request-scan-data/summary/1",
+    "request-scan-data/summary/2",
+    "request-scan-data/1/2",
+    "request-scan-data/1/3",
+    "request-scan-data/1/4",
+    "request-scan-data/2/2",
+    "request-scan-data/2/3",
+    "request-scan-data/2/4",
+    "request-scan-data/3/2",
+    "request-scan-data/3/3",
+    "request-scan-data/4/2",
+    "request-scan-data/4/3",
+    "request-scan-data/4/4",
+    "request-scan-data/5/2",
+    "request-scan-data/5/3",
+    "request-scan-data/5/4"
+  ],
+  "titleCard": {
+    "text": "Double Click: Get fresh scan data",
+    "claims": [
+      "request-scan-data/tile/1",
+      "request-scan-data/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Read the scan date before anything else",
+      "highlight": {
+        "label": "scan date",
+        "selector": "[data-sa-frame] >> text=\"08-06-25\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a stale scan date among current ones; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Request the latest scan",
+      "highlight": {
+        "label": "Request latest scan data",
+        "selector": "[data-sa-frame] >> text=\"⟳\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the Request latest scan data button, whose request Demo Mode short-circuits and which is never clicked outside a Demo Mode session; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "It queues, it does not block",
+      "highlight": {
+        "label": "queued",
+        "selector": "[data-sa-frame] >> text=\"⟳\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a queued scan request, which Demo Mode short-circuits; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Reload when the banner appears",
+      "highlight": {
+        "label": "Reload Data",
+        "selector": "[data-sa-frame] >> text=\"Reload Data\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the scan-data banner, which Demo Mode never shows; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "If the request will not queue",
+      "highlight": {
+        "label": "diagnostics dialog",
+        "selector": "[data-sa-frame] >> text=\"Spatial Adjust Diagnostics\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the diagnostics dialog, whose reads Demo Mode sends to the real API; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Ask for the latest scan data, and reload when it is ready.",
+      "claims": [
+        "request-scan-data/summary/1",
+        "request-scan-data/summary/2"
+      ],
+      "next_text": "Every station row carries the date its reading was captured."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "Every station row carries the date its reading was captured.",
+      "claims": [
+        "request-scan-data/1/2"
+      ],
+      "previous_text": "A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Ask for the latest scan data, and reload when it is ready.",
+      "next_text": "One stale row is a station. A column of stale dates is the whole course, and that is a supply problem rather than a settings problem."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "One stale row is a station. A column of stale dates is the whole course, and that is a supply problem rather than a settings problem.",
+      "claims": [
+        "request-scan-data/1/3",
+        "request-scan-data/1/4"
+      ],
+      "previous_text": "Every station row carries the date its reading was captured.",
+      "next_text": "The circular-arrow button in the toolbar's right-hand group is Request latest scan data."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "The circular-arrow button in the toolbar's right-hand group is Request latest scan data.",
+      "claims": [
+        "request-scan-data/2/2"
+      ],
+      "previous_text": "One stale row is a station. A column of stale dates is the whole course, and that is a supply problem rather than a settings problem.",
+      "next_text": "It asks Spatial Adjust to fetch the latest scan data TurfRad already holds. It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "It asks Spatial Adjust to fetch the latest scan data TurfRad already holds. It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting.",
+      "claims": [
+        "request-scan-data/2/3",
+        "request-scan-data/2/4"
+      ],
+      "previous_text": "The circular-arrow button in the toolbar's right-hand group is Request latest scan data.",
+      "next_text": "The request is queued and you are told so. Retrieval may take several minutes, and you are notified when it is ready."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "The request is queued and you are told so. Retrieval may take several minutes, and you are notified when it is ready.",
+      "claims": [
+        "request-scan-data/3/2"
+      ],
+      "previous_text": "It asks Spatial Adjust to fetch the latest scan data TurfRad already holds. It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting.",
+      "next_text": "You can carry on reading the table while it runs. Nothing is frozen, and nothing is lost if you navigate away."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "You can carry on reading the table while it runs. Nothing is frozen, and nothing is lost if you navigate away.",
+      "claims": [
+        "request-scan-data/3/3"
+      ],
+      "previous_text": "The request is queued and you are told so. Retrieval may take several minutes, and you are notified when it is ready.",
+      "next_text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard, and every suggestion recalculates."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard, and every suggestion recalculates.",
+      "claims": [
+        "request-scan-data/4/2",
+        "request-scan-data/4/3"
+      ],
+      "previous_text": "You can carry on reading the table while it runs. Nothing is frozen, and nothing is lost if you navigate away.",
+      "next_text": "Dismiss closes the banner and leaves you on the data you already had. The new scan is not thrown away; it is simply not loaded yet."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "Dismiss closes the banner and leaves you on the data you already had. The new scan is not thrown away; it is simply not loaded yet.",
+      "claims": [
+        "request-scan-data/4/4"
+      ],
+      "previous_text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard, and every suggestion recalculates.",
+      "next_text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all.",
+      "claims": [
+        "request-scan-data/5/2",
+        "request-scan-data/5/3",
+        "request-scan-data/5/4"
+      ],
+      "previous_text": "Dismiss closes the banner and leaves you on the data you already had. The new scan is not thrown away; it is simply not loaded yet.",
+      "next_text": "A course-wide problem is almost always there, rather than in your settings. Check the last scan date."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "A course-wide problem is almost always there, rather than in your settings. Check the last scan date.",
+      "claims": [
+        "request-scan-data/5/3",
+        "request-scan-data/5/4"
+      ],
+      "previous_text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 5.46,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../span[2]",
+          "name": "08-08-25"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../..",
+          "name": "3AP1 08-08-25 27.6% 54 % 100% 333% 333 %"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 8.86,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "wait",
+          "ms": 684
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"08-06-25\"",
+          "name": "08-06-25"
+        },
+        {
+          "type": "wait",
+          "ms": 2574
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../span[2]",
+          "name": "08-08-25"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 7.14,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Request latest scan data, between the pushed-today counter and the gear."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"⟳\"",
+          "name": "⟳"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"⟳\"",
+          "name": "⟳"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 13.11,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 9.55,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "A queued request confirms immediately; the data arrives later."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"⟳\"",
+          "name": "⟳"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"⟳\"",
+          "name": "⟳"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 7.51,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Avg. VWC\"",
+          "name": "Avg. VWC"
+        },
+        {
+          "type": "wait",
+          "ms": 1413
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"27.6%\"",
+          "name": "27.6%"
+        },
+        {
+          "type": "wait",
+          "ms": 1724
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"30.3%\"",
+          "name": "30.3%"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 12.55,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The banner offers Reload Data or Dismiss."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"The requested scan data is ready.\"",
+          "name": "The requested scan data is ready."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Reload Data\"",
+          "name": "Reload Data"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 8.69,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Dismiss\"",
+          "name": "Dismiss"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Dismiss\"",
+          "name": "Dismiss"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 14.87,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Diagnostics: TurfRad access, scan data, last scan date."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Spatial Adjust Diagnostics\"",
+          "name": "Spatial Adjust Diagnostics"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Spatial Adjust Diagnostics\"",
+          "name": "Spatial Adjust Diagnostics"
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        },
+        {
+          "type": "wait",
+          "ms": 7032
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"SA has org access:\"",
+          "name": "SA has org access:"
+        },
+        {
+          "type": "wait",
+          "ms": 2044
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Org has scan data:\"",
+          "name": "Org has scan data:"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 7.93,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "wait",
+          "ms": 876
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Last scan date:\"",
+          "name": "Last scan date:"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Last scan date:\"",
+          "name": "Last scan date:"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "threshold-questions",
+    "text": "Next on Double Click: Threshold questions",
+    "address": "#/request-scan-data"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}

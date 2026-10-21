@@ -107,6 +107,19 @@ All under `spatial-adjust/components/`.
 
 The plan listed the two dashboard lines as write guards. They are network guards: they keep Demo Mode from talking to Lynx at all, which matters, but they guard reads.
 
+### Settings dialog saves in the Calculations episodes (wave 4)
+
+Checked on 2026-10-20, before any capture, for the four Calculations episodes (Set a minimum threshold, Calculation settings, Calculation methods, Preferences). Every save they show goes through the one Settings dialog Save, so the two rows above cover them; nothing here needed a new guard and no entry was missing.
+
+| Episode | Save it shows | Covered by |
+|---|---|---|
+| Set a minimum threshold | Minimum threshold percentage and its below-threshold option (the site settings save, `sa-settings-dlg.component.ts:486`) | Settings dialog: Save (`:186-190`) |
+| Calculation settings | Daily Max Amount, Lynx Reference Amount and Crop Coefficient, then the recalculation request and dashboard reload (`:203-205`, `:534`) | Settings dialog: Save (`:186-190`); Recalculate adjustments (`spatial-adjust-manager.service.ts:114`) |
+| Calculation methods | The algorithm choice (Option 1 or Option 2), saved with the same site settings request | Settings dialog: Save (`:186-190`) |
+| Preferences | Language, Units of Measure, Temperature Scale and the separator (the user preferences save, `:490`; the unit rescale happens in the same save) | Settings dialog: Save (`:186-190`), the same guard the manager table's `settings-save` entry names |
+
+All four episodes are made from the guide site's recreation, not a Demo Mode take, so no Save is clicked in any session and `demoWriteClicks` is empty in each. If a Demo Mode take is made later, each Save is declared on `/demo` with its `safetyRef`, and the click is filmed in Demo Mode with its result taken from the recreation (chapter source `mixed`, outcome `recreation`).
+
 ## Correction to the video pipeline plan
 
 The video pipeline plan says that save, push and threshold actions in Demo Mode route to `demo-mode-mock-data.service.ts`. They do not. Writes are short-circuited where they start: the manager guards and component guards above call `showUnsupportedMsg` and return (for example `api/spatial-adjust/spatial-adjust-manager.service.ts:114-117`, `sa-main-toolbar.component.ts:259-262`, `sa-cfg-threshold-dlg.component.ts:73-76`). Nothing is mocked, nothing is stored and nothing reaches the network.

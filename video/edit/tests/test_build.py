@@ -131,6 +131,36 @@ class GateTest(unittest.TestCase):
         self.assertIn('script-locked', r.stderr)
 
 
+class UpNextTest(unittest.TestCase):
+    """The closing "Next on Double Click" card: drawn only when endCard names an open next episode, and long enough for
+    its label's hold (standard library only)."""
+
+    @classmethod
+    def setUpClass(cls):
+        import importlib.util
+        spec = importlib.util.spec_from_file_location('sa_build', BUILD)
+        cls.B = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.B)
+
+    def test_title_from_end_card(self):
+        ep = dict(endCard=dict(next='map-navigation', text='Next on Double Click: Map navigation', address='#/x'))
+        self.assertEqual(self.B.up_next_title(ep), 'Map navigation')
+
+    def test_series_end_has_no_up_next(self):
+        line = "That's the latest Double Click. Find every guide on the Spatial Adjust Guides site."
+        self.assertIsNone(self.B.up_next_title(dict(endCard=dict(next=None, text=line, address='#/x'))))
+        self.assertIsNone(self.B.up_next_title(dict()))
+
+    def test_card_holds_its_label(self):
+        from brand import TITLE_CARD, min_hold
+        un = TITLE_CARD['up_next']
+        for title in ('Map navigation', 'Understand suggested adjustments', 'Why is this station 0%?'):
+            secs = self.B.up_next_seconds(title)
+            label = f'Next on / Double Click / {title}'
+            self.assertGreaterEqual(secs - un['out'] - un['pop'], min_hold(label), title)
+            self.assertGreaterEqual(secs, self.B.DURATIONS['up_next_card'])
+
+
 if P.IN_PIPELINE:
     class BuildTest(unittest.TestCase):
         @classmethod
@@ -261,16 +291,18 @@ if P.IN_PIPELINE:
             self.assertIn('vo-one', str(cm.exception))
             self.assertIn('vo-two', str(cm.exception))
 
-        def test_title_too_long_for_its_hold_fails_naming_it(self):
+        def test_title_card_is_held_long_enough_for_its_label(self):
+            # A long title lengthens the card (title_card_seconds) rather than failing the build; the card is never
+            # shorter than BRAND's, and the lengthened hold is the one verify's word count asks for.
             import build as B
-            title = 'Read every station on the course map before you adjust any one of them'
-            real = B.load_episode
-            with mock.patch.object(B, 'load_episode', lambda p: dict(real(p), title=title)), \
-                    self.assertRaises(B.BuildError) as cm:
-                B.build(self.info['episode'], 1, 'draft', validate=False)
-            self.assertEqual(cm.exception.code, 1)
-            self.assertIn(title, str(cm.exception))
-            self.assertIn('words need', str(cm.exception))
+            from brand import DURATIONS, TITLE_CARD, SERIES_WORD, min_hold
+            long_title = 'Read every station on the course map before you adjust any one of them'
+            self.assertEqual(B.title_card_seconds('Map navigation'), DURATIONS['title_card'])
+            self.assertGreater(B.title_card_seconds(long_title), DURATIONS['title_card'])
+            for title in ('Why is this station 0%?', long_title):
+                with self.subTest(title=title):
+                    hold = B.title_card_seconds(title) - TITLE_CARD['pop'] - TITLE_CARD['out']
+                    self.assertGreaterEqual(hold, min_hold(f'{SERIES_WORD} / {title}'))
 else:
     class BuildTest(unittest.TestCase):
         def test_in_pipeline_python(self):

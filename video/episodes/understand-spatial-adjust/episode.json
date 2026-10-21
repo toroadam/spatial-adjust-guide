@@ -1,0 +1,588 @@
+{
+  "id": "understand-spatial-adjust",
+  "title": "Understand Spatial Adjust",
+  "guide": "understand-spatial-adjust",
+  "status": "approved",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/understand-spatial-adjust",
+  "recreationFigure": "The Spatial Adjust header, inside IntelliDash.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "understand-spatial-adjust/tile/1",
+    "understand-spatial-adjust/tile/2",
+    "understand-spatial-adjust/summary/1",
+    "understand-spatial-adjust/1/1",
+    "understand-spatial-adjust/1/4",
+    "understand-spatial-adjust/1/5",
+    "understand-spatial-adjust/2/2",
+    "understand-spatial-adjust/2/3",
+    "understand-spatial-adjust/2/4",
+    "understand-spatial-adjust/3/2",
+    "understand-spatial-adjust/3/3",
+    "understand-spatial-adjust/3/4",
+    "understand-spatial-adjust/3/5",
+    "understand-spatial-adjust/4/2",
+    "understand-spatial-adjust/4/3",
+    "understand-spatial-adjust/5/2",
+    "understand-spatial-adjust/5/4",
+    "understand-spatial-adjust/5/5"
+  ],
+  "titleCard": {
+    "text": "Double Click: Understand Spatial Adjust",
+    "claims": [
+      "understand-spatial-adjust/tile/1",
+      "understand-spatial-adjust/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "It lives inside IntelliDash",
+      "highlight": {
+        "label": "IntelliDash",
+        "selector": "[data-sa-frame] >> img >> nth=0"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "TurfRad supplies the measurement",
+      "highlight": {
+        "label": "Avg. VWC",
+        "selector": "[data-sa-frame] >> text=\"Avg. VWC\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "You supply the target",
+      "highlight": {
+        "label": "Target VWC",
+        "selector": "[data-sa-frame] >> text=\"Target VWC\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Spatial Adjust does the arithmetic",
+      "highlight": {
+        "label": "Suggested",
+        "selector": "[data-sa-frame] >> text=\"Suggested\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "Lynx runs the water",
+      "highlight": {
+        "label": "Push Changes",
+        "selector": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../.."
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "What the feature actually does: turn the latest moisture scan into today's percent adjustment, and write it to Lynx when you push.",
+      "claims": [
+        "understand-spatial-adjust/summary/1"
+      ],
+      "next_text": "It lives inside IntelliDash. Access is checked per user before the view loads."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "It lives inside IntelliDash. Access is checked per user before the view loads.",
+      "claims": [
+        "understand-spatial-adjust/1/1",
+        "understand-spatial-adjust/1/4"
+      ],
+      "previous_text": "What the feature actually does: turn the latest moisture scan into today's percent adjustment, and write it to Lynx when you push.",
+      "next_text": "The Spatial Adjust header, inside IntelliDash."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The Spatial Adjust header, inside IntelliDash.",
+      "claims": [
+        "understand-spatial-adjust/1/5"
+      ],
+      "previous_text": "It lives inside IntelliDash. Access is checked per user before the view loads.",
+      "next_text": "Each station's Avg. VWC comes from a TurfRad moisture scan: the mean volumetric water content measured across the station, with the date it was captured beside the station name."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "Each station's Avg. VWC comes from a TurfRad moisture scan: the mean volumetric water content measured across the station, with the date it was captured beside the station name.",
+      "claims": [
+        "understand-spatial-adjust/2/2",
+        "understand-spatial-adjust/2/3"
+      ],
+      "previous_text": "The Spatial Adjust header, inside IntelliDash.",
+      "next_text": "Measured moisture and its scan date, per station."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "Measured moisture and its scan date, per station.",
+      "claims": [
+        "understand-spatial-adjust/2/4"
+      ],
+      "previous_text": "Each station's Avg. VWC comes from a TurfRad moisture scan: the mean volumetric water content measured across the station, with the date it was captured beside the station name.",
+      "next_text": "Target VWC is the moisture you want that station to hold. It is yours to set, station by station, between 0 and 50 percent."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Target VWC is the moisture you want that station to hold. It is yours to set, station by station, between 0 and 50 percent.",
+      "claims": [
+        "understand-spatial-adjust/3/2",
+        "understand-spatial-adjust/3/3"
+      ],
+      "previous_text": "Measured moisture and its scan date, per station.",
+      "next_text": "The gap between measured and target is what the calculation works on. Target VWC is an editable input, not a reading."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "The gap between measured and target is what the calculation works on. Target VWC is an editable input, not a reading.",
+      "claims": [
+        "understand-spatial-adjust/3/4",
+        "understand-spatial-adjust/3/5"
+      ],
+      "previous_text": "Target VWC is the moisture you want that station to hold. It is yours to set, station by station, between 0 and 50 percent.",
+      "next_text": "The difference between target and measured moisture becomes an amount of water, today's ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "The difference between target and measured moisture becomes an amount of water, today's ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.",
+      "claims": [
+        "understand-spatial-adjust/4/2"
+      ],
+      "previous_text": "The gap between measured and target is what the calculation works on. Target VWC is an editable input, not a reading.",
+      "next_text": "The Suggested column is the output of that chain."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "The Suggested column is the output of that chain.",
+      "claims": [
+        "understand-spatial-adjust/4/3"
+      ],
+      "previous_text": "The difference between target and measured moisture becomes an amount of water, today's ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.",
+      "next_text": "Spatial Adjust never waters anything. Nothing changes until you push."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "Spatial Adjust never waters anything. Nothing changes until you push.",
+      "claims": [
+        "understand-spatial-adjust/5/2",
+        "understand-spatial-adjust/5/4"
+      ],
+      "previous_text": "The Suggested column is the output of that chain.",
+      "next_text": "Push Changes is the only thing that writes to the controller."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "Push Changes is the only thing that writes to the controller.",
+      "claims": [
+        "understand-spatial-adjust/5/5"
+      ],
+      "previous_text": "Spatial Adjust never waters anything. Nothing changes until you push."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 5.36,
+      "highlight": "[data-sa-frame] >> img >> nth=0",
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=0",
+          "name": "Riverbend National"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 4.23,
+      "highlight": "[data-sa-frame] >> img >> nth=0",
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 14.75,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Measured moisture and its scan date, per station."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Avg. VWC\"",
+          "name": "Avg. VWC"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Avg. VWC\"",
+          "name": "Avg. VWC"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"27.6%\"",
+          "name": "27.6%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> xpath=div[1]",
+          "name": "3AP1 08-08-25"
+        },
+        {
+          "type": "wait",
+          "ms": 5275
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../span[2]",
+          "name": "08-08-25"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 3.95,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Avg. VWC\"",
+          "name": "Avg. VWC"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"30.3%\"",
+          "name": "30.3%"
+        },
+        {
+          "type": "wait",
+          "ms": 425
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"26.1%\"",
+          "name": "26.1%"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 10.92,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Target VWC is an editable input, not a reading."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        },
+        {
+          "type": "wait",
+          "ms": 3360
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 9.31,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"26.1%\"",
+          "name": "26.1%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"26.1%\"",
+          "name": "26.1%"
+        },
+        {
+          "type": "wait",
+          "ms": 3105
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 14.14,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The Suggested column is the output of that chain."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "30"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"26.1%\"",
+          "name": "26.1%"
+        },
+        {
+          "type": "wait",
+          "ms": 3063
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"RH\" >> xpath=../../div[3]",
+          "name": "0.34 in ET"
+        },
+        {
+          "type": "wait",
+          "ms": 3063
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 4.17,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 5.87,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Push Changes is the only thing that writes to the controller."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../..",
+          "name": "Push 6 Changes"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 4.32,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../..",
+          "name": "Push 6 Changes"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "map-navigation",
+    "text": "Next on Double Click: Map navigation",
+    "address": "#/understand-spatial-adjust"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}
