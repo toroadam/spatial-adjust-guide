@@ -121,6 +121,126 @@
       "correction": ""
     },
     {
+      "id": "suggested-adjustments/start/1",
+      "guide": "suggested-adjustments",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The route is /spatialadjust. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/start/2",
+      "guide": "suggested-adjustments",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The guide starts on the dashboard with no dialog open; every dialog here opens only on a user action. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/start/3",
+      "guide": "suggested-adjustments",
+      "step": "start",
+      "field": "open",
+      "text": "The table shows the station rows of one hole.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "39-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "14-22"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "37-62"
+        }
+      ],
+      "note": "Current and Suggested are on station rows only (sa-table-card.component.html:37-62). Reworded from suggested-adjustments/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/start/4",
+      "guide": "suggested-adjustments",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "Reworded from dashboard-overview/before/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "suggested-adjustments/before/1",
       "guide": "suggested-adjustments",
       "step": "before",
@@ -306,8 +426,58 @@
       "id": "suggested-adjustments/1/2",
       "guide": "suggested-adjustments",
       "step": "1",
-      "field": "body",
-      "text": "Current is the percent adjust Lynx holds for the station right now.",
+      "field": "do",
+      "text": "Find [[Current]] and [[Suggested]] under the [[Adjustment]] heading of the table.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "17-20"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "48-49"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 607
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 664
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 1008
+        }
+      ],
+      "note": "Current and Suggested sit side by side under the Adjustment heading. Reworded from suggested-adjustments/1/5, suggested-adjustments/1/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/1/3",
+      "guide": "suggested-adjustments",
+      "step": "1",
+      "field": "see",
+      "text": "[[Current]] is the percent adjust Lynx holds now, and [[Suggested]] is what Spatial Adjust worked out from the latest scan.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -324,22 +494,7 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
           "line": "593-594"
-        }
-      ],
-      "note": "Current is the percent adjust read from Lynx Cloud for the station with the same name, as of the last time the dashboard received Lynx data.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "suggested-adjustments/1/3",
-      "guide": "suggested-adjustments",
-      "step": "1",
-      "field": "body",
-      "text": "Suggested is what Spatial Adjust calculated from this morning’s scan.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -377,17 +532,128 @@
           "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
         }
       ],
-      "note": "Under Option 2 the server recalculates from today's scans on every processing run, about every 30 minutes (SpatialAdjustService.cs:2103-2133, :3004-3015), and today's ET can still change until the first run after 11:00 course-local (:2838-2884), so a morning suggestion can move. A station with no scan today is estimated from the model instead. Under Option 1 the browser computes it from today's scan. \"This morning's\" assumes the scan is taken in the morning.",
+      "note": "Current is the percent adjust Lynx holds now; Suggested is the calculated percentage. Reworded from suggested-adjustments/1/2, suggested-adjustments/1/3.",
       "question": "",
-      "developNote": "Develop adds a step that writes today's adjustment row from the model when TurfRad reports no new scans (develop SpatialAdjustService.cs:2146, :3266-3312). The display is unchanged.",
+      "developNote": "",
       "correction": ""
     },
     {
       "id": "suggested-adjustments/1/4",
       "guide": "suggested-adjustments",
       "step": "1",
-      "field": "body",
-      "text": "The gap between them is the change you are being asked to make.",
+      "field": "ifNot",
+      "text": "If the rows are areas or holes, they show averages only.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9-13"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "25-33"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "72-96"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 376
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 409
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "373-378"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-39"
+        }
+      ],
+      "note": "Area and hole rows show only average measured, average target and the latest scan date; the Current, Suggested and % Adj. cells are drawn for station rows only (sa-table-card.component.html:29-39). Reworded from understanding-vwc/5/2, station-details/3/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/1/5",
+      "guide": "suggested-adjustments",
+      "step": "1",
+      "field": "ifNot",
+      "text": "Select a row to open the next level, until you reach stations.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "268-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "108-118"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "The table drills from course to areas, then holes, then stations. Reworded from dashboard-overview/4/2, editing-station-targets/1/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/1/6",
+      "guide": "suggested-adjustments",
+      "step": "1",
+      "field": "why",
+      "text": "The gap between the two is the change you are being asked to make.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -406,13 +672,13 @@
           "line": "597-598"
         }
       ],
-      "note": "Strictly, the change pushed is from Current to % Adj., which starts equal to Suggested. A station is queued for push when the two differ (sa-dashboard.component.ts:659-662).",
+      "note": "The change is the difference between Suggested and Current. Reworded from suggested-adjustments/1/4.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "suggested-adjustments/1/5",
+      "id": "suggested-adjustments/1/7",
       "guide": "suggested-adjustments",
       "step": "1",
       "field": "caption",
@@ -501,43 +767,35 @@
       "id": "suggested-adjustments/2/2",
       "guide": "suggested-adjustments",
       "step": "2",
-      "field": "body",
-      "text": "The calculation starts from the difference between measured moisture and the station target, converts that into an amount of water, adds today’s ET, and expresses the result as a percentage of the Lynx reference amount.",
-      "type": "calculation",
-      "status": "Needs expert",
+      "field": "do",
+      "text": "On the same row, compare [[Avg. VWC]] with [[Target VWC]].",
+      "type": "behaviour",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": 3033
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3036-3039"
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": 3043
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §12 Open for experts"
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-47"
         }
       ],
-      "note": "The code does what the sentence says under Option 2, with two details it leaves out: the sum is multiplied by the station's soil factor and capped at the Daily Max Amount before the division (SpatialAdjustService.cs:3036-3041). The step that \"converts that into an amount of water\" has no conversion factor. The deficit in VWC percentage points is added to ET in millimetres one for one (:3037-3039). The source cannot say whether that equivalence is agronomically right, so it is left for the experts (docs/claims/calculations.md §12, item 1). Option 1 works differently (calculation-methods/3/2).",
-      "question": "Spatial Adjust adds the VWC deficit in percentage points to ET in millimetres one for one (1 point = 1 mm, no root-zone depth); is that acceptable for the soils it is sold for, or should the deficit be scaled by a depth?",
+      "note": "Avg. VWC and Target VWC are columns of the station table. Reworded from suggested-adjustments/2/1.",
+      "question": "",
       "developNote": "",
       "correction": ""
     },
@@ -545,8 +803,8 @@
       "id": "suggested-adjustments/2/3",
       "guide": "suggested-adjustments",
       "step": "2",
-      "field": "body",
-      "text": "A station well under target asks for more water; one over target asks for less.",
+      "field": "see",
+      "text": "A station well under its target asks for more water, and one over its target asks for less.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -572,13 +830,134 @@
           "line": "58-60"
         }
       ],
-      "note": "Under Option 2 a station over target needs less than today's ET, and nothing once it is over by more than the crop-adjusted ET. Under Option 1 a station over target gets less than the percent Lynx holds now.",
+      "note": "Option 2 raises the amount for a station below its target and lowers it above. Reworded from suggested-adjustments/2/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "suggested-adjustments/2/4",
+      "guide": "suggested-adjustments",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If [[Avg. VWC]] is grey and italic, the value is modelled from an older scan, so the suggestion rests on an estimate.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "215-233"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "100-110"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §4 What the station table shows"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "121-130"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 29
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "107-110"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "59-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "369-383"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "417-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "430-435"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "48-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 87
+        }
+      ],
+      "note": "A grey italic Avg. VWC is modelled (sa-table-card.component.html:29-31); a modelled station still gets a suggestion from the model value (sa-table-card.component.ts:417-435). Reworded from calculation-questions/4/2, station-details/4/2, suggested-adjustments/before/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/2/5",
       "guide": "suggested-adjustments",
       "step": "2",
       "field": "caption",
@@ -640,8 +1019,8 @@
       "id": "suggested-adjustments/3/2",
       "guide": "suggested-adjustments",
       "step": "3",
-      "field": "body",
-      "text": "Several stations show the same suggested value.",
+      "field": "do",
+      "text": "Look down the [[Suggested]] column for a run of the same value.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -661,7 +1040,7 @@
           "ref": "docs/claims/calculations.md §1.4 The ceiling"
         }
       ],
-      "note": "",
+      "note": "Stations sharing a suggestion show it in the same column. Reworded from suggested-adjustments/3/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -670,9 +1049,9 @@
       "id": "suggested-adjustments/3/3",
       "guide": "suggested-adjustments",
       "step": "3",
-      "field": "body",
-      "text": "That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage.",
-      "type": "calculation",
+      "field": "see",
+      "text": "Under [[Option 2]], every station that needs more than the daily cap shows the same, highest value.",
+      "type": "behaviour",
       "status": "Verified",
       "evidence": [
         {
@@ -689,9 +1068,16 @@
         {
           "source": "doc",
           "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3043"
         }
       ],
-      "note": "Option 2 only.",
+      "note": "Under Option 2 the amount is capped at the daily Max Amount, so every station needing more shows the same highest value (SpatialAdjustService.cs:3041-3043). Reworded from suggested-adjustments/3/3, suggested-adjustments/tile/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -700,8 +1086,8 @@
       "id": "suggested-adjustments/3/4",
       "guide": "suggested-adjustments",
       "step": "3",
-      "field": "body",
-      "text": "If most of your course reads identically, the cap is doing the deciding, not the scan.",
+      "field": "ifNot",
+      "text": "If most of the course shows that value, the cap is deciding, not the scan.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -721,7 +1107,7 @@
           "ref": "docs/claims/calculations.md §1.4 The ceiling"
         }
       ],
-      "note": "The capped value is the Daily Max Amount divided by the Lynx Reference Amount, whatever the scan says.",
+      "note": "A course that mostly reads the capped value is being decided by the cap. Reworded from suggested-adjustments/3/4, suggested-adjustments/3/5.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -730,38 +1116,8 @@
       "id": "suggested-adjustments/3/5",
       "guide": "suggested-adjustments",
       "step": "3",
-      "field": "caption",
-      "text": "A run of identical suggestions is the signature of the Max Amount cap.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3041-3043"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §1.4 The ceiling"
-        }
-      ],
-      "note": "",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "suggested-adjustments/3/6",
-      "guide": "suggested-adjustments",
-      "step": "3",
-      "field": "tip",
-      "text": "What to do. Raise Daily Max Amount in Settings › Calculation, or accept that the course is being deliberately limited.",
+      "field": "ifNot",
+      "text": "Raise Daily Max Amount in [[Settings]] › [[Calculation]] if it is too low.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -798,7 +1154,37 @@
           "ref": "docs/claims/calculations.md §1.4 The ceiling"
         }
       ],
-      "note": "Raising Daily Max Amount raises the ceiling up to the field's maximum of 15 in the user's unit (sa-settings-dlg.component.html:87).",
+      "note": "Daily Max Amount is on the Calculation tab of Settings, opened from the toolbar. Reworded from suggested-adjustments/3/6.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/3/6",
+      "guide": "suggested-adjustments",
+      "step": "3",
+      "field": "caption",
+      "text": "A run of identical suggestions is the signature of the Max Amount cap.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.4 The ceiling"
+        }
+      ],
+      "note": "",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -829,9 +1215,9 @@
       "id": "suggested-adjustments/4/2",
       "guide": "suggested-adjustments",
       "step": "4",
-      "field": "body",
-      "text": "The % Adj. column is yours.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "Type your own value in the [[% Adj.]] box of a station you know behaves differently.",
+      "type": "calculation",
       "status": "Verified",
       "evidence": [
         {
@@ -861,9 +1247,23 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 437
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3052-3062"
         }
       ],
-      "note": "\"% Adj.\" (en-us.json:437) is the value that is pushed. It starts as the suggestion (sa-dashboard.component.ts:598), and an edit is saved to the station (sa-table-card.component.ts:162; SpatialAdjustService.cs:1035).",
+      "note": "The % Adj. box is the editable column. Reworded from suggested-adjustments/4/2, suggested-adjustments/4/3.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -872,9 +1272,9 @@
       "id": "suggested-adjustments/4/3",
       "guide": "suggested-adjustments",
       "step": "4",
-      "field": "body",
-      "text": "Type over the suggestion for a station you know behaves differently — a shaded green, a slope that sheds water — and the row is queued for push.",
-      "type": "behaviour",
+      "field": "see",
+      "text": "Your value shows in [[% Adj.]], and [[Suggested]] keeps the calculated value.",
+      "type": "calculation",
       "status": "Verified",
       "evidence": [
         {
@@ -904,9 +1304,16 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "api/Services/SpatialAdjustService.cs",
           "line": "3052-3062"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 49
         }
       ],
-      "note": "The station is queued only if the typed value differs from what Lynx holds (sa-dashboard.component.ts:659-662). The edit is saved half a second after typing stops (sa-table-card.component.ts:157-163) and is kept until a new scan arrives for the station (SpatialAdjustService.cs:3052-3062).",
+      "note": "Typing in % Adj. leaves the Suggested value as calculated. Reworded from suggested-adjustments/4/3, suggested-adjustments/4/4.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -915,8 +1322,8 @@
       "id": "suggested-adjustments/4/4",
       "guide": "suggested-adjustments",
       "step": "4",
-      "field": "body",
-      "text": "The suggested value is left untouched underneath.",
+      "field": "ifNot",
+      "text": "If a dash shows in place of the box, the station has no current scan and no modelled value, so there is nothing to adjust.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -924,8 +1331,90 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "417-420"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "430-435"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": 49
+          "line": "48-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 87
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §4 What the station table shows"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "52"
+        }
+      ],
+      "note": "Where a station has no current scan and no model estimate, the table draws a dash in place of the % Adj. box (sa-table-card.component.html:52). Reworded from suggested-adjustments/before/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/4/5",
+      "guide": "suggested-adjustments",
+      "step": "4",
+      "field": "why",
+      "text": "The push sends [[% Adj.]], so your value replaces the suggestion for that station.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "545-556"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "258-272"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 51
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
         },
         {
           "source": "intellidash",
@@ -933,15 +1422,29 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
           "line": "146-164"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1019-1038"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3052-3062"
         }
       ],
-      "note": "Editing % Adj. changes only the % Adj. value. Suggested is painted from a separate field.",
+      "note": "The push carries % Adj., not Suggested. Reworded from suggested-adjustments/4/5, suggested-adjustments/4/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "suggested-adjustments/4/5",
+      "id": "suggested-adjustments/4/6",
       "guide": "suggested-adjustments",
       "step": "4",
       "field": "caption",
@@ -1017,11 +1520,18 @@
       "id": "suggested-adjustments/5/2",
       "guide": "suggested-adjustments",
       "step": "5",
-      "field": "body",
-      "text": "If you override the same station every day, the station itself needs adjusting rather than the number.",
-      "type": "prerequisite",
-      "status": "Needs expert",
+      "field": "do",
+      "text": "In the Soil Factor Editor, type a value from 1 to 200 under [[Soil Factor (%)]] for the station.",
+      "type": "label",
+      "status": "Verified",
       "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "105-106"
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -1030,16 +1540,40 @@
           "line": "3036-3039"
         },
         {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustLogic.cs",
+          "line": "142-147"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/appsettings.json",
+          "line": 150
+        },
+        {
           "source": "doc",
           "ref": "docs/claims/calculations.md §7 Soil factor"
         },
         {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §12 Open for experts"
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "103-111"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 473
         }
       ],
-      "note": "The soil factor is a per-station multiplier that persists (docs/claims/calculations.md §7), so it can absorb a fixed offset. Whether it is the right response to repeated daily overrides is operational advice the source cannot settle.",
-      "question": "If a superintendent overrides the same station's % Adj. every day, is setting a permanent soil factor on that station the recommended fix?",
+      "note": "The editor takes 1 to 200 under the Soil Factor (%) column (sa-soil-factor-dlg.component.html:103-111); Soil Factor (%) is SOIL_FACTOR_PCT (en-us.json:473). Reworded from suggested-adjustments/5/3.",
+      "question": "",
       "developNote": "",
       "correction": ""
     },
@@ -1047,8 +1581,116 @@
       "id": "suggested-adjustments/5/3",
       "guide": "suggested-adjustments",
       "step": "5",
-      "field": "body",
-      "text": "The soil factor editor scales a station’s calculated amount by 1 to 200 percent, permanently.",
+      "field": "see",
+      "text": "The footer counts 1 pending change, and [[Save]] is no longer greyed out.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "113-118"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "132-145"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.ts",
+          "line": "53-97"
+        }
+      ],
+      "note": "Once a value differs, the footer counts the pending changes and Save is enabled (sa-soil-factor-dlg.component.html:113-118, :132-145; sa-soil-factor-dlg.component.ts:53-97).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/5/4",
+      "guide": "suggested-adjustments",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If the editor is not open, hold Shift + Alt and select the gear, [[Settings]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-281"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": 15
+        }
+      ],
+      "note": "Shift + Alt on the toolbar gear opens the Soil Factor Editor. Reworded from suggested-adjustments/5/4, suggested-adjustments/5/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/5/5",
+      "guide": "suggested-adjustments",
+      "step": "5",
+      "field": "ifNot",
+      "text": "To find the station, type its name under Filter station.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": 15
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-281"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "84-90"
+        }
+      ],
+      "note": "The Soil Factor Editor has a Filter station box (sa-soil-factor-dlg.component.html:84-90). Reworded from suggested-adjustments/5/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/5/6",
+      "guide": "suggested-adjustments",
+      "step": "5",
+      "field": "why",
+      "text": "Under [[Option 2]], a soil factor scales the station’s calculated amount until someone changes it.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1085,42 +1727,13 @@
           "ref": "docs/claims/calculations.md §7 Soil factor"
         }
       ],
-      "note": "The factor multiplies the station's amount before the Daily Max Amount cap, so it cannot lift a capped station (SpatialAdjustService.cs:3036-3041). It is stored on the station and stays until changed. A service-wide configuration switch can turn it off, and it is on (appsettings.json:150). Option 2 only.",
+      "note": "The soil factor scales the calculated amount in the Option 2 calculation. Reworded from suggested-adjustments/5/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "suggested-adjustments/5/4",
-      "guide": "suggested-adjustments",
-      "step": "5",
-      "field": "body",
-      "text": "It is opened with Shift + Alt on the gear button.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "276-281"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
-          "line": "69-72"
-        }
-      ],
-      "note": "",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "suggested-adjustments/5/5",
+      "id": "suggested-adjustments/5/7",
       "guide": "suggested-adjustments",
       "step": "5",
       "field": "caption",
@@ -1144,6 +1757,137 @@
         }
       ],
       "note": "The dialog header is the hardcoded literal \"Soil Factor Editor\" (sa-soil-factor-dlg.component.html:15).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/6/1",
+      "guide": "suggested-adjustments",
+      "step": "6",
+      "field": "title",
+      "text": "Save the soil factor",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "132-145"
+        }
+      ],
+      "note": "The footer of the Soil Factor Editor carries the Save button (sa-soil-factor-dlg.component.html:132-145).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/6/2",
+      "guide": "suggested-adjustments",
+      "step": "6",
+      "field": "do",
+      "text": "Select [[Save]] at the foot of the Soil Factor Editor.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "132-145"
+        }
+      ],
+      "note": "Save is a button in the footer of the editor (sa-soil-factor-dlg.component.html:132-145).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/6/3",
+      "guide": "suggested-adjustments",
+      "step": "6",
+      "field": "see",
+      "text": "A message says the soil factors were saved, and the editor closes a few seconds later with the suggestions updated.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.ts",
+          "line": "53-97"
+        }
+      ],
+      "note": "A successful save shows \"Soil factors saved successfully.\", then after five seconds reloads the data and closes the dialog (sa-soil-factor-dlg.component.ts:73-86).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/6/4",
+      "guide": "suggested-adjustments",
+      "step": "6",
+      "field": "ifNot",
+      "text": "If [[Save]] is greyed out, nothing has changed or a value is outside 1 to 200.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "103-111"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "132-145"
+        }
+      ],
+      "note": "Save is disabled when no row changed or any value is invalid (sa-soil-factor-dlg.component.html:132-145; the check is 1 to 200 at :105-106).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "suggested-adjustments/6/5",
+      "guide": "suggested-adjustments",
+      "step": "6",
+      "field": "caption",
+      "text": "Soil Factor Editor, with Save and Cancel at the foot.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": 15
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-281"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-soil-factor-dlg/sa-soil-factor-dlg.component.html",
+          "line": "132-145"
+        }
+      ],
+      "note": "The footer holds Save and Cancel (sa-soil-factor-dlg.component.html:132-145). Reworded from suggested-adjustments/5/5.",
       "question": "",
       "developNote": "",
       "correction": ""

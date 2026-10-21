@@ -84,7 +84,7 @@ function suggestedAdjustments(src, h) {
     set: {
       do: 'Find [[Current]] and [[Suggested]] under the [[Adjustment]] heading of the table.',
       see: '[[Current]] is the percent adjust Lynx holds now, and [[Suggested]] is what Spatial Adjust worked out from the latest scan.',
-      ifNot: 'If the rows are areas or holes, there are no station values yet. Select a hole row to open its stations.',
+      ifNot: 'If the rows are areas or holes, they show averages only. Select a row to open the next level, until you reach stations.',
       why: 'The gap between the two is the change you are being asked to make.',
     },
   });
@@ -144,7 +144,7 @@ function suggestedAdjustments(src, h) {
     set: {
       do: 'Type your own value in the [[% Adj.]] box of a station you know behaves differently.',
       see: 'Your value shows in [[% Adj.]], and [[Suggested]] keeps the calculated value.',
-      ifNot: 'If the box is greyed out, the station has no value to adjust: there is no current scan and no modelled value.',
+      ifNot: 'If a dash shows in place of the box, the station has no current scan and no modelled value, so there is nothing to adjust.',
       why: 'The push sends [[% Adj.]], so your value replaces the suggestion for that station.',
     },
   });
@@ -528,7 +528,7 @@ function filterAdjustments(src, h) {
     set: {
       do: 'Find the [[All Stations]] and [[Over/Under]] tabs above the table.',
       see: '[[All Stations]] shows the full count, and [[Over/Under]] shows how many stations the filter catches.',
-      ifNot: 'If [[Over/Under]] shows a dash, no filter is set yet. It is not broken; the next steps set one.',
+      ifNot: 'If [[Over/Under]] shows a dash, no filter is set yet, or no station matches it. The next steps set one.',
     },
   });
 

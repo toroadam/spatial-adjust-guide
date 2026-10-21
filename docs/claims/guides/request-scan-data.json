@@ -207,6 +207,90 @@
       "correction": ""
     },
     {
+      "id": "request-scan-data/start/1",
+      "guide": "request-scan-data",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The route is /spatialadjust. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/start/2",
+      "guide": "request-scan-data",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The guide starts on the dashboard with no dialog open; every dialog here opens only on a user action. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/start/3",
+      "guide": "request-scan-data",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "Reworded from dashboard-overview/before/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "request-scan-data/before/1",
       "guide": "request-scan-data",
       "step": "before",
@@ -467,8 +551,51 @@
       "id": "request-scan-data/1/2",
       "guide": "request-scan-data",
       "step": "1",
-      "field": "body",
-      "text": "Every station row carries the date its reading was captured.",
+      "field": "do",
+      "text": "Look at the scan dates beside the station names in the table.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 24
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-25"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "391-396"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 36
+        }
+      ],
+      "note": "The scan date sits beside the station name on every station row. Reworded from request-scan-data/1/1, request-scan-data/1/2, request-scan-data/1/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/1/3",
+      "guide": "request-scan-data",
+      "step": "1",
+      "field": "see",
+      "text": "Each row shows the date its reading was captured, and the dates are today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -492,19 +619,40 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
           "line": 36
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 24
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2998-2999"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2527
         }
       ],
-      "note": "Station rows show lastScan in small grey type beside the name. A paired row shows the newest date in the pair (sa-dash-table.component.ts:391-396). Area and hole rows show a date in a column of their own (sa-table-card.component.html:36).",
+      "note": "A scan is current when its date is today in the course's time zone. Reworded from request-scan-data/1/2, request-scan-data/1/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "request-scan-data/1/3",
+      "id": "request-scan-data/1/4",
       "guide": "request-scan-data",
       "step": "1",
-      "field": "body",
-      "text": "One stale row is a station; a column of stale dates is the whole course, and that is a supply problem rather than a settings problem.",
+      "field": "ifNot",
+      "text": "If one date is old, that is one station.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -530,13 +678,91 @@
           "line": 2527
         }
       ],
-      "note": "The dates are TurfRad's recorded scan dates (SpatialAdjustService.cs:2999), which no setting changes. Requesting scan data helps only if TurfRad holds something newer (see request-scan-data/tile/2).",
+      "note": "One stale row is one station. Reworded from request-scan-data/1/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "request-scan-data/1/4",
+      "id": "request-scan-data/1/5",
+      "guide": "request-scan-data",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If every date is old, no setting will fix it, so go on to request the data.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 24
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2998-2999"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2527
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "51-57"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 454
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "978-1002"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1949-1958"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/appsettings.json",
+          "line": 32
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/appsettings.json",
+          "line": 27
+        }
+      ],
+      "note": "The dates are TurfRad's recorded scan dates, which no setting changes; requesting scan data helps only if TurfRad holds something newer. Reworded from request-scan-data/1/3, request-scan-data/tile/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/1/6",
       "guide": "request-scan-data",
       "step": "1",
       "field": "caption",
@@ -583,9 +809,9 @@
       "id": "request-scan-data/2/2",
       "guide": "request-scan-data",
       "step": "2",
-      "field": "body",
-      "text": "The circular-arrow button in the toolbar’s right-hand group is Request latest scan data.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "Select [[Request latest scan data]], the circular-arrow button in the toolbar.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -608,9 +834,16 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.less",
           "line": "163-165"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "51-57"
         }
       ],
-      "note": "The icon is Font Awesome \"sync\" (two circular arrows), which spins while a request is outstanding (sa-main-toolbar.component.html:57). The tooltip is SPATIAL_ADJUST.REQUEST_SCAN_DATA through the titlecase pipe, so it shows \"Request Latest Scan Data\". The button's text label is not displayed (sa-main-toolbar.component.less:163-165) and carries the Settings string, not the scan string (sa-main-toolbar.component.html:58).",
+      "note": "The tooltip is Request latest scan data (en-us.json:454). Reworded from request-scan-data/2/2, request-scan-data/2/1.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -619,8 +852,8 @@
       "id": "request-scan-data/2/3",
       "guide": "request-scan-data",
       "step": "2",
-      "field": "body",
-      "text": "It asks Spatial Adjust to fetch the latest scan data TurfRad already holds, ahead of the next automatic retrieval.",
+      "field": "see",
+      "text": "The button dims and its icon spins while the request runs.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -628,50 +861,56 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 52
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "329-343"
+          "line": "207-213"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
-          "line": "226-232"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Controllers/SpatialAdjustController.cs",
-          "line": "222-226"
+          "path": "site/src/app/common/services/notification.service.ts",
+          "line": "164-169"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "api/Services/SpatialAdjustService.cs",
-          "line": "978-1002"
+          "line": "998-999"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": 2527
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 388
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "57"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/2/3); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Only the button changes while the request runs: it dims and its icon spins (sa-main-toolbar.component.html:52, :57). Reworded from request-scan-data/3/3.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "It asks TurfRad for a new scan; it does not reload the dashboard, and it does not change a single calculation setting."
+      "correction": ""
     },
     {
       "id": "request-scan-data/2/4",
       "guide": "request-scan-data",
       "step": "2",
-      "field": "body",
-      "text": "It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting.",
+      "field": "ifNot",
+      "text": "If you cannot find it, look between the pushed-today counter and the gear.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -679,45 +918,88 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "329-343"
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "44-72"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
-          "line": "226-232"
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "49-59"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Controllers/SpatialAdjustController.cs",
-          "line": "222-226"
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 454
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "978-1002"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": 2527
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.less",
+          "line": "163-165"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/2/3); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "From the pushed-today counter the order is separator, this button, the Announcements bullhorn, the Settings gear. Reworded from request-scan-data/2/5, request-scan-data/2/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "request-scan-data/2/5",
+      "guide": "request-scan-data",
+      "step": "2",
+      "field": "why",
+      "text": "It fetches only what TurfRad already holds, and it does not order a new scan.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "329-343"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "226-232"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Controllers/SpatialAdjustController.cs",
+          "line": "222-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "978-1002"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2527
+        }
+      ],
+      "note": "It fetches what TurfRad already holds and does not order a scan. Reworded from request-scan-data/2/3, request-scan-data/2/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/2/6",
       "guide": "request-scan-data",
       "step": "2",
       "field": "caption",
@@ -739,7 +1021,7 @@
       "correction": ""
     },
     {
-      "id": "request-scan-data/2/6",
+      "id": "request-scan-data/2/7",
       "guide": "request-scan-data",
       "step": "2",
       "field": "tip",
@@ -768,7 +1050,7 @@
       "correction": ""
     },
     {
-      "id": "request-scan-data/2/7",
+      "id": "request-scan-data/2/8",
       "guide": "request-scan-data",
       "step": "2",
       "field": "tip",
@@ -829,8 +1111,72 @@
       "id": "request-scan-data/3/2",
       "guide": "request-scan-data",
       "step": "3",
-      "field": "body",
-      "text": "The request is queued and you are told so: retrieval may take several minutes, and you are notified when it is ready.",
+      "field": "do",
+      "text": "Look for the [[Request Queued]] message.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "335-336"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 453
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 457
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "207-213"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "181-206"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Controllers/SpatialAdjustController.cs",
+          "line": "222-226"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "998-999"
+        }
+      ],
+      "note": "The toast is titled Request Queued (en-us.json:453). Reworded from request-scan-data/3/2, request-scan-data/3/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/3/3",
+      "guide": "request-scan-data",
+      "step": "3",
+      "field": "see",
+      "text": "It says retrieval may take several minutes and that you will be notified when it is ready.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -870,17 +1216,89 @@
           "line": "181-206"
         }
       ],
-      "note": "The toast reads \"Request Queued\", then \"Retrieval may take several minutes. We'll notify you when it's ready.\" The notification is the banner, which appears only if the dashboard is still open when the retrieval finishes (see request-scan-data/3/3).",
+      "note": "The toast reads that retrieval may take several minutes and that the user will be notified when it is ready (en-us.json:457). Reworded from request-scan-data/3/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "request-scan-data/3/3",
+      "id": "request-scan-data/3/4",
       "guide": "request-scan-data",
       "step": "3",
-      "field": "body",
-      "text": "You can carry on reading the table while it runs — nothing is frozen and nothing is lost if you navigate away.",
+      "field": "ifNot",
+      "text": "If [[Request Failed]] shows instead, the request did not queue.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "338-341"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 452
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 487
+        }
+      ],
+      "note": "A failed request at once shows Request Failed (en-us.json:452). Reworded from request-scan-data/5/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/3/5",
+      "guide": "request-scan-data",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Select the button again.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "338-341"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 452
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 487
+        }
+      ],
+      "note": "The failure text asks the user to try again (en-us.json:487). Reworded from request-scan-data/5/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/3/6",
+      "guide": "request-scan-data",
+      "step": "3",
+      "field": "why",
+      "text": "You can keep reading the table while it runs, and the retrieval finishes even if you leave the page.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -920,13 +1338,13 @@
           "line": 388
         }
       ],
-      "note": "Only the button changes while the request runs: it dims and its icon spins (sa-main-toolbar.component.html:52, :57). The retrieval runs on the server and finishes whether or not the page is open, so no data is lost. The banner does depend on the open page. It appears only if the toolbar that made the request is still loaded when the completion signal arrives (sa-main-toolbar.component.ts:207-213). After navigating away no banner comes, and the retrieved data loads the next time the dashboard loads its data (sa-dashboard.component.ts:388).",
+      "note": "The retrieval runs on the server and finishes whether or not the page is open. Reworded from request-scan-data/3/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "request-scan-data/3/4",
+      "id": "request-scan-data/3/7",
       "guide": "request-scan-data",
       "step": "3",
       "field": "caption",
@@ -980,8 +1398,187 @@
       "id": "request-scan-data/4/2",
       "guide": "request-scan-data",
       "step": "4",
-      "field": "body",
-      "text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan.",
+      "field": "do",
+      "text": "On the banner, select [[Reload Data]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "188-203"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 451
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 391
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "345-348"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "280-286"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 388
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 597
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "182-195"
+        }
+      ],
+      "note": "The banner carries the Reload Data button (sa-main-toolbar.component.html:182-195). Reworded from request-scan-data/4/5, request-scan-data/4/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/4/3",
+      "guide": "request-scan-data",
+      "step": "4",
+      "field": "see",
+      "text": "The dashboard loads the new readings, and every suggestion recalculates against them.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "345-348"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "280-286"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 388
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 597
+        }
+      ],
+      "note": "Reload Data re-fetches all of the dashboard's data and each suggestion is recalculated as it loads. Reworded from request-scan-data/4/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/4/4",
+      "guide": "request-scan-data",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If the banner has gone, [[Dismiss]] only hides it.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "350-352"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "382-390"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2107-2118"
+        }
+      ],
+      "note": "Dismiss only hides the banner. Reworded from request-scan-data/4/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/4/5",
+      "guide": "request-scan-data",
+      "step": "4",
+      "field": "ifNot",
+      "text": "The next time the dashboard loads its data, it picks the new scan up.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 388
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "262-286"
+        }
+      ],
+      "note": "The data is picked up whenever the dashboard loads its data again. Reworded from request-scan-data/4/7.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/4/6",
+      "guide": "request-scan-data",
+      "step": "4",
+      "field": "why",
+      "text": "The banner appears whether or not TurfRad had a newer scan, so the numbers can come back unchanged.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1028,93 +1625,13 @@
           "line": 455
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/4/2); docs/text-corrections.md §22 gives the claimed and actual behaviour. Verified against production at the cited lines.",
-      "question": "",
-      "developNote": "",
-      "correction": "",
-      "previousText": "When the scan lands, a banner says so."
-    },
-    {
-      "id": "request-scan-data/4/3",
-      "guide": "request-scan-data",
-      "step": "4",
-      "field": "body",
-      "text": "Reload Data pulls it into the dashboard and every suggestion recalculates against the new readings.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "345-348"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "280-286"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 388
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 597
-        }
-      ],
-      "note": "Reload Data re-fetches all of the dashboard's data (sa-dashboard.component.ts:280-286), and each suggestion is recalculated as the data loads (:597). If TurfRad had nothing newer, the numbers come back unchanged (see request-scan-data/4/2).",
+      "note": "The banner says so whether or not TurfRad had a newer scan. Reworded from request-scan-data/4/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "request-scan-data/4/4",
-      "guide": "request-scan-data",
-      "step": "4",
-      "field": "body",
-      "text": "Dismiss closes the banner and leaves you on the data you already had — the new scan is not thrown away, it is simply not loaded yet.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "350-352"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "382-390"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2107-2118"
-        }
-      ],
-      "note": "Dismiss only hides the banner. The retrieved data is already stored on the server (SpatialAdjustService.cs:2112), so nothing is thrown away.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "request-scan-data/4/5",
+      "id": "request-scan-data/4/7",
       "guide": "request-scan-data",
       "step": "4",
       "field": "caption",
@@ -1150,7 +1667,7 @@
       "correction": ""
     },
     {
-      "id": "request-scan-data/4/6",
+      "id": "request-scan-data/4/8",
       "guide": "request-scan-data",
       "step": "4",
       "field": "tip",
@@ -1172,7 +1689,7 @@
       "correction": ""
     },
     {
-      "id": "request-scan-data/4/7",
+      "id": "request-scan-data/4/9",
       "guide": "request-scan-data",
       "step": "4",
       "field": "tip",
@@ -1205,65 +1722,7 @@
       "guide": "request-scan-data",
       "step": "5",
       "field": "title",
-      "text": "If the request will not queue",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "338-341"
-        }
-      ],
-      "note": "A failure to queue has its own error branch.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "request-scan-data/5/2",
-      "guide": "request-scan-data",
-      "step": "5",
-      "field": "body",
-      "text": "A failed request says so straight away rather than silently doing nothing.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "338-341"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 452
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 487
-        }
-      ],
-      "note": "A failed request at once shows \"Request Failed\" with \"Unable to queue the scan data request. Please try again.\"",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "request-scan-data/5/3",
-      "guide": "request-scan-data",
-      "step": "5",
-      "field": "body",
-      "text": "If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all — a course-wide problem is almost always there rather than in your settings.",
+      "text": "If scans still do not arrive",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1289,13 +1748,171 @@
           "line": "985-990"
         }
       ],
-      "note": "The TurfRad panel lists \"TR org ID:\", \"TR selected course ID:\", \"SA has org access:\", \"Org has scan data:\" and \"Last scan date:\" (sa-diagnostics-dlg.component.html:17-41). They are checked live when the dialog opens (sa-diagnostics-dlg.component.ts:61-89). These explain a course whose scans never arrive. They do not explain a request that will not queue: the server fails the request only when the site has no Spatial Adjust update record (SpatialAdjustService.cs:985-990) or the call itself fails, and Diagnostics shows neither. The Diagnostics dialog opens only on a Shift+Alt click on the Spatial Adjust logo, and only once a Lynx course is loaded or Lynx has failed to load (sa-main-toolbar.component.html:4, sa-main-toolbar.component.ts:293-299). No guide step says how to open it. Its labels are hard-coded English (sa-diagnostics-dlg.component.html:22-89).",
+      "note": "The step now covers scans that never arrive, which is what the diagnostics TurfRad panel explains. Reworded from request-scan-data/5/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/5/2",
+      "guide": "request-scan-data",
+      "step": "5",
+      "field": "do",
+      "text": "Hold Shift + Alt and click the Spatial Adjust logo.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 4
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "293-299"
+        }
+      ],
+      "note": "The handler opens the dialog only with Shift and Alt held (sa-main-toolbar.component.ts:293-299). Reworded from station-zero/5/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/5/3",
+      "guide": "request-scan-data",
+      "step": "5",
+      "field": "see",
+      "text": "The diagnostics dialog reports TurfRad access, scan data and the last scan date.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
+          "line": "17-41"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.ts",
+          "line": "61-89"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "985-990"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
+          "line": "14-63"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "141-171"
+        }
+      ],
+      "note": "The TurfRad panel lists org access, scan data and the last scan date. Reworded from request-scan-data/5/3, station-zero/5/4.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "request-scan-data/5/4",
+      "guide": "request-scan-data",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If access or scan data is missing, that explains scans that never arrive, and the cause is not in your settings.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
+          "line": "17-41"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.ts",
+          "line": "61-89"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "985-990"
+        }
+      ],
+      "note": "The panel's checks explain a course whose scans never arrive. They do not explain a request that will not queue: the server fails the request only when the site has no Spatial Adjust update record or the call itself fails, and Diagnostics shows neither. Reworded from request-scan-data/5/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/5/5",
+      "guide": "request-scan-data",
+      "step": "5",
+      "field": "why",
+      "text": "The dialog opens a second or so after the page loads, and also when Lynx data has failed to load.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "293-299"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "221-223"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "731-733"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-proxy/lynx-proxy.service.ts",
+          "line": "109-116"
+        }
+      ],
+      "note": "Corrected rule: docs/text-corrections.md section 27. Reworded from station-zero/5/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "request-scan-data/5/6",
       "guide": "request-scan-data",
       "step": "5",
       "field": "caption",

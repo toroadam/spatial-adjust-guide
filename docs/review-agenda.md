@@ -172,3 +172,49 @@ and never rewrite another one.
   the executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: can a
   native speaker read the German and Japanese definitions, and does each term's name match what
   that language's superintendents call it?
+
+- **The diagnostics instruction follows the corrected rule, not the original claim.** Station zero,
+  check 5, tells the reader to hold Shift + Alt and select the Spatial Adjust logo. It says the
+  dialog opens a second or so after the page loads, and also when Lynx data has failed to load,
+  which is the rule in `docs/text-corrections.md` section 27. The acceptance wording for this work
+  said it "only opens once Lynx data has failed to load"; section 27 had already marked that claim
+  Wrong, so it was not written. Shows on: `#/station-zero`, step 5. Decided by the executor under
+  owner direction 2026-10-19; for review in person 2026-10-22. Question: does the dialog open on
+  every page load for a support agent, as the corrected rule says, or only after a data failure?
+
+- **The Troubleshooting guides are written as checks, and one title changed.** Station zero,
+  Threshold questions, Calculation questions, Push failures and Get fresh scan data now list
+  numbered checks, each with what to look at and what to do if it is not so. Step 5 of Get fresh
+  scan data is retitled "If scans still do not arrive", because it was the one step that could not
+  be done on the screen: the cause is access or scan data, and the reader cannot change either from
+  Spatial Adjust. The request-latest-scan-data button is told apart from Reload Data. Shows on:
+  `#/request-scan-data`, step 5, and step 3 for Reload Data. Decided by the executor under owner
+  direction 2026-10-19; for review in person 2026-10-22. Question: is the new title the right way
+  to tell a superintendent to stop and ask for help?
+
+- **Two steps were added and one was reordered in the Review & Apply guides.** "Save the soil
+  factor" (Suggested adjustments, step 6) and "Save the filter" (Filter adjustments, step 5) are
+  new steps, because the dialogs they close do nothing until Save is selected and the old guides
+  stopped before it. In Filter adjustments, Exclude Zeros now comes before the save step, so the
+  reader ticks it before saving. Shows on: `#/suggested-adjustments` and `#/filter-adjustments`.
+  Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22.
+  Question: is a soil factor save step wanted in a guide that only mentions the editor in passing?
+
+- **Tips were folded into the steps, and one half-claim was cut.** The tips that explained a step
+  moved into its "why" or "if not" line. The remark that a station "rarely behaves differently"
+  was marked Needs expert and was not carried over. The push-window tip stays on every push step
+  unchanged, with its Needs expert marks. Over/Under is described as catching both extremes (an
+  OR), not a range, in Filter adjustments steps 1 and 6. Shows on: `#/suggested-adjustments`,
+  `#/push-to-lynx`, `#/verify-results` and `#/filter-adjustments`. Decided by the executor under
+  owner direction 2026-10-19; for review in person 2026-10-22. Question: does the push-window tip
+  (11 AM to the synchronisation time) still hold?
+
+- **Cursor points in the Review & Apply and Troubleshooting guides were measured, not guessed.**
+  New points sit on Reload Data, both scan dates, the Pushed Today box, Over, Save Changes, the
+  soil factor Save, and the Avg. VWC cell, and this fixes the three points the entry above left for
+  the rewrites (Threshold questions step 3, Reviewing changes step 2, Get fresh scan data step 1).
+  The Reload Data point was first placed by estimate and then checked on screenshots. The cursor
+  test reports 0 fallbacks and 0 missing highlights for these ten guides. Shows on: the ten guides
+  above. Decided by the executor under owner direction 2026-10-19; for review in person
+  2026-10-22. Question: does each ring outline the control the step names, on a real course
+  layout rather than the demo?
