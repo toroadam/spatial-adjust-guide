@@ -339,3 +339,15 @@ and never rewrite another one.
   executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: can a
   native speaker read the Troubleshooting and Review & Apply guides in German, Japanese and one more
   language, and do the progress messages quoted from the Lynx push read as the product shows them?
+
+- The ratchet is gone and the checks block every guide. `npm run build` now fails if any step lacks
+  Do, You should see or If not, and `.github/workflows/deploy.yml` runs `test:validate`,
+  `test:prose`, `test:shape` and `test:readability` before the browser tests. Shows on: the deploy,
+  not the page. Decided by the executor under owner direction 2026-10-19; for review in person
+  2026-10-22. Question: if the experts change the copy on Thursday, is a build that refuses a step
+  without all three parts, or above grade 8, the behaviour you want while you edit?
+- The catalogue hero link said "or browse all 24 tasks" while the catalogue holds 26 guides. It now
+  says 26 in all eleven languages, and the build compares the number with the catalogue. Shows on:
+  the top of the home page, under the title. Decided by the executor under owner direction
+  2026-10-19; for review in person 2026-10-22. Question: should the count be shown at all, or
+  should the link just say "browse all tasks"?
