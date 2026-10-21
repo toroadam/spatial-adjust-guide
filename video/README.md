@@ -246,4 +246,6 @@ From the pilot's runs:
 - **`render` exits 2: torch is not installed.** `$SA_VIDEO_PYTHON` is unset in this shell; export it.
 - **A Demo Mode take ends with exit 5 before anything happens.** `video/capture/overlay.local.json` is missing or its denylist is empty.
 - **The final render is `<id>-take<N>.mp4`,** not `<id>.mp4`: the builder names renders by take, so a new take never overwrites the render of an earlier one.
+- **`render-brian.py` fails with HTTP 403 `output_format_not_allowed`.** The account's tier does not offer the 192 kbps MP3 the renderer asks for (Creator and above). Set `SA_ELEVENLABS_OUTPUT_FORMAT=mp3_44100_128` for the run; the audio is converted to the same 48 kHz 24-bit master, and the format is part of each line's hash, so a changed format re-renders the lines.
+- **A take needs hours when the machine is busy.** The recorder encodes every 3840x2160 frame with x264 `slow`, CRF 12. `SA_CAPTURE_X264_PRESET=veryfast` keeps the CRF and the frame geometry and makes the encode several times cheaper; the master is an intermediate that `render` re-encodes. The default is unchanged.
 
