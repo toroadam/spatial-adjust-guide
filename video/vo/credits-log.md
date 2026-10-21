@@ -13,3 +13,9 @@ from the account, and never the key, is ever written here.
 | 2026-10-20 09:53 | map-navigation | 11 | 1178 | 357437 -> 355147 |
 | 2026-10-20 09:53 | understanding-vwc | 11 | 1228 | 357437 -> 355147 |
 | 2026-10-20 09:53 | dashboard-overview | 11 | 1675 | 357437 -> 355147 |
+| 2026-10-20 19:53 | minimum-threshold | 0 | 0 | 28416 -> unknown |
+| 2026-10-20 19:53 | minimum-threshold | 11 | 1370 | 27269 -> unknown |
+| 2026-10-20 19:54 | calculation-settings | 11 | 1734 | 27269 -> 25131 |
+| 2026-10-20 19:55 | calculation-methods | 11 | 1651 | 25131 -> unknown |
+| 2026-10-20 19:55 | preferences | 9 | 1593 | 22998 -> unknown |
+| 2026-10-20 19:58 | calculation-settings | 2 | 336 | 20520 -> unknown |

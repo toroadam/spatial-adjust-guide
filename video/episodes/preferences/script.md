@@ -6,7 +6,7 @@
 
 ## Script
 
-Planned times: the builder measures the real ones from the take and the VO render. Holds are from the VO render report (estimated until the voice-over is rendered).
+Planned times: the builder measures the real ones from the take and the VO render. Holds are from the VO render report.
 
 | TC in | TC out | Beat | Picture | Chapter label | VO | Claim IDs |
 |---|---|---|---|---|---|---|
@@ -15,19 +15,19 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 0:08 | 0:09 | 3 Chapter 1 | Typed chapter card | OPEN THE PREFERENCES TAB | — | `preferences/1/1` (the step title) |
 | 0:09 | 0:21 | 4 Step 1 | The **Preferences** rail entry is highlighted; the cursor touches **Calculation**, the first entry |  | "Preferences is the last entry in the settings rail. Preferences are stored against your user account; the calculation settings on the other tabs are stored against the site." | `preferences/1/2`, `preferences/before/1` |
 | 0:21 | 0:31 | 5 Step 1 result | The cursor visits the four fields, ending on **Units of Measure**, highlighted |  | "Language, Temperature Scale and the separator setting change only how things are presented. Units of Measure can change suggestions, as the next step explains." | `preferences/1/3`, `preferences/1/4` |
-| 0:31 | 0:33 | 6 Chapter 2 | Typed chapter card | UNITS OF MEASURE CHANGES WHAT YOU TYPE | — | `preferences/2/1` (the step title) |
-| 0:33 | 0:43 | 7 Step 2 | Push in on the **Units of Measure** field, highlighted |  | "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place." | `preferences/2/2`, `preferences/2/3` |
+| 0:31 | 0:32 | 6 Chapter 2 | Typed chapter card | UNITS OF MEASURE CHANGES WHAT YOU TYPE | — | `preferences/2/1` (the step title) |
+| 0:32 | 0:43 | 7 Step 2 | Push in on the **Units of Measure** field, highlighted |  | "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place." | `preferences/2/2`, `preferences/2/3` |
 | 0:43 | 1:06 | 8 Step 2 result | The cursor goes to the **Calculation** tab, then back to **Units of Measure** |  | "Check after switching. Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab. They are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything." | `preferences/2/6`, `preferences/2/7` |
-| 1:06 | 1:07 | 9 Chapter 3 | Typed chapter card | LANGUAGE APPLIES IMMEDIATELY | — | `preferences/3/1` (the step title) |
-| 1:07 | 1:19 | 10 Step 3 | Push in on the **Language** field, highlighted |  | "Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit." | `preferences/3/2` |
-| 1:19 | 1:34 | 11 Step 3 result | The cursor goes to the settings rail, whose tab names stay in English |  | "Anything Spatial Adjust has no translation for stays in English, and every language other than English has gaps. The tab names in the settings rail, the Discard changes confirmation and the scan-data banner are in English whatever you choose." | `preferences/3/4`, `preferences/3/5` |
-| 1:34 | 1:36 | 12 Chapter 4 | Typed chapter card | TEMPERATURE AND SEPARATOR AFFECT THE TOOLBAR | — | `preferences/4/1` (the step title) |
-| 1:36 | 1:48 | 13 Step 4 | Cut to the dashboard: the weather strip is highlighted; the cursor then goes to the table's numbers |  | "Temperature scale changes the weather strip. The group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns." | `preferences/4/2` |
-| 1:48 | 1:57 | 14 Step 4 result | The weather strip, highlighted |  | "The weather strip follows your temperature scale, and amount fields on the Calculation tab show the unit you chose." | `preferences/4/3`, `preferences/verify/1` |
+| 1:06 | 1:08 | 9 Chapter 3 | Typed chapter card | LANGUAGE APPLIES IMMEDIATELY | — | `preferences/3/1` (the step title) |
+| 1:08 | 1:19 | 10 Step 3 | Push in on the **Language** field, highlighted |  | "Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit." | `preferences/3/2` |
+| 1:19 | 1:36 | 11 Step 3 result | The cursor goes to the settings rail, whose tab names stay in English |  | "Anything Spatial Adjust has no translation for stays in English, and every language other than English has gaps. The tab names in the settings rail, the Discard changes confirmation and the scan-data banner are in English whatever you choose." | `preferences/3/4`, `preferences/3/5` |
+| 1:36 | 1:37 | 12 Chapter 4 | Typed chapter card | TEMPERATURE AND SEPARATOR AFFECT THE TOOLBAR | — | `preferences/4/1` (the step title) |
+| 1:37 | 1:50 | 13 Step 4 | Cut to the dashboard: the weather strip is highlighted; the cursor then goes to the table's numbers |  | "Temperature scale changes the weather strip. The group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns." | `preferences/4/2` |
+| 1:50 | 1:57 | 14 Step 4 result | The weather strip, highlighted |  | "The weather strip follows your temperature scale, and amount fields on the Calculation tab show the unit you chose." | `preferences/4/3`, `preferences/verify/1` |
 | 1:57 | 2:01 | 15 Up next | **Next on Double Click: Why is this station 0%?** | — | — | — |
 | 2:01 | 2:06 | 16 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/preferences` goes in the published description | — | — | — |
 
-**VO total:** 258 words in 9 lines, about 93 s spoken (estimated). **Running time:** about 2:06 (127 s); the series range is 60-180 s.
+**VO total:** 258 words in 9 lines, about 93 s spoken (measured). **Running time:** about 2:06 (127 s); the series range is 60-180 s.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/preferences`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- preferences` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 
@@ -41,7 +41,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-Not yet run.
+Whisper round-trip on 2026-10-20 (`video/vo/whisper_check.py`, model small.en, with medium.en on the lines small.en flagged); reports `vo/whisper-report-<model>.json` under the media root. 8 of 9 lines matched with small.en. The one difference is "re-convert" heard as "reconvert" (V2b), a spelling. No line was re-rendered.
 
 ## Never on camera
 

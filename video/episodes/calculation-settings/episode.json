@@ -2,7 +2,7 @@
   "id": "calculation-settings",
   "title": "Calculation settings",
   "guide": "calculation-settings",
-  "status": "draft",
+  "status": "script-locked",
   "durationTarget": [
     60,
     180
@@ -169,12 +169,12 @@
         "calculation-settings/3/3"
       ],
       "previous_text": "Every station whose deficit exceeds this lands on the same suggested percentage, which is why identical numbers appear in runs.",
-      "next_text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amt must equal this reference, in the same units."
+      "next_text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units."
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amt must equal this reference, in the same units.",
+      "text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units.",
       "claims": [
         "calculation-settings/3/4",
         "calculation-settings/3/6",
@@ -190,7 +190,7 @@
       "claims": [
         "calculation-settings/4/2"
       ],
-      "previous_text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amt must equal this reference, in the same units.",
+      "previous_text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units.",
       "next_text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog greys it out, along with Daily Max Amount and Lynx Reference Amount."
     },
     {
@@ -241,7 +241,7 @@
       "id": "b1a",
       "chapter": "c1",
       "vo": "V1a",
-      "hold": 13.88,
+      "hold": 12.88,
       "actions": [
         {
           "type": "cue",
@@ -267,7 +267,7 @@
         },
         {
           "type": "wait",
-          "ms": 5504
+          "ms": 5054
         },
         {
           "type": "hover",
@@ -280,7 +280,7 @@
       "id": "b1b",
       "chapter": "c1",
       "vo": "V1b",
-      "hold": 7.92,
+      "hold": 7.23,
       "actions": [
         {
           "type": "cue",
@@ -302,7 +302,7 @@
       "id": "b2a",
       "chapter": "c2",
       "vo": "V2a",
-      "hold": 11.82,
+      "hold": 9.77,
       "actions": [
         {
           "type": "figure",
@@ -340,7 +340,7 @@
       "id": "b2b",
       "chapter": "c2",
       "vo": "V2b",
-      "hold": 8.62,
+      "hold": 9.61,
       "actions": [
         {
           "type": "cue",
@@ -362,7 +362,7 @@
       "id": "b3a",
       "chapter": "c3",
       "vo": "V3a",
-      "hold": 11.82,
+      "hold": 12.2,
       "actions": [
         {
           "type": "figure",
@@ -400,7 +400,7 @@
       "id": "b3b",
       "chapter": "c3",
       "vo": "V3b",
-      "hold": 14.58,
+      "hold": 16.44,
       "actions": [
         {
           "type": "cue",
@@ -422,7 +422,7 @@
       "id": "b4a",
       "chapter": "c4",
       "vo": "V4a",
-      "hold": 9.72,
+      "hold": 10.2,
       "actions": [
         {
           "type": "figure",
@@ -460,7 +460,7 @@
       "id": "b4b",
       "chapter": "c4",
       "vo": "V4b",
-      "hold": 13.53,
+      "hold": 15.73,
       "actions": [
         {
           "type": "cue",
@@ -512,7 +512,7 @@
       "id": "b5b",
       "chapter": "c5",
       "vo": "V5b",
-      "hold": 16.74,
+      "hold": 16.15,
       "actions": [
         {
           "type": "figure",
@@ -538,7 +538,7 @@
         },
         {
           "type": "wait",
-          "ms": 9877
+          "ms": 9452
         },
         {
           "type": "hover",
