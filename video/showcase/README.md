@@ -217,7 +217,7 @@ differs.
 | 1 | Brief and concept | `node video/lib/episode-schema.mjs video/showcase/episode.json`; `npm run video -- capture --episode video/showcase/episode.json --take 1 --dry-run`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`; `npm run video -- estimate --episode video/showcase/episode.json` | done, 2026-10-20: all four exit 0 (see [Phase 1](#phase-1-brief-and-concept)) |
 | 2 | Claims check | `node video/showcase/check-claims.mjs` (exit 1 on any failure or a stale `claims-check.md`; add `--strict` to fail on numbers too); `node video/showcase/check-claims.mjs --write` (regenerates the tables in `claims-check.md`); `node --test video/showcase/check-claims.test.mjs` (also in `npm run test:video`) | done, 2026-10-20: `--strict`, `--write` and a plain run exit 0 (24 items, 42 claim IDs, all Verified; 2 held); 28 tests pass (see [Phase 2](#phase-2-claims-check)) |
 | 3 | Script, VO estimate and Brian voice | `npm run video -- estimate --episode video/showcase/episode.json`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`, then without `--dry-run`; `python3 video/showcase/vo-stem.py --episode video/showcase/episode.json [--lock]`; `$SA_VIDEO_PYTHON video/showcase/whisper-roundtrip.py --audio ~/Documents/SpatialAdjust_MarCom/showcase/vo/showcase-vo-full-48k24.wav --episode video/showcase/episode.json --out ~/Documents/SpatialAdjust_MarCom/showcase/vo/whisper-report.json`; `python3 -m unittest video.showcase.test_vo_tools` (also in `npm run test:video:py`) | script locked 2026-10-20 (SC-G2); voice rendered, fitted and Whisper-checked 2026-10-20 (SC-G3), see [Phase 3](#phase-3-script-and-brian-voice) |
-| 4a | Capture | planned: `npm run video -- capture --episode video/showcase/episode.json --take <N>` | to be filled in by phase 4a |
+| 4a | Capture | `node video/showcase/capture-shots.mjs check`, `plans`, `run all`, then `python3 -I video/showcase/scan-takes.py`, `node video/showcase/capture-shots.mjs log` and `reel` | done, 2026-10-21: [Phase 4a](#phase-4a-capture) |
 | 4b | Edit | planned: `build`, `render` and `mix`, as in [Episode config](#episode-config) | to be filled in by phase 4b |
 | 5 | Review and delivery | planned: `verify`, `ocr`, `captions` and `hygiene` | to be filled in by phase 5 |
 
@@ -359,3 +359,46 @@ the 192 kbit/s source; the timing may shift by a few hundredths of a second, so 
 **Retime.** The render ran long on L1 (0.24 s), L7 (0.69 s) and L8 (1.46 s), so B1, B6 and B7 got 0.6, 1.0 and 1.8 s more
 footage (the film is 115.2 s, from 111.8 s) and every later time and the capture plan's `seconds` moved with them
 (the last shot before the longer line holds longer). No wording changed.
+
+## Phase 4a: capture
+
+One accepted take per shot for every chain beat, B1 to B7: 26 shots, recorded through the pipeline's capture director
+(`video/capture/director.mjs`, as delivered). The capture plan is the `capture` block of each beat in
+[`episode.json`](episode.json): `source`, `why`, `route`, `takeSeconds`, `declaredClicks` and the beat's `shots`. A shot
+is one guide page and one figure, so one director take; its `actions` are hovers, waits and focus boxes only, and the
+VO cues are added from the beat.
+
+**Source: every beat is `recreation`.** Decided by the executor under owner direction 2026-10-19; for review in person
+2026-10-22. A Demo Mode take needs the owner to start the capture Chrome, sign in to the demo form by hand, and provide
+the local capture config and name maps; an executor can do none of these, and no credential is asked for or stored. So
+every beat is captured from the guide site's own recreation (the same call as the pilot), and each `why` says what Demo
+Mode could replace. `declaredClicks` is empty on every beat, so no click fires in any take. Each take still runs with the
+course overlay and the restyled map installed. Nothing in IntelliDash was opened.
+
+**Safety preflight (2026-10-20).** `git fetch` on IntelliDash found `origin/develop` still at `bd39f465`, the commit
+[`SAFETY.md`](../capture/SAFETY.md) audits, so its rules stand (recorded there). The director's 48 refusal, guarded-click,
+overlay and gate tests pass (`node --test video/capture/refusal.test.mjs ...`). All 26 shots were rehearsed with
+`--no-record` first: exit 0, no refusal, no aborted request.
+
+**Commands.**
+
+| Command | What it does |
+|---|---|
+| `node video/showcase/capture-shots.mjs check` | checks every capture block against the beat's footage, VO windows and the declared clicks; exit 0 clean |
+| `... plans` | writes one director episode per shot under `<media root>/showcase/capture/plans/`, each schema-validated |
+| `... run <shot\|beat\|all> [--attempt N] [--no-record]` | runs the director per shot; a take is `take<beat><shot><attempt>-recreation.mp4` and is never overwritten |
+| `python3 -I video/showcase/scan-takes.py` | runs the pipeline's OCR gate (`video/verify/ocr_check.py`) on every take; counts only |
+| `... capture-shots.mjs log` | writes [`capture-log.csv`](capture-log.csv): a row per take, with the director's safety counts and the OCR counts, and `accepted` on the last take of a shot that passes every check |
+| `... capture-shots.mjs reel` | builds the review reel from the accepted takes, `<media root>/showcase/capture/review/showcase-capture-reel.mp4` (185 s, 1280x720) and `reel-index.csv` |
+
+Run `plans` and `run` one shot per take number: b3 shot 2, attempt 1 is take 321.
+
+**Results, 2026-10-21.** 26 takes, one per shot, all accepted at attempt 1: director exit 0, 0 refusals, 0 aborted
+requests, 0 WebSockets, 0 documents after arming, 0 popups, the director's own DOM denylist scans 0 hits, and the OCR
+gate (every 0.5 s, 383 frames across the 26 takes, the local denylist's seven terms) 0 hits. Each take is 3840x2160 at
+60 fps and starts and ends on the director's magenta sync flash, which the builder finds and trims. A take of a
+Demo Mode shot would also need `demoVerified` true in its safety report to be accepted; `capture-shots.mjs log` enforces it.
+
+**Where the files are.** Raw takes, cue logs, cursor tracks, contact sheets and safety reports are in
+`<media root>/showcase/capture/raw/`, the OCR reports and the reel in `capture/review/`. None is committed. The takes
+run 128 s for 83.8 s of cut footage (pre-roll and handles included).
