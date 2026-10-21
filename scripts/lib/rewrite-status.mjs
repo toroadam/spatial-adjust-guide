@@ -17,10 +17,6 @@ export const PENDING = new Set([
   // Targets
   'understanding-vwc', 'editing-station-targets', 'bulk-adjustments', 'target-profiles',
   'creating-profiles', 'updating-profiles', 'seasonal-profiles',
-  // Calculations
-  'minimum-threshold', 'calculation-settings', 'calculation-methods', 'preferences',
-  // Station Management
-  'enable-disable-stations', 'station-details',
   // Review & Apply
   'suggested-adjustments', 'push-to-lynx', 'reviewing-changes', 'verify-results',
   // Troubleshooting

@@ -172,3 +172,51 @@ and never rewrite another one.
   the executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: can a
   native speaker read the German and Japanese definitions, and does each term's name match what
   that language's superintendents call it?
+
+- **The six Calculations and Station Management guides are rewritten to the step shape, with the
+  unit warning kept.** Set a minimum threshold (now 8 steps), Calculation settings (7), Calculation
+  methods (5), Preferences (7), Enable and disable stations (6) and Station details (5) each carry
+  a start state and Do / You should see / If not rows, one action per step. The warning that
+  amounts rescale by 25.4 when Units of Measure is changed and saved in the same visit is kept in
+  three places: as the If not of the Preferences units step, as the callout under that step, and as
+  the If not of the Calculation settings save step. All say to reopen Settings and check Daily Max
+  Amount and Lynx Reference Amount before pushing. The algorithm dropdown is named only by what it
+  shows, Option 1 and Option 2. Shows on: `#/minimum-threshold`, `#/calculation-settings`,
+  `#/calculation-methods`, `#/preferences`, `#/enable-disable-stations`, `#/station-details`.
+  Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22.
+  Question: does a superintendent who changes units and saves in one visit see the warning
+  before they push, and are Option 1 and Option 2 enough for an operator to tell which method
+  their site uses?
+
+- **Two Needs expert sentences were dropped rather than carried into the rewritten steps.** "That
+  is usually what you want when a hole is out of play" (Enable and disable stations, step 2) and
+  the Station details callout "A station at target with a wide spread between heads is a coverage
+  problem, not an irrigation-amount problem" are agronomic judgements the source cannot settle.
+  The verified half of the second one, that a station that looks fine can still hide one dry head,
+  stays as the Why line of step 3. "Ten percent is a common start" stays, as the Why line of Set a
+  minimum threshold, step 3, because it is still the common advice. Shows on:
+  `#/enable-disable-stations` step 2, `#/station-details` step 3 and `#/minimum-threshold` step 3.
+  Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22.
+  Question: is 10 percent a sensible starting threshold, and should the hole-out-of-play advice be
+  put back?
+
+- **Some steps in Station details point at an icon with no label.** The chevron on a station row
+  and the grey and orange calculator icons have no text on screen, so four of the five steps are
+  marked as region steps: the Do line names the icon in words ("a chevron beside the station
+  name", "an orange calculator icon") and the cursor sits on the icon. Shows on:
+  `#/station-details` steps 1, 2, 4 and 5. Decided by the executor under owner direction
+  2026-10-19; for review in person 2026-10-22. Question: do operators know these as a chevron and
+  a calculator icon, or do they use other words for them?
+
+- **Product behaviour seen while verifying that the guides now leave unsaid or soften.** A station
+  with more than one sprinkler is switched off by its Enable switch on its first sprinkler only,
+  so after a Shift-click cascade has enabled every sprinkler the station can stay in the push and
+  on the Enabled Stations map. Enable and disable stations step 6 says "another sprinkler of that
+  station may still be on" and nothing more. The map's Layers list is Enabled Stations by default
+  on production, but the reproduction in the figure shows All Stations selected. The refresh
+  scan data button in the toolbar is coded with the same text as the gear button, Settings, which may or
+  may not be drawn. Shows on:
+  `#/enable-disable-stations` steps 1, 5 and 6, and every step that says "the gear button,
+  Settings". Decided by the executor under owner direction 2026-10-19; for review in person
+  2026-10-22. Question: should these be raised with the product team, and should the guide say
+  more about the multi-sprinkler case?

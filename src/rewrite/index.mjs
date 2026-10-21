@@ -27,7 +27,9 @@
 // any change here.
 
 import { apply as calculations } from './calculations.mjs';
+import { apply as stationManagement } from './station-management.mjs';
 
 export const REWRITES = [
   calculations,
+  stationManagement,
 ];
