@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and compound/standalone agreement. NOT reviewed by a native speaker: no native review is planned for this project, so treat this as the final state rather than a pending step. Regenerate keys with scripts/extract-strings.mjs after any Core Design re-export.",
     "locale": "it-it",
-    "strings": 1438,
+    "strings": 1439,
     "identicalToEnglish": 41,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -367,6 +367,7 @@
     "Grey italics mean modelled": "Il corsivo grigio significa modellato",
     "Group and Decimal Separator, under Temperature Scale.": "Gruppo e separatore decimale, sotto Scala di temperatura.",
     "Guide": "Guida",
+    "Guides": "Guide",
     "Have open": "Tenere aperto",
     "High": "Superiore",
     "Higher targets ask for more water.": "Valori desiderati più alti richiedono più acqua.",

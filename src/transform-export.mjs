@@ -608,6 +608,19 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
     pattern: /<div style="(display:flex;align-items:center;gap:14px;cursor:pointer)" onClick="\{\{ goHome \}\}">/,
     replace: '<div style="$1" onClick="{{ goHome }}" role="button" tabindex="0" aria-label="Spatial Adjust Guides — back to all tasks">',
   });
+  //    The wordmark reads "Spatial Adjust Guides", one name for the whole site, so the name and the
+  //    grey "Guides" sit together as one unit, close to the logo, instead of three evenly spaced pieces.
+  s = edit(s, {
+    name: 'brand control: tighter logo gap',
+    pattern: /gap:14px;cursor:pointer/,
+    replace: 'gap:10px;cursor:pointer',
+  });
+  s = edit(s, {
+    name: 'brand control: wordmark reads Spatial Adjust Guides',
+    pattern: /<span style="(font-size:16px;font-weight:700;letter-spacing:-0\.2px)">Spatial Adjust<\/span>\s*<span style="(font-size:16px;color:var\(--40\))">Guide<\/span>/,
+    replace: '<span style="display:flex;align-items:baseline;gap:6px">'
+      + '<span style="$1">Spatial Adjust</span><span style="$2">Guides</span></span>',
+  });
   for (const { handler, attrs } of CONTROLS) {
     s = edit(s, {
       name: `control semantics: ${handler}`,
