@@ -138,7 +138,7 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 17 approved, 5 planned, 4 blocked.
+26 episodes: 22 approved, 4 blocked.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
@@ -159,11 +159,11 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 15 | 4 | `calculation-settings` | Calculation settings | approved | 2:43 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
 | 16 | 4 | `calculation-methods` | Calculation methods | approved | 2:37 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
 | 17 | 4 | `preferences` | Preferences | approved | 2:20 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
-| 18 | 5 | `station-zero` | Why is this station 0%? | planned | — | — | — | — |
-| 19 | 5 | `request-scan-data` | Get fresh scan data | planned | — | — | — | — |
-| 20 | 5 | `threshold-questions` | Threshold questions | planned | — | — | — | — |
-| 21 | 5 | `calculation-questions` | Calculation questions | planned | — | — | — | — |
-| 22 | 5 | `push-failures` | Push failures | planned | — | — | — | — |
+| 18 | 5 | `station-zero` | Why is this station 0%? | approved | 2:26 | 2026-10-20 | 2026-10-21 | executor 2026-10-21; experts in person 2026-10-22 |
+| 19 | 5 | `request-scan-data` | Get fresh scan data | approved | 2:17 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 20 | 5 | `threshold-questions` | Threshold questions | approved | 2:06 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 21 | 5 | `calculation-questions` | Calculation questions | approved | 2:01 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 22 | 5 | `push-failures` | Push failures | approved | 1:38 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 23 | 6 | `target-profiles` | Apply a target profile | blocked | — | — | — | — |
 | 24 | 6 | `creating-profiles` | Capturing profiles | blocked | — | — | — | — |
 | 25 | 6 | `updating-profiles` | Updating profiles | blocked | — | — | — | — |
@@ -181,7 +181,7 @@ Blocked:
 | 2 | Review & Apply | 5 | 5,850 to 11,700 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-21 (episode 05); experts in person 2026-10-22 |
 | 3 | Station Management | 4 | 4,680 to 9,360 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-20 (episode 10); experts in person 2026-10-22 |
 | 4 | Calculations | 4 | 4,680 to 9,360 | 29,148 | 17,717 | 11,431 | decided by executor 2026-10-20 (episode 14); experts in person 2026-10-22 |
-| 5 | Troubleshooting | 5 | 5,850 to 11,700 | — | — | — | — |
+| 5 | Troubleshooting | 5 | 5,850 to 11,700 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-21 (episode 18); experts in person 2026-10-22 |
 | 6 | Target Profiles | 4 | 4,680 to 9,360 | — | — | — | — |
 <!-- tracker:end -->
 

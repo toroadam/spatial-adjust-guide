@@ -1,0 +1,590 @@
+{
+  "id": "calculation-questions",
+  "title": "Calculation questions",
+  "guide": "calculation-questions",
+  "status": "approved",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/calculation-questions",
+  "recreationFigure": "A run of identical values is the cap, not a fault.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "calculation-questions/tile/1",
+    "calculation-questions/tile/2",
+    "calculation-questions/summary/1",
+    "calculation-questions/1/2",
+    "calculation-questions/1/3",
+    "calculation-questions/1/4",
+    "calculation-questions/2/2",
+    "calculation-questions/2/4",
+    "calculation-questions/2/3",
+    "calculation-questions/3/2",
+    "calculation-questions/3/3",
+    "calculation-questions/3/4",
+    "calculation-questions/4/2",
+    "calculation-questions/4/4",
+    "calculation-questions/4/3",
+    "calculation-questions/5/2",
+    "calculation-questions/5/6",
+    "calculation-questions/5/4",
+    "calculation-questions/5/5"
+  ],
+  "titleCard": {
+    "text": "Double Click: Calculation questions",
+    "claims": [
+      "calculation-questions/tile/1",
+      "calculation-questions/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Identical suggestions across many stations",
+      "highlight": {
+        "label": "same percentage",
+        "selector": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a run of stations capped at the same suggested percentage; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Work out your own ceiling",
+      "highlight": {
+        "label": "daily maximum",
+        "selector": "[data-sa-frame] >> text=\"Daily Max Amount (in)\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the Settings dialog on its Calculation tab, which Demo Mode cannot save; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "A dash instead of a number",
+      "highlight": {
+        "label": "a dash",
+        "selector": "[data-sa-frame] >> text=\"10AP1\" >> xpath=../../../div[2]/div[4]"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a column with no data, which the demo data never reaches; the recreation has no dash state, so a true zero is shown for contrast; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Grey italics mean modelled",
+      "highlight": {
+        "label": "modelled",
+        "selector": "[data-sa-frame] >> text=\"50.0%\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a modelled value in grey italics; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "If the whole course is stale, check the source",
+      "highlight": {
+        "label": "diagnostics dialog",
+        "selector": "[data-sa-frame] >> text=\"Spatial Adjust Diagnostics\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the diagnostics dialog, whose reads Demo Mode sends to the real API; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Identical suggestions, missing values and stale scans: three things that look like bugs, and are not.",
+      "claims": [
+        "calculation-questions/summary/1"
+      ],
+      "next_text": "When the required amount exceeds the daily maximum, every station above the cap lands on the same percentage."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "When the required amount exceeds the daily maximum, every station above the cap lands on the same percentage.",
+      "claims": [
+        "calculation-questions/1/2"
+      ],
+      "previous_text": "Identical suggestions, missing values and stale scans: three things that look like bugs, and are not.",
+      "next_text": "A run of identical numbers means the cap is deciding, not the scan."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "A run of identical numbers means the cap is deciding, not the scan.",
+      "claims": [
+        "calculation-questions/1/3",
+        "calculation-questions/1/4"
+      ],
+      "previous_text": "When the required amount exceeds the daily maximum, every station above the cap lands on the same percentage.",
+      "next_text": "The maximum possible suggestion is the daily maximum divided by the Lynx reference amount."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "The maximum possible suggestion is the daily maximum divided by the Lynx reference amount.",
+      "claims": [
+        "calculation-questions/2/2",
+        "calculation-questions/2/4"
+      ],
+      "previous_text": "A run of identical numbers means the cap is deciding, not the scan.",
+      "next_text": "Change either number and the ceiling moves, which is the honest fix if the ceiling is too low for your course."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "Change either number and the ceiling moves, which is the honest fix if the ceiling is too low for your course.",
+      "claims": [
+        "calculation-questions/2/3"
+      ],
+      "previous_text": "The maximum possible suggestion is the daily maximum divided by the Lynx reference amount.",
+      "next_text": "A dash means there is nothing to show: no current scan, and no modelled value either."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "A dash means there is nothing to show: no current scan, and no modelled value either.",
+      "claims": [
+        "calculation-questions/3/2"
+      ],
+      "previous_text": "Change either number and the ceiling moves, which is the honest fix if the ceiling is too low for your course.",
+      "next_text": "It is not zero, and it is not an error in the calculation. The station has no data to calculate from."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "It is not zero, and it is not an error in the calculation. The station has no data to calculate from.",
+      "claims": [
+        "calculation-questions/3/3",
+        "calculation-questions/3/4"
+      ],
+      "previous_text": "A dash means there is nothing to show: no current scan, and no modelled value either.",
+      "next_text": "A greyed, italic average means the value came from the model, rather than a scan taken that day."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "A greyed, italic average means the value came from the model, rather than a scan taken that day.",
+      "claims": [
+        "calculation-questions/4/2",
+        "calculation-questions/4/4"
+      ],
+      "previous_text": "It is not zero, and it is not an error in the calculation. The station has no data to calculate from.",
+      "next_text": "The calculation still runs, but it is running on an estimate."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "The calculation still runs, but it is running on an estimate.",
+      "claims": [
+        "calculation-questions/4/3"
+      ],
+      "previous_text": "A greyed, italic average means the value came from the model, rather than a scan taken that day.",
+      "next_text": "The diagnostics dialog reports whether the organisation has TurfRad access, whether it has scan data at all, and the last scan date."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "The diagnostics dialog reports whether the organisation has TurfRad access, whether it has scan data at all, and the last scan date.",
+      "claims": [
+        "calculation-questions/5/2",
+        "calculation-questions/5/6"
+      ],
+      "previous_text": "The calculation still runs, but it is running on an estimate.",
+      "next_text": "If access and scan data are both fine and only the date is old, use Request latest scan data in the toolbar. It cannot make TurfRad scan, so if TurfRad has nothing newer, the date will not change."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "If access and scan data are both fine and only the date is old, use Request latest scan data in the toolbar. It cannot make TurfRad scan, so if TurfRad has nothing newer, the date will not change.",
+      "claims": [
+        "calculation-questions/5/4",
+        "calculation-questions/5/5"
+      ],
+      "previous_text": "The diagnostics dialog reports whether the organisation has TurfRad access, whether it has scan data at all, and the last scan date."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 7.14,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "wait",
+          "ms": 2295
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 5.03,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        },
+        {
+          "type": "wait",
+          "ms": 1042
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"6AP2\" >> xpath=../../../div[2]/div[4]",
+          "name": "333%"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 8,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Max Amount over Lynx Reference Amount sets the ceiling."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested Percent Adjust Calculation\"",
+          "name": "Suggested Percent Adjust Calculation"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 1230
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Daily Max Amount (in)\"",
+          "name": "Daily Max Amount (in)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Daily Max Amount (in)\"",
+          "name": "Daily Max Amount (in)"
+        },
+        {
+          "type": "wait",
+          "ms": 2070
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Lynx Reference Amount (in)\"",
+          "name": "Lynx Reference Amount (in)"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 7.17,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Lynx Reference Amount (in)\"",
+          "name": "Lynx Reference Amount (in)"
+        },
+        {
+          "type": "wait",
+          "ms": 2192
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Daily Max Amount (in)\"",
+          "name": "Daily Max Amount (in)"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 7.71,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Where a value is absent the column shows a dash, not a zero."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"10AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "0%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"10AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "0%"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 7.91,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"10AP1\" >> xpath=../../../div[2]/div[4]",
+          "name": "0%"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 7.74,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "A modelled value: grey and italic."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"08-06-25\"",
+          "name": "08-06-25"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"50.0%\"",
+          "name": "50.0%"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 4.78,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"7AP1\" >> xpath=../../..",
+          "name": "7AP1 08-06-25 50.0% 50 % 100% 288% 288 %"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 10.58,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Diagnostics: TurfRad access, scan data, last scan date."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Spatial Adjust Diagnostics\"",
+          "name": "Spatial Adjust Diagnostics"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Spatial Adjust Diagnostics\"",
+          "name": "Spatial Adjust Diagnostics"
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        },
+        {
+          "type": "wait",
+          "ms": 3640
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"SA has org access:\"",
+          "name": "SA has org access:"
+        },
+        {
+          "type": "wait",
+          "ms": 1186
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Org has scan data:\"",
+          "name": "Org has scan data:"
+        },
+        {
+          "type": "wait",
+          "ms": 1186
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Last scan date:\"",
+          "name": "Last scan date:"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 13.22,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Last scan date:\"",
+          "name": "Last scan date:"
+        },
+        {
+          "type": "wait",
+          "ms": 3126
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"⟳\"",
+          "name": "⟳"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "push-failures",
+    "text": "Next on Double Click: Push failures",
+    "address": "#/calculation-questions"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}
