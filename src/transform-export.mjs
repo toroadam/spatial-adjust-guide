@@ -15,7 +15,7 @@ import { apply as applyChangedSurfaces } from './transforms/changed-surfaces.mjs
 import { apply as applyOperationalContract } from './transforms/operational-contract.mjs';
 import { apply as applyReviewFixes } from './transforms/review-fixes.mjs';
 import { apply as applyBetaContent } from './transforms/beta-content.mjs';
-import { apply as applyReleaseGate } from './transforms/release-gate.mjs';
+import { apply as applyReleaseGate, evaluateGuideData } from './transforms/release-gate.mjs';
 import { loadRelease } from './release.mjs';
 import { REWRITES } from './rewrite/index.mjs';
 
@@ -1465,6 +1465,20 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
   // SA_SHOW_BETA=false it deletes the beta ones and fails the build on anything left over.
   s = applyBetaContent(s);
   s = applyReleaseGate(s, { showBeta, release: release || loadRelease().release });
+
+  // The hero link counts the guides on the page. The text above says 26, the whole catalogue; a
+  // build with beta guides removed has fewer tiles, and a link that says 26 over 25 tiles is wrong.
+  // Today's release file has no beta guide, so this only changes a build that has one. The count
+  // is a catalogue key like any other: scripts/harvest-both-modes.mjs finds the hidden-mode wording
+  // and it needs its ten translations when a guide really is beta.
+  const tiles = evaluateGuideData(s).CATEGORIES.reduce((n, c) => n + c.tasks.length, 0);
+  if (tiles !== 26) {
+    s = edit(s, {
+      name: 'catalogue guide count follows the tiles a build ships',
+      pattern: exact('or browse all 26 tasks ↓'),
+      replace: () => `or browse all ${tiles} tasks ↓`,
+    });
+  }
 
   return s;
 }
