@@ -289,7 +289,7 @@ if (empty.length) {
 }
 
 // Which settings tabs the dev instance shows but the SHIPPING branch does not. The fixture is
-// harvested from dev, and dev can be running an unmerged branch — Target Profiles is one.
+// harvested from dev, and dev can be running an unmerged branch (Target Profiles was one until it shipped).
 // The gate forgives those labels instead of holding the guides to UI no reader can
 // reach, and it must reach the same verdict in CI, which has no IntelliDash checkout. So the
 // fact is recorded HERE, where a checkout exists, and travels in the fixture.
