@@ -237,12 +237,23 @@ def sample_frames(duration, fps, nb_frames, every, labels):
     return sorted({min(last, int(round(t * fps))) for t in times})
 
 
+def select_expr(frames, group=20):
+    """The select filter's expression for these frame numbers: eq(n,A)+eq(n,B)+... in parenthesised groups.
+
+    ffmpeg's expression parser nests one level for every term of a flat sum and refuses one of about 100 terms or more
+    ("Error while parsing expression"), which a render longer than about 50 s (a frame every 0.5 s) always reached.
+    Groups of `group` terms keep the nesting shallow whatever the length.
+    """
+    terms = [f'eq(n,{n})' for n in frames]
+    return '+'.join('(' + '+'.join(terms[i:i + group]) + ')' for i in range(0, len(terms), group))
+
+
 def extract_frames(ff, render, frames, out_dir):
     """Write the frames as f_00001.png ... into out_dir (under the media root); [(frame number, path)]."""
     for name in os.listdir(out_dir):
         if FRAME_GLOB.match(name):
             os.remove(os.path.join(out_dir, name))
-    expr = '+'.join(f'eq(n,{n})' for n in frames)
+    expr = select_expr(frames)
     pattern = os.path.join(out_dir, 'f_%05d.png')
     r = subprocess.run([ff.FFMPEG, '-hide_banner', '-loglevel', 'error', '-y', '-i', render, '-map', '0:v:0',
                         '-vf', f"select='{expr}'", '-fps_mode', 'passthrough', pattern], capture_output=True, text=True)

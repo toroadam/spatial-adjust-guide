@@ -1,0 +1,25 @@
+{
+  "_meta": {
+    "description": "Fictional claims ledger for check-claims.test.mjs. Every guide key, text and citation is invented.",
+    "intellidash": {
+      "production": { "ref": "origin/sample-release", "sha": "1111111111111111111111111111111111111111", "date": "2000-01-01T00:00:00Z" },
+      "develop": { "ref": "origin/sample-develop", "sha": "2222222222222222222222222222222222222222", "date": "2000-01-01T00:00:00Z" },
+      "fetchedAt": "2000-01-01T00:00:00Z"
+    },
+    "guides": 4,
+    "claims": 11
+  },
+  "claims": [
+    { "id": "sample-map/tile/1", "guide": "sample-map", "step": "tile", "field": "title", "text": "From sample to spray", "type": "behaviour", "status": "Verified", "evidence": [{ "source": "intellidash", "ref": "production", "sha": "1111111111111111111111111111111111111111", "path": "site/src/sample/sample-map.component.html", "line": 10 }], "note": "", "question": "", "developNote": "", "correction": "" },
+    { "id": "sample-map/1/1", "guide": "sample-map", "step": "1", "field": "title", "text": "Sample pins show sample moisture", "type": "behaviour", "status": "Verified", "evidence": [{ "source": "intellidash", "ref": "production", "sha": "1111111111111111111111111111111111111111", "path": "site/src/sample/sample-map.component.ts", "line": "20-24" }], "note": "", "question": "", "developNote": "", "correction": "" },
+    { "id": "sample-map/1/2", "guide": "sample-map", "step": "1", "field": "body", "text": "The sample legend has a sample handle.", "type": "label", "status": "Wrong", "evidence": [{ "source": "intellidash", "ref": "production", "sha": "1111111111111111111111111111111111111111", "path": "site/src/sample/sample-legend.component.html", "line": 3 }], "note": "", "question": "", "developNote": "", "correction": "The sample legend has two sample handles." },
+    { "id": "sample-map/1/3", "guide": "sample-map", "step": "1", "field": "body", "text": "Sample soil always prefers a sample target.", "type": "behaviour", "status": "Needs expert", "evidence": [], "note": "", "question": "Does sample soil prefer a sample target?", "developNote": "", "correction": "" },
+    { "id": "sample-map/1/4", "guide": "sample-map", "step": "1", "field": "caption", "text": "A sample caption nobody has checked.", "type": "behaviour", "status": "Unverified", "evidence": [], "note": "", "question": "", "developNote": "", "correction": "" },
+    { "id": "sample-calc/1/1", "guide": "sample-calc", "step": "1", "field": "body", "text": "The sample amount is the sample deficit divided by 5 sample units.", "type": "calculation", "status": "Verified", "evidence": [{ "source": "intellidash", "ref": "production", "sha": "1111111111111111111111111111111111111111", "path": "api/Sample/SampleService.cs", "line": 42 }], "note": "", "question": "", "developNote": "", "correction": "" },
+    { "id": "sample-calc/1/2", "guide": "sample-calc", "step": "1", "field": "body", "text": "The sample screen refreshes every so often.", "type": "behaviour", "status": "Verified", "evidence": [{ "source": "intellidash", "ref": "develop", "sha": "2222222222222222222222222222222222222222", "path": "site/src/sample/sample-refresh.service.ts", "line": 7 }], "note": "", "question": "", "developNote": "", "correction": "" },
+    { "id": "sample-push/before/1", "guide": "sample-push", "step": "before", "field": "before", "text": "The sample controller must be set to 100%.", "type": "prerequisite", "status": "Verified", "evidence": [{ "source": "doc", "ref": "Sample manual §Setup, p.1" }], "note": "", "question": "", "developNote": "", "correction": "" },
+    { "id": "sample-push/1/1", "guide": "sample-push", "step": "1", "field": "title", "text": "Send the sample changes", "type": "behaviour", "status": "Verified", "evidence": [{ "source": "intellidash", "ref": "production", "sha": "1111111111111111111111111111111111111111", "path": "site/src/sample/sample-push.component.html", "line": 5 }], "note": "", "question": "", "developNote": "", "correction": "" },
+    { "id": "sample-push/1/2", "guide": "sample-push", "step": "1", "field": "body", "text": "Sample scheduling arrives in a later sample release.", "type": "behaviour", "status": "Not shipping", "evidence": [{ "source": "intellidash", "ref": "production", "sha": "1111111111111111111111111111111111111111", "path": "site/src/sample/sample-menu.component.ts", "line": 9 }], "note": "", "question": "", "developNote": "", "correction": "" },
+    { "id": "target-profiles/1/1", "guide": "target-profiles", "step": "1", "field": "title", "text": "Save a sample profile", "type": "behaviour", "status": "Verified", "evidence": [{ "source": "intellidash", "ref": "production", "sha": "1111111111111111111111111111111111111111", "path": "site/src/sample/sample-profiles.component.html", "line": 2 }], "note": "", "question": "", "developNote": "", "correction": "" }
+  ]
+}
