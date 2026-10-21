@@ -26,7 +26,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:11 | 1:23 | 14 Step 4 result | Hold on the screen; the cursor moves to 6 Pushed Today, then 6 Available to Push |  | "Tick them to send them again. Stations that went through are not listed again, so the whole set cannot go out twice. Untick anything under Available to Push that you did not mean to send." | `push-failures/4/3`, `push-failures/4/4` |
 | 1:23 | 1:33 | 15 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill, and the series-end line "That's the latest Double Click. Find every guide on the Spatial Adjust Guides site." closes the transcript (no later episode is open while Target Profiles is blocked); the guide address `https://toroadam.github.io/spatial-adjust-guide/#/push-failures` is the transcript's last line | — | — | — |
 
-**VO total:** 171 words in 9 lines, about 60 s spoken (measured). **Running time:** about 1:33 (93 s); the series range is 60-180 s.
+**VO total:** 171 words in 9 lines, about 60 s spoken (measured). **Running time:** about 1:33 (93 s); the series range is 60-180 s. **Measured:** 1:38 (98.3 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/push-failures`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- push-failures` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 
@@ -36,7 +36,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-To be recorded after the Whisper round-trip (video/vo/whisper_check.py).
+Whisper small.en on all 9 lines, medium.en on V4a. Differences are Whisper's: "re-push" heard as "repush", "Links" as "links". V4a ("pushed today" heard as "push today", both models) is worth a listen: the d runs into the t of "today". No line was re-rendered.
 
 ## Never on camera
 
