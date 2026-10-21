@@ -48,16 +48,20 @@ export const TYPES = ['label', 'navigation', 'behaviour', 'calculation', 'prereq
 // note callout ("New in IntelliDash." on the four Target Profiles guides, "Note." elsewhere). It
 // is published prose that makes claims (the Target Profiles shipping notice),
 // so it is extracted like any other field. The ID scheme in docs/claims/README.md lists it.
-const LEADING = ['tile', 'summary', 'where', 'note', 'before'];
+// `start` is a rewritten guide's start state ({ page, open, needs }), which the page shows first
+// under Before you start, above the `before` list (docs/writing-guide.md > Start state).
+const LEADING = ['tile', 'summary', 'where', 'note', 'start', 'before'];
 const TRAILING = ['verify'];
 const FIELDS_BY_BUCKET = {
   tile: ['title', 'summary'],
   summary: ['summary'],
   where: ['where'],
   note: ['note'],
+  start: ['page', 'open', 'needs'],
   before: ['before'],
   verify: ['verify'],
-  step: ['title', 'body', 'caption', 'tip'],
+  // A rewritten step's do / see / ifNot / why replace its body, and read in this order.
+  step: ['title', 'do', 'see', 'ifNot', 'why', 'body', 'caption', 'tip'],
 };
 const CLAIM_KEYS = ['id', 'guide', 'step', 'field', 'text', 'type', 'status', 'evidence',
   'note', 'question', 'developNote', 'correction', 'previousText'];
@@ -147,12 +151,19 @@ const clean = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
 // of these is joined to the next. "Avg." is not listed, though dashboard-overview/4/6 splits on it:
 // adding it would renumber claims that are already verified.
 const JOIN_AFTER = /(?:^|\s)Pct\.$/;
+// A [[Label]] marker is one control name, so a stop inside it ("[[Avg. VWC]]", "[[Use Target
+// Profile?]]") never ends a sentence. Only rewritten step fields carry markers, so no claim that
+// is already verified is renumbered.
+const OPEN_MARKER = /\[\[(?:(?!\]\]).)*$/s;
 export const sentences = (text) => {
   const out = [];
   for (const { segment } of segmenter.segment(clean(text))) {
     const s = segment.trim();
     if (!s) continue;
-    if (out.length && JOIN_AFTER.test(out[out.length - 1])) out[out.length - 1] += ` ${s}`;
+    const last = out[out.length - 1];
+    // The segmenter also stops after a marker that ends in "?" or "." ("[[Use Target Profile?]]"),
+    // and a sentence never starts with a lower-case letter.
+    if (last && (JOIN_AFTER.test(last) || OPEN_MARKER.test(last) || (/\]\]$/.test(last) && /^\p{Ll}/u.test(s)))) out[out.length - 1] += ` ${s}`;
     else out.push(s);
   }
   return out;
@@ -192,10 +203,14 @@ export function claimsForGuide(key, guide, tile) {
   add('summary', 'summary', sentences(guide.summary));
   add('where', 'where', whole(guide.where));
   add('note', 'note', sentences(guide.note));
+  for (const f of FIELDS_BY_BUCKET.start) add('start', f, sentences(guide.start?.[f]));
   add('before', 'before', list(guide.before));
   (guide.steps || []).forEach((st, i) => {
     const step = String(i + 1);
     add(step, 'title', whole(st.title));
+    // The step shape (docs/writing-guide.md). The [[ ]] label markers are kept: the claim is the
+    // text as the guide data holds it, and the label gate matches labels inside it.
+    for (const f of ['do', 'see', 'ifNot', 'why']) add(step, f, sentences(st[f]));
     add(step, 'body', sentences(st.body));
     add(step, 'caption', sentences(st.caption));
     // The tip and its label render as one callout. The label never stands alone as a claim; it
@@ -346,7 +361,7 @@ export function extractAll() {
 // ---- lint ---------------------------------------------------------------------------------------
 
 const SHA = /^[0-9a-f]{40}$/;
-const STEP = /^(?:tile|summary|where|note|before|verify|[1-9]\d*)$/;
+const STEP = /^(?:tile|summary|where|note|start|before|verify|[1-9]\d*)$/;
 
 /** Validate one shard object. Returns a list of error strings; empty means valid. */
 export function lintShard(key, shard, sources = readSources()) {
@@ -370,7 +385,7 @@ export function lintShard(key, shard, sources = readSources()) {
     }
     if ('previousText' in c && typeof c.previousText !== 'string') err(at, '"previousText" must be a string');
     if (c.guide !== key) err(at, `guide is "${c.guide}", expected "${key}"`);
-    if (!STEP.test(c.step ?? '')) err(at, `step "${c.step}" is not a step number or one of tile, summary, where, note, before, verify`);
+    if (!STEP.test(c.step ?? '')) err(at, `step "${c.step}" is not a step number or one of tile, summary, where, note, start, before, verify`);
     const m = /^([^/]+)\/([^/]+)\/([1-9]\d*)$/.exec(c.id ?? '');
     if (!m || m[1] !== key || m[2] !== c.step) err(at, `id must be "${key}/${c.step}/<n>"`);
     if (seen.has(c.id)) err(at, 'duplicate id');

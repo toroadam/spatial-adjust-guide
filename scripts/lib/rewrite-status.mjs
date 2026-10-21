@@ -12,11 +12,6 @@ import { partOf } from './load-guides.mjs';
 
 export const PENDING = new Set([
   // The 24 guides of the export, in catalogue order.
-  // Getting Started
-  'dashboard-overview', 'understand-spatial-adjust', 'map-navigation',
-  // Targets
-  'understanding-vwc', 'editing-station-targets', 'bulk-adjustments', 'target-profiles',
-  'creating-profiles', 'updating-profiles', 'seasonal-profiles',
   // Calculations
   'minimum-threshold', 'calculation-settings', 'calculation-methods', 'preferences',
   // Station Management

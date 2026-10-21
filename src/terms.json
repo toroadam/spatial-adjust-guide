@@ -17,7 +17,7 @@
       "match": ["ET"],
       "caseSensitive": true,
       "definition": "Evapotranspiration: the water your turf and soil lose to the air each day.",
-      "ledger": ["dashboard-overview/1/3", "dashboard-overview/1/4", "calculation-settings/4/2"]
+      "ledger": ["understand-spatial-adjust/4/5", "understanding-vwc/4/6", "calculation-settings/4/2"]
     },
     {
       "id": "delta",
@@ -25,7 +25,7 @@
       "match": ["delta"],
       "caseSensitive": false,
       "definition": "The target minus the station’s moisture: the gap the suggestion tries to close.",
-      "ledger": ["understanding-vwc/4/1", "understanding-vwc/4/2", "seasonal-profiles/3/2"]
+      "ledger": ["understanding-vwc/4/1", "understanding-vwc/4/3", "understand-spatial-adjust/3/6"]
     },
     {
       "id": "lynx-reference-amount",
@@ -49,7 +49,7 @@
       "match": ["measured"],
       "caseSensitive": false,
       "definition": "Read from a TurfRad moisture scan taken today, and shown in plain black text.",
-      "ledger": ["understanding-vwc/1/2", "understanding-vwc/1/3", "understanding-vwc/1/5", "understanding-vwc/tile/2"]
+      "ledger": ["understanding-vwc/1/2", "understanding-vwc/1/3", "understand-spatial-adjust/2/3", "understanding-vwc/tile/2"]
     },
     {
       "id": "modelled",
@@ -57,7 +57,7 @@
       "match": ["modelled", "modeled"],
       "caseSensitive": false,
       "definition": "From the model when there was no scan that day, shown in grey italics with a calculator icon.",
-      "ledger": ["dashboard-overview/4/7", "calculation-questions/before/1", "understanding-vwc/2/2", "understanding-vwc/2/3"]
+      "ledger": ["dashboard-overview/4/5", "calculation-questions/before/1", "understanding-vwc/2/2", "understanding-vwc/2/3"]
     },
     {
       "id": "target",

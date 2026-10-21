@@ -172,3 +172,63 @@ and never rewrite another one.
   the executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: can a
   native speaker read the German and Japanese definitions, and does each term's name match what
   that language's superintendents call it?
+
+- **Three sentences the ledger could not confirm were dropped from the Getting Started and Targets
+  guides, not reworded.** In Understand Spatial Adjust, step 5 no longer says how Lynx applies the
+  percent adjust value to a station's programme; it says only that Push Changes is the one control
+  that sends changes to Lynx. In Seasonal profiles, the advice that three or four profiles cover
+  most courses is gone, and so is the Target profiles tip about applying a profile the evening
+  before a tournament. Shows on: `#/understand-spatial-adjust`, `#/seasonal-profiles` and
+  `#/target-profiles`. Decided by the executor under owner direction 2026-10-19; for review in
+  person 2026-10-22. Question: does Lynx apply the percentage on top of each station's programme
+  run time, and is there a number of profiles or a lead time before an event that the experts
+  would put back?
+
+- **Three unconfirmed statements still ship in Seasonal profiles and Understanding VWC.** The
+  Seasonal profiles step titled "Apply the evening before" and its tip about the push window
+  (push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx afterwards,
+  because a push outside that window does not reach the course and shows no error) stay marked
+  Needs expert. So does the Understanding VWC prerequisite "VWC is volumetric water content,
+  expressed as a percentage of soil volume". Nothing in the product code settles them. Shows on:
+  `#/seasonal-profiles` and `#/understanding-vwc`. Decided by the executor under owner direction
+  2026-10-19; for review in person 2026-10-22. Question: are the evening-before timing and the 11
+  AM push window right for current Lynx, and does a push outside the window really fail silently?
+
+- **Eleven steps point at a region of the screen rather than a control.** Dashboard overview
+  steps 1 to 4 (toolbar, map, chart, table), Understand Spatial Adjust step 1 (the address and
+  toolbar), Map navigation steps 1, 2 and 6, Editing station targets step 1, Bulk adjustments
+  step 1 and Updating profiles step 1 ask the reader to look at an area, so their cursor ring
+  outlines that area, and the step checker lists them as region steps and does not require a
+  button label in them. Shows on: the guides named, for example `#/dashboard-overview`. Decided by
+  the executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: is
+  an outlined region a clear enough point to follow, or should each of these name one control to
+  select?
+
+- **Map navigation has six steps: opening Layers is its own step.** The old guide chose between All
+  Stations and Enabled Stations in one step. On production the choices sit inside a box that opens
+  from the Layers button beside the variance button and closes when you select anywhere else, so
+  the guide now has "Open Layers" and then "Choose the stations", and the cursor points at the
+  button first and at the choices second. Shows on: `#/map-navigation`, steps 4 and 5. Decided by
+  the executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: does
+  the Layers box open the same way on a customer's screen, and is the extra step worth it?
+
+- **Four Target Profiles column headings are not translated by the product.** "Target Profile",
+  "Update from Current", "Apply Profile" and "Stations" are typed into the Settings dialog as plain
+  English and passed to the translation pipe without a catalogue entry, so a customer using
+  another language sees them in English. The guides name them in double brackets as screen labels,
+  and the label fixture now lists them as hardcoded so the ten translations keep them in English
+  to match the screen. Shows on: `#/target-profiles`, `#/creating-profiles`, `#/updating-profiles`
+  and `#/seasonal-profiles`, in every language but English. Decided by the executor under owner
+  direction 2026-10-19; for review in person 2026-10-22. Question: do customers outside English
+  see these four headings in English today, and will a later IntelliDash release translate them?
+
+- **Applying a profile and capturing into a slot both wait for a background job, and the guides
+  say what to do when it fails.** Save Changes sends the profile work to a queue and waits up to
+  ten minutes for it to finish. If the save fails the dialog stays open with "Unable to save
+  data"; if it times out the message says to refresh before trying again. The guides tell the
+  reader to reload the page and check the profile list before retrying, which follows that
+  message but is the executor's advice, not support's. Shows on: step 6 of
+  `#/target-profiles`, step 6 of `#/creating-profiles` and the profile steps of
+  `#/seasonal-profiles`. Decided by the executor under owner direction 2026-10-19; for review in
+  person 2026-10-22. Question: is "reload and check the list" what support tells a customer who
+  sees Unable to save data on this dialog?

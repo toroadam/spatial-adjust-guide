@@ -26,8 +26,12 @@
 // assemble sequence in README > Localisation status > How translation is applied has to follow
 // any change here.
 
+import { apply as gettingStarted } from './getting-started.mjs';
 import { apply as calculations } from './calculations.mjs';
+import { apply as targets } from './targets.mjs';
 
 export const REWRITES = [
+  gettingStarted,
   calculations,
+  targets,
 ];
