@@ -210,6 +210,148 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 6 | Target Profiles | 4 | 4,680 to 9,360 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-21 (episode 23); experts in person 2026-10-22 |
 <!-- tracker:end -->
 
+## Series results
+
+Close-out audit, run 2026-10-21 on the branch the series is built on, after wave 6. It reads the finished series; it changes no episode. Each success metric of the series request is listed with the value measured and where the measurement came from. Counts only: the key scan and the attribution scan print numbers, never matches.
+
+**Outcome: 26 of 26 episodes approved and delivered. Six of the seven metrics are met as written (the time metric on wall-clock, with the caveat given); the seventh, expert sign-off, is recorded as an executor decision with the in-person review on 2026-10-22.**
+
+| Metric | Measured | Source |
+|---|---|---|
+| Delivered and approved: waves 1 to 5 (22 episodes), and the four Target Profiles episodes delivered or recorded as blocked with the reason | **26 of 26 approved** (waves 1 to 5: 22 of 22; wave 6: 4 of 4). Wave 6 opened on 2026-10-20 and is delivered; the gate re-check below holds | `series.json`, tracker above |
+| Every narrated and on-screen claim maps to a Verified claim | **966 claim citations across the 26 episodes (496 distinct claims), 0 not Verified**; episode lint check (e) 0 findings. The ledger holds 843 Verified and 28 Needs expert claims; no episode cites a Needs expert claim | `docs/claims/claims.json`; `npm run test:episodes -- --series` |
+| Every episode passes `video/verify/verify.py`: format, -14 LUFS plus or minus 0.5, true peak at or below -1 dBTP, 0 denylist OCR hits; loudness spread at most 1 LU | **26 of 26 final verify reports pass; 26 OCR reports, 0 denylist hits. Integrated loudness -14.1 LUFS in every episode (spread 0.00 LU); true peak -1.1 to -1.8 dBTP.** Re-measured on the delivered MP4s with `ffmpeg -af ebur128=peak=true`: -14.1 LUFS each, the same peaks as `series.json` | `<media root>/episodes/<key>/renders/verify-report.json`, `ocr-report.json`; series lint |
+| Every episode runs 1 to 3 minutes and has English captions, a transcript and a poster | **Runtimes 1:45 to 2:43 (104.6 to 162.5 s), all inside 60 to 180 s** (ffprobe on the delivered MP4s agrees with `series.json` to the frame). **26 of 26 `deliver/` folders hold exactly four files: MP4, English VTT, transcript and poster** | count-only check of each `deliver/` folder |
+| Chapter labels match the guide's step titles exactly | **0 findings across 26 episodes** (episode lint check (b), read against the guide as it renders). The lint's own fixtures also pass: the good fixture passes, the bad-label and unverified-claim fixtures each fail once, the series fixture fails twice | `npm run test:episodes -- --series`, `-- --fixtures` |
+| From wave 2 on, each episode takes 0.5 day or less from script to approved cut | **Met on wall-clock: 5.4 to 8.3 h from first voice-over render to the passing final verify, against 12 h** (table below). Not met as effort: waves 2 to 6 ran side by side on one saturated machine, so each figure is elapsed time, not working time. See the note under Per-episode times | `<media root>` file times, verify reports |
+| The expert team signs off the first episode of each wave | **Not met as written; recorded as a decision.** The six first-of-wave episodes (01, 05, 10, 14, 18, 23) each carry an `expert sign-off` row in `video/approvals.md`, "decided by executor" under the owner direction of 2026-10-19; the experts review all 26 in person on 2026-10-22 | `video/approvals.md`, `series.json` `waves[].expertSignoff` |
+
+### Series audit checks
+
+All run in this worktree on 2026-10-21 against a fresh `node build.mjs` served on its own port.
+
+| Check | Result |
+|---|---|
+| `npm run test:episodes -- --series` (the script against a build of this branch; the npm script's own URL, `http://localhost:8124/`, may be serving a different checkout) | 26 approved episodes checked, **0 findings**; loudness spread **0.00 LU** (limit 1); runtimes 104.6 to 162.5 s (limit 60 to 180); every VO render report used the series voice id, model and settings |
+| `node scripts/episode-lint.mjs <url> --fixtures` | ok |
+| `node --test video/capture/refusal.test.mjs` | 15 of 15 pass |
+| Deliverables | 26 of 26 episodes have an MP4, a VTT, a transcript and a poster; 0 episodes missing a file |
+| Media files tracked in git, now or in history | **0** (`npm run video -- hygiene`, media check; `git ls-files` count 0; 0 media or poster files added by this epic's commits) |
+| ElevenLabs key pattern | **0 matches** in tracked files, in history and in commit messages (`npm run video -- hygiene`, key check; 0 matches of an `sk_` token pattern in the 43 commits' diffs) |
+| Claude attribution lines in this epic's commits | **0** across the 43 commits on this branch that are not on `e200-video-pipeline` or `origin/main` |
+| Internal tracker IDs in tracked text files | 0 |
+| Denylist (a real name the hygiene check keeps out of the public repository) | **Not clean, and not from this epic.** 26 findings, all one denylist entry (#12), in two files (`src/transform-export.mjs`, `docs/text-corrections.md`), all from two commits already on `origin/main` (3b82d24, 2026-09-07, and 99e060a, 2026-10-19) and from the merge commits that carry them. This epic's own commits add 0. The tracked files carry no hit now. Left for the owner: the entry is in public history, so removing it means a history rewrite, which is outside this epic |
+
+### Wave 6 gate re-check
+
+**2026-10-21: open (A), unchanged since 2026-10-20, and wave 6 is delivered.** Condition A (Target Profiles ships in production, its claims are Verified, and it is reachable in `/demo`) still holds:
+
+- Claims for the four guides: 106 Verified, 5 Needs expert, 0 Wrong, 0 Not shipping, 0 Unverified (`docs/claims/guides/`). The 5 are the operational judgements already on the review agenda; no episode cites them.
+- Production pin: `docs/claims/sources.json` still names `origin/Deployments/release/261014_phase_3a` at `1aa4f286`. After `git fetch` on 2026-10-21 it is still the newest `Deployments/release/*` branch, and at that commit the settings dialog's menu list still includes Target Profiles (`sa-settings-dlg.component.ts:55`, read-only).
+- Release status on `origin/main`: `target-profiles`, `creating-profiles`, `updating-profiles` and `seasonal-profiles` are all `ga`.
+
+Condition B (a coming-soon treatment) is retired: 0 episodes carry `treatment: coming-soon` and 0 Not shipping claims exist. The four episodes (23 to 26) are approved.
+
+### Credits per wave
+
+The tracker above holds the per-wave readings. Two things to know when reading them:
+
+- The account changed plan between wave 1 and wave 2 (357,437 credits before wave 1; 29,529 before wave 2), so the balances do not run on from one wave to the next.
+- Waves 2 to 6 rendered at the same time on one shared account, so their readings overlap: waves 2, 3, 5 and 6 each read 29,529 before and 17,717 after, and wave 4 read 29,148 before. The combined spend of waves 2 to 6 is therefore about 11,812 credits (29,529 to 17,717), not that figure per wave.
+
+**Series total: about 14,100 credits** (2,290 for wave 1 plus about 11,812 for waves 2 to 6). That is inside the 13,400 to 26,800 credits the observed 0.44 credits per character predicts, and under the 30,420 to 60,840 upper-bound estimate at 1 credit per character. 17,717 credits remained after wave 6.
+
+### Per-episode times
+
+Elapsed time from the first voice-over render file to the passing final verify report, read from the media root's file times and the verify reports' `generated` stamps. Wave 1 (episodes 01 to 04) ran 2026-10-20 in about 5.1 h each; the tracker's `startedAt` and `approvedAt` hold dates only. Waves 2 to 6:
+
+| Wave | Episodes | Shortest | Longest |
+|---|---|---|---|
+| 2 | 5 | 7.4 h | 7.5 h |
+| 3 | 4 | 5.5 h | 7.1 h |
+| 4 | 4 | 7.2 h | 8.2 h |
+| 5 | 5 | 7.3 h | 8.3 h |
+| 6 | 4 | 7.4 h | 7.7 h |
+
+Overall for waves 2 to 6: 5.5 to 8.3 h. Every episode is under half a day, but the figures overlap: five waves captured and rendered in parallel on one machine whose load average ran at 160 to 270, and the 4K frame-stepped recorder costs about 1.5 CPU-seconds per frame, so most of each episode's elapsed time is waiting on a shared machine. Run alone, an episode took about 45 minutes of capture (see Time per episode above). No wave 2 to 6 episode took more than half a day, so none needs a cause note beyond this one.
+
+| # | Wave | Key | First VO render | Final verify | Elapsed |
+|---|---|---|---|---|---|
+| 5 | 2 | `suggested-adjustments` | 10-20 19:53 | 10-21 03:22 | 7.5 h |
+| 6 | 2 | `filter-adjustments` | 10-20 19:55 | 10-21 03:22 | 7.5 h |
+| 7 | 2 | `push-to-lynx` | 10-20 19:55 | 10-21 03:22 | 7.4 h |
+| 8 | 2 | `reviewing-changes` | 10-20 19:56 | 10-21 03:21 | 7.4 h |
+| 9 | 2 | `verify-results` | 10-20 19:57 | 10-21 03:21 | 7.4 h |
+| 10 | 3 | `editing-station-targets` | 10-20 19:50 | 10-21 01:21 | 5.5 h |
+| 11 | 3 | `bulk-adjustments` | 10-20 20:06 | 10-21 03:04 | 7.0 h |
+| 12 | 3 | `enable-disable-stations` | 10-20 20:06 | 10-21 03:11 | 7.1 h |
+| 13 | 3 | `station-details` | 10-20 20:07 | 10-21 02:53 | 6.8 h |
+| 14 | 4 | `minimum-threshold` | 10-20 19:53 | 10-21 03:07 | 7.2 h |
+| 15 | 4 | `calculation-settings` | 10-20 19:54 | 10-21 03:35 | 7.7 h |
+| 16 | 4 | `calculation-methods` | 10-20 19:54 | 10-21 03:59 | 8.1 h |
+| 17 | 4 | `preferences` | 10-20 19:55 | 10-21 04:08 | 8.2 h |
+| 18 | 5 | `station-zero` | 10-20 19:52 | 10-21 03:45 | 7.9 h |
+| 19 | 5 | `request-scan-data` | 10-20 19:53 | 10-21 03:12 | 7.3 h |
+| 20 | 5 | `threshold-questions` | 10-20 19:54 | 10-21 03:16 | 7.4 h |
+| 21 | 5 | `calculation-questions` | 10-20 19:52 | 10-21 03:21 | 7.5 h |
+| 22 | 5 | `push-failures` | 10-20 20:00 | 10-21 04:19 | 8.3 h |
+| 23 | 6 | `target-profiles` | 10-20 19:51 | 10-21 03:18 | 7.4 h |
+| 24 | 6 | `creating-profiles` | 10-20 19:52 | 10-21 03:36 | 7.7 h |
+| 25 | 6 | `updating-profiles` | 10-20 19:54 | 10-21 03:37 | 7.7 h |
+| 26 | 6 | `seasonal-profiles` | 10-20 19:56 | 10-21 03:39 | 7.7 h |
+
+### Expert sign-offs
+
+No sign-off waited on a human. Under the owner direction of 2026-10-19 each first-of-wave sign-off is a recorded executor decision, listed on `docs/review-agenda.md` with the question to put to the experts, and every episode in the other positions is a spot-check in person on 2026-10-22:
+
+| Wave | First episode | Recorded |
+|---|---|---|
+| 1 Getting Started | 01 `dashboard-overview` | decided by executor 2026-10-20 |
+| 2 Review & Apply | 05 `suggested-adjustments` | decided by executor 2026-10-21 |
+| 3 Station Management | 10 `editing-station-targets` | decided by executor 2026-10-20 |
+| 4 Calculations | 14 `minimum-threshold` | decided by executor 2026-10-20 |
+| 5 Troubleshooting | 18 `station-zero` | decided by executor 2026-10-21 |
+| 6 Target Profiles | 23 `target-profiles` | decided by executor 2026-10-21 |
+
+### Handoff: embedding the episodes on the site
+
+Everything the site embed work needs, by path. This series lists where each deliverable lives; it does not publish, copy or commit any media. Paths are relative to the media root (`~/Documents/SpatialAdjust_MarCom`, or `SA_MEDIA_ROOT`). Every episode's four deliverables follow one naming rule, `episodes/<key>/deliver/<key>.mp4`, `<key>.en.vtt`, `<key>.transcript.txt` and `<key>.poster.jpg`.
+
+- **Where each episode goes.** One episode per guide: the guide at `#/<key>` on the site embeds the episode with the same key (`series.json` `siteBase`, then the route). `series.json` is the source for order, title and runtime.
+- **Captions.** English only, WebVTT, cue timing from the final render. The localised captions are the site work's to produce. The English VTT and the transcript are the source text; the 11 site locales are not translated yet for this series.
+- **Poster.** A JPEG frame per episode, 1920 by 1080. **Video:** H.264 High, 1920 by 1080, 60 fps, AAC 48 kHz stereo, -14.1 LUFS.
+- **Not for the site.** Everything else under `episodes/<key>/` (`capture/`, `vo/`, `renders/`, `edit/`, `gfx/`, `frames/`) is working material; only `deliver/` is handed over. `dashboard-overview-pilot/` is the 20 to 30 s template pilot: it has no `deliver/` folder, is not one of the 26 episodes and is not for the site. Embed episode 01, `dashboard-overview`.
+- **Open items for the embed work.** Each episode's narration follows its guide as it was on 2026-10-20; if an expert changes a step title at the in-person review, the chapter card is rebuilt and a new `final` row added in `video/approvals.md`, so re-read `approvals.md` for the latest SHA-256 per episode before publishing. The music licence question is on the review agenda.
+
+| # | Key | Guide route | Deliverables folder | Runtime |
+|---|---|---|---|---|
+| 1 | `dashboard-overview` | `#/dashboard-overview` | `episodes/dashboard-overview/deliver/` | 2:34 |
+| 2 | `understand-spatial-adjust` | `#/understand-spatial-adjust` | `episodes/understand-spatial-adjust/deliver/` | 1:56 |
+| 3 | `map-navigation` | `#/map-navigation` | `episodes/map-navigation/deliver/` | 2:06 |
+| 4 | `understanding-vwc` | `#/understanding-vwc` | `episodes/understanding-vwc/deliver/` | 2:12 |
+| 5 | `suggested-adjustments` | `#/suggested-adjustments` | `episodes/suggested-adjustments/deliver/` | 2:17 |
+| 6 | `filter-adjustments` | `#/filter-adjustments` | `episodes/filter-adjustments/deliver/` | 2:23 |
+| 7 | `push-to-lynx` | `#/push-to-lynx` | `episodes/push-to-lynx/deliver/` | 2:34 |
+| 8 | `reviewing-changes` | `#/reviewing-changes` | `episodes/reviewing-changes/deliver/` | 1:52 |
+| 9 | `verify-results` | `#/verify-results` | `episodes/verify-results/deliver/` | 2:09 |
+| 10 | `editing-station-targets` | `#/editing-station-targets` | `episodes/editing-station-targets/deliver/` | 1:49 |
+| 11 | `bulk-adjustments` | `#/bulk-adjustments` | `episodes/bulk-adjustments/deliver/` | 1:46 |
+| 12 | `enable-disable-stations` | `#/enable-disable-stations` | `episodes/enable-disable-stations/deliver/` | 2:07 |
+| 13 | `station-details` | `#/station-details` | `episodes/station-details/deliver/` | 1:45 |
+| 14 | `minimum-threshold` | `#/minimum-threshold` | `episodes/minimum-threshold/deliver/` | 2:14 |
+| 15 | `calculation-settings` | `#/calculation-settings` | `episodes/calculation-settings/deliver/` | 2:42 |
+| 16 | `calculation-methods` | `#/calculation-methods` | `episodes/calculation-methods/deliver/` | 2:37 |
+| 17 | `preferences` | `#/preferences` | `episodes/preferences/deliver/` | 2:20 |
+| 18 | `station-zero` | `#/station-zero` | `episodes/station-zero/deliver/` | 2:26 |
+| 19 | `request-scan-data` | `#/request-scan-data` | `episodes/request-scan-data/deliver/` | 2:17 |
+| 20 | `threshold-questions` | `#/threshold-questions` | `episodes/threshold-questions/deliver/` | 2:06 |
+| 21 | `calculation-questions` | `#/calculation-questions` | `episodes/calculation-questions/deliver/` | 2:01 |
+| 22 | `push-failures` | `#/push-failures` | `episodes/push-failures/deliver/` | 1:46 |
+| 23 | `target-profiles` | `#/target-profiles` | `episodes/target-profiles/deliver/` | 1:58 |
+| 24 | `creating-profiles` | `#/creating-profiles` | `episodes/creating-profiles/deliver/` | 1:50 |
+| 25 | `updating-profiles` | `#/updating-profiles` | `episodes/updating-profiles/deliver/` | 1:48 |
+| 26 | `seasonal-profiles` | `#/seasonal-profiles` | `episodes/seasonal-profiles/deliver/` | 1:47 |
+
 ## Episode format
 
 Validate an episode before anything reads it:
