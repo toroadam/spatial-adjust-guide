@@ -17,23 +17,26 @@
     "suggested-adjustments/tile/1",
     "suggested-adjustments/tile/2",
     "suggested-adjustments/summary/1",
-    "suggested-adjustments/1/2",
     "suggested-adjustments/1/3",
-    "suggested-adjustments/1/4",
-    "suggested-adjustments/1/5",
+    "suggested-adjustments/1/2",
+    "suggested-adjustments/1/6",
+    "suggested-adjustments/1/7",
     "suggested-adjustments/2/3",
-    "suggested-adjustments/2/4",
+    "suggested-adjustments/2/2",
+    "suggested-adjustments/2/5",
     "suggested-adjustments/3/2",
     "suggested-adjustments/3/3",
-    "suggested-adjustments/3/4",
     "suggested-adjustments/3/6",
+    "suggested-adjustments/3/4",
+    "suggested-adjustments/3/5",
     "suggested-adjustments/4/2",
     "suggested-adjustments/4/3",
-    "suggested-adjustments/4/4",
+    "suggested-adjustments/4/6",
     "suggested-adjustments/4/5",
-    "suggested-adjustments/5/3",
-    "suggested-adjustments/5/4",
-    "suggested-adjustments/5/5"
+    "suggested-adjustments/5/2",
+    "suggested-adjustments/5/6",
+    "suggested-adjustments/5/7",
+    "suggested-adjustments/5/4"
   ],
   "titleCard": {
     "text": "Double Click: Understand suggested adjustments",
@@ -118,8 +121,8 @@
       "chapter": "c1",
       "text": "Current is the percent adjust Lynx holds for the station right now. Suggested is what Spatial Adjust calculated from this morning's scan.",
       "claims": [
-        "suggested-adjustments/1/2",
-        "suggested-adjustments/1/3"
+        "suggested-adjustments/1/3",
+        "suggested-adjustments/1/2"
       ],
       "previous_text": "Where the suggested percentage comes from, why it caps out, and when you should override it.",
       "next_text": "The gap between them is the change you are being asked to make. Current and Suggested sit side by side under the Adjustment heading."
@@ -129,8 +132,8 @@
       "chapter": "c1",
       "text": "The gap between them is the change you are being asked to make. Current and Suggested sit side by side under the Adjustment heading.",
       "claims": [
-        "suggested-adjustments/1/4",
-        "suggested-adjustments/1/5"
+        "suggested-adjustments/1/6",
+        "suggested-adjustments/1/7"
       ],
       "previous_text": "Current is the percent adjust Lynx holds for the station right now. Suggested is what Spatial Adjust calculated from this morning's scan.",
       "next_text": "A station well under target asks for more water; one over target asks for less."
@@ -140,7 +143,8 @@
       "chapter": "c2",
       "text": "A station well under target asks for more water; one over target asks for less.",
       "claims": [
-        "suggested-adjustments/2/3"
+        "suggested-adjustments/2/3",
+        "suggested-adjustments/2/2"
       ],
       "previous_text": "The gap between them is the change you are being asked to make. Current and Suggested sit side by side under the Adjustment heading.",
       "next_text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole."
@@ -150,7 +154,7 @@
       "chapter": "c2",
       "text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole.",
       "claims": [
-        "suggested-adjustments/2/4"
+        "suggested-adjustments/2/5"
       ],
       "previous_text": "A station well under target asks for more water; one over target asks for less.",
       "next_text": "Several stations show the same suggested value. That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage."
@@ -161,7 +165,8 @@
       "text": "Several stations show the same suggested value. That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage.",
       "claims": [
         "suggested-adjustments/3/2",
-        "suggested-adjustments/3/3"
+        "suggested-adjustments/3/3",
+        "suggested-adjustments/3/6"
       ],
       "previous_text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole.",
       "next_text": "If most of your course reads identically, the cap is doing the deciding, not the scan. Raise Daily Max Amount in Settings, Calculation, or accept that the course is being deliberately limited."
@@ -172,7 +177,7 @@
       "text": "If most of your course reads identically, the cap is doing the deciding, not the scan. Raise Daily Max Amount in Settings, Calculation, or accept that the course is being deliberately limited.",
       "claims": [
         "suggested-adjustments/3/4",
-        "suggested-adjustments/3/6"
+        "suggested-adjustments/3/5"
       ],
       "previous_text": "Several stations show the same suggested value. That is the daily Max Amount cap: once the required amount exceeds the cap, every station above it lands on the same percentage.",
       "next_text": "The percent adjustment column is yours. Type over the suggestion for a station you know behaves differently, and the row is queued for push."
@@ -183,7 +188,8 @@
       "text": "The percent adjustment column is yours. Type over the suggestion for a station you know behaves differently, and the row is queued for push.",
       "claims": [
         "suggested-adjustments/4/2",
-        "suggested-adjustments/4/3"
+        "suggested-adjustments/4/3",
+        "suggested-adjustments/4/6"
       ],
       "previous_text": "If most of your course reads identically, the cap is doing the deciding, not the scan. Raise Daily Max Amount in Settings, Calculation, or accept that the course is being deliberately limited.",
       "next_text": "The suggested value is left untouched underneath. Editing queues the station when the new value differs from what Lynx holds."
@@ -193,7 +199,8 @@
       "chapter": "c4",
       "text": "The suggested value is left untouched underneath. Editing queues the station when the new value differs from what Lynx holds.",
       "claims": [
-        "suggested-adjustments/4/4",
+        "suggested-adjustments/4/3",
+        "suggested-adjustments/4/6",
         "suggested-adjustments/4/5"
       ],
       "previous_text": "The percent adjustment column is yours. Type over the suggestion for a station you know behaves differently, and the row is queued for push.",
@@ -204,7 +211,8 @@
       "chapter": "c5",
       "text": "The soil factor editor scales a station's calculated amount by 1 to 200 percent, permanently.",
       "claims": [
-        "suggested-adjustments/5/3"
+        "suggested-adjustments/5/2",
+        "suggested-adjustments/5/6"
       ],
       "previous_text": "The suggested value is left untouched underneath. Editing queues the station when the new value differs from what Lynx holds.",
       "next_text": "It is opened with Shift plus Alt on the gear button in the toolbar."
@@ -214,8 +222,8 @@
       "chapter": "c5",
       "text": "It is opened with Shift plus Alt on the gear button in the toolbar.",
       "claims": [
-        "suggested-adjustments/5/4",
-        "suggested-adjustments/5/5"
+        "suggested-adjustments/5/7",
+        "suggested-adjustments/5/4"
       ],
       "previous_text": "The soil factor editor scales a station's calculated amount by 1 to 200 percent, permanently."
     }

@@ -14,23 +14,24 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "seasonal-profiles/tile/1",
-    "seasonal-profiles/tile/2",
     "seasonal-profiles/summary/1",
     "seasonal-profiles/1/1",
     "seasonal-profiles/note/1",
-    "seasonal-profiles/1/3",
+    "seasonal-profiles/1/7",
     "seasonal-profiles/before/1",
-    "seasonal-profiles/2/2",
-    "seasonal-profiles/2/3",
-    "seasonal-profiles/2/4",
-    "seasonal-profiles/3/2",
-    "seasonal-profiles/3/3",
-    "seasonal-profiles/3/4",
-    "seasonal-profiles/4/2",
-    "seasonal-profiles/4/3",
-    "seasonal-profiles/4/4",
-    "seasonal-profiles/4/5"
+    "target-profiles/before/3",
+    "seasonal-profiles/2/6",
+    "seasonal-profiles/2/7",
+    "seasonal-profiles/5/2",
+    "seasonal-profiles/5/5",
+    "seasonal-profiles/5/3",
+    "seasonal-profiles/5/6",
+    "seasonal-profiles/6/3",
+    "seasonal-profiles/7/5",
+    "seasonal-profiles/7/6",
+    "seasonal-profiles/7/7",
+    "seasonal-profiles/tile/1",
+    "seasonal-profiles/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Managing seasonal profiles",
@@ -114,7 +115,7 @@
       "chapter": "c1",
       "text": "A short list stays readable a year later. Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch.",
       "claims": [
-        "seasonal-profiles/1/3",
+        "seasonal-profiles/1/7",
         "seasonal-profiles/before/1"
       ],
       "previous_text": "Plan what goes in the five slots. The tab lists five named profile slots for each Lynx course.",
@@ -125,7 +126,8 @@
       "chapter": "c2",
       "text": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets.",
       "claims": [
-        "seasonal-profiles/2/2"
+        "seasonal-profiles/before/1",
+        "target-profiles/before/3"
       ],
       "previous_text": "A short list stays readable a year later. Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch.",
       "next_text": "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan. Apply, then review the next morning’s suggestions."
@@ -135,8 +137,9 @@
       "chapter": "c2",
       "text": "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan. Apply, then review the next morning’s suggestions.",
       "claims": [
-        "seasonal-profiles/2/3",
-        "seasonal-profiles/2/4"
+        "seasonal-profiles/2/6",
+        "seasonal-profiles/2/7",
+        "seasonal-profiles/5/2"
       ],
       "previous_text": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets.",
       "next_text": "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is."
@@ -146,8 +149,9 @@
       "chapter": "c3",
       "text": "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.",
       "claims": [
-        "seasonal-profiles/3/2",
-        "seasonal-profiles/3/3"
+        "seasonal-profiles/5/5",
+        "seasonal-profiles/5/3",
+        "seasonal-profiles/5/2"
       ],
       "previous_text": "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan. Apply, then review the next morning’s suggestions.",
       "next_text": "New targets, new suggestions — review before pushing."
@@ -157,7 +161,7 @@
       "chapter": "c3",
       "text": "New targets, new suggestions — review before pushing.",
       "claims": [
-        "seasonal-profiles/3/4"
+        "seasonal-profiles/5/6"
       ],
       "previous_text": "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.",
       "next_text": "The push dialog is the same as any other day. The difference is the size of the change set: a profile switch usually queues most of the course at once."
@@ -167,8 +171,9 @@
       "chapter": "c4",
       "text": "The push dialog is the same as any other day. The difference is the size of the change set: a profile switch usually queues most of the course at once.",
       "claims": [
-        "seasonal-profiles/4/2",
-        "seasonal-profiles/4/3"
+        "seasonal-profiles/6/3",
+        "seasonal-profiles/7/5",
+        "seasonal-profiles/7/6"
       ],
       "previous_text": "New targets, new suggestions — review before pushing.",
       "next_text": "A profile switch queues a large push. Review it as one."
@@ -178,8 +183,8 @@
       "chapter": "c4",
       "text": "A profile switch queues a large push. Review it as one.",
       "claims": [
-        "seasonal-profiles/4/4",
-        "seasonal-profiles/4/5"
+        "seasonal-profiles/7/6",
+        "seasonal-profiles/7/7"
       ],
       "previous_text": "The push dialog is the same as any other day. The difference is the size of the change set: a profile switch usually queues most of the course at once."
     }

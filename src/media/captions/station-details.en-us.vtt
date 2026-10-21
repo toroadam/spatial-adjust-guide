@@ -1,0 +1,88 @@
+WEBVTT
+
+NOTE station-details: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.038
+Some stations drive
+more than one sprinkler.
+
+V0-2
+00:00:05.138 --> 00:00:08.000
+Expand the row to see what
+each head actually measured.
+
+V1a-1
+00:00:13.310 --> 00:00:15.502
+A chevron beside the
+station name means the
+
+V1a-2
+00:00:15.602 --> 00:00:18.100
+station has more than one
+sprinkler paired to it.
+
+V1b-1
+00:00:20.127 --> 00:00:22.887
+Without the chevron,
+the row is the whole story.
+
+V2a-1
+00:00:28.997 --> 00:00:32.098
+Each child row is named for
+its parent and numbered,
+
+V2a-2
+00:00:32.198 --> 00:00:35.777
+and carries its own scan date
+and its own measured moisture.
+
+V2b-1
+00:00:38.130 --> 00:00:40.458
+Nothing else is editable
+at sprinkler level.
+
+V2b-2
+00:00:40.558 --> 00:00:43.310
+The target and the adjustment
+belong to the station.
+
+V3a-1
+00:00:50.603 --> 00:00:53.943
+The station's average VWC is
+the mean of its sprinklers.
+
+V3b-1
+00:00:56.270 --> 00:01:01.023
+Two heads reading 31.4 and 30.4
+give a station average of 30.9,
+
+V3b-2
+00:01:01.123 --> 00:01:05.500
+and a station that looks fine
+can still hide one dry head.
+
+V4a-1
+00:01:12.417 --> 00:01:15.162
+A child whose scan is
+older than today shows a
+
+V4a-2
+00:01:15.262 --> 00:01:18.425
+modelled value marked with
+an orange calculator icon,
+
+V4a-3
+00:01:18.525 --> 00:01:22.287
+and the parent average is then
+part measurement and part model.
+
+V4b-1
+00:01:24.600 --> 00:01:28.058
+The parent row carries a grey
+calculator icon beside its average,
+
+V4b-2
+00:01:28.158 --> 00:01:30.660
+so you can tell it includes
+a modelled reading.

@@ -16,9 +16,12 @@
 // How it behaves.
 //   - preload="none": nothing of the video downloads until the reader presses play, which protects
 //     the Pages bandwidth budget. The poster still loads. Never autoplay, muted or loop.
-//   - Eleven caption tracks, one per locale, labelled with the language's own name and never
-//     translated; the reader's locale is the default. A locale switch moves showing captions to the
-//     new language, or leaves them off if the reader turned them off.
+//   - One caption track per locale the item has (eleven, or English alone for an episode whose cues
+//     are not translated yet), labelled with the language's own name and never translated; the
+//     reader's locale is the default. When the item has no track in the reader's locale, the English
+//     track is the default and the transcript is English too, labelled and tagged as English, so the
+//     page never claims a language the words are not in. A locale switch moves showing captions to
+//     the new language, or leaves them off if the reader turned them off.
 //   - The transcript is the same caption text, fetched when the reader opens it, in their language.
 //   - Panel strings are written in English and src/i18n-apply.js translates them like any other page
 //     text, which keeps them right after a language switch; a t() call here would freeze whichever
@@ -103,6 +106,15 @@
     return list[0];
   }
 
+  // The locale whose captions an item offers a reader: the page's own when the item has a track for it,
+  // otherwise English. Tracks, default track, transcript and its lang attribute all follow this.
+  function captionLocale(item, served) {
+    if (item.captions[served.code]) return served;
+    var list = locales();
+    for (var i = 0; i < list.length; i++) if (list[i].code === 'en-us' && item.captions['en-us']) return list[i];
+    return served;
+  }
+
   // 94.2 -> "1:34". Episodes are capped at 900 seconds, so minutes never need an hours field.
   function clock(seconds) {
     var s = Math.max(0, Math.round(seconds));
@@ -119,7 +131,7 @@
   var mounted = [];   // every panel built and not yet torn down, in or out of the document
 
   function render(key, item) {
-    var served = servedLocale();
+    var served = captionLocale(item, servedLocale());
 
     var panel = el('section', PANEL);
     panel.setAttribute('aria-labelledby', HEADING_ID);
@@ -272,8 +284,8 @@
 
   function loadTranscript(panel) {
     var state = panel.__sa;
-    var served = servedLocale();
-    var url = state.item.captions[served.code] || state.item.captions['en-us'];
+    var served = captionLocale(state.item, servedLocale());
+    var url = state.item.captions[served.code];
     // A reader who switches language while a fetch is in flight gets the newer language only.
     var request = ++state.request;
     var done = function (cues) {
@@ -307,9 +319,9 @@
   // is not handed them back by a language switch. The video element is left exactly as it is, so a
   // video that is playing keeps playing.
   function onLocaleChange() {
-    var served = servedLocale();
     for (var i = 0; i < mounted.length; i++) {
       var state = mounted[i].__sa;
+      var served = captionLocale(state.item, servedLocale());
       var tracks = state.video.textTracks;
       var showing = false;
       for (var j = 0; j < tracks.length; j++) if (tracks[j].mode === 'showing') showing = true;

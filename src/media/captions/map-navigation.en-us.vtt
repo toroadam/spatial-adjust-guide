@@ -1,0 +1,95 @@
+WEBVTT
+
+NOTE map-navigation: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.453
+Read the pins, move the moisture bands,
+
+V0-2
+00:00:05.553 --> 00:00:09.020
+switch to variance, and
+filter what the map shows.
+
+V1a-1
+00:00:14.190 --> 00:00:18.725
+Each sprinkler of a station scanned in
+the past seven days is a pin at its own
+
+V1a-2
+00:00:18.825 --> 00:00:23.418
+coordinates. A pin scanned today is filled
+with the colour of the moisture band
+
+V1a-3
+00:00:23.518 --> 00:00:28.170
+its reading falls into, and a pin last
+scanned on an earlier day is drawn clear.
+
+V1b-1
+00:00:28.723 --> 00:00:35.593
+Four bands by default: 0 to 5, 6 to
+19, 20 to 30, and above 30 percent.
+
+V2a-1
+00:00:42.216 --> 00:00:45.472
+The colour bar under the
+legend has draggable handles.
+
+V2a-2
+00:00:45.572 --> 00:00:48.406
+Move one and the map
+recolours when you let go.
+
+V2b-1
+00:00:48.966 --> 00:00:52.746
+Dragging a handle changes the boundary
+and saves it to your preferences.
+
+V3a-1
+00:00:59.753 --> 00:01:03.603
+The button beside the legend
+toggles between VWC and variance.
+
+V3b-1
+00:01:04.086 --> 00:01:08.164
+Variance colours each pin by how
+far it sits from its own target
+
+V3b-2
+00:01:08.264 --> 00:01:12.216
+instead of by its raw reading:
+three bands, centred on target.
+
+V4a-1
+00:01:19.173 --> 00:01:24.223
+Layers chooses which stations are drawn:
+all of them, or only the enabled ones.
+
+V4b-1
+00:01:24.706 --> 00:01:29.726
+Disabled stations are not being adjusted,
+so hiding them leaves only the heads
+
+V4b-2
+00:01:29.826 --> 00:01:34.526
+your push will affect. Layers saves
+your choice to your user preferences.
+
+V5a-1
+00:01:41.750 --> 00:01:45.155
+Selecting a station in the
+table highlights it on the map,
+
+V5a-2
+00:01:45.255 --> 00:01:47.370
+and selecting a pin selects the row.
+
+V5b-1
+00:01:47.933 --> 00:01:49.959
+One selection, shown in both panels.
+
+V5b-2
+00:01:50.059 --> 00:01:52.873
+Use whichever is faster
+to find the head you mean.

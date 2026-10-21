@@ -1,0 +1,100 @@
+WEBVTT
+
+NOTE threshold-questions: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.571
+Why the table and the
+push dialog disagree,
+
+V0-2
+00:00:05.671 --> 00:00:08.230
+and what the second option really does.
+
+V1a-1
+00:00:14.070 --> 00:00:20.022
+Station 11AP2 suggests 6 percent.
+With a 10 percent threshold set,
+
+V1a-2
+00:00:20.122 --> 00:00:24.090
+the table still shows 6,
+and it always will.
+
+V1b-1
+00:00:24.653 --> 00:00:27.828
+The threshold is applied only
+in the Push Changes dialog,
+
+V1b-2
+00:00:27.928 --> 00:00:30.603
+and to what is sent to
+Lynx. Never to the table.
+
+V2a-1
+00:00:38.673 --> 00:00:43.421
+Open Push Changes and the same station
+shows its original value and the rewritten
+
+V2a-2
+00:00:43.521 --> 00:00:47.683
+one side by side, with the banner
+counting how many rows were affected.
+
+V2b-1
+00:00:48.240 --> 00:00:51.720
+This is the disagreement,
+and it is intentional.
+
+V3a-1
+00:00:58.603 --> 00:01:02.303
+Set to zero skips the station:
+Lynx receives 0 percent.
+
+V3a-2
+00:01:02.403 --> 00:01:07.516
+Set to the minimum threshold value lifts
+the suggestion up to the threshold,
+
+V3a-3
+00:01:07.616 --> 00:01:10.173
+so the station still gets a short run.
+
+V3b-1
+00:01:10.687 --> 00:01:12.967
+They are opposite behaviours
+from the same number.
+
+V4a-1
+00:01:20.190 --> 00:01:24.463
+Exclude Zeros is available only under
+the second option. A station whose
+
+V4a-2
+00:01:24.563 --> 00:01:29.430
+suggestion is a true zero stays at zero,
+instead of being lifted to the threshold.
+
+V4b-1
+00:01:29.940 --> 00:01:33.750
+Without it, a station that needs
+no water gets a small run anyway.
+
+V5a-1
+00:01:40.387 --> 00:01:42.803
+A threshold of zero turns
+the whole thing off,
+
+V5a-2
+00:01:42.903 --> 00:01:45.057
+and the option group is disabled with it.
+
+V5b-1
+00:01:45.620 --> 00:01:48.596
+If the push dialog shows no
+banner, check this first.
+
+V5b-2
+00:01:48.696 --> 00:01:52.290
+The setting is site-level, and
+someone else may have cleared it.

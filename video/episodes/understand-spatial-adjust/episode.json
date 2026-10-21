@@ -18,20 +18,21 @@
     "understand-spatial-adjust/tile/2",
     "understand-spatial-adjust/summary/1",
     "understand-spatial-adjust/1/1",
-    "understand-spatial-adjust/1/4",
-    "understand-spatial-adjust/1/5",
+    "understand-spatial-adjust/1/6",
+    "understand-spatial-adjust/1/7",
     "understand-spatial-adjust/2/2",
     "understand-spatial-adjust/2/3",
-    "understand-spatial-adjust/2/4",
+    "understand-spatial-adjust/2/6",
     "understand-spatial-adjust/3/2",
     "understand-spatial-adjust/3/3",
-    "understand-spatial-adjust/3/4",
-    "understand-spatial-adjust/3/5",
-    "understand-spatial-adjust/4/2",
+    "understand-spatial-adjust/3/6",
+    "understand-spatial-adjust/3/7",
+    "understand-spatial-adjust/4/5",
+    "understand-spatial-adjust/4/6",
     "understand-spatial-adjust/4/3",
-    "understand-spatial-adjust/5/2",
-    "understand-spatial-adjust/5/4",
-    "understand-spatial-adjust/5/5"
+    "understand-spatial-adjust/5/5",
+    "understand-spatial-adjust/5/3",
+    "understand-spatial-adjust/5/6"
   ],
   "titleCard": {
     "text": "Double Click: Understand Spatial Adjust",
@@ -117,7 +118,7 @@
       "text": "It lives inside IntelliDash. Access is checked per user before the view loads.",
       "claims": [
         "understand-spatial-adjust/1/1",
-        "understand-spatial-adjust/1/4"
+        "understand-spatial-adjust/1/6"
       ],
       "previous_text": "What the feature actually does: turn the latest moisture scan into today's percent adjustment, and write it to Lynx when you push.",
       "next_text": "The Spatial Adjust header, inside IntelliDash."
@@ -127,7 +128,7 @@
       "chapter": "c1",
       "text": "The Spatial Adjust header, inside IntelliDash.",
       "claims": [
-        "understand-spatial-adjust/1/5"
+        "understand-spatial-adjust/1/7"
       ],
       "previous_text": "It lives inside IntelliDash. Access is checked per user before the view loads.",
       "next_text": "Each station's Avg. VWC comes from a TurfRad moisture scan: the mean volumetric water content measured across the station, with the date it was captured beside the station name."
@@ -148,7 +149,7 @@
       "chapter": "c2",
       "text": "Measured moisture and its scan date, per station.",
       "claims": [
-        "understand-spatial-adjust/2/4"
+        "understand-spatial-adjust/2/6"
       ],
       "previous_text": "Each station's Avg. VWC comes from a TurfRad moisture scan: the mean volumetric water content measured across the station, with the date it was captured beside the station name.",
       "next_text": "Target VWC is the moisture you want that station to hold. It is yours to set, station by station, between 0 and 50 percent."
@@ -169,8 +170,8 @@
       "chapter": "c3",
       "text": "The gap between measured and target is what the calculation works on. Target VWC is an editable input, not a reading.",
       "claims": [
-        "understand-spatial-adjust/3/4",
-        "understand-spatial-adjust/3/5"
+        "understand-spatial-adjust/3/6",
+        "understand-spatial-adjust/3/7"
       ],
       "previous_text": "Target VWC is the moisture you want that station to hold. It is yours to set, station by station, between 0 and 50 percent.",
       "next_text": "The difference between target and measured moisture becomes an amount of water, today's ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage."
@@ -180,7 +181,8 @@
       "chapter": "c4",
       "text": "The difference between target and measured moisture becomes an amount of water, today's ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.",
       "claims": [
-        "understand-spatial-adjust/4/2"
+        "understand-spatial-adjust/3/6",
+        "understand-spatial-adjust/4/5"
       ],
       "previous_text": "The gap between measured and target is what the calculation works on. Target VWC is an editable input, not a reading.",
       "next_text": "The Suggested column is the output of that chain."
@@ -190,6 +192,7 @@
       "chapter": "c4",
       "text": "The Suggested column is the output of that chain.",
       "claims": [
+        "understand-spatial-adjust/4/6",
         "understand-spatial-adjust/4/3"
       ],
       "previous_text": "The difference between target and measured moisture becomes an amount of water, today's ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.",
@@ -200,8 +203,8 @@
       "chapter": "c5",
       "text": "Spatial Adjust never waters anything. Nothing changes until you push.",
       "claims": [
-        "understand-spatial-adjust/5/2",
-        "understand-spatial-adjust/5/4"
+        "understand-spatial-adjust/5/5",
+        "understand-spatial-adjust/5/3"
       ],
       "previous_text": "The Suggested column is the output of that chain.",
       "next_text": "Push Changes is the only thing that writes to the controller."
@@ -211,7 +214,7 @@
       "chapter": "c5",
       "text": "Push Changes is the only thing that writes to the controller.",
       "claims": [
-        "understand-spatial-adjust/5/5"
+        "understand-spatial-adjust/5/6"
       ],
       "previous_text": "Spatial Adjust never waters anything. Nothing changes until you push."
     }

@@ -2,6 +2,7 @@
 // Holds every Double Click episode to the series rules (video/episodes/RUNBOOK.md, "Formats").
 //
 //   node scripts/episode-lint.mjs <url> [key ...] [--series] [--write-tracker] [--fixtures]
+//                                 [--show-drift] [--write-drift]
 //                                 [--series-file <file>] [--media-root <dir>]
 //   npm run test:episodes [-- key ... | --series | --write-tracker | --fixtures]
 //
@@ -43,6 +44,15 @@
 //
 // One finding per line, for example:
 //   dashboard-overview chapter 3: label 'X' != step title 'Y'
+// Known drift. An episode is filmed against the guide of the day, and its chapter cards and highlight
+// labels are in the picture, so when a guide's steps are later rewritten checks (b) and (f) report
+// the difference and the film is not re-shot. video/episodes/guide-drift.json records those findings
+// verbatim (video/lib/guide-drift.mjs): a recorded finding is counted as known drift and does not fail,
+// an unrecorded finding fails (a regression), and a recorded finding that no longer occurs fails as
+// stale. Only chapter count, chapter label and highlight label findings can be recorded.
+// --show-drift    also lists the known drift findings.
+// --write-drift   records the current step-structure findings of the episodes checked as the ledger.
+//
 // Exit 0 clean, 1 findings (or a fixture that did not behave), 2 could not run.
 //
 // Deliberately not wired into .github/workflows/deploy.yml: it needs a served build and checks
@@ -52,11 +62,13 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { checkEpisode, EpisodeError } from '../video/lib/episode-schema.mjs';
+import { applyKnownDrift, parseDriftLedger, recordableKey, renderDriftLedger } from '../video/lib/guide-drift.mjs';
 import { openReader, readGuide, GuideNotFound } from './lib/rendered-guide.mjs';
 
 export const REPO_ROOT = path.resolve(import.meta.dirname, '..');
 export const PATHS = {
   series: path.join(REPO_ROOT, 'video', 'episodes', 'series.json'),
+  drift: path.join(REPO_ROOT, 'video', 'episodes', 'guide-drift.json'),
   readme: path.join(REPO_ROOT, 'video', 'episodes', 'README.md'),
   runbook: path.join(REPO_ROOT, 'video', 'episodes', 'RUNBOOK.md'),
   episodes: path.join(REPO_ROOT, 'video', 'episodes'),
@@ -474,13 +486,15 @@ export function runFixtures({ dir = PATHS.fixtures, log = console.log } = {}) {
 // CLI
 
 function parseArgs(argv) {
-  const opts = { keys: [], url: null, series: false, writeTracker: false, fixtures: false, seriesFile: undefined, mediaRoot: undefined, help: false };
+  const opts = { keys: [], url: null, series: false, writeTracker: false, fixtures: false, showDrift: false, writeDrift: false, showDrift: false, writeDrift: false, seriesFile: undefined, mediaRoot: undefined, help: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const val = (name) => (a.includes('=') ? a.slice(a.indexOf('=') + 1) : argv[++i]);
     if (a === '--series') opts.series = true;
     else if (a === '--write-tracker') opts.writeTracker = true;
     else if (a === '--fixtures') opts.fixtures = true;
+    else if (a === '--show-drift') opts.showDrift = true;
+    else if (a === '--write-drift') opts.writeDrift = true;
     else if (a === '--help' || a === '-h') opts.help = true;
     else if (a.startsWith('--series-file')) opts.seriesFile = val();
     else if (a.startsWith('--media-root')) opts.mediaRoot = val();
@@ -491,7 +505,7 @@ function parseArgs(argv) {
   return opts;
 }
 
-const USAGE = 'usage: node scripts/episode-lint.mjs <url> [key ...] [--series] [--write-tracker] [--fixtures] [--series-file <file>] [--media-root <dir>]';
+const USAGE = 'usage: node scripts/episode-lint.mjs <url> [key ...] [--series] [--write-tracker] [--fixtures] [--show-drift] [--write-drift] [--series-file <file>] [--media-root <dir>]';
 
 async function main() {
   let opts;
@@ -573,10 +587,50 @@ async function main() {
     console.log(`tracker ${next === md ? 'already current' : 'written'}: video/episodes/README.md`);
   }
 
+  // Known drift: recorded step-structure findings do not fail; everything else does.
+  let driftText = null;
+  try {
+    driftText = readFileSync(PATHS.drift, 'utf8');
+  } catch (err) {
+    if (err.code !== 'ENOENT') throw err;
+  }
+  let driftJson = null;
+  const failures = [];
+  if (driftText !== null) {
+    try {
+      driftJson = JSON.parse(driftText);
+    } catch (err) {
+      failures.push(`guide-drift.json is not valid JSON (${err.message})`);
+    }
+  }
+  const { ledger, problems: ledgerProblems } = parseDriftLedger(driftJson);
+  failures.push(...ledgerProblems);
+
+  if (opts.writeDrift) {
+    const recordable = findings.filter((x) => recordableKey(x) !== null);
+    const rest = findings.filter((x) => !recordable.includes(x));
+    const reason = 'Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.';
+    writeFileSync(PATHS.drift, renderDriftLedger(recordable, { reason, previous: ledger }));
+    console.log(`guide-drift.json written: ${recordable.length} finding(s) in ${new Set(recordable.map(recordableKey)).size} episode(s)`);
+    findings.length = 0;
+    findings.push(...rest);
+  } else {
+    const split = applyKnownDrift(findings, ledger, { keys: opts.keys.length ? opts.keys : null });
+    findings.length = 0;
+    findings.push(...split.open, ...split.stale);
+    if (split.known.length && opts.showDrift) {
+      console.log(`known drift (${split.known.length}, recorded in video/episodes/guide-drift.json):`);
+      for (const x of split.known) console.log(`  ${x}`);
+    }
+    opts.knownDrift = split.known.length;
+  }
+  findings.push(...failures);
+
   for (const x of findings) console.log(x);
   const counts = {};
   for (const e of eps) counts[e.status] = (counts[e.status] ?? 0) + 1;
-  console.log(`episode-lint: ${toCheck.length} episode(s) checked (${Object.entries(counts).map(([k, v]) => `${v} ${k}`).join(', ')}); ${findings.length} finding(s)`);
+  const known = opts.knownDrift ? `; ${opts.knownDrift} known drift finding(s) recorded, not failing` : '';
+  console.log(`episode-lint: ${toCheck.length} episode(s) checked (${Object.entries(counts).map(([k, v]) => `${v} ${k}`).join(', ')}); ${findings.length} finding(s)${known}`);
   return findings.length ? 1 : 0;
 }
 

@@ -14,22 +14,27 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "target-profiles/tile/1",
-    "target-profiles/tile/2",
     "target-profiles/summary/1",
     "target-profiles/where/1",
     "target-profiles/1/1",
-    "target-profiles/1/2",
-    "target-profiles/note/1",
     "target-profiles/2/2",
-    "target-profiles/2/4",
-    "target-profiles/3/2",
+    "target-profiles/1/3",
+    "target-profiles/note/1",
+    "target-profiles/2/3",
     "target-profiles/3/3",
-    "target-profiles/3/4",
     "target-profiles/3/6",
-    "target-profiles/4/2",
-    "target-profiles/4/3",
-    "target-profiles/4/4"
+    "target-profiles/4/6",
+    "target-profiles/before/3",
+    "target-profiles/6/3",
+    "target-profiles/7/7",
+    "target-profiles/4/7",
+    "target-profiles/3/5",
+    "creating-profiles/4/1",
+    "creating-profiles/4/6",
+    "target-profiles/before/1",
+    "creating-profiles/1/7",
+    "target-profiles/tile/1",
+    "target-profiles/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Apply a target profile",
@@ -103,7 +108,8 @@
       "text": "Open Settings, then the Target Profiles tab.",
       "claims": [
         "target-profiles/where/1",
-        "target-profiles/1/1"
+        "target-profiles/1/1",
+        "target-profiles/2/2"
       ],
       "previous_text": "Save a full set of station targets under a name, then switch the whole course between seasonal and event strategies in one action.",
       "next_text": "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit."
@@ -113,7 +119,8 @@
       "chapter": "c1",
       "text": "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit.",
       "claims": [
-        "target-profiles/1/2"
+        "target-profiles/1/3",
+        "target-profiles/2/2"
       ],
       "previous_text": "Open Settings, then the Target Profiles tab.",
       "next_text": "The tab lists five profile slots for each Lynx course, with Last Updated, Stations, Update from Current and Apply Profile columns."
@@ -123,7 +130,8 @@
       "chapter": "c2",
       "text": "The tab lists five profile slots for each Lynx course, with Last Updated, Stations, Update from Current and Apply Profile columns.",
       "claims": [
-        "target-profiles/note/1"
+        "target-profiles/note/1",
+        "target-profiles/2/3"
       ],
       "previous_text": "Profiles sit alongside Calculation and Minimum Threshold in the settings dialog, because a profile is a calculation input rather than a station edit.",
       "next_text": "Each profile shows when it was last updated, by renaming it or with Update from Current, and how many stations it holds. An empty slot shows two dashes for Last Updated and Stations."
@@ -133,8 +141,8 @@
       "chapter": "c2",
       "text": "Each profile shows when it was last updated, by renaming it or with Update from Current, and how many stations it holds. An empty slot shows two dashes for Last Updated and Stations.",
       "claims": [
-        "target-profiles/2/2",
-        "target-profiles/2/4"
+        "target-profiles/3/3",
+        "target-profiles/3/6"
       ],
       "previous_text": "The tab lists five profile slots for each Lynx course, with Last Updated, Stations, Update from Current and Apply Profile columns.",
       "next_text": "Applying overwrites the Target VWC of every station the profile covers. Because that is a recalculation input, the dashboard reloads and the Suggested column changes across the course."
@@ -144,8 +152,10 @@
       "chapter": "c3",
       "text": "Applying overwrites the Target VWC of every station the profile covers. Because that is a recalculation input, the dashboard reloads and the Suggested column changes across the course.",
       "claims": [
-        "target-profiles/3/2",
-        "target-profiles/3/3"
+        "target-profiles/4/6",
+        "target-profiles/before/3",
+        "target-profiles/6/3",
+        "target-profiles/7/7"
       ],
       "previous_text": "Each profile shows when it was last updated, by renaming it or with Update from Current, and how many stations it holds. An empty slot shows two dashes for Last Updated and Stations.",
       "next_text": "Applying a profile is a course-wide change. Applying and pushing in the same minute leaves no time to sanity-check."
@@ -155,8 +165,8 @@
       "chapter": "c3",
       "text": "Applying a profile is a course-wide change. Applying and pushing in the same minute leaves no time to sanity-check.",
       "claims": [
-        "target-profiles/3/4",
-        "target-profiles/3/6"
+        "target-profiles/4/7",
+        "target-profiles/7/7"
       ],
       "previous_text": "Applying overwrites the Target VWC of every station the profile covers. Because that is a recalculation input, the dashboard reloads and the Suggested column changes across the course.",
       "next_text": "Once the course is tuned the way you want it, save the state as a profile so you can return to it. Name it for the condition rather than the date, the reason you set those targets is what you will be looking for later."
@@ -166,8 +176,9 @@
       "chapter": "c4",
       "text": "Once the course is tuned the way you want it, save the state as a profile so you can return to it. Name it for the condition rather than the date, the reason you set those targets is what you will be looking for later.",
       "claims": [
-        "target-profiles/4/2",
-        "target-profiles/4/3"
+        "target-profiles/3/5",
+        "creating-profiles/4/1",
+        "creating-profiles/4/6"
       ],
       "previous_text": "Applying a profile is a course-wide change. Applying and pushing in the same minute leaves no time to sanity-check.",
       "next_text": "The station targets currently in the table are what a new profile would capture."
@@ -177,7 +188,8 @@
       "chapter": "c4",
       "text": "The station targets currently in the table are what a new profile would capture.",
       "claims": [
-        "target-profiles/4/4"
+        "target-profiles/before/1",
+        "creating-profiles/1/7"
       ],
       "previous_text": "Once the course is tuned the way you want it, save the state as a profile so you can return to it. Name it for the condition rather than the date, the reason you set those targets is what you will be looking for later."
     }

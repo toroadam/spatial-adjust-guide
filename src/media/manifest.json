@@ -2,16 +2,260 @@
   "repo": "toroadam/spatial-adjust-guide",
   "release": "media-v1",
   "items": {
+    "bulk-adjustments": {
+      "kind": "episode",
+      "file": "bulk-adjustments.mp4",
+      "bytes": 23564637,
+      "sha256": "08ecb3db1782b214bfe4eafad8e40cc2c63f8a5ee0bc055b2f38e6279524843f",
+      "duration": 105.7,
+      "poster": "bulk-adjustments.jpg",
+      "posterBytes": 116682,
+      "posterSha256": "06f948fbf8a290b723daadeb01b9d338cf6fb21a38a66568821a6199d4f083fa",
+      "captions": "src/media/captions/bulk-adjustments.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "calculation-methods": {
+      "kind": "episode",
+      "file": "calculation-methods.mp4",
+      "bytes": 23758216,
+      "sha256": "de43dc632058ee7427d39fb33297c814d1394cd5222831a8c500a2351c1cf0b4",
+      "duration": 157.4,
+      "poster": "calculation-methods.jpg",
+      "posterBytes": 114091,
+      "posterSha256": "ab2f8bc168ffc7ec8fd4437209e19087e17b4ae8ce724b0bcb30da5125f51a77",
+      "captions": "src/media/captions/calculation-methods.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "calculation-questions": {
+      "kind": "episode",
+      "file": "calculation-questions.mp4",
+      "bytes": 23586736,
+      "sha256": "62413f52383e3251f24889591717d81b81ec0d37e8086bbdf8d1b36cde96f7da",
+      "duration": 121,
+      "poster": "calculation-questions.jpg",
+      "posterBytes": 113282,
+      "posterSha256": "40cec4ef0e0ad07b7da962a2166ae3ec016b6b0388ea268da58ce385d227814a",
+      "captions": "src/media/captions/calculation-questions.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "calculation-settings": {
+      "kind": "episode",
+      "file": "calculation-settings.mp4",
+      "bytes": 23657293,
+      "sha256": "8a1f890db3a32a173d33166136f385dc0f05d2b730555361f096f6e7d7e99aeb",
+      "duration": 162.5,
+      "poster": "calculation-settings.jpg",
+      "posterBytes": 114317,
+      "posterSha256": "72ecbfebcd3c0dbab68742cd266f647c287d4b1cc3279449107561e7fb8cae01",
+      "captions": "src/media/captions/calculation-settings.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "creating-profiles": {
+      "kind": "episode",
+      "file": "creating-profiles.mp4",
+      "bytes": 23611524,
+      "sha256": "18be2d94732a8321389f71a5f80b3068ca02b60a0eaa78434ff5293cb5695751",
+      "duration": 109.6,
+      "poster": "creating-profiles.jpg",
+      "posterBytes": 109632,
+      "posterSha256": "fa48720f59ff7879604808bd52f835dbb41df2cb2d82664bd5d4d884a5c807bc",
+      "captions": "src/media/captions/creating-profiles.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
     "dashboard-overview": {
       "kind": "episode",
       "file": "dashboard-overview.mp4",
-      "bytes": 14900934,
-      "sha256": "8216454de7b7c00a36982c4d7a3479307257405d20506ed1fb02d8613b379be8",
-      "duration": 27.9,
+      "bytes": 23653755,
+      "sha256": "3507eb79aa439cae08fdbf8222daac18eb7078af0cfc91e513a9c6b00be427bf",
+      "duration": 154.2,
       "poster": "dashboard-overview.jpg",
-      "posterBytes": 110347,
-      "posterSha256": "aefee85cf1428585994ad2ce92b949d9601753acecde7eb82291d4bd1a7832e8",
-      "captions": "src/media/captions/dashboard-overview.en-us.vtt"
+      "posterBytes": 113275,
+      "posterSha256": "c4e3d08f06b48f57f8c23bf1e42743fb4dcc4034c7160c23741c1343f1eea536",
+      "captions": "src/media/captions/dashboard-overview.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "editing-station-targets": {
+      "kind": "episode",
+      "file": "editing-station-targets.mp4",
+      "bytes": 23560716,
+      "sha256": "257c7e2c47f6918a729453a210bc5004aebb6d35f412a38615794cbc94fac148",
+      "duration": 108.7,
+      "poster": "editing-station-targets.jpg",
+      "posterBytes": 115837,
+      "posterSha256": "b54b81a6b6c1764c63da9ce146233a1012d803fe803d41d8e24776fd53777ff8",
+      "captions": "src/media/captions/editing-station-targets.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "enable-disable-stations": {
+      "kind": "episode",
+      "file": "enable-disable-stations.mp4",
+      "bytes": 23663166,
+      "sha256": "9e3f25deeda8bdcee6a609832d1a17c21da10a35f312f83a5e1888f23f5779c6",
+      "duration": 127.3,
+      "poster": "enable-disable-stations.jpg",
+      "posterBytes": 116312,
+      "posterSha256": "baeeb2be4e956b8ec805b74d7b2b6628d755d1368eb45534f3e6ea581ba31898",
+      "captions": "src/media/captions/enable-disable-stations.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "filter-adjustments": {
+      "kind": "episode",
+      "file": "filter-adjustments.mp4",
+      "bytes": 23624066,
+      "sha256": "c6df65fe04cb92d54a6f85ceca81a2d4504b50a49a59d01fe4606b3e829929cd",
+      "duration": 142.6,
+      "poster": "filter-adjustments.jpg",
+      "posterBytes": 104645,
+      "posterSha256": "723e3512e4402c3e0d9f992e238ab2ae8d9cdb07f95cd4c10c60c4a53dfa0e08",
+      "captions": "src/media/captions/filter-adjustments.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "map-navigation": {
+      "kind": "episode",
+      "file": "map-navigation.mp4",
+      "bytes": 23680489,
+      "sha256": "82308d814fffea76c20d5b64e328c53e1c3360a89725a06cd7c5e2fb1d8badf8",
+      "duration": 126.3,
+      "poster": "map-navigation.jpg",
+      "posterBytes": 107359,
+      "posterSha256": "89b904984f3b1b910f33b337a4ec7928ac3ad7017f729e1a311a1ff623cd3d43",
+      "captions": "src/media/captions/map-navigation.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "minimum-threshold": {
+      "kind": "episode",
+      "file": "minimum-threshold.mp4",
+      "bytes": 23528763,
+      "sha256": "27317f32c99c45a40ec5903f6a27d1eca769f2d2f5affd7d67fc3fc34d957511",
+      "duration": 134.1,
+      "poster": "minimum-threshold.jpg",
+      "posterBytes": 112730,
+      "posterSha256": "b0f15cb0a3fa99a785476bb8c4bd07a102fce2c7918a13ffceb9e906c091c1ba",
+      "captions": "src/media/captions/minimum-threshold.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "preferences": {
+      "kind": "episode",
+      "file": "preferences.mp4",
+      "bytes": 23627142,
+      "sha256": "8bba321cb8ef2b0e19aed279631d44566e8d6fd4c189ebc383879b674eae85c9",
+      "duration": 139.7,
+      "poster": "preferences.jpg",
+      "posterBytes": 102448,
+      "posterSha256": "dd694f60ac33b5a313fdc73dc7aa74bc5d61119ffcf20669a24cf6b66d6bc25a",
+      "captions": "src/media/captions/preferences.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "push-failures": {
+      "kind": "episode",
+      "file": "push-failures.mp4",
+      "bytes": 23546936,
+      "sha256": "fa72a957a86ceb26c3c6b98b21cf4e11717fdfae20ae8818ca5893a41ff0cc5d",
+      "duration": 105.9,
+      "poster": "push-failures.jpg",
+      "posterBytes": 102579,
+      "posterSha256": "d7789f965f16104dc260695899742a2e2517b67440e4299da5a8a2c180048a10",
+      "captions": "src/media/captions/push-failures.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "push-to-lynx": {
+      "kind": "episode",
+      "file": "push-to-lynx.mp4",
+      "bytes": 23664375,
+      "sha256": "73ce1524e22782ab489b8fe7c0ddfd3454773ab3fb48457c1f30a7d3fdcb0444",
+      "duration": 153.7,
+      "poster": "push-to-lynx.jpg",
+      "posterBytes": 113454,
+      "posterSha256": "80ff6b0e20fb659a629e18bb7476d4f0ddadc26d7e0d8ad75bb64ada63d9ed76",
+      "captions": "src/media/captions/push-to-lynx.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "request-scan-data": {
+      "kind": "episode",
+      "file": "request-scan-data.mp4",
+      "bytes": 23557434,
+      "sha256": "a568e984b5164051f8d86f7ec72c04f5a5e084f8a45e91aaf0fa08cf5bb17b25",
+      "duration": 136.7,
+      "poster": "request-scan-data.jpg",
+      "posterBytes": 113352,
+      "posterSha256": "8b5c4dfb1beb1d6feafc46dfa522d780c42cfcb224fdee780a8b2d2aea5ebec9",
+      "captions": "src/media/captions/request-scan-data.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "reviewing-changes": {
+      "kind": "episode",
+      "file": "reviewing-changes.mp4",
+      "bytes": 23683602,
+      "sha256": "fe57db0361fa22e5e47929219f40a810200ad0013eb273c810e300e59b3b04bf",
+      "duration": 111.5,
+      "poster": "reviewing-changes.jpg",
+      "posterBytes": 113355,
+      "posterSha256": "7d0a68f26f9ccb30d992d2e6464436d8c28b1bdde701f02c70a96515bb232e0d",
+      "captions": "src/media/captions/reviewing-changes.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "seasonal-profiles": {
+      "kind": "episode",
+      "file": "seasonal-profiles.mp4",
+      "bytes": 23495892,
+      "sha256": "d91fc26393d05cbebaf8df0ab1870d0fd6eaad72d3ecad97498e0dea278d5509",
+      "duration": 106.6,
+      "poster": "seasonal-profiles.jpg",
+      "posterBytes": 116121,
+      "posterSha256": "a280e1cbed29da638ca8ca7c390290cffe057c37954ca53a911b6a283348dd3a",
+      "captions": "src/media/captions/seasonal-profiles.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
     },
     "showcase": {
       "kind": "showcase",
@@ -24,6 +268,141 @@
       "posterSha256": "88f6b5a9a10fc4f6ee315efcb5a459dda0eed6fbce6ccda6e110def424c833e9",
       "captions": "src/media/captions/showcase.en-us.vtt",
       "release": "media-v2"
+    },
+    "station-details": {
+      "kind": "episode",
+      "file": "station-details.mp4",
+      "bytes": 23572475,
+      "sha256": "8bf96034e4ced710cfcfa2d52585338adc6285a481663f45d6412dc487f754cd",
+      "duration": 104.6,
+      "poster": "station-details.jpg",
+      "posterBytes": 105655,
+      "posterSha256": "551b25a861605eeac3f1d1e248c6b155e3ec44c4611307376eb28ac12083b72b",
+      "captions": "src/media/captions/station-details.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "station-zero": {
+      "kind": "episode",
+      "file": "station-zero.mp4",
+      "bytes": 23645916,
+      "sha256": "c51b95360ade8ffe35f900047cd2f2bbc7d2d5d0f2474a5d385aa5094e21bfd4",
+      "duration": 145.7,
+      "poster": "station-zero.jpg",
+      "posterBytes": 118326,
+      "posterSha256": "9a041d1828c5b4641b9020f5cac06ff5cc90fc41e8a81b98b4c6191ef8c590fe",
+      "captions": "src/media/captions/station-zero.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "suggested-adjustments": {
+      "kind": "episode",
+      "file": "suggested-adjustments.mp4",
+      "bytes": 23722121,
+      "sha256": "e6ebc45a7faa5bddc195a2b007861daf89c837ed30ff67df6cce5872ce19da03",
+      "duration": 137,
+      "poster": "suggested-adjustments.jpg",
+      "posterBytes": 118923,
+      "posterSha256": "8949002992d7799805df0ee64dcbef32f29136af1ca8a538e7992b7c033253bf",
+      "captions": "src/media/captions/suggested-adjustments.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "target-profiles": {
+      "kind": "episode",
+      "file": "target-profiles.mp4",
+      "bytes": 23558536,
+      "sha256": "9547c10bb40b99e73c71cc5f248986be0ff5ed141d35ef4780c19ce557b80bc1",
+      "duration": 117.8,
+      "poster": "target-profiles.jpg",
+      "posterBytes": 115814,
+      "posterSha256": "0c1a5032c0e849ac47b284a6f70175ca3967ae813f498bff40cdcee54774a317",
+      "captions": "src/media/captions/target-profiles.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "threshold-questions": {
+      "kind": "episode",
+      "file": "threshold-questions.mp4",
+      "bytes": 23671521,
+      "sha256": "da95c47b91966c2356a8bb4399f71cb949aeebd3e5d78304d51f581cd7dcaa11",
+      "duration": 125.7,
+      "poster": "threshold-questions.jpg",
+      "posterBytes": 111893,
+      "posterSha256": "7bc2b993dbb0989e82dfcdaad838c16d2fa1432147d554c9686ae94510eaf00b",
+      "captions": "src/media/captions/threshold-questions.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "understand-spatial-adjust": {
+      "kind": "episode",
+      "file": "understand-spatial-adjust.mp4",
+      "bytes": 23740920,
+      "sha256": "87c42b94f21f23f4bedb55bcee06a49ad548dcacc294e870563d3b0e25b5b3fa",
+      "duration": 115.8,
+      "poster": "understand-spatial-adjust.jpg",
+      "posterBytes": 118220,
+      "posterSha256": "0d261ffbf8c98edc1c0cd094b74ffaff3561864b639739607c6c608ef4b788bd",
+      "captions": "src/media/captions/understand-spatial-adjust.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "understanding-vwc": {
+      "kind": "episode",
+      "file": "understanding-vwc.mp4",
+      "bytes": 23736340,
+      "sha256": "0adae6953cd601f62cc53c673b861984d6b5703a8bbd9287a387fa1bc80e98c6",
+      "duration": 131.5,
+      "poster": "understanding-vwc.jpg",
+      "posterBytes": 112944,
+      "posterSha256": "1ace0b1ec9f7715f56da91cd68dd75dcb1d23c778d3996c86be02f6894d45688",
+      "captions": "src/media/captions/understanding-vwc.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "updating-profiles": {
+      "kind": "episode",
+      "file": "updating-profiles.mp4",
+      "bytes": 23527720,
+      "sha256": "666624931ca9416b28ccc13ed9f6e497613415e90b9a158cc2349c1f6734aa1a",
+      "duration": 107.9,
+      "poster": "updating-profiles.jpg",
+      "posterBytes": 110887,
+      "posterSha256": "e0ed8184119bf750dbe95d29511557d9255d56ee9b11aed3f2ce6afcdde8ae6f",
+      "captions": "src/media/captions/updating-profiles.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
+    },
+    "verify-results": {
+      "kind": "episode",
+      "file": "verify-results.mp4",
+      "bytes": 23597530,
+      "sha256": "258f643563d8d76fbac698bbe02688675ea93433154f49e0adea83a0f2b97032",
+      "duration": 128.6,
+      "poster": "verify-results.jpg",
+      "posterBytes": 104204,
+      "posterSha256": "cf5cfb3df888d0f90dcc65f35633d12ff4826c23fd97c54918e7e032016ec9c6",
+      "captions": "src/media/captions/verify-results.en-us.vtt",
+      "captionLocales": [
+        "en-us"
+      ],
+      "release": "media-v3"
     }
   }
 }

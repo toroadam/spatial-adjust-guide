@@ -1,0 +1,81 @@
+WEBVTT
+
+NOTE push-failures: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:06.605
+Read the failure count, understand
+what has already been tried,
+
+V0-2
+00:00:06.705 --> 00:00:08.480
+and re-push only what failed.
+
+V1a-1
+00:00:13.990 --> 00:00:17.830
+The message names how many stations
+could not be updated: here, two.
+
+V1b-1
+00:00:18.390 --> 00:00:21.898
+The rest of the push succeeded.
+A failure is partial,
+
+V1b-2
+00:00:21.998 --> 00:00:27.360
+and the stations that verified are already
+live in Lynx. The other four are done.
+
+V2a-1
+00:00:34.703 --> 00:00:38.283
+Failed stations are re-pushed
+automatically, up to two further attempts.
+
+V2b-1
+00:00:38.837 --> 00:00:42.820
+This is the automatic retry pass,
+before the failure is reported.
+
+V2b-2
+00:00:42.920 --> 00:00:47.087
+The bar restarts at zero and counts
+only the stations being retried.
+
+V3a-1
+00:00:54.123 --> 00:00:58.282
+Diagnostics reports the Lynx interconnect,
+whether the cloud can be pinged,
+
+V3a-2
+00:00:58.382 --> 00:01:00.823
+and the installation
+and course identifiers.
+
+V3b-1
+00:01:01.340 --> 00:01:04.340
+If the ping is failing,
+no amount of re-pushing will help.
+
+V4a-1
+00:01:11.037 --> 00:01:15.728
+The stations that failed are still
+pending, but they count as pushed today,
+
+V4a-2
+00:01:15.828 --> 00:01:19.957
+so reopening Push Changes lists
+them under Pushed Today, unticked.
+
+V4b-1
+00:01:20.470 --> 00:01:25.213
+Tick them to send them again. Stations
+that went through are not listed again,
+
+V4b-2
+00:01:25.313 --> 00:01:27.563
+so the whole set cannot go out twice.
+
+V4b-3
+00:01:27.663 --> 00:01:31.920
+Untick anything under Available to
+Push that you did not mean to send.

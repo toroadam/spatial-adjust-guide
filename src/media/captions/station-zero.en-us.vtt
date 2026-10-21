@@ -1,0 +1,113 @@
+WEBVTT
+
+NOTE station-zero: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.105
+Zero means the calculation
+asked for no water.
+
+V0-2
+00:00:05.205 --> 00:00:07.970
+Four checks, in order, tell
+you whether that is right.
+
+V1a-1
+00:00:14.857 --> 00:00:18.704
+When measured VWC is comfortably
+above the station target,
+
+V1a-2
+00:00:18.804 --> 00:00:22.387
+the required amount is zero,
+and so is the suggestion.
+
+V1b-1
+00:00:22.923 --> 00:00:27.751
+Station 10AP1 read 34.5
+percent against a target of 16.
+
+V1b-2
+00:00:27.851 --> 00:00:32.943
+It does not need water today,
+so zero is the right answer.
+
+V2a-1
+00:00:39.627 --> 00:00:42.171
+With Set to zero when
+pushed to Lynx selected,
+
+V2a-2
+00:00:42.271 --> 00:00:45.757
+a small but genuine adjustment
+is written to Lynx as 0 percent.
+
+V2b-1
+00:00:46.310 --> 00:00:50.222
+The table still shows the raw value,
+so the two disagree. Switch to the
+
+V2b-2
+00:00:50.322 --> 00:00:54.400
+minimum threshold value option if you
+want those stations to keep running.
+
+V3a-1
+00:01:01.930 --> 00:01:05.651
+A station with the Enable switch
+off is left out of every push,
+
+V3a-2
+00:01:05.751 --> 00:01:09.000
+so Lynx keeps whatever percent
+adjust it already holds.
+
+V3b-1
+00:01:09.513 --> 00:01:15.649
+Its suggestion is still calculated and
+shown, so being disabled does not by
+
+V3b-2
+00:01:15.749 --> 00:01:22.213
+itself explain a zero. Station 5AP1 is
+disabled; the switch on its row is grey.
+
+V4a-1
+00:01:28.740 --> 00:01:33.512
+A scan date older than today means
+the reading is stale. Spatial Adjust
+
+V4a-2
+00:01:33.612 --> 00:01:38.520
+falls back to the modelled value,
+in grey italics with a calculator icon.
+
+V4b-1
+00:01:39.073 --> 00:01:44.300
+Station 7AP1 shows a modelled value,
+grey and italic, dated two days ago.
+
+V4b-2
+00:01:44.400 --> 00:01:49.413
+If the whole course is stale,
+TurfRad has not delivered new scans yet.
+
+V5a-1
+00:01:55.973 --> 00:01:59.376
+If nothing above explains it,
+open the diagnostics dialog by
+
+V5a-2
+00:01:59.476 --> 00:02:02.823
+holding Shift and Alt and
+clicking the Spatial Adjust logo.
+
+V5b-1
+00:02:03.373 --> 00:02:08.413
+It reports whether the org has TurfRad
+access, whether it has scan data at all,
+
+V5b-2
+00:02:08.513 --> 00:02:11.703
+the last scan date, and
+whether Lynx is reachable.

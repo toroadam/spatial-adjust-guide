@@ -1,0 +1,105 @@
+WEBVTT
+
+NOTE verify-results: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.168
+A push is four phases, not one.
+
+V0-2
+00:00:05.268 --> 00:00:09.480
+Knowing them tells you what
+a slow run is waiting for.
+
+V1a-1
+00:00:14.090 --> 00:00:18.887
+Nothing is read before the push begins.
+Stations are written in sequence with
+
+V1a-2
+00:00:18.987 --> 00:00:23.660
+a short pause between each, and the
+progress line names which one it is on.
+
+V1b-1
+00:00:24.223 --> 00:00:28.738
+The writing counter runs on a fixed timer
+and does not wait for Lynx. If a run
+
+V1b-2
+00:00:28.838 --> 00:00:33.643
+stalls, it stalls in the next phase, while
+Spatial Adjust waits for Lynx to answer.
+
+V2a-1
+00:00:40.427 --> 00:00:41.541
+With the writing done,
+
+V2a-2
+00:00:41.641 --> 00:00:45.037
+Spatial Adjust retrieves the current
+percent adjustments from Lynx.
+
+V2b-1
+00:00:45.593 --> 00:00:50.608
+This is a read-back, not a baseline. It is
+collecting what Lynx actually holds now,
+
+V2b-2
+00:00:50.708 --> 00:00:54.213
+so the next phase has something
+to check the push against.
+
+V3a-1
+00:01:00.307 --> 00:01:03.575
+Spatial Adjust re-reads the
+station list and compares
+
+V3a-2
+00:01:03.675 --> 00:01:06.697
+each value it sent against
+what Lynx now reports.
+
+V3b-1
+00:01:07.207 --> 00:01:11.787
+Anything that does not match is treated
+as failed rather than assumed good.
+
+V4a-1
+00:01:18.590 --> 00:01:22.889
+Stations that did not take are
+re-pushed, up to two further attempts
+
+V4a-2
+00:01:22.989 --> 00:01:27.288
+after the first. The progress line
+names how many are being retried,
+
+V4a-3
+00:01:27.388 --> 00:01:30.360
+so a retry is information
+rather than an error.
+
+V4b-1
+00:01:30.873 --> 00:01:35.794
+The bar restarts at zero for the retry
+pass and counts only the failed stations.
+
+V4b-2
+00:01:35.894 --> 00:01:40.015
+A drop from nearly complete back
+to nothing is the retry beginning,
+
+V4b-3
+00:01:40.115 --> 00:01:41.593
+not the push collapsing.
+
+V5a-1
+00:01:47.637 --> 00:01:51.707
+A clean run confirms that every selected
+change reached Lynx and verified.
+
+V5b-1
+00:01:52.270 --> 00:01:55.060
+The dialog reports success
+rather than a failure count.

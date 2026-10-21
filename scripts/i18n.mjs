@@ -117,6 +117,38 @@ results.captionSwitch = {
     && afterSwitch.lang === 'fr-FR' && (afterSwitch.showing || []).join() === 'fr-FR',
 };
 
+// An item with no translated captions (an episode, until its cues are translated) offers its English
+// track to every reader: one track, English, the default and the one showing, in a German page and
+// after a run-time switch to French, with an English transcript tagged lang="en-US".
+const englishPage = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+englishPage.on('pageerror', (e) => errs.push(String(e).slice(0, 120)));
+await installMediaFixture(englishPage, { keys: ['dashboard-overview'], englishOnly: ['dashboard-overview'] });
+const englishState = () => englishPage.evaluate(() => {
+  const v = document.querySelector('.lsa-media video');
+  const body = document.querySelector('.lsa-media-transcript-body');
+  return v ? {
+    lang: document.documentElement.getAttribute('lang'),
+    tracks: [...v.querySelectorAll('track')].map((t) => `${t.getAttribute('srclang')}:${t.getAttribute('label')}`),
+    defaults: [...v.querySelectorAll('track[default]')].map((t) => t.getAttribute('srclang')),
+    showing: [...v.textTracks].filter((t) => t.mode === 'showing').map((t) => t.language),
+    transcriptLang: body ? body.getAttribute('lang') : null,
+    transcriptCues: body ? body.querySelectorAll('p').length : 0,
+  } : null;
+});
+await englishPage.goto(`${url}/?lang=de-de#/dashboard-overview`, { waitUntil: 'networkidle' });
+await englishPage.waitForSelector('.lsa-media video', { timeout: 10000 }).catch(() => {});
+await englishPage.waitForFunction(() => [...document.querySelector('.lsa-media video').textTracks].some((t) => t.mode === 'showing'), null, { timeout: 5000 }).catch(() => {});
+await englishPage.evaluate(() => { document.querySelector('.lsa-media-transcript').open = true; });
+await englishPage.waitForFunction(() => document.querySelectorAll('.lsa-media-transcript-body p').length > 0, null, { timeout: 5000 }).catch(() => {});
+const englishInGerman = await englishState();
+await englishPage.evaluate(() => window.__saLocale.set('fr-fr', { persist: false }));
+await englishPage.waitForTimeout(500);
+const englishInFrench = await englishState();
+const englishOk = (s, lang) => !!s && s.lang === lang && s.tracks.join() === 'en-US:English'
+  && s.defaults.join() === 'en-US' && s.showing.join() === 'en-US'
+  && s.transcriptLang === 'en-US' && s.transcriptCues > 0;
+results.englishOnlyCaptions = { de: englishInGerman, fr: englishInFrench, ok: englishOk(englishInGerman, 'de-DE') && englishOk(englishInFrench, 'fr-FR') };
+
 results.errors = [...new Set(errs)];
 await b.close();
 
@@ -132,6 +164,7 @@ const pass =
   [...shipped].sort().join() === [...TRANSLATED_LOCALES].sort().join() &&
   shipped.every((l) => results.captions[l].ok) &&
   results.captionSwitch.ok &&
+  results.englishOnlyCaptions.ok &&
   errs.length === 0;
 
 console.log(JSON.stringify(results, null, 2));

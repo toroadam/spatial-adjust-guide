@@ -1,0 +1,92 @@
+WEBVTT
+
+NOTE updating-profiles: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.133
+Fold this week's adjustments
+back into a saved
+
+V0-2
+00:00:05.233 --> 00:00:07.410
+profile without applying it to the course.
+
+V1a-1
+00:00:12.830 --> 00:00:15.332
+After a fortnight of
+individual target edits,
+
+V1a-2
+00:00:15.432 --> 00:00:18.380
+the course no longer matches
+the profile you applied.
+
+V1b-1
+00:00:19.097 --> 00:00:22.486
+The profile is still valid,
+it is simply out of date.
+
+V1b-2
+00:00:22.586 --> 00:00:26.167
+Individually edited targets
+drift away from the profile.
+
+V2a-1
+00:00:32.750 --> 00:00:35.680
+Find the profile’s row,
+with Update from Current.
+
+V2b-1
+00:00:36.683 --> 00:00:40.942
+The profile list does not mark the
+profile you applied. Editing a station
+
+V2b-2
+00:00:41.042 --> 00:00:45.593
+target after applying leaves the profile
+intact but no longer exactly matched.
+
+V3a-1
+00:00:53.160 --> 00:00:56.807
+Overwrite the stored targets with
+the current ones when the drift is an
+
+V3a-2
+00:00:56.907 --> 00:01:00.710
+improvement. Rule of thumb. Update
+when the course has genuinely moved on.
+
+V3b-1
+00:01:01.677 --> 00:01:05.760
+Capture into a different slot instead
+when the change is for one event,
+
+V3b-2
+00:01:05.860 --> 00:01:09.598
+and rename it to suit; with five
+slots per course that overwrites
+
+V3b-3
+00:01:09.698 --> 00:01:13.207
+whatever the other slot held,
+so pick one you no longer need.
+
+V4a-1
+00:01:19.230 --> 00:01:22.890
+Updating a profile writes to the
+profile, not to the stations.
+
+V4b-1
+00:01:23.847 --> 00:01:26.978
+The Suggested column should
+be exactly as it was —
+
+V4b-2
+00:01:27.078 --> 00:01:30.272
+if it moved, something
+applied rather than updated.
+
+V4b-3
+00:01:30.372 --> 00:01:34.507
+Suggestions unchanged: the update
+touched only the stored profile.

@@ -1,0 +1,257 @@
+{
+  "$comment": "Known step-structure drift between the filmed episodes and the rewritten guides, one verbatim lint finding per line. Written by node scripts/episode-lint.mjs <url> --write-drift; read by the lint (video/lib/guide-drift.mjs). A finding listed here is reported as known drift, not failed; any finding not listed fails, and a listed finding that no longer occurs fails as stale, so the list only shrinks. The same drift is on the review agenda (docs/review-agenda.md).",
+  "episodes": {
+    "dashboard-overview": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "dashboard-overview chapter 1: highlight.label 'site name' is not a bold label of step 1 ('AVG. VWC', 'HIGH', 'LOW')",
+        "dashboard-overview chapter 2: highlight.label 'Enabled Stations' is not a bold label of step 2 (none)",
+        "dashboard-overview chapter 3: highlight.label 'multiselect' is not a bold label of step 3 (none)"
+      ]
+    },
+    "understand-spatial-adjust": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "understand-spatial-adjust chapter 1: highlight.label 'IntelliDash' is not a bold label of step 1 (none)"
+      ]
+    },
+    "map-navigation": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "map-navigation: 5 chapters != 6 rendered steps",
+        "map-navigation chapter 4: label 'Filter with Layers' != step title 'Open Layers'",
+        "map-navigation chapter 5: label 'Map and table stay in sync' != step title 'Choose the stations'",
+        "map-navigation chapter 2: highlight.label 'colour bar' is not a bold label of step 2 (none)",
+        "map-navigation chapter 3: highlight.label 'variance' is not a bold label of step 3 ('Toggle VWC or Variance View')",
+        "map-navigation chapter 5: highlight.label 'station' is not a bold label of step 5 ('Enabled Stations', 'All Stations', 'Layers')"
+      ]
+    },
+    "understanding-vwc": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "understanding-vwc chapter 2: highlight.label 'Station' is not a bold label of step 2 ('Avg. VWC', 'Option 1')",
+        "understanding-vwc chapter 4: highlight.label 'target' is not a bold label of step 4 ('Target VWC', 'Avg. VWC', 'Suggested')",
+        "understanding-vwc chapter 5: highlight.label 'Hole' is not a bold label of step 5 ('Avg. Target VWC', 'Last Scan', 'Target VWC')"
+      ]
+    },
+    "suggested-adjustments": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "suggested-adjustments: 5 chapters != 6 rendered steps",
+        "suggested-adjustments chapter 3: highlight.label 'suggested' is not a bold label of step 3 ('Suggested', 'Option 2', 'Settings', 'Calculation')",
+        "suggested-adjustments chapter 5: highlight.label 'Shift' is not a bold label of step 5 ('Soil Factor (%)', 'Save', 'Settings', 'Option 2')"
+      ]
+    },
+    "filter-adjustments": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "filter-adjustments: 5 chapters != 6 rendered steps",
+        "filter-adjustments chapter 4: label 'It catches both extremes, not a band' != step title 'Exclude Zeros belongs to Under'",
+        "filter-adjustments chapter 5: label 'Exclude Zeros belongs to Under' != step title 'Save the filter'",
+        "filter-adjustments chapter 3: highlight.label 'Over/Under' is not a bold label of step 3 ('Over', 'Under')",
+        "filter-adjustments chapter 4: highlight.label 'Over' is not a bold label of step 4 ('Exclude Zeros', 'Under')",
+        "filter-adjustments chapter 5: highlight.label 'Exclude Zeros' is not a bold label of step 5 ('Save Changes', 'Cancel')"
+      ]
+    },
+    "push-to-lynx": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "push-to-lynx chapter 1: highlight.label '% Adj.' is not a bold label of step 1 ('Push Changes')",
+        "push-to-lynx chapter 2: highlight.label 'Current' is not a bold label of step 2 ('Push Changes', 'Pushed Today')",
+        "push-to-lynx chapter 4: highlight.label 'footer button' is not a bold label of step 4 ('Changes', 'Pushed Today')",
+        "push-to-lynx chapter 5: highlight.label 'progress' is not a bold label of step 5 ('Push Changes')",
+        "push-to-lynx chapter 6: highlight.label 'Push Changes' is not a bold label of step 6 ('Close', 'All selected changes successfully pushed to Lynx.')"
+      ]
+    },
+    "reviewing-changes": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "reviewing-changes chapter 3: highlight.label 'Available to Push' is not a bold label of step 3 ('Pushed Today')",
+        "reviewing-changes chapter 4: highlight.label 'banner' is not a bold label of step 4 ('Review Threshold')",
+        "reviewing-changes chapter 5: highlight.label 'footer' is not a bold label of step 5 ('Push Changes')"
+      ]
+    },
+    "verify-results": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "verify-results chapter 1: highlight.label 'progress line' is not a bold label of step 1 (none)",
+        "verify-results chapter 2: highlight.label 'Lynx' is not a bold label of step 2 ('Retrieving latest Percent Adjustments from Lynx for comparison')",
+        "verify-results chapter 3: highlight.label 'verifies' is not a bold label of step 3 ('Verifying adjustments sent to Lynx')",
+        "verify-results chapter 4: highlight.label 'progress line' is not a bold label of step 4 (none)",
+        "verify-results chapter 5: highlight.label 'Push Changes' is not a bold label of step 5 ('Close', 'All selected changes successfully pushed to Lynx.')"
+      ]
+    },
+    "editing-station-targets": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "editing-station-targets chapter 1: highlight.label 'Hole' is not a bold label of step 1 ('Target VWC')"
+      ]
+    },
+    "bulk-adjustments": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "bulk-adjustments: 4 chapters != 5 rendered steps",
+        "bulk-adjustments chapter 4: label 'Apply to all' != step title 'Type the amount'",
+        "bulk-adjustments chapter 4: highlight.label 'Apply to all' is not a bold label of step 4 ('Shift', 'Replace')"
+      ]
+    },
+    "enable-disable-stations": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "enable-disable-stations: 5 chapters != 6 rendered steps",
+        "enable-disable-stations chapter 5: label 'Check the result on the map' != step title 'Open Layers on the map'",
+        "enable-disable-stations chapter 2: highlight.label 'Hole' is not a bold label of step 2 ('Enable')",
+        "enable-disable-stations chapter 4: highlight.label 'checkbox' is not a bold label of step 4 ('Don’t ask to confirm cascading enable/disable changes again', 'Continue', 'Cancel')"
+      ]
+    },
+    "station-details": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "station-details: 4 chapters != 5 rendered steps",
+        "station-details chapter 4: label 'Watch for a modelled child' != step title 'Spot a modelled sprinkler'",
+        "station-details chapter 1: highlight.label 'Station' is not a bold label of step 1 (none)",
+        "station-details chapter 2: highlight.label 'child row' is not a bold label of step 2 (none)",
+        "station-details chapter 4: highlight.label 'calculator icon' is not a bold label of step 4 ('Option 1')"
+      ]
+    },
+    "minimum-threshold": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "minimum-threshold: 5 chapters != 8 rendered steps",
+        "minimum-threshold chapter 5: label 'Save and confirm at push time' != step title 'Keep zeros at zero'",
+        "minimum-threshold chapter 3: highlight.label 'percentage' is not a bold label of step 3 ('Minimum Threshold (%)')",
+        "minimum-threshold chapter 5: highlight.label 'Save' is not a bold label of step 5 ('Exclude Zeros')"
+      ]
+    },
+    "calculation-settings": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "calculation-settings: 5 chapters != 7 rendered steps",
+        "calculation-settings chapter 1: label 'Open Settings on the Calculation tab' != step title 'Open Settings'",
+        "calculation-settings chapter 2: label 'Daily Max Amount caps the water' != step title 'Choose the Calculation tab'",
+        "calculation-settings chapter 3: label 'Lynx Reference Amount is what 100% means' != step title 'Set the daily maximum'",
+        "calculation-settings chapter 4: label 'Crop Coefficient scales today’s ET' != step title 'Set the Lynx Reference Amount'",
+        "calculation-settings chapter 5: label 'Saving recalculates the whole course' != step title 'Set the crop coefficient'",
+        "calculation-settings chapter 1: highlight.label 'Calculation' is not a bold label of step 1 ('Settings', 'Minimum Threshold', 'Review Threshold')",
+        "calculation-settings chapter 2: highlight.label 'Daily Max Amount' is not a bold label of step 2 ('Calculation', 'Crop Coefficient (%)', 'Option 1')",
+        "calculation-settings chapter 3: highlight.label 'Lynx Reference Amount' is not a bold label of step 3 ('Calculation')",
+        "calculation-settings chapter 4: highlight.label 'Crop Coefficient' is not a bold label of step 4 ('Calculation')",
+        "calculation-settings chapter 5: highlight.label 'Save Changes' is not a bold label of step 5 ('Crop Coefficient (%)', 'Option 1')"
+      ]
+    },
+    "calculation-methods": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "calculation-methods chapter 2: label 'Option 2 — delta plus today’s ET, the default' != step title 'See what Option 1 turns off'",
+        "calculation-methods chapter 3: label 'Option 1 — ratio of target to measured' != step title 'Cancel without saving'",
+        "calculation-methods chapter 4: label 'The cap is what makes them look different' != step title 'Read the Suggested column'",
+        "calculation-methods chapter 5: label 'Switching is a course-wide change' != step title 'Review the column after a switch'",
+        "calculation-methods chapter 3: highlight.label 'Option 1' is not a bold label of step 3 ('Cancel', 'Discard changes')"
+      ]
+    },
+    "preferences": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "preferences: 4 chapters != 7 rendered steps",
+        "preferences chapter 2: label 'Units of Measure changes what you type' != step title 'Choose your units'",
+        "preferences chapter 3: label 'Language applies immediately' != step title 'Choose your language'",
+        "preferences chapter 4: label 'Temperature and separator affect the toolbar' != step title 'Choose the temperature scale'",
+        "preferences chapter 4: highlight.label 'weather strip' is not a bold label of step 4 ('Temperature Scale', 'Save Changes')"
+      ]
+    },
+    "station-zero": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "station-zero chapter 1: highlight.label 'Station' is not a bold label of step 1 ('Avg. VWC', 'Target VWC', 'Option 2')",
+        "station-zero chapter 4: highlight.label 'modelled value' is not a bold label of step 4 ('Avg. VWC', 'Option 2', 'Request latest scan data', 'Reload Data')",
+        "station-zero chapter 5: highlight.label 'Shift' is not a bold label of step 5 (none)"
+      ]
+    },
+    "request-scan-data": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "request-scan-data chapter 5: label 'If the request will not queue' != step title 'If scans still do not arrive'",
+        "request-scan-data chapter 1: highlight.label 'scan date' is not a bold label of step 1 (none)",
+        "request-scan-data chapter 3: highlight.label 'queued' is not a bold label of step 3 ('Request Queued', 'Request Failed')",
+        "request-scan-data chapter 5: highlight.label 'diagnostics dialog' is not a bold label of step 5 (none)"
+      ]
+    },
+    "threshold-questions": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "threshold-questions chapter 1: highlight.label 'Station' is not a bold label of step 1 ('Suggested', 'Push Changes')",
+        "threshold-questions chapter 3: highlight.label 'Set to zero' is not a bold label of step 3 ('Minimum Threshold (%)', 'Minimum Threshold', 'Settings', 'Set to zero when pushed to Lynx', 'Set to the minimum threshold value when pushed to Lynx')",
+        "threshold-questions chapter 5: highlight.label 'threshold of zero' is not a bold label of step 5 ('Minimum Threshold (%)', 'Review Threshold')"
+      ]
+    },
+    "calculation-questions": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "calculation-questions chapter 1: highlight.label 'same percentage' is not a bold label of step 1 ('Suggested', 'Option 2')",
+        "calculation-questions chapter 2: highlight.label 'daily maximum' is not a bold label of step 2 ('Calculation', 'Settings', 'Save Changes', 'Option 2')",
+        "calculation-questions chapter 3: highlight.label 'a dash' is not a bold label of step 3 (none)",
+        "calculation-questions chapter 4: highlight.label 'modelled' is not a bold label of step 4 ('Avg. VWC', 'Option 2', 'Option 1')",
+        "calculation-questions chapter 5: highlight.label 'diagnostics dialog' is not a bold label of step 5 ('Request latest scan data')"
+      ]
+    },
+    "push-failures": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "push-failures chapter 1: highlight.label 'could not be updated' is not a bold label of step 1 ('Close')",
+        "push-failures chapter 2: highlight.label 're-pushed automatically' is not a bold label of step 2 (none)",
+        "push-failures chapter 3: highlight.label 'Diagnostics' is not a bold label of step 3 (none)"
+      ]
+    },
+    "target-profiles": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "target-profiles: 4 chapters != 7 rendered steps",
+        "target-profiles chapter 1: label 'Open the Target Profiles tab' != step title 'Open Settings'",
+        "target-profiles chapter 2: label 'Read the profile list' != step title 'Open the Target Profiles tab'",
+        "target-profiles chapter 3: label 'Apply and confirm' != step title 'Read the profile list'",
+        "target-profiles chapter 4: label 'Save your current targets into a profile slot' != step title 'Choose the profile'",
+        "target-profiles chapter 1: highlight.label 'Calculation' is not a bold label of step 1 ('Settings', 'Announcements')",
+        "target-profiles chapter 2: highlight.label 'Current' is not a bold label of step 2 ('Target Profiles', 'Minimum Threshold', 'Update from Current', 'Apply Profile')",
+        "target-profiles chapter 3: highlight.label 'Target VWC' is not a bold label of step 3 ('Target Profile')",
+        "target-profiles chapter 4: highlight.label 'Save' is not a bold label of step 4 ('Apply Profile', 'Use Target Profile?', 'Matching Stations', 'Target VWC')"
+      ]
+    },
+    "creating-profiles": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "creating-profiles: 4 chapters != 6 rendered steps",
+        "creating-profiles chapter 2: label 'Open the Target Profiles tab' != step title 'Open Settings'",
+        "creating-profiles chapter 3: label 'Name it for the condition' != step title 'Open the Target Profiles tab'",
+        "creating-profiles chapter 4: label 'Check the station count' != step title 'Name it for the condition'",
+        "creating-profiles chapter 2: highlight.label 'Target Profiles' is not a bold label of step 2 ('Settings', 'Announcements')",
+        "creating-profiles chapter 3: highlight.label 'Summer Baseline' is not a bold label of step 3 ('Target Profiles', 'Minimum Threshold', 'Update from Current', 'Apply Profile')",
+        "creating-profiles chapter 4: highlight.label 'station count' is not a bold label of step 4 ('Target Profile')"
+      ]
+    },
+    "updating-profiles": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "updating-profiles: 4 chapters != 7 rendered steps",
+        "updating-profiles chapter 2: label 'Find the profile’s row' != step title 'Open Settings'",
+        "updating-profiles chapter 3: label 'Update this slot or capture into another' != step title 'Open the Target Profiles tab'",
+        "updating-profiles chapter 4: label 'Confirm nothing moved' != step title 'Find the profile’s row'",
+        "updating-profiles chapter 1: highlight.label 'drift' is not a bold label of step 1 (none)",
+        "updating-profiles chapter 2: highlight.label 'Current' is not a bold label of step 2 ('Settings', 'Announcements')",
+        "updating-profiles chapter 3: highlight.label 'Update this slot' is not a bold label of step 3 ('Target Profiles', 'Minimum Threshold', 'Update from Current', 'Apply Profile')",
+        "updating-profiles chapter 4: highlight.label 'Suggested' is not a bold label of step 4 ('Target Profile')"
+      ]
+    },
+    "seasonal-profiles": {
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "findings": [
+        "seasonal-profiles: 4 chapters != 7 rendered steps",
+        "seasonal-profiles chapter 3: label 'Read the new suggestions before pushing' != step title 'Confirm the profile'",
+        "seasonal-profiles chapter 4: label 'Push once you agree with them' != step title 'Save the change'",
+        "seasonal-profiles chapter 1: highlight.label 'five slots' is not a bold label of step 1 ('Target Profile', 'Save Changes')",
+        "seasonal-profiles chapter 2: highlight.label 'Apply' is not a bold label of step 2 ('Apply Profile', 'Use Target Profile?', 'Matching Stations')",
+        "seasonal-profiles chapter 3: highlight.label 'Suggested' is not a bold label of step 3 ('Use Target Profile?', 'Confirm', 'Apply Profile', 'Matching Stations')",
+        "seasonal-profiles chapter 4: highlight.label 'Push' is not a bold label of step 4 ('Save Changes', 'Unable to save data')"
+      ]
+    }
+  }
+}

@@ -1,0 +1,113 @@
+WEBVTT
+
+NOTE filter-adjustments: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:06.883
+The Over/Under filter finds the
+extremes at both ends at once.
+
+V0-2
+00:00:06.983 --> 00:00:10.850
+It is not a range, and reading
+it as one will mislead you.
+
+V1a-1
+00:00:13.130 --> 00:00:15.690
+All Stations carries the
+full count. Beside it,
+
+V1a-2
+00:00:15.790 --> 00:00:20.040
+the Over/Under tab carries the count of
+stations the filter currently catches.
+
+V1b-1
+00:00:20.597 --> 00:00:25.034
+Until you set a filter, that count
+is a dash and the tab does nothing.
+
+V1b-2
+00:00:25.134 --> 00:00:28.557
+It is not broken; there is
+simply nothing to show yet.
+
+V2a-1
+00:00:34.593 --> 00:00:39.288
+The link below the two tabs, beside
+Bulk Adjust, states the thresholds
+
+V2a-2
+00:00:39.388 --> 00:00:44.353
+currently in force: percent adjustment
+over 200 percent, under 10 percent.
+
+V2b-1
+00:00:44.910 --> 00:00:49.530
+So you can read the filter without opening
+it. Clicking it opens Over/Under Options.
+
+V3a-1
+00:00:56.503 --> 00:01:04.353
+Over accepts 0 to 300 and defaults to 200.
+Under accepts 0 to 100 and defaults to 10.
+
+V3b-1
+00:01:04.870 --> 00:01:09.070
+Each has its own checkbox, so you
+can run one end without the other.
+
+V3b-2
+00:01:09.170 --> 00:01:12.505
+Over alone finds the stations
+asking for far too much;
+
+V3b-3
+00:01:12.605 --> 00:01:15.570
+Under alone, the ones
+asking for almost nothing.
+
+V4a-1
+00:01:23.217 --> 00:01:27.224
+A station is caught if its
+suggestion is above the Over value or
+
+V4a-2
+00:01:27.324 --> 00:01:31.519
+below the Under value. With 200
+and 10 set, you get everything over
+
+V4a-3
+00:01:31.619 --> 00:01:35.877
+200 percent and everything under
+10 percent, and nothing in between.
+
+V4b-1
+00:01:36.433 --> 00:01:40.117
+It is an outlier finder.
+Reading it as between 10 and 200
+
+V4b-2
+00:01:40.217 --> 00:01:43.643
+gives you exactly the stations
+it is not showing you.
+
+V5a-1
+00:01:50.560 --> 00:01:55.215
+Exclude Zeros is greyed out until Under
+is enabled, because a zero is below
+
+V5a-2
+00:01:55.315 --> 00:01:59.660
+any under threshold. Tick it and
+genuine zeros drop out of the filter.
+
+V5b-1
+00:02:00.210 --> 00:02:04.430
+Your thresholds are saved to your own
+user preferences, not to the site.
+
+V5b-2
+00:02:04.530 --> 00:02:08.750
+The Exclude Zeros in Settings,
+Minimum Threshold is a different setting.

@@ -51,23 +51,31 @@
     }
   ],
   "claims": [
-    "enable-disable-stations/1/1",
+    "enable-disable-stations/summary/1",
     "enable-disable-stations/1/2",
+    "enable-disable-stations/2/5",
     "enable-disable-stations/1/3",
-    "enable-disable-stations/2/1",
+    "enable-disable-stations/1/6",
+    "enable-disable-stations/2/7",
+    "enable-disable-stations/2/6",
+    "enable-disable-stations/6/3",
+    "enable-disable-stations/verify/1",
     "enable-disable-stations/2/2",
-    "enable-disable-stations/2/3",
-    "enable-disable-stations/3/1",
     "enable-disable-stations/3/2",
+    "enable-disable-stations/2/3",
+    "enable-disable-stations/3/6",
     "enable-disable-stations/3/3",
-    "enable-disable-stations/4/1",
+    "enable-disable-stations/3/4",
+    "enable-disable-stations/3/5",
     "enable-disable-stations/4/2",
     "enable-disable-stations/4/3",
     "enable-disable-stations/4/5",
-    "enable-disable-stations/5/1",
+    "enable-disable-stations/4/7",
+    "enable-disable-stations/4/6",
     "enable-disable-stations/5/2",
     "enable-disable-stations/5/3",
-    "enable-disable-stations/summary/1",
+    "enable-disable-stations/6/2",
+    "enable-disable-stations/6/5",
     "enable-disable-stations/tile/1",
     "enable-disable-stations/tile/2"
   ],
@@ -154,7 +162,8 @@
       "chapter": "c1",
       "text": "The switch in the Enable column takes effect on that station alone.",
       "claims": [
-        "enable-disable-stations/1/2"
+        "enable-disable-stations/1/2",
+        "enable-disable-stations/2/5"
       ],
       "previous_text": "Take a station, hole or area out of adjustment, and understand what cascading does before you confirm it.",
       "next_text": "Station 5AP1 is off here, which is why it has no pending adjustment however dry it reads."
@@ -164,7 +173,8 @@
       "chapter": "c1",
       "text": "Station 5AP1 is off here, which is why it has no pending adjustment however dry it reads.",
       "claims": [
-        "enable-disable-stations/1/3"
+        "enable-disable-stations/1/3",
+        "enable-disable-stations/1/6"
       ],
       "previous_text": "The switch in the Enable column takes effect on that station alone.",
       "next_text": "Hole and area rows carry the same switch. Turning one off takes everything beneath it out of the push and off the Enabled Stations map, but leaves their own switches as they were."
@@ -174,8 +184,10 @@
       "chapter": "c2",
       "text": "Hole and area rows carry the same switch. Turning one off takes everything beneath it out of the push and off the Enabled Stations map, but leaves their own switches as they were.",
       "claims": [
-        "enable-disable-stations/2/2",
-        "enable-disable-stations/2/3"
+        "enable-disable-stations/2/7",
+        "enable-disable-stations/2/6",
+        "enable-disable-stations/6/3",
+        "enable-disable-stations/verify/1"
       ],
       "previous_text": "Station 5AP1 is off here, which is why it has no pending adjustment however dry it reads.",
       "next_text": "Hold Shift as you click to switch everything beneath it off too."
@@ -185,7 +197,8 @@
       "chapter": "c2",
       "text": "Hold Shift as you click to switch everything beneath it off too.",
       "claims": [
-        "enable-disable-stations/2/3"
+        "enable-disable-stations/2/2",
+        "enable-disable-stations/3/2"
       ],
       "previous_text": "Hole and area rows carry the same switch. Turning one off takes everything beneath it out of the push and off the Enabled Stations map, but leaves their own switches as they were.",
       "next_text": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it."
@@ -195,7 +208,8 @@
       "chapter": "c3",
       "text": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
       "claims": [
-        "enable-disable-stations/3/2"
+        "enable-disable-stations/2/3",
+        "enable-disable-stations/3/6"
       ],
       "previous_text": "Hold Shift as you click to switch everything beneath it off too.",
       "next_text": "Continue applies it; Cancel leaves everything as it was."
@@ -205,7 +219,10 @@
       "chapter": "c3",
       "text": "Continue applies it; Cancel leaves everything as it was.",
       "claims": [
-        "enable-disable-stations/3/3"
+        "enable-disable-stations/3/2",
+        "enable-disable-stations/3/3",
+        "enable-disable-stations/3/4",
+        "enable-disable-stations/3/5"
       ],
       "previous_text": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
       "next_text": "The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues."
@@ -216,7 +233,8 @@
       "text": "The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues.",
       "claims": [
         "enable-disable-stations/4/2",
-        "enable-disable-stations/4/3"
+        "enable-disable-stations/4/3",
+        "enable-disable-stations/4/5"
       ],
       "previous_text": "Continue applies it; Cancel leaves everything as it was.",
       "next_text": "Careful: with the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a footer message to show for it."
@@ -226,7 +244,8 @@
       "chapter": "c4",
       "text": "Careful: with the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a footer message to show for it.",
       "claims": [
-        "enable-disable-stations/4/5"
+        "enable-disable-stations/4/7",
+        "enable-disable-stations/4/6"
       ],
       "previous_text": "The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues.",
       "next_text": "Switch Layers to Enabled Stations to see only the heads still in adjustment."
@@ -236,7 +255,10 @@
       "chapter": "c5",
       "text": "Switch Layers to Enabled Stations to see only the heads still in adjustment.",
       "claims": [
-        "enable-disable-stations/5/2"
+        "enable-disable-stations/5/2",
+        "enable-disable-stations/5/3",
+        "enable-disable-stations/6/2",
+        "enable-disable-stations/6/3"
       ],
       "previous_text": "Careful: with the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a footer message to show for it.",
       "next_text": "Anything that disappeared is out, deliberately or otherwise."
@@ -246,7 +268,8 @@
       "chapter": "c5",
       "text": "Anything that disappeared is out, deliberately or otherwise.",
       "claims": [
-        "enable-disable-stations/5/3"
+        "enable-disable-stations/6/5",
+        "enable-disable-stations/6/3"
       ],
       "previous_text": "Switch Layers to Enabled Stations to see only the heads still in adjustment."
     }

@@ -1,0 +1,76 @@
+WEBVTT
+
+NOTE bulk-adjustments: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.604
+Change the Target VWC of
+many stations at once,
+
+V0-2
+00:00:05.704 --> 00:00:10.260
+either by replacing every value or by
+shifting them all by the same amount.
+
+V1a-1
+00:00:12.930 --> 00:00:17.946
+Tick the checkbox on each station row.
+Ticking an area or hole row cascades the
+
+V1a-2
+00:00:18.046 --> 00:00:23.000
+selection to everything beneath it,
+so you can take a whole hole in one click.
+
+V1b-1
+00:00:25.013 --> 00:00:29.563
+Five stations selected. The Bulk Adjust
+link above the table becomes active.
+
+V2a-1
+00:00:34.893 --> 00:00:37.863
+The link sits above the table
+beside the threshold filter.
+
+V2b-1
+00:00:40.277 --> 00:00:44.745
+The dialog opens with the count of
+stations you selected at the top.
+
+V2b-2
+00:00:44.845 --> 00:00:46.817
+Check it before going further.
+
+V3a-1
+00:00:53.000 --> 00:00:58.312
+Replace overwrites every selected station
+with the value you enter. Shift moves
+
+V3a-2
+00:00:58.412 --> 00:01:03.590
+each station up or down by that amount,
+keeping the differences between them.
+
+V3b-1
+00:01:06.000 --> 00:01:10.170
+Shift is the safer choice when the
+stations were individually tuned.
+
+V3b-2
+00:01:10.270 --> 00:01:14.380
+Here it shifts by minus 5 percent,
+preserving the relative targets.
+
+V4a-1
+00:01:19.983 --> 00:01:23.343
+Apply to all writes the new
+targets and closes the dialog.
+
+V4b-1
+00:01:25.717 --> 00:01:29.593
+The suggested percentages recalculate
+against the new targets straight away,
+
+V4b-2
+00:01:29.693 --> 00:01:31.427
+so the Suggested column will move.

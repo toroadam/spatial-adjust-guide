@@ -19,6 +19,11 @@
 //         "posterBytes": 201234,
 //         "posterSha256": "<64 lowercase hex>",
 //         "captions": "src/media/captions/dashboard-overview.en-us.vtt",
+//         "captionLocales": ["en-us"],            optional; the locales that get a caption track, which
+//                                                 defaults to all eleven. An episode whose cues have
+//                                                 no translation yet lists only "en-us"; the page then
+//                                                 offers its English track to every reader, labelled
+//                                                 English, rather than a track in a language it is not in
 //         "release": "media-v2"                   optional; overrides the top-level tag
 //       }
 //     }
@@ -37,6 +42,7 @@ import { readFile, stat, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { z } from 'zod';
+import { CAPTION_LOCALES, SOURCE_LOCALE } from './captions.mjs';
 
 export const SHOWCASE_KEY = 'showcase';
 export const DEFAULT_MANIFEST = 'src/media/manifest.json';
@@ -51,7 +57,7 @@ const TAG = /^[A-Za-z0-9._-]+$/;
 const RELATIVE_VTT = /^(?!\/)(?!.*(?:^|\/)\.{1,2}(?:\/|$))[A-Za-z0-9._/-]+\.vtt$/;
 
 // Field order for writeManifest, so a regenerated manifest diffs only where something changed.
-const ITEM_FIELDS = ['kind', 'file', 'bytes', 'sha256', 'duration', 'poster', 'posterBytes', 'posterSha256', 'captions', 'release'];
+const ITEM_FIELDS = ['kind', 'file', 'bytes', 'sha256', 'duration', 'poster', 'posterBytes', 'posterSha256', 'captions', 'captionLocales', 'release'];
 
 const sha = (what) => z.string().regex(SHA256, `${what} must be 64 lowercase hex characters`);
 const byteCount = (what) => z.number().int(`${what} must be a whole number`).positive(`${what} must be more than 0`);
@@ -68,6 +74,11 @@ const itemSchema = z.strictObject({
   posterBytes: byteCount('posterBytes'),
   posterSha256: sha('posterSha256'),
   captions: z.string().regex(RELATIVE_VTT, 'captions must be a repo-relative path to a .vtt file'),
+  captionLocales: z.array(z.enum(CAPTION_LOCALES))
+    .min(1, 'captionLocales must name at least one locale')
+    .refine((list) => new Set(list).size === list.length, 'captionLocales must not repeat a locale')
+    .refine((list) => list.includes(SOURCE_LOCALE), `captionLocales must include ${SOURCE_LOCALE}, the source of every track`)
+    .optional(),
   release: z.string().regex(TAG, 'release must be a tag of letters, digits, ".", "_" or "-"').optional(),
 });
 

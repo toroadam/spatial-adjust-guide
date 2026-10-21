@@ -1,0 +1,110 @@
+WEBVTT
+
+NOTE suggested-adjustments: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.080
+Where the suggested percentage comes from,
+
+V0-2
+00:00:05.180 --> 00:00:07.900
+why it caps out, and when
+you should override it.
+
+V1a-1
+00:00:13.747 --> 00:00:17.619
+Current is the percent adjust Lynx
+holds for the station right now.
+
+V1a-2
+00:00:17.719 --> 00:00:21.707
+Suggested is what Spatial Adjust
+calculated from this morning's scan.
+
+V1b-1
+00:00:22.247 --> 00:00:25.743
+The gap between them is the change
+you are being asked to make.
+
+V1b-2
+00:00:25.843 --> 00:00:29.617
+Current and Suggested sit side by
+side under the Adjustment heading.
+
+V2a-1
+00:00:37.600 --> 00:00:42.660
+A station well under target asks for more
+water; one over target asks for less.
+
+V2b-1
+00:00:43.217 --> 00:00:49.461
+Station 3AP1 measured 27.6 percent
+against a 54 percent target.
+
+V2b-2
+00:00:49.561 --> 00:00:53.527
+That is the largest deficit on the hole.
+
+V3a-1
+00:01:00.293 --> 00:01:03.104
+Several stations show
+the same suggested value.
+
+V3a-2
+00:01:03.204 --> 00:01:07.691
+That is the daily Max Amount cap:
+once the required amount exceeds the cap,
+
+V3a-3
+00:01:07.791 --> 00:01:10.903
+every station above it lands
+on the same percentage.
+
+V3b-1
+00:01:11.410 --> 00:01:15.741
+If most of your course reads identically,
+the cap is doing the deciding,
+
+V3b-2
+00:01:15.841 --> 00:01:19.570
+not the scan. Raise Daily Max
+Amount in Settings, Calculation,
+
+V3b-3
+00:01:19.670 --> 00:01:23.040
+or accept that the course is
+being deliberately limited.
+
+V4a-1
+00:01:29.613 --> 00:01:33.571
+The percent adjustment column is yours.
+Type over the suggestion for a
+
+V4a-2
+00:01:33.671 --> 00:01:37.573
+station you know behaves differently,
+and the row is queued for push.
+
+V4b-1
+00:01:38.130 --> 00:01:41.141
+The suggested value is
+left untouched underneath.
+
+V4b-2
+00:01:41.241 --> 00:01:45.850
+Editing queues the station when the
+new value differs from what Lynx holds.
+
+V5a-1
+00:01:53.573 --> 00:01:58.273
+The soil factor editor scales a station's
+calculated amount by 1 to 200 percent,
+
+V5a-2
+00:01:58.373 --> 00:01:59.373
+permanently.
+
+V5b-1
+00:01:59.923 --> 00:02:03.173
+It is opened with Shift plus Alt
+on the gear button in the toolbar.

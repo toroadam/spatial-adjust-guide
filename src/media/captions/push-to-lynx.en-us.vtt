@@ -1,0 +1,129 @@
+WEBVTT
+
+NOTE push-to-lynx: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:06.180
+Review every pending adjustment,
+drop the ones you do not want,
+
+V0-2
+00:00:06.280 --> 00:00:08.240
+and send the rest to the controller.
+
+V1a-1
+00:00:13.290 --> 00:00:17.229
+The button counts the enabled stations
+whose percent adjustment differs
+
+V1a-2
+00:00:17.329 --> 00:00:21.046
+from what Lynx holds, whether you
+edited it or left the suggestion,
+
+V1a-3
+00:00:21.146 --> 00:00:23.200
+leaving out any already pushed today.
+
+V1b-1
+00:00:23.757 --> 00:00:27.702
+Beside it, the green counter shows
+how many have already gone out today.
+
+V1b-2
+00:00:27.802 --> 00:00:30.817
+If Push Changes is greyed out,
+there is nothing queued.
+
+V2a-1
+00:00:37.253 --> 00:00:41.203
+The dialog puts the current value on
+the left and the change on the right.
+
+V2b-1
+00:00:41.753 --> 00:00:45.568
+Available to Push comes first,
+with everything ticked.
+
+V2b-2
+00:00:45.668 --> 00:00:49.766
+Pushed Today follows, unticked.
+Tick a pushed station only
+
+V2b-3
+00:00:49.866 --> 00:00:53.753
+if you genuinely mean to
+adjust it a second time today.
+
+V3a-1
+00:00:59.117 --> 00:01:04.223
+If a minimum threshold is set, a pink
+banner counts the stations it altered.
+
+V3a-2
+00:01:04.323 --> 00:01:07.481
+Each affected row shows
+the original percentage
+
+V3a-3
+00:01:07.581 --> 00:01:10.337
+and the value that will actually be sent.
+
+V3b-1
+00:01:10.850 --> 00:01:14.520
+Review Threshold opens Settings on the
+threshold tab if the numbers look wrong.
+
+V4a-1
+00:01:22.253 --> 00:01:24.793
+The footer button counts
+only the ticked rows,
+
+V4a-2
+00:01:24.893 --> 00:01:28.153
+so it always names the number
+of changes that will be sent.
+
+V4b-1
+00:01:28.653 --> 00:01:31.081
+Unticking is not the same as reverting.
+
+V4b-2
+00:01:31.181 --> 00:01:36.413
+The station keeps its edited value in the
+table and will be offered again next time.
+
+V5a-1
+00:01:43.270 --> 00:01:46.491
+Spatial Adjust writes
+station by station first,
+
+V5a-2
+00:01:46.591 --> 00:01:52.280
+then reads the adjustments back from Lynx
+and checks each one against what it sent.
+
+V5b-1
+00:01:52.837 --> 00:01:56.617
+Failed stations are retried automatically
+before the run is declared finished.
+
+V6a-1
+00:02:02.690 --> 00:02:06.500
+A successful run confirms every
+selected change reached Lynx.
+
+V6b-1
+00:02:07.057 --> 00:02:10.941
+A failure names the number of
+stations that could not be updated.
+
+V6b-2
+00:02:11.041 --> 00:02:15.343
+Check the Lynx connection, then reopen
+Push Changes: the failed stations
+
+V6b-3
+00:02:15.443 --> 00:02:19.807
+are listed under Pushed Today, unticked,
+so tick them to send them again.

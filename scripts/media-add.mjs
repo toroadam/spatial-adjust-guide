@@ -38,6 +38,8 @@ import {
   guideKeysFrom, loadManifest, sha256File, upsertItem, writeManifest,
 } from '../src/media/manifest.mjs';
 import { EPISODE_MAX_BYTES, SHOWCASE_MAX_BYTES } from './media-budget.mjs';
+import { loadRelease } from '../src/release.mjs';
+import { transformGuide } from '../src/transform-export.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 const ENTRY = 'Learn Spatial Adjust.dc.html';
@@ -49,6 +51,20 @@ export const AUDIO_BITRATE = 128_000;
 const MIN_VIDEO_BITRATE = 150_000; // below this x264 output is unwatchable; the render is too long
 const POSTER_WIDTH = 1920;
 const fmt = (n) => n.toLocaleString('en-US');
+
+/**
+ * The catalogue guide keys as the build sees them: the raw Core Design export run through the same
+ * transforms as build.mjs, with beta shown. The raw export alone lists only the guides Core Design
+ * knew about; transforms add the rest (filter-adjustments and request-scan-data), so reading the
+ * raw file made those two keys look unknown.
+ */
+export async function catalogueKeys(root = ROOT) {
+  const raw = await readFile(join(root, ENTRY), 'utf8');
+  const { release } = loadRelease();
+  const keys = guideKeysFrom(transformGuide(raw, { showBeta: true, release }));
+  for (const key of Object.keys((release && release.guides) || {})) if (!keys.includes(key)) keys.push(key);
+  return keys;
+}
 
 /** The byte cap for a key: the showcase has its own, every guide episode shares the other. */
 export function capForKey(key) {
@@ -223,14 +239,13 @@ async function main(argv) {
   }
 
   // The catalogue check proper happens in the build, against the transformed export. Checking the
-  // raw export here catches a typo before a long encode; it warns rather than fails in case a later
-  // transform adds a guide.
+  // same transformed catalogue here catches a typo before a long encode; it warns rather than fails.
   let unknownKey = false;
   if (key !== SHOWCASE_KEY) {
     try {
-      unknownKey = !guideKeysFrom(await readFile(join(ROOT, ENTRY), 'utf8')).includes(key);
+      unknownKey = !(await catalogueKeys()).includes(key);
     } catch { /* export unreadable: the build will say so */ }
-    if (unknownKey) console.warn(`warning: "${key}" is not a catalogue guide key in ${ENTRY}; the build will reject it unless a transform adds that guide`);
+    if (unknownKey) console.warn(`warning: "${key}" is not a catalogue guide key in ${ENTRY} after the build's transforms; the build will reject it`);
   }
 
   // Duration and stream check on the render.

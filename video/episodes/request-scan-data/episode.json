@@ -14,24 +14,31 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "request-scan-data/tile/1",
-    "request-scan-data/tile/2",
     "request-scan-data/summary/1",
     "request-scan-data/summary/2",
-    "request-scan-data/1/2",
     "request-scan-data/1/3",
+    "request-scan-data/1/6",
     "request-scan-data/1/4",
+    "request-scan-data/1/5",
     "request-scan-data/2/2",
-    "request-scan-data/2/3",
-    "request-scan-data/2/4",
+    "request-scan-data/2/5",
+    "request-scan-data/2/7",
+    "request-scan-data/2/8",
     "request-scan-data/3/2",
     "request-scan-data/3/3",
+    "request-scan-data/3/6",
+    "request-scan-data/4/6",
     "request-scan-data/4/2",
     "request-scan-data/4/3",
     "request-scan-data/4/4",
-    "request-scan-data/5/2",
+    "request-scan-data/4/5",
+    "request-scan-data/verify/3",
+    "request-scan-data/3/4",
     "request-scan-data/5/3",
-    "request-scan-data/5/4"
+    "request-scan-data/5/4",
+    "request-scan-data/5/6",
+    "request-scan-data/tile/1",
+    "request-scan-data/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Get fresh scan data",
@@ -117,7 +124,8 @@
       "chapter": "c1",
       "text": "Every station row carries the date its reading was captured.",
       "claims": [
-        "request-scan-data/1/2"
+        "request-scan-data/1/3",
+        "request-scan-data/1/6"
       ],
       "previous_text": "A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Ask for the latest scan data, and reload when it is ready.",
       "next_text": "One stale row is a station. A column of stale dates is the whole course, and that is a supply problem rather than a settings problem."
@@ -127,8 +135,8 @@
       "chapter": "c1",
       "text": "One stale row is a station. A column of stale dates is the whole course, and that is a supply problem rather than a settings problem.",
       "claims": [
-        "request-scan-data/1/3",
-        "request-scan-data/1/4"
+        "request-scan-data/1/4",
+        "request-scan-data/1/5"
       ],
       "previous_text": "Every station row carries the date its reading was captured.",
       "next_text": "The circular-arrow button in the toolbar's right-hand group is Request latest scan data."
@@ -148,8 +156,9 @@
       "chapter": "c2",
       "text": "It asks Spatial Adjust to fetch the latest scan data TurfRad already holds. It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting.",
       "claims": [
-        "request-scan-data/2/3",
-        "request-scan-data/2/4"
+        "request-scan-data/2/5",
+        "request-scan-data/2/7",
+        "request-scan-data/2/8"
       ],
       "previous_text": "The circular-arrow button in the toolbar's right-hand group is Request latest scan data.",
       "next_text": "The request is queued and you are told so. Retrieval may take several minutes, and you are notified when it is ready."
@@ -159,7 +168,8 @@
       "chapter": "c3",
       "text": "The request is queued and you are told so. Retrieval may take several minutes, and you are notified when it is ready.",
       "claims": [
-        "request-scan-data/3/2"
+        "request-scan-data/3/2",
+        "request-scan-data/3/3"
       ],
       "previous_text": "It asks Spatial Adjust to fetch the latest scan data TurfRad already holds. It does not order a new scan, it does not reload the dashboard, and it does not change a single calculation setting.",
       "next_text": "You can carry on reading the table while it runs. Nothing is frozen, and nothing is lost if you navigate away."
@@ -169,7 +179,7 @@
       "chapter": "c3",
       "text": "You can carry on reading the table while it runs. Nothing is frozen, and nothing is lost if you navigate away.",
       "claims": [
-        "request-scan-data/3/3"
+        "request-scan-data/3/6"
       ],
       "previous_text": "The request is queued and you are told so. Retrieval may take several minutes, and you are notified when it is ready.",
       "next_text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard, and every suggestion recalculates."
@@ -179,6 +189,7 @@
       "chapter": "c4",
       "text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard, and every suggestion recalculates.",
       "claims": [
+        "request-scan-data/4/6",
         "request-scan-data/4/2",
         "request-scan-data/4/3"
       ],
@@ -190,7 +201,9 @@
       "chapter": "c4",
       "text": "Dismiss closes the banner and leaves you on the data you already had. The new scan is not thrown away; it is simply not loaded yet.",
       "claims": [
-        "request-scan-data/4/4"
+        "request-scan-data/4/4",
+        "request-scan-data/4/5",
+        "request-scan-data/verify/3"
       ],
       "previous_text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard, and every suggestion recalculates.",
       "next_text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all."
@@ -200,9 +213,8 @@
       "chapter": "c5",
       "text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all.",
       "claims": [
-        "request-scan-data/5/2",
-        "request-scan-data/5/3",
-        "request-scan-data/5/4"
+        "request-scan-data/3/4",
+        "request-scan-data/5/3"
       ],
       "previous_text": "Dismiss closes the banner and leaves you on the data you already had. The new scan is not thrown away; it is simply not loaded yet.",
       "next_text": "A course-wide problem is almost always there, rather than in your settings. Check the last scan date."
@@ -212,8 +224,8 @@
       "chapter": "c5",
       "text": "A course-wide problem is almost always there, rather than in your settings. Check the last scan date.",
       "claims": [
-        "request-scan-data/5/3",
-        "request-scan-data/5/4"
+        "request-scan-data/5/4",
+        "request-scan-data/5/6"
       ],
       "previous_text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all."
     }

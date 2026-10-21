@@ -1,0 +1,122 @@
+WEBVTT
+
+NOTE preferences: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.334
+Language, units, temperature
+and number formatting.
+
+V0-2
+00:00:05.434 --> 00:00:07.310
+These belong to you, not to the site.
+
+V1a-1
+00:00:13.310 --> 00:00:16.158
+Preferences is the last
+entry in the settings rail.
+
+V1a-2
+00:00:16.258 --> 00:00:18.994
+Preferences are stored
+against your user account;
+
+V1a-3
+00:00:19.094 --> 00:00:23.060
+the calculation settings on the other
+tabs are stored against the site.
+
+V1b-1
+00:00:23.627 --> 00:00:27.758
+Language, Temperature Scale and the
+separator setting change only how things
+
+V1b-2
+00:00:27.858 --> 00:00:32.317
+are presented. Units of Measure can change
+suggestions, as the next step explains.
+
+V2a-1
+00:00:40.097 --> 00:00:44.329
+The stored amounts are millimetres.
+Switching to imperial shows them
+
+V2a-2
+00:00:44.429 --> 00:00:48.537
+in inches, with two decimal places;
+metric gets one decimal place.
+
+V2b-1
+00:00:49.097 --> 00:00:53.453
+Check after switching. Changing Units
+of Measure and saving in the same
+
+V2b-2
+00:00:53.553 --> 00:00:57.786
+visit does not re-convert the amounts
+already on the Calculation tab.
+
+V2b-3
+00:00:57.886 --> 00:01:01.505
+They are saved as though they
+were already in the new unit,
+
+V2b-4
+00:01:01.605 --> 00:01:06.267
+which rescales them by 25.4. After a
+unit change, save, then reopen Settings
+
+V2b-5
+00:01:06.367 --> 00:01:10.787
+and check Max Amount and Lynx Reference
+Amount before you push anything.
+
+V3a-1
+00:01:17.257 --> 00:01:21.502
+Saving a new language re-applies
+translations across the site without a
+
+V3a-2
+00:01:21.602 --> 00:01:26.327
+reload, and refetches your user record
+so the choice sticks on your next visit.
+
+V3b-1
+00:01:26.840 --> 00:01:31.875
+Anything Spatial Adjust has no translation
+for stays in English, and every language
+
+V3b-2
+00:01:31.975 --> 00:01:36.585
+other than English has gaps. The tab
+names in the settings rail, the Discard
+
+V3b-3
+00:01:36.685 --> 00:01:41.600
+changes confirmation and the scan-data
+banner are in English whatever you choose.
+
+V4a-1
+00:01:49.217 --> 00:01:52.920
+Temperature scale changes the
+weather strip. The group and decimal
+
+V4a-2
+00:01:53.020 --> 00:01:56.555
+separator changes how every number
+on the screen is punctuated,
+
+V4a-3
+00:01:56.655 --> 00:01:59.237
+which matters most in
+the dense table columns.
+
+V4b-1
+00:01:59.800 --> 00:02:02.151
+The weather strip follows
+your temperature scale,
+
+V4b-2
+00:02:02.251 --> 00:02:05.370
+and amount fields on the Calculation
+tab show the unit you chose.
