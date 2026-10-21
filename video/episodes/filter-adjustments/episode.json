@@ -1,0 +1,622 @@
+{
+  "id": "filter-adjustments",
+  "title": "Filter by % Adj.",
+  "guide": "filter-adjustments",
+  "status": "script-locked",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/filter-adjustments",
+  "recreationFigure": "Two tabs",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "filter-adjustments/tile/1",
+    "filter-adjustments/tile/2",
+    "filter-adjustments/summary/1",
+    "filter-adjustments/summary/2",
+    "filter-adjustments/1/2",
+    "filter-adjustments/1/3",
+    "filter-adjustments/1/4",
+    "filter-adjustments/2/2",
+    "filter-adjustments/2/3",
+    "filter-adjustments/2/4",
+    "filter-adjustments/3/2",
+    "filter-adjustments/3/3",
+    "filter-adjustments/3/4",
+    "filter-adjustments/3/6",
+    "filter-adjustments/4/2",
+    "filter-adjustments/4/3",
+    "filter-adjustments/4/4",
+    "filter-adjustments/4/5",
+    "filter-adjustments/5/2",
+    "filter-adjustments/5/3",
+    "filter-adjustments/5/4",
+    "filter-adjustments/5/6"
+  ],
+  "titleCard": {
+    "text": "Double Click: Filter by % Adj.",
+    "claims": [
+      "filter-adjustments/tile/1",
+      "filter-adjustments/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Read the two tabs",
+      "highlight": {
+        "label": "All Stations",
+        "selector": "[data-sa-frame] >> text=\"All Stations\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Open the options",
+      "highlight": {
+        "label": "Bulk Adjust",
+        "selector": "[data-sa-frame] >> text=/ADJ\\. OVER/"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Set the two ends independently",
+      "highlight": {
+        "label": "Over/Under",
+        "selector": "[data-sa-frame] >> text=\"Over/Under Options\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "It catches both extremes, not a band",
+      "highlight": {
+        "label": "Over",
+        "selector": "[data-sa-frame] >> text=\"Over/Under\" >> xpath=.."
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "Exclude Zeros belongs to Under",
+      "highlight": {
+        "label": "Exclude Zeros",
+        "selector": "[data-sa-frame] >> text=\"Exclude Zeros\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.",
+      "claims": [
+        "filter-adjustments/summary/1",
+        "filter-adjustments/summary/2"
+      ],
+      "next_text": "All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches.",
+      "claims": [
+        "filter-adjustments/1/2",
+        "filter-adjustments/1/3"
+      ],
+      "previous_text": "The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.",
+      "next_text": "Until you set a filter, that count is a dash and the tab does nothing. It is not broken; there is simply nothing to show yet."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "Until you set a filter, that count is a dash and the tab does nothing. It is not broken; there is simply nothing to show yet.",
+      "claims": [
+        "filter-adjustments/1/4"
+      ],
+      "previous_text": "All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches.",
+      "next_text": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force: percent adjustment over 200 percent, under 10 percent."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force: percent adjustment over 200 percent, under 10 percent.",
+      "claims": [
+        "filter-adjustments/2/2",
+        "filter-adjustments/2/3"
+      ],
+      "previous_text": "Until you set a filter, that count is a dash and the tab does nothing. It is not broken; there is simply nothing to show yet.",
+      "next_text": "So you can read the filter without opening it. Clicking it opens Over/Under Options."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "So you can read the filter without opening it. Clicking it opens Over/Under Options.",
+      "claims": [
+        "filter-adjustments/2/3",
+        "filter-adjustments/2/4"
+      ],
+      "previous_text": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force: percent adjustment over 200 percent, under 10 percent.",
+      "next_text": "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10.",
+      "claims": [
+        "filter-adjustments/3/2",
+        "filter-adjustments/3/3"
+      ],
+      "previous_text": "So you can read the filter without opening it. Clicking it opens Over/Under Options.",
+      "next_text": "Each has its own checkbox, so you can run one end without the other. Over alone finds the stations asking for far too much; Under alone, the ones asking for almost nothing."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "Each has its own checkbox, so you can run one end without the other. Over alone finds the stations asking for far too much; Under alone, the ones asking for almost nothing.",
+      "claims": [
+        "filter-adjustments/3/4",
+        "filter-adjustments/3/6"
+      ],
+      "previous_text": "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10.",
+      "next_text": "A station is caught if its suggestion is above the Over value or below the Under value. With 200 and 10 set, you get everything over 200 percent and everything under 10 percent, and nothing in between."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "A station is caught if its suggestion is above the Over value or below the Under value. With 200 and 10 set, you get everything over 200 percent and everything under 10 percent, and nothing in between.",
+      "claims": [
+        "filter-adjustments/4/2",
+        "filter-adjustments/4/3"
+      ],
+      "previous_text": "Each has its own checkbox, so you can run one end without the other. Over alone finds the stations asking for far too much; Under alone, the ones asking for almost nothing.",
+      "next_text": "It is an outlier finder. Reading it as between 10 and 200 gives you exactly the stations it is not showing you."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "It is an outlier finder. Reading it as between 10 and 200 gives you exactly the stations it is not showing you.",
+      "claims": [
+        "filter-adjustments/4/4",
+        "filter-adjustments/4/5"
+      ],
+      "previous_text": "A station is caught if its suggestion is above the Over value or below the Under value. With 200 and 10 set, you get everything over 200 percent and everything under 10 percent, and nothing in between.",
+      "next_text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter.",
+      "claims": [
+        "filter-adjustments/5/2",
+        "filter-adjustments/5/3"
+      ],
+      "previous_text": "It is an outlier finder. Reading it as between 10 and 200 gives you exactly the stations it is not showing you.",
+      "next_text": "Your thresholds are saved to your own user preferences, not to the site. The Exclude Zeros in Settings, Minimum Threshold is a different setting."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "Your thresholds are saved to your own user preferences, not to the site. The Exclude Zeros in Settings, Minimum Threshold is a different setting.",
+      "claims": [
+        "filter-adjustments/5/4",
+        "filter-adjustments/5/6"
+      ],
+      "previous_text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 8.79,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"All Stations\"",
+          "name": "All Stations"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"All Stations\"",
+          "name": "All Stations"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "wait",
+          "ms": 2142
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"148\"",
+          "name": "148"
+        },
+        {
+          "type": "wait",
+          "ms": 1499
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Over/Under\"",
+          "name": "Over/Under"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 10.49,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Over/Under\"",
+          "name": "Over/Under"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Over/Under\" >> xpath=..",
+          "name": "23 Over/Under"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 10.61,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The link doubles"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/ADJ\\. OVER/",
+          "name": "% ADJ. OVER 200%, UNDER 10%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/ADJ\\. OVER/",
+          "name": "% ADJ. OVER 200%, UNDER 10%"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 2463
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"BULK ADJUST\"",
+          "name": "BULK ADJUST"
+        },
+        {
+          "type": "wait",
+          "ms": 1963
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/ADJ\\. OVER/",
+          "name": "% ADJ. OVER 200%, UNDER 10%"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 6.2,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/ADJ\\. OVER/",
+          "name": "% ADJ. OVER 200%, UNDER 10%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/ADJ\\. OVER/",
+          "name": "% ADJ. OVER 200%, UNDER 10%"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 8.83,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Over/Under Options. Each"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Over/Under Options\"",
+          "name": "Over/Under Options"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Over/Under Options\"",
+          "name": "Over/Under Options"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 964
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Over\" >> xpath=..",
+          "name": "Over 200"
+        },
+        {
+          "type": "wait",
+          "ms": 2393
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Under\" >> xpath=..",
+          "name": "Under 10"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 12.63,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Over\"",
+          "name": "Over"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Over\" >> xpath=..",
+          "name": "Over 200"
+        },
+        {
+          "type": "wait",
+          "ms": 5736
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Under\"",
+          "name": "Under"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 15.61,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The filtered tab"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/ADJ\\. OVER/",
+          "name": "% ADJ. OVER 200%, UNDER 10%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/ADJ\\. OVER/",
+          "name": "% ADJ. OVER 200%, UNDER 10%"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "wait",
+          "ms": 4623
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Over/Under\"",
+          "name": "Over/Under"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 9.06,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Over/Under\"",
+          "name": "Over/Under"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Over/Under\" >> xpath=..",
+          "name": "23 Over/Under"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 12.04,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Exclude Zeros is disabled"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Exclude Zeros\"",
+          "name": "Exclude Zeros"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Exclude Zeros\"",
+          "name": "Exclude Zeros"
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        },
+        {
+          "type": "wait",
+          "ms": 4338
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Under\" >> xpath=..",
+          "name": "Under 10"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 9.77,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Exclude Zeros\"",
+          "name": "Exclude Zeros"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Exclude Zeros\" >> xpath=..",
+          "name": "Exclude Zeros"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "push-to-lynx",
+    "text": "Next on Double Click: Push changes to Lynx",
+    "address": "#/filter-adjustments"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}
