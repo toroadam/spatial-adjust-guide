@@ -27,7 +27,11 @@
 // any change here.
 
 import { apply as calculations } from './calculations.mjs';
+import { apply as reviewApply } from './review-apply.mjs';
+import { apply as troubleshooting } from './troubleshooting.mjs';
 
 export const REWRITES = [
   calculations,
+  reviewApply,
+  troubleshooting,
 ];

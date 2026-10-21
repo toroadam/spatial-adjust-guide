@@ -21,12 +21,10 @@ export const PENDING = new Set([
   'minimum-threshold', 'calculation-settings', 'calculation-methods', 'preferences',
   // Station Management
   'enable-disable-stations', 'station-details',
-  // Review & Apply
-  'suggested-adjustments', 'push-to-lynx', 'reviewing-changes', 'verify-results',
   // Troubleshooting
   'station-zero', 'threshold-questions', 'calculation-questions', 'push-failures',
   // The two guides src/transform-export.mjs adds.
-  'request-scan-data', 'filter-adjustments',
+  'request-scan-data',
 ]);
 
 /** True when `key`, or the guide a `<key>-part-N` continues, is still waiting for its rewrite. */
