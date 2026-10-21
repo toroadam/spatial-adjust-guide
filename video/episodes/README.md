@@ -192,7 +192,7 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 19 | 5 | `request-scan-data` | Get fresh scan data | approved | 2:17 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 20 | 5 | `threshold-questions` | Threshold questions | approved | 2:06 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 21 | 5 | `calculation-questions` | Calculation questions | approved | 2:01 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 22 | 5 | `push-failures` | Push failures | approved | 1:38 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 22 | 5 | `push-failures` | Push failures | approved | 1:46 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 23 | 6 | `target-profiles` | Apply a target profile | approved | 1:58 | 2026-10-20 | 2026-10-21 | executor 2026-10-21; experts in person 2026-10-22 |
 | 24 | 6 | `creating-profiles` | Capturing profiles | approved | 1:50 | 2026-10-20 | 2026-10-21 | — |
 | 25 | 6 | `updating-profiles` | Updating profiles | approved | 1:48 | 2026-10-20 | 2026-10-21 | — |
