@@ -105,6 +105,104 @@
       "correction": ""
     },
     {
+      "id": "map-navigation/start/1",
+      "guide": "map-navigation",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "2-16"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/where/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/start/2",
+      "guide": "map-navigation",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-112"
+        }
+      ],
+      "note": "The push, settings and announcement dialogs open over the dashboard from the toolbar (:94-112); the guide starts with none open.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/start/3",
+      "guide": "map-navigation",
+      "step": "start",
+      "field": "needs",
+      "text": "A scan from the past seven days, so that the map shows pins.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2510
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 3
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": 36
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 846
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "map-navigation/before/1",
       "guide": "map-navigation",
       "step": "before",
@@ -166,8 +264,8 @@
       "id": "map-navigation/1/2",
       "guide": "map-navigation",
       "step": "1",
-      "field": "body",
-      "text": "Each sprinkler of a station scanned in the past seven days is a pin at its own coordinates.",
+      "field": "do",
+      "text": "Look at the pins on the map.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -211,18 +309,18 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (map-navigation/1/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": "",
-      "previousText": "Every station is a pin placed at its real coordinates and filled with the colour of the moisture band its latest reading falls into."
+      "previousText": "Each sprinkler of a station scanned in the past seven days is a pin at its own coordinates."
     },
     {
       "id": "map-navigation/1/3",
       "guide": "map-navigation",
       "step": "1",
-      "field": "body",
-      "text": "A pin scanned today is filled with the colour of the moisture band its reading falls into, and a pin last scanned on an earlier day is drawn clear.",
+      "field": "see",
+      "text": "Pins scanned today are filled with a band colour: 0–5, 6–19, 20–30 or above 30 percent.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -264,76 +362,7 @@
         {
           "source": "doc",
           "ref": "373-1135 rev 02 §Map Functionality"
-        }
-      ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (map-navigation/1/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "map-navigation/1/4",
-      "guide": "map-navigation",
-      "step": "1",
-      "field": "body",
-      "text": "Disabled stations are hidden while Layers is set to Enabled Stations, the default.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
-          "line": "294-349"
         },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
-          "line": 312
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
-          "line": 315
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "517-519"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/environments/environment.toro-prod.ts",
-          "line": "87-88"
-        },
-        {
-          "source": "doc",
-          "ref": "373-1135 rev 02 §Map Functionality"
-        }
-      ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (map-navigation/1/2); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "map-navigation/1/5",
-      "guide": "map-navigation",
-      "step": "1",
-      "field": "body",
-      "text": "Four bands by default: 0–5, 6–19, 20–30, and above 30 percent.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
         {
           "source": "intellidash",
           "ref": "production",
@@ -349,10 +378,121 @@
           "line": "8-11"
         }
       ],
-      "note": "With no saved bands the boundaries fall back to 5, 19 and 30, which the legend labels 0-5%, 6-19%, 20-30% and > 30%.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/3, map-navigation/1/5; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "A pin scanned today is filled with the colour of the moisture band its reading falls into, and a pin last scanned on an earlier day is drawn clear."
+    },
+    {
+      "id": "map-navigation/1/4",
+      "guide": "map-navigation",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If a pin is clear, it was last scanned on an earlier day.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Disabled stations are hidden while Layers is set to Enabled Stations, the default."
+    },
+    {
+      "id": "map-navigation/1/5",
+      "guide": "map-navigation",
+      "step": "1",
+      "field": "ifNot",
+      "text": "A disabled station has no pin while [[Layers]] is set to [[Enabled Stations]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Four bands by default: 0–5, 6–19, 20–30, and above 30 percent."
     },
     {
       "id": "map-navigation/1/6",
@@ -409,8 +549,8 @@
       "id": "map-navigation/2/2",
       "guide": "map-navigation",
       "step": "2",
-      "field": "body",
-      "text": "The colour bar under the legend has draggable handles.",
+      "field": "do",
+      "text": "Drag a handle on the colour bar under the legend.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -429,17 +569,18 @@
           "line": "72-112"
         }
       ],
-      "note": "The colour bar (toro-color-range) sits below the band labels and its markers are dragged with mouse or touch.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "The colour bar under the legend has draggable handles."
     },
     {
       "id": "map-navigation/2/3",
       "guide": "map-navigation",
       "step": "2",
-      "field": "body",
-      "text": "Move one and the map recolours when you let go — useful when your course sits mostly inside one band and everything looks the same colour.",
+      "field": "see",
+      "text": "When you let go, the map recolours to the new band boundary.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -472,14 +613,143 @@
           "line": "138-143"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (map-navigation/2/3); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": "",
-      "previousText": "Move one and the map recolours as you drag — useful when your course sits mostly inside one band and everything looks the same colour."
+      "previousText": "Move one and the map recolours when you let go — useful when your course sits mostly inside one band and everything looks the same colour."
     },
     {
       "id": "map-navigation/2/4",
+      "guide": "map-navigation",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If nothing changes, let go of the handle.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/shared/components/color-range/color-range.component.ts",
+          "line": "79-87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/shared/components/color-range/color-range.component.ts",
+          "line": "89-139"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "120-132"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "138-143"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/2/5",
+      "guide": "map-navigation",
+      "step": "2",
+      "field": "ifNot",
+      "text": "The map recolours when you release it.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/shared/components/color-range/color-range.component.ts",
+          "line": "79-87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/shared/components/color-range/color-range.component.ts",
+          "line": "89-139"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "120-132"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "138-143"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/2/6",
+      "guide": "map-navigation",
+      "step": "2",
+      "field": "why",
+      "text": "Your boundaries are saved to your own user preferences, not to the site.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "43-54"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "97-105"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "120-145"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "120-132"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/before/1, map-navigation/2/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/2/7",
       "guide": "map-navigation",
       "step": "2",
       "field": "caption",
@@ -526,9 +796,9 @@
       "id": "map-navigation/3/2",
       "guide": "map-navigation",
       "step": "3",
-      "field": "body",
-      "text": "The button beside the legend toggles between VWC and variance.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "Select the variance button, [[Toggle VWC or Variance View]], beside the legend.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -546,17 +816,66 @@
           "line": 485
         }
       ],
-      "note": "Tooltip SPATIAL_ADJUST.TOGGLE_VWC_VARIANCE_VIEW \"Toggle VWC or Variance View\"; the icon swaps between the variance and close images.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/3/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Select the button beside the legend, [[Toggle VWC or Variance View]]."
     },
     {
       "id": "map-navigation/3/3",
       "guide": "map-navigation",
       "step": "3",
-      "field": "body",
-      "text": "Variance colours each pin by how far it sits from its own target instead of by its raw reading, which is the view you want when targets differ across the course.",
+      "field": "see",
+      "text": "The pins now show how far each station is from its target, in three bands.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "317-318"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "430-438"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Indicators"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "65-74"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "17-28"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/3/3, map-navigation/3/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Variance colours each pin by how far it sits from its own target instead of by its raw reading, which is the view you want when targets differ across the course."
+    },
+    {
+      "id": "map-navigation/3/4",
+      "guide": "map-navigation",
+      "step": "3",
+      "field": "ifNot",
+      "text": "If a pin stays clear, it was not scanned today, so it has no variance.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -579,13 +898,46 @@
           "ref": "373-1135 rev 02 §Map Indicators"
         }
       ],
-      "note": "Variance = measured VWC − Target VWC, rounded, per pin (sa-dash-map.component.ts:317), coloured below, within or above the band (:430-438). Pins not scanned today are drawn clear in this view too (:318). 373-1135 rev 02 §Map Indicators: \"Color Coding by VWC Difference\".",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/3/3; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "map-navigation/3/4",
+      "id": "map-navigation/3/5",
+      "guide": "map-navigation",
+      "step": "3",
+      "field": "why",
+      "text": "Use variance when targets differ across the course.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "317-318"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "430-438"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Indicators"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/3/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/3/6",
       "guide": "map-navigation",
       "step": "3",
       "field": "caption",
@@ -618,29 +970,7 @@
       "guide": "map-navigation",
       "step": "4",
       "field": "title",
-      "text": "Filter with Layers",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
-          "line": "34-62"
-        }
-      ],
-      "note": "Step title.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "map-navigation/4/2",
-      "guide": "map-navigation",
-      "step": "4",
-      "field": "body",
-      "text": "Layers chooses which stations are drawn: all of them, or only the enabled ones.",
+      "text": "Open Layers",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -655,72 +985,177 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
-          "line": 312
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 782
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/environments/environment.toro-prod.ts",
-          "line": 88
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 499
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "43-54"
-        },
-        {
-          "source": "doc",
-          "ref": "373-1135 rev 02 §Enabled Stations Filter"
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 512
         }
       ],
-      "note": "Radio buttons CASE_SENSITIVE.ALL_STATIONS \"All Stations\" and CASE_SENSITIVE.ENABLED_STATIONS \"Enabled Stations\" under STRINGS.LAYERS, shown upper-case as \"LAYERS\". On production the default is Enabled Stations (environment.toro-prod.ts:88), and the choice is saved per user (sa-map-overlay.component.ts:43-54).",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/4/1, map-navigation/4/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Filter with Layers"
     },
     {
-      "id": "map-navigation/4/3",
+      "id": "map-navigation/4/2",
       "guide": "map-navigation",
       "step": "4",
-      "field": "body",
-      "text": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "Select [[Layers]], beside the variance button.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
-          "line": "351-374"
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "607-678"
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 782
         },
         {
-          "source": "doc",
-          "ref": "373-1135 rev 02 §Enabled Stations Filter"
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 499
         },
         {
-          "source": "doc",
-          "ref": "373-1135 rev 02 §Push Changes Functionality"
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 512
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "29-39"
         }
       ],
-      "note": "A station counts as enabled on the map when its area, its hole and at least one of its sprinkler records are enabled (sa-dash-map.component.ts:351-374), the same parent rule the pending list applies (sa-dashboard.component.ts:607-678; 373-1135 rev 02 §Push Changes Functionality). A push sends only the enabled stations whose % Adj. differs from Lynx, so the filtered map shows the heads a push can affect, a superset of the ones a given push will change.",
+      "note": "The Layers control follows the variance button in the overlay (:29-39). Evidence carried over from the earlier ledger claim map-navigation/4/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Under [[Layers]], select [[Enabled Stations]] or [[All Stations]]."
+    },
+    {
+      "id": "map-navigation/4/3",
+      "guide": "map-navigation",
+      "step": "4",
+      "field": "see",
+      "text": "A box opens with two choices, [[All Stations]] and [[Enabled Stations]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 782
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 499
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 512
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "41-61"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/4/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "map-navigation/4/4",
+      "guide": "map-navigation",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If the box does not open, select [[Layers]] again.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": 35
+        }
+      ],
+      "note": "Selecting Layers toggles isFilterVisible (:35), so a second selection closes the box.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/4/5",
+      "guide": "map-navigation",
+      "step": "4",
+      "field": "ifNot",
+      "text": "Selecting anywhere else closes it.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": 41
+        }
+      ],
+      "note": "The Layers box carries toroClickOutside, which calls toggleLayerOverlay (:41), so selecting anywhere else closes it.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/4/6",
       "guide": "map-navigation",
       "step": "4",
       "field": "caption",
@@ -763,11 +1198,101 @@
       "correction": ""
     },
     {
-      "id": "map-navigation/4/5",
+      "id": "map-navigation/5/1",
       "guide": "map-navigation",
-      "step": "4",
-      "field": "tip",
-      "text": "Remembered. Layers saves your choice to your user preferences.",
+      "step": "5",
+      "field": "title",
+      "text": "Choose the stations",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/4/1; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/5/2",
+      "guide": "map-navigation",
+      "step": "5",
+      "field": "do",
+      "text": "Select [[Enabled Stations]] or [[All Stations]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 88
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "43-54"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Enabled Stations Filter"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 782
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 499
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 512
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/4/2, map-navigation/4/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/5/3",
+      "guide": "map-navigation",
+      "step": "5",
+      "field": "see",
+      "text": "The map draws only the enabled stations, or every station.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -775,21 +1300,46 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 88
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
           "line": "43-54"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Enabled Stations Filter"
         }
       ],
-      "note": "Choosing All Stations or Enabled Stations under Layers sets the overlay's station filter, which writes it to the user's dashboard preferences as saStationFilter whenever it differs from the saved value (sa-map-overlay.component.ts:44-53). It is saved per user, not per site.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/4/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "map-navigation/4/6",
+      "id": "map-navigation/5/4",
       "guide": "map-navigation",
-      "step": "4",
-      "field": "tip",
-      "text": "Until you have made one, the map shows Enabled Stations only, so it can draw fewer pins than the All Stations tab counts.",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If a station you expect has no pin, [[Layers]] may be set to [[Enabled Stations]], the default.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -827,17 +1377,129 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
           "line": "3-8"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Retyped from label to behaviour. With no saved saStationFilter the dashboard uses environment.saStationFilterDefault (sa-dashboard.component.ts:504), which production sets to StationFilter.Enabled (environment.toro-prod.ts:88). Under Enabled the map skips every station that is not enabled (sa-dash-map.component.ts:312), while the All Stations tab counts every station on the course, disabled ones included (sa-dashboard.component.ts:521-528; see filter-adjustments/1/2).",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/4/6, map-navigation/1/4; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "map-navigation/5/1",
+      "id": "map-navigation/5/5",
       "guide": "map-navigation",
       "step": "5",
+      "field": "why",
+      "text": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "351-374"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "607-678"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Enabled Stations Filter"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Push Changes Functionality"
+        }
+      ],
+      "note": "A station counts as enabled on the map when its area, its hole and at least one of its sprinkler records are enabled (sa-dash-map.component.ts:351-374), the same parent rule the pending list applies (sa-dashboard.component.ts:607-678; 373-1135 rev 02 §Push Changes Functionality). A push sends only the enabled stations whose % Adj. differs from Lynx, so the filtered map shows the heads a push can affect, a superset of the ones a given push will change.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/5/6",
+      "guide": "map-navigation",
+      "step": "5",
+      "field": "caption",
+      "text": "Layers, with All Stations and Enabled Stations.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 782
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 499
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 512
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/4/4; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/6/1",
+      "guide": "map-navigation",
+      "step": "6",
       "field": "title",
       "text": "Map and table stay in sync",
       "type": "behaviour",
@@ -864,11 +1526,11 @@
       "correction": ""
     },
     {
-      "id": "map-navigation/5/2",
+      "id": "map-navigation/6/2",
       "guide": "map-navigation",
-      "step": "5",
-      "field": "body",
-      "text": "Selecting a station in the table highlights it on the map, and selecting a pin selects the row.",
+      "step": "6",
+      "field": "do",
+      "text": "In the table, select a station row.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -905,20 +1567,35 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Selecting a station row zooms the map to that pin and outlines it (sa-dash-map.component.ts:36-44, :475-487). Clicking a pin broadcasts the station (:332-335), and the table drills to its hole and scrolls to its row (sa-dash-table.component.ts:444-469). 373-1135 rev 02 §Map Functionality describes the same pairing.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/5/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
-      "correction": ""
+      "correction": "",
+      "previousText": "Selecting a station in the table highlights it on the map, and selecting a pin selects the row."
     },
     {
-      "id": "map-navigation/5/3",
+      "id": "map-navigation/6/3",
       "guide": "map-navigation",
-      "step": "5",
-      "field": "body",
-      "text": "Use whichever is faster to find the head you mean.",
+      "step": "6",
+      "field": "see",
+      "text": "The map zooms to that station’s pin and outlines it.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "36-44"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "475-487"
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -932,17 +1609,191 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
           "line": "444-469"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Either direction works; see map-navigation/5/2.",
+      "note": "Selecting a station circle zooms the map to it and redraws its outline in white at weight 3 (sa-dash-map.component.ts:475-487). Evidence carried over from the earlier ledger claim map-navigation/5/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": "",
+      "previousText": "Use whichever is faster to find the head you mean."
+    },
+    {
+      "id": "map-navigation/6/4",
+      "guide": "map-navigation",
+      "step": "6",
+      "field": "ifNot",
+      "text": "If no pin is outlined, the station may be disabled and hidden.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "294-349"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "517-519"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "87-88"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 88
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "43-54"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/4, map-navigation/4/2; the sentence was reworded for the step standard.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "map-navigation/5/4",
+      "id": "map-navigation/6/5",
       "guide": "map-navigation",
-      "step": "5",
+      "step": "6",
+      "field": "ifNot",
+      "text": "Set [[Layers]] to [[All Stations]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.html",
+          "line": "34-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 312
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 88
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
+          "line": "43-54"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Enabled Stations Filter"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/4/2; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/6/6",
+      "guide": "map-navigation",
+      "step": "6",
+      "field": "why",
+      "text": "Selecting a pin selects its row too, so use whichever is faster.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "36-44"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "475-487"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": "332-335"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "444-469"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Map Functionality"
+        }
+      ],
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/5/2, map-navigation/5/3; the sentence was reworded for the step standard.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "map-navigation/6/7",
+      "guide": "map-navigation",
+      "step": "6",
       "field": "caption",
       "text": "One selection, shown in both panels.",
       "type": "behaviour",

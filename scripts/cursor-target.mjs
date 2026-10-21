@@ -14,13 +14,30 @@
 // between a check with signal and the first version of the label gate, which matched on any
 // shared four-letter word and produced 27 false positives.
 //
-// Usage: node scripts/cursor-target.mjs <url> [--json]
+// Two checks are hard rather than advisory, because each is a defect a reader sees on every visit:
+//
+//   FALLBACK-COORDINATE  The step has no TARGETS entry and no `t`, so the player fell back to the
+//                        hard default [800, 500], which points at nothing in particular. Read from
+//                        the stage's data-sa-target-src (src/transform-export.mjs), which says which
+//                        of the three supplied the point, so a TARGETS entry that happens to be
+//                        [800, 500] is not mistaken for a fallback.
+//   NO-HIGHLIGHT         No visible Double Click ring (.lsa-hl, src/player.js) contains the cursor's
+//                        end point within 6px. Checked on the stage after each step, and in every
+//                        article figure against that figure's own target.
+//
+// Every guide key is visited by URL (#/<key>), from scripts/lib/load-guides.mjs, so a
+// <key>-part-N guide with no catalogue card is checked too.
+//
+// Usage: node scripts/cursor-target.mjs <url> [--json] [--only <key>[,<key>...]]
 import { readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { loadGuides } from './lib/load-guides.mjs';
 
 const url = process.argv[2];
-if (!url) throw new Error('usage: cursor-target.mjs <url> [--json]');
+if (!url) throw new Error('usage: cursor-target.mjs <url> [--json] [--only <key>[,<key>...]]');
 const asJson = process.argv.includes('--json');
+const onlyAt = process.argv.indexOf('--only');
+const only = onlyAt > -1 ? (process.argv[onlyAt + 1] || '').split(',').filter(Boolean) : null;
 
 const cat = JSON.parse(await readFile('src/i18n/en-us.json', 'utf8'));
 // Tokens that count as evidence: words drawn from labels the reproduction actually renders.
@@ -44,13 +61,54 @@ const page = await (await browser.newContext({ viewport: { width: 1440, height: 
 // Same isolation as scripts/cursor.mjs: nothing external, so a CDN hiccup cannot look like a
 // cursor defect.
 await page.route(/^https?:\/\/(?!localhost)/, (r) => r.abort());
-await page.goto(url, { waitUntil: 'networkidle' });
-await page.waitForTimeout(1200);
-
-const guides = await page.evaluate(() =>
-  [...document.querySelectorAll('.lsa [data-title]')].map((e) => e.getAttribute('data-title')));
+// Every guide key, parts included, in catalogue order. Clicking catalogue cards could not reach a
+// <key>-part-N guide, which has no card.
+const { keys: allKeys, GUIDES } = loadGuides();
+if (only) for (const k of only) if (!GUIDES[k]) throw new Error(`--only: no guide with key ${k}`);
+const guides = only ? allKeys.filter((k) => only.includes(k)) : allKeys;
 
 await page.addInitScript((labels) => { window.__ctNeedles = labels; }, LABELS);
+
+const HL_TOLERANCE = 6;   // px: the ring is outset 4px, so a point on the control's edge is inside
+
+/**
+ * Waits until the stage's ring has been placed for the current step and finished moving. The ring
+ * glides with the .85s camera pan (src/player.css), so sampling it on the step change would test
+ * where it was, not where it lands. Times out quietly: a ring that never settles is then measured
+ * as it is, and reported if it misses.
+ */
+const settleRing = async () => {
+  for (let w = 0; w < 30; w++) {
+    const done = await page.evaluate(() => {
+      const st = document.querySelector('.lsa-stage[data-sa-target]');
+      const hl = st && st.querySelector(':scope > .lsa-hl');
+      if (!st || !hl) return false;
+      const key = st.getAttribute('data-sa-target') + '|' + st.getAttribute('data-sa-step');
+      const forNow = hl.getAttribute('data-sa-hl') !== 'on' || hl.getAttribute('data-sa-for') === key;
+      return forNow && !(hl.getAnimations && hl.getAnimations().length);
+    });
+    if (done) return;
+    await page.waitForTimeout(100);
+  }
+};
+
+/**
+ * The article figures: each figure's own target, its source, and whether its ring contains the
+ * point. Figures are fixed crops, so the point is the target mapped through the rendered app rect.
+ */
+const probeFigures = () => page.evaluate((tol) => [...document.querySelectorAll('figure.lsa-step-figure[data-sa-target]')].map((f) => {
+  const [tx, ty] = (f.getAttribute('data-sa-target') || '').split(',').map(Number);
+  const app = f.querySelector('.sa-app');
+  const hl = f.querySelector(':scope > .lsa-hl');
+  const out = { step: Number(f.getAttribute('data-sa-step')), src: f.getAttribute('data-sa-target-src'), target: [tx, ty] };
+  if (!app) return { ...out, ring: 'no-app' };
+  const ar = app.getBoundingClientRect();
+  const k = ar.width / 1920;
+  const x = ar.left + tx * k, y = ar.top + ty * k;
+  const hr = hl && hl.getAttribute('data-sa-hl') === 'on' ? hl.getBoundingClientRect() : null;
+  const contains = !!hr && hr.width > 0 && x >= hr.left - tol && x <= hr.right + tol && y >= hr.top - tol && y <= hr.bottom + tol;
+  return { ...out, ring: hr ? 'on' : 'off', contains };
+}), HL_TOLERANCE);
 
 const probe = () => page.evaluate(() => {
   // Find the cursor by the ANIMATION THAT MOVES IT, not by which element declares --tx/--ty.
@@ -111,6 +169,20 @@ const probe = () => page.evaluate(() => {
   const x = ar.left + sx + tx, y = ar.top + sy + ty;
   const cr = cursor.getBoundingClientRect();
 
+  // Which of TARGETS, the step's own `t` or the default supplied this point (src/transform-export.mjs).
+  const stageBox = (stageEl || document).querySelector('[data-sa-target]');
+  const src = stageBox ? stageBox.getAttribute('data-sa-target-src') : null;
+  // The Double Click ring (src/player.js) in this stage, and whether it contains the cursor's end
+  // point. Same page coordinates as the point; HL tolerance as for the figures.
+  const hlEl = stageBox && stageBox.querySelector(':scope > .lsa-hl');
+  const hr = hlEl && hlEl.getAttribute('data-sa-hl') === 'on' ? hlEl.getBoundingClientRect() : null;
+  const tol = 6;
+  const highlight = {
+    present: !!(hr && hr.width > 0 && hr.height > 0),
+    contains: !!(hr && hr.width > 0 && x >= hr.left + sx - tol && x <= hr.right + sx + tol
+      && y >= hr.top + sy - tol && y <= hr.bottom + sy + tol),
+  };
+
   // Geometric containment, NOT document.elementsFromPoint. The reproduction is a static
   // screenshot-in-DOM and is `pointer-events: none`, so hit-testing APIs exclude all 387 of its
   // text nodes and return only the overlay and its containers. That is why every step read as
@@ -165,6 +237,8 @@ const probe = () => page.evaluate(() => {
   };
 
   return {
+    src,
+    highlight,
     locateFor: (window.__ctNeedles || []).map((n) => ({ needle: n, at: locate(n) })).filter((x) => x.at),
     tx, ty, w: Math.round(sr.width), h: Math.round(sr.height),
     // Measured from the rendered rect against the stage rect, both in viewport pixels.
@@ -184,11 +258,25 @@ const probe = () => page.evaluate(() => {
 });
 
 const rows = [];
+const figures = [];
+const unreached = [];
 for (const g of guides) {
-  await page.goto(url, { waitUntil: 'networkidle' });
-  await page.waitForTimeout(500);
-  await page.getByText(g, { exact: false }).first().click({ timeout: 8000 }).catch(() => {});
-  await page.waitForTimeout(1400);
+  // A fresh document per guide: a hash change alone leaves the previous guide's state in place.
+  // Opened when the stage is on step 1 and the rail lists this guide's steps. One retry: across 26
+  // consecutive loads one occasionally misses the window, and a guide that cannot be opened twice
+  // is reported rather than skipped.
+  let opened = false;
+  for (let attempt = 0; attempt < 2 && !opened; attempt++) {
+    await page.goto('about:blank');
+    await page.goto(new URL('#/' + g, url).href, { waitUntil: 'networkidle' });
+    opened = await page.waitForFunction((n) => {
+      const st = document.querySelector('.lsa-stage[data-sa-target]');
+      return !!st && st.getAttribute('data-sa-step') === '1' && document.querySelectorAll('[data-sa-chip]').length === n;
+    }, GUIDES[g].steps.length, { timeout: 15000 }).then(() => true, () => false);
+  }
+  if (!opened) { unreached.push(g); continue; }
+  await page.waitForTimeout(900);
+  await settleRing();
   for (let i = 0; i < 40; i++) {
     const r = await probe();
     if (r.missing) break;
@@ -212,13 +300,21 @@ for (const g of guides) {
     // The cursor is animated into place by @keyframes sa-cursor-move; --tx/--ty are set at the
     // start but the surrounding figure (dialogs, selected rows) settles over the same beat.
     await page.waitForTimeout(500);
+    await settleRing();
+  }
+  for (const f of await probeFigures()) {
+    f.verdict = f.src === 'default' ? 'FALLBACK-COORDINATE' : f.contains ? 'HIGHLIGHTED' : 'NO-HIGHLIGHT';
+    figures.push({ guide: g, ...f });
   }
 }
 await browser.close();
 
 const tokens = (s) => new Set((s || '').toLowerCase().match(/[a-z]{4,}/g) || []);
 const verdictOf = (r) => {
+  // First: a defaulted point is wrong whatever happens to be under it.
+  if (r.src === 'default') return 'FALLBACK-COORDINATE';
   if (!r.inStage) return 'OFF-STAGE';
+  if (!r.highlight || !r.highlight.contains) return 'NO-HIGHLIGHT';
   if (!r.pointInViewport) return 'UNMEASURED';   // off-viewport: our problem, not the guide's
   if (!r.hit) return 'NOTHING-UNDER-CURSOR';
   // Step titles read "Step 2 of 5: Open Push Changes" — only the part after the colon names a
@@ -253,11 +349,39 @@ const verdictOf = (r) => {
 for (const r of rows) r.verdict = verdictOf(r);
 const by = rows.reduce((a, r) => ({ ...a, [r.verdict]: (a[r.verdict] || 0) + 1 }), {});
 
+const HARD = ['OFF-STAGE', 'NOTHING-UNDER-CURSOR', 'FALLBACK-COORDINATE', 'NO-HIGHLIGHT'];
+const figBad = figures.filter((f) => f.verdict !== 'HIGHLIGHTED');
+const count = (v) => ({
+  stage: rows.filter((r) => r.verdict === v).length,
+  figures: figures.filter((f) => f.verdict === v).length,
+});
+const fallback = count('FALLBACK-COORDINATE');
+const noHighlight = count('NO-HIGHLIGHT');
+// Every guide's steps must all have been walked; a guide that did not open, or stopped early, would
+// otherwise pass by having nothing to fail.
+const expected = guides.reduce((n, g) => n + GUIDES[g].steps.length, 0);
+const walked = rows.length;
+
 if (asJson) {
-  console.log(JSON.stringify({ guides: guides.length, steps: rows.length, by, rows }, null, 2));
+  console.log(JSON.stringify({ guides: guides.length, steps: rows.length, expected, by, unreached,
+    fallbackCoordinate: fallback, noHighlight, rows, figures }, null, 2));
 } else {
-  console.log(`CURSOR TARGET  ${guides.length} guide(s) · ${rows.length} step(s) with a cursor`);
+  console.log(`CURSOR TARGET  ${guides.length} guide(s) · ${rows.length} of ${expected} step(s) with a cursor · ${figures.length} figure(s)`);
   for (const [k, v] of Object.entries(by).sort()) console.log(`  ${k.padEnd(22)} ${v}`);
+  console.log(`\n  FALLBACK-COORDINATE    ${fallback.stage + fallback.figures}  (stage ${fallback.stage}, figures ${fallback.figures})`);
+  console.log(`  NO-HIGHLIGHT           ${noHighlight.stage + noHighlight.figures}  (stage ${noHighlight.stage}, figures ${noHighlight.figures})`);
+  if (unreached.length) console.log(`\n--- guides that did not open by URL ---\n  ${unreached.join('\n  ')}`);
+  const fb = rows.filter((r) => r.verdict === 'FALLBACK-COORDINATE');
+  const nh = rows.filter((r) => r.verdict === 'NO-HIGHLIGHT');
+  if (fb.length || nh.length || figBad.length) {
+    console.log('\n--- default coordinate or no highlight ---');
+    for (const r of [...fb, ...nh]) {
+      console.log(`  [${r.verdict}] ${r.guide} (stage)\n      ${r.step}\n      cursor (${Math.round(r.tx)},${Math.round(r.ty)}) src ${r.src}, ring ${r.highlight && r.highlight.present ? 'present' : 'absent'}`);
+    }
+    for (const f of figBad) {
+      console.log(`  [${f.verdict}] ${f.guide} (figure, step ${f.step})\n      target (${f.target.join(',')}) src ${f.src}, ring ${f.ring}`);
+    }
+  }
   const bad = rows.filter((r) => r.verdict === 'OFF-STAGE' || r.verdict === 'NOTHING-UNDER-CURSOR');
   if (bad.length) {
     console.log('\n--- cursor points at nothing ---');
@@ -289,6 +413,8 @@ if (asJson) {
 // Only the unambiguous failures gate. UNCONFIRMED is advisory by design: pointing at a panel or
 // a table region rather than a named label is a legitimate thing for a step to do, and failing
 // on it would make the check something people switch off.
-const hard = rows.filter((r) => r.verdict === 'OFF-STAGE' || r.verdict === 'NOTHING-UNDER-CURSOR');
-console.log(`\nCURSOR TARGET: ${hard.length === 0 ? 'PASS' : 'FAIL'}`);
-process.exit(hard.length === 0 ? 0 : 1);
+const hard = rows.filter((r) => HARD.includes(r.verdict));
+const pass = hard.length === 0 && figBad.length === 0 && unreached.length === 0 && walked === expected;
+if (walked !== expected) console.log(`\nwalked ${walked} of ${expected} steps`);
+console.log(`\nCURSOR TARGET: ${pass ? 'PASS' : 'FAIL'}`);
+process.exit(pass ? 0 : 1);

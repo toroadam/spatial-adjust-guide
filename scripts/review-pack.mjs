@@ -146,7 +146,7 @@ const liveUrl = (key) => `${SITE}#/${key}`;
 /** Where a claim sits in its guide, in the words the guide page uses. */
 const sectionName = (step) => (/^\d+$/.test(step) ? `step ${step}`
   : { tile: 'catalogue card', summary: 'summary', where: 'Where', note: 'banner before step 1',
-    before: 'Before you start', verify: 'How to know it worked' }[step] ?? step);
+    start: 'Before you start', before: 'Before you start', verify: 'How to know it worked' }[step] ?? step);
 const fmtDate = (d) => `${d.toISOString().slice(0, 16).replace('T', ' ')} UTC`;
 const isInside = (child, parent) => {
   const rel = relative(parent, child);
@@ -426,12 +426,18 @@ function sections(guide, tile, stepIsBeta = () => false) {
   out.push({ step: 'where', heading: 'Where', prose: para(guide.where) });
   out.push({ step: 'note', heading: 'Banner before step 1',
     prose: guide.note ? `<p><strong>${esc(noteLabel(guide))}</strong> ${esc(guide.note)}</p>` : '' });
-  out.push({ step: 'before', heading: 'Before you start', prose: list(guide.before) });
   // Each step's fields are labelled, because each claim names the field it came from.
   const field = (label, html, cls = '') => (html ? `<p${cls ? ` class="${cls}"` : ''}><span class="label">${label}</span> ${html}</p>` : '');
+  // A rewritten guide's start state, shown first under Before you start (docs/writing-guide.md).
+  if (guide.start) {
+    out.push({ step: 'start', heading: 'Before you start: start state', prose: field('Start on', esc(guide.start.page))
+      + field('Have open', esc(guide.start.open)) + field('You need', esc(guide.start.needs)) });
+  }
+  out.push({ step: 'before', heading: 'Before you start', prose: list(guide.before) });
   (guide.steps || []).forEach((st, i) => {
     const tip = st.tip || st.tipLabel ? `${st.tipLabel ? `<strong>${esc(st.tipLabel)}</strong> ` : ''}${esc(st.tip)}` : '';
     out.push({ step: String(i + 1), heading: st.title ? `Step ${i + 1}: ${st.title}` : `Step ${i + 1}`, prose: field('Title', esc(st.title))
+      + field('Do', esc(st.do)) + field('You should see', esc(st.see)) + field('If not', esc(st.ifNot)) + field('Why', esc(st.why))
       + field('Body', esc(st.body)) + field('Caption', esc(st.caption), 'caption') + field('Tip', tip, 'tip'),
       beta: stepIsBeta(st.title) });
   });

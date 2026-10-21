@@ -5,14 +5,23 @@
 // from the standalone translation of its own parts. None of it judges whether the prose is any
 // good — that needs a human — but all of it is the kind of mistake a reader would act on.
 //
+// It also checks the English side of the label rule once, whatever locales are named:
+// labelProvenance, a GATE, requires every [[Exact Label]] marker in the published guides to be a
+// label IntelliDash renders (src/i18n/labels.en-us.json) and to be named by a Verified claim in the
+// claims ledger (docs/claims/claims.json).
+//
 // Two catalogues are checked. The page catalogue (src/i18n/<locale>.json) comes first, with results
 // reported under the locale code. The video caption catalogues (src/i18n/captions/<locale>.json, see
 // scripts/media-cues.mjs) follow, reported under "captions:<locale>": the same per-string checks, plus
 // a cue with no translation (missingCue) and a cue that quotes a guide step heading in different words
 // from the heading itself (stepLabelDrift).
 //
-// Usage: node scripts/validate-locales.mjs [locale ...]
+// Usage: node scripts/validate-locales.mjs [locale ...] [--all]
+//   --all   print every finding instead of the first four of each kind
 import { readFile, readdir } from 'node:fs/promises';
+import { hardcodedLabels, englishInProduct, markerProblems, markersOf } from './lib/markers.mjs';
+import { loadGuides } from './lib/load-guides.mjs';
+import { present, driftedScreenLabels } from './lib/screen-labels.mjs';
 import { stepLabelMatcher, stepLabelsFrom } from '../src/media/captions.mjs';
 
 const dir = 'src/i18n';
@@ -41,17 +50,17 @@ const glossary = JSON.parse(await readFile(`${dir}/glossary.json`, 'utf8'));
 // means "reference" and is a product mistranslation; demanding the guides match it would have
 // told Thai readers to look for a tab labelled "reference" when their screen says "Preferences".
 // Seven findings said exactly that.
-const hardcoded = new Set();
-try {
-  const dlg = await readFile(
-    '/Users/adammunir/IntelliDash/site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts',
-    'utf8');
-  for (const m of dlg.matchAll(/new SaDlgMenuItem\('([^']+)',\s*'([^']+)'/g)) {
-    hardcoded.add(m[1]);
-    hardcoded.add(m[2]);
-  }
-} catch { /* no checkout: nothing known to be hardcoded */ }
-const only = process.argv.slice(2);
+//
+// The list comes from the committed fixture src/i18n/product-labels.json (surfaces.settings.menu),
+// with a local IntelliDash checkout read as an addition (scripts/lib/markers.mjs). It used to come
+// from the checkout alone, so CI, which has none, knew of no hardcoded label and reached a
+// different verdict from a laptop. The markerDrift gate below depends on it, so it cannot differ.
+const hardcoded = hardcodedLabels();
+// Labels IntelliDash leaves English in a locale (src/i18n/product-untranslated.json); markerDrift only.
+const english = englishInProduct();
+const argv = process.argv.slice(2);
+const ALL = argv.includes('--all');
+const only = argv.filter((a) => !a.startsWith('--'));
 const locales = (await readdir(dir))
   .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json')
   .map((f) => f.replace('.json', ''))
@@ -65,7 +74,9 @@ const PROTECTED = ['Toro', 'IntelliDash', 'Spatial Adjust', 'Lynx', 'TurfRad', '
 // and a lost ÷ or × breaks a formula. Deliberately excludes — and %: Romance languages routinely
 // render an em dash as a colon, and Chinese spells "% Adj." out as 调整百分比 rather than using the
 // glyph. Both are correct, and flagging them buries the real defects.
-const STRUCTURAL = ['←', '→', '…', '›', '÷', '×'];
+// [[ and ]] delimit an on-screen label in a rewritten step (docs/writing-guide.md > Label markers);
+// markerDrift below checks the labels themselves.
+const STRUCTURAL = ['←', '→', '…', '›', '÷', '×', '[[', ']]'];
 
 // Legitimately identical across languages — a URL, a trademark line, a duration code. Short strings
 // are exempt too: "Concept.", "START" and "2 minutes" are real words in several target languages,
@@ -84,63 +95,71 @@ const EXEMPT = {
   // "Spatial-Adjust-Konto", "Spatial-Adjust-Kopfzeile". The trademark is intact and searchable;
   // writing "Spatial Adjust Konto" would be wrong German.
   'de-de': (en, tr, tok) => tok === 'Spatial Adjust' && tr.includes('Spatial-Adjust'),
-  // Thai keeps the Latin acronym where VWC is the subject of the sentence ("VWC คือ…") but uses
-  // IntelliDash's own shipped Thai for the named UI fields (Target VWC → ปริมาตรน้ำเป้าหมาย),
-  // because that is the label a Thai user reads on the actual screen. Matching the product beats
-  // matching the English.
-  'th-th': (en, tr, tok) => tok === 'VWC' && /ปริมาตรน้ำ/.test(tr),
-  // Ruled 2026-09-12: when prose NAMES a control it uses the product's shipped label; when it
-  // discusses the CONCEPT it keeps VWC. These four locales ship a Target/Avg. VWC label with no
-  // acronym in it — "CVA objetivo", "Teneur en eau volumétrique cible", "목표 체적 수분 함량",
-  // "平均体積含水率" — so prose that names the control correctly cannot contain the token, and the
-  // droppedToken GATE would fail it for being right. The guides exist so a reader can find the
-  // control on their own screen; a findable label beats a preserved acronym.
-  //
-  // Bare VWC as a concept is untouched and still guarded: only the compound control names were
-  // changed, so a translation that drops the acronym everywhere still fails.
-  'es-es': (en, tr, tok) => tok === 'VWC' && /CVA/.test(tr),
-  'fr-fr': (en, tr, tok) => tok === 'VWC' && /Teneur en eau volumétrique|Hv\b/.test(tr),
-  'ko-ko': (en, tr, tok) => tok === 'VWC' && /체적 수분 함량/.test(tr),
-  'ja-jp': (en, tr, tok) => tok === 'VWC' && /体積含水率/.test(tr),
 };
+
+// VWC in a control's name, in every locale. Ruled 2026-09-12: when prose NAMES a control it uses
+// the product's shipped label; when it discusses the CONCEPT it keeps VWC. Several locales ship a
+// Target/Avg. VWC label with no acronym in it ("CVA objetivo", "Teneur en eau volumétrique cible",
+// "목표 체적 수분 함량", "平均体積含水率", "ปริมาตรน้ำเป้าหมาย"), so prose that names the control
+// correctly cannot contain the token, and the droppedToken GATE would fail it for being right. A
+// findable label beats a preserved acronym.
+//
+// The exemption is narrow on purpose. It used to be one regex per locale over the translation
+// (/CVA/ in es-es, /Hv\b/ in fr-fr, ...), which also matched the locale's word for the CONCEPT, so
+// a translation could swap every bare VWC for CVA or Hv and pass. Now the English decides: every
+// VWC in it must sit inside a reproduced control label whose shipped translation drops the
+// acronym, and the translation must name each of those controls with its shipped label. One bare
+// VWC left in the English, and the token is required as before.
+const VWC = /(?<![A-Za-z])VWC(?![A-Za-z])/;
+const VWC_CONTROLS = [...SCREEN].filter((l) => l !== 'VWC' && VWC.test(l)).sort((a, b) => b.length - a.length);
+const namesVwcControlsOnly = (en, tr, t) => {
+  let rest = en;
+  const named = [];
+  for (const label of VWC_CONTROLS) {
+    if (!rest.includes(label)) continue;
+    rest = rest.split(label).join(' ');
+    named.push(label);
+  }
+  return named.length > 0 && !VWC.test(rest)
+    && named.every((label) => t[label] && !VWC.test(t[label]) && present(tr, t[label]));
+};
+
+// Concept prose whose translation replaced VWC with the locale's own acronym, listed by locale and
+// English prefix so it stays visible while it waits for a one-word catalogue fix. Empty since the
+// rewrites replaced the two es-es and fr-fr strings that were on it. The list may only shrink: an
+// entry whose string no longer drops VWC is reported as stale.
+const VWC_CONCEPT_KNOWN = {};
 
 const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
   // Compare numerically so a decimal comma is not read as a changed value.
   .map((n) => n.replace(',', '.'));
 
-// A named control is "present" if it appears allowing for case and whitespace. Both differences
-// are things the reader's eye passes over and correct prose legitimately introduces: Dutch
-// lowercases and inflects an adjective mid-sentence ("de voorgestelde percentages" for a label
-// reading "Voorgesteld"), and IntelliDash's own es-es AVG_VWC ships a double space
-// ("Promedio de  CVA") that prose can only match by reproducing the typo. Demanding a verbatim
-// match reported 49 findings whose "fix" would have been to write worse prose.
-// Spaces adjacent to CJK characters are dropped before comparing. Chinese, Japanese and Thai do
-// not use the space as a word separator, so "平均 VWC" and "平均VWC" are the same label to a
-// reader — and the product ships one form while the prose uses the other. Treating them as
-// different reported seven Chinese findings that no reader could perceive.
-const stripCjkSpaces = (s) => s.replace(/(?<=[\u3000-\u9fff\uff00-\uffef\u0e00-\u0e7f])\s+|\s+(?=[\u3000-\u9fff\uff00-\uffef\u0e00-\u0e7f])/g, '');
-const present = (haystack, needle) => {
-  const flat = (s) => stripCjkSpaces(s.toLowerCase().replace(/[\s\u00a0]+/g, ' '));
-  return flat(haystack).includes(flat(needle));
-};
-
-// Longest match wins. "Suggested" is a substring of "Suggested Percent Adjust Calculation", so
-// prose naming the FIELD was also being required to name the COLUMN — two different controls that
-// merely share a word. Requiring both forces a sentence to quote a label it is not about, which is
-// how a findability check starts producing worse prose than it found.
-const shadowed = (label, named) => named.some((other) => other !== label && other.includes(label));
+// Whether prose names a control in the label's own words, allowing for case and whitespace, and
+// which labels a string names, are decided in scripts/lib/screen-labels.mjs, which
+// scripts/retranslate-drift.mjs shares so its queue is exactly what screenLabelDrift fails.
 
 const report = {};
 let totalIssues = 0;
-let advisory = 0;
+const shown = (v) => (ALL ? v : v.slice(0, 4));
+
+/** Fold one catalogue's issues into the report under `name`. Every issue type gates. */
+function record(name, issues, extra = {}) {
+  const counts = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, v.length]));
+  const n = Object.values(counts).reduce((a, v) => a + v, 0);
+  totalIssues += n;
+  report[name] = { total: n, ...extra, ...counts, samples: Object.fromEntries(
+    Object.entries(issues).filter(([, v]) => v.length).map(([k, v]) => [k, shown(v)])) };
+}
 
 /**
  * The checks every translated string gets, whichever catalogue it is in: numbers, protected tokens,
  * structural characters, untranslated and empty values. `screen` is the set of reproduced screen
  * labels exempt from the token and untranslated rules (the page catalogue's _screenStrings; none for
- * captions). Appends to `issues`.
+ * captions). `labelT` is the locale's PAGE catalogue, which decides whether a string names a VWC
+ * control with its shipped label. `knownDrop` is the page catalogue's VWC_CONCEPT_KNOWN waiver.
+ * Appends to `issues`.
  */
-function checkStrings(locale, t, issues, screen) {
+function checkStrings(locale, t, issues, screen, labelT, knownDrop = () => false) {
   for (const [en, tr] of Object.entries(t)) {
     if (!tr || !String(tr).trim()) { issues.empty.push(en.slice(0, 50)); continue; }
 
@@ -160,7 +179,10 @@ function checkStrings(locale, t, issues, screen) {
       // a Latin letter and a CJK/Thai character, so the target side is checked with an explicit
       // "not adjacent to another Latin letter" test instead.
       const bounded = new RegExp(`(?<![A-Za-z])${tok.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![A-Za-z])`);
-      if (bounded.test(en) && !bounded.test(tr) && !screen.has(en) && !(EXEMPT[locale]?.(en, tr, tok))) {
+      // Text inside a [[marker]] is the screen label, which markerDrift checks against the product's
+      // own rendering; only the prose around it has to keep the token.
+      if (bounded.test(en.replace(/\[\[[^\]]*\]\]/g, ' ')) && !bounded.test(tr) && !screen.has(en) && !(EXEMPT[locale]?.(en, tr, tok))
+        && !(tok === 'VWC' && namesVwcControlsOnly(en, tr, labelT)) && !knownDrop(en, tok)) {
         issues.droppedToken.push(`${en.slice(0, 45)} :: lost "${tok}"`);
       }
     }
@@ -174,22 +196,58 @@ function checkStrings(locale, t, issues, screen) {
   }
 }
 
-/**
- * Fold one catalogue's issues into the report under `name`. Every issue type gates except the ones
- * listed in `advisoryTypes`, which are counted separately and never fail the run.
- */
-function record(name, issues, advisoryTypes = [], extra = {}) {
-  const counts = Object.fromEntries(Object.entries(issues).map(([k, v]) => [k, v.length]));
-  const n = Object.entries(counts)
-    .filter(([k]) => !advisoryTypes.includes(k))
-    .reduce((a, [, v]) => a + v, 0);
-  totalIssues += n;
-  for (const k of advisoryTypes) advisory += counts[k] || 0;
-  report[name] = { total: n, ...extra, ...counts, samples: Object.fromEntries(
-    Object.entries(issues).filter(([, v]) => v.length).map(([k, v]) => [k, v.slice(0, 4)])) };
-}
+// labelProvenance, a GATE, on the English. A rewritten step names each control as [[Exact Label]],
+// and the renderer draws it bold as the words to look for on screen, so the words must exist there.
+// Two sources, both committed so the verdict is the same with and without an IntelliDash checkout:
+//   - src/i18n/labels.en-us.json, written by scripts/build-label-fixture.mjs from IntelliDash's
+//     en-us.json and the hardcoded Settings rail at the production pin. The label must be a key,
+//     exactly: same case, spacing and punctuation (docs/writing-guide.md > Label markers).
+//   - the claims ledger, docs/claims/claims.json. Some Verified claim must name the label in its
+//     text or its verifier's note, matched exactly and not as part of a longer word. A label that
+//     only an Unverified or Needs-expert sentence mentions has not been checked against the product.
+// Every marker in the guide data counts, wherever it sits (do, see, ifNot, why, start, ...), and in
+// every guide, pending or not: a marker exists only once someone has written it as a label.
+{
+  const fixture = JSON.parse(await readFile(`${dir}/labels.en-us.json`, 'utf8')).labels || {};
+  const verified = JSON.parse(await readFile('docs/claims/claims.json', 'utf8')).claims
+    .filter((c) => c.status === 'Verified');
+  const ledgerHit = new Map();
+  const inLedger = (label) => {
+    if (!ledgerHit.has(label)) {
+      const re = new RegExp(`(?<![\\p{L}\\p{N}])${label.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![\\p{L}\\p{N}])`, 'u');
+      ledgerHit.set(label, verified.find((c) => re.test(c.text) || re.test(c.note || ''))?.id);
+    }
+    return ledgerHit.get(label);
+  };
+  // Every string in a guide, with the path that reaches it ("steps[1].do", "start.needs").
+  const stringsOf = (v, path, out = []) => {
+    if (typeof v === 'string') out.push([path, v]);
+    else if (Array.isArray(v)) v.forEach((x, i) => stringsOf(x, `${path}[${i}]`, out));
+    else if (v && typeof v === 'object') for (const [k, x] of Object.entries(v)) stringsOf(x, path ? `${path}.${k}` : k, out);
+    return out;
+  };
+  const where = (path) => path.replace(/^steps\[(\d+)\]\./, (_, i) => `step ${Number(i) + 1} `);
 
-// ---- the page catalogue --------------------------------------------------------------------------
+  const { GUIDES, keys } = loadGuides();
+  const labelProvenance = [];
+  let markers = 0;
+  for (const key of keys) {
+    for (const [path, text] of stringsOf(GUIDES[key], '')) {
+      for (const label of markersOf(text)) {
+        markers++;
+        const at = `${key} ${where(path)}: [[${label}]]`;
+        if (!Object.hasOwn(fixture, label)) {
+          labelProvenance.push(`${at} is not a label IntelliDash renders (src/i18n/labels.en-us.json); copy the catalogue value exactly`);
+        } else if (!inLedger(label)) {
+          labelProvenance.push(`${at} is named by no Verified claim in docs/claims/claims.json`);
+        }
+      }
+    }
+  }
+  totalIssues += labelProvenance.length;
+  report['en-us'] = { total: labelProvenance.length, markers, labelProvenance: labelProvenance.length,
+    samples: labelProvenance.length ? { labelProvenance: shown(labelProvenance) } : {} };
+}
 
 const page = {}; // locale -> its page catalogue's strings, for the caption step-label check
 
@@ -197,24 +255,44 @@ for (const locale of locales) {
   const data = JSON.parse(await readFile(`${dir}/${locale}.json`, 'utf8'));
   const t = data.strings;
   page[locale] = t;
-  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [], screenLabelDrift: [] };
+  const issues = { missingNumber: [], droppedToken: [], structuralDrift: [], untranslated: [], empty: [], compoundDrift: [], markerDrift: [], screenLabelDrift: [] };
+  const known = VWC_CONCEPT_KNOWN[locale] || [];
+  const knownUsed = new Set();
+  const knownDrop = (en, tok) => {
+    const k = tok === 'VWC' && known.find((prefix) => en.startsWith(prefix));
+    if (k) knownUsed.add(k);
+    return Boolean(k);
+  };
 
-  checkStrings(locale, t, issues, SCREEN);
+  checkStrings(locale, t, issues, SCREEN, t, knownDrop);
 
-  // Prose that names a reproduced screen label must use the label's own translation. A guide
-  // saying "open Toutes les stations" while the tab reads "Toutes les voies" sends the reader
-  // hunting for a control that is not there — which is the exact failure the guides exist to
-  // prevent, and it happened in four locales before this check existed.
+  for (const prefix of known) {
+    if (!knownUsed.has(prefix)) issues.droppedToken.push(`${prefix.slice(0, 45)} :: stale VWC_CONCEPT_KNOWN entry; the string keeps VWC now, so delete the entry`);
+  }
+
+  // screenLabelDrift, a GATE since 2026-10-20. Prose that names a reproduced screen label must use
+  // the label's own translation. A guide saying "open Toutes les stations" while the tab reads
+  // "Toutes les voies" sends the reader hunting for a control that is not there, which is the exact
+  // failure the guides exist to prevent, and it happened in four locales before this check existed.
+  // Which labels count, and how loosely they match, is scripts/lib/screen-labels.mjs.
+  const labelCtx = { t, screen: SCREEN, glossary: glossary[locale] || {}, hardcoded };
   for (const [en, tr] of Object.entries(t)) {
-    if (SCREEN.has(en)) continue;                       // the label itself, not prose about it
-    const named = [...SCREEN].filter((label) => label.length >= 8
-      && en.includes(label) && (label in (glossary[locale] || {}))
-      && !hardcoded.has(label));
-    for (const label of named) {
-      if (shadowed(label, named)) continue;             // a longer label covers this one
-      if (!present(tr, t[label])) {
-        issues.screenLabelDrift.push(`${en.slice(0, 40)} :: should name "${t[label]}"`);
-      }
+    for (const label of driftedScreenLabels(en, String(tr), labelCtx)) {
+      issues.screenLabelDrift.push(`${en.slice(0, 40)} :: should name "${t[label]}"`);
+    }
+  }
+
+  // markerDrift, a GATE. A rewritten step names each control as [[Exact Label]], and the renderer
+  // shows whatever is inside the brackets in bold, as the thing to find on screen. So a translation
+  // must keep every marker, and each marker must hold the label the reader's screen shows in this
+  // locale: English for a label IntelliDash hardcodes or ships untranslated here, otherwise the
+  // locale's translation of the screen label (scripts/lib/markers.mjs > expectedLabel). A marker that drifts is worse than
+  // prose that drifts, because it is drawn as the exact label.
+  const markerCtx = { t, screen: SCREEN, glossary: glossary[locale] || {}, hardcoded, english, locale };
+  for (const [en, tr] of Object.entries(t)) {
+    if (!en.includes('[[') && !String(tr).includes('[[')) continue;
+    for (const p of markerProblems(en, String(tr), markerCtx)) {
+      issues.markerDrift.push(`${en.slice(0, 50)} :: ${p}`);
     }
   }
 
@@ -230,12 +308,11 @@ for (const locale of locales) {
     }
   }
 
-  // screenLabelDrift is ADVISORY, not a gate. It reports prose that names a reproduced control
-  // using different words from the control itself — real signal, but there are hundreds of them:
-  // the guide prose was written independently of IntelliDash's shipped labels, so "Bulk Adjust"
-  // is "Sammelanpassung" in the prose and "Massenanpassung" on screen. Worth a dedicated pass;
-  // failing the build on it would just mean nobody runs the validator.
-  record(locale, issues, ['screenLabelDrift']);
+  // Every class is a gate. screenLabelDrift was advisory while hundreds of findings stood (308, then
+  // 136): failing the build on them would only have meant nobody ran the validator. The 2026-09-12
+  // VWC ruling took it to 0, and on 2026-10-20 it became a gate so that every new translation,
+  // including the rewritten steps', has to name each control the way the reader's screen does.
+  record(locale, issues);
 }
 
 // ---- the caption catalogues ----------------------------------------------------------------------
@@ -264,7 +341,7 @@ for (const locale of locales) {
   // Keys outside the source are not checked here: assemble-locale.mjs refuses them, and a stale
   // translation of a cue nobody speaks any more cannot reach a track.
   const current = Object.fromEntries(Object.entries(strings).filter(([en]) => en in captionsSource));
-  checkStrings(locale, current, issues, new Set());
+  checkStrings(locale, current, issues, new Set(), page[locale]);
 
   for (const en of Object.keys(captionsSource)) {
     if (!(en in strings)) issues.missingCue.push(en.slice(0, 55));
@@ -283,10 +360,9 @@ for (const locale of locales) {
     }
   }
 
-  record(`captions:${locale}`, issues, [], t ? {} : { catalogue: `missing: ${dir}/captions/${locale}.json` });
+  record(`captions:${locale}`, issues, t ? {} : { catalogue: `missing: ${dir}/captions/${locale}.json` });
 }
 
 console.log(JSON.stringify(report, null, 2));
 console.log(totalIssues === 0 ? '\nVALIDATE: PASS' : `\nVALIDATE: ${totalIssues} issue(s) across ${locales.length} locale(s)`);
-if (advisory) console.log(`VALIDATE: ${advisory} advisory screen-label mismatch(es) — prose naming a control differently from the control. Not a gate; see README > Known gaps.`);
 process.exit(totalIssues === 0 ? 0 : 1);

@@ -171,6 +171,138 @@
       "correction": ""
     },
     {
+      "id": "station-zero/start/1",
+      "guide": "station-zero",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The route is /spatialadjust. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/start/2",
+      "guide": "station-zero",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The guide starts on the dashboard with no dialog open; every dialog here opens only on a user action. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/start/3",
+      "guide": "station-zero",
+      "step": "start",
+      "field": "open",
+      "text": "The table shows the station rows of the hole that has the zero.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "39-62"
+        }
+      ],
+      "note": "The Suggested value is on station rows only, so the table has to show a hole's stations. Reworded from station-zero/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/start/4",
+      "guide": "station-zero",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "Reworded from dashboard-overview/before/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/start/5",
+      "guide": "station-zero",
+      "step": "start",
+      "field": "needs",
+      "text": "A station whose suggestion is 0.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3033-3039"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §9 Where a zero comes from"
+        }
+      ],
+      "note": "The guide is about a station whose Suggested value is 0. Reworded from station-zero/tile/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "station-zero/before/1",
       "guide": "station-zero",
       "step": "before",
@@ -287,10 +419,165 @@
       "id": "station-zero/1/2",
       "guide": "station-zero",
       "step": "1",
-      "field": "body",
-      "text": "This is the common answer.",
+      "field": "do",
+      "text": "On the station’s row, compare [[Avg. VWC]] with [[Target VWC]].",
       "type": "behaviour",
-      "status": "Needs expert",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3039"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "15"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 484
+        }
+      ],
+      "note": "Avg. VWC and Target VWC are columns of the station table (sa-dash-table.component.html:9, :15). Reworded from station-zero/1/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/1/3",
+      "guide": "station-zero",
+      "step": "1",
+      "field": "see",
+      "text": "[[Avg. VWC]] is well above [[Target VWC]], so the station needs no water today and 0 is correct.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3039"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
+        }
+      ],
+      "note": "Under Option 2 the required amount is 0 when the station is wetter than its target by more than today's crop-adjusted ET, so the suggestion is 0 (SpatialAdjustService.cs:3037-3039). Reworded from station-zero/1/3, station-zero/1/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/1/4",
+      "guide": "station-zero",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If [[Avg. VWC]] is near or below [[Target VWC]], the zero has another cause.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 3033
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3037-3039"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3033-3039"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "436-440"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-641"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "417-425"
+        }
+      ],
+      "note": "Only check 1 makes Suggested itself 0 under Option 2; a station not wetter than its target has another cause, which the later checks cover. Reworded from station-zero/1/3, station-zero/summary/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/1/5",
+      "guide": "station-zero",
+      "step": "1",
+      "field": "ifNot",
+      "text": "Go on to the next check.",
+      "type": "behaviour",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -302,20 +589,41 @@
         {
           "source": "doc",
           "ref": "docs/claims/calculations.md §9 Where a zero comes from"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "436-440"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-641"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "417-425"
         }
       ],
-      "note": "See station-zero/summary/1. It is the only check that produces a zero Suggested under Option 2, but how common it is in the field is not in the source.",
-      "question": "Is \"the station is already wetter than target\" the most common reason for a zero suggestion in the field?",
+      "note": "The four checks run in order. Reworded from station-zero/summary/2.",
+      "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-zero/1/3",
+      "id": "station-zero/1/6",
       "guide": "station-zero",
       "step": "1",
-      "field": "body",
-      "text": "When measured VWC is comfortably above the station target, the required amount is zero and so is the suggestion.",
-      "type": "calculation",
+      "field": "why",
+      "text": "Under [[Option 2]], a station wetter than its target by more than today’s ET asks for no water.",
+      "type": "behaviour",
       "status": "Verified",
       "evidence": [
         {
@@ -335,48 +643,22 @@
         {
           "source": "doc",
           "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
-        }
-      ],
-      "note": "\"Comfortably above\" means above target by more than today's crop-adjusted ET, counting one VWC point as one millimetre. Option 2 only.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "station-zero/1/4",
-      "guide": "station-zero",
-      "step": "1",
-      "field": "body",
-      "text": "Station 10AP1 read 34.5 percent against a target of 16 — it does not need water today.",
-      "type": "calculation",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": 3033
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3037-3039"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 368
         }
       ],
-      "note": "The deficit is 16 − 34.5 = −18.5, so any crop-adjusted ET below 18.5 mm gives an amount of 0 and a 0 percent suggestion. docs/claims/calculations.md §2.2 works this example. The station name is from the guide's illustration.",
+      "note": "Option 2 is the calculation that uses ET (en-us.json:368). Reworded from station-zero/1/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-zero/1/5",
+      "id": "station-zero/1/7",
       "guide": "station-zero",
       "step": "1",
       "field": "caption",
@@ -398,7 +680,7 @@
       "correction": ""
     },
     {
-      "id": "station-zero/1/6",
+      "id": "station-zero/1/8",
       "guide": "station-zero",
       "step": "1",
       "field": "caption",
@@ -456,8 +738,186 @@
       "id": "station-zero/2/2",
       "guide": "station-zero",
       "step": "2",
-      "field": "body",
-      "text": "With Set to zero when pushed to Lynx selected, a small but genuine adjustment is written to Lynx as 0%.",
+      "field": "do",
+      "text": "In [[Settings]], on the [[Minimum Threshold]] tab, read the [[Minimum Threshold (%)]] box and the option below it.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-291"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 33
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "107-112"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 54
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-162"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "433-460"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-82"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 207
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 424
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §5 Minimum Threshold"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 469
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "135"
+        }
+      ],
+      "note": "Settings is STRINGS.SETTINGS; Minimum Threshold is a hardcoded rail title of the Settings dialog (sa-settings-dlg.component.ts:54); Minimum Threshold (%) is SETTINGS_MIN_THRESHOLD (en-us.json:469). Reworded from minimum-threshold/1/1, minimum-threshold/1/2, station-zero/2/1, station-zero/2/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/2/3",
+      "guide": "station-zero",
+      "step": "2",
+      "field": "see",
+      "text": "The box reads 0, or reads less than the station’s [[% Adj.]], so the threshold is not the cause.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "433-460"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-82"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 207
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 424
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §5 Minimum Threshold"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "417-437"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "429-443"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "454-457"
+        }
+      ],
+      "note": "The threshold rewrites only a pending station whose non-zero % Adj. is below it, and at 0 the feature is off, so neither case explains the zero. Reworded from station-zero/2/2, station-zero/2/3, minimum-threshold/before/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/2/4",
+      "guide": "station-zero",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If [[Set to zero when pushed to Lynx]] is selected, small changes go to Lynx as 0.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -492,53 +952,27 @@
         {
           "source": "doc",
           "ref": "docs/claims/calculations.md §5 Minimum Threshold"
-        }
-      ],
-      "note": "Only a pending station (one whose % Adj. differs from what Lynx holds) whose non-zero % Adj. is below the threshold is rewritten, and the rewritten 0 is what the push sends (sa-push-changes.service.ts:207). After the push, Current shows 0.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "station-zero/2/3",
-      "guide": "station-zero",
-      "step": "2",
-      "field": "body",
-      "text": "The table still shows the raw value, so the two disagree.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
-          "line": "417-437"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "433-460"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §5 Minimum Threshold"
+          "line": "436-440"
         }
       ],
-      "note": "Suggested and % Adj. keep the unrewritten value. Only the push dialog and the pushed value carry the 0.",
+      "note": "With Set to zero when pushed to Lynx selected, a below-threshold change is sent as 0 while the table keeps the raw value. Reworded from station-zero/2/2, station-zero/2/5.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-zero/2/4",
+      "id": "station-zero/2/5",
       "guide": "station-zero",
       "step": "2",
-      "field": "body",
-      "text": "Switch the option to set to the minimum threshold value if you want those stations to keep running.",
-      "type": "behaviour",
+      "field": "ifNot",
+      "text": "To keep those stations running, select [[Set to the minimum threshold value when pushed to Lynx]], then select [[Save Changes]].",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -554,15 +988,50 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 423
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "49-55"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "445-468"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "482-503"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 459
         }
       ],
-      "note": "With the second option, below-threshold values are lifted to the threshold. Zeros are lifted too unless Exclude Zeros is ticked.",
+      "note": "The second option lifts below-threshold values to the threshold, and Save Changes saves every tab of Settings together. Reworded from station-zero/2/4, ~minimum-threshold:One save for every tab.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-zero/2/5",
+      "id": "station-zero/2/6",
       "guide": "station-zero",
       "step": "2",
       "field": "caption",
@@ -623,8 +1092,8 @@
       "id": "station-zero/3/2",
       "guide": "station-zero",
       "step": "3",
-      "field": "body",
-      "text": "A station with the Enable switch off is left out of every push, so Lynx keeps whatever percent adjust it already holds.",
+      "field": "do",
+      "text": "Look at the [[Enable]] switch on the station’s row.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -632,47 +1101,49 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 68
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "615-641"
+          "line": "615-619"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2976-3043"
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 26
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "1876-1907"
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 695
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": 51
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §4 What the station table shows"
+          "line": "67-69"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-zero/3/2); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Each station row has an Enable switch under the Enable column (sa-dash-table.component.html:26; sa-table-card.component.html:68). Reworded from station-zero/3/5, station-zero/verify/3, enable-disable-stations/where/1.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "A station with the Enable switch off is excluded from adjustment entirely."
+      "correction": ""
     },
     {
       "id": "station-zero/3/3",
       "guide": "station-zero",
       "step": "3",
-      "field": "body",
-      "text": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero.",
+      "field": "see",
+      "text": "The switch is on, so the station is part of every push.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -709,7 +1180,7 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-zero/3/2); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "An enabled station is included in the push list. Reworded from station-zero/3/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -718,8 +1189,55 @@
       "id": "station-zero/3/4",
       "guide": "station-zero",
       "step": "3",
-      "field": "body",
-      "text": "Disabling an area or hole cascades down, so a station can be off because something above it was turned off.",
+      "field": "ifNot",
+      "text": "If the switch is off, Lynx keeps the value it holds, but the suggestion is still calculated.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "615-641"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2976-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "1876-1907"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 51
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §4 What the station table shows"
+        }
+      ],
+      "note": "A disabled station is left out of the push and its suggestion is still calculated. Reworded from station-zero/3/2, station-zero/3/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/3/5",
+      "guide": "station-zero",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Check the area and hole switches above the station too.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -750,15 +1268,22 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "api/Services/SpatialAdjustService.cs",
           "line": "1370-1380"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 68
         }
       ],
-      "note": "A plain click on an area or hole switch changes only that row (sa-table-card.component.ts:336-338). Shift + click cascades to its children, after a confirmation unless the user has turned the prompt off (:339-346; SpatialAdjustService.cs:1339-1352, :1373-1380). Either way, the push list skips every station under a disabled area or hole, even one whose own switch is on (sa-dashboard.component.ts:615-619).",
+      "note": "The push list skips every station under a disabled area or hole, so the switches above matter too. Reworded from station-zero/3/4, station-zero/verify/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-zero/3/5",
+      "id": "station-zero/3/6",
       "guide": "station-zero",
       "step": "3",
       "field": "caption",
@@ -819,8 +1344,44 @@
       "id": "station-zero/4/2",
       "guide": "station-zero",
       "step": "4",
-      "field": "body",
-      "text": "A scan date older than today means the reading is stale.",
+      "field": "do",
+      "text": "Read the scan date under the station’s name.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 24
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/utils/spatial-adjust.util.ts",
+          "line": "17-19"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "173-182"
+        }
+      ],
+      "note": "A station row shows its latest scan date under the name (sa-table-card.component.html:24). Reworded from station-zero/4/1, station-zero/4/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/4/3",
+      "guide": "station-zero",
+      "step": "4",
+      "field": "see",
+      "text": "The date is today, so [[Avg. VWC]] comes from a current scan.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -839,17 +1400,17 @@
           "line": "173-182"
         }
       ],
-      "note": "A scan is current when its date is today in the course's time zone (spatial-adjust.util.ts:17-19).",
+      "note": "A scan is current when its date is today in the course's time zone. Reworded from station-zero/4/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-zero/4/3",
+      "id": "station-zero/4/4",
       "guide": "station-zero",
       "step": "4",
-      "field": "body",
-      "text": "Spatial Adjust falls back to the modelled value, shown in grey italics with a calculator icon.",
+      "field": "ifNot",
+      "text": "If the date is older, [[Option 2]] shows a modelled [[Avg. VWC]], in grey italics.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -886,40 +1447,7 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "Only under Option 2, the default. The modelled VWC is painted dark grey and italic (sa-table-card.component.less:107-110) with an orange calculator icon (:100-105; sa-table-card.component.html:29-31). Under Option 1 a stale station shows a dash instead.",
-      "question": "",
-      "developNote": "Develop adds a step that writes today's adjustment row from the model when TurfRad reports no new scans (develop SpatialAdjustService.cs:2146, :3266-3312). The display is unchanged.",
-      "correction": ""
-    },
-    {
-      "id": "station-zero/4/4",
-      "guide": "station-zero",
-      "step": "4",
-      "field": "body",
-      "text": "If the whole course is stale, TurfRad has not delivered new scans yet.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2103-2146"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2508-2564"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §2.1 When it runs"
-        }
-      ],
-      "note": "Two other causes give the same picture. IntelliDash may not have fetched yet: it fetches about every 30 minutes (appsettings.json:32). Or a fetch failed part-way (SpatialAdjustService.cs:2508-2564). If a fetch returns nothing at all, the stored scans are deleted and the stations drop out of the table rather than going stale (:2134-2146, :2817-2836).",
+      "note": "Under Option 2 a stale station falls back to the modelled value, painted grey and italic with a calculator icon; under Option 1 it shows a dash instead. Reworded from station-zero/4/3.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -928,9 +1456,9 @@
       "id": "station-zero/4/5",
       "guide": "station-zero",
       "step": "4",
-      "field": "body",
-      "text": "Use Request latest scan data in the toolbar to queue a retrieval — it takes several minutes and notifies you when it lands, then Reload Data on the banner brings it in.",
-      "type": "behaviour",
+      "field": "ifNot",
+      "text": "If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -990,7 +1518,7 @@
           "line": 451
         }
       ],
-      "note": "The toolbar button's tooltip is \"Request latest scan data\" (en-us.json:454). The confirmation reads \"Retrieval may take several minutes. We'll notify you when it's ready.\" (en-us.json:457). When the data arrives a banner offers \"Reload Data\" (sa-main-toolbar.component.ts:211; sa-main-toolbar.component.html:182-195). The request fetches what TurfRad already holds. It does not make TurfRad scan (SpatialAdjustService.cs:978-1002).",
+      "note": "The toolbar button is Request latest scan data (en-us.json:454) and the banner offers Reload Data (en-us.json:451). Reworded from station-zero/4/5.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1057,8 +1585,8 @@
       "id": "station-zero/5/2",
       "guide": "station-zero",
       "step": "5",
-      "field": "body",
-      "text": "If nothing above explains it, open the diagnostics dialog by holding Shift + Alt and clicking the Spatial Adjust logo.",
+      "field": "do",
+      "text": "Hold Shift + Alt and click the Spatial Adjust logo.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -1077,7 +1605,7 @@
           "line": "293-299"
         }
       ],
-      "note": "The logo container calls the diagnostics handler, which opens the dialog only with Shift and Alt held (sa-main-toolbar.component.ts:296-298).",
+      "note": "The handler opens the dialog only with Shift and Alt held (sa-main-toolbar.component.ts:293-299). Reworded from station-zero/5/2.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1086,8 +1614,98 @@
       "id": "station-zero/5/3",
       "guide": "station-zero",
       "step": "5",
-      "field": "body",
-      "text": "It opens on a healthy dashboard once Spatial Adjust has contacted Lynx, which happens a second or so after the page loads, and it also opens when Lynx data has failed to load.",
+      "field": "see",
+      "text": "The diagnostics dialog opens and reports TurfRad access, scan data and the last scan date, which is today.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
+          "line": "14-63"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "141-171"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
+          "line": 38
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "156-171"
+        }
+      ],
+      "note": "The dialog reports TurfRad access, scan data and the last scan date; healthy means the last scan date is today. Reworded from station-zero/5/4, station-zero/verify/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/5/4",
+      "guide": "station-zero",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If the last scan date is not today, no scan from today has reached Spatial Adjust yet.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
+          "line": 38
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "156-171"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2103-2146"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2508-2564"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.1 When it runs"
+        }
+      ],
+      "note": "A last scan date that is not today means no scan from today is stored. Other causes than TurfRad can give the same picture, so the sentence names none. Reworded from station-zero/verify/2, station-zero/4/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-zero/5/5",
+      "guide": "station-zero",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If nothing opens, wait a second or so after the page loads and click again.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -1120,43 +1738,56 @@
           "line": "109-116"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-zero/5/3); docs/text-corrections.md §27 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "The handler ignores the chord only while Lynx has neither failed nor been contacted, so a second or so after the page loads it works again. Reworded from station-zero/5/3.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "It only opens once Lynx data has failed to load, which is exactly when you would want it — on a healthy dashboard the chord does nothing."
+      "correction": ""
     },
     {
-      "id": "station-zero/5/4",
+      "id": "station-zero/5/6",
       "guide": "station-zero",
       "step": "5",
-      "field": "body",
-      "text": "It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable.",
-      "type": "behaviour",
+      "field": "why",
+      "text": "The dialog opens a second or so after the page loads, and also when Lynx data has failed to load.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
-          "line": "14-63"
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "293-299"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "141-171"
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "221-223"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "731-733"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-proxy/lynx-proxy.service.ts",
+          "line": "109-116"
         }
       ],
-      "note": "The labels are hardcoded: \"SA has org access:\", \"Org has scan data:\", \"Last scan date:\" under TurfRad, and \"Can ping cloud:\" under Lynx (sa-diagnostics-dlg.component.html:30, :34, :38, :52). Org access is a TurfRad login check (SpatialAdjustService.cs:141-145). Scan data and the last scan date read the scans IntelliDash has stored (:147-171).",
+      "note": "Corrected rule: docs/text-corrections.md section 27. Reworded from station-zero/5/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-zero/5/5",
+      "id": "station-zero/5/7",
       "guide": "station-zero",
       "step": "5",
       "field": "caption",

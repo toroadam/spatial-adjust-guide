@@ -51,3 +51,6 @@ video/**/state.json
 *.local.json
 # Python bytecode from the video pipeline and its tests.
 __pycache__/
+# Moderated-session raw files (__saExport() events and moderator sheets). Participant data: never
+# committed. docs/test-protocol.md > A note on the data; scripts/session-readout.mjs reads them.
+_sessions/

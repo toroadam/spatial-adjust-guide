@@ -29,6 +29,7 @@ import { stepLabelMatcher, stepLabelsFrom } from '../src/media/captions.mjs';
 // 'zod/v4' subpath here does not help. The SDK's peer range (^3.25 || ^4) does not catch this.
 import { z } from 'zod';
 import { zodOutputFormat } from '@anthropic-ai/sdk/helpers/zod';
+import { markersOf, hardcodedLabels, englishInProduct, expectedLabel, markerProblems } from './lib/markers.mjs';
 
 const argv = process.argv.slice(2);
 const arg = (name, fallback) => {
@@ -52,8 +53,25 @@ const LANGUAGE = {
 };
 if (!LANGUAGE[locale]) throw new Error(`unknown locale ${locale} — add it to LANGUAGE`);
 
-const source = JSON.parse(await readFile(captions ? 'src/i18n/captions/en-us.json' : 'src/i18n/en-us.json', 'utf8')).strings;
+const sourceCat = JSON.parse(await readFile(captions ? 'src/i18n/captions/en-us.json' : 'src/i18n/en-us.json', 'utf8'));
+const source = sourceCat.strings;
 const glossary = JSON.parse(await readFile('src/i18n/glossary.json', 'utf8'))[locale] || {};
+
+// [[Exact Label]] markers (docs/writing-guide.md > Label markers). The text inside each one must be
+// the label the reader's screen shows in this locale: English where IntelliDash hardcodes it or
+// ships it untranslated, otherwise the locale's own rendering of the screen label. scripts/lib/markers.mjs decides which,
+// for this script and for the markerDrift gate in scripts/validate-locales.mjs alike. The screen
+// labels' renderings come from the locale catalogue already committed, so a brand-new locale
+// (no catalogue yet) falls back to the glossary.
+let current = {};
+try { current = JSON.parse(await readFile(join('src/i18n', `${locale}.json`), 'utf8')).strings || {}; } catch { /* new locale */ }
+const hardcoded = hardcodedLabels();
+const markerCtx = { t: current, screen: new Set(sourceCat._screenStrings || []), glossary, hardcoded,
+  english: englishInProduct(), locale };
+const markerRule = (s) => markersOf(s).map((label) => {
+  const exp = expectedLabel(label, markerCtx);
+  return exp === undefined ? `[[your translation of "${label}"]]` : `[[${exp}]]`;
+});
 
 // Resume rather than restart. A run that dies two thirds of the way through has still done two
 // thirds of the work, and re-translating what is already correct costs money and churns the diff.
@@ -130,6 +148,9 @@ Rules:
 - Return a translation for EVERY string given, in the same order, with the source echoed back exactly.
 - Preserve meaning precisely. Do not summarise, expand, localise examples, or improve the prose.
 - Keep product and brand names untranslated: Toro, IntelliDash, Spatial Adjust, Lynx, TurfRad, VWC, ET.
+  VWC is the one exception, and only inside a control's name: where the English names a control
+  such as Target VWC or Avg. VWC, write that control's glossary rendering, even when it has no
+  "VWC" in it. Everywhere else VWC is the measurement itself and stays "VWC", never a local acronym.
   Keep Double Click untranslated too: it is the name of the video series.
 - Keep station identifiers (3AP1, 11AP2), numbers, percentages and URLs exactly as they are, but use
   the decimal separator normal for the target language.
@@ -142,6 +163,16 @@ Rules:
   for software documentation in the target language, and be consistent across every string.
 - A string that is genuinely identical in the target language (a URL, a product name) should be
   returned unchanged rather than forced.
+- Text inside double square brackets, [[like this]], is the exact label of a control on screen. It
+  is drawn in bold as the thing to find. Keep the double brackets. Return exactly as many markers as
+  the English has, never add or drop one, and put nothing inside a marker except the label. Inside
+  each marker write the label as the product shows it in ${LANGUAGE[locale]}: the rendering given
+  for that string in the request, which is English where the product shows English, or else the
+  glossary rendering below. The words around a marker are
+  translated normally and may move; the marker moves with its label.
+- These labels are hardcoded in English in the product, so they stay in English inside their
+  markers in every language, even where the glossary or the prose would translate them:
+${[...hardcoded].map((l) => `  ${l}`).join('\n')}
 
 Terminology from IntelliDash's own shipped translations — use these renderings for these terms:
 ${Object.entries(glossary).map(([en, tr]) => `  ${en} = ${tr}`).join('\n')}`;
@@ -180,6 +211,14 @@ untranslated, this wins — the label is what the reader sees on their own scree
             + strings.map((s, i) => (requiredTerms[s]?.length
               ? `${i + 1}. must contain: ${requiredTerms[s].map((x) => JSON.stringify(x)).join(', ')}`
               : null)).filter(Boolean).join('\n')
+          : '')
+        // The markers each string must come back with, in any order, written exactly as given.
+        + (strings.some((s) => markersOf(s).length)
+          ? `\n\nThese strings contain on-screen labels in [[ ]] markers. Each translation must contain
+exactly these markers, character for character, in whatever order ${LANGUAGE[locale]} needs:\n`
+            + strings.map((s, i) => (markersOf(s).length
+              ? `${i + 1}. ${markerRule(s).join(', ')}`
+              : null)).filter(Boolean).join('\n')
           : ''),
     }],
     output_config: { format: zodOutputFormat(Schema) },
@@ -216,6 +255,14 @@ untranslated, this wins — the label is what the reader sees on their own scree
     const absent = (requiredTerms[s] || []).filter((term) => !flat(hit).includes(flat(term)));
     if (absent.length) {
       violations.push(`${s.slice(0, 55)} :: missing ${absent.map((a) => JSON.stringify(a)).join(', ')}`);
+      missed.push(s);
+      continue;
+    }
+    // Same rule as the markerDrift gate, so a string that would fail validation is re-queued
+    // here instead of being written into a fragment.
+    const markerIssues = markerProblems(s, hit, markerCtx);
+    if (markerIssues.length) {
+      violations.push(`${s.slice(0, 55)} :: ${markerIssues.join('; ')}`);
       missed.push(s);
       continue;
     }

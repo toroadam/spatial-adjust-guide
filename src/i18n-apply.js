@@ -12,7 +12,9 @@
 //      prefer that over the current text, so switching locale twice doesn't compound, and a
 //      node the runtime re-created — carrying English again — still matches. Switching from
 //      German to Japanese needs no German-to-English reverse map, because the English never
-//      actually went anywhere.
+//      actually went anywhere. A node the runtime REUSED, writing new English into it, is
+//      recognised because it holds neither the recorded English nor the translation written
+//      over it (see stale() below), and its new text becomes the original.
 //   2. Re-application is driven by the same coalesced MutationObserver pattern src/feedback.js
 //      and src/i18n-selector.js use, so a re-render is self-healing: the runtime paints
 //      English, the observer fires, the text is translated again within a frame.
@@ -30,12 +32,16 @@
   // labelled differently. Roughly half those labels are taken verbatim from IntelliDash's own
   // shipped catalogues by scripts/app-strings.mjs, so the reproduction shows the words the product
   // actually shows. Colours inside .sa-app are still left alone — see README > Deliberately not fixed.
+  // [data-sa-src] marks a step-shape line (Do, You should see, If not, Why, the start rows). Those
+  // are translated whole at render time through window.__saT below, because a sentence with a bold
+  // label in it is several text nodes and translating them one by one cannot reorder the words.
+  // Walking into one here would translate it a second time, fragment by fragment.
   //
   // The media panel's transcript body (src/media.js) is skipped: it is built from the caption track
   // of the reader's own language, so it is already localized, and translating it again through the
   // page catalogue could only damage it. The rest of the panel, the "Transcript" summary included,
   // is ordinary page text and is translated like everything else.
-  var SKIP = 'script, style, noscript, .lsa-media-transcript-body';
+  var SKIP = 'script, style, noscript, [data-sa-src], .lsa-media-transcript-body';
   var ATTRS = ['aria-label', 'placeholder', 'title', 'alt'];
 
   var catalogues = {};       // locale -> { string: translation }
@@ -43,6 +49,16 @@
   var active = null;         // locale currently applied
 
   function track() { if (window.__saTrack) window.__saTrack.apply(null, arguments); }
+
+  // Tells the guide component a different catalogue is now active, so it re-renders and the
+  // step-shape lines it translates through __saT follow. Fired on every change of the applied
+  // locale, including back to en-us, and never on a mere re-application of the same one, so the
+  // re-render it causes cannot loop back into another event.
+  function notify() {
+    try {
+      window.dispatchEvent(new CustomEvent('sa:locale-applied', { detail: { locale: active || 'en-us' } }));
+    } catch (e) { /* a reader without CustomEvent keeps English shape lines, as before load */ }
+  }
 
   // ---- loading ----------------------------------------------------------------
   // Catalogues are separate files rather than inlined: ten of them is roughly half a megabyte,
@@ -69,10 +85,24 @@
   }
 
   // ---- application ------------------------------------------------------------
+  // The runtime REUSES nodes as well as re-creating them. Stepping the player keeps the panel's
+  // counter, title and body text nodes and rewrites their text in place, and the play control's
+  // aria-label goes from "Play all steps" to "Pause" the same way. A recorded original is only
+  // still the source while the node holds that original or the translation written over it
+  // (__saTr); anything else is new English from the runtime, and the stale original has to go.
+  // Without this, every locale but English froze the panel on step 1: the new title was
+  // "translated" from the old one's recorded English straight back to the old title.
+  function stale(current, en, tr) {
+    return en !== undefined && current !== en && current !== tr;
+  }
+
   function translateNode(node, map) {
+    var raw = node.nodeValue || '';
+    var current = raw.trim();
+    if (stale(current, node.__saEn, node.__saTr)) node.__saEn = node.__saTr = undefined;
     var original = node.__saEn;
     if (original === undefined) {
-      original = (node.nodeValue || '').trim();
+      original = current;
       if (!original) return;
     }
     var hit = map[original];
@@ -80,26 +110,34 @@
 
     // Preserve the node's own leading/trailing whitespace: the runtime relies on it for
     // spacing between inline elements, and collapsing it here shifts the layout.
-    var raw = node.nodeValue || '';
     var lead = raw.match(/^\s*/)[0];
     var tail = raw.match(/\s*$/)[0];
     var next = lead + hit + tail;
     if (raw === next) return;
 
     node.__saEn = original;
+    node.__saTr = hit;
     node.nodeValue = next;
   }
 
   function translateAttrs(el, map) {
     var store = el.__saEnAttrs;
+    var written = el.__saTrAttrs;
     for (var i = 0; i < ATTRS.length; i++) {
       var name = ATTRS[i];
       if (!el.hasAttribute(name)) continue;
-      var original = store && store[name] !== undefined ? store[name] : el.getAttribute(name).trim();
+      var current = el.getAttribute(name).trim();
+      if (store && stale(current, store[name], written && written[name])) {
+        store[name] = undefined;
+        if (written) written[name] = undefined;
+      }
+      var original = store && store[name] !== undefined ? store[name] : current;
       var hit = map[original];
       if (hit === undefined || hit === el.getAttribute(name)) continue;
       if (!store) store = el.__saEnAttrs = {};
+      if (!written) written = el.__saTrAttrs = {};
       store[name] = original;
+      written[name] = hit;
       el.setAttribute(name, hit);
     }
   }
@@ -127,13 +165,21 @@
     while ((node = walker.nextNode())) {
       if (node.__saEn === undefined) continue;
       var raw = node.nodeValue || '';
+      // Rewritten by the runtime since it was translated: it already holds current English.
+      if (stale(raw.trim(), node.__saEn, node.__saTr)) { node.__saEn = node.__saTr = undefined; continue; }
       node.nodeValue = raw.match(/^\s*/)[0] + node.__saEn + raw.match(/\s*$/)[0];
     }
     var els = document.querySelectorAll('[aria-label], [placeholder], [title], img[alt]');
     for (var i = 0; i < els.length; i++) {
       var store = els[i].__saEnAttrs;
       if (!store) continue;
-      for (var name in store) if (store[name] !== undefined) els[i].setAttribute(name, store[name]);
+      var written = els[i].__saTrAttrs || {};
+      for (var name in store) {
+        if (store[name] === undefined) continue;
+        var current = (els[i].getAttribute(name) || '').trim();
+        if (stale(current, store[name], written[name])) { store[name] = written[name] = undefined; continue; }
+        els[i].setAttribute(name, store[name]);
+      }
     }
   }
 
@@ -156,7 +202,7 @@
     var locale = loc ? loc.get() : 'en-us';
 
     if (locale === 'en-us') {
-      if (active !== null) { revert(); active = null; }
+      if (active !== null) { revert(); active = null; notify(); }
       return;
     }
     load(locale, function (map) {
@@ -165,6 +211,7 @@
       if (active !== locale) {
         active = locale;
         track('locale_applied', { locale: locale, strings: Object.keys(map).length });
+        notify();
       }
     });
   }
@@ -176,6 +223,16 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', schedule);
   else schedule();
   new MutationObserver(schedule).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+
+  // Render-time translation for the step-shape lines (saLine() in the guide component, added by
+  // src/transform-export.mjs). Answers from the catalogue that is actually applied, not the one
+  // being fetched, so a line and the DOM around it always agree; before any catalogue lands, and
+  // for en-us, it returns the English it was given.
+  window.__saT = function (en) {
+    var map = active && catalogues[active];
+    var hit = map && map[en];
+    return typeof hit === 'string' && hit ? hit : en;
+  };
 
   // Exposed for scripts/i18n.mjs, which needs to know when a locale has actually landed
   // rather than guessing from a timeout.

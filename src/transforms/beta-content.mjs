@@ -72,11 +72,13 @@ export const STEPS = [
     step: {
       title: 'A stale course keeps its last scans',
       fig: 'map',
-      body: 'When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last '
-        + 'scans, even once they are more than seven days old. The stations stay in the table with their '
-        + 'last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled '
-        + 'value and a suggestion every day. Request latest scan data looks back only two days, so the '
-        + 'scans stay as they are unless TurfRad has loaded new scan data in that time.',
+      do: 'Look at the table and the map for a course that TurfRad has loaded nothing new for.',
+      region: true,
+      see: 'The stations stay in the table with their last scan date, and on the map as clear pins.',
+      ifNot: 'If the scans stay old, select [[Request latest scan data]]. It looks back only two days, so the '
+        + 'scans change only if TurfRad has loaded new scan data in that time.',
+      why: 'The course’s last scans are kept even once they are more than seven days old, and under '
+        + '[[Option 2]] each station still gets a modelled value and a suggestion every day.',
       caption: 'A pin last scanned on an earlier day is drawn clear.',
     },
   },
@@ -187,9 +189,12 @@ function insertStep(src, { name, guide, after, step, target }) {
   // Edit the later text first, so the earlier offsets still hold. Every guide's TARGETS row sits
   // after GUIDES in the export, but nothing here relies on that.
   const stepText = src.slice(at, closeBracket(src, at));
-  const stepLiteral = `{ title: ${literal(step.title)}, fig: ${literal(step.fig)},\n`
-    + `        body: ${literal(step.body)},\n`
-    + `        caption: ${literal(step.caption)} }`;
+  // The step shape (docs/writing-guide.md): do / see / ifNot, and why and region where the step has
+  // them, in the order the rewritten steps of the guide carry them.
+  const fields = ['do', 'region', 'see', 'ifNot', 'why', 'caption']
+    .filter((f) => step[f] !== undefined)
+    .map((f) => `        ${f}: ${typeof step[f] === 'boolean' ? String(step[f]) : literal(step[f])}`);
+  const stepLiteral = `{ title: ${literal(step.title)}, fig: ${literal(step.fig)},\n${fields.join(',\n')} }`;
   const rowText = src.slice(rowAt, rowEnd);
   const cellEnd = index + 1 < cells.length
     ? src.lastIndexOf(',', cells[index + 1]) // the comma that ends the cell the new one follows

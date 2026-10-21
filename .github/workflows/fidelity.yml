@@ -49,6 +49,13 @@ jobs:
       - name: Prose lint
         run: npm run test:prose
 
+      # The label gates, with the rest of the catalogue validation: every [[label]] in the guides
+      # is a real IntelliDash label named in the claims ledger, and every translation names each
+      # control the way the reader's screen does. It reads only committed fixtures
+      # (src/i18n/labels.en-us.json, src/i18n/product-labels.json), so it needs no checkout.
+      - name: Locale and label validation
+        run: npm run test:validate
+
       # Runs BEFORE the gate because it checks the gate itself. The in-flight tab set and the
       # station-level header were once read from an IntelliDash checkout at run time, so the gate
       # passed locally and failed here — on exactly the labels it exists to forgive, and only

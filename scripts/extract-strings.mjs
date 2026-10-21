@@ -66,8 +66,19 @@ const harvest = (context) => page.evaluate(() => {
     // catalogue (src/i18n/captions/) and are already localized when they are painted, so
     // src/i18n-apply.js skips the same element. Only the body: the "Transcript" summary and the
     // load-failure message sit beside it in the same <details> and are page strings.
-  const skip = (el) => !el || !!el.closest('.sa-app, .lsa-media-transcript-body, script, style, noscript');
-  const found = { text: [], attrs: [] };
+  // [data-sa-src] is a step-shape line (Do, You should see, If not, Why, a start row). Its English
+  // is translated whole at render time, keyed on the data-sa-src value, so that value is the
+  // catalogue key: [[label]] markers included, and never the fragments the bold labels split the
+  // visible text into ("In the left rail, select", "Minimum Threshold", ...), which no language
+  // could translate in the right order.
+  const skip = (el) => !el || !!el.closest('.sa-app, .lsa-media-transcript-body, script, style, noscript, [data-sa-src]');
+  const found = { text: [], attrs: [], lines: [] };
+
+  for (const el of document.querySelectorAll('[data-sa-src]')) {
+    if (el.closest('.sa-app')) continue;
+    const v = el.getAttribute('data-sa-src');
+    if (v && v.trim()) found.lines.push(v);
+  }
 
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
   let n;
@@ -85,6 +96,14 @@ const harvest = (context) => page.evaluate(() => {
   }
   return found;
 }).then((found) => {
+  for (const line of found.lines) {
+    // The runtime looks a line up by its exact source, so the key must be that source verbatim.
+    // add() collapses whitespace, which would orphan a line written with a double space.
+    if (line !== line.replace(/\s+/g, ' ').trim()) {
+      throw new Error(`step-shape line has irregular whitespace, so its key would never match: ${JSON.stringify(line.slice(0, 80))}`);
+    }
+    add(line, context);
+  }
   found.text.forEach((t) => add(t, context));
   found.attrs.forEach((t) => add(t, context + ':attr'));
 });
