@@ -2,7 +2,7 @@
   "id": "minimum-threshold",
   "title": "Set a minimum threshold",
   "guide": "minimum-threshold",
-  "status": "draft",
+  "status": "script-locked",
   "durationTarget": [
     60,
     180
@@ -241,7 +241,7 @@
       "id": "b1a",
       "chapter": "c1",
       "vo": "V1a",
-      "hold": 8.27,
+      "hold": 7.45,
       "actions": [
         {
           "type": "cue",
@@ -271,7 +271,7 @@
       "id": "b1b",
       "chapter": "c1",
       "vo": "V1b",
-      "hold": 11.07,
+      "hold": 10.45,
       "actions": [
         {
           "type": "cue",
@@ -279,7 +279,7 @@
         },
         {
           "type": "wait",
-          "ms": 3419
+          "ms": 3203
         },
         {
           "type": "hover",
@@ -292,7 +292,7 @@
       "id": "b2a",
       "chapter": "c2",
       "vo": "V2a",
-      "hold": 7.26,
+      "hold": 7.78,
       "actions": [
         {
           "type": "figure",
@@ -326,7 +326,7 @@
         },
         {
           "type": "wait",
-          "ms": 3013
+          "ms": 3336
         },
         {
           "type": "hover",
@@ -339,7 +339,7 @@
       "id": "b2b",
       "chapter": "c2",
       "vo": "V2b",
-      "hold": 5.11,
+      "hold": 4.09,
       "actions": [
         {
           "type": "cue",
@@ -361,7 +361,7 @@
       "id": "b3a",
       "chapter": "c3",
       "vo": "V3a",
-      "hold": 9.72,
+      "hold": 10.18,
       "actions": [
         {
           "type": "figure",
@@ -399,7 +399,7 @@
       "id": "b3b",
       "chapter": "c3",
       "vo": "V3b",
-      "hold": 10.02,
+      "hold": 9.49,
       "actions": [
         {
           "type": "cue",
@@ -421,7 +421,7 @@
       "id": "b4a",
       "chapter": "c4",
       "vo": "V4a",
-      "hold": 13.23,
+      "hold": 14.34,
       "actions": [
         {
           "type": "figure",
@@ -460,7 +460,7 @@
         },
         {
           "type": "wait",
-          "ms": 3632
+          "ms": 4076
         },
         {
           "type": "hover",
@@ -473,7 +473,7 @@
       "id": "b4b",
       "chapter": "c4",
       "vo": "V4b",
-      "hold": 7.56,
+      "hold": 8.67,
       "actions": [
         {
           "type": "cue",
@@ -495,7 +495,7 @@
       "id": "b5a",
       "chapter": "c5",
       "vo": "V5a",
-      "hold": 11.07,
+      "hold": 12.28,
       "actions": [
         {
           "type": "cue",
@@ -525,7 +525,7 @@
       "id": "b5b",
       "chapter": "c5",
       "vo": "V5b",
-      "hold": 11.82,
+      "hold": 10.46,
       "actions": [
         {
           "type": "figure",
@@ -551,7 +551,7 @@
         },
         {
           "type": "wait",
-          "ms": 5357
+          "ms": 4514
         },
         {
           "type": "hover",
