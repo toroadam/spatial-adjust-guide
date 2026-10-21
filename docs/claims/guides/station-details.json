@@ -1557,7 +1557,7 @@
           "line": 377
         }
       ],
-      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together.",
+      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116).",
       "question": "",
       "developNote": "",
       "correction": ""
