@@ -2,7 +2,7 @@
   "id": "verify-results",
   "title": "Verify results",
   "guide": "verify-results",
-  "status": "script-locked",
+  "status": "captured",
   "durationTarget": [
     60,
     180
