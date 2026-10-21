@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "note": "Machine translation of the video caption cues in src/i18n/captions/en-us.json. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json, and a cue that names a guide step uses that step heading's translation from the page catalogue. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and step-label agreement. NOT reviewed by a native speaker. Regenerate keys with scripts/media-cues.mjs after any change to an English caption track.",
+    "locale": "ja-jp",
+    "strings": 24,
+    "identicalToEnglish": 0,
+    "machineValidated": true,
+    "nativeSpeakerReviewed": false,
+    "nativeReviewPlanned": false
+  },
+  "strings": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": "今日スキャンされたピンは、測定値が属する水分バンドの色で表示されます。",
+    "A soil factor handles persistent offsets.": "土壌係数が、継続的なずれを補正します。",
+    "a suggestion is zeroed or lifted to the threshold when you push.": "プッシュ時に提案はゼロにされるか、閾値まで引き上げられます。",
+    "as the legend shows.": "凡例に示すとおりです。",
+    "Before you push, override any suggestion, replace or shift targets in bulk,": "プッシュ前に、提案を上書きしたり、目標をまとめて置き換え・シフトしたり、",
+    "Below a minimum threshold,": "最小閾値を下回る場合、",
+    "Daily Max Amount caps it, and the result becomes a suggested percent adjust.": "一日の最大量で上限が設定され、その結果が提案パーセント調整になります。",
+    "dated beside the station name.": "ステーション名の横に日付が表示されます。",
+    "Each sprinkler of a station scanned in the past seven days is a pin.": "過去7日間にスキャンされたステーションの各スプリンクラーはピンです。",
+    "Each station's average VWC comes from a TurfRad moisture scan,": "各ステーションの平均VWCは、TurfRadの水分スキャンから得られ、",
+    "find the outliers at both ends, or take a station or hole out of adjustment.": "両端の外れ値を見つけたり、ステーションやホールを調整から外したりできます。",
+    "In IntelliDash, Spatial Adjust turns the latest moisture": "IntelliDashでは、Spatial Adjustが最新の水分スキャンを",
+    "Lynx itself must be set up to match Spatial Adjust;": "Lynx自体をSpatial Adjustに合わせて設定しておく必要があります。",
+    "Nothing changes until you push. Review the two lists,": "プッシュするまで何も変わりません。2つのリストを確認する、",
+    "scan into a percent adjustment, station by station.": "ステーションごとにパーセント調整に変換します。",
+    "Spatial Adjust writes each station, then reads Lynx back and checks each one.": "Spatial Adjustは各ステーションを書き込み、その後Lynxを読み戻して、一つずつ確認します。",
+    "Target minus measured, station by station. That is the whole idea.": "目標値から測定値を引きます。ステーションごとに。これが基本的な考え方のすべてです。",
+    "The gap between target and measured becomes water, today's ET is added,": "目標と測定値の差が水量になり、今日のETが加算され、",
+    "The map colours pins by measured moisture. Move the bands, or switch to": "マップはピンを測定した水分で色分けします。バンドを動かすか、",
+    "the push guide lists the settings.": "設定内容はプッシュのガイドに記載されています。",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Spatial Adjust の機能はすべて1つの画面に収まっています。そのマップの読み方を説明します。",
+    "untick anything you're unsure of, and send.": "自信のない項目はチェックを外して、送信します。",
+    "variance to see each station against its target. Map and table stay in sync.": "差分表示に切り替えると、各ステーションを目標と比べて見られます。マップとテーブルは同期します。",
+    "You set the target: the moisture you want each station to hold.": "目標を設定します。各ステーションに保たせたい水分量です。"
+  }
+}

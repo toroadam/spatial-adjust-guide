@@ -1,0 +1,22 @@
+WEBVTT
+
+NOTE dashboard-overview-pilot: written VO text from episode.json, timed from the timeline VO placements
+
+vo-intro-1
+00:00:02.750 --> 00:00:06.610
+The whole Spatial Adjust feature lives on
+one screen. Here is how to read its map.
+
+vo-pins-1
+00:00:11.650 --> 00:00:16.060
+Each sprinkler of a station scanned
+in the past seven days is a pin.
+
+vo-bands-1
+00:00:16.250 --> 00:00:20.295
+A pin scanned today is coloured by the
+moisture band its reading falls into,
+
+vo-bands-2
+00:00:20.395 --> 00:00:21.460
+as the legend shows.

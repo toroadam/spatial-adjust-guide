@@ -1,0 +1,17 @@
+WEBVTT
+
+NOTE
+Placeholder captions for the media tests and the manual playback check. They go with the
+8-second placeholder clip, so every cue ends before 00:00:08.000. One cue carries a number and
+product names, one contains a real step label from the page catalogue, and one is plain prose.
+The translations are in captions/<locale>.json next to this file.
+
+intro
+00:00:00.500 --> 00:00:02.500
+Spatial Adjust pushes a 5% adjustment to Lynx.
+
+00:00:03.000 --> 00:00:05.000 line:85%
+Next: Select the stations.
+
+00:00:05.500 --> 00:00:07.500
+Watch the map as the colours settle.

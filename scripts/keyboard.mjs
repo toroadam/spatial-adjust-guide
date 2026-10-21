@@ -1,9 +1,15 @@
 // Proves the interface is operable by keyboard alone: tab to a guide card, activate it
 // with Enter, advance a step with the keyboard, and confirm the live region updates.
 // Attribute presence is not enough — this drives the real thing.
+//
+// Then the video panel, on dashboard-overview with fixture media (scripts/lib/media-fixture.mjs):
+// Tab must reach the video, which shows a focus ring, and go on to the transcript toggle, which
+// shows one too and opens with Enter.
 import { chromium } from 'playwright';
+import { installMediaFixture } from './lib/media-fixture.mjs';
 
 const url = process.argv[2];
+const base = url.replace(/#.*$/, '').replace(/\/?$/, '/');
 const browser = await chromium.launch();
 const page = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
 await page.goto(url, { waitUntil: 'networkidle' });
@@ -66,7 +72,50 @@ results.focusVisible = await page.evaluate(() => {
   return (s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0);
 });
 
+// 6. The video panel. A fresh context, so focus starts from the top of a deep-linked guide.
+const mediaPage = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+await installMediaFixture(mediaPage);
+await mediaPage.goto(`${base}#/dashboard-overview`, { waitUntil: 'networkidle' });
+await mediaPage.waitForSelector('.lsa-media video', { timeout: 10000 });
+await mediaPage.waitForTimeout(800);
+
+// What has focus, and whether it shows a ring. Focus inside the video's own controls leaves the
+// video as document.activeElement (it is their shadow host), so "on the video" covers both.
+const mediaFocus = () => mediaPage.evaluate(() => {
+  const e = document.activeElement;
+  if (!e || e === document.body) return { on: null, ring: false };
+  const s = getComputedStyle(e);
+  const ring = s.outlineStyle !== 'none' && parseFloat(s.outlineWidth) > 0;
+  if (e.matches('.lsa-media video')) return { on: 'video', ring };
+  if (e.matches('.lsa-media-transcript summary')) return { on: 'summary', ring };
+  return { on: e.tagName.toLowerCase(), ring };
+});
+
+const media = { reachedVideo: false, videoRing: false, reachedTranscript: false, transcriptRing: false, tabs: 0 };
+for (let i = 0; i < 80 && !media.reachedTranscript; i++) {
+  await mediaPage.keyboard.press('Tab');
+  media.tabs = i + 1;
+  const f = await mediaFocus();
+  if (f.on === 'video' && !media.reachedVideo) { media.reachedVideo = true; media.videoRing = f.ring; media.videoAtTab = i + 1; }
+  // The toggle only counts once the video has been passed: the panel's order is video, then transcript.
+  if (f.on === 'summary' && media.reachedVideo) { media.reachedTranscript = true; media.transcriptRing = f.ring; }
+}
+if (media.reachedTranscript) {
+  await mediaPage.keyboard.press('Enter');
+  await mediaPage.waitForTimeout(600);
+}
+Object.assign(media, await mediaPage.evaluate(() => {
+  const d = document.querySelector('.lsa-media-transcript');
+  return { transcriptOpen: !!d && d.open, transcriptCues: document.querySelectorAll('.lsa-media-transcript-body p').length };
+}));
+results.media = media;
+
 const pass =
+  media.reachedVideo &&
+  media.videoRing &&
+  media.reachedTranscript &&
+  media.transcriptRing &&
+  media.transcriptOpen &&
   !!results.reachedCardByTab &&
   (results.stubs.count === 0 || results.stubs.allFocusable) &&
   results.stubs.allNamedAsUnwritten &&

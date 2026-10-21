@@ -31,13 +31,56 @@ jobs:
       # The smoke test drives a real browser, so it needs the matching Chromium.
       - run: npx playwright install --with-deps chromium
 
+      # Videos are GitHub Release assets and never git objects; a tracked video file or a Git LFS
+      # filter fails here, before anything is built. The checkout is depth 1, so this sees the
+      # tracked tree only; run the same command in a full clone to scan history as well.
+      - name: No video files in git
+        run: npm run test:media-git
+
+      # Release media is staged in .media/ and kept between runs. The key changes whenever the
+      # manifest does; restore-keys brings back the previous wave's cache, so a new wave downloads
+      # only its new assets. Nothing in the cache is trusted as-is: the next step re-hashes every file.
+      - uses: actions/cache@v4
+        with:
+          path: .media
+          key: media-${{ hashFiles('src/media/manifest.json') }}
+          restore-keys: |
+            media-
+
+      # Downloads every asset the manifest pins from the public release into .media/ and checks its
+      # SHA-256. The build copies them into dist/media/, so the page still loads from its own origin
+      # only. The built-in GITHUB_TOKEN only softens rate limits; this job keeps contents: read.
+      - name: Stage release media
+        run: npm run media:fetch
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       # Builds dist/, then boots it with every external host blocked and asserts
       # it renders. A regression that reintroduces a CDN dependency fails here.
       # The feedback endpoint is injected here, from a secret, so it never enters the repo —
       # see the comment above the injection loop in build.mjs.
+      # SA_MEDIA_REQUIRED makes a manifest item with no staged asset fail the build instead of
+      # quietly shipping that guide without its video, which is what a local build does.
       - run: npm test
         env:
+          # The beta switch (README: Beta content and the customer launch). A repository variable,
+          # not a secret: it is a setting, not a credential, and its value shows in the log. Empty
+          # or unset, which is what this expression gives until the variable exists, means the build
+          # default: beta content shown, with its Beta labels. For the customer launch, set it to
+          # false and re-run this workflow; build.mjs then leaves beta content out of dist/. An
+          # Azure pipeline sets the same environment variable, with no code change.
+          SA_SHOW_BETA: ${{ vars.SA_SHOW_BETA }}
           SA_FEEDBACK_ENDPOINT: ${{ secrets.SA_FEEDBACK_ENDPOINT }}
+          SA_MEDIA_REQUIRED: '1'
+
+      # Reads every file in the dist/ the steps below upload. With SA_SHOW_BETA false it fails the
+      # deploy on any beta guide key, title, step or string in any file or locale, and on a dist/
+      # built in the other mode; with beta shown it reports and passes. It must see the same
+      # SA_SHOW_BETA as the build above, so a mismatch between the two env blocks fails closed.
+      - name: Beta leak check
+        run: node scripts/beta-leak.mjs
+        env:
+          SA_SHOW_BETA: ${{ vars.SA_SHOW_BETA }}
 
       # Blocking as of 2026-09-12. It ran as its own advisory workflow while the Target Profiles
       # figures were red; that is resolved — those labels belong to an unmerged feature branch and

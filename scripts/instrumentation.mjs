@@ -1,9 +1,16 @@
 // Proves the event layer records what the moderated test protocol needs to answer, by driving
 // the real UI.
 // Usage: node scripts/instrumentation.mjs <url>
+//
+// The video events are checked in a context of their own with fixture media
+// (scripts/lib/media-fixture.mjs): play, play again, then ended, dispatched as synthetic events on the
+// dashboard-overview video, which src/media.js's capture-phase listeners handle exactly like real
+// playback. That is one playthrough, so exactly one video_played and one video_completed.
 import { chromium } from 'playwright';
+import { installMediaFixture } from './lib/media-fixture.mjs';
 
 const url = process.argv[2];
+const base = url.replace(/#.*$/, '').replace(/\/?$/, '/');
 const browser = await chromium.launch();
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
 const page = await ctx.newPage();
@@ -132,6 +139,41 @@ await bare.waitForTimeout(1500);
 const hiddenWithoutEndpoint = (await bare.locator('.lsa-fb-fab').count()) === 0;
 await bare.close();
 
+// 5. The video events, in a fresh context so the counts are this page's alone.
+const mediaPage = await (await browser.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
+mediaPage.on('pageerror', (e) => errors.push('media: ' + String(e).slice(0, 160)));
+mediaPage.on('console', (m) => {
+  if (m.type() === 'error') errors.push('media console: ' + m.text().slice(0, 160));
+  if (m.type() === 'warning' && /unknown event/.test(m.text())) rejected.add(m.text().slice(0, 120));
+});
+await installMediaFixture(mediaPage);
+await mediaPage.goto(`${base}#/dashboard-overview`, { waitUntil: 'networkidle' });
+await mediaPage.waitForSelector('.lsa-media video', { timeout: 10000 }).catch(() => {});
+const hadVideo = (await mediaPage.locator('.lsa-media video').count()) === 1;
+if (hadVideo) {
+  for (const type of ['play', 'play', 'ended']) {
+    await mediaPage.evaluate((t) => document.querySelector('.lsa-media video').dispatchEvent(new Event(t)), type);
+    await mediaPage.waitForTimeout(100);
+  }
+}
+const videoReport = await mediaPage.evaluate(() => {
+  const r = window.__saReport ? window.__saReport() : { raw: [], videos: {} };
+  return { raw: r.raw.filter((e) => /^video_/.test(e.name)).map((e) => ({ name: e.name, props: e.props })), videos: r.videos };
+});
+const played = videoReport.raw.filter((e) => e.name === 'video_played');
+const completed = videoReport.raw.filter((e) => e.name === 'video_completed');
+const rightProps = (e) => e.props.key === 'dashboard-overview' && typeof e.props.locale === 'string' && e.props.locale.length > 0;
+const video = {
+  hadVideo,
+  played: played.length,
+  completed: completed.length,
+  events: videoReport.raw,
+  report: videoReport.videos['dashboard-overview'] || null,
+};
+video.ok = hadVideo && played.length === 1 && completed.length === 1
+  && played.every(rightProps) && completed.every(rightProps)
+  && !!video.report && video.report.played === 1 && video.report.completed === 1;
+
 const report = await page.evaluate(() => window.__saReport());
 const names = report.raw.map((e) => e.name);
 const uniq = [...new Set(names)];
@@ -154,6 +196,7 @@ const result = {
   hiddenWithoutEndpoint,
   hadStub,
   externalSeen,
+  video,
   rejectedEvents: [...rejected],
   errors: [...new Set(errors)],
 };
@@ -173,6 +216,7 @@ const pass =
   failureKeptNote === true &&
   escapeReturnsFocus === true &&
   hiddenWithoutEndpoint === true &&
+  video.ok &&
   rejected.size === 0 &&
   errors.length === 0;
 

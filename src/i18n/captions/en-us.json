@@ -1,0 +1,108 @@
+{
+  "_meta": {
+    "note": "Caption source strings harvested from src/media/captions/*.en-us.vtt by scripts/media-cues.mjs. Keys are the exact English cue text, with a multi-line cue joined by single spaces; src/media/captions.mjs matches on them verbatim when it writes the localized tracks. Regenerate after any change to an English caption track.",
+    "locale": "en-us",
+    "strings": 24,
+    "words": 248
+  },
+  "strings": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": "A pin scanned today is coloured by the moisture band its reading falls into,",
+    "A soil factor handles persistent offsets.": "A soil factor handles persistent offsets.",
+    "a suggestion is zeroed or lifted to the threshold when you push.": "a suggestion is zeroed or lifted to the threshold when you push.",
+    "as the legend shows.": "as the legend shows.",
+    "Before you push, override any suggestion, replace or shift targets in bulk,": "Before you push, override any suggestion, replace or shift targets in bulk,",
+    "Below a minimum threshold,": "Below a minimum threshold,",
+    "Daily Max Amount caps it, and the result becomes a suggested percent adjust.": "Daily Max Amount caps it, and the result becomes a suggested percent adjust.",
+    "dated beside the station name.": "dated beside the station name.",
+    "Each sprinkler of a station scanned in the past seven days is a pin.": "Each sprinkler of a station scanned in the past seven days is a pin.",
+    "Each station's average VWC comes from a TurfRad moisture scan,": "Each station's average VWC comes from a TurfRad moisture scan,",
+    "find the outliers at both ends, or take a station or hole out of adjustment.": "find the outliers at both ends, or take a station or hole out of adjustment.",
+    "In IntelliDash, Spatial Adjust turns the latest moisture": "In IntelliDash, Spatial Adjust turns the latest moisture",
+    "Lynx itself must be set up to match Spatial Adjust;": "Lynx itself must be set up to match Spatial Adjust;",
+    "Nothing changes until you push. Review the two lists,": "Nothing changes until you push. Review the two lists,",
+    "scan into a percent adjustment, station by station.": "scan into a percent adjustment, station by station.",
+    "Spatial Adjust writes each station, then reads Lynx back and checks each one.": "Spatial Adjust writes each station, then reads Lynx back and checks each one.",
+    "Target minus measured, station by station. That is the whole idea.": "Target minus measured, station by station. That is the whole idea.",
+    "The gap between target and measured becomes water, today's ET is added,": "The gap between target and measured becomes water, today's ET is added,",
+    "The map colours pins by measured moisture. Move the bands, or switch to": "The map colours pins by measured moisture. Move the bands, or switch to",
+    "the push guide lists the settings.": "the push guide lists the settings.",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.",
+    "untick anything you're unsure of, and send.": "untick anything you're unsure of, and send.",
+    "variance to see each station against its target. Map and table stay in sync.": "variance to see each station against its target. Map and table stay in sync.",
+    "You set the target: the moisture you want each station to hold.": "You set the target: the moisture you want each station to hold."
+  },
+  "_contexts": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": [
+      "dashboard-overview@00:00:16.250"
+    ],
+    "A soil factor handles persistent offsets.": [
+      "showcase@00:00:51.662"
+    ],
+    "a suggestion is zeroed or lifted to the threshold when you push.": [
+      "showcase@00:01:09.070"
+    ],
+    "as the legend shows.": [
+      "dashboard-overview@00:00:20.395"
+    ],
+    "Before you push, override any suggestion, replace or shift targets in bulk,": [
+      "showcase@00:01:16.510"
+    ],
+    "Below a minimum threshold,": [
+      "showcase@00:01:07.540"
+    ],
+    "Daily Max Amount caps it, and the result becomes a suggested percent adjust.": [
+      "showcase@00:01:02.396"
+    ],
+    "dated beside the station name.": [
+      "showcase@00:00:26.198"
+    ],
+    "Each sprinkler of a station scanned in the past seven days is a pin.": [
+      "dashboard-overview@00:00:11.650"
+    ],
+    "Each station's average VWC comes from a TurfRad moisture scan,": [
+      "showcase@00:00:21.610"
+    ],
+    "find the outliers at both ends, or take a station or hole out of adjustment.": [
+      "showcase@00:01:21.894"
+    ],
+    "In IntelliDash, Spatial Adjust turns the latest moisture": [
+      "showcase@00:00:11.770"
+    ],
+    "Lynx itself must be set up to match Spatial Adjust;": [
+      "showcase@00:01:43.760"
+    ],
+    "Nothing changes until you push. Review the two lists,": [
+      "showcase@00:01:31.010"
+    ],
+    "scan into a percent adjustment, station by station.": [
+      "showcase@00:00:15.318"
+    ],
+    "Spatial Adjust writes each station, then reads Lynx back and checks each one.": [
+      "showcase@00:01:37.874"
+    ],
+    "Target minus measured, station by station. That is the whole idea.": [
+      "showcase@00:01:50.060"
+    ],
+    "The gap between target and measured becomes water, today's ET is added,": [
+      "showcase@00:00:57.790"
+    ],
+    "The map colours pins by measured moisture. Move the bands, or switch to": [
+      "showcase@00:00:33.770"
+    ],
+    "the push guide lists the settings.": [
+      "showcase@00:01:46.836"
+    ],
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": [
+      "dashboard-overview@00:00:02.750"
+    ],
+    "untick anything you're unsure of, and send.": [
+      "showcase@00:01:34.789"
+    ],
+    "variance to see each station against its target. Map and table stay in sync.": [
+      "showcase@00:00:38.608"
+    ],
+    "You set the target: the moisture you want each station to hold.": [
+      "showcase@00:00:47.510"
+    ]
+  }
+}

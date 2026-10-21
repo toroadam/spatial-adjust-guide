@@ -1,0 +1,129 @@
+{
+  "_meta": {
+    "note": "One release status per guide, ga or beta. A GA guide may hold beta sections, which are steps addressed by exact title. GA content is published in every build. Beta content is published only when SA_SHOW_BETA is unset, empty, true or 1, and is left out of dist/ when it is false or 0. A beta guide or beta section may list crossReferences, { guide, field, text } sentences in GA guides that name it; a build with SA_SHOW_BETA false or 0 removes them with it and fails on any mention that is not listed. Read, validated and applied through src/release.mjs and src/transforms/release-gate.mjs; checked by npm run test:release.",
+    "production": {
+      "ref": "origin/Deployments/release/261014_phase_3a",
+      "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924"
+    },
+    "beta": {
+      "ref": "origin/Deployments/beta/261015_tr_v3_api_sprt",
+      "sha": "bd39f465cf5a7ae0356a59825250b36044085714"
+    },
+    "derivedFrom": "docs/claims/beta-surfaces.md",
+    "updated": "2026-10-20"
+  },
+  "guides": {
+    "dashboard-overview": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/dashboard-overview.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "understand-spatial-adjust": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/understand-spatial-adjust.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "map-navigation": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/map-navigation.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "understanding-vwc": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/understanding-vwc.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "editing-station-targets": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/editing-station-targets.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "bulk-adjustments": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/bulk-adjustments.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "target-profiles": {
+      "status": "ga",
+      "basis": "Menu entry live at site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55 at production 1aa4f286"
+    },
+    "creating-profiles": {
+      "status": "ga",
+      "basis": "Menu entry live at site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55 at production 1aa4f286"
+    },
+    "updating-profiles": {
+      "status": "ga",
+      "basis": "Menu entry live at site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55 at production 1aa4f286"
+    },
+    "seasonal-profiles": {
+      "status": "ga",
+      "basis": "Menu entry live at site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts:55 at production 1aa4f286"
+    },
+    "minimum-threshold": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/minimum-threshold.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "calculation-settings": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/calculation-settings.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "calculation-methods": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/calculation-methods.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "preferences": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/preferences.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "enable-disable-stations": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/enable-disable-stations.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "station-details": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/station-details.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "suggested-adjustments": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/suggested-adjustments.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "push-to-lynx": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/push-to-lynx.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "reviewing-changes": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/reviewing-changes.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "verify-results": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/verify-results.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "filter-adjustments": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/filter-adjustments.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "station-zero": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/station-zero.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "threshold-questions": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/threshold-questions.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "calculation-questions": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/calculation-questions.json; only the step in its stale-scans-kept section is a beta surface in docs/claims/beta-surfaces.md",
+      "sections": [
+        {
+          "id": "stale-scans-kept",
+          "status": "beta",
+          "steps": ["A stale course keeps its last scans"],
+          "basis": "docs/claims/beta-surfaces.md#stale-scans-kept"
+        }
+      ]
+    },
+    "push-failures": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/push-failures.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    },
+    "request-scan-data": {
+      "status": "ga",
+      "basis": "Checked against production 1aa4f286 in docs/claims/guides/request-scan-data.json; none of its text is a beta surface in docs/claims/beta-surfaces.md"
+    }
+  }
+}

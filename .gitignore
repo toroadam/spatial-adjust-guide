@@ -22,6 +22,14 @@ _incoming/
 # Translation working fragments — regenerate with npm run translate
 .translate/
 
+# Expert review pack (npm run review-pack). Internal: shared through Toro SharePoint/Teams,
+# never committed and never published. build.mjs does not copy it into dist/.
+review-pack/
+
+# Release media staged for the build (npm run media:fetch) and the test fixture media. Videos are
+# GitHub Release assets and never enter git; see README > Video.
+.media/
+.media-fixture/
 # Video pipeline (video/): media never enters git. It belongs under the media root
 # (~/Documents/SpatialAdjust_MarCom/, see video/README.md). These globs are the second line of
 # defence; npm run video -- hygiene is the check. Do not ignore *.png globally: assets/ and
@@ -43,6 +51,3 @@ video/**/state.json
 *.local.json
 # Python bytecode from the video pipeline and its tests.
 __pycache__/
-# Expert review pack (npm run review-pack). Internal: shared through Toro SharePoint/Teams,
-# never committed and never published. build.mjs does not copy it into dist/.
-review-pack/

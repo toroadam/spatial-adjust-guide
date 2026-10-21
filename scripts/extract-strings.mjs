@@ -7,24 +7,30 @@
 // entities resolve, values interpolate). Harvesting what is actually on screen makes the key
 // set and the match set the same set by construction.
 //
+// Which guides. The guide list is not written down here. It is read from the served catalogue:
+// each written card is opened, and the #/<key> its click routes to is the guide's key. A build with
+// SA_SHOW_BETA=false has no tile for a beta guide, so the harvest never visits one, and a guide
+// added by a transform or released from beta is harvested without editing this file.
+//
+// Both release modes. A build that shows beta content and one that removes it render different
+// strings: the shown build adds the Beta badge, banner and step marker and the beta guides and
+// steps; the hidden build renumbers "Step N of M" around a removed step and shortens the sentences
+// that named removed content. The catalogue must hold the union, so do not point this at one build
+// and write src/i18n/en-us.json with the result. Run scripts/harvest-both-modes.mjs instead: it
+// builds and serves each mode, runs this script on each with --out to a scratch file, and reports
+// (and with --write, diff-and-adds) the union against src/i18n/en-us.json. en-us.json is this
+// harvest PLUS the screen labels scripts/app-strings.mjs adds, so overwriting it drops them. The
+// mode of the build harvested is recorded in the output's _meta.mode, read from the page's
+// <meta name="sa-release-mode">.
+//
 // Usage: node scripts/extract-strings.mjs <url> [--out src/i18n/en-us.json]
 import { chromium } from 'playwright';
 import { writeFile } from 'node:fs/promises';
+import { installMediaFixture, FIXTURE_PREFIX } from './lib/media-fixture.mjs';
 
 const url = (process.argv[2] || 'http://localhost:8124/').replace(/\/$/, '');
 const outIdx = process.argv.indexOf('--out');
 const out = outIdx > -1 ? process.argv[outIdx + 1] : 'src/i18n/en-us.json';
-
-const GUIDES = [
-  'dashboard-overview', 'understand-spatial-adjust', 'map-navigation', 'understanding-vwc',
-  'minimum-threshold', 'calculation-settings', 'calculation-methods', 'preferences',
-  'target-profiles', 'creating-profiles', 'updating-profiles', 'seasonal-profiles',
-  'bulk-adjustments', 'editing-station-targets', 'enable-disable-stations', 'station-details',
-  'suggested-adjustments', 'push-to-lynx', 'reviewing-changes', 'verify-results',
-  'station-zero', 'threshold-questions', 'calculation-questions', 'push-failures',
-  // Added by src/transform-export.mjs rather than present in the export — see the note there.
-  'request-scan-data', 'filter-adjustments',
-];
 
 // Never translated, and each for a different reason:
 //   - the language names are endonyms; "Deutsch" is Deutsch in every locale, which is the
@@ -56,7 +62,11 @@ const harvest = (context) => page.evaluate(() => {
     // .sa-app is harvested separately by scripts/app-strings.mjs, which resolves most of its
     // labels from IntelliDash's own catalogues rather than translating them afresh. Excluding it
     // here keeps this catalogue to the guides' own prose.
-  const skip = (el) => !el || !!el.closest('.sa-app, script, style, noscript');
+    // .lsa-media-transcript-body holds the video's caption cues, which live in their own
+    // catalogue (src/i18n/captions/) and are already localized when they are painted, so
+    // src/i18n-apply.js skips the same element. Only the body: the "Transcript" summary and the
+    // load-failure message sit beside it in the same <details> and are page strings.
+  const skip = (el) => !el || !!el.closest('.sa-app, .lsa-media-transcript-body, script, style, noscript');
   const found = { text: [], attrs: [] };
 
   const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
@@ -83,6 +93,26 @@ const harvest = (context) => page.evaluate(() => {
 await page.goto(`${url}/`, { waitUntil: 'networkidle' });
 await page.waitForTimeout(1800);
 await harvest('catalog');
+const mode = await page.evaluate(() => document.querySelector('meta[name="sa-release-mode"]')?.content || 'unknown');
+
+// The guides this build publishes, in catalogue order: open each written card and read the route
+// its click pushes. A stub card (data-stub="true") is an unwritten guide with no route, and its
+// dialog is harvested separately below.
+const GUIDES = [];
+const cardCount = await page.locator('.lsa [data-title][data-stub="false"]').count();
+for (let i = 0; i < cardCount; i++) {
+  const card = page.locator('.lsa [data-title][data-stub="false"]').nth(i);
+  const title = await card.getAttribute('data-title');
+  await card.click();
+  await page.waitForFunction(() => /^#\/./.test(location.hash), null, { timeout: 5000 })
+    .catch(() => { throw new Error(`the card "${title}" did not route to a guide`); });
+  const key = decodeURIComponent(await page.evaluate(() => location.hash.slice(2)));
+  if (!GUIDES.includes(key)) GUIDES.push(key);
+  await page.goBack();
+  await page.waitForFunction(() => !location.hash && document.querySelector('.lsa [data-title]'), null, { timeout: 5000 });
+}
+if (!GUIDES.length) throw new Error('no written guide cards on the catalogue; is the build served at ' + url + '?');
+process.stderr.write(`  ${mode} build: ${GUIDES.length} guides from the catalogue\n`);
 
 // Open the language menu too — its options are only in the DOM while it is expanded, and the
 // menu's own chrome still needs translating even though the language names do not.
@@ -179,6 +209,43 @@ if (fab) {
   process.stderr.write('  WARNING: feedback button not found — its strings will be absent\n');
 }
 
+// The video panel (src/media.js) only renders where the manifest has an item, and a build with no
+// released media ships an empty manifest, so the walk above never sees it. The same reason and the
+// same remedy as the Feedback button: the browser-test media fixture injects a manifest and answers
+// every media request locally, on the page's own origin. Its headings, the video's fallback text
+// (a text node inside <video>, picked up by the walk), the Transcript summary and the load-failure
+// message are page strings. The transcript body is caption text and is skipped by harvest().
+await installMediaFixture(page);
+const fresh = async (hash) => {
+  // A fresh document each time, for the reason given above, and because media.js caches a loaded
+  // transcript per URL for the life of the document.
+  await page.goto('about:blank');
+  await page.goto(`${url}/${hash}`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(1600);
+};
+const openTranscript = async (done) => {
+  await page.click('.lsa-media-transcript summary').catch(() => {});
+  await page.waitForSelector(done, { timeout: 4000 }).catch(() => {});
+  await page.waitForTimeout(200);
+};
+await fresh('');
+if (await page.$('.lsa-media')) await harvest('chrome');                  // the showcase heading
+else process.stderr.write('  WARNING: media panel not found on the catalogue — its strings will be absent\n');
+await fresh(`#/${GUIDES[0]}`);
+if (await page.$('.lsa-media')) {
+  await harvest('chrome');                                               // the episode heading
+  await openTranscript('.lsa-media-transcript-body p');
+  await harvest('chrome');                                               // Transcript, open
+  // Routes registered later win, so this answers the fixture's caption tracks with a 404 and the
+  // transcript fails the way it would against a missing release asset.
+  await page.route(`**/${FIXTURE_PREFIX}captions/**`, (r) => r.fulfill({ status: 404, contentType: 'text/plain', body: 'not found' }));
+  await fresh(`#/${GUIDES[0]}`);
+  await openTranscript('.lsa-media-transcript-error');
+  await harvest('chrome');                                               // the load-failure message
+} else {
+  process.stderr.write('  WARNING: media panel not found on a guide — its strings will be absent\n');
+}
+
 await browser.close();
 
 const sorted = [...strings.entries()].sort((a, b) => a[0].localeCompare(b[0]));
@@ -188,6 +255,8 @@ const catalogue = {
         + 'Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. '
         + 'Regenerate after any Core Design re-export.',
     locale: 'en-us',
+    mode,
+    guides: GUIDES,
     strings: sorted.length,
     words: sorted.reduce((n, [s]) => n + s.split(/\s+/).length, 0),
   },

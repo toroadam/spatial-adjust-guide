@@ -28,11 +28,29 @@ it by hand. Once shard edits land, rebuild it with
 | `src/transforms/changed-surfaces.mjs` | feature 6 | IntelliDash changes since 2026-08-13 folded into existing guides |
 | `src/transforms/operational-contract.mjs` | feature 5 | The push window and the Lynx prerequisites, in every guide that ends in a push |
 | `src/transforms/review-fixes.mjs` | feature 10 | Fixes that come out of the expert review |
+| `src/transforms/beta-content.mjs` | beta release epic | Steps and guides written against develop and the beta environment, each recorded in `src/release.json` |
+| `src/transforms/release-gate.mjs` | beta release epic | Removes beta content from a build with `SA_SHOW_BETA=false` and fails the build on anything left over |
 
 `transformGuide()` in `src/transform-export.mjs` calls these modules in this order:
 corrections, changed-surfaces, operational-contract, review-fixes. Every `edit()` is anchored on
 the exact text it replaces and fails the build if that text has moved. The edits that were already
 in `src/transform-export.mjs` stay there, and new edits go into the module their feature owns.
+After review-fixes it calls beta-content and then release-gate, which runs last so it sees every
+step any module added.
+
+### Release map: who edits the beta list and the release status
+
+| File | Owner | Holds |
+|---|---|---|
+| `docs/claims/beta-surfaces.md` | beta release epic | The authoritative beta list: every commit that separates the production and develop pins in `sources.json`, classified, and a stable id for each beta surface |
+| `src/release.json` | beta release epic | One release status per guide, `ga` or `beta`, and the beta sections of GA guides, addressed by exact step title. A beta guide's or beta section's `basis` names its surface id in `beta-surfaces.md` |
+
+Claims on the content `src/release.json` marks beta are judged against develop, and one that
+develop bears out is Verified (beta): see the exception in rule 1 of
+[Rules for verifiers](#rules-for-verifiers) and the [Status vocabulary](#status-vocabulary).
+[Release status](#release-status) checks `src/release.json` against the ledger. How the build
+publishes or removes beta content, and how a feature is released, is in the top-level README under
+[Beta content and the customer launch](../../README.md#beta-content-and-the-customer-launch).
 
 ## Purpose
 
@@ -45,6 +63,11 @@ a status, a citation and, if it is wrong, a proposed correction.
 The ledger describes the **published** text, which is the export after `transformGuide()` has
 run. That includes every correction already in `src/transform-export.mjs` and the two guides
 it adds (`request-scan-data`, `filter-adjustments`).
+
+It is always the text with beta content shown, whatever `SA_SHOW_BETA` says.
+`extractGuides()` calls `transformGuide(src, { showBeta: true })`, so the ledger covers every
+sentence any build can publish, and step numbers in claim IDs count the beta steps. A build with
+`SA_SHOW_BETA=false` publishes a subset of it.
 
 ## Pinned sources
 
@@ -108,6 +131,15 @@ differs between the two SHAs.
    (`sa-settings-dlg.component.ts:55`, see [`changed-surfaces.md`](changed-surfaces.md)), so its
    claims are judged against production as well. The two feature branches above are history, kept
    for citing where something was first built.
+
+   **The exception is beta content.** A guide that `src/release.json` marks beta, and a step in
+   a beta section of a GA guide, describe develop and the beta environment, not production (see
+   [`beta-surfaces.md`](beta-surfaces.md)). Judge their claims against the develop SHA. When
+   develop does what the claim says, the status is **Verified (beta)**, with a develop citation at
+   the pinned SHA. When the sentence is also true on production, it may be plain Verified with a
+   production citation instead. Wrong and Needs expert keep their meaning, read against develop.
+   Everything else in a GA guide stays production content: its tile, summary, where, note, before
+   and verify, and every step outside a beta section, can never be Verified (beta).
 2. **No excerpts.** The guide repository is public and IntelliDash is not. Cite `path:line` and
    describe the behaviour in prose. Never paste IntelliDash code, templates or comments. Product
    copy is the exception: an `en-us.json` key name and its English label are text a user sees, so
@@ -128,9 +160,14 @@ it exactly one of these:
 | Status | Meaning | Required alongside it |
 |---|---|---|
 | Verified | Production does what the claim says | at least one citation |
+| Verified (beta) | Develop and the beta environment do what the claim says, and `src/release.json` marks the content beta: a beta guide, or a step in a beta section of a GA guide | a `develop` citation at the develop SHA pinned in `sources.json`. Production citations may sit beside it. |
 | Wrong | Production contradicts the claim | a citation, plus `correction`: replacement wording and one sentence on why |
 | Not shipping | The claim describes something that is not in the production build | the production citation showing it absent (for example a commented-out menu entry), plus the branch file that implements it |
 | Needs expert | The source cannot settle the claim, for example an agronomic judgement or Lynx-side behaviour | `question`: phrased so an agronomist can answer it in one line |
+
+Verified (beta) counts as verified. Any check that passes a Verified claim, such as a claims check
+in CI, passes a Verified (beta) claim too. `scripts/release-status.mjs` reads the same statuses to
+propose a release status for each guide and section (see "Release status" below).
 
 ## Claim types
 
@@ -197,7 +234,7 @@ wording in `previousText`.
 | `docs/claims/sources.json` | The pinned IntelliDash SHAs | Feature 1. The lint checks every citation against it. |
 
 `scripts/claims-extract.mjs` builds the ledger from the published text, which means the export
-after `transformGuide()` has applied every correction. It evaluates the guide data block in
+after `transformGuide()` has applied every correction, with beta content shown. It evaluates the guide data block in
 `node:vm` rather than scraping it, so it sees all 26 guides and every field: tile, summary, where,
 note, before, step title, body, caption, tip and verify.
 
@@ -206,18 +243,24 @@ note, before, step title, body, caption, tip and verify.
 | `npm run claims:extract` | Re-extracts every guide, merges into the existing shards, rebuilds `claims.json`, then lints. Run it after any change to the export or the transform layer. |
 | `npm run claims:aggregate` | Rebuilds `claims.json` from the shards alone. It lints first and refuses to write if any shard is invalid. Run it after editing a shard. |
 | `npm run claims:lint` | Validates every shard and writes nothing. `node scripts/claims-extract.mjs --lint <guide-key> ...` checks only the shards named. Exits 1 on any error. |
+| `npm run release:status` | Proposes a release status for each guide and section from the ledger and compares it with `src/release.json` (see "Release status" below). Advisory: exits 0 unless `--strict` is given. |
 
 What the lint enforces:
 
 - Shards and claims carry only the documented keys, and every claim has all of them except
   `previousText`, which is optional.
-- `status` is one of the five statuses and `type` is one of the five types.
+- `status` is one of the six statuses (Unverified and the five in the status table) and `type` is
+  one of the five types.
 - `id` is `<guide-key>/<step>/<n>`, matches the claim's `guide` and `step`, and is unique. `field`
   is valid for its bucket, and claims are in reading order.
 - Verified, Wrong and Not shipping each have at least one citation. Wrong has a `correction`, and
   Needs expert has a `question`.
 - Every IntelliDash citation has a full 40-character SHA, a repository-relative path and a line
   or line range. A `production` or `develop` citation must use the SHA pinned in `sources.json`.
+- Verified (beta) has at least one `develop` citation at the pinned develop SHA, and sits on
+  content `src/release.json` marks beta: a beta guide, or a numbered step whose shown-mode title
+  is in a beta section of a GA guide. Otherwise the lint fails and names the claim ID. It reads
+  `src/release.json` through `src/release.mjs`, so `SA_RELEASE_FILE` points it at a test fixture.
 
 How a re-extraction merges:
 
@@ -252,6 +295,41 @@ Document evidence:
 { "source": "doc", "ref": "373-1135 rev 02 §x" }
 ```
 
+## Release status
+
+`src/release.json` records which guides and steps are GA and which are beta. The ledger records
+what each sentence was checked against. `scripts/release-status.mjs` reads both and reports where
+they tell different stories. It writes nothing.
+
+```sh
+npm run release:status                     # table, then "release-status: N disagreements, M pending"
+node scripts/release-status.mjs --strict   # exit 1 on any disagreement
+node scripts/release-status.mjs --json     # machine-readable
+node scripts/release-status.mjs --self-test
+```
+
+It reads `src/release.json` through `src/release.mjs` (so `SA_RELEASE_FILE` points it at a
+fixture), `docs/claims/claims.json` (`--ledger <file>` reads another) and the shown-mode step
+titles from `extractGuides()`.
+
+There is one row per guide, in catalogue order, and one per section that `src/release.json`
+records for a GA guide. A beta guide's row covers every claim in it. A GA guide's row covers its
+tile, summary, where, note, before and verify claims and every step outside its recorded
+sections. A section's row covers the claims of the steps it names.
+
+| Recorded | What the ledger shows | Proposed | Verdict |
+|---|---|---|---|
+| ga | no Verified (beta) claim | ga | agrees |
+| ga | any Verified (beta) claim | beta for a guide whose tile cites develop, and for a section; otherwise ga | **disagreement**: "GA content cites develop only" |
+| beta | any Verified (beta) claim | beta | agrees |
+| beta | no Verified (beta) claim, and at least one claim Verified with a production citation | ga | **disagreement**: "marked beta but the evidence is production" |
+| beta | no Verified (beta) claim and no production-Verified one, for example all Unverified | pending | pending, not a disagreement |
+
+It is advisory by design: it exits 0 by default, 1 with `--strict` when anything disagrees, and 2
+when it cannot run (an invalid release file or an unreadable ledger). `--self-test` runs the rules
+on a crafted in-memory ledger and checks that both kinds of disagreement and the pending case are
+found.
+
 ## Review pack
 
 The review pack is what the experts read. `scripts/review-pack.mjs` turns the ledger into one
@@ -263,8 +341,11 @@ npm run review-pack
 
 Run it once the shards are final and `claims.json` has been rebuilt. It reads
 `docs/claims/claims.json`, `docs/claims/sources.json`, the published guide text from
-`extractGuides()`, and the push-window and Lynx questions from `operational-contract.md` and
-`src/transforms/operational-contract.mjs`, and nothing else. It never writes to `docs/claims/`.
+`extractGuides()`, the release status of every guide and step from `src/release.json` (through
+`src/release.mjs`, so `SA_RELEASE_FILE` points it at a fixture), and the push-window and Lynx
+questions from `operational-contract.md` and `src/transforms/operational-contract.mjs`, and
+nothing else. It never writes to `docs/claims/`. The pack is internal and keeps every guide,
+beta or not, whatever `SA_SHOW_BETA` says.
 
 It refuses to write anything when:
 
@@ -287,20 +368,23 @@ It refuses to write anything when:
 
 | File | What it is |
 |---|---|
-| `review-pack/index.html` | The badge legend, totals by status and by type, and a table of every guide with its claim, Wrong, Needs expert, Not shipping and Unverified counts. Then the questions page, then all 26 guides, in catalogue order. |
+| `review-pack/index.html` | The badge legend (claim statuses, release statuses and claim types), totals by status and by type, and a table of every guide with its Release (GA, Beta, or GA with a count of beta steps) and its claim, Wrong, Needs expert, Not shipping and Unverified counts. Then the questions page, then all 26 guides, in catalogue order. |
 | `review-pack/push-window-questions.html` | "Questions for the experts: push window and Lynx prerequisites". The seven questions Q1-Q7 from `operational-contract.md`, each with the wording that rests on it and the live page and step where it appears, then the rules, then every other Needs expert claim with its guide, step, question and live page. It says whether the operational wording is published or held back. It is the agenda for a review that walks the live site. |
 | `review-pack/<guide-key>.html` | One guide on its own, 26 files. Use these to send a single guide to the expert who owns it. |
 | `review-pack/spatial-adjust-guides-review.pdf` | `index.html` printed to A4. Each guide starts on a new page, and every page is numbered. |
 
 Each guide has, in order:
 
-1. A header with the category, the catalogue card, the pinned production and develop SHAs, the
-   time the pack was generated, and a link to the guide on the live site.
+1. A header with the category, the catalogue card, its release status from `src/release.json`
+   (a beta guide carries a **Beta** tag beside its title), the pinned production and develop SHAs,
+   the time the pack was generated, and a link to the guide on the live site.
 2. For the four Target Profiles guides, the "New in IntelliDash" notice that readers see before
    step 1, with the status of its claims.
 3. The guide as written, section by section: the catalogue card, the summary, where to find it,
    the banner before step 1, before you start, each step (title, body, caption and tip), and how
-   to know it worked. Every claim in a section is listed under the published text.
+   to know it worked. Every claim in a section is listed under the published text. Each beta
+   step, in a beta guide or in a beta section of a GA guide, carries a **Beta** tag on its
+   heading.
 4. **Questions for the experts**: every Needs expert claim in the guide, with its claim ID, its
    question, the sentence it is about and room for an answer.
 5. A sign-off box: Approved, Approved with changes or Rejected, plus the reviewer's role and the
@@ -329,10 +413,16 @@ verifier notes and open questions are not written for customers.
 | Badge | Meaning | What the reviewer does |
 |---|---|---|
 | Verified | Production does what the claim says. The citation shows where. | Nothing, unless field experience says otherwise. |
+| Verified (beta) | Develop and the beta environment do what the claim says, and the content is marked Beta. The citation is at the pinned develop SHA. | Check it against the beta environment, and say whether it may change before it reaches production. |
 | Wrong | Production contradicts the claim. The proposed correction is shown beside it. | Check the proposed correction. |
 | Not shipping | The claim describes something that is not in the production build. | Say whether the guide should describe it at all. |
 | Needs expert | The source code cannot settle the claim. Its question is listed under Questions for the experts. | Answer in a line or two, quoting the claim ID. |
 | Unverified | Nobody has checked it yet. | Read it as unchecked. |
+
+A **Beta** tag is not a claim status. It marks a guide or a step that `src/release.json` records
+as beta, in the guide's header, on the step's heading and in the Release column of the index. Its
+claims are judged against develop, so a checked one reads Verified (beta). Content with no tag is
+GA and is judged against production.
 
 Each claim card also shows its ID, type and field, and its citations. A citation is either an
 IntelliDash `path:line` with the ref and the short SHA it was read at, or a section of Toro user
