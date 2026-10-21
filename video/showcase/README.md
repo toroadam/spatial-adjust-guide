@@ -198,6 +198,7 @@ on first use.
 | `frames/` | Frames sampled for OCR; deleted after a passing run (created by the tool) | Phase 5, delivery: `npm run video -- ocr` |
 | `renders/` | Renders, `verify-report.json`, `ocr-report.json` and `showcase.en.vtt` (created by the tools) | Phase 4b (`render`, `mix`) and phase 5 (`verify`, `ocr`, `captions`) |
 | `final/` | The deliverables: the 16x9 master MP4, the WebVTT captions, the transcript and the poster. The site embed publishes from here | Phase 5, delivery |
+| `edit/final-checks/` | The delivery phase's reports (`verify-report.json`, `ocr-report.json`, the Whisper reports) and the 16 kHz mono wav of the final mix the Whisper check reads; kept out of `final/` so that folder holds only the deliverables | Phase 5, delivery |
 
 Git ignores showcase media as well. The rules in `.gitignore` that already cover `video/**`
 (`*.mp4`, `*.mov`, `*.wav`, `*.mp3`, `*.m4a`, `*.aac`, `*.flac`, `*.webm`, `raw/`, `_video/`,
@@ -219,7 +220,7 @@ differs.
 | 3 | Script, VO estimate and Brian voice | `npm run video -- estimate --episode video/showcase/episode.json`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`, then without `--dry-run`; `python3 video/showcase/vo-stem.py --episode video/showcase/episode.json [--lock]`; `$SA_VIDEO_PYTHON video/showcase/whisper-roundtrip.py --audio ~/Documents/SpatialAdjust_MarCom/showcase/vo/showcase-vo-full-48k24.wav --episode video/showcase/episode.json --out ~/Documents/SpatialAdjust_MarCom/showcase/vo/whisper-report.json`; `python3 -m unittest video.showcase.test_vo_tools` (also in `npm run test:video:py`) | script locked 2026-10-20 (SC-G2); voice rendered, fitted and Whisper-checked 2026-10-20 (SC-G3), see [Phase 3](#phase-3-script-and-brian-voice) |
 | 4a | Capture | `node video/showcase/capture-shots.mjs check`, `plans`, `run all`, then `python3 -I video/showcase/scan-takes.py`, `node video/showcase/capture-shots.mjs log` and `reel` | done, 2026-10-21: [Phase 4a](#phase-4a-capture) |
 | 4b | Edit | `$SA_VIDEO_PYTHON video/showcase/assemble-take.py --take 1001`, then `build --episode video/showcase/episode.json --take 1001 [--draft \| --final]`, `render` and `mix` on the timeline it writes, `verify`; `node video/showcase/check-edit.mjs` | rough cut v1 and the picture lock rendered 2026-10-21: [Phase 4b](#phase-4b-edit) |
-| 5 | Review and delivery | planned: `verify`, `ocr`, `captions` and `hygiene` | to be filled in by phase 5 |
+| 5 | Review and delivery | `python3 video/verify/verify.py`, `python3 video/verify/ocr_check.py` and `python3 video/verify/captions.py` on the picture-lock render; `$SA_VIDEO_PYTHON video/showcase/whisper-roundtrip.py --audio <mix wav> --episode video/showcase/episode.json --timeline <media root>/showcase/edit/timeline.json --model medium.en --out <report>`; `node video/showcase/check-claims.mjs --strict`; `npm run video -- hygiene`; `npm test` | done, 2026-10-21: [`delivery.md`](delivery.md) lists the four deliverables with SHA-256 and records every check; gates SC-EXPERT, SC-G6 and SC-SOCIAL are in [`../approvals.md`](../approvals.md) |
 
 ## Phase 1: brief and concept
 
@@ -311,13 +312,13 @@ is run, and imported for its lexicon, never copied.
   hash, voice, model, settings and commit), then places every master at its `windowIn` on silence the length of the
   film, with ffmpeg and no level change: `vo/showcase-vo-full-48k24.wav` (48 kHz, 24-bit, mono) and
   `vo/showcase-vo-REVIEW.mp3` (192 kbit/s). Exit 0 done, 1 a line missing or over its window, 2 configuration.
-- [`whisper-roundtrip.py`](whisper-roundtrip.py) transcribes the stem (or, in phase 5, the final mix with `--offset`)
+- [`whisper-roundtrip.py`](whisper-roundtrip.py) transcribes the stem (or, in phase 5, the final mix, with `--timeline` to score each line where the timeline places it)
   with OpenAI Whisper on this machine, with word timestamps, cuts the words into lines by window (0.3 s before, 0.5 s
   after), and scores each line by word error rate against the written text after normalising both sides. A line
   passes at WER 0.2 or less with every scripted TurfRad, Lynx and IntelliDash heard (Lynx as "Lynx" or its homophone
   "links", which the report counts: Whisper writes "links" for Brian's Lynx at any model size). Whisper is
   given the film's vocabulary as its initial prompt; `--no-prompt` runs without it for comparison. Exit 0 every line passes, 1 a line fails, 2 configuration (including a stale `ttsText`).
-- [`test_vo_tools.py`](test_vo_tools.py): 33 tests of both scripts' logic and of `episode.json` itself (ttsText
+- [`test_vo_tools.py`](test_vo_tools.py): 36 tests of both scripts' logic and of `episode.json` itself (ttsText
   against the lexicon, window gaps, the prompt), with no model, ffmpeg, key or media.
 
 **Whisper install.** `openai-whisper` 20250625 was already in the media-root venv
