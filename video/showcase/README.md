@@ -218,7 +218,7 @@ differs.
 | 2 | Claims check | `node video/showcase/check-claims.mjs` (exit 1 on any failure or a stale `claims-check.md`; add `--strict` to fail on numbers too); `node video/showcase/check-claims.mjs --write` (regenerates the tables in `claims-check.md`); `node --test video/showcase/check-claims.test.mjs` (also in `npm run test:video`) | done, 2026-10-20: `--strict`, `--write` and a plain run exit 0 (24 items, 42 claim IDs, all Verified; 2 held); 28 tests pass (see [Phase 2](#phase-2-claims-check)) |
 | 3 | Script, VO estimate and Brian voice | `npm run video -- estimate --episode video/showcase/episode.json`; `npm run video -- vo --episode video/showcase/episode.json --dry-run`, then without `--dry-run`; `python3 video/showcase/vo-stem.py --episode video/showcase/episode.json [--lock]`; `$SA_VIDEO_PYTHON video/showcase/whisper-roundtrip.py --audio ~/Documents/SpatialAdjust_MarCom/showcase/vo/showcase-vo-full-48k24.wav --episode video/showcase/episode.json --out ~/Documents/SpatialAdjust_MarCom/showcase/vo/whisper-report.json`; `python3 -m unittest video.showcase.test_vo_tools` (also in `npm run test:video:py`) | script locked 2026-10-20 (SC-G2); voice rendered, fitted and Whisper-checked 2026-10-20 (SC-G3), see [Phase 3](#phase-3-script-and-brian-voice) |
 | 4a | Capture | `node video/showcase/capture-shots.mjs check`, `plans`, `run all`, then `python3 -I video/showcase/scan-takes.py`, `node video/showcase/capture-shots.mjs log` and `reel` | done, 2026-10-21: [Phase 4a](#phase-4a-capture) |
-| 4b | Edit | planned: `build`, `render` and `mix`, as in [Episode config](#episode-config) | to be filled in by phase 4b |
+| 4b | Edit | `$SA_VIDEO_PYTHON video/showcase/assemble-take.py --take 1001`, then `build --episode video/showcase/episode.json --take 1001 [--draft \| --final]`, `render` and `mix` on the timeline it writes, `verify`; `node video/showcase/check-edit.mjs` | rough cut v1 and the picture lock rendered 2026-10-21: [Phase 4b](#phase-4b-edit) |
 | 5 | Review and delivery | planned: `verify`, `ocr`, `captions` and `hygiene` | to be filled in by phase 5 |
 
 ## Phase 1: brief and concept
@@ -402,3 +402,25 @@ Demo Mode shot would also need `demoVerified` true in its safety report to be ac
 **Where the files are.** Raw takes, cue logs, cursor tracks, contact sheets and safety reports are in
 `<media root>/showcase/capture/raw/`, the OCR reports and the reel in `capture/review/`. None is committed. The takes
 run 128 s for 83.8 s of cut footage (pre-roll and handles included).
+
+## Phase 4b: edit
+
+The cut is made by the pipeline's compositor as delivered, pointed at [`episode.json`](episode.json); the numbers,
+the edit grammar and every cut's notes are in [`edit-notes.md`](edit-notes.md). Three things are new in this folder:
+
+| File | What it is |
+|---|---|
+| `assemble-take.py` | Joins the 26 accepted shot takes into one take for the builder, which cuts exactly one take: each shot from 0.55 s before its cue for its planned length, behind a magenta start flash, with a merged cue log and cursor track (`capture/raw/take1001-recreation.*` in the media root, a new take number for each cut). Take assembly only: no picture is scaled or re-timed, and the builder, renderer and mixer run unchanged. `--dry-run` prints the plan |
+| `check-edit.mjs`, `check-edit.test.mjs` | Checks the `edit` block of `episode.json`: the title card, a chapter label for each of B1 to B7, a highlight on every beat from B2 to B7, the end card's copy against `video/brand/end-card.json` (gate SC-CTA), the music record and its SC-MUSIC row, and no red |
+| `edit-notes.md` | What each cut is made of, what was seen in it, and the picture lock |
+
+**Music.** Gate SC-MUSIC in [`../approvals.md`](../approvals.md) records the track (the original bed `sa-bed-v1`), library
+(none, generated in code), licence type (original), licence reference, purchaser (none) and date. The file is only in
+`~/Documents/SpatialAdjust_MarCom/music/`. The iCentral preview track is never used; `mix.py` refuses it.
+
+**Renders.** `renders/showcase-take1001-DRAFT.mp4` (rough cut v1, also kept in `edit/rough-cuts/v1/`) and
+`renders/showcase-take1001.mp4` (the locked picture, built with `--final`), both under
+`~/Documents/SpatialAdjust_MarCom/showcase/`. Each has a verify report; the cut decisions are the SC-G5 rows.
+
+A change to any on-screen text means `node video/showcase/check-claims.mjs --write`; a change to VO wording goes back
+to phase 3 (script gate SC-G2, then a re-render of the voice).
