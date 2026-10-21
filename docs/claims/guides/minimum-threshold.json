@@ -195,6 +195,140 @@
       "correction": ""
     },
     {
+      "id": "minimum-threshold/start/1",
+      "guide": "minimum-threshold",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Start state. The Spatial Adjust route is /spatialadjust (app-routing.module.ts:19-23); same wording as dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/start/2",
+      "guide": "minimum-threshold",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "67-68"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-112"
+        }
+      ],
+      "note": "Start state. Both dashboard dialogs, Push Changes and Settings, are drawn only while their flag is set, and both flags start false (sa-main-toolbar.component.ts:67-68; sa-main-toolbar.component.html:94-112).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/start/3",
+      "guide": "minimum-threshold",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "Start state. Same prerequisite as dashboard-overview/before/1: a Spatial Adjust user on a site with TurfRad scan data.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/start/4",
+      "guide": "minimum-threshold",
+      "step": "start",
+      "field": "needs",
+      "text": "The threshold is a site setting, so it applies to every user on the site.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Domain/Site.cs",
+          "line": "40-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "482-490"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SitesService.cs",
+          "line": "79-107"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SitesService.cs",
+          "line": "89-90"
+        }
+      ],
+      "note": "Start state. The threshold is stored on the site and applies to every user (minimum-threshold/before/1 and /before/2).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "minimum-threshold/before/1",
       "guide": "minimum-threshold",
       "step": "before",
@@ -427,8 +561,8 @@
       "id": "minimum-threshold/1/2",
       "guide": "minimum-threshold",
       "step": "1",
-      "field": "body",
-      "text": "The gear button at the right of the toolbar opens the settings dialog.",
+      "field": "do",
+      "text": "Select the gear button, [[Settings]], at the right of the toolbar.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -459,9 +593,16 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
           "line": "107-112"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "980"
         }
       ],
-      "note": "The gear button sits in the toolbar's right-hand group (#sa-tb-right, sa-main-toolbar.component.html:33), after Announcements (:69-72). Shift + Alt on the same button opens the Soil Factor Editor instead (sa-main-toolbar.component.ts:277-281).",
+      "note": "The gear button at the right of the toolbar opens Settings (sa-main-toolbar.component.html:69-72; onShowSettings sets the dialog flag, sa-main-toolbar.component.ts:276-291). Its text is STRINGS.SETTINGS \"Settings\" (en-us.json:980).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -470,8 +611,44 @@
       "id": "minimum-threshold/1/3",
       "guide": "minimum-threshold",
       "step": "1",
-      "field": "body",
-      "text": "It opens on Calculation, unless you have used Review Threshold in the Push Changes dialog since the page loaded, in which case it opens on Minimum Threshold.",
+      "field": "see",
+      "text": "The Settings dialog opens, with a list of tabs down its left side.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "21-30"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "15-30"
+        }
+      ],
+      "note": "The dialog is titled with STRINGS.SETTINGS and carries a left column of tab cards, Calculation, Minimum Threshold, Target Profiles and Preferences (sa-settings-dlg.component.html:15-30; sa-settings-dlg.component.ts:52-57).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/1/4",
+      "guide": "minimum-threshold",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If it opens on [[Minimum Threshold]], you used [[Review Threshold]] since the page loaded.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -516,16 +693,51 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
           "line": "99-102"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "458"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (minimum-threshold/1/3); docs/text-corrections.md §28 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "The toolbar remembers the tab: Review Threshold sets the Minimum Threshold tab and nothing resets it (sa-main-toolbar.component.ts:87, :239-244; sa-confirm-push-dlg.component.ts:99-102). REVIEW_THRESHOLD \"Review Threshold\" (en-us.json:458). Corrected wording from docs/text-corrections.md §28 is kept.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "It opens on whichever tab you last arrived at, so it may not open on Calculation."
+      "correction": ""
     },
     {
-      "id": "minimum-threshold/1/4",
+      "id": "minimum-threshold/1/5",
+      "guide": "minimum-threshold",
+      "step": "1",
+      "field": "ifNot",
+      "text": "The next step picks the tab you need.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "21-30"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        }
+      ],
+      "note": "The next step selects the tab in the left column (sa-settings-dlg.component.html:21-30, menuItemClick at sa-settings-dlg.component.ts:231-233).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/1/6",
       "guide": "minimum-threshold",
       "step": "1",
       "field": "caption",
@@ -584,6 +796,199 @@
     },
     {
       "id": "minimum-threshold/2/2",
+      "guide": "minimum-threshold",
+      "step": "2",
+      "field": "do",
+      "text": "In the left rail, select [[Minimum Threshold]], just under [[Calculation]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "21-30"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "52-57"
+        }
+      ],
+      "note": "The rail entries are hardcoded English, Calculation first and Minimum Threshold second (sa-settings-dlg.component.ts:52-57), so Minimum Threshold sits just under Calculation.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/2/3",
+      "guide": "minimum-threshold",
+      "step": "2",
+      "field": "see",
+      "text": "The right side shows the [[Minimum Threshold (%)]] box, with two choices below it for small values.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 54
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "129-135"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 469
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 471
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "129-172"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "423-424"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "469"
+        }
+      ],
+      "note": "The tab shows the SETTINGS_MIN_THRESHOLD \"Minimum Threshold (%)\" box with the two Set to ... choices under it (sa-settings-dlg.component.html:135-160; en-us.json:423-424, :469).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/2/4",
+      "guide": "minimum-threshold",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If you see another tab, select [[Minimum Threshold]] again; Settings opens on [[Calculation]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "107-112"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": 87
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "239-244"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 59
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "231-233"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "99-102"
+        }
+      ],
+      "note": "Settings opens on Calculation unless Review Threshold was used since the page loaded (sa-main-toolbar.component.ts:87, :239-244), so the reader may land on another tab; a click on a rail card changes tab (sa-settings-dlg.component.ts:231-233).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/2/5",
+      "guide": "minimum-threshold",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If there is no left rail, select the gear button, [[Settings]], at the right of the toolbar.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 33
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-291"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "107-112"
+        }
+      ],
+      "note": "The left rail is part of the Settings dialog, which the gear button opens (sa-main-toolbar.component.html:69-72, :107-112; sa-settings-dlg.component.html:21-30).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/2/6",
       "guide": "minimum-threshold",
       "step": "2",
       "field": "caption",
@@ -651,8 +1056,8 @@
       "id": "minimum-threshold/3/2",
       "guide": "minimum-threshold",
       "step": "3",
-      "field": "body",
-      "text": "Type the cutoff as a whole number between 0 and 50.",
+      "field": "do",
+      "text": "Type a whole number from 0 to 50 in [[Minimum Threshold (%)]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -678,7 +1083,7 @@
           "line": "201-209"
         }
       ],
-      "note": "The input has a minimum of 0, a maximum of 50, no decimals and a step of 1 (sa-settings-dlg.component.html:136-143). It refuses a keystroke that would exceed 50 and rounds to a whole number (decimal-input.component.ts:126-129, :201-209).",
+      "note": "Same behaviour as the sentence it replaces: whole numbers 0 to 50 (sa-settings-dlg.component.html:136-143; decimal-input.component.ts:126-129).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -687,30 +1092,8 @@
       "id": "minimum-threshold/3/3",
       "guide": "minimum-threshold",
       "step": "3",
-      "field": "body",
-      "text": "Ten percent is a common starting point: it removes the noise from stations that are already close to target while leaving genuine corrections intact.",
-      "type": "behaviour",
-      "status": "Needs expert",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "136-143"
-        }
-      ],
-      "note": "The field accepts 10, and nothing in the product suggests a starting value. Whether 10 percent is a sensible default is an agronomic judgement the source cannot settle. Listed in docs/claims/calculations.md §12.",
-      "question": "Is 10 percent a sensible starting Minimum Threshold for most courses, removing noise from stations near target without suppressing genuine corrections?",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "minimum-threshold/3/4",
-      "guide": "minimum-threshold",
-      "step": "3",
-      "field": "caption",
-      "text": "Threshold set to 10 percent.",
+      "field": "see",
+      "text": "The box shows your number.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -722,7 +1105,50 @@
           "line": "136-143"
         }
       ],
-      "note": "Illustrative value. The field accepts any whole number from 0 to 50.",
+      "note": "The box is bound to the site setting saMinThresholdPercent (sa-settings-dlg.component.html:136-143).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/3/4",
+      "guide": "minimum-threshold",
+      "step": "3",
+      "field": "see",
+      "text": "With 0, the threshold is off, and the two choices below stay greyed out.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "429-443"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "454-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-162"
+        }
+      ],
+      "note": "With 0 the option radio group carries the disabled class and both radios are disabled, and the save stores the Disabled option (sa-settings-dlg.component.html:145-162; sa-settings-dlg.component.ts:429-433). Same fact as minimum-threshold/before/4.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -731,8 +1157,44 @@
       "id": "minimum-threshold/3/5",
       "guide": "minimum-threshold",
       "step": "3",
-      "field": "tip",
-      "text": "No server-side check. The 0–50 bound is enforced by the dialog only.",
+      "field": "ifNot",
+      "text": "If a digit does not appear, it would take the number above 50, so the dialog refuses it.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "136-143"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/shared/components/decimal-input/decimal-input.component.ts",
+          "line": "126-129"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/shared/components/decimal-input/decimal-input.component.ts",
+          "line": "201-209"
+        }
+      ],
+      "note": "A keystroke that would take the value above the maximum is refused and the box keeps what it held (decimal-input.component.ts:126-129), with the maximum 50 (sa-settings-dlg.component.html:138).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/3/6",
+      "guide": "minimum-threshold",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Only the dialog enforces that limit.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -765,17 +1227,39 @@
           "line": "136-143"
         }
       ],
-      "note": "The patch copies whatever percentage it is sent onto the site (SitesService.cs:90) and the request model carries no range validation (SiteModel.cs:48-63). Only the dialog input limits the value to 0-50.",
+      "note": "Carried over from the dropped \"No server-side check.\" callout (minimum-threshold/3/5, /3/6): the 0 to 50 bound is enforced by the dialog only.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "minimum-threshold/3/6",
+      "id": "minimum-threshold/3/7",
       "guide": "minimum-threshold",
       "step": "3",
-      "field": "tip",
-      "text": "Values sent by other means are not validated on the server.",
+      "field": "why",
+      "text": "Ten percent is a common start: it drops small changes near target but keeps real fixes.",
+      "type": "behaviour",
+      "status": "Needs expert",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "136-143"
+        }
+      ],
+      "note": "The field accepts 10, and nothing in the product suggests a starting value. Whether 10 percent is a sensible default is an agronomic judgement the source cannot settle. Listed in docs/claims/calculations.md §12. Reworded from \"Ten percent is a common starting point: it removes the noise from stations that are already close to target while leaving genuine corrections intact.\"",
+      "question": "Is 10 percent a sensible starting Minimum Threshold for most courses, removing noise from stations near target without suppressing genuine corrections?",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/3/8",
+      "guide": "minimum-threshold",
+      "step": "3",
+      "field": "caption",
+      "text": "Threshold set to 10 percent.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -783,18 +1267,11 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SitesService.cs",
-          "line": "79-107"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Models/SiteModel.cs",
-          "line": "48-63"
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "136-143"
         }
       ],
-      "note": "See minimum-threshold/3/5.",
+      "note": "Illustrative value. The field accepts any whole number from 0 to 50.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -832,11 +1309,25 @@
       "id": "minimum-threshold/4/2",
       "guide": "minimum-threshold",
       "step": "4",
-      "field": "body",
-      "text": "Set to zero skips the station entirely — Lynx receives 0%.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "Select [[Set to zero when pushed to Lynx]] or [[Set to the minimum threshold value when pushed to Lynx]].",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 425
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -861,22 +1352,7 @@
         {
           "source": "doc",
           "ref": "docs/claims/calculations.md §5 Minimum Threshold"
-        }
-      ],
-      "note": "The option is \"Set to zero when pushed to Lynx\" (en-us.json:424). The station is not left out of the push. It is sent with 0 percent, so Lynx's percent adjust becomes 0 and the station does not run. This happens only to a pending station whose non-zero % Adj. is below the threshold. A % Adj. already at 0 is left alone (sa-main-toolbar.component.ts:436-440).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "minimum-threshold/4/3",
-      "guide": "minimum-threshold",
-      "step": "4",
-      "field": "body",
-      "text": "Set to the minimum threshold value raises the suggestion up to the threshold instead, so the station still gets a small run.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -888,22 +1364,40 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
-          "line": "74-82"
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 423
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 423
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §5 Minimum Threshold"
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "149-162"
         }
       ],
-      "note": "The option is \"Set to the minimum threshold value when pushed to Lynx\" (en-us.json:423). Without Exclude Zeros it lifts zeros too (sa-main-toolbar.component.ts:442-447).",
+      "note": "The two radios are MIN_THRESHOLD_OPT_TO_ZERO \"Set to zero when pushed to Lynx\" and MIN_THRESHOLD_OPT_TO_MIN \"Set to the minimum threshold value when pushed to Lynx\" (sa-settings-dlg.component.html:149-162; en-us.json:423-424).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/4/3",
+      "guide": "minimum-threshold",
+      "step": "4",
+      "field": "see",
+      "text": "Your choice is marked.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "149-162"
+        }
+      ],
+      "note": "Each choice is a radio button bound to the selected option (sa-settings-dlg.component.html:149-162).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -912,8 +1406,8 @@
       "id": "minimum-threshold/4/4",
       "guide": "minimum-threshold",
       "step": "4",
-      "field": "body",
-      "text": "Exclude Zeros, available only on the second option, leaves genuine zeros at zero rather than lifting them.",
+      "field": "see",
+      "text": "With the second one, [[Exclude Zeros]] below it can be ticked.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -946,13 +1440,153 @@
           "line": 400
         }
       ],
-      "note": "The checkbox is enabled only when the second option is selected and the threshold is above 0 (sa-settings-dlg.component.html:167). With it ticked, a pending station whose % Adj. is 0 keeps 0, and only non-zero values below the threshold are lifted (sa-main-toolbar.component.ts:448-453). Any % Adj. of 0 counts, whether it was calculated or typed.",
+      "note": "Exclude Zeros is enabled only while the second option is selected and the threshold is above 0 (sa-settings-dlg.component.html:163-170).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "minimum-threshold/4/5",
+      "guide": "minimum-threshold",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If both choices are greyed out, the box above holds 0.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "429-443"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "454-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-162"
+        }
+      ],
+      "note": "Both radios are disabled while the threshold is 0 (sa-settings-dlg.component.html:145-162), so a number above 0 has to be typed first.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/4/6",
+      "guide": "minimum-threshold",
+      "step": "4",
+      "field": "ifNot",
+      "text": "Type a number above 0 first.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "429-443"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "454-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-162"
+        }
+      ],
+      "note": "Both radios are disabled while the threshold is 0 (sa-settings-dlg.component.html:145-162), so a number above 0 has to be typed first.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/4/7",
+      "guide": "minimum-threshold",
+      "step": "4",
+      "field": "why",
+      "text": "Zero sends 0% for the station; the second choice raises it to the threshold, so it still gets a small run.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "436-440"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-82"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 424
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §5 Minimum Threshold"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "442-447"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 423
+        }
+      ],
+      "note": "Set to zero sets a push value of 0 for a station below the threshold; the second option raises it to the threshold (sa-main-toolbar.component.ts:436-447). Reworded from minimum-threshold/4/2 and /4/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/4/8",
       "guide": "minimum-threshold",
       "step": "4",
       "field": "caption",
@@ -974,11 +1608,464 @@
       "correction": ""
     },
     {
-      "id": "minimum-threshold/4/6",
+      "id": "minimum-threshold/5/1",
       "guide": "minimum-threshold",
-      "step": "4",
-      "field": "tip",
-      "text": "One save for every tab. Save Changes saves the edits on every tab of Settings together.",
+      "step": "5",
+      "field": "title",
+      "text": "Keep zeros at zero",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "163-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "448-453"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "440-442"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 400
+        }
+      ],
+      "note": "Step title. The step is about Exclude Zeros (sa-settings-dlg.component.html:163-170).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/5/2",
+      "guide": "minimum-threshold",
+      "step": "5",
+      "field": "do",
+      "text": "Tick [[Exclude Zeros]] if a station at 0% should stay at 0%.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "163-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "448-453"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "440-442"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 400
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "400"
+        }
+      ],
+      "note": "EXCLUDE_ZEROS \"Exclude Zeros\" is a checkbox (sa-settings-dlg.component.html:163-170; en-us.json:400). With it set, a station already at 0 is left alone (sa-main-toolbar.component.ts:448-453).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/5/3",
+      "guide": "minimum-threshold",
+      "step": "5",
+      "field": "see",
+      "text": "The box is ticked.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "163-170"
+        }
+      ],
+      "note": "The checkbox is bound to excludeZeros (sa-settings-dlg.component.html:163-170).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/5/4",
+      "guide": "minimum-threshold",
+      "step": "5",
+      "field": "see",
+      "text": "At push time, 0% stays 0%, and only small values above 0 are raised.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "163-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "448-453"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "440-442"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 400
+        }
+      ],
+      "note": "With the second option plus Exclude Zeros, a value below the threshold is raised only if it is not 0 (sa-main-toolbar.component.ts:448-453; sa-settings-dlg.component.ts:440-442). Applied when pushing, not when saving (minimum-threshold/before/3).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/5/5",
+      "guide": "minimum-threshold",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If [[Exclude Zeros]] is greyed out, the box above holds 0 or the first choice is selected.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "163-170"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "448-453"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "440-442"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 400
+        }
+      ],
+      "note": "The checkbox is disabled unless the second option is selected, or while the threshold is 0 (sa-settings-dlg.component.html:167). A threshold of 0 disables it too (:145-162, :167).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/5/6",
+      "guide": "minimum-threshold",
+      "step": "5",
+      "field": "ifNot",
+      "text": "Select the second choice first.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-170"
+        }
+      ],
+      "note": "Both causes of a greyed-out Exclude Zeros have the same way back: a threshold above 0 and the second option selected (sa-settings-dlg.component.html:145-170).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/5/7",
+      "guide": "minimum-threshold",
+      "step": "5",
+      "field": "caption",
+      "text": "Exclude Zeros, available with the second option.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "145-170"
+        }
+      ],
+      "note": "Figure caption. Exclude Zeros sits under the second option (sa-settings-dlg.component.html:156-171).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/6/1",
+      "guide": "minimum-threshold",
+      "step": "6",
+      "field": "title",
+      "text": "Save the threshold",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "48-55"
+        }
+      ],
+      "note": "Step title. Save Changes is the first button in the dialog footer (sa-settings-dlg.component.html:48-55).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/6/2",
+      "guide": "minimum-threshold",
+      "step": "6",
+      "field": "do",
+      "text": "Select [[Save Changes]] at the bottom of the dialog.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "49-55"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "445-468"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "482-503"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 459
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "459"
+        }
+      ],
+      "note": "SPATIAL_ADJUST.SAVE_CHANGES \"Save Changes\" is in the dialog footer (sa-settings-dlg.component.html:48-55; en-us.json:459).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/6/3",
+      "guide": "minimum-threshold",
+      "step": "6",
+      "field": "see",
+      "text": "The dialog closes, and the table keeps showing the same suggestions.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "555-557"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "232-237"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "107-112"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        }
+      ],
+      "note": "On a successful save the dialog emits save and the toolbar closes it (sa-main-toolbar.component.html:107-112; sa-settings-dlg.component.ts:186-215). A threshold-only save reloads nothing: it broadcasts the threshold change to the pending list (sa-settings-dlg.component.ts:555-557; sa-main-toolbar.component.ts:232-237), and the table keeps the raw suggestion (minimum-threshold/before/3).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/6/4",
+      "guide": "minimum-threshold",
+      "step": "6",
+      "field": "ifNot",
+      "text": "If a message says Unable to save data, the save failed and the dialog is still open.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/services/dash-message.service.ts",
+          "line": "30-33"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "165-166"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "48-55"
+        }
+      ],
+      "note": "On a failed save the dialog stays open and the generic save-error message, \"Unable to save data\", is shown (sa-settings-dlg.component.ts:208-214; dash-message.service.ts:30-33; en-us.json:165-166). The dialog closes only on success (sa-main-toolbar.component.html:107-112).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/6/5",
+      "guide": "minimum-threshold",
+      "step": "6",
+      "field": "ifNot",
+      "text": "Select [[Save Changes]] again.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/services/dash-message.service.ts",
+          "line": "30-33"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "165-166"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "48-55"
+        }
+      ],
+      "note": "On a failed save the dialog stays open and the generic save-error message, \"Unable to save data\", is shown (sa-settings-dlg.component.ts:208-214; dash-message.service.ts:30-33; en-us.json:165-166). The dialog closes only on success (sa-main-toolbar.component.html:107-112).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/6/6",
+      "guide": "minimum-threshold",
+      "step": "6",
+      "field": "why",
+      "text": "One save keeps the edits on every tab of Settings.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1018,17 +2105,17 @@
           "line": 459
         }
       ],
-      "note": "Retyped from label to behaviour. SPATIAL_ADJUST.SAVE_CHANGES \"Save Changes\" is the dialog's only save button, in the footer under every tab (sa-settings-dlg.component.html:49-55). On save the dialog compares three groups with their opening values: the site settings (the Calculation and Minimum Threshold tabs), the user preferences (the Preferences tab) and the Target Profiles (sa-settings-dlg.component.ts:445-468). It sends one request per changed group, all together (:203, :482-503), and closes when they finish. With nothing changed it just closes (:196-199).",
+      "note": "Reworded from \"One save for every tab.\" Save Changes saves the edits on every tab of Settings together (sa-settings-dlg.component.ts:186-215, :445-468).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "minimum-threshold/4/7",
+      "id": "minimum-threshold/6/7",
       "guide": "minimum-threshold",
-      "step": "4",
-      "field": "tip",
-      "text": "With unsaved edits, Cancel asks whether you want to exit without saving: Continue Editing takes you back, and Discard Changes closes the dialog and drops every edit.",
+      "step": "6",
+      "field": "caption",
+      "text": "Save Changes, at the bottom of the Settings dialog.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1036,63 +2123,223 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "217-229"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "235-242"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "261-270"
+          "line": "49-55"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
-          "line": "107-112"
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "186-215"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "445-468"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "482-503"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
-          "line": 466
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 388
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 390
+          "line": 459
         }
       ],
-      "note": "Retyped from label to behaviour. Cancel (STRINGS.CANCEL) runs the same change check as Save (sa-settings-dlg.component.ts:217-229). With no edits it closes at once. With edits it opens a confirmation headed SPATIAL_ADJUST.DISCARD_CHANGES \"Discard changes\" that asks SETTINGS_CONFIRM_DISCARD_CHANGES_PRIMARY \"Are you sure you want to exit without saving changes?\" (sa-settings-dlg.component.html:261-270). Its buttons are CONTINUE_EDITING \"Continue Editing\" and DISCARD_CHANGES \"Discard changes\", both shown upper-case, so the second reads \"DISCARD CHANGES\" on screen. Continue Editing hides the confirmation and leaves the dialog open with the edits. Discard changes closes the dialog without saving anything (:235-242; the toolbar removes the dialog on cancel, sa-main-toolbar.component.html:110).",
+      "note": "Figure caption. Save Changes is the first button of the dialog footer (sa-settings-dlg.component.html:48-55).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "minimum-threshold/5/1",
+      "id": "minimum-threshold/7/1",
       "guide": "minimum-threshold",
-      "step": "5",
+      "step": "7",
       "field": "title",
-      "text": "Save and confirm at push time",
+      "text": "Open Push Changes",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-42"
+        }
+      ],
+      "note": "Step title. The Push Changes button is in the right of the toolbar (sa-main-toolbar.component.html:33-42).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/7/2",
+      "guide": "minimum-threshold",
+      "step": "7",
+      "field": "do",
+      "text": "Select [[Push Changes]] at the right of the toolbar.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "559"
+        }
+      ],
+      "note": "The push button sits in the toolbar group on the right (sa-main-toolbar.component.html:33-42) and reads CASE_SENSITIVE.PUSH_CHANGES \"Push Changes\", or with a count when something is waiting.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/7/3",
+      "guide": "minimum-threshold",
+      "step": "7",
+      "field": "see",
+      "text": "A dialog opens with the list of stations waiting to go to Lynx.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "251-253"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "14-30"
+        }
+      ],
+      "note": "The button opens the confirm dialog (sa-main-toolbar.component.ts:251-253), headed Push Changes and listing the stations waiting and those already pushed today (sa-confirm-push-dlg.component.html:14-30, :64-70).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/7/4",
+      "guide": "minimum-threshold",
+      "step": "7",
+      "field": "ifNot",
+      "text": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "34"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "146-160"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "255-270"
+        }
+      ],
+      "note": "The button is disabled when no station is pending or a push is running (sa-main-toolbar.component.html:34; isProcessingUpdates is set while a push runs, sa-main-toolbar.component.ts:267 and cleared at :324-326).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/7/5",
+      "guide": "minimum-threshold",
+      "step": "7",
+      "field": "ifNot",
+      "text": "Wait for the push to finish, then look again.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "34"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "146-160"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "255-270"
+        }
+      ],
+      "note": "The button is disabled when no station is pending or a push is running (sa-main-toolbar.component.html:34; isProcessingUpdates is set while a push runs, sa-main-toolbar.component.ts:267 and cleared at :324-326).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/7/6",
+      "guide": "minimum-threshold",
+      "step": "7",
+      "field": "caption",
+      "text": "Push Changes, at the right of the toolbar.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-42"
+        }
+      ],
+      "note": "Figure caption. The Push Changes button is in the right-hand toolbar group (sa-main-toolbar.component.html:33-42).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/8/1",
+      "guide": "minimum-threshold",
+      "step": "8",
+      "field": "title",
+      "text": "Check the threshold in the push list",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1111,46 +2358,17 @@
           "line": "32-42"
         }
       ],
-      "note": "",
+      "note": "Step title. The pink banner is drawn in the push dialog when the count is above 0 (sa-confirm-push-dlg.component.html:32-42).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "minimum-threshold/5/2",
+      "id": "minimum-threshold/8/2",
       "guide": "minimum-threshold",
-      "step": "5",
-      "field": "body",
-      "text": "Saving a threshold-only change does not reload the dashboard — the pending push list is simply recalculated.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "555-557"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
-          "line": "232-237"
-        }
-      ],
-      "note": "A save that changes only the threshold or its option broadcasts a threshold change (sa-settings-dlg.component.ts:555-557), and the toolbar re-applies the rules to the existing push list (sa-main-toolbar.component.ts:232-237). If the same save also changes one of the three amounts, the recalculate-and-reload path runs instead (:531-539).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "minimum-threshold/5/3",
-      "guide": "minimum-threshold",
-      "step": "5",
-      "field": "body",
-      "text": "Open Push Changes and the pink banner tells you how many stations the threshold touched, with each affected row showing its original value and the adjusted one.",
+      "step": "8",
+      "field": "do",
+      "text": "Read the pink banner at the top of the list, next to [[Review Threshold]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1202,17 +2420,291 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 434
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "458"
         }
       ],
-      "note": "The banner is pink (sa-confirm-push-dlg.component.less:65-70) and appears only when at least one row was rewritten (sa-confirm-push-dlg.component.html:32). Its count includes rewritten rows already pushed today (sa-confirm-push-dlg.component.ts:28). Each rewritten row shows its % Adj., then an arrow and \"Adjusted to\" the new value (sa-confirm-push-dlg.component.html:83-86, :119-122). The \"original value\" is the % Adj., which equals the suggestion unless the user typed over it.",
+      "note": "The banner at the top of the dialog carries a REVIEW_THRESHOLD \"Review Threshold\" link at its right (sa-confirm-push-dlg.component.html:28-42; en-us.json:458). Its pink colouring is the existing wording of minimum-threshold/5/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "minimum-threshold/5/4",
+      "id": "minimum-threshold/8/3",
       "guide": "minimum-threshold",
-      "step": "5",
+      "step": "8",
+      "field": "see",
+      "text": "It says how many stations the threshold will adjust, and each of those rows shows its old and new value.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "32-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.less",
+          "line": "65-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "83-86"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "119-122"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": 28
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 430
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 434
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.less",
+          "line": "104-112"
+        }
+      ],
+      "note": "The banner gives the number of stations adjusted by the threshold, and an affected row shows the original and the adjusted value (sa-confirm-push-dlg.component.html:32-42, :83-86).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/8/4",
+      "guide": "minimum-threshold",
+      "step": "8",
+      "field": "ifNot",
+      "text": "If there is no pink banner, no waiting station is below the threshold.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "32-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.less",
+          "line": "65-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "83-86"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "119-122"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": 28
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 430
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 434
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "32"
+        }
+      ],
+      "note": "The banner is drawn only while the count of stations adjusted by the threshold is above 0 (sa-confirm-push-dlg.component.html:32), so with none there is no banner and no row is changed by the threshold.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/8/5",
+      "guide": "minimum-threshold",
+      "step": "8",
+      "field": "ifNot",
+      "text": "Nothing is changed by it this time.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "32-42"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.less",
+          "line": "65-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "83-86"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "119-122"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": 28
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 430
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 434
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": "32"
+        }
+      ],
+      "note": "The banner is drawn only while the count of stations adjusted by the threshold is above 0 (sa-confirm-push-dlg.component.html:32), so with none there is no banner and no row is changed by the threshold.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/8/6",
+      "guide": "minimum-threshold",
+      "step": "8",
+      "field": "why",
+      "text": "The threshold is applied at push time, so the table still shows the raw suggestion.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "433-460"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-82"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "417-437"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §5 Minimum Threshold"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "555-557"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "232-237"
+        }
+      ],
+      "note": "Carried over from minimum-threshold/before/3: the threshold is applied at push time and the table keeps showing the raw suggested value (sa-main-toolbar.component.ts:433-460; sa-table-card.component.ts:417-437).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "minimum-threshold/8/7",
+      "guide": "minimum-threshold",
+      "step": "8",
       "field": "caption",
       "text": "Push dialog.",
       "type": "behaviour",
@@ -1232,9 +2724,9 @@
       "correction": ""
     },
     {
-      "id": "minimum-threshold/5/5",
+      "id": "minimum-threshold/8/8",
       "guide": "minimum-threshold",
-      "step": "5",
+      "step": "8",
       "field": "caption",
       "text": "Two stations were lifted to the threshold; the original and adjusted values are shown together.",
       "type": "behaviour",
@@ -1261,9 +2753,9 @@
       "correction": ""
     },
     {
-      "id": "minimum-threshold/5/6",
+      "id": "minimum-threshold/8/9",
       "guide": "minimum-threshold",
-      "step": "5",
+      "step": "8",
       "field": "tip",
       "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
       "type": "prerequisite",
@@ -1280,9 +2772,9 @@
       "correction": ""
     },
     {
-      "id": "minimum-threshold/5/7",
+      "id": "minimum-threshold/8/10",
       "guide": "minimum-threshold",
-      "step": "5",
+      "step": "8",
       "field": "tip",
       "text": "Outside that window the push does not reach the course, and no error tells you so.",
       "type": "behaviour",

@@ -163,6 +163,151 @@
       "correction": ""
     },
     {
+      "id": "station-details/start/1",
+      "guide": "station-details",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust, with the table showing the stations of one hole.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "347-411"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        }
+      ],
+      "note": "Start state. The route is /spatialadjust (app-routing.module.ts:19-23). Station rows appear after you drill from an area into a hole (sa-dash-table.component.ts:347-411), and only a station row can carry the chevron (sa-table-card.component.html:16).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/start/2",
+      "guide": "station-details",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "67-68"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "94-112"
+        }
+      ],
+      "note": "Start state. Both dashboard dialogs, Push Changes and Settings, are drawn only while their flag is set, and both flags start false (sa-main-toolbar.component.ts:67-68; sa-main-toolbar.component.html:94-112).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/start/3",
+      "guide": "station-details",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "Start state. Same prerequisite as dashboard-overview/before/1: a Spatial Adjust user on a site with TurfRad scan data.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/start/4",
+      "guide": "station-details",
+      "step": "start",
+      "field": "needs",
+      "text": "Only a station with more than one sprinkler paired to it can be expanded.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 74
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "402-408"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Start state. Same fact as station-details/before/1: the chevron and the child rows are rendered only for a station with more than one sprinkler record (sa-table-card.component.html:16, :74).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "station-details/before/1",
       "guide": "station-details",
       "step": "before",
@@ -228,8 +373,8 @@
       "id": "station-details/1/2",
       "guide": "station-details",
       "step": "1",
-      "field": "body",
-      "text": "A chevron beside the station name means the station has more than one sprinkler paired to it.",
+      "field": "do",
+      "text": "Look down the station names in the table for a chevron beside one.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -248,7 +393,7 @@
           "line": "29-36"
         }
       ],
-      "note": "A right-pointing chevron sits between the row checkbox and the station name, only when the station has more than one sprinkler record (sa-table-card.component.html:16-21), and turns to point down when the row is expanded (sa-table-card.component.less:33-35).",
+      "note": "The chevron icon is drawn in the station name area, in front of the name, only for a station row with more than one sprinkler record (sa-table-card.component.html:16-23).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -257,8 +402,44 @@
       "id": "station-details/1/3",
       "guide": "station-details",
       "step": "1",
-      "field": "body",
-      "text": "Without the chevron, the row is the whole story.",
+      "field": "see",
+      "text": "A chevron sits between the row’s checkbox and the station name.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "29-36"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "6-23"
+        }
+      ],
+      "note": "A right-pointing chevron sits between the row checkbox and the station name (sa-table-card.component.html:6-23; sa-table-card.component.less:33-35).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/1/4",
+      "guide": "station-details",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If no station has a chevron, none of them has more than one sprinkler.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -275,6 +456,24 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
           "line": 74
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "402-408"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
       "note": "Without a second sprinkler record there is no chevron and no child row (sa-table-card.component.html:16, :74).",
@@ -283,7 +482,54 @@
       "correction": ""
     },
     {
-      "id": "station-details/1/4",
+      "id": "station-details/1/5",
+      "guide": "station-details",
+      "step": "1",
+      "field": "ifNot",
+      "text": "There is nothing to expand here.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 16
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 74
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "402-408"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Without a second sprinkler record there is no chevron and no child row (sa-table-card.component.html:16, :74).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/1/6",
       "guide": "station-details",
       "step": "1",
       "field": "caption",
@@ -351,8 +597,58 @@
       "id": "station-details/2/2",
       "guide": "station-details",
       "step": "2",
-      "field": "body",
-      "text": "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture.",
+      "field": "do",
+      "text": "Select the chevron beside the station name.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "306-309"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": 15
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "25-27"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-23"
+        }
+      ],
+      "note": "The chevron toggles the row open (sa-table-card.component.html:16-21; sa-table-card.component.ts:306-309). It has no text label, so the step is a region step.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/2/3",
+      "guide": "station-details",
+      "step": "2",
+      "field": "see",
+      "text": "Each sprinkler shows on its own row, named for the station and numbered, with its own scan date and moisture.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -364,17 +660,131 @@
           "line": "76-92"
         }
       ],
-      "note": "A child row reads <station>-1, <station>-2 in list order (sa-table-card.component.html:80-82), not a Lynx or TurfRad number, with its own latest scan date (:83) and its own VWC (:88-91). The VWC is measured only if that sprinkler was scanned today; otherwise it is the modelled value under Option 2 or \"--\" under Option 1 (see station-details/4/2).",
+      "note": "A child row reads <station>-1, <station>-2 in list order, with its own latest scan date and its own VWC (sa-table-card.component.html:76-92).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-details/2/3",
+      "id": "station-details/2/4",
       "guide": "station-details",
       "step": "2",
-      "field": "body",
-      "text": "Nothing else is editable at sprinkler level — the target and the adjustment belong to the station.",
+      "field": "ifNot",
+      "text": "If the row did not open, you selected the station name, which only selects the station.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "306-309"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": 15
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "25-27"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "290-309"
+        }
+      ],
+      "note": "Selecting the station name selects the station and does not expand it; the chevron does (sa-table-card.component.html:16-22; sa-table-card.component.ts:290-309).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/2/5",
+      "guide": "station-details",
+      "step": "2",
+      "field": "ifNot",
+      "text": "Select the chevron.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "306-309"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": 15
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "25-27"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "290-309"
+        }
+      ],
+      "note": "Selecting the station name selects the station and does not expand it; the chevron does (sa-table-card.component.html:16-22; sa-table-card.component.ts:290-309).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/2/6",
+      "guide": "station-details",
+      "step": "2",
+      "field": "why",
+      "text": "Nothing else is editable at sprinkler level, because the target and the adjustment belong to the station.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -407,13 +817,13 @@
           "line": "290-299"
         }
       ],
-      "note": "A child row has only its name, scan date and VWC, with no checkbox, input or switch (sa-table-card.component.html:76-97). Target VWC is stored for every sprinkler record of the station at once (SpatialAdjustService.cs:1218-1229), and one adjustment is calculated per station name (:3024-3028). Clicking a child row only selects that sprinkler on the map (sa-table-card.component.html:79; sa-table-card.component.ts:290-299).",
+      "note": "Reworded from station-details/2/3: a child row has no input or switch, and the target and the adjustment belong to the station (sa-table-card.component.html:76-97; SpatialAdjustService.cs:1218-1229, :3024-3028).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-details/2/4",
+      "id": "station-details/2/7",
       "guide": "station-details",
       "step": "2",
       "field": "caption",
@@ -467,8 +877,8 @@
       "id": "station-details/3/2",
       "guide": "station-details",
       "step": "3",
-      "field": "body",
-      "text": "The station’s Avg.",
+      "field": "do",
+      "text": "Compare the station’s [[Avg.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -485,9 +895,30 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "377"
         }
       ],
-      "note": "Read with station-details/3/3; the sentence splitter cut \"Avg. VWC\" in two. SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\" heads the column at station level as well as at hole and area level (sa-dash-table.component.html:9).",
+      "note": "SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\" heads the column at station level (sa-dash-table.component.html:9; en-us.json:377). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together as one sentence.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -496,8 +927,108 @@
       "id": "station-details/3/3",
       "guide": "station-details",
       "step": "3",
-      "field": "body",
-      "text": "VWC is the mean of its sprinklers.",
+      "field": "do",
+      "text": "VWC]] with the readings on its sprinkler rows.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 9
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "377"
+        }
+      ],
+      "note": "SPATIAL_ADJUST.AVG_VWC \"Avg. VWC\" heads the column at station level (sa-dash-table.component.html:9; en-us.json:377). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together as one sentence.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/3/4",
+      "guide": "station-details",
+      "step": "3",
+      "field": "see",
+      "text": "The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "369-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "373-378"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 9
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        }
+      ],
+      "note": "The station value is the plain mean of its sprinklers, shown to one decimal: (31.4 + 30.4) / 2 = 30.9 (sa-dash-table.component.ts:369-383; sa-table-card.component.ts:373-378).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/3/5",
+      "guide": "station-details",
+      "step": "3",
+      "field": "ifNot",
+      "text": "If the average is not the mean of every row below it, a sprinkler was left out.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -521,20 +1052,70 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
           "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "373-378"
         }
       ],
-      "note": "Retyped from behaviour to calculation. The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383); under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\".",
+      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\".",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-details/3/4",
+      "id": "station-details/3/6",
       "guide": "station-details",
       "step": "3",
-      "field": "body",
-      "text": "Two heads reading 31.4 and 30.4 give a station average of 30.9 — and a station that looks fine can still hide one dry head.",
+      "field": "ifNot",
+      "text": "Only sprinklers scanned today, or modelled under [[Option 2]], count.",
       "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 9
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "373-378"
+        }
+      ],
+      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\".",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/3/7",
+      "guide": "station-details",
+      "step": "3",
+      "field": "why",
+      "text": "A station that looks fine can still hide one dry head.",
+      "type": "behaviour",
       "status": "Verified",
       "evidence": [
         {
@@ -552,13 +1133,13 @@
           "line": "373-378"
         }
       ],
-      "note": "(31.4 + 30.4) ÷ 2 = 30.9, displayed to one decimal place (sa-table-card.component.ts:373-378). Because the mean is unweighted (sa-dash-table.component.ts:369-383), one dry sprinkler and one wet one can average to a normal-looking value.",
+      "note": "Carried over from station-details/3/4: because the mean is unweighted, one dry sprinkler and one wet one can average to a normal-looking value (sa-dash-table.component.ts:369-383). The agronomic half of the dropped callout (a wide spread is a coverage problem) is not published.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "station-details/3/5",
+      "id": "station-details/3/8",
       "guide": "station-details",
       "step": "3",
       "field": "caption",
@@ -587,40 +1168,11 @@
       "correction": ""
     },
     {
-      "id": "station-details/3/6",
-      "guide": "station-details",
-      "step": "3",
-      "field": "tip",
-      "text": "Why it matters. A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.",
-      "type": "behaviour",
-      "status": "Needs expert",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3024-3028"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": "76-97"
-        }
-      ],
-      "note": "Retyped from calculation to behaviour; it is an agronomic judgement rather than arithmetic. The product side holds: Spatial Adjust calculates one adjustment per station name (SpatialAdjustService.cs:3024-3028) and offers no per-sprinkler control (sa-table-card.component.html:76-97), so it cannot even out heads on the same station. Whether a wide spread means a coverage fault is for an agronomist.",
-      "question": "If the heads under one station read far apart but the station average is at target, is that a coverage problem to fix at the heads rather than by changing the run time: yes or no?",
-      "developNote": "",
-      "correction": ""
-    },
-    {
       "id": "station-details/4/1",
       "guide": "station-details",
       "step": "4",
       "field": "title",
-      "text": "Watch for a modelled child",
+      "text": "Spot a modelled sprinkler",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -639,7 +1191,7 @@
           "line": "184-188"
         }
       ],
-      "note": "Step title. A sprinkler not scanned today is modelled under Option 2 only (spatial-adjust-course.model.ts:184-188).",
+      "note": "Step title (reworded). A sprinkler not scanned today is modelled under Option 2 only (spatial-adjust-course.model.ts:184-188).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -648,9 +1200,9 @@
       "id": "station-details/4/2",
       "guide": "station-details",
       "step": "4",
-      "field": "body",
-      "text": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model.",
-      "type": "calculation",
+      "field": "do",
+      "text": "Look at the sprinkler rows for an orange calculator icon beside a reading.",
+      "type": "behaviour",
       "status": "Verified",
       "evidence": [
         {
@@ -707,18 +1259,257 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-details/4/2); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "A modelled child carries an orange calculator icon at the left of its VWC (sa-table-card.component.html:88; sa-table-card.component.less:121-130).",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "A child whose scan is older shows a modelled value in grey italics, and the parent average is then part measurement and part model."
+      "correction": ""
     },
     {
       "id": "station-details/4/3",
       "guide": "station-details",
       "step": "4",
-      "field": "body",
-      "text": "The parent row carries a grey calculator icon beside its average, so you can tell it includes a modelled reading.",
+      "field": "see",
+      "text": "That sprinkler’s value is modelled, because its last scan is older than today.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "121-130"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 29
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "107-110"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "59-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "369-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 88
+        }
+      ],
+      "note": "A child whose scan is older than today shows a modelled value under Option 2 (sa-table-card.component.html:86-92; spatial-adjust-course.model.ts:184-188). Corrected wording from docs/text-corrections.md §25.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/4/4",
+      "guide": "station-details",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If no sprinkler has the icon, each was scanned today, or the site uses [[Option 1]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 88
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "8-27"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "121-130"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "88-91"
+        }
+      ],
+      "note": "A child shows its measured value only when scanned today; otherwise the modelled value under Option 2, or \"--\" under Option 1 (sa-table-card.component.html:88-91). The icon shows only for a modelled child (:88).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/4/5",
+      "guide": "station-details",
+      "step": "4",
+      "field": "ifNot",
+      "text": "Under [[Option 1]], a sprinkler not scanned today shows --.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 88
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "16-21"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "86-92"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "8-27"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "121-130"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "88-91"
+        }
+      ],
+      "note": "A child shows its measured value only when scanned today; otherwise the modelled value under Option 2, or \"--\" under Option 1 (sa-table-card.component.html:88-91). The icon shows only for a modelled child (:88).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/4/6",
+      "guide": "station-details",
+      "step": "4",
+      "field": "caption",
+      "text": "The second sprinkler was last scanned two days ago.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 83
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 88
+        }
+      ],
+      "note": "Figure caption; sample data. Each child row shows its own latest scan date (sa-table-card.component.html:83), and a sprinkler not scanned today is modelled under Option 2 (:88).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/5/1",
+      "guide": "station-details",
+      "step": "5",
+      "field": "title",
+      "text": "Check the parent row",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -762,18 +1553,17 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (station-details/4/3); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Step title. The parent row carries the grey calculator icon (sa-table-card.component.html:29-31).",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "The parent row is marked the same way so you are not misled."
+      "correction": ""
     },
     {
-      "id": "station-details/4/4",
+      "id": "station-details/5/2",
       "guide": "station-details",
-      "step": "4",
-      "field": "caption",
-      "text": "The second sprinkler was last scanned two days ago.",
+      "step": "5",
+      "field": "do",
+      "text": "Look for a grey calculator icon beside the station’s [[Avg.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -782,17 +1572,342 @@
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": 83
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "112-116"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "398-400"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "59-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "391-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 9
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9"
+        }
+      ],
+      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/5/3",
+      "guide": "station-details",
+      "step": "5",
+      "field": "do",
+      "text": "VWC]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "112-116"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "398-400"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "59-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "391-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": 9
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 377
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "9"
+        }
+      ],
+      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116). The sentence splitter cut the label \"Avg. VWC\" in two; read the two claims together.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/5/4",
+      "guide": "station-details",
+      "step": "5",
+      "field": "see",
+      "text": "The icon shows that the average includes a modelled reading.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "112-116"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "398-400"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "59-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "391-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": 88
+          "line": "86-92"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "121-130"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": 29
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "107-110"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "369-383"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "184-188"
         }
       ],
-      "note": "Figure caption; sample data. Each child row shows its own latest scan date (sa-table-card.component.html:83), and a sprinkler not scanned today is modelled under Option 2 (:88).",
+      "note": "The icon marks an average that includes a modelled reading (sa-table-card.component.html:29-31; sa-table-card.component.ts:398-400). Corrected wording from docs/text-corrections.md §25.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/5/5",
+      "guide": "station-details",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If the row has no icon, no sprinkler under it is modelled.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "112-116"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "398-400"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "59-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "391-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "The parent icon is drawn only when the row is estimated or has an estimated child (sa-table-card.component.html:29-31), so without it no sprinkler under the row is modelled.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "station-details/5/6",
+      "guide": "station-details",
+      "step": "5",
+      "field": "caption",
+      "text": "The grey icon on the parent row marks an average that includes a modelled reading.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
+          "line": "112-116"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "398-400"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/models/sa-table-item.model.ts",
+          "line": "59-70"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "391-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        }
+      ],
+      "note": "Figure caption. The grey icon on the parent row marks an average that includes a modelled reading (sa-table-card.component.html:29-31).",
       "question": "",
       "developNote": "",
       "correction": ""
