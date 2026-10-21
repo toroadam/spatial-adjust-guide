@@ -1,0 +1,136 @@
+WEBVTT
+
+NOTE calculation-methods: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.710
+Two algorithms can produce
+the suggested percentage.
+
+V0-2
+00:00:05.810 --> 00:00:08.600
+They use different inputs
+and behave differently.
+
+V1a-1
+00:00:12.850 --> 00:00:17.581
+Suggested Percent Adjust Calculation is
+the first field on the Calculation tab.
+
+V1a-2
+00:00:17.681 --> 00:00:22.592
+On a production site it only appears when
+the saved algorithm is already Option 1,
+
+V1a-3
+00:00:22.692 --> 00:00:24.310
+so most users never see it.
+
+V1b-1
+00:00:24.866 --> 00:00:27.377
+The dropdown offers only
+Option 1 and Option 2.
+
+V1b-2
+00:00:27.477 --> 00:00:30.096
+Nothing in the product
+says what either one does.
+
+V2a-1
+00:00:37.820 --> 00:00:41.008
+The default is Option 2:
+delta plus today's ET.
+
+V2a-2
+00:00:41.108 --> 00:00:46.332
+The server computes it per station.
+Target minus working VWC gives a deficit,
+
+V2a-3
+00:00:46.432 --> 00:00:49.350
+and the deficit becomes
+an amount of water.
+
+V2b-1
+00:00:50.670 --> 00:00:54.265
+Today's ET, adjusted by the
+crop coefficient, is added,
+
+V2b-2
+00:00:54.365 --> 00:00:59.007
+the daily maximum caps the total,
+and the result is divided by the Lynx
+
+V2b-3
+00:00:59.107 --> 00:01:03.750
+reference amount. Every suggestion
+in this column came from that chain.
+
+V3a-1
+00:01:11.836 --> 00:01:15.309
+Option 1 multiplies the
+percent adjust Lynx currently
+
+V3a-2
+00:01:15.409 --> 00:01:19.144
+holds by target divided by
+measured moisture, and rounds.
+
+V3a-3
+00:01:19.244 --> 00:01:23.506
+A station at 0 percent adjust
+stays at 0 no matter how dry it is.
+
+V3b-1
+00:01:24.020 --> 00:01:26.768
+It uses no ET, no reference
+amount and no cap,
+
+V3b-2
+00:01:26.868 --> 00:01:31.290
+so Max Amount and Lynx Reference Amount
+are disabled while it is selected.
+
+V4a-1
+00:01:39.413 --> 00:01:43.811
+Option 2 flattens everything above
+the daily maximum onto one number.
+
+V4a-2
+00:01:43.911 --> 00:01:47.863
+Runs of identical values are a
+signature of the capped method.
+
+V4b-1
+00:01:48.413 --> 00:01:51.787
+Option 1 has no ceiling,
+so its suggestions spread out,
+
+V4b-2
+00:01:51.887 --> 00:01:56.243
+and can go far higher than you intend
+on a station that reads very dry.
+
+V5a-1
+00:02:03.316 --> 00:02:05.648
+The algorithm is stored on the site,
+
+V5a-2
+00:02:05.748 --> 00:02:10.672
+so a switch applies to every course on
+the site, not just the one on screen.
+
+V5a-3
+00:02:10.772 --> 00:02:16.086
+Saving a different algorithm recalculates
+every station and reloads the dashboard.
+
+V5b-1
+00:02:16.650 --> 00:02:20.808
+Review the whole Suggested column
+before pushing anything after a switch.
+
+V5b-2
+00:02:20.908 --> 00:02:24.270
+Compare the column before and
+after switching, not one row.

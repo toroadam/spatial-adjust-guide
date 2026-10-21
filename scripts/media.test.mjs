@@ -10,13 +10,17 @@ import { after, before, describe, test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
+import { existsSync } from 'node:fs';
 import { mkdir, mkdtemp, open, readFile, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { SHOWCASE_KEY, assetsOf, sha256File, upsertItem, validateManifest, verifyItem } from '../src/media/manifest.mjs';
+import { SHOWCASE_KEY, assetsOf, guideKeysFrom, loadManifest, sha256File, upsertItem, validateManifest, verifyItem } from '../src/media/manifest.mjs';
 import { parseVtt, serializeVtt } from '../src/media/vtt.mjs';
-import { CAPTION_LOCALES, TRANSLATED_LOCALES, captionTracks, loadCaptionCatalogues, localizeCues } from '../src/media/captions.mjs';
+import {
+  CAPTION_LOCALES, TRANSLATED_LOCALES, captionTracks, loadCaptionCatalogues, localizeCues, writeCaptionTracks,
+} from '../src/media/captions.mjs';
+import { catalogueKeys } from './media-add.mjs';
 import {
   EPISODE_MAX_BYTES, SHOWCASE_MAX_BYTES, SITE_MAX_BYTES, capFor, checkItems, checkSite, dirBytes,
 } from './media-budget.mjs';
@@ -370,6 +374,93 @@ describe('caption localization', () => {
     assert.deepEqual(CAPTION_LOCALES, content);
     assert.equal(CAPTION_LOCALES.length, 11);
     assert.deepEqual(TRANSLATED_LOCALES, content.filter((l) => l !== 'en-us'));
+  });
+});
+
+// ---- English-only captions -------------------------------------------------------------------------
+
+describe('English-only caption items', () => {
+  const english = 'WEBVTT\n\nc1\n00:00:01.000 --> 00:00:03.000\nOpen Settings.\n';
+
+  test('captionLocales is optional and accepts a list that includes en-us', () => {
+    assert.deepEqual(problemsOf(manifestOf({ 'dashboard-overview': goodEpisode({ captionLocales: ['en-us'] }) })), []);
+    assert.deepEqual(problemsOf(manifestOf({ 'dashboard-overview': goodEpisode({ captionLocales: ['en-us', 'de-de'] }) })), []);
+  });
+
+  test('captionLocales rejects an empty list, a list without en-us, a repeat and an unknown locale', () => {
+    const bad = (captionLocales) => problemsOf(manifestOf({ 'dashboard-overview': goodEpisode({ captionLocales }) }));
+    assert.match(bad([]).join('\n'), /at least one locale/);
+    assert.match(bad(['de-de']).join('\n'), /must include en-us/);
+    assert.match(bad(['en-us', 'en-us']).join('\n'), /must not repeat/);
+    assert.ok(bad(['en-us', 'xx-xx']).length > 0);
+  });
+
+  test('captionTracks with locales ["en-us"] needs no catalogue and writes English alone', () => {
+    const tracks = captionTracks(english, {}, ['en-us']);
+    assert.deepEqual(Object.keys(tracks), ['en-us']);
+    assert.equal(parseVtt(tracks['en-us']).cues[0].text, 'Open Settings.');
+    // The default is still all eleven, and untranslated cues in a listed locale still fail.
+    assert.throws(() => captionTracks(english, {}), /captions de-de: 1 cue\(s\) untranslated/);
+    assert.throws(() => captionTracks(english, {}, ['en-us', 'de-de']), /captions de-de: 1 cue\(s\) untranslated/);
+  });
+
+  test('writeCaptionTracks writes one file for an English-only item and eleven for the other', async () => {
+    const root = await mkdtemp(join(tmpdir(), 'sa-captions-'));
+    try {
+      await mkdir(join(root, 'src/media/captions'), { recursive: true });
+      const fixture = await readFile(join(ROOT, PLACEHOLDER_CAPTIONS), 'utf8');
+      await writeFile(join(root, 'src/media/captions/ep.en-us.vtt'), english);
+      await writeFile(join(root, 'src/media/captions/film.en-us.vtt'), fixture);
+      const items = {
+        ep: goodEpisode({ captions: 'src/media/captions/ep.en-us.vtt', captionLocales: ['en-us'] }),
+        film: goodEpisode({ captions: 'src/media/captions/film.en-us.vtt' }),
+      };
+      const dist = join(root, 'dist');
+      const map = await writeCaptionTracks({ items, captionsDir: join(ROOT, FIXTURE_CATALOGUES), distDir: dist, root });
+      assert.deepEqual(Object.keys(map.ep), ['en-us']);
+      assert.deepEqual(Object.keys(map.film), CAPTION_LOCALES);
+    } finally {
+      await rm(root, { recursive: true, force: true });
+    }
+  });
+});
+
+describe('the catalogue keys media:add checks against', () => {
+  test('include the guides a transform adds to the export, so every series episode key is known', async () => {
+    const keys = await catalogueKeys();
+    assert.ok(keys.includes('filter-adjustments'), 'filter-adjustments');
+    assert.ok(keys.includes('request-scan-data'), 'request-scan-data');
+    const series = JSON.parse(await readFile(join(ROOT, 'video/episodes/series.json'), 'utf8'));
+    const missing = series.episodes.map((e) => e.key).filter((k) => !keys.includes(k));
+    assert.deepEqual(missing, []);
+  });
+
+  test('the raw export alone lists fewer: reading it was the cause of the two rejected keys', async () => {
+    const raw = guideKeysFrom(await readFile(join(ROOT, 'Learn Spatial Adjust.dc.html'), 'utf8'));
+    const keys = await catalogueKeys();
+    assert.ok(raw.length < keys.length);
+    assert.deepEqual(keys.filter((k) => !raw.includes(k)).sort(), ['filter-adjustments', 'request-scan-data']);
+  });
+});
+
+describe('the shipped manifest', () => {
+  test('pins every episode of the series, each with its English captions file', async () => {
+    const manifest = await loadManifest(join(ROOT, 'src/media/manifest.json'));
+    const series = JSON.parse(await readFile(join(ROOT, 'video/episodes/series.json'), 'utf8'));
+    const published = series.episodes.filter((e) => e.status === 'approved');
+    assert.ok(published.length >= 26 || published.length === series.episodes.length);
+    for (const e of published) {
+      const item = manifest.items[e.key];
+      assert.ok(item, `${e.key} is approved but not in the manifest`);
+      assert.equal(item.kind, 'episode');
+      assert.equal(item.captions, `src/media/captions/${e.key}.en-us.vtt`);
+      assert.ok(existsSync(join(ROOT, item.captions)), `${item.captions} is missing`);
+    }
+  });
+
+  test('every manifest item validates against the catalogue as the build sees it', async () => {
+    const manifest = await loadManifest(join(ROOT, 'src/media/manifest.json'));
+    validateManifest(manifest, { guideKeys: await catalogueKeys() });
   });
 });
 

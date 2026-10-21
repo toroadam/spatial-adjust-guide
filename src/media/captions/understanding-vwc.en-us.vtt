@@ -1,0 +1,105 @@
+WEBVTT
+
+NOTE understanding-vwc: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.496
+Three different numbers
+wear the label VWC.
+
+V0-2
+00:00:05.596 --> 00:00:09.300
+Knowing which one you are
+reading explains most surprises.
+
+V1a-1
+00:00:13.290 --> 00:00:15.693
+When the scan date is today, Avg.
+
+V1a-2
+00:00:15.793 --> 00:00:20.310
+VWC is the mean moisture TurfRad
+measured across that station.
+
+V1b-1
+00:00:20.873 --> 00:00:25.079
+It is a measurement, and it is the
+number the calculation prefers.
+
+V1b-2
+00:00:25.179 --> 00:00:27.793
+A current scan: black text, today's date.
+
+V2a-1
+00:00:34.096 --> 00:00:38.094
+When the scan is not current,
+Spatial Adjust falls back to a modelled
+
+V2a-2
+00:00:38.194 --> 00:00:41.846
+value carried forward from the
+last scan and the weather since.
+
+V2b-1
+00:00:42.396 --> 00:00:47.120
+It is shown in grey italics so
+you can tell it apart at a glance.
+
+V2b-2
+00:00:47.220 --> 00:00:51.726
+Station 7AP1 has no current scan;
+the value shown is modelled.
+
+V3a-1
+00:00:57.950 --> 00:01:03.661
+Target VWC is a whole number from
+0 to 50 that you set per station.
+
+V3a-2
+00:01:03.761 --> 00:01:06.660
+Higher targets ask for more water.
+
+V3b-1
+00:01:07.166 --> 00:01:10.966
+It is the only VWC on the
+row you can type into.
+
+V4a-1
+00:01:18.823 --> 00:01:21.616
+Subtract the working
+VWC from the target and
+
+V4a-2
+00:01:21.716 --> 00:01:24.763
+you have the deficit the
+calculation must close.
+
+V4b-1
+00:01:25.273 --> 00:01:30.320
+Add today's ET, cap it at the daily
+maximum, and express it against the Lynx
+
+V4b-2
+00:01:30.420 --> 00:01:35.203
+reference amount. Target minus measured,
+per station, is the whole idea.
+
+V5a-1
+00:01:42.396 --> 00:01:46.302
+At hole and area level the same two
+columns show averages rather than
+
+V5a-2
+00:01:46.402 --> 00:01:50.876
+readings, and the scan date column shows
+the most recent scan beneath that row.
+
+V5b-1
+00:01:51.430 --> 00:01:54.360
+A grey calculator icon
+on a hole or area row
+
+V5b-2
+00:01:54.460 --> 00:01:57.790
+means at least one station
+beneath it is modelled.

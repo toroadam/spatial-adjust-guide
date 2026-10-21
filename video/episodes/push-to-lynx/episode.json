@@ -14,25 +14,30 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "push-to-lynx/tile/1",
-    "push-to-lynx/tile/2",
     "push-to-lynx/summary/1",
     "push-to-lynx/1/2",
+    "suggested-adjustments/verify/2",
     "push-to-lynx/1/3",
     "push-to-lynx/1/4",
-    "push-to-lynx/2/2",
+    "push-to-lynx/2/7",
     "push-to-lynx/2/3",
-    "push-to-lynx/2/4",
+    "push-to-lynx/2/5",
     "push-to-lynx/3/2",
     "push-to-lynx/3/3",
-    "push-to-lynx/4/2",
-    "push-to-lynx/4/4",
+    "push-to-lynx/3/4",
+    "push-to-lynx/3/5",
     "push-to-lynx/4/3",
-    "push-to-lynx/5/2",
-    "push-to-lynx/5/3",
-    "push-to-lynx/6/2",
+    "push-to-lynx/4/7",
+    "push-to-lynx/4/6",
+    "push-to-lynx/5/6",
+    "push-to-lynx/5/4",
     "push-to-lynx/6/3",
-    "push-to-lynx/6/4"
+    "push-to-lynx/6/5",
+    "push-to-lynx/6/4",
+    "push-failures/1/3",
+    "push-failures/4/6",
+    "push-to-lynx/tile/1",
+    "push-to-lynx/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Push changes to Lynx",
@@ -129,7 +134,8 @@
       "chapter": "c1",
       "text": "The button counts the enabled stations whose percent adjustment differs from what Lynx holds, whether you edited it or left the suggestion, leaving out any already pushed today.",
       "claims": [
-        "push-to-lynx/1/2"
+        "push-to-lynx/1/2",
+        "suggested-adjustments/verify/2"
       ],
       "previous_text": "Review every pending adjustment, drop the ones you do not want, and send the rest to the controller.",
       "next_text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued."
@@ -150,7 +156,7 @@
       "chapter": "c2",
       "text": "The dialog puts the current value on the left and the change on the right.",
       "claims": [
-        "push-to-lynx/2/2"
+        "push-to-lynx/2/7"
       ],
       "previous_text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued.",
       "next_text": "Available to Push comes first, with everything ticked. Pushed Today follows, unticked. Tick a pushed station only if you genuinely mean to adjust it a second time today."
@@ -161,7 +167,7 @@
       "text": "Available to Push comes first, with everything ticked. Pushed Today follows, unticked. Tick a pushed station only if you genuinely mean to adjust it a second time today.",
       "claims": [
         "push-to-lynx/2/3",
-        "push-to-lynx/2/4"
+        "push-to-lynx/2/5"
       ],
       "previous_text": "The dialog puts the current value on the left and the change on the right.",
       "next_text": "If a minimum threshold is set, a pink banner counts the stations it altered. Each affected row shows the original percentage and the value that will actually be sent."
@@ -171,7 +177,9 @@
       "chapter": "c3",
       "text": "If a minimum threshold is set, a pink banner counts the stations it altered. Each affected row shows the original percentage and the value that will actually be sent.",
       "claims": [
-        "push-to-lynx/3/2"
+        "push-to-lynx/3/2",
+        "push-to-lynx/3/3",
+        "push-to-lynx/3/4"
       ],
       "previous_text": "Available to Push comes first, with everything ticked. Pushed Today follows, unticked. Tick a pushed station only if you genuinely mean to adjust it a second time today.",
       "next_text": "Review Threshold opens Settings on the threshold tab if the numbers look wrong."
@@ -181,7 +189,7 @@
       "chapter": "c3",
       "text": "Review Threshold opens Settings on the threshold tab if the numbers look wrong.",
       "claims": [
-        "push-to-lynx/3/3"
+        "push-to-lynx/3/5"
       ],
       "previous_text": "If a minimum threshold is set, a pink banner counts the stations it altered. Each affected row shows the original percentage and the value that will actually be sent.",
       "next_text": "The footer button counts only the ticked rows, so it always names the number of changes that will be sent."
@@ -191,8 +199,8 @@
       "chapter": "c4",
       "text": "The footer button counts only the ticked rows, so it always names the number of changes that will be sent.",
       "claims": [
-        "push-to-lynx/4/2",
-        "push-to-lynx/4/4"
+        "push-to-lynx/4/3",
+        "push-to-lynx/4/7"
       ],
       "previous_text": "Review Threshold opens Settings on the threshold tab if the numbers look wrong.",
       "next_text": "Unticking is not the same as reverting. The station keeps its edited value in the table and will be offered again next time."
@@ -202,7 +210,7 @@
       "chapter": "c4",
       "text": "Unticking is not the same as reverting. The station keeps its edited value in the table and will be offered again next time.",
       "claims": [
-        "push-to-lynx/4/3"
+        "push-to-lynx/4/6"
       ],
       "previous_text": "The footer button counts only the ticked rows, so it always names the number of changes that will be sent.",
       "next_text": "Spatial Adjust writes station by station first, then reads the adjustments back from Lynx and checks each one against what it sent."
@@ -212,7 +220,7 @@
       "chapter": "c5",
       "text": "Spatial Adjust writes station by station first, then reads the adjustments back from Lynx and checks each one against what it sent.",
       "claims": [
-        "push-to-lynx/5/2"
+        "push-to-lynx/5/6"
       ],
       "previous_text": "Unticking is not the same as reverting. The station keeps its edited value in the table and will be offered again next time.",
       "next_text": "Failed stations are retried automatically before the run is declared finished."
@@ -222,7 +230,8 @@
       "chapter": "c5",
       "text": "Failed stations are retried automatically before the run is declared finished.",
       "claims": [
-        "push-to-lynx/5/3"
+        "push-to-lynx/5/6",
+        "push-to-lynx/5/4"
       ],
       "previous_text": "Spatial Adjust writes station by station first, then reads the adjustments back from Lynx and checks each one against what it sent.",
       "next_text": "A successful run confirms every selected change reached Lynx."
@@ -232,7 +241,8 @@
       "chapter": "c6",
       "text": "A successful run confirms every selected change reached Lynx.",
       "claims": [
-        "push-to-lynx/6/2"
+        "push-to-lynx/6/3",
+        "push-to-lynx/6/5"
       ],
       "previous_text": "Failed stations are retried automatically before the run is declared finished.",
       "next_text": "A failure names the number of stations that could not be updated. Check the Lynx connection, then reopen Push Changes: the failed stations are listed under Pushed Today, unticked, so tick them to send them again."
@@ -242,8 +252,10 @@
       "chapter": "c6",
       "text": "A failure names the number of stations that could not be updated. Check the Lynx connection, then reopen Push Changes: the failed stations are listed under Pushed Today, unticked, so tick them to send them again.",
       "claims": [
-        "push-to-lynx/6/3",
-        "push-to-lynx/6/4"
+        "push-to-lynx/6/4",
+        "push-failures/1/3",
+        "push-failures/4/6",
+        "push-to-lynx/2/5"
       ],
       "previous_text": "A successful run confirms every selected change reached Lynx."
     }

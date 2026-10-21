@@ -14,28 +14,26 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "preferences/1/1",
-    "preferences/1/2",
-    "preferences/1/3",
-    "preferences/1/4",
-    "preferences/2/1",
-    "preferences/2/2",
-    "preferences/2/3",
-    "preferences/2/6",
-    "preferences/2/7",
-    "preferences/3/1",
-    "preferences/3/2",
-    "preferences/3/4",
-    "preferences/3/5",
-    "preferences/4/1",
-    "preferences/4/2",
-    "preferences/4/3",
-    "preferences/before/1",
     "preferences/summary/1",
     "preferences/summary/2",
+    "preferences/1/2",
+    "preferences/before/1",
+    "preferences/1/3",
+    "preferences/2/5",
+    "preferences/2/3",
+    "preferences/2/7",
+    "preferences/2/8",
+    "preferences/2/9",
+    "preferences/3/2",
+    "preferences/3/3",
+    "preferences/3/4",
+    "preferences/3/5",
+    "preferences/4/3",
+    "preferences/5/5",
+    "preferences/7/5",
+    "preferences/verify/1",
     "preferences/tile/1",
-    "preferences/tile/2",
-    "preferences/verify/1"
+    "preferences/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Preferences",
@@ -121,7 +119,7 @@
       "text": "Language, Temperature Scale and the separator setting change only how things are presented. Units of Measure can change suggestions, as the next step explains.",
       "claims": [
         "preferences/1/3",
-        "preferences/1/4"
+        "preferences/2/5"
       ],
       "previous_text": "Preferences is the last entry in the settings rail. Preferences are stored against your user account; the calculation settings on the other tabs are stored against the site.",
       "next_text": "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place."
@@ -131,8 +129,8 @@
       "chapter": "c2",
       "text": "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place.",
       "claims": [
-        "preferences/2/2",
-        "preferences/2/3"
+        "preferences/2/3",
+        "preferences/2/7"
       ],
       "previous_text": "Language, Temperature Scale and the separator setting change only how things are presented. Units of Measure can change suggestions, as the next step explains.",
       "next_text": "Check after switching. Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab. They are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything."
@@ -142,8 +140,9 @@
       "chapter": "c2",
       "text": "Check after switching. Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab. They are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.",
       "claims": [
-        "preferences/2/6",
-        "preferences/2/7"
+        "preferences/2/5",
+        "preferences/2/8",
+        "preferences/2/9"
       ],
       "previous_text": "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place.",
       "next_text": "Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit."
@@ -153,7 +152,8 @@
       "chapter": "c3",
       "text": "Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit.",
       "claims": [
-        "preferences/3/2"
+        "preferences/3/2",
+        "preferences/3/3"
       ],
       "previous_text": "Check after switching. Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab. They are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.",
       "next_text": "Anything Spatial Adjust has no translation for stays in English, and every language other than English has gaps. The tab names in the settings rail, the Discard changes confirmation and the scan-data banner are in English whatever you choose."
@@ -174,7 +174,8 @@
       "chapter": "c4",
       "text": "Temperature scale changes the weather strip. The group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns.",
       "claims": [
-        "preferences/4/2"
+        "preferences/4/3",
+        "preferences/5/5"
       ],
       "previous_text": "Anything Spatial Adjust has no translation for stays in English, and every language other than English has gaps. The tab names in the settings rail, the Discard changes confirmation and the scan-data banner are in English whatever you choose.",
       "next_text": "The weather strip follows your temperature scale, and amount fields on the Calculation tab show the unit you chose."
@@ -184,7 +185,7 @@
       "chapter": "c4",
       "text": "The weather strip follows your temperature scale, and amount fields on the Calculation tab show the unit you chose.",
       "claims": [
-        "preferences/4/3",
+        "preferences/7/5",
         "preferences/verify/1"
       ],
       "previous_text": "Temperature scale changes the weather strip. The group and decimal separator changes how every number on the screen is punctuated, which matters most in the dense table columns."

@@ -1,0 +1,132 @@
+WEBVTT
+
+NOTE calculation-settings: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:06.461
+Three numbers decide every suggestion
+on the course: the daily maximum,
+
+V0-2
+00:00:06.561 --> 00:00:09.280
+the Lynx reference amount,
+and the crop coefficient.
+
+V1a-1
+00:00:14.183 --> 00:00:17.554
+The gear button opens the dialog
+on Calculation by default.
+
+V1a-2
+00:00:17.654 --> 00:00:21.368
+If you last arrived through Review
+Threshold, it opens on Minimum
+
+V1a-3
+00:00:21.468 --> 00:00:25.413
+Threshold instead, and the tab is
+sticky for the rest of the session.
+
+V1b-1
+00:00:25.933 --> 00:00:29.407
+This is the Calculation tab.
+These are site-level settings,
+
+V1b-2
+00:00:29.507 --> 00:00:31.863
+so they apply to every user on the site.
+
+V2a-1
+00:00:39.176 --> 00:00:43.659
+Daily Max Amount is the most water
+Spatial Adjust will ask for in one day,
+
+V2a-2
+00:00:43.759 --> 00:00:46.546
+in your own units,
+up to a hard ceiling of 15.
+
+V2b-1
+00:00:47.110 --> 00:00:52.322
+Every station whose deficit exceeds this
+lands on the same suggested percentage,
+
+V2b-2
+00:00:52.422 --> 00:00:55.420
+which is why identical
+numbers appear in runs.
+
+V3a-1
+00:01:03.286 --> 00:01:08.013
+Lynx Reference Amount is the amount of
+water a station applies at 100 percent
+
+V3a-2
+00:01:08.113 --> 00:01:13.086
+adjust. The suggested percentage is the
+applied amount divided by this reference.
+
+V3b-1
+00:01:13.603 --> 00:01:17.490
+Set it too low and every
+suggestion looks enormous:
+
+V3b-2
+00:01:17.590 --> 00:01:23.611
+a 10 mm cap against a 3 mm reference
+gives a maximum suggestion of 333 percent.
+
+V3b-3
+00:01:23.711 --> 00:01:28.743
+In Lynx, Next Amount must equal
+this reference, in the same units.
+
+V4a-1
+00:01:36.143 --> 00:01:40.091
+Crop Coefficient is a whole-number
+percentage from 0 to 200,
+
+V4a-2
+00:01:40.191 --> 00:01:43.943
+applied to the day's ET before
+it enters the calculation.
+
+V4b-1
+00:01:44.493 --> 00:01:50.484
+Below 100, the course is treated as using
+less water than reference ET suggests;
+
+V4b-2
+00:01:50.584 --> 00:01:54.778
+above 100, more. Under Option
+1 the dialog greys it out,
+
+V4b-3
+00:01:54.878 --> 00:01:58.923
+along with Daily Max Amount
+and Lynx Reference Amount.
+
+V5a-1
+00:02:05.346 --> 00:02:09.680
+Save Changes sends the settings, asks
+the server to recalculate adjustments,
+
+V5a-2
+00:02:09.780 --> 00:02:13.716
+and reloads the dashboard so that
+area and hole averages are rebuilt.
+
+V5b-1
+00:02:15.030 --> 00:02:19.174
+A new Lynx Reference Amount rescales
+every suggestion above zero.
+
+V5b-2
+00:02:19.274 --> 00:02:23.673
+A new Daily Max Amount moves only
+the stations at the old or new cap,
+
+V5b-3
+00:02:23.773 --> 00:02:29.130
+and stations at zero usually stay there. A
+% Adj. you typed earlier keeps its value.

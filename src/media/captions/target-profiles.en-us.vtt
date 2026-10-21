@@ -1,0 +1,97 @@
+WEBVTT
+
+NOTE target-profiles: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:06.029
+Save a full set of station targets
+under a name, then switch the
+
+V0-2
+00:00:06.129 --> 00:00:09.460
+whole course between seasonal and
+event strategies in one action.
+
+V1a-1
+00:00:13.670 --> 00:00:16.150
+Open Settings, then the
+Target Profiles tab.
+
+V1b-1
+00:00:16.853 --> 00:00:21.301
+Profiles sit alongside Calculation and
+Minimum Threshold in the settings dialog,
+
+V1b-2
+00:00:21.401 --> 00:00:25.183
+because a profile is a calculation
+input rather than a station edit.
+
+V2a-1
+00:00:31.436 --> 00:00:36.625
+The tab lists five profile slots for
+each Lynx course, with Last Updated,
+
+V2a-2
+00:00:36.725 --> 00:00:40.706
+Stations, Update from Current
+and Apply Profile columns.
+
+V2b-1
+00:00:41.720 --> 00:00:44.514
+Each profile shows when
+it was last updated,
+
+V2b-2
+00:00:44.614 --> 00:00:49.376
+by renaming it or with Update from
+Current, and how many stations it holds.
+
+V2b-3
+00:00:49.476 --> 00:00:53.350
+An empty slot shows two dashes
+for Last Updated and Stations.
+
+V3a-1
+00:00:59.253 --> 00:01:03.903
+Applying overwrites the Target VWC
+of every station the profile covers.
+
+V3a-2
+00:01:04.003 --> 00:01:06.491
+Because that is a recalculation input,
+
+V3a-3
+00:01:06.591 --> 00:01:11.373
+the dashboard reloads and the Suggested
+column changes across the course.
+
+V3b-1
+00:01:12.336 --> 00:01:14.919
+Applying a profile is
+a course-wide change.
+
+V3b-2
+00:01:15.019 --> 00:01:19.286
+Applying and pushing in the same
+minute leaves no time to sanity-check.
+
+V4a-1
+00:01:27.193 --> 00:01:31.316
+Once the course is tuned the way you
+want it, save the state as a profile
+
+V4a-2
+00:01:31.416 --> 00:01:35.482
+so you can return to it. Name it for
+the condition rather than the date,
+
+V4a-3
+00:01:35.582 --> 00:01:39.593
+the reason you set those targets is
+what you will be looking for later.
+
+V4b-1
+00:01:40.593 --> 00:01:44.753
+The station targets currently in the table
+are what a new profile would capture.

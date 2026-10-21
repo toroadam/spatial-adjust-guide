@@ -1,0 +1,105 @@
+WEBVTT
+
+NOTE calculation-questions: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:06.200
+Identical suggestions,
+missing values and stale scans:
+
+V0-2
+00:00:06.300 --> 00:00:09.240
+three things that look
+like bugs, and are not.
+
+V1a-1
+00:00:14.023 --> 00:00:16.568
+When the required amount
+exceeds the daily maximum,
+
+V1a-2
+00:00:16.668 --> 00:00:19.513
+every station above the cap
+lands on the same percentage.
+
+V1b-1
+00:00:20.040 --> 00:00:23.770
+A run of identical numbers means
+the cap is deciding, not the scan.
+
+V2a-1
+00:00:30.683 --> 00:00:33.402
+The maximum possible
+suggestion is the daily
+
+V2a-2
+00:00:33.502 --> 00:00:36.283
+maximum divided by the
+Lynx reference amount.
+
+V2b-1
+00:00:36.833 --> 00:00:39.109
+Change either number
+and the ceiling moves,
+
+V2b-2
+00:00:39.209 --> 00:00:42.703
+which is the honest fix if the
+ceiling is too low for your course.
+
+V3a-1
+00:00:49.977 --> 00:00:52.333
+A dash means there is nothing to show:
+
+V3a-2
+00:00:52.433 --> 00:00:55.287
+no current scan, and no
+modelled value either.
+
+V3b-1
+00:00:55.793 --> 00:00:59.568
+It is not zero, and it is not
+an error in the calculation.
+
+V3b-2
+00:00:59.668 --> 00:01:02.403
+The station has no data to calculate from.
+
+V4a-1
+00:01:09.110 --> 00:01:12.474
+A greyed, italic average means
+the value came from the model,
+
+V4a-2
+00:01:12.574 --> 00:01:14.450
+rather than a scan taken that day.
+
+V4b-1
+00:01:14.960 --> 00:01:18.440
+The calculation still runs,
+but it is running on an estimate.
+
+V5a-1
+00:01:26.983 --> 00:01:31.608
+The diagnostics dialog reports whether
+the organisation has TurfRad access,
+
+V5a-2
+00:01:31.708 --> 00:01:35.163
+whether it has scan data at
+all, and the last scan date.
+
+V5b-1
+00:01:35.667 --> 00:01:39.472
+If access and scan data are both
+fine and only the date is old,
+
+V5b-2
+00:01:39.572 --> 00:01:43.982
+use Request latest scan data in the
+toolbar. It cannot make TurfRad scan,
+
+V5b-3
+00:01:44.082 --> 00:01:47.587
+so if TurfRad has nothing newer,
+the date will not change.

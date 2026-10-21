@@ -14,20 +14,29 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "reviewing-changes/tile/1",
-    "reviewing-changes/tile/2",
     "reviewing-changes/summary/1",
     "reviewing-changes/1/2",
-    "reviewing-changes/1/3",
+    "suggested-adjustments/verify/2",
+    "reviewing-changes/1/4",
     "reviewing-changes/2/2",
     "reviewing-changes/2/3",
     "reviewing-changes/3/2",
+    "push-to-lynx/2/3",
     "reviewing-changes/3/3",
-    "reviewing-changes/3/4",
     "reviewing-changes/3/5",
+    "reviewing-changes/3/4",
+    "reviewing-changes/verify/2",
     "reviewing-changes/4/2",
+    "reviewing-changes/4/6",
+    "push-to-lynx/3/3",
+    "reviewing-changes/4/3",
     "reviewing-changes/5/2",
-    "reviewing-changes/5/3"
+    "reviewing-changes/5/3",
+    "push-to-lynx/4/6",
+    "reviewing-changes/5/4",
+    "reviewing-changes/5/5",
+    "reviewing-changes/tile/1",
+    "reviewing-changes/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Reviewing changes",
@@ -112,7 +121,8 @@
       "chapter": "c1",
       "text": "The button carries the number of enabled stations whose percent adjustment differs from what Lynx holds, leaving out any already pushed today.",
       "claims": [
-        "reviewing-changes/1/2"
+        "reviewing-changes/1/2",
+        "suggested-adjustments/verify/2"
       ],
       "previous_text": "Read the push dialog properly before you send: two lists, two columns, and one count that matters.",
       "next_text": "It is disabled when nothing is queued, so a greyed-out button means there is nothing to review."
@@ -122,7 +132,7 @@
       "chapter": "c1",
       "text": "It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.",
       "claims": [
-        "reviewing-changes/1/3"
+        "reviewing-changes/1/4"
       ],
       "previous_text": "The button carries the number of enabled stations whose percent adjustment differs from what Lynx holds, leaving out any already pushed today.",
       "next_text": "The left column is what Lynx holds now; the right is what will replace it."
@@ -132,7 +142,8 @@
       "chapter": "c2",
       "text": "The left column is what Lynx holds now; the right is what will replace it.",
       "claims": [
-        "reviewing-changes/2/2"
+        "reviewing-changes/2/2",
+        "reviewing-changes/2/3"
       ],
       "previous_text": "It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.",
       "next_text": "Both name the station, so you are always comparing the same head across the row."
@@ -153,7 +164,9 @@
       "text": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day.",
       "claims": [
         "reviewing-changes/3/2",
-        "reviewing-changes/3/3"
+        "push-to-lynx/2/3",
+        "reviewing-changes/3/3",
+        "reviewing-changes/3/5"
       ],
       "previous_text": "Both name the station, so you are always comparing the same head across the row.",
       "next_text": "That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to."
@@ -163,8 +176,9 @@
       "chapter": "c3",
       "text": "That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to.",
       "claims": [
+        "reviewing-changes/3/5",
         "reviewing-changes/3/4",
-        "reviewing-changes/3/5"
+        "reviewing-changes/verify/2"
       ],
       "previous_text": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day.",
       "next_text": "When a minimum threshold is set, the banner counts the stations it will rewrite."
@@ -174,7 +188,9 @@
       "chapter": "c4",
       "text": "When a minimum threshold is set, the banner counts the stations it will rewrite.",
       "claims": [
-        "reviewing-changes/4/2"
+        "reviewing-changes/4/2",
+        "reviewing-changes/4/6",
+        "push-to-lynx/3/3"
       ],
       "previous_text": "That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to.",
       "next_text": "The affected rows show both the original and the value that will actually be sent."
@@ -184,7 +200,7 @@
       "chapter": "c4",
       "text": "The affected rows show both the original and the value that will actually be sent.",
       "claims": [
-        "reviewing-changes/4/2"
+        "reviewing-changes/4/3"
       ],
       "previous_text": "When a minimum threshold is set, the banner counts the stations it will rewrite.",
       "next_text": "The footer button names the number of ticked rows, and that is exactly what will be sent."
@@ -194,7 +210,8 @@
       "chapter": "c5",
       "text": "The footer button names the number of ticked rows, and that is exactly what will be sent.",
       "claims": [
-        "reviewing-changes/5/2"
+        "reviewing-changes/5/2",
+        "reviewing-changes/5/3"
       ],
       "previous_text": "The affected rows show both the original and the value that will actually be sent.",
       "next_text": "Unticking a row is not the same as reverting it. The edit stays in the table for next time."
@@ -204,7 +221,9 @@
       "chapter": "c5",
       "text": "Unticking a row is not the same as reverting it. The edit stays in the table for next time.",
       "claims": [
-        "reviewing-changes/5/3"
+        "push-to-lynx/4/6",
+        "reviewing-changes/5/4",
+        "reviewing-changes/5/5"
       ],
       "previous_text": "The footer button names the number of ticked rows, and that is exactly what will be sent."
     }

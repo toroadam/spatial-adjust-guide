@@ -136,15 +136,18 @@ export async function loadCaptionCatalogues(captionsDir = DEFAULT_CAPTIONS_DIR) 
 
 /**
  * The WebVTT text of every locale's track for one English source, as { <locale>: <vtt text> }.
- * `catalogues` is the map loadCaptionCatalogues() returns. Throws one Error listing every locale with
+ * `catalogues` is the map loadCaptionCatalogues() returns. `locales` limits the tracks to those
+ * locales (an item's captionLocales, English-only while its cues have no translation); English is
+ * always written. Throws one Error listing every locale with
  * untranslated cues (each line names the locale and the cues); `error.problems` holds the lines.
  */
-export function captionTracks(sourceText, catalogues) {
+export function captionTracks(sourceText, catalogues, locales = CAPTION_LOCALES) {
   const { cues } = parseVtt(sourceText);
   if (!cues.length) throw new Error('the English track has no cues');
   const tracks = { [SOURCE_LOCALE]: serializeVtt(cues) };
   const problems = [];
   for (const locale of TRANSLATED_LOCALES) {
+    if (!locales.includes(locale)) continue;
     try {
       tracks[locale] = serializeVtt(localizeCues(cues, (catalogues || {})[locale], locale));
     } catch (err) {
@@ -160,7 +163,7 @@ export function captionTracks(sourceText, catalogues) {
 }
 
 /**
- * Write the eleven caption tracks of every item to <distDir>/media/captions/<key>.<locale>.vtt.
+ * Write the caption tracks of every item (eleven, or the item's captionLocales) to <distDir>/media/captions/<key>.<locale>.vtt.
  * `items` is { <key>: manifest item }, and each item's `captions` is a path to its English track,
  * relative to `root`. Every track of every item is built before anything is written, so a failure
  * leaves no partial set behind. Throws one Error listing every problem, each prefixed with
@@ -189,7 +192,7 @@ export async function writeCaptionTracks({ items, captionsDir = DEFAULT_CAPTIONS
       continue;
     }
     try {
-      built.push([key, captionTracks(sourceText, catalogues)]);
+      built.push([key, captionTracks(sourceText, catalogues, item.captionLocales || CAPTION_LOCALES)]);
     } catch (err) {
       for (const line of err.problems || [err.message]) problems.push(`media: ${key}: ${item.captions}: ${line}`);
     }
@@ -207,6 +210,7 @@ export async function writeCaptionTracks({ items, captionsDir = DEFAULT_CAPTIONS
   for (const [key, tracks] of built) {
     map[key] = {};
     for (const locale of CAPTION_LOCALES) {
+      if (!tracks[locale]) continue; // not listed in the item's captionLocales
       await writeFile(join(distDir, trackPath(key, locale)), tracks[locale]);
       map[key][locale] = trackPath(key, locale);
     }

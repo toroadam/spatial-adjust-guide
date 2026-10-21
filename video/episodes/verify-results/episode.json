@@ -14,23 +14,30 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "verify-results/tile/1",
-    "verify-results/tile/2",
     "verify-results/summary/1",
     "verify-results/summary/2",
+    "verify-results/1/1",
     "verify-results/1/2",
     "verify-results/1/3",
-    "verify-results/1/4",
     "verify-results/1/5",
+    "verify-results/1/4",
+    "verify-results/2/4",
+    "verify-results/2/1",
     "verify-results/2/2",
     "verify-results/2/3",
-    "verify-results/3/2",
+    "verify-results/2/6",
     "verify-results/3/3",
-    "verify-results/4/2",
+    "verify-results/3/5",
+    "verify-results/3/4",
+    "verify-results/4/5",
     "verify-results/4/3",
     "verify-results/4/4",
-    "verify-results/5/2",
-    "verify-results/verify/1"
+    "verify-results/5/5",
+    "verify-results/5/6",
+    "verify-results/verify/1",
+    "verify-results/5/3",
+    "verify-results/tile/1",
+    "verify-results/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Verify results",
@@ -116,6 +123,7 @@
       "chapter": "c1",
       "text": "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on.",
       "claims": [
+        "verify-results/1/1",
         "verify-results/1/2",
         "verify-results/1/3"
       ],
@@ -127,8 +135,9 @@
       "chapter": "c1",
       "text": "The writing counter runs on a fixed timer and does not wait for Lynx. If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer.",
       "claims": [
+        "verify-results/1/5",
         "verify-results/1/4",
-        "verify-results/1/5"
+        "verify-results/2/4"
       ],
       "previous_text": "Nothing is read before the push begins. Stations are written in sequence with a short pause between each, and the progress line names which one it is on.",
       "next_text": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx."
@@ -138,6 +147,7 @@
       "chapter": "c2",
       "text": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx.",
       "claims": [
+        "verify-results/2/1",
         "verify-results/2/2"
       ],
       "previous_text": "The writing counter runs on a fixed timer and does not wait for Lynx. If a run stalls, it stalls in the next phase, while Spatial Adjust waits for Lynx to answer.",
@@ -148,7 +158,8 @@
       "chapter": "c2",
       "text": "This is a read-back, not a baseline. It is collecting what Lynx actually holds now, so the next phase has something to check the push against.",
       "claims": [
-        "verify-results/2/3"
+        "verify-results/2/3",
+        "verify-results/2/6"
       ],
       "previous_text": "With the writing done, Spatial Adjust retrieves the current percent adjustments from Lynx.",
       "next_text": "Spatial Adjust re-reads the station list and compares each value it sent against what Lynx now reports."
@@ -158,7 +169,8 @@
       "chapter": "c3",
       "text": "Spatial Adjust re-reads the station list and compares each value it sent against what Lynx now reports.",
       "claims": [
-        "verify-results/3/2"
+        "verify-results/3/3",
+        "verify-results/3/5"
       ],
       "previous_text": "This is a read-back, not a baseline. It is collecting what Lynx actually holds now, so the next phase has something to check the push against.",
       "next_text": "Anything that does not match is treated as failed rather than assumed good."
@@ -168,7 +180,7 @@
       "chapter": "c3",
       "text": "Anything that does not match is treated as failed rather than assumed good.",
       "claims": [
-        "verify-results/3/3"
+        "verify-results/3/4"
       ],
       "previous_text": "Spatial Adjust re-reads the station list and compares each value it sent against what Lynx now reports.",
       "next_text": "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error."
@@ -178,7 +190,7 @@
       "chapter": "c4",
       "text": "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error.",
       "claims": [
-        "verify-results/4/2",
+        "verify-results/4/5",
         "verify-results/4/3"
       ],
       "previous_text": "Anything that does not match is treated as failed rather than assumed good.",
@@ -189,6 +201,7 @@
       "chapter": "c4",
       "text": "The bar restarts at zero for the retry pass and counts only the failed stations. A drop from nearly complete back to nothing is the retry beginning, not the push collapsing.",
       "claims": [
+        "verify-results/4/3",
         "verify-results/4/4"
       ],
       "previous_text": "Stations that did not take are re-pushed, up to two further attempts after the first. The progress line names how many are being retried, so a retry is information rather than an error.",
@@ -199,7 +212,8 @@
       "chapter": "c5",
       "text": "A clean run confirms that every selected change reached Lynx and verified.",
       "claims": [
-        "verify-results/5/2"
+        "verify-results/5/5",
+        "verify-results/5/6"
       ],
       "previous_text": "The bar restarts at zero for the retry pass and counts only the failed stations. A drop from nearly complete back to nothing is the retry beginning, not the push collapsing.",
       "next_text": "The dialog reports success rather than a failure count."
@@ -209,7 +223,8 @@
       "chapter": "c5",
       "text": "The dialog reports success rather than a failure count.",
       "claims": [
-        "verify-results/verify/1"
+        "verify-results/verify/1",
+        "verify-results/5/3"
       ],
       "previous_text": "A clean run confirms that every selected change reached Lynx and verified."
     }

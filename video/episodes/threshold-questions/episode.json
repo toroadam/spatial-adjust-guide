@@ -14,25 +14,27 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "threshold-questions/tile/1",
-    "threshold-questions/tile/2",
     "threshold-questions/summary/1",
-    "threshold-questions/1/2",
     "threshold-questions/1/3",
+    "threshold-questions/1/5",
     "threshold-questions/1/4",
+    "threshold-questions/before/1",
     "threshold-questions/2/2",
-    "threshold-questions/2/4",
     "threshold-questions/2/3",
-    "threshold-questions/3/2",
+    "threshold-questions/2/7",
+    "threshold-questions/2/6",
     "threshold-questions/3/3",
-    "threshold-questions/3/4",
     "threshold-questions/3/5",
-    "threshold-questions/4/2",
-    "threshold-questions/4/4",
+    "threshold-questions/4/6",
     "threshold-questions/4/3",
-    "threshold-questions/5/2",
+    "threshold-questions/4/5",
     "threshold-questions/5/4",
-    "threshold-questions/5/3"
+    "threshold-questions/5/7",
+    "threshold-questions/3/4",
+    "threshold-questions/2/5",
+    "threshold-questions/5/5",
+    "threshold-questions/tile/1",
+    "threshold-questions/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Threshold questions",
@@ -117,8 +119,8 @@
       "chapter": "c1",
       "text": "Station 11AP2 suggests 6 percent. With a 10 percent threshold set, the table still shows 6, and it always will.",
       "claims": [
-        "threshold-questions/1/2",
-        "threshold-questions/1/3"
+        "threshold-questions/1/3",
+        "threshold-questions/1/5"
       ],
       "previous_text": "Why the table and the push dialog disagree, and what the second option really does.",
       "next_text": "The threshold is applied only in the Push Changes dialog, and to what is sent to Lynx. Never to the table."
@@ -128,8 +130,9 @@
       "chapter": "c1",
       "text": "The threshold is applied only in the Push Changes dialog, and to what is sent to Lynx. Never to the table.",
       "claims": [
-        "threshold-questions/1/3",
-        "threshold-questions/1/4"
+        "threshold-questions/1/4",
+        "threshold-questions/1/5",
+        "threshold-questions/before/1"
       ],
       "previous_text": "Station 11AP2 suggests 6 percent. With a 10 percent threshold set, the table still shows 6, and it always will.",
       "next_text": "Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected."
@@ -140,7 +143,8 @@
       "text": "Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected.",
       "claims": [
         "threshold-questions/2/2",
-        "threshold-questions/2/4"
+        "threshold-questions/2/3",
+        "threshold-questions/2/7"
       ],
       "previous_text": "The threshold is applied only in the Push Changes dialog, and to what is sent to Lynx. Never to the table.",
       "next_text": "This is the disagreement, and it is intentional."
@@ -150,7 +154,7 @@
       "chapter": "c2",
       "text": "This is the disagreement, and it is intentional.",
       "claims": [
-        "threshold-questions/2/3"
+        "threshold-questions/2/6"
       ],
       "previous_text": "Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected.",
       "next_text": "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold, so the station still gets a short run."
@@ -160,7 +164,6 @@
       "chapter": "c3",
       "text": "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold, so the station still gets a short run.",
       "claims": [
-        "threshold-questions/3/2",
         "threshold-questions/3/3"
       ],
       "previous_text": "This is the disagreement, and it is intentional.",
@@ -171,8 +174,8 @@
       "chapter": "c3",
       "text": "They are opposite behaviours from the same number.",
       "claims": [
-        "threshold-questions/3/4",
-        "threshold-questions/3/5"
+        "threshold-questions/3/5",
+        "threshold-questions/3/3"
       ],
       "previous_text": "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold, so the station still gets a short run.",
       "next_text": "Exclude Zeros is available only under the second option. A station whose suggestion is a true zero stays at zero, instead of being lifted to the threshold."
@@ -182,8 +185,8 @@
       "chapter": "c4",
       "text": "Exclude Zeros is available only under the second option. A station whose suggestion is a true zero stays at zero, instead of being lifted to the threshold.",
       "claims": [
-        "threshold-questions/4/2",
-        "threshold-questions/4/4"
+        "threshold-questions/4/6",
+        "threshold-questions/4/3"
       ],
       "previous_text": "They are opposite behaviours from the same number.",
       "next_text": "Without it, a station that needs no water gets a small run anyway."
@@ -193,7 +196,7 @@
       "chapter": "c4",
       "text": "Without it, a station that needs no water gets a small run anyway.",
       "claims": [
-        "threshold-questions/4/3"
+        "threshold-questions/4/5"
       ],
       "previous_text": "Exclude Zeros is available only under the second option. A station whose suggestion is a true zero stays at zero, instead of being lifted to the threshold.",
       "next_text": "A threshold of zero turns the whole thing off, and the option group is disabled with it."
@@ -203,8 +206,9 @@
       "chapter": "c5",
       "text": "A threshold of zero turns the whole thing off, and the option group is disabled with it.",
       "claims": [
-        "threshold-questions/5/2",
-        "threshold-questions/5/4"
+        "threshold-questions/5/4",
+        "threshold-questions/5/7",
+        "threshold-questions/3/4"
       ],
       "previous_text": "Without it, a station that needs no water gets a small run anyway.",
       "next_text": "If the push dialog shows no banner, check this first. The setting is site-level, and someone else may have cleared it."
@@ -214,7 +218,8 @@
       "chapter": "c5",
       "text": "If the push dialog shows no banner, check this first. The setting is site-level, and someone else may have cleared it.",
       "claims": [
-        "threshold-questions/5/3"
+        "threshold-questions/2/5",
+        "threshold-questions/5/5"
       ],
       "previous_text": "A threshold of zero turns the whole thing off, and the option group is disabled with it."
     }

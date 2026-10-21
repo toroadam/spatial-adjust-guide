@@ -1,0 +1,92 @@
+WEBVTT
+
+NOTE enable-disable-stations: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.452
+Take a station, hole or
+area out of adjustment,
+
+V0-2
+00:00:05.552 --> 00:00:08.830
+and understand what cascading
+does before you confirm it.
+
+V1a-1
+00:00:13.290 --> 00:00:16.820
+The switch in the Enable column
+takes effect on that station alone.
+
+V1b-1
+00:00:18.840 --> 00:00:20.624
+Station 5AP1 is off here,
+
+V1b-2
+00:00:20.724 --> 00:00:25.220
+which is why it has no pending
+adjustment however dry it reads.
+
+V2a-1
+00:00:32.187 --> 00:00:35.707
+Hole and area rows carry the same
+switch. Turning one off takes
+
+V2a-2
+00:00:35.807 --> 00:00:39.774
+everything beneath it out of the push
+and off the Enabled Stations map,
+
+V2a-3
+00:00:39.874 --> 00:00:42.277
+but leaves their own
+switches as they were.
+
+V2b-1
+00:00:44.653 --> 00:00:47.823
+Hold Shift as you click to switch
+everything beneath it off too.
+
+V3a-1
+00:00:54.050 --> 00:00:58.039
+Because a cascade can affect dozens
+of heads, Spatial Adjust asks
+
+V3a-2
+00:00:58.139 --> 00:01:02.190
+first and names the scope: this
+hole and every station beneath it.
+
+V3b-1
+00:01:04.517 --> 00:01:07.897
+Continue applies it; Cancel
+leaves everything as it was.
+
+V4a-1
+00:01:15.573 --> 00:01:20.384
+The checkbox suppresses the confirmation
+for future cascades. It is stored in your
+
+V4a-2
+00:01:20.484 --> 00:01:24.943
+own preferences, so it hides the prompt
+for you and not for your colleagues.
+
+V4b-1
+00:01:27.257 --> 00:01:32.161
+Careful: with the prompt suppressed,
+a Shift-click on an area switch changes
+
+V4b-2
+00:01:32.261 --> 00:01:37.617
+every hole and station under it at once,
+with only a footer message to show for it.
+
+V5a-1
+00:01:44.803 --> 00:01:48.523
+Switch Layers to Enabled Stations to
+see only the heads still in adjustment.
+
+V5b-1
+00:01:50.887 --> 00:01:53.957
+Anything that disappeared is out,
+deliberately or otherwise.

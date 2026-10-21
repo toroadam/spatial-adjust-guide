@@ -1,0 +1,94 @@
+WEBVTT
+
+NOTE reviewing-changes: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:05.476
+Read the push dialog
+properly before you send:
+
+V0-2
+00:00:05.576 --> 00:00:08.600
+two lists, two columns,
+and one count that matters.
+
+V1a-1
+00:00:12.867 --> 00:00:17.028
+The button carries the number of enabled
+stations whose percent adjustment
+
+V1a-2
+00:00:17.128 --> 00:00:20.897
+differs from what Lynx holds,
+leaving out any already pushed today.
+
+V1b-1
+00:00:21.433 --> 00:00:23.583
+It is disabled when nothing is queued,
+
+V1b-2
+00:00:23.683 --> 00:00:26.853
+so a greyed-out button means
+there is nothing to review.
+
+V2a-1
+00:00:33.457 --> 00:00:37.297
+The left column is what Lynx holds now;
+the right is what will replace it.
+
+V2b-1
+00:00:37.857 --> 00:00:42.087
+Both name the station, so you are always
+comparing the same head across the row.
+
+V3a-1
+00:00:49.070 --> 00:00:53.646
+Available to Push comes first, ticked.
+Pushed Today follows, unticked,
+
+V3a-2
+00:00:53.746 --> 00:00:57.930
+and is there to stop you adjusting
+the same head twice in a day.
+
+V3b-1
+00:00:58.420 --> 00:01:01.323
+That hold releases at
+midnight where the course is,
+
+V3b-2
+00:01:01.423 --> 00:01:05.580
+not 24 hours after the push. Tick a
+pushed station only when you mean to.
+
+V4a-1
+00:01:13.243 --> 00:01:14.851
+When a minimum threshold is set,
+
+V4a-2
+00:01:14.951 --> 00:01:17.313
+the banner counts the
+stations it will rewrite.
+
+V4b-1
+00:01:17.827 --> 00:01:21.887
+The affected rows show both the original
+and the value that will actually be sent.
+
+V5a-1
+00:01:28.363 --> 00:01:30.863
+The footer button names
+the number of ticked rows,
+
+V5a-2
+00:01:30.963 --> 00:01:32.863
+and that is exactly what will be sent.
+
+V5b-1
+00:01:33.413 --> 00:01:35.941
+Unticking a row is not
+the same as reverting it.
+
+V5b-2
+00:01:36.041 --> 00:01:38.253
+The edit stays in the table for next time.

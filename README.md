@@ -425,6 +425,13 @@ Publishing the release is the owner's step; see *Who can publish*.
    rewrites the catalogue's `_meta`; for a locale that already had a caption catalogue, put its
    committed `_meta` back (`git show HEAD:src/i18n/captions/<locale>.json`) and update only the
    counts, as the page catalogues do.
+   **English only, until the cues are translated.** An item whose manifest entry says
+   `"captionLocales": ["en-us"]` ships its English track alone: `media-cues.mjs` leaves its cues out of
+   the catalogue (so the ten locales are not asked for them), the build writes one track, and the page
+   offers it to every reader as the default, labelled English, with an English transcript tagged
+   `lang="en-US"`. The 26 Double Click episodes are published this way. To translate one, delete its
+   `captionLocales` line and run this step; the build then writes all eleven and fails on any cue left
+   untranslated, as before.
 5. **Encode and pin:** `npm run media:add -- --key <key> --source <render> [--poster <image>]`. It
    makes a two-pass 1080p H.264 High encode with AAC 128 kb/s 48 kHz stereo and `+faststart`, so
    playback starts before the whole file arrives, with the source metadata stripped. It checks the
@@ -473,11 +480,13 @@ The subdirectory sits outside the locale-file filter `build.mjs`, `validate-loca
 apply, so nothing in it ships as a page catalogue by accident. The seed, translate and assemble
 scripts take `--catalogue captions` and otherwise behave exactly as they do for the page.
 
-- **Eleven tracks per video.** The build writes `dist/media/captions/<key>.<locale>.vtt`, the English
+- **Eleven tracks per video, or English alone.** The build writes `dist/media/captions/<key>.<locale>.vtt`, the English
   source and one per translated locale, with ids, timings and cue settings copied from the English
   track so every language lines up with the picture. A cue with no translation in any locale fails
   the build, naming the locale and the cue: no partial track ever ships, the same rule
-  `assemble-locale.mjs` applies to the page.
+  `assemble-locale.mjs` applies to the page. An item with `captionLocales: ["en-us"]` writes the
+  English track only; the panel then makes it the default for readers in every locale and keeps the
+  transcript in English too, rather than claiming a language the words are not in.
 - **The default follows the locale.** Each track is labelled with its language's own name, and the
   default is the language the page is actually served in, the one `<html lang>` reports. Switching
   language moves showing captions to the new language, or leaves them off if the reader turned them

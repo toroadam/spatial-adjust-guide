@@ -14,22 +14,22 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "creating-profiles/tile/1",
-    "creating-profiles/tile/2",
     "creating-profiles/summary/1",
+    "creating-profiles/1/6",
     "creating-profiles/1/2",
-    "creating-profiles/1/3",
-    "creating-profiles/1/4",
+    "creating-profiles/1/7",
     "creating-profiles/before/1",
     "creating-profiles/where/1",
     "creating-profiles/2/1",
-    "creating-profiles/2/2",
     "creating-profiles/3/2",
-    "creating-profiles/3/3",
-    "creating-profiles/4/2",
+    "creating-profiles/4/1",
+    "creating-profiles/4/6",
     "creating-profiles/4/3",
     "creating-profiles/4/4",
-    "creating-profiles/4/5"
+    "creating-profiles/5/6",
+    "target-profiles/before/3",
+    "creating-profiles/tile/1",
+    "creating-profiles/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Capturing profiles",
@@ -102,8 +102,8 @@
       "chapter": "c1",
       "text": "A profile is a snapshot, so the work happens in the table before you save anything. Get the course reading the way you want it, hole by hole, and only then capture it.",
       "claims": [
-        "creating-profiles/1/2",
-        "creating-profiles/1/3"
+        "creating-profiles/1/6",
+        "creating-profiles/1/2"
       ],
       "previous_text": "Capture the station targets you have tuned, under a name you will recognise next season.",
       "next_text": "The Target VWC column is what a profile would capture. A profile stores one Target VWC per station and nothing else, no percent adjustments, no enable states."
@@ -113,7 +113,7 @@
       "chapter": "c1",
       "text": "The Target VWC column is what a profile would capture. A profile stores one Target VWC per station and nothing else, no percent adjustments, no enable states.",
       "claims": [
-        "creating-profiles/1/4",
+        "creating-profiles/1/7",
         "creating-profiles/before/1"
       ],
       "previous_text": "A profile is a snapshot, so the work happens in the table before you save anything. Get the course reading the way you want it, hole by hole, and only then capture it.",
@@ -125,7 +125,8 @@
       "text": "Open the Target Profiles tab in Settings.",
       "claims": [
         "creating-profiles/where/1",
-        "creating-profiles/2/1"
+        "creating-profiles/2/1",
+        "creating-profiles/3/2"
       ],
       "previous_text": "The Target VWC column is what a profile would capture. A profile stores one Target VWC per station and nothing else, no percent adjustments, no enable states.",
       "next_text": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit."
@@ -135,7 +136,7 @@
       "chapter": "c2",
       "text": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.",
       "claims": [
-        "creating-profiles/2/2"
+        "creating-profiles/3/2"
       ],
       "previous_text": "Open the Target Profiles tab in Settings.",
       "next_text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery."
@@ -145,7 +146,9 @@
       "chapter": "c3",
       "text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery.",
       "claims": [
-        "creating-profiles/3/2"
+        "creating-profiles/4/1",
+        "creating-profiles/4/6",
+        "creating-profiles/4/3"
       ],
       "previous_text": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.",
       "next_text": "A date tells you when; a condition tells you why, which is what you will be searching for."
@@ -155,7 +158,7 @@
       "chapter": "c3",
       "text": "A date tells you when; a condition tells you why, which is what you will be searching for.",
       "claims": [
-        "creating-profiles/3/3"
+        "creating-profiles/4/6"
       ],
       "previous_text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery.",
       "next_text": "The count beside each profile says how many stations it covers. A profile holds every station the course had when it was captured, enabled or not."
@@ -165,8 +168,8 @@
       "chapter": "c4",
       "text": "The count beside each profile says how many stations it covers. A profile holds every station the course had when it was captured, enabled or not.",
       "claims": [
-        "creating-profiles/4/2",
-        "creating-profiles/4/3"
+        "creating-profiles/4/4",
+        "creating-profiles/5/6"
       ],
       "previous_text": "A date tells you when; a condition tells you why, which is what you will be searching for.",
       "next_text": "Stations added to the course later are not in it, and applying the profile leaves them untouched. Coverage is part of what a profile is."
@@ -176,8 +179,9 @@
       "chapter": "c4",
       "text": "Stations added to the course later are not in it, and applying the profile leaves them untouched. Coverage is part of what a profile is.",
       "claims": [
-        "creating-profiles/4/4",
-        "creating-profiles/4/5"
+        "creating-profiles/1/6",
+        "creating-profiles/5/6",
+        "target-profiles/before/3"
       ],
       "previous_text": "The count beside each profile says how many stations it covers. A profile holds every station the course had when it was captured, enabled or not."
     }

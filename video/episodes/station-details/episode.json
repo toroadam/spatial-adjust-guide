@@ -14,21 +14,22 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "station-details/1/1",
-    "station-details/1/2",
-    "station-details/1/3",
-    "station-details/2/1",
-    "station-details/2/2",
-    "station-details/2/3",
-    "station-details/3/1",
-    "station-details/3/2",
-    "station-details/3/3",
-    "station-details/3/4",
-    "station-details/4/1",
-    "station-details/4/2",
-    "station-details/4/3",
     "station-details/summary/1",
     "station-details/summary/2",
+    "station-details/1/2",
+    "station-details/1/4",
+    "station-details/start/4",
+    "station-details/before/1",
+    "station-details/2/3",
+    "station-details/2/6",
+    "station-details/3/3",
+    "station-details/3/7",
+    "station-details/3/6",
+    "station-details/4/2",
+    "station-details/4/3",
+    "station-details/5/3",
+    "station-details/5/2",
+    "station-details/5/5",
     "station-details/tile/1",
     "station-details/tile/2"
   ],
@@ -104,7 +105,9 @@
       "chapter": "c1",
       "text": "A chevron beside the station name means the station has more than one sprinkler paired to it.",
       "claims": [
-        "station-details/1/2"
+        "station-details/1/2",
+        "station-details/1/4",
+        "station-details/start/4"
       ],
       "previous_text": "Some stations drive more than one sprinkler. Expand the row to see what each head actually measured.",
       "next_text": "Without the chevron, the row is the whole story."
@@ -114,7 +117,8 @@
       "chapter": "c1",
       "text": "Without the chevron, the row is the whole story.",
       "claims": [
-        "station-details/1/3"
+        "station-details/1/4",
+        "station-details/before/1"
       ],
       "previous_text": "A chevron beside the station name means the station has more than one sprinkler paired to it.",
       "next_text": "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture."
@@ -124,7 +128,7 @@
       "chapter": "c2",
       "text": "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture.",
       "claims": [
-        "station-details/2/2"
+        "station-details/2/3"
       ],
       "previous_text": "Without the chevron, the row is the whole story.",
       "next_text": "Nothing else is editable at sprinkler level. The target and the adjustment belong to the station."
@@ -134,7 +138,7 @@
       "chapter": "c2",
       "text": "Nothing else is editable at sprinkler level. The target and the adjustment belong to the station.",
       "claims": [
-        "station-details/2/3"
+        "station-details/2/6"
       ],
       "previous_text": "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture.",
       "next_text": "The station's average VWC is the mean of its sprinklers."
@@ -144,8 +148,8 @@
       "chapter": "c3",
       "text": "The station's average VWC is the mean of its sprinklers.",
       "claims": [
-        "station-details/3/2",
-        "station-details/3/3"
+        "station-details/3/3",
+        "station-details/3/7"
       ],
       "previous_text": "Nothing else is editable at sprinkler level. The target and the adjustment belong to the station.",
       "next_text": "Two heads reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry head."
@@ -155,7 +159,8 @@
       "chapter": "c3",
       "text": "Two heads reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry head.",
       "claims": [
-        "station-details/3/4"
+        "station-details/3/3",
+        "station-details/3/6"
       ],
       "previous_text": "The station's average VWC is the mean of its sprinklers.",
       "next_text": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model."
@@ -165,7 +170,9 @@
       "chapter": "c4",
       "text": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model.",
       "claims": [
-        "station-details/4/2"
+        "station-details/4/2",
+        "station-details/4/3",
+        "station-details/5/3"
       ],
       "previous_text": "Two heads reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry head.",
       "next_text": "The parent row carries a grey calculator icon beside its average, so you can tell it includes a modelled reading."
@@ -175,7 +182,9 @@
       "chapter": "c4",
       "text": "The parent row carries a grey calculator icon beside its average, so you can tell it includes a modelled reading.",
       "claims": [
-        "station-details/4/3"
+        "station-details/5/2",
+        "station-details/5/3",
+        "station-details/5/5"
       ],
       "previous_text": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model."
     }

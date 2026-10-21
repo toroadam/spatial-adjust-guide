@@ -132,12 +132,12 @@ test('liftFigure lifts exactly one captioned figure to fill the viewport, and re
     assert.ok(box.y > 540 && box.y + box.height <= 1080, `the legend sits in the lower half of the frame (${JSON.stringify(box)})`);
     // A second lift (a beat's figure action) swaps the figure: still exactly one lifted app,
     // and it is the new figure's.
-    const swapped = await liftFigure(page, 'Station-level rows for hole 3');
+    const swapped = await liftFigure(page, 'Hole rows for area AP');
     assert.deepEqual(swapped, { box: [0, 0, 1920, 1080] });
     assert.equal(await page.locator(`[${FRAME_ATTR}]`).count(), 1);
     assert.equal(await page.locator(`[${FRAME_ATTR}-wrap]`).count(), 1);
     const caption = await page.locator(`[${FRAME_ATTR}]`).evaluate((el) => el.closest('figure').querySelector('figcaption').textContent);
-    assert.match(caption, /^\s*Station-level rows for hole 3/);
+    assert.match(caption, /^\s*Hole rows for area AP/);
   } finally {
     await browser.close();
     await srv.close();

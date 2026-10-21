@@ -20,19 +20,24 @@
     "understanding-vwc/summary/2",
     "understanding-vwc/1/2",
     "understanding-vwc/1/3",
-    "understanding-vwc/1/4",
-    "understanding-vwc/1/5",
-    "understanding-vwc/2/2",
+    "understanding-vwc/1/6",
+    "understanding-vwc/1/7",
     "understanding-vwc/2/3",
-    "understanding-vwc/2/4",
-    "understanding-vwc/3/2",
+    "understanding-vwc/2/2",
+    "understanding-vwc/2/5",
     "understanding-vwc/3/3",
-    "understanding-vwc/3/4",
+    "understanding-vwc/3/6",
+    "understanding-vwc/3/7",
     "understanding-vwc/4/2",
+    "understanding-vwc/4/7",
+    "understanding-vwc/4/6",
     "understanding-vwc/4/3",
     "understanding-vwc/4/4",
+    "understand-spatial-adjust/4/5",
     "understanding-vwc/5/2",
-    "understanding-vwc/5/3"
+    "understanding-vwc/5/3",
+    "understanding-vwc/5/7",
+    "understanding-vwc/5/6"
   ],
   "titleCard": {
     "text": "Double Click: Understanding VWC",
@@ -129,8 +134,8 @@
       "chapter": "c1",
       "text": "It is a measurement, and it is the number the calculation prefers. A current scan: black text, today's date.",
       "claims": [
-        "understanding-vwc/1/4",
-        "understanding-vwc/1/5"
+        "understanding-vwc/1/6",
+        "understanding-vwc/1/7"
       ],
       "previous_text": "When the scan date is today, Avg. VWC is the mean moisture TurfRad measured across that station.",
       "next_text": "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since."
@@ -140,6 +145,7 @@
       "chapter": "c2",
       "text": "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since.",
       "claims": [
+        "understanding-vwc/2/3",
         "understanding-vwc/2/2"
       ],
       "previous_text": "It is a measurement, and it is the number the calculation prefers. A current scan: black text, today's date.",
@@ -150,8 +156,8 @@
       "chapter": "c2",
       "text": "It is shown in grey italics so you can tell it apart at a glance. Station 7AP1 has no current scan; the value shown is modelled.",
       "claims": [
-        "understanding-vwc/2/3",
-        "understanding-vwc/2/4"
+        "understanding-vwc/2/2",
+        "understanding-vwc/2/5"
       ],
       "previous_text": "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since.",
       "next_text": "Target VWC is a whole number from 0 to 50 that you set per station. Higher targets ask for more water."
@@ -161,8 +167,9 @@
       "chapter": "c3",
       "text": "Target VWC is a whole number from 0 to 50 that you set per station. Higher targets ask for more water.",
       "claims": [
-        "understanding-vwc/3/2",
-        "understanding-vwc/3/3"
+        "understanding-vwc/3/3",
+        "understanding-vwc/3/6",
+        "understanding-vwc/3/7"
       ],
       "previous_text": "It is shown in grey italics so you can tell it apart at a glance. Station 7AP1 has no current scan; the value shown is modelled.",
       "next_text": "It is the only VWC on the row you can type into."
@@ -172,7 +179,7 @@
       "chapter": "c3",
       "text": "It is the only VWC on the row you can type into.",
       "claims": [
-        "understanding-vwc/3/4"
+        "understanding-vwc/3/3"
       ],
       "previous_text": "Target VWC is a whole number from 0 to 50 that you set per station. Higher targets ask for more water.",
       "next_text": "Subtract the working VWC from the target and you have the deficit the calculation must close."
@@ -182,7 +189,8 @@
       "chapter": "c4",
       "text": "Subtract the working VWC from the target and you have the deficit the calculation must close.",
       "claims": [
-        "understanding-vwc/4/2"
+        "understanding-vwc/4/2",
+        "understanding-vwc/4/7"
       ],
       "previous_text": "It is the only VWC on the row you can type into.",
       "next_text": "Add today's ET, cap it at the daily maximum, and express it against the Lynx reference amount. Target minus measured, per station, is the whole idea."
@@ -192,8 +200,10 @@
       "chapter": "c4",
       "text": "Add today's ET, cap it at the daily maximum, and express it against the Lynx reference amount. Target minus measured, per station, is the whole idea.",
       "claims": [
+        "understanding-vwc/4/6",
         "understanding-vwc/4/3",
-        "understanding-vwc/4/4"
+        "understanding-vwc/4/4",
+        "understand-spatial-adjust/4/5"
       ],
       "previous_text": "Subtract the working VWC from the target and you have the deficit the calculation must close.",
       "next_text": "At hole and area level the same two columns show averages rather than readings, and the scan date column shows the most recent scan beneath that row."
@@ -203,7 +213,9 @@
       "chapter": "c5",
       "text": "At hole and area level the same two columns show averages rather than readings, and the scan date column shows the most recent scan beneath that row.",
       "claims": [
-        "understanding-vwc/5/2"
+        "understanding-vwc/5/2",
+        "understanding-vwc/5/3",
+        "understanding-vwc/5/7"
       ],
       "previous_text": "Add today's ET, cap it at the daily maximum, and express it against the Lynx reference amount. Target minus measured, per station, is the whole idea.",
       "next_text": "A grey calculator icon on a hole or area row means at least one station beneath it is modelled."
@@ -213,7 +225,7 @@
       "chapter": "c5",
       "text": "A grey calculator icon on a hole or area row means at least one station beneath it is modelled.",
       "claims": [
-        "understanding-vwc/5/3"
+        "understanding-vwc/5/6"
       ],
       "previous_text": "At hole and area level the same two columns show averages rather than readings, and the scan date column shows the most recent scan beneath that row."
     }

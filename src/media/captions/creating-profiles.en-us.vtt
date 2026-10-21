@@ -1,0 +1,90 @@
+WEBVTT
+
+NOTE creating-profiles: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:04.984
+Capture the station
+targets you have tuned,
+
+V0-2
+00:00:05.084 --> 00:00:07.370
+under a name you will
+recognise next season.
+
+V1a-1
+00:00:13.303 --> 00:00:16.790
+A profile is a snapshot, so the
+work happens in the table before
+
+V1a-2
+00:00:16.890 --> 00:00:20.268
+you save anything. Get the course
+reading the way you want it,
+
+V1a-3
+00:00:20.368 --> 00:00:22.493
+hole by hole, and only then capture it.
+
+V1b-1
+00:00:23.170 --> 00:00:29.082
+The Target VWC column is what a profile
+would capture. A profile stores one Target
+
+V1b-2
+00:00:29.182 --> 00:00:34.590
+VWC per station and nothing else,
+no percent adjustments, no enable states.
+
+V2a-1
+00:00:41.323 --> 00:00:43.643
+Open the Target Profiles tab in Settings.
+
+V2b-1
+00:00:44.606 --> 00:00:48.734
+Profiles sit with the calculation
+settings rather than in the table,
+
+V2b-2
+00:00:48.834 --> 00:00:53.146
+because a target set is a calculation
+input rather than a station edit.
+
+V3a-1
+00:00:59.816 --> 00:01:03.121
+Name a profile for the reason
+the targets are what they are:
+
+V3a-2
+00:01:03.221 --> 00:01:06.086
+Summer Baseline, Tournament
+Week, Overseed Recovery.
+
+V3b-1
+00:01:07.050 --> 00:01:09.973
+A date tells you when;
+a condition tells you why,
+
+V3b-2
+00:01:10.073 --> 00:01:12.460
+which is what you will be searching for.
+
+V4a-1
+00:01:18.806 --> 00:01:22.677
+The count beside each profile
+says how many stations it covers.
+
+V4a-2
+00:01:22.777 --> 00:01:27.816
+A profile holds every station the course
+had when it was captured, enabled or not.
+
+V4b-1
+00:01:28.773 --> 00:01:32.537
+Stations added to the course later
+are not in it, and applying the
+
+V4b-2
+00:01:32.637 --> 00:01:36.573
+profile leaves them untouched.
+Coverage is part of what a profile is.

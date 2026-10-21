@@ -15,12 +15,19 @@
 // _contexts records where each cue is spoken, as "<key>@<start>", so a translator can find it in the
 // video. A sentence spoken in two places is one string with two contexts.
 //
+// English-only items. A manifest item whose captionLocales names no translated locale ships its English
+// track alone (the episodes, until their cues are translated), so its cues are not harvested here:
+// they would otherwise show up as ten locales of untranslated strings. List the locales in the item to
+// bring it into this catalogue.
+//
 // Usage:
 //   node scripts/media-cues.mjs            write src/i18n/captions/en-us.json
 //   node scripts/media-cues.mjs --check    exit 1 when the committed file is not what this would write
 import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parseVtt } from '../src/media/vtt.mjs';
+import { DEFAULT_MANIFEST, loadManifest } from '../src/media/manifest.mjs';
+import { TRANSLATED_LOCALES } from '../src/media/captions.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 const SOURCE_DIR = 'src/media/captions';
@@ -39,6 +46,12 @@ try {
   if (err.code !== 'ENOENT') throw err;
 }
 
+const manifest = await loadManifest(join(ROOT, DEFAULT_MANIFEST)).catch(() => ({ items: {} }));
+const englishOnly = (key) => {
+  const locales = manifest.items && manifest.items[key] && manifest.items[key].captionLocales;
+  return Array.isArray(locales) && !locales.some((l) => TRANSLATED_LOCALES.includes(l));
+};
+
 const contexts = new Map(); // cue text -> ['<key>@<start>', ...]
 for (const file of files) {
   // English sources only. A translated track is a build output, written into dist/ from the
@@ -53,6 +66,7 @@ for (const file of files) {
     throw new Error(`${SOURCE_DIR}/${file}: ${err.message}`);
   }
   if (!cues.length) throw new Error(`${SOURCE_DIR}/${file}: has no cues`);
+  if (englishOnly(key)) continue;
   for (const cue of cues) {
     if (!contexts.has(cue.text)) contexts.set(cue.text, []);
     contexts.get(cue.text).push(`${key}@${cue.start}`);

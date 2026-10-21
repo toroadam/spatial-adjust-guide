@@ -13,11 +13,13 @@
 //                    the showcase, dashboard-overview its episode, and target-profiles nothing.
 //
 // A panel of the right shape is one <video> with controls, preload="none", playsinline and a poster,
-// never autoplay, muted or loop, and eleven caption tracks (one per locale, distinct srclang) of
+// never autoplay, muted or loop, and the item's caption tracks (eleven, one per locale, distinct srclang, or English alone for an
+// episode without translated cues) of
 // which exactly one is the default.
 import { chromium } from 'playwright';
 import { CAPTION_LOCALES } from '../src/media/captions.mjs';
 import { installMediaFixture } from './lib/media-fixture.mjs';
+import { readFileSync } from 'node:fs';
 import { parseShowBeta, loadRelease, isGuideShipped } from '../src/release.mjs';
 
 const args = process.argv.slice(2);
@@ -89,6 +91,11 @@ const panelShape = () => page.evaluate(() => {
   };
 });
 
+// How many caption tracks an item's panel must carry: the manifest's captionLocales for a real item
+// (an episode without translated cues ships English alone), eleven for the fixture.
+const manifestItems = JSON.parse(readFileSync(new URL('../src/media/manifest.json', import.meta.url), 'utf8')).items;
+const expectedTracks = (key) => (mediaFixture ? CAPTION_LOCALES.length : (manifestItems[key]?.captionLocales ?? CAPTION_LOCALES).length);
+
 const panelProblems = (shape, key) => {
   const p = [];
   if (shape.panels !== 1) p.push(`${shape.panels} panels, expected 1`);
@@ -101,7 +108,7 @@ const panelProblems = (shape, key) => {
   if (shape.autoplay) p.push('autoplay');
   if (shape.muted) p.push('muted');
   if (shape.loop) p.push('loop');
-  if (shape.captions !== CAPTION_LOCALES.length) p.push(`${shape.captions} caption tracks, expected ${CAPTION_LOCALES.length}`);
+  if (shape.captions !== expectedTracks(key)) p.push(`${shape.captions} caption tracks, expected ${expectedTracks(key)}`);
   if (new Set(shape.srclangs).size !== shape.srclangs.length) p.push('duplicate srclang');
   if (shape.defaults.length !== 1) p.push(`${shape.defaults.length} default tracks, expected 1`);
   return p;

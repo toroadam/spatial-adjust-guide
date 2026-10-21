@@ -14,28 +14,30 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "filter-adjustments/tile/1",
-    "filter-adjustments/tile/2",
     "filter-adjustments/summary/1",
     "filter-adjustments/summary/2",
-    "filter-adjustments/1/2",
     "filter-adjustments/1/3",
+    "filter-adjustments/1/2",
     "filter-adjustments/1/4",
+    "filter-adjustments/verify/2",
     "filter-adjustments/2/2",
+    "filter-adjustments/2/6",
     "filter-adjustments/2/3",
-    "filter-adjustments/2/4",
-    "filter-adjustments/3/2",
     "filter-adjustments/3/3",
-    "filter-adjustments/3/4",
+    "filter-adjustments/3/8",
+    "filter-adjustments/3/2",
     "filter-adjustments/3/6",
+    "filter-adjustments/6/3",
+    "filter-adjustments/6/4",
+    "filter-adjustments/verify/1",
+    "filter-adjustments/tile/2",
+    "filter-adjustments/4/5",
+    "filter-adjustments/4/4",
     "filter-adjustments/4/2",
     "filter-adjustments/4/3",
-    "filter-adjustments/4/4",
-    "filter-adjustments/4/5",
-    "filter-adjustments/5/2",
-    "filter-adjustments/5/3",
-    "filter-adjustments/5/4",
-    "filter-adjustments/5/6"
+    "filter-adjustments/5/6",
+    "filter-adjustments/4/6",
+    "filter-adjustments/tile/1"
   ],
   "titleCard": {
     "text": "Double Click: Filter by % Adj.",
@@ -121,8 +123,8 @@
       "chapter": "c1",
       "text": "All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches.",
       "claims": [
-        "filter-adjustments/1/2",
-        "filter-adjustments/1/3"
+        "filter-adjustments/1/3",
+        "filter-adjustments/1/2"
       ],
       "previous_text": "The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.",
       "next_text": "Until you set a filter, that count is a dash and the tab does nothing. It is not broken; there is simply nothing to show yet."
@@ -132,7 +134,8 @@
       "chapter": "c1",
       "text": "Until you set a filter, that count is a dash and the tab does nothing. It is not broken; there is simply nothing to show yet.",
       "claims": [
-        "filter-adjustments/1/4"
+        "filter-adjustments/1/4",
+        "filter-adjustments/verify/2"
       ],
       "previous_text": "All Stations carries the full count. Beside it, the Over/Under tab carries the count of stations the filter currently catches.",
       "next_text": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force: percent adjustment over 200 percent, under 10 percent."
@@ -143,7 +146,7 @@
       "text": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force: percent adjustment over 200 percent, under 10 percent.",
       "claims": [
         "filter-adjustments/2/2",
-        "filter-adjustments/2/3"
+        "filter-adjustments/2/6"
       ],
       "previous_text": "Until you set a filter, that count is a dash and the tab does nothing. It is not broken; there is simply nothing to show yet.",
       "next_text": "So you can read the filter without opening it. Clicking it opens Over/Under Options."
@@ -153,8 +156,9 @@
       "chapter": "c2",
       "text": "So you can read the filter without opening it. Clicking it opens Over/Under Options.",
       "claims": [
-        "filter-adjustments/2/3",
-        "filter-adjustments/2/4"
+        "filter-adjustments/2/6",
+        "filter-adjustments/2/2",
+        "filter-adjustments/2/3"
       ],
       "previous_text": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force: percent adjustment over 200 percent, under 10 percent.",
       "next_text": "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10."
@@ -164,7 +168,6 @@
       "chapter": "c3",
       "text": "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10.",
       "claims": [
-        "filter-adjustments/3/2",
         "filter-adjustments/3/3"
       ],
       "previous_text": "So you can read the filter without opening it. Clicking it opens Over/Under Options.",
@@ -175,7 +178,8 @@
       "chapter": "c3",
       "text": "Each has its own checkbox, so you can run one end without the other. Over alone finds the stations asking for far too much; Under alone, the ones asking for almost nothing.",
       "claims": [
-        "filter-adjustments/3/4",
+        "filter-adjustments/3/8",
+        "filter-adjustments/3/2",
         "filter-adjustments/3/6"
       ],
       "previous_text": "Over accepts 0 to 300 and defaults to 200. Under accepts 0 to 100 and defaults to 10.",
@@ -186,8 +190,9 @@
       "chapter": "c4",
       "text": "A station is caught if its suggestion is above the Over value or below the Under value. With 200 and 10 set, you get everything over 200 percent and everything under 10 percent, and nothing in between.",
       "claims": [
-        "filter-adjustments/4/2",
-        "filter-adjustments/4/3"
+        "filter-adjustments/6/3",
+        "filter-adjustments/6/4",
+        "filter-adjustments/verify/1"
       ],
       "previous_text": "Each has its own checkbox, so you can run one end without the other. Over alone finds the stations asking for far too much; Under alone, the ones asking for almost nothing.",
       "next_text": "It is an outlier finder. Reading it as between 10 and 200 gives you exactly the stations it is not showing you."
@@ -197,8 +202,9 @@
       "chapter": "c4",
       "text": "It is an outlier finder. Reading it as between 10 and 200 gives you exactly the stations it is not showing you.",
       "claims": [
-        "filter-adjustments/4/4",
-        "filter-adjustments/4/5"
+        "filter-adjustments/tile/2",
+        "filter-adjustments/6/3",
+        "filter-adjustments/summary/2"
       ],
       "previous_text": "A station is caught if its suggestion is above the Over value or below the Under value. With 200 and 10 set, you get everything over 200 percent and everything under 10 percent, and nothing in between.",
       "next_text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
@@ -208,8 +214,10 @@
       "chapter": "c5",
       "text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter.",
       "claims": [
-        "filter-adjustments/5/2",
-        "filter-adjustments/5/3"
+        "filter-adjustments/4/5",
+        "filter-adjustments/4/4",
+        "filter-adjustments/4/2",
+        "filter-adjustments/4/3"
       ],
       "previous_text": "It is an outlier finder. Reading it as between 10 and 200 gives you exactly the stations it is not showing you.",
       "next_text": "Your thresholds are saved to your own user preferences, not to the site. The Exclude Zeros in Settings, Minimum Threshold is a different setting."
@@ -219,8 +227,8 @@
       "chapter": "c5",
       "text": "Your thresholds are saved to your own user preferences, not to the site. The Exclude Zeros in Settings, Minimum Threshold is a different setting.",
       "claims": [
-        "filter-adjustments/5/4",
-        "filter-adjustments/5/6"
+        "filter-adjustments/5/6",
+        "filter-adjustments/4/6"
       ],
       "previous_text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
     }

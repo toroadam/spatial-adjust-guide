@@ -128,6 +128,8 @@ Then the VO word count and estimated runtime, a "Step text" note when the guide 
 - **(g)** chapter sources are valid with reasons, and every Demo Mode write click is on `/demo`, in the writes table, with an outcome a short-circuited write allows;
 - **(h)** edited and approved episodes: runtime in range, -14 LUFS +/- 0.5, true peak at or below -1.0 dBTP, the series music bed.
 
+**Known drift.** When a guide's steps are rewritten after an episode was filmed, (b) and (f) report the difference and the film is not re-shot for it. `video/episodes/guide-drift.json` records those findings verbatim (`node scripts/episode-lint.mjs <url> --write-drift` writes it; `--show-drift` lists them). A recorded finding is counted, not failed; an unrecorded finding fails, and so does a recorded one that no longer occurs, so the list only shrinks. Only chapter count, chapter label and highlight label findings can be recorded; a claim, schema, title, end card or loudness finding never can. The same drift is on `docs/review-agenda.md`.
+
 `--series` checks loudness spread and runtimes across approved episodes and that every VO render used the series voice; `--fixtures` runs the lint's own self-test. Exit 0 clean, 1 findings, 2 could not run.
 
 ## /demo, Demo Mode writes and recreation

@@ -64,7 +64,7 @@ export function dummyVideoBytes(size = 65536) {
 }
 
 /** The runtime manifest the page is given: the shape build.mjs injects, every path under the prefix. */
-export function fixtureManifest(keys = DEFAULT_FIXTURE_KEYS) {
+export function fixtureManifest(keys = DEFAULT_FIXTURE_KEYS, { englishOnly = [] } = {}) {
   const items = {};
   for (const key of keys) {
     if (!KEY.test(key)) throw new Error(`media fixture key "${key}" must be lowercase letters, digits and "-"`);
@@ -74,7 +74,9 @@ export function fixtureManifest(keys = DEFAULT_FIXTURE_KEYS) {
       type: 'video/mp4',
       poster: `${FIXTURE_PREFIX}${key}.png`,
       duration: FIXTURE_DURATION,
-      captions: Object.fromEntries(CAPTION_LOCALES.map((locale) => [locale, `${FIXTURE_PREFIX}captions/${key}.${locale}.vtt`])),
+      // An English-only key has the one track an episode without translated cues ships.
+      captions: Object.fromEntries((englishOnly.includes(key) ? ['en-us'] : CAPTION_LOCALES)
+        .map((locale) => [locale, `${FIXTURE_PREFIX}captions/${key}.${locale}.vtt`])),
     };
   }
   return { items };
@@ -106,12 +108,13 @@ function fulfillVideo(route, bytes) {
 }
 
 /**
- * Inject the fixture manifest into `page` and serve its media. `keys` are guide keys or "showcase".
+ * Inject the fixture manifest into `page` and serve its media. `keys` are guide keys or "showcase";
+ * `englishOnly` lists those whose item has no translated captions, only the English track.
  * Returns { manifest, tracks, requests, realVideo }: the manifest the page sees, the WebVTT text per
  * locale, every URL served so far (a live array), and whether the real placeholder clip is in use.
  */
-export async function installMediaFixture(page, { keys = DEFAULT_FIXTURE_KEYS } = {}) {
-  const manifest = fixtureManifest(keys);
+export async function installMediaFixture(page, { keys = DEFAULT_FIXTURE_KEYS, englishOnly = [] } = {}) {
+  const manifest = fixtureManifest(keys, { englishOnly });
   const tracks = await fixtureTracks();
   const realVideo = existsSync(PLACEHOLDER_VIDEO);
   const video = realVideo ? await readFile(PLACEHOLDER_VIDEO) : dummyVideoBytes();
@@ -124,7 +127,8 @@ export async function installMediaFixture(page, { keys = DEFAULT_FIXTURE_KEYS } 
     const at = url.pathname.indexOf(`/${FIXTURE_PREFIX}`);
     const rest = at === -1 ? '' : url.pathname.slice(at + FIXTURE_PREFIX.length + 1);
     let m;
-    if ((m = /^captions\/([a-z0-9-]+)\.([a-z]{2}-[a-z]{2})\.vtt$/.exec(rest)) && keys.includes(m[1]) && tracks[m[2]]) {
+    if ((m = /^captions\/([a-z0-9-]+)\.([a-z]{2}-[a-z]{2})\.vtt$/.exec(rest)) && keys.includes(m[1]) && tracks[m[2]]
+      && (m[2] === 'en-us' || !englishOnly.includes(m[1]))) {
       return route.fulfill({ status: 200, contentType: 'text/vtt; charset=utf-8', body: tracks[m[2]] });
     }
     if ((m = /^([a-z0-9-]+)\.png$/.exec(rest)) && keys.includes(m[1])) {

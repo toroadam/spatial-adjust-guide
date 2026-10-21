@@ -1,0 +1,120 @@
+WEBVTT
+
+NOTE request-scan-data: written VO text from episode.json, timed from the timeline VO placements
+
+V0-1
+00:00:02.750 --> 00:00:06.914
+A course that has fallen behind TurfRad
+does not have to wait for the next
+
+V0-2
+00:00:07.014 --> 00:00:11.460
+automatic retrieval. Ask for the latest
+scan data, and reload when it is ready.
+
+V1a-1
+00:00:14.490 --> 00:00:18.300
+Every station row carries the
+date its reading was captured.
+
+V1b-1
+00:00:18.857 --> 00:00:22.926
+One stale row is a station. A column
+of stale dates is the whole course,
+
+V1b-2
+00:00:23.026 --> 00:00:26.417
+and that is a supply problem
+rather than a settings problem.
+
+V2a-1
+00:00:33.013 --> 00:00:35.253
+The circular-arrow button in the toolbar's
+
+V2a-2
+00:00:35.353 --> 00:00:37.753
+right-hand group is
+Request latest scan data.
+
+V2b-1
+00:00:38.313 --> 00:00:42.895
+It asks Spatial Adjust to fetch the
+latest scan data TurfRad already holds.
+
+V2b-2
+00:00:42.995 --> 00:00:46.844
+It does not order a new scan,
+it does not reload the dashboard,
+
+V2b-3
+00:00:46.944 --> 00:00:50.123
+and it does not change a
+single calculation setting.
+
+V3a-1
+00:00:57.430 --> 00:00:59.982
+The request is queued and you are told so.
+
+V3a-2
+00:01:00.082 --> 00:01:04.580
+Retrieval may take several minutes,
+and you are notified when it is ready.
+
+V3b-1
+00:01:05.097 --> 00:01:07.843
+You can carry on reading
+the table while it runs.
+
+V3b-2
+00:01:07.943 --> 00:01:11.307
+Nothing is frozen, and nothing
+is lost if you navigate away.
+
+V4a-1
+00:01:18.373 --> 00:01:21.215
+When the retrieval finishes,
+a banner says so,
+
+V4a-2
+00:01:21.315 --> 00:01:23.787
+whether or not TurfRad had a newer scan.
+
+V4a-3
+00:01:23.887 --> 00:01:28.523
+Reload Data pulls it into the dashboard,
+and every suggestion recalculates.
+
+V4b-1
+00:01:29.023 --> 00:01:32.892
+Dismiss closes the banner and leaves
+you on the data you already had.
+
+V4b-2
+00:01:32.992 --> 00:01:36.413
+The new scan is not thrown away;
+it is simply not loaded yet.
+
+V5a-1
+00:01:43.693 --> 00:01:48.122
+A failed request says so straight away
+rather than silently doing nothing.
+
+V5a-2
+00:01:48.222 --> 00:01:51.992
+If it keeps failing, the diagnostics
+dialog reports whether the
+
+V5a-3
+00:01:52.092 --> 00:01:56.163
+organisation has TurfRad access and
+whether it has scan data at all.
+
+V5b-1
+00:01:56.727 --> 00:01:59.665
+A course-wide problem
+is almost always there,
+
+V5b-2
+00:01:59.765 --> 00:02:03.357
+rather than in your settings.
+Check the last scan date.

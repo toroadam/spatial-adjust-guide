@@ -1,22 +1,127 @@
 WEBVTT
 
-NOTE dashboard-overview-pilot: written VO text from episode.json, timed from the timeline VO placements
+NOTE dashboard-overview: written VO text from episode.json, timed from the timeline VO placements
 
-vo-intro-1
-00:00:02.750 --> 00:00:06.610
-The whole Spatial Adjust feature lives on
-one screen. Here is how to read its map.
+V0-1
+00:00:02.750 --> 00:00:05.030
+The whole feature lives on one screen.
 
-vo-pins-1
-00:00:11.650 --> 00:00:16.060
+V0-2
+00:00:05.130 --> 00:00:08.310
+Here is what each of its
+four regions is telling you.
+
+V1a-1
+00:00:13.270 --> 00:00:16.893
+Start with the toolbar. Its left
+side identifies where you are:
+
+V1a-2
+00:00:16.993 --> 00:00:19.638
+the site name, and a
+course selector that only
+
+V1a-3
+00:00:19.738 --> 00:00:22.730
+appears when the site has
+more than one Lynx course.
+
+V1b-1
+00:00:23.286 --> 00:00:27.991
+Next to it, the weather strip reports
+current conditions, and the average, high
+
+V1b-2
+00:00:28.091 --> 00:00:32.796
+and low VWC summarise the areas of the
+selected course that were scanned today.
+
+V2a-1
+00:00:38.853 --> 00:00:43.034
 Each sprinkler of a station scanned
 in the past seven days is a pin.
 
-vo-bands-1
-00:00:16.250 --> 00:00:20.295
-A pin scanned today is coloured by the
-moisture band its reading falls into,
+V2a-2
+00:00:43.134 --> 00:00:47.868
+A pin scanned today is coloured by its
+measured VWC against the four moisture
 
-vo-bands-2
-00:00:20.395 --> 00:00:21.460
-as the legend shows.
+V2a-3
+00:00:47.968 --> 00:00:52.703
+bands in the legend, and a pin last
+scanned on an earlier day is drawn clear.
+
+V2b-1
+00:00:53.270 --> 00:00:58.107
+Bands default to 0 to 5, 6 to 19,
+20 to 30 and above 30 percent.
+
+V2b-2
+00:00:58.207 --> 00:01:04.480
+Disabled stations stay hidden while Layers
+is set to Enabled Stations, the default.
+
+V3a-1
+00:01:12.786 --> 00:01:16.438
+The chart above the table plots
+the areas, holes or stations you
+
+V3a-2
+00:01:16.538 --> 00:01:20.076
+pick in its multiselect,
+whichever level the table is showing.
+
+V3b-1
+00:01:20.586 --> 00:01:24.782
+Selecting a row in the table changes the
+chart header to that area or hole and
+
+V3b-2
+00:01:24.882 --> 00:01:29.186
+its average moisture, so the chart and
+the table always describe the same thing.
+
+V4a-1
+00:01:35.616 --> 00:01:39.351
+The table is a drill-down:
+course, then areas, then holes,
+
+V4a-2
+00:01:39.451 --> 00:01:43.316
+then stations. Breadcrumbs at
+the top left take you back up.
+
+V4b-1
+00:01:43.866 --> 00:01:48.748
+At station level you get the editable
+columns: Target VWC, the current and
+
+V4b-2
+00:01:48.848 --> 00:01:54.126
+suggested adjustment side by side, your
+own % Adj. value, and the Enable switch.
+
+V5a-1
+00:02:01.483 --> 00:02:04.351
+The right of the toolbar
+is your work queue.
+
+V5a-2
+00:02:04.451 --> 00:02:07.906
+Push Changes counts the
+enabled stations whose % Adj.
+
+V5a-3
+00:02:08.006 --> 00:02:13.353
+differs from what Lynx holds, edited or
+not, leaving out any already pushed today.
+
+V5b-1
+00:02:13.916 --> 00:02:17.578
+The green counter beside it counts
+stations already pushed today.
+
+V5b-2
+00:02:17.678 --> 00:02:20.496
+When both are quiet,
+there is nothing outstanding.

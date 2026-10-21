@@ -14,31 +14,37 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "calculation-settings/1/1",
+    "calculation-settings/summary/1",
     "calculation-settings/1/2",
-    "calculation-settings/1/3",
     "calculation-settings/1/4",
-    "calculation-settings/2/1",
-    "calculation-settings/2/2",
-    "calculation-settings/2/3",
-    "calculation-settings/3/1",
+    "minimum-threshold/2/4",
+    "calculation-settings/2/6",
+    "calculation-settings/before/1",
+    "calculation-settings/start/4",
     "calculation-settings/3/2",
     "calculation-settings/3/3",
     "calculation-settings/3/4",
-    "calculation-settings/3/6",
-    "calculation-settings/4/1",
-    "calculation-settings/4/2",
-    "calculation-settings/4/3",
+    "calculation-settings/3/7",
     "calculation-settings/4/5",
-    "calculation-settings/5/1",
+    "calculation-settings/4/6",
+    "calculation-settings/4/4",
+    "push-to-lynx/before/8",
     "calculation-settings/5/2",
     "calculation-settings/5/3",
+    "calculation-settings/5/7",
+    "calculation-settings/5/6",
     "calculation-settings/5/4",
-    "calculation-settings/before/1",
-    "calculation-settings/summary/1",
+    "calculation-settings/5/5",
+    "calculation-settings/2/4",
+    "calculation-settings/6/2",
+    "calculation-settings/6/3",
+    "calculation-settings/before/2",
+    "calculation-settings/7/6",
+    "calculation-settings/7/3",
+    "calculation-settings/7/4",
+    "calculation-settings/7/5",
     "calculation-settings/tile/1",
-    "calculation-settings/tile/2",
-    "push-to-lynx/before/8"
+    "calculation-settings/tile/2"
   ],
   "titleCard": {
     "text": "Double Click: Calculation settings",
@@ -124,7 +130,8 @@
       "text": "The gear button opens the dialog on Calculation by default. If you last arrived through Review Threshold, it opens on Minimum Threshold instead, and the tab is sticky for the rest of the session.",
       "claims": [
         "calculation-settings/1/2",
-        "calculation-settings/1/3"
+        "calculation-settings/1/4",
+        "minimum-threshold/2/4"
       ],
       "previous_text": "Three numbers decide every suggestion on the course: the daily maximum, the Lynx reference amount, and the crop coefficient.",
       "next_text": "This is the Calculation tab. These are site-level settings, so they apply to every user on the site."
@@ -134,8 +141,9 @@
       "chapter": "c1",
       "text": "This is the Calculation tab. These are site-level settings, so they apply to every user on the site.",
       "claims": [
-        "calculation-settings/1/4",
-        "calculation-settings/before/1"
+        "calculation-settings/2/6",
+        "calculation-settings/before/1",
+        "calculation-settings/start/4"
       ],
       "previous_text": "The gear button opens the dialog on Calculation by default. If you last arrived through Review Threshold, it opens on Minimum Threshold instead, and the tab is sticky for the rest of the session.",
       "next_text": "Daily Max Amount is the most water Spatial Adjust will ask for in one day, in your own units, up to a hard ceiling of 15."
@@ -145,7 +153,9 @@
       "chapter": "c2",
       "text": "Daily Max Amount is the most water Spatial Adjust will ask for in one day, in your own units, up to a hard ceiling of 15.",
       "claims": [
-        "calculation-settings/2/2"
+        "calculation-settings/3/2",
+        "calculation-settings/3/3",
+        "calculation-settings/3/4"
       ],
       "previous_text": "This is the Calculation tab. These are site-level settings, so they apply to every user on the site.",
       "next_text": "Every station whose deficit exceeds this lands on the same suggested percentage, which is why identical numbers appear in runs."
@@ -155,7 +165,7 @@
       "chapter": "c2",
       "text": "Every station whose deficit exceeds this lands on the same suggested percentage, which is why identical numbers appear in runs.",
       "claims": [
-        "calculation-settings/2/3"
+        "calculation-settings/3/7"
       ],
       "previous_text": "Daily Max Amount is the most water Spatial Adjust will ask for in one day, in your own units, up to a hard ceiling of 15.",
       "next_text": "Lynx Reference Amount is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference."
@@ -165,8 +175,8 @@
       "chapter": "c3",
       "text": "Lynx Reference Amount is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference.",
       "claims": [
-        "calculation-settings/3/2",
-        "calculation-settings/3/3"
+        "calculation-settings/4/5",
+        "calculation-settings/4/6"
       ],
       "previous_text": "Every station whose deficit exceeds this lands on the same suggested percentage, which is why identical numbers appear in runs.",
       "next_text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units."
@@ -176,8 +186,7 @@
       "chapter": "c3",
       "text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units.",
       "claims": [
-        "calculation-settings/3/4",
-        "calculation-settings/3/6",
+        "calculation-settings/4/4",
         "push-to-lynx/before/8"
       ],
       "previous_text": "Lynx Reference Amount is the amount of water a station applies at 100 percent adjust. The suggested percentage is the applied amount divided by this reference.",
@@ -188,7 +197,9 @@
       "chapter": "c4",
       "text": "Crop Coefficient is a whole-number percentage from 0 to 200, applied to the day's ET before it enters the calculation.",
       "claims": [
-        "calculation-settings/4/2"
+        "calculation-settings/5/2",
+        "calculation-settings/5/3",
+        "calculation-settings/5/7"
       ],
       "previous_text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units.",
       "next_text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog greys it out, along with Daily Max Amount and Lynx Reference Amount."
@@ -198,8 +209,10 @@
       "chapter": "c4",
       "text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog greys it out, along with Daily Max Amount and Lynx Reference Amount.",
       "claims": [
-        "calculation-settings/4/3",
-        "calculation-settings/4/5"
+        "calculation-settings/5/6",
+        "calculation-settings/5/4",
+        "calculation-settings/5/5",
+        "calculation-settings/2/4"
       ],
       "previous_text": "Crop Coefficient is a whole-number percentage from 0 to 200, applied to the day's ET before it enters the calculation.",
       "next_text": "Save Changes sends the settings, asks the server to recalculate adjustments, and reloads the dashboard so that area and hole averages are rebuilt."
@@ -209,7 +222,9 @@
       "chapter": "c5",
       "text": "Save Changes sends the settings, asks the server to recalculate adjustments, and reloads the dashboard so that area and hole averages are rebuilt.",
       "claims": [
-        "calculation-settings/5/2"
+        "calculation-settings/6/2",
+        "calculation-settings/6/3",
+        "calculation-settings/before/2"
       ],
       "previous_text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog greys it out, along with Daily Max Amount and Lynx Reference Amount.",
       "next_text": "A new Lynx Reference Amount rescales every suggestion above zero. A new Daily Max Amount moves only the stations at the old or new cap, and stations at zero usually stay there. A % Adj. you typed earlier keeps its value."
@@ -219,8 +234,10 @@
       "chapter": "c5",
       "text": "A new Lynx Reference Amount rescales every suggestion above zero. A new Daily Max Amount moves only the stations at the old or new cap, and stations at zero usually stay there. A % Adj. you typed earlier keeps its value.",
       "claims": [
-        "calculation-settings/5/3",
-        "calculation-settings/5/4"
+        "calculation-settings/7/6",
+        "calculation-settings/7/3",
+        "calculation-settings/7/4",
+        "calculation-settings/7/5"
       ],
       "previous_text": "Save Changes sends the settings, asks the server to recalculate adjustments, and reloads the dashboard so that area and hole averages are rebuilt."
     }

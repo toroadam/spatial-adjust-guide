@@ -14,30 +14,26 @@
   "allowClicks": [],
   "demoWriteClicks": [],
   "claims": [
-    "calculation-methods/1/1",
-    "calculation-methods/1/2",
-    "calculation-methods/1/3",
-    "calculation-methods/1/4",
-    "calculation-methods/2/1",
-    "calculation-methods/2/2",
-    "calculation-methods/2/3",
-    "calculation-methods/3/1",
-    "calculation-methods/3/2",
-    "calculation-methods/3/3",
-    "calculation-methods/3/4",
-    "calculation-methods/3/5",
-    "calculation-methods/4/1",
-    "calculation-methods/4/2",
-    "calculation-methods/4/3",
-    "calculation-methods/4/4",
-    "calculation-methods/5/1",
-    "calculation-methods/5/2",
-    "calculation-methods/5/3",
-    "calculation-methods/5/4",
-    "calculation-methods/before/1",
-    "calculation-methods/before/3",
     "calculation-methods/summary/1",
     "calculation-methods/summary/2",
+    "calculation-methods/1/2",
+    "calculation-methods/1/5",
+    "calculation-methods/before/2",
+    "calculation-methods/before/1",
+    "calculation-methods/1/3",
+    "calculation-methods/before/3",
+    "calculation-methods/4/6",
+    "calculation-methods/2/5",
+    "calculation-methods/2/7",
+    "calculation-methods/2/6",
+    "calculation-methods/2/3",
+    "calculation-methods/4/3",
+    "calculation-methods/4/7",
+    "calculation-methods/4/4",
+    "calculation-methods/4/5",
+    "calculation-methods/5/3",
+    "calculation-methods/5/2",
+    "calculation-methods/5/7",
     "calculation-methods/tile/1",
     "calculation-methods/tile/2"
   ],
@@ -126,7 +122,8 @@
       "text": "Suggested Percent Adjust Calculation is the first field on the Calculation tab. On a production site it only appears when the saved algorithm is already Option 1, so most users never see it.",
       "claims": [
         "calculation-methods/1/2",
-        "calculation-methods/1/3"
+        "calculation-methods/1/5",
+        "calculation-methods/before/2"
       ],
       "previous_text": "Two algorithms can produce the suggested percentage. They use different inputs and behave differently.",
       "next_text": "The dropdown offers only Option 1 and Option 2. Nothing in the product says what either one does."
@@ -136,8 +133,8 @@
       "chapter": "c1",
       "text": "The dropdown offers only Option 1 and Option 2. Nothing in the product says what either one does.",
       "claims": [
-        "calculation-methods/1/4",
-        "calculation-methods/before/1"
+        "calculation-methods/before/1",
+        "calculation-methods/1/3"
       ],
       "previous_text": "Suggested Percent Adjust Calculation is the first field on the Calculation tab. On a production site it only appears when the saved algorithm is already Option 1, so most users never see it.",
       "next_text": "The default is Option 2: delta plus today's ET. The server computes it per station. Target minus working VWC gives a deficit, and the deficit becomes an amount of water."
@@ -148,7 +145,7 @@
       "text": "The default is Option 2: delta plus today's ET. The server computes it per station. Target minus working VWC gives a deficit, and the deficit becomes an amount of water.",
       "claims": [
         "calculation-methods/before/3",
-        "calculation-methods/2/2"
+        "calculation-methods/4/6"
       ],
       "previous_text": "The dropdown offers only Option 1 and Option 2. Nothing in the product says what either one does.",
       "next_text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain."
@@ -158,8 +155,7 @@
       "chapter": "c2",
       "text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain.",
       "claims": [
-        "calculation-methods/2/2",
-        "calculation-methods/2/3"
+        "calculation-methods/4/6"
       ],
       "previous_text": "The default is Option 2: delta plus today's ET. The server computes it per station. Target minus working VWC gives a deficit, and the deficit becomes an amount of water.",
       "next_text": "Option 1 multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds. A station at 0 percent adjust stays at 0 no matter how dry it is."
@@ -169,8 +165,8 @@
       "chapter": "c3",
       "text": "Option 1 multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds. A station at 0 percent adjust stays at 0 no matter how dry it is.",
       "claims": [
-        "calculation-methods/3/2",
-        "calculation-methods/3/5"
+        "calculation-methods/2/5",
+        "calculation-methods/2/7"
       ],
       "previous_text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain.",
       "next_text": "It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected."
@@ -180,8 +176,9 @@
       "chapter": "c3",
       "text": "It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected.",
       "claims": [
-        "calculation-methods/3/3",
-        "calculation-methods/3/4"
+        "calculation-methods/2/5",
+        "calculation-methods/2/6",
+        "calculation-methods/2/3"
       ],
       "previous_text": "Option 1 multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds. A station at 0 percent adjust stays at 0 no matter how dry it is.",
       "next_text": "Option 2 flattens everything above the daily maximum onto one number. Runs of identical values are a signature of the capped method."
@@ -191,8 +188,8 @@
       "chapter": "c4",
       "text": "Option 2 flattens everything above the daily maximum onto one number. Runs of identical values are a signature of the capped method.",
       "claims": [
-        "calculation-methods/4/2",
-        "calculation-methods/4/4"
+        "calculation-methods/4/3",
+        "calculation-methods/4/7"
       ],
       "previous_text": "It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected.",
       "next_text": "Option 1 has no ceiling, so its suggestions spread out, and can go far higher than you intend on a station that reads very dry."
@@ -202,7 +199,8 @@
       "chapter": "c4",
       "text": "Option 1 has no ceiling, so its suggestions spread out, and can go far higher than you intend on a station that reads very dry.",
       "claims": [
-        "calculation-methods/4/3"
+        "calculation-methods/4/4",
+        "calculation-methods/4/5"
       ],
       "previous_text": "Option 2 flattens everything above the daily maximum onto one number. Runs of identical values are a signature of the capped method.",
       "next_text": "The algorithm is stored on the site, so a switch applies to every course on the site, not just the one on screen. Saving a different algorithm recalculates every station and reloads the dashboard."
@@ -212,8 +210,8 @@
       "chapter": "c5",
       "text": "The algorithm is stored on the site, so a switch applies to every course on the site, not just the one on screen. Saving a different algorithm recalculates every station and reloads the dashboard.",
       "claims": [
-        "calculation-methods/5/1",
-        "calculation-methods/5/2"
+        "calculation-methods/1/3",
+        "calculation-methods/5/3"
       ],
       "previous_text": "Option 1 has no ceiling, so its suggestions spread out, and can go far higher than you intend on a station that reads very dry.",
       "next_text": "Review the whole Suggested column before pushing anything after a switch. Compare the column before and after switching, not one row."
@@ -223,8 +221,8 @@
       "chapter": "c5",
       "text": "Review the whole Suggested column before pushing anything after a switch. Compare the column before and after switching, not one row.",
       "claims": [
-        "calculation-methods/5/3",
-        "calculation-methods/5/4"
+        "calculation-methods/5/2",
+        "calculation-methods/5/7"
       ],
       "previous_text": "The algorithm is stored on the site, so a switch applies to every course on the site, not just the one on screen. Saving a different algorithm recalculates every station and reloads the dashboard."
     }
