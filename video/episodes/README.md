@@ -62,6 +62,10 @@ Every write the series films, and what Demo Mode does with it according to the a
 
 The `Demo Mode` column takes one of three values: `mocked` (Demo Mode performs the write against mock data, so its result may be filmed in Demo Mode), `short-circuited` (the result must come from the recreation) or `no write` (the click only opens something, so its result is filmed in Demo Mode).
 
+### Cascade Continue and the write guard
+
+Checked 2026-10-20 for the Enable and disable stations episode. The cascade confirmation's Continue button commits the cascade to every station beneath a hole or area, but its name does not match the write guard (`scripts/lib/writes.mjs`: `save|apply|push|confirm|delete|remove|send|submit|discard|reset|update from`). `refuseReason` in `scripts/lib/guarded-click.mjs` (lines 53-69) and the director's in-page recheck (`video/capture/director-runtime.js`, lines 300-307) therefore judge a Continue click only against `allowClicks` and never ask whether Demo Mode was verified: a Continue declared in `demoWriteClicks` alone is always refused, and a Continue listed in `allowClicks` would be allowed even on a session that is not Demo Mode, leaving the director's block on non-GET requests as the only layer. **Not covered.** It was reported to the video pipeline work, which owns the guard (suggested fix: treat any name in `demoWriteClicks` as write-like, so it needs a verified Demo Mode session, and refuse a `demoWriteClicks` name that is also in `allowClicks`). Until that lands, no Demo Mode take presses a cascade Continue: the episode films the dialog from the recreation, declares both Continue buttons (`enable-toggle`, outcome `recreation`) and never clicks them.
+
 ### Claims ledger
 
 Claims per guide in `docs/claims/claims.json`, by status (counts only). No guide has a Wrong or Not shipping claim. A Needs-expert claim is never narrated: the episode's lines cite Verified claims only.
@@ -134,7 +138,7 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 9 approved, 13 planned, 4 blocked.
+26 episodes: 13 approved, 9 planned, 4 blocked.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
@@ -147,10 +151,10 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 7 | 2 | `push-to-lynx` | Push changes to Lynx | approved | 2:34 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 8 | 2 | `reviewing-changes` | Reviewing changes | approved | 1:52 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 9 | 2 | `verify-results` | Verify results | approved | 2:09 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 10 | 3 | `editing-station-targets` | Editing station targets | planned | — | — | — | — |
-| 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | planned | — | — | — | — |
-| 12 | 3 | `enable-disable-stations` | Enable and disable stations | planned | — | — | — | — |
-| 13 | 3 | `station-details` | Station details | planned | — | — | — | — |
+| 10 | 3 | `editing-station-targets` | Editing station targets | approved | 1:49 | 2026-10-20 | 2026-10-20 | executor 2026-10-20; experts in person 2026-10-22 |
+| 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | approved | 1:46 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 12 | 3 | `enable-disable-stations` | Enable and disable stations | approved | 2:07 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 13 | 3 | `station-details` | Station details | approved | 1:45 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 14 | 4 | `minimum-threshold` | Set a minimum threshold | planned | — | — | — | — |
 | 15 | 4 | `calculation-settings` | Calculation settings | planned | — | — | — | — |
 | 16 | 4 | `calculation-methods` | Calculation methods | planned | — | — | — | — |
@@ -175,7 +179,7 @@ Blocked:
 |---|---|---|---|---|---|---|---|
 | 1 | Getting Started | 4 | 4,680 to 9,360 | 357,437 | 355,147 | 2,290 | decided by executor 2026-10-20 (episode 01); experts in person 2026-10-22 |
 | 2 | Review & Apply | 5 | 5,850 to 11,700 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-21 (episode 05); experts in person 2026-10-22 |
-| 3 | Station Management | 4 | 4,680 to 9,360 | — | — | — | — |
+| 3 | Station Management | 4 | 4,680 to 9,360 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-20 (episode 10); experts in person 2026-10-22 |
 | 4 | Calculations | 4 | 4,680 to 9,360 | — | — | — | — |
 | 5 | Troubleshooting | 5 | 5,850 to 11,700 | — | — | — | — |
 | 6 | Target Profiles | 4 | 4,680 to 9,360 | — | — | — | — |
@@ -205,7 +209,7 @@ It prints `ok` and exits 0, or lists every problem, naming the beat or action at
 | `recreationPath` | path, for example `/#/dashboard-overview` | no | For `source: recreation` only: the page of the local guide site the take loads (default `/`). |
 | `recreationFigure` | string | no | For `source: recreation` only: the start of one figure caption on that page. The capture director lifts that SpatialAdjustApp figure out of the page to fill the frame unscaled, so no guide prose is in shot, and marks it `data-sa-frame`; scope every target to it (`[data-sa-frame] >> text="0-5%"`), because the page draws the app several times. The director refuses it on a `demo` episode (exit 65). |
 | `allowClicks` | string[] | no, default `[]` | Accessible names of the read-only controls a click action may press. Empty unless a specific read-only click has been decided and recorded in [`../approvals.md`](../approvals.md). An entry that matches the write guard is an error. |
-| `demoWriteClicks` | `[{ name, target, reason }]` | no, default `[]` | Write-like clicks the episode deliberately shows, each with the reason. Allowed only when `source` is `demo`, where Demo Mode blocks the write. The pilot declares none. |
+| `demoWriteClicks` | `[{ name, target, reason }]` | no, default `[]` | Write-like clicks the episode deliberately shows, each with the reason. Clicked only when `source` is `demo`, where Demo Mode blocks the write. A `recreation` episode may also declare a write it shows without performing it, when the entry's `outcome` is `recreation`; no `click` action may press it. The pilot declares none. |
 | `claims` | string[] of claim ids | no, default `[]` | Every claim from the claims ledger (`docs/claims/claims.json`) that the narration relies on. Ids look like `<guide>/<step>/<n>`, for example `dashboard-overview/2/2`. `parseEpisode` checks each id exists in the ledger. |
 | `chapters` | `[Chapter]` | no, default `[]` | Chapter markers, in order. |
 | `vo` | `[VoLine]` | no, default `[]` | Voice-over lines, in order. |
