@@ -351,3 +351,97 @@ and never rewrite another one.
   the top of the home page, under the title. Decided by the executor under owner direction
   2026-10-19; for review in person 2026-10-22. Question: should the count be shown at all, or
   should the link just say "browse all tasks"?
+
+- **The moderated sessions are replaced by this walkthrough, so the two test rounds are not run and
+  stay open.** `docs/test-protocol.md` now carries everything a session needs (script, six scored
+  tasks tied to guide keys, moderator rules, observation sheet, exact definitions of completed
+  unaided, time on task and stuck point), `scripts/session-readout.mjs` turns the exported events and
+  the moderator's sheet into the per-task table, `_sessions/` is gitignored, and
+  `docs/followability-readout.md` is an empty readout, with no numbers in it. What cannot be done
+  without people was not done: no participant has followed the guides under the protocol, so no stuck
+  point has been measured and none was fixed on a guess. Shows on: nothing on the site; the
+  documents and the script. Decided by the executor under owner direction 2026-10-19; for review in
+  person 2026-10-22. Question: after today's walkthrough, will the owner recruit five people for round 1
+  (and five different people for round 2 after the fixes), or does the walkthrough stand as the only test?
+
+- **The analytics layer cannot measure everything the protocol asks, and was left alone.** Checked by
+  driving the built site: `returned_home` is declared but nothing emits it, so an exit has to be
+  inferred from the event sequence; opening a guide from a `#/<key>` link records no `guide_opened`;
+  step 1 has no `step_advanced`; `guide_completed` fires on a jump to the last step and fires again if
+  that step is selected twice; and below 768 px the step player is hidden, so a phone records no step
+  events. The readout script works around each one and warns when it had to, and the protocol tells the
+  moderator to start from the home page. Shows on: the test protocol's Definitions, not the site.
+  Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22.
+  Question: should the player emit `returned_home` and a `guide_opened` on a deep link, so exits and
+  time on task need no inference?
+
+### Session pack for the walkthrough, 2026-10-22
+
+Use this to turn the expert walkthrough into measurable findings. The full protocol is
+`docs/test-protocol.md`; this is the one-page version.
+
+**Script (about 3 minutes, then go).** "We are testing the guides, not you. Say out loud what you are
+thinking. I will not help while you work. If a step is unclear, that is what we came to find." Run
+only against IntelliDash `/demo`: Demo Mode blocks writes, and nobody saves or pushes on a real course.
+Start from the home page, not from a link. Run `__saClear()` before each guide, then `__saExport()` after
+the last one.
+
+**Task list per guide.** Walk every guide on the live site, in this order, in `/demo`. For each, follow
+its steps as a newcomer would and note where you stopped, went back, or needed to be told something.
+Six of them are the scored tasks of the protocol (T1 to T6), listed under the table.
+
+  | Category | Guide | Link | Steps | What the guide is for |
+  |---|---|---|---|---|
+  | Getting Started | Dashboard overview | `#/dashboard-overview` | 5 | The four regions of the screen and what each one is telling you. |
+  | Getting Started | Understand Spatial Adjust | `#/understand-spatial-adjust` | 5 | Where moisture scans come from and what the feature does with them. |
+  | Getting Started | Map navigation | `#/map-navigation` | 6 | Pan, zoom, layers, and switching between moisture and variance. |
+  | Targets | Understanding VWC | `#/understanding-vwc` | 5 | Measured, modelled and target volumetric water content. |
+  | Targets | Editing station targets | `#/editing-station-targets` | 4 | Change one station’s Target VWC and see the effect. |
+  | Targets | Apply a bulk adjustment | `#/bulk-adjustments` | 5 | Replace or shift the targets of many stations at once. |
+  | Targets | Apply a target profile | `#/target-profiles` | 7 | Switch the whole course between saved strategies. |
+  | Targets | Capturing profiles | `#/creating-profiles` | 6 | Capture the current targets under a name. |
+  | Targets | Updating profiles | `#/updating-profiles` | 7 | Amend a profile without reapplying it. |
+  | Targets | Managing seasonal profiles | `#/seasonal-profiles` | 7 | A profile per season and per event. |
+  | Calculations | Set a minimum threshold | `#/minimum-threshold` | 8 | Keep trivial adjustments from reaching Lynx. |
+  | Calculations | Calculation settings | `#/calculation-settings` | 7 | Max Amount, Lynx Reference Amount and Crop Coefficient. |
+  | Calculations | Calculation methods | `#/calculation-methods` | 5 | How the two available algorithms differ. |
+  | Calculations | Preferences | `#/preferences` | 7 | Language, units, temperature scale and number formatting. |
+  | Station Management | Enable and disable stations | `#/enable-disable-stations` | 6 | Cascading enable state across areas, holes and stations. |
+  | Station Management | Station details | `#/station-details` | 5 | Per-sprinkler readings under a multi-head station. |
+  | Review & Apply | Understand suggested adjustments | `#/suggested-adjustments` | 6 | Where the number comes from and why it caps out. |
+  | Review & Apply | Push changes to Lynx | `#/push-to-lynx` | 6 | Review, deselect, send and verify. |
+  | Review & Apply | Reviewing changes | `#/reviewing-changes` | 5 | Reading the two lists in the push dialog. |
+  | Review & Apply | Verify results | `#/verify-results` | 5 | Confirming Lynx accepted every adjustment. |
+  | Review & Apply | Filter by % Adj. | `#/filter-adjustments` | 6 | Find the outliers at both ends before you push. |
+  | Troubleshooting | Why is this station 0%? | `#/station-zero` | 5 | Four checks, in order, for a zero suggestion. |
+  | Troubleshooting | Threshold questions | `#/threshold-questions` | 5 | Why the table and the push dialog disagree. |
+  | Troubleshooting | Calculation questions | `#/calculation-questions` | 5 | Identical suggestions, missing values, stale scans. |
+  | Troubleshooting | Push failures | `#/push-failures` | 4 | Reading the failure count and retrying safely. |
+  | Troubleshooting | Get fresh scan data | `#/request-scan-data` | 5 | Fetch the latest TurfRad scan data now rather than waiting for the next automatic retrieval. |
+
+  Scored tasks, as the card reads: T1 `#/minimum-threshold` "Set a minimum threshold of 12%, send
+  anything below it to Lynx as zero, keep stations at zero, and show me where you would check it took."
+  T2 `#/target-profiles` "Apply a saved target profile." T3 `#/station-zero` "A station suggests 0%.
+  Work out why." T4 `#/push-to-lynx` "Send the reviewed changes to Lynx; get as far as you safely can."
+  T5 `#/enable-disable-stations` "Stop one hole and all its stations from receiving adjustments."
+  T6 `#/request-scan-data` "The scan dates look old. Get fresh scan data."
+
+**Observation sheet.** One row per guide per person. Write the row as a *Guide feedback* row, so the
+post-review triage can read it unchanged.
+
+  | Page (guide title) | Step | Kind | Locale | Page URL | Comment |
+  |---|---|---|---|---|---|
+  | Apply a target profile | 4 | Feedback | en-us | `https://toroadam.github.io/spatial-adjust-guide/#/target-profiles` | Stuck: did not find the Apply Profile icon; needed a hint. |
+
+Start the comment with `Stuck:` (hint, wrong control, went back, gave up), `Wording:` (understood, but
+would say it differently), `Wrong:` (does not match the product) or `Product:` (about IntelliDash, not
+the guides; kept separate). Quotes verbatim, with no names, course names or customer values. Also note
+per scored task: unaided, aided (hint given) or failed (8 minutes), and whether the step player was used.
+
+**How the findings feed the post-review triage.** The rows above are the *Guide feedback* rows that the
+triage (`docs/claims/triage.md`) turns into a fix, an answer to a Needs expert claim, or won't-fix with a
+reason. `Wrong:` rows go to the claims ledger first. `Stuck:` rows that name a step are the stuck steps of
+`docs/followability-readout.md`: if the same step is stuck for two people, or one person needed a hint,
+it is fixed through `src/rewrite/*.mjs` with the protocol's checks. Where the walkthrough had the five
+people the protocol asks for, enter their sheets as round 1 (`node scripts/session-readout.mjs
+_sessions/round1`); otherwise the readout stays empty and the rows go to the triage alone.
