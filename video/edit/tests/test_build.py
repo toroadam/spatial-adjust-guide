@@ -291,16 +291,18 @@ if P.IN_PIPELINE:
             self.assertIn('vo-one', str(cm.exception))
             self.assertIn('vo-two', str(cm.exception))
 
-        def test_title_too_long_for_its_hold_fails_naming_it(self):
+        def test_title_card_is_held_long_enough_for_its_label(self):
+            # A long title lengthens the card (title_card_seconds) rather than failing the build; the card is never
+            # shorter than BRAND's, and the lengthened hold is the one verify's word count asks for.
             import build as B
-            title = 'Read every station on the course map before you adjust any one of them'
-            real = B.load_episode
-            with mock.patch.object(B, 'load_episode', lambda p: dict(real(p), title=title)), \
-                    self.assertRaises(B.BuildError) as cm:
-                B.build(self.info['episode'], 1, 'draft', validate=False)
-            self.assertEqual(cm.exception.code, 1)
-            self.assertIn(title, str(cm.exception))
-            self.assertIn('words need', str(cm.exception))
+            from brand import DURATIONS, TITLE_CARD, SERIES_WORD, min_hold
+            long_title = 'Read every station on the course map before you adjust any one of them'
+            self.assertEqual(B.title_card_seconds('Map navigation'), DURATIONS['title_card'])
+            self.assertGreater(B.title_card_seconds(long_title), DURATIONS['title_card'])
+            for title in ('Why is this station 0%?', long_title):
+                with self.subTest(title=title):
+                    hold = B.title_card_seconds(title) - TITLE_CARD['pop'] - TITLE_CARD['out']
+                    self.assertGreaterEqual(hold, min_hold(f'{SERIES_WORD} / {title}'))
 else:
     class BuildTest(unittest.TestCase):
         def test_in_pipeline_python(self):
