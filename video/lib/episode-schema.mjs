@@ -10,7 +10,8 @@
 // The write guard is WRITES from scripts/lib/writes.mjs, the same pattern the fidelity harvest
 // trusts. A click whose name or target matches it is valid only when the episode declares it in
 // demoWriteClicks with a reason AND the episode's source is "demo". Everything else that matches
-// is rejected here, long before a browser is involved.
+// is rejected here, long before a browser is involved. A recreation episode may still declare a
+// write it only shows (outcome "recreation"), but can never click it.
 //
 // Objects are loose: unknown fields are kept, so later episodes can extend the format without
 // breaking earlier ones.
@@ -129,8 +130,14 @@ function crossFieldRules(ep, ctx) {
     }
   });
   if (ep.source !== 'demo') {
-    declared.forEach((d, i) => add(['demoWriteClicks', i],
-      `demoWriteClicks entry "${d.name}" is only allowed when source is "demo" (source is "${ep.source}")`));
+    // A recreation episode may declare a write it shows without performing it: the entry says
+    // outcome "recreation" (the result comes from the guide site's own mockup), and no click
+    // action may press it (checked below). Anything else stays Demo Mode only.
+    declared.forEach((d, i) => {
+      if (ep.source === 'recreation' && d.outcome === 'recreation') return;
+      add(['demoWriteClicks', i],
+        `demoWriteClicks entry "${d.name}" is only allowed when source is "demo" (source is "${ep.source}"), or when source is "recreation" and its outcome is "recreation"`);
+    });
   }
 
   const voIds = new Set(vo.map((l) => l.id));
