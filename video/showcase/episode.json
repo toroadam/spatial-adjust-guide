@@ -3,7 +3,7 @@
   "id": "showcase",
   "title": "From scan to water",
   "guide": "understand-spatial-adjust",
-  "status": "script-locked",
+  "status": "edited",
   "durationTarget": [60, 120],
   "source": "recreation",
   "mapPolicy": "restyle",
@@ -59,6 +59,25 @@
   "approval": "SC-G1",
   "targetProfiles": { "decision": "omit", "approval": "SC-TP" },
   "endCard": { "approval": "SC-CTA", "config": "video/brand/end-card.json" },
+  "edit": {
+    "$comment": "The edit configuration (showcase phase 4b), read by node video/showcase/check-edit.mjs and by no pipeline tool: the pipeline's builder takes the cards, the chapter strip and the camera from the chapters and the take's cursor track, and the end card from video/brand/end-card.json. This block says which of the film's parts come from which beat, by label and shot id, so the check can prove the cut carries them all. Title card: the lockup, the series word and the title, from beat b0. Chapter labels: one typed chapter card and one strip entry per chain beat b1 to b7 (the beat's label, which is its chapter's label). Highlights: every shot listed under a beat has a focus box that the compositor draws in the design-system blue (#3079F0; there are no red boxes) and that its camera pushes in on, following the cursor into each target; the targets are in the beat's capture.shots[].highlights. End card: the Toro and Spatial Adjust lockup, the call to action, the URL pill and the legal line, drawn by the builder from video/brand/end-card.json (gate SC-CTA records the copy). Music: the bed in video/brand/music.json, ducked under Brian by video/edit/mix.py (gate SC-MUSIC). assembledTake is the take number of the joined shot takes the builder cuts from (video/showcase/assemble-take.py).",
+    "cut": "v1",
+    "assembledTake": 1001,
+    "camera": "tilt",
+    "titleCard": { "beat": "b0", "lockup": "lbl-b0-lockup", "series": "lbl-b0-series", "title": "lbl-b0-title" },
+    "chapterLabels": { "b1": "lbl-b1-chapter", "b2": "lbl-b2-chapter", "b3": "lbl-b3-chapter", "b4": "lbl-b4-chapter", "b5": "lbl-b5-chapter", "b6": "lbl-b6-chapter", "b7": "lbl-b7-chapter" },
+    "highlights": {
+      "b1": ["b1-s1"],
+      "b2": ["b2-s1", "b2-s2", "b2-s3"],
+      "b3": ["b3-s1", "b3-s2", "b3-s3"],
+      "b4": ["b4-s1", "b4-s2", "b4-s3"],
+      "b5": ["b5-s1", "b5-s2", "b5-s3", "b5-s4"],
+      "b6": ["b6-s1", "b6-s2", "b6-s3", "b6-s4"],
+      "b7": ["b7-s1", "b7-s4", "b7-s5", "b7-s6", "b7-s7", "b7-s8"]
+    },
+    "endCard": { "beat": "b8", "approval": "SC-CTA", "config": "video/brand/end-card.json", "lockup": "lbl-b8-lockup", "cta": "lbl-b8-cta", "url": "lbl-b8-url", "legal": "lbl-b8-legal" },
+    "music": { "approval": "SC-MUSIC", "config": "video/brand/music.json" }
+  },
   "chapters": [
     { "id": "hook", "label": "Station by station" },
     { "id": "measure", "label": "Measure" },
