@@ -2,7 +2,7 @@
   "id": "calculation-settings",
   "title": "Calculation settings",
   "guide": "calculation-settings",
-  "status": "script-locked",
+  "status": "captured",
   "durationTarget": [
     60,
     180
