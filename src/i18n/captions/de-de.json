@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation of the video caption cues in src/i18n/captions/en-us.json. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json, and a cue that names a guide step uses that step heading's translation from the page catalogue. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and step-label agreement. NOT reviewed by a native speaker. Regenerate keys with scripts/media-cues.mjs after any change to an English caption track.",
     "locale": "de-de",
-    "strings": 4,
+    "strings": 24,
     "identicalToEnglish": 0,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -10,8 +10,28 @@
   },
   "strings": {
     "A pin scanned today is coloured by the moisture band its reading falls into,": "Eine heute gescannte Markierung ist nach dem Feuchteband eingefärbt, in das ihr Messwert fällt,",
+    "A soil factor handles persistent offsets.": "Ein Bodenfaktor gleicht dauerhafte Abweichungen aus.",
+    "a suggestion is zeroed or lifted to the threshold when you push.": "wird ein Vorschlag beim Senden auf null gesetzt oder auf den Schwellenwert angehoben.",
     "as the legend shows.": "wie die Legende zeigt.",
+    "Before you push, override any suggestion, replace or shift targets in bulk,": "Vor dem Senden können Sie jeden Vorschlag überschreiben, Zielwerte gesammelt ersetzen oder verschieben,",
+    "Below a minimum threshold,": "Unterhalb eines Mindestschwellenwerts",
+    "Daily Max Amount caps it, and the result becomes a suggested percent adjust.": "die Tägliche Höchstmenge begrenzt den Wert, und das Ergebnis wird zur vorgeschlagenen prozentualen Anpassung.",
+    "dated beside the station name.": "der neben dem Stationsnamen datiert ist.",
     "Each sprinkler of a station scanned in the past seven days is a pin.": "Jeder Regner einer in den letzten sieben Tagen gescannten Station ist eine Markierung.",
-    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Die gesamte Funktion Spatial Adjust liegt auf einem einzigen Bildschirm. So lesen Sie die Karte darauf."
+    "Each station's average VWC comes from a TurfRad moisture scan,": "Der durchschnittliche VWC jeder Station stammt aus einem TurfRad-Feuchtescan,",
+    "find the outliers at both ends, or take a station or hole out of adjustment.": "die Ausreißer an beiden Enden finden oder eine Station oder ein Loch aus der Anpassung nehmen.",
+    "In IntelliDash, Spatial Adjust turns the latest moisture": "In IntelliDash macht Spatial Adjust aus dem neuesten Feuchtescan",
+    "Lynx itself must be set up to match Spatial Adjust;": "Lynx selbst muss passend zu Spatial Adjust eingerichtet sein;",
+    "Nothing changes until you push. Review the two lists,": "Bis zum Senden ändert sich nichts. Die beiden Listen prüfen,",
+    "scan into a percent adjustment, station by station.": "eine prozentuale Anpassung, Station für Station.",
+    "Spatial Adjust writes each station, then reads Lynx back and checks each one.": "Spatial Adjust schreibt jede Station, liest Lynx dann zurück und prüft jede einzelne.",
+    "Target minus measured, station by station. That is the whole idea.": "Zielwert minus Messwert, Station für Station. Das ist die ganze Idee.",
+    "The gap between target and measured becomes water, today's ET is added,": "Die Lücke zwischen Zielwert und Messwert wird zu Wasser, die heutige ET wird addiert,",
+    "The map colours pins by measured moisture. Move the bands, or switch to": "Die Karte färbt Markierungen nach gemessener Feuchte. Verschieben Sie die Bänder oder wechseln Sie zur",
+    "the push guide lists the settings.": "die Anleitung zum Senden listet die Einstellungen auf.",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Die gesamte Funktion Spatial Adjust liegt auf einem einzigen Bildschirm. So lesen Sie die Karte darauf.",
+    "untick anything you're unsure of, and send.": "Häkchen bei allem entfernen, was unsicher ist, und senden.",
+    "variance to see each station against its target. Map and table stay in sync.": "Abweichung, um jede Station im Vergleich zu ihrem Zielwert zu sehen. Karte und Tabelle bleiben synchron.",
+    "You set the target: the moisture you want each station to hold.": "Sie legen den Zielwert fest: die Feuchte, die jede Station halten soll."
   }
 }

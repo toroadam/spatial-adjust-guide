@@ -104,3 +104,13 @@ met for the 51 older commits until the owner decides.
 The `final/` folder stays on the owner's machine. Sharing outside the owner goes through Toro SharePoint or Teams, done
 by the owner, never a public URL made from this folder. The guides site's embed is published by the site epic (E197),
 which reads the master, captions, transcript and poster from here.
+
+## Published
+
+The master is too large for the site's showcase cap (73,041,969 bytes against 40,000,000), so the site ships a web
+encode of it, made by `npm run media:add -- --key showcase` (two-pass 1080p H.264 High, AAC 128 kb/s, `+faststart`):
+`showcase.mp4`, 37,388,518 bytes, SHA-256 `7b16fa8c651017e9d3ccb6e5c31ed64a80f52abfd520fdbd302d6bca5c12def2`, with a JPEG
+poster made from the title-card still (`showcase.jpg`, 109,221 bytes). Both are assets of the GitHub Release `media-v2`
+and are pinned in `src/media/manifest.json`; the English captions are `src/media/captions/showcase.en-us.vtt`, with the
+ten translated cue catalogues in `src/i18n/captions/`. The master in `final/` is unchanged and stays on the owner's
+machine; the release gate in this file was run on it, not on the web encode.

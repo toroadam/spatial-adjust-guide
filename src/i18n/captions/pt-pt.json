@@ -2,7 +2,7 @@
   "_meta": {
     "note": "Machine translation of the video caption cues in src/i18n/captions/en-us.json. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json, and a cue that names a guide step uses that step heading's translation from the page catalogue. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and step-label agreement. NOT reviewed by a native speaker. Regenerate keys with scripts/media-cues.mjs after any change to an English caption track.",
     "locale": "pt-pt",
-    "strings": 4,
+    "strings": 24,
     "identicalToEnglish": 0,
     "machineValidated": true,
     "nativeSpeakerReviewed": false,
@@ -10,8 +10,28 @@
   },
   "strings": {
     "A pin scanned today is coloured by the moisture band its reading falls into,": "Um marcador lido hoje é colorido de acordo com a faixa de humidade em que a leitura se insere,",
+    "A soil factor handles persistent offsets.": "Um fator de solo trata os desvios persistentes.",
+    "a suggestion is zeroed or lifted to the threshold when you push.": "uma sugestão é colocada a zero ou elevada ao limite quando se envia.",
     "as the legend shows.": "como mostra a legenda.",
+    "Before you push, override any suggestion, replace or shift targets in bulk,": "Antes de enviar, altere qualquer sugestão, substitua ou desloque objetivos em bloco,",
+    "Below a minimum threshold,": "Abaixo de um limite mínimo,",
+    "Daily Max Amount caps it, and the result becomes a suggested percent adjust.": "a Quantidade máxima diária limita-a, e o resultado passa a ser um ajuste percentual sugerido.",
+    "dated beside the station name.": "com a data ao lado do nome da estação.",
     "Each sprinkler of a station scanned in the past seven days is a pin.": "Cada aspersor de uma estação lida nos últimos sete dias é um marcador.",
-    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Toda a funcionalidade Spatial Adjust reside num único ecrã. Veja como ler o seu mapa."
+    "Each station's average VWC comes from a TurfRad moisture scan,": "O VWC médio de cada estação vem de uma leitura de humidade do TurfRad,",
+    "find the outliers at both ends, or take a station or hole out of adjustment.": "encontre os valores atípicos nos dois extremos ou retire uma estação ou buraco do ajuste.",
+    "In IntelliDash, Spatial Adjust turns the latest moisture": "No IntelliDash, o Spatial Adjust transforma a leitura de humidade mais recente",
+    "Lynx itself must be set up to match Spatial Adjust;": "O próprio Lynx tem de estar configurado de acordo com o Spatial Adjust;",
+    "Nothing changes until you push. Review the two lists,": "Nada muda até enviar. Rever as duas listas,",
+    "scan into a percent adjustment, station by station.": "num ajuste percentual, estação a estação.",
+    "Spatial Adjust writes each station, then reads Lynx back and checks each one.": "O Spatial Adjust escreve cada estação, volta a ler o Lynx e verifica cada uma.",
+    "Target minus measured, station by station. That is the whole idea.": "Objetivo menos medido, estação a estação. É essa a ideia toda.",
+    "The gap between target and measured becomes water, today's ET is added,": "A diferença entre o objetivo e o medido torna-se água, soma-se a ET de hoje,",
+    "The map colours pins by measured moisture. Move the bands, or switch to": "O mapa colore os marcadores consoante a humidade medida. Mova as faixas ou mude para a",
+    "the push guide lists the settings.": "o guia de envio indica as definições.",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Toda a funcionalidade Spatial Adjust reside num único ecrã. Veja como ler o seu mapa.",
+    "untick anything you're unsure of, and send.": "desmarque o que não tiver a certeza e envie.",
+    "variance to see each station against its target. Map and table stay in sync.": "variância para ver cada estação face ao seu objetivo. O mapa e a tabela mantêm-se sincronizados.",
+    "You set the target: the moisture you want each station to hold.": "Define o objetivo: a humidade que cada estação deve manter."
   }
 }

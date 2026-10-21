@@ -12,6 +12,18 @@
       "posterBytes": 110347,
       "posterSha256": "aefee85cf1428585994ad2ce92b949d9601753acecde7eb82291d4bd1a7832e8",
       "captions": "src/media/captions/dashboard-overview.en-us.vtt"
+    },
+    "showcase": {
+      "kind": "showcase",
+      "file": "showcase.mp4",
+      "bytes": 37388518,
+      "sha256": "7b16fa8c651017e9d3ccb6e5c31ed64a80f52abfd520fdbd302d6bca5c12def2",
+      "duration": 114.8,
+      "poster": "showcase.jpg",
+      "posterBytes": 109221,
+      "posterSha256": "88f6b5a9a10fc4f6ee315efcb5a459dda0eed6fbce6ccda6e110def424c833e9",
+      "captions": "src/media/captions/showcase.en-us.vtt",
+      "release": "media-v2"
     }
   }
 }
