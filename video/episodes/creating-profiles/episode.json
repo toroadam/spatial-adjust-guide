@@ -1,0 +1,528 @@
+{
+  "id": "creating-profiles",
+  "title": "Capturing profiles",
+  "guide": "creating-profiles",
+  "status": "script-locked",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/creating-profiles",
+  "recreationFigure": "The Target VWC column is what a profile would capture.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "creating-profiles/tile/1",
+    "creating-profiles/tile/2",
+    "creating-profiles/summary/1",
+    "creating-profiles/1/2",
+    "creating-profiles/1/3",
+    "creating-profiles/1/4",
+    "creating-profiles/before/1",
+    "creating-profiles/where/1",
+    "creating-profiles/2/1",
+    "creating-profiles/2/2",
+    "creating-profiles/3/2",
+    "creating-profiles/3/3",
+    "creating-profiles/4/2",
+    "creating-profiles/4/3",
+    "creating-profiles/4/4",
+    "creating-profiles/4/5"
+  ],
+  "titleCard": {
+    "text": "Double Click: Capturing profiles",
+    "claims": [
+      "creating-profiles/tile/1",
+      "creating-profiles/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Tune the targets first",
+      "highlight": {
+        "label": "Target VWC",
+        "selector": "[data-sa-frame] >> text=\"Target VWC\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Open the Target Profiles tab",
+      "highlight": {
+        "label": "Target Profiles",
+        "selector": "[data-sa-frame] >> text=\"Target Profiles\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Name it for the condition",
+      "highlight": {
+        "label": "Summer Baseline",
+        "selector": "[data-sa-frame] >> text=\"Summer Baseline\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Check the station count",
+      "highlight": {
+        "label": "station count",
+        "selector": "[data-sa-frame] >> text=\"Stations\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Capture the station targets you have tuned, under a name you will recognise next season.",
+      "claims": [
+        "creating-profiles/summary/1"
+      ],
+      "next_text": "A profile is a snapshot, so the work happens in the table before you save anything. Get the course reading the way you want it, hole by hole, and only then capture it."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "A profile is a snapshot, so the work happens in the table before you save anything. Get the course reading the way you want it, hole by hole, and only then capture it.",
+      "claims": [
+        "creating-profiles/1/2",
+        "creating-profiles/1/3"
+      ],
+      "previous_text": "Capture the station targets you have tuned, under a name you will recognise next season.",
+      "next_text": "The Target VWC column is what a profile would capture. A profile stores one Target VWC per station and nothing else, no percent adjustments, no enable states."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The Target VWC column is what a profile would capture. A profile stores one Target VWC per station and nothing else, no percent adjustments, no enable states.",
+      "claims": [
+        "creating-profiles/1/4",
+        "creating-profiles/before/1"
+      ],
+      "previous_text": "A profile is a snapshot, so the work happens in the table before you save anything. Get the course reading the way you want it, hole by hole, and only then capture it.",
+      "next_text": "Open the Target Profiles tab in Settings."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "Open the Target Profiles tab in Settings.",
+      "claims": [
+        "creating-profiles/where/1",
+        "creating-profiles/2/1"
+      ],
+      "previous_text": "The Target VWC column is what a profile would capture. A profile stores one Target VWC per station and nothing else, no percent adjustments, no enable states.",
+      "next_text": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.",
+      "claims": [
+        "creating-profiles/2/2"
+      ],
+      "previous_text": "Open the Target Profiles tab in Settings.",
+      "next_text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery.",
+      "claims": [
+        "creating-profiles/3/2"
+      ],
+      "previous_text": "Profiles sit with the calculation settings rather than in the table, because a target set is a calculation input rather than a station edit.",
+      "next_text": "A date tells you when; a condition tells you why, which is what you will be searching for."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "A date tells you when; a condition tells you why, which is what you will be searching for.",
+      "claims": [
+        "creating-profiles/3/3"
+      ],
+      "previous_text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery.",
+      "next_text": "The count beside each profile says how many stations it covers. A profile holds every station the course had when it was captured, enabled or not."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "The count beside each profile says how many stations it covers. A profile holds every station the course had when it was captured, enabled or not.",
+      "claims": [
+        "creating-profiles/4/2",
+        "creating-profiles/4/3"
+      ],
+      "previous_text": "A date tells you when; a condition tells you why, which is what you will be searching for.",
+      "next_text": "Stations added to the course later are not in it, and applying the profile leaves them untouched. Coverage is part of what a profile is."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "Stations added to the course later are not in it, and applying the profile leaves them untouched. Coverage is part of what a profile is.",
+      "claims": [
+        "creating-profiles/4/4",
+        "creating-profiles/4/5"
+      ],
+      "previous_text": "The count beside each profile says how many stations it covers. A profile holds every station the course had when it was captured, enabled or not."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 10.99,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target VWC\"",
+          "name": "Target VWC"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "wait",
+          "ms": 6693
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "Target VWC 3AP1"
+        },
+        {
+          "type": "wait",
+          "ms": 540
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[2]",
+          "name": "Target VWC 4AP1"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 12.42,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[2]",
+          "name": "Target VWC 3AP2"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[2]",
+          "name": "Target VWC 3AP2"
+        },
+        {
+          "type": "wait",
+          "ms": 7873
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"% Adj.\"",
+          "name": "% Adj."
+        },
+        {
+          "type": "wait",
+          "ms": 1284
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Enable\"",
+          "name": "Enable"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 5.17,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The Target Profiles tab."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target Profiles\"",
+          "name": "Target Profiles"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target Profiles\"",
+          "name": "Target Profiles"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 9.54,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Calculation\" >> xpath=../..",
+          "name": "Settings menu"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Calculation\" >> xpath=../..",
+          "name": "Settings menu"
+        },
+        {
+          "type": "wait",
+          "ms": 541
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Calculation\"",
+          "name": "Calculation"
+        },
+        {
+          "type": "wait",
+          "ms": 5954
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
+          "name": "Target Profile table"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 9.12,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "The Target Profiles tab with its five slots."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\"",
+          "name": "Summer Baseline"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\"",
+          "name": "Summer Baseline"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 3977
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Tournament Week\"",
+          "name": "Tournament Week"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 6.41,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
+          "name": "Target Profile table"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
+          "name": "Target Profile table"
+        },
+        {
+          "type": "wait",
+          "ms": 582
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\"",
+          "name": "Summer Baseline"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 11.86,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Coverage is part of what a profile is."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Stations\"",
+          "name": "Stations"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Stations\"",
+          "name": "Stations"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "wait",
+          "ms": 3599
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../../*[3]",
+          "name": "Stations Summer Baseline"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 8.8,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Tournament Week\" >> xpath=../../*[3]",
+          "name": "Stations Tournament Week"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Tournament Week\" >> xpath=../../*[3]",
+          "name": "Stations Tournament Week"
+        },
+        {
+          "type": "wait",
+          "ms": 4820
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Tournament Week\" >> xpath=../..",
+          "name": "Tournament Week row"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "updating-profiles",
+    "text": "Next on Double Click: Updating profiles",
+    "address": "#/creating-profiles"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}

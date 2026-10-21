@@ -13,3 +13,15 @@ from the account, and never the key, is ever written here.
 | 2026-10-20 09:53 | map-navigation | 11 | 1178 | 357437 -> 355147 |
 | 2026-10-20 09:53 | understanding-vwc | 11 | 1228 | 357437 -> 355147 |
 | 2026-10-20 09:53 | dashboard-overview | 11 | 1675 | 357437 -> 355147 |
+| 2026-10-20 19:50 | target-profiles | 0 | 0 | 29529 -> 29529 |
+| 2026-10-20 19:50 | creating-profiles | 0 | 0 | 29529 -> 29529 |
+| 2026-10-20 19:50 | updating-profiles | 0 | 0 | 29529 -> 29529 |
+| 2026-10-20 19:50 | seasonal-profiles | 0 | 0 | 29529 -> 29529 |
+| 2026-10-20 19:52 | target-profiles | 9 | 1235 | 29148 -> 28416 |
+| 2026-10-20 19:52 | creating-profiles | 9 | 1083 | 28416 -> unknown |
+| 2026-10-20 19:53 | creating-profiles | 0 | 0 | 27269 -> 27269 |
+| 2026-10-20 19:55 | updating-profiles | 9 | 1075 | 25131 -> unknown |
+| 2026-10-20 19:55 | updating-profiles | 0 | 0 | 22998 -> unknown |
+| 2026-10-20 19:56 | updating-profiles | 0 | 0 | 21407 -> 21407 |
+| 2026-10-20 19:57 | seasonal-profiles | 9 | 1126 | 21407 -> unknown |
+| 2026-10-20 19:57 | seasonal-profiles | 0 | 0 | 20520 -> 20520 |
