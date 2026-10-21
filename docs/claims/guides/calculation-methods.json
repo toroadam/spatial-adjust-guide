@@ -171,6 +171,147 @@
       "correction": ""
     },
     {
+      "id": "calculation-methods/start/1",
+      "guide": "calculation-methods",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "Start state. The Spatial Adjust route is /spatialadjust (app-routing.module.ts:19-23); same wording as dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/start/2",
+      "guide": "calculation-methods",
+      "step": "start",
+      "field": "open",
+      "text": "The Settings dialog, on the Calculation tab.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "59"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "33"
+        }
+      ],
+      "note": "Start state. Settings opens on the Calculation tab by default (sa-settings-dlg.component.ts:59; sa-main-toolbar.component.ts:87), unless Review Threshold was used since the page loaded (calculation-settings/1/3).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/start/3",
+      "guide": "calculation-methods",
+      "step": "start",
+      "field": "open",
+      "text": "The gear button at the right of the toolbar opens it.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 33
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "69-72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "276-291"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "107-112"
+        }
+      ],
+      "note": "Start state. The gear button at the right of the toolbar opens Settings (sa-main-toolbar.component.html:69-72).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/start/4",
+      "guide": "calculation-methods",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "Start state. Same prerequisite as dashboard-overview/before/1: a Spatial Adjust user on a site with TurfRad scan data.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "calculation-methods/before/1",
       "guide": "calculation-methods",
       "step": "before",
@@ -332,8 +473,8 @@
       "id": "calculation-methods/1/2",
       "guide": "calculation-methods",
       "step": "1",
-      "field": "body",
-      "text": "Suggested Percent Adjust Calculation is the first field on the Calculation tab.",
+      "field": "do",
+      "text": "Find [[Suggested Percent Adjust Calculation]], the first box on the [[Calculation]] tab.",
       "type": "label",
       "status": "Verified",
       "evidence": [
@@ -350,9 +491,16 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 482
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "482"
         }
       ],
-      "note": "When shown, it is the first field in the Calculation tab's values, above the three amounts.",
+      "note": "The selector is the first field of the Calculation pane (sa-settings-dlg.component.html:71-80). Its label is SUGGESTED_PCT_ADJ_ALGO \"Suggested Percent Adjust Calculation\" (en-us.json:482).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -361,44 +509,8 @@
       "id": "calculation-methods/1/3",
       "guide": "calculation-methods",
       "step": "1",
-      "field": "body",
-      "text": "On a production site it only appears when the persisted algorithm is already Option 1, so most users never see it.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": 72
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 127
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/environments/environment.toro-prod.ts",
-          "line": 7
-        }
-      ],
-      "note": "See calculation-methods/before/2.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/1/4",
-      "guide": "calculation-methods",
-      "step": "1",
-      "field": "body",
-      "text": "The dropdown offers only Option 1 and Option 2; nothing in the product says what either one does.",
+      "field": "see",
+      "text": "It shows [[Option 1]] or [[Option 2]], the method your site uses.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -422,15 +534,227 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 368
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "72-80"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 482
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "367"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "368"
         }
       ],
-      "note": "",
+      "note": "The dropdown offers only ALGO_SIMPLE \"Option 1\" and ALGO_DELTA_PLUS_TODAY_ET \"Option 2\" (dash-user-manager.service.ts:217-226; en-us.json:367-368), bound to the site algorithm (sa-settings-dlg.component.html:74-79).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/1/4",
+      "guide": "calculation-methods",
+      "step": "1",
+      "field": "ifNot",
+      "text": "If the box is not there, the site uses [[Option 2]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 72
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 127
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 7
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/appsettings.json",
+          "line": 145
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Domain/SpatialAdjust.cs",
+          "line": "18-22"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SitesService.cs",
+          "line": "144-151"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SitesService.cs",
+          "line": "170-177"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": 45
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "127"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "7"
+        }
+      ],
+      "note": "On production the selector is drawn only while the site algorithm is Option 1 (sa-settings-dlg.component.html:72; sa-settings-dlg.component.ts:127; environment.toro-prod.ts:7). With only two algorithms, a site without the box uses Option 2, the default (calculation-methods/before/3).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "calculation-methods/1/5",
+      "guide": "calculation-methods",
+      "step": "1",
+      "field": "ifNot",
+      "text": "On a production site it shows only while the site uses [[Option 1]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 72
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 127
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 7
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/appsettings.json",
+          "line": 145
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Domain/SpatialAdjust.cs",
+          "line": "18-22"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SitesService.cs",
+          "line": "144-151"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SitesService.cs",
+          "line": "170-177"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": 45
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "127"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "7"
+        }
+      ],
+      "note": "On production the selector is drawn only while the site algorithm is Option 1 (sa-settings-dlg.component.html:72; sa-settings-dlg.component.ts:127; environment.toro-prod.ts:7). With only two algorithms, a site without the box uses Option 2, the default (calculation-methods/before/3).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/1/6",
       "guide": "calculation-methods",
       "step": "1",
       "field": "caption",
@@ -456,119 +780,7 @@
       "guide": "calculation-methods",
       "step": "2",
       "field": "title",
-      "text": "Option 2 — delta plus today’s ET, the default",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 368
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/appsettings.json",
-          "line": 145
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Domain/SpatialAdjust.cs",
-          "line": "18-22"
-        }
-      ],
-      "note": "",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/2/2",
-      "guide": "calculation-methods",
-      "step": "2",
-      "field": "body",
-      "text": "The server computes it per station: target minus working VWC gives a deficit, the deficit becomes an amount of water, today’s ET adjusted by the crop coefficient is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount.",
-      "type": "calculation",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2931-2932"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "2973-2974"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3004-3015"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3031-3043"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
-        }
-      ],
-      "note": "The working VWC is today's measured average, or the model's earlier prediction when there is no scan today (SpatialAdjustService.cs:3031-3032). Three steps the sentence leaves out: the deficit in VWC points is added to the ET in millimetres one for one, with no conversion; the sum is floored at 0 and multiplied by the station's soil factor before the cap (:3036-3039); and the result is rounded to a whole percentage (:3043). Whether one VWC point should equal one millimetre is listed for the experts in docs/claims/calculations.md §12.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/2/3",
-      "guide": "calculation-methods",
-      "step": "2",
-      "field": "caption",
-      "text": "Every suggestion in this column came from that chain.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
-          "line": "62-65"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "282-307"
-        }
-      ],
-      "note": "Under Option 2 the browser only looks up the server's stored suggestion by station name.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/3/1",
-      "guide": "calculation-methods",
-      "step": "3",
-      "field": "title",
-      "text": "Option 1 — ratio of target to measured",
+      "text": "See what Option 1 turns off",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -587,18 +799,175 @@
           "line": "58-60"
         }
       ],
-      "note": "",
+      "note": "Step title. Option 1 is what greys the three boxes (sa-settings-dlg.component.html:83-85, :98-100, :113-115).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "calculation-methods/3/2",
+      "id": "calculation-methods/2/2",
       "guide": "calculation-methods",
-      "step": "3",
-      "field": "body",
-      "text": "Option 1 multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds.",
+      "step": "2",
+      "field": "do",
+      "text": "Look at the three boxes below [[Suggested Percent Adjust Calculation]].",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "72-123"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "82-123"
+        }
+      ],
+      "note": "The three boxes are Daily Max Amount, Lynx Reference Amount and Crop Coefficient, below the selector (sa-settings-dlg.component.html:82-123).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/2/3",
+      "guide": "calculation-methods",
+      "step": "2",
+      "field": "see",
+      "text": "Under [[Option 1]] they are greyed out; under [[Option 2]] you can type in them.",
       "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "82-123"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 85
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 100
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 115
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "83-85"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "98-100"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "113-115"
+        }
+      ],
+      "note": "Each of the three boxes is disabled while the algorithm is Option 1 and editable under Option 2 (sa-settings-dlg.component.html:83-85, :98-100, :113-115).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/2/4",
+      "guide": "calculation-methods",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If you can type in them, the site uses [[Option 2]], the method these three boxes feed.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 85
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 100
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 115
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "83-85"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "98-100"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "113-115"
+        }
+      ],
+      "note": "The three boxes are disabled only under Option 1 (sa-settings-dlg.component.html:83-85, :98-100, :113-115); under Option 2 they feed the calculation (SpatialAdjustService.cs:2973-2974, :3041-3043).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/2/5",
+      "guide": "calculation-methods",
+      "step": "2",
+      "field": "why",
+      "text": "[[Option 1]] scales the percentage Lynx holds now by target over measured, so it needs no ET, reference amount or cap.",
+      "type": "calculation",
       "status": "Verified",
       "evidence": [
         {
@@ -632,49 +1001,27 @@
         {
           "source": "doc",
           "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
-        }
-      ],
-      "note": "Measured moisture is the average across a station pair (sa-dashboard.component.ts:589-591). The same ratio is computed in three places that differ only in when they round their inputs.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/3/3",
-      "guide": "calculation-methods",
-      "step": "3",
-      "field": "body",
-      "text": "It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected.",
-      "type": "label",
-      "status": "Verified",
-      "evidence": [
+        },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
           "line": "82-123"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
-          "line": "58-60"
         }
       ],
-      "note": "Daily Max Amount and Lynx Reference Amount are disabled under Option 1 (sa-settings-dlg.component.html:85, :100). So is Crop Coefficient (:115), which the sentence does not mention.",
+      "note": "Reworded from calculation-methods/3/2 and /3/3: Option 1 multiplies the percent adjust Lynx holds by target over measured and uses no ET, reference amount or cap (sa-algorithm.service.ts:58-60).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "calculation-methods/3/4",
+      "id": "calculation-methods/2/6",
       "guide": "calculation-methods",
-      "step": "3",
+      "step": "2",
       "field": "caption",
-      "text": "With Option 1 selected, the two amount fields are disabled.",
-      "type": "label",
+      "text": "With Option 1 selected, the three boxes below it are greyed out.",
+      "type": "behaviour",
       "status": "Verified",
       "evidence": [
         {
@@ -699,15 +1046,15 @@
           "line": 115
         }
       ],
-      "note": "The two amount fields are disabled, and so is Crop Coefficient.",
+      "note": "Figure caption (calculation-methods/3/4): the boxes are disabled with Option 1 selected. Now describes all three boxes (sa-settings-dlg.component.html:83-85, :98-100, :113-115).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "calculation-methods/3/5",
+      "id": "calculation-methods/2/7",
       "guide": "calculation-methods",
-      "step": "3",
+      "step": "2",
       "field": "tip",
       "text": "Consequence. Because Option 1 scales the current Lynx value, a station sitting at 0 percent adjust stays at 0 no matter how dry it is.",
       "type": "calculation",
@@ -731,262 +1078,11 @@
       "correction": ""
     },
     {
-      "id": "calculation-methods/4/1",
+      "id": "calculation-methods/3/1",
       "guide": "calculation-methods",
-      "step": "4",
+      "step": "3",
       "field": "title",
-      "text": "The cap is what makes them look different",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3041-3043"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
-          "line": "58-60"
-        }
-      ],
-      "note": "",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/4/2",
-      "guide": "calculation-methods",
-      "step": "4",
-      "field": "body",
-      "text": "Option 2 flattens everything above the daily maximum onto one number.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3041-3043"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
-        }
-      ],
-      "note": "",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/4/3",
-      "guide": "calculation-methods",
-      "step": "4",
-      "field": "body",
-      "text": "Option 1 has no ceiling, so its suggestions spread out — and can go far higher than you intend on a station that reads very dry.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
-          "line": "58-60"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": "53-62"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
-        }
-      ],
-      "note": "The ratio has no cap: a low measured VWC gives a large multiplier. The % Adj. box limits what can be pushed to 900 (sa-table-card.component.html:60).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/4/4",
-      "guide": "calculation-methods",
-      "step": "4",
-      "field": "caption",
-      "text": "Runs of identical values are a signature of the capped method.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Services/SpatialAdjustService.cs",
-          "line": "3041-3043"
-        }
-      ],
-      "note": "",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/5/1",
-      "guide": "calculation-methods",
-      "step": "5",
-      "field": "title",
-      "text": "Switching is a course-wide change",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "api/Domain/Site.cs",
-          "line": "40-52"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": 486
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "262-270"
-        }
-      ],
-      "note": "The algorithm is stored on the site, so a switch applies to every course on the site, not just the one on screen.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/5/2",
-      "guide": "calculation-methods",
-      "step": "5",
-      "field": "body",
-      "text": "Saving a different algorithm recalculates every station and reloads the dashboard.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "552-554"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "262-270"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "597-598"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
-          "line": "427-437"
-        },
-        {
-          "source": "doc",
-          "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
-        }
-      ],
-      "note": "No server recalculation is requested for an algorithm change (sa-settings-dlg.component.ts:552-554). The dashboard reloads (sa-dashboard.component.ts:262-270) and re-derives every row under the new method. Option 1 is computed in the browser. Option 2 values come from rows the server keeps computing for every site whichever algorithm it is on.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/5/3",
-      "guide": "calculation-methods",
-      "step": "5",
-      "field": "body",
-      "text": "Review the whole Suggested column before pushing anything after a switch.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "597-598"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
-          "line": "427-437"
-        }
-      ],
-      "note": "Every row is re-derived under a different formula, so any of them can change.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/5/4",
-      "guide": "calculation-methods",
-      "step": "5",
-      "field": "caption",
-      "text": "Compare the column before and after switching, not one row.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "597-598"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
-          "line": "427-437"
-        }
-      ],
-      "note": "",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "calculation-methods/5/5",
-      "guide": "calculation-methods",
-      "step": "5",
-      "field": "tip",
-      "text": "One save for every tab. Save Changes saves the edits on every tab of Settings together.",
+      "text": "Cancel without saving",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -995,48 +1091,85 @@
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
-          "line": "49-55"
+          "line": "56-61"
+        }
+      ],
+      "note": "Step title. Cancel is the second footer button (sa-settings-dlg.component.html:56-61).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/3/2",
+      "guide": "calculation-methods",
+      "step": "3",
+      "field": "do",
+      "text": "Select [[Cancel]] to close Settings without saving.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "56-61"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "186-215"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "445-468"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
-          "line": "482-503"
+          "line": "217-229"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
-          "line": 459
+          "line": "636"
         }
       ],
-      "note": "Retyped from label to behaviour. SPATIAL_ADJUST.SAVE_CHANGES \"Save Changes\" is the dialog's only save button, in the footer under every tab (sa-settings-dlg.component.html:49-55). On save the dialog compares three groups with their opening values: the site settings (the Calculation and Minimum Threshold tabs), the user preferences (the Preferences tab) and the Target Profiles (sa-settings-dlg.component.ts:445-468). It sends one request per changed group, all together (:203, :482-503), and closes when they finish. With nothing changed it just closes (:196-199).",
+      "note": "STRINGS.CANCEL \"Cancel\" is in the footer (sa-settings-dlg.component.html:56-61; en-us.json:636). With no edits it closes the dialog at once (sa-settings-dlg.component.ts:217-225).",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "calculation-methods/5/6",
+      "id": "calculation-methods/3/3",
       "guide": "calculation-methods",
-      "step": "5",
-      "field": "tip",
-      "text": "With unsaved edits, Cancel asks whether you want to exit without saving: Continue Editing takes you back, and Discard Changes closes the dialog and drops every edit.",
+      "step": "3",
+      "field": "see",
+      "text": "The dialog closes, and the table is in view again.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "217-225"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "107-112"
+        }
+      ],
+      "note": "With no unsaved edits Cancel emits cancel and the toolbar closes the dialog (sa-settings-dlg.component.ts:217-225; sa-main-toolbar.component.html:107-112), leaving the table on screen.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/3/4",
+      "guide": "calculation-methods",
+      "step": "3",
+      "field": "ifNot",
+      "text": "If you are asked whether to leave without saving, you changed something.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1088,9 +1221,690 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/assets/i18n/en-us.json",
           "line": 390
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "217-242"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "390"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "466-467"
         }
       ],
-      "note": "Retyped from label to behaviour. Cancel (STRINGS.CANCEL) runs the same change check as Save (sa-settings-dlg.component.ts:217-229). With no edits it closes at once. With edits it opens a confirmation headed SPATIAL_ADJUST.DISCARD_CHANGES \"Discard changes\" that asks SETTINGS_CONFIRM_DISCARD_CHANGES_PRIMARY \"Are you sure you want to exit without saving changes?\" (sa-settings-dlg.component.html:261-270). Its buttons are CONTINUE_EDITING \"Continue Editing\" and DISCARD_CHANGES \"Discard changes\", both shown upper-case, so the second reads \"DISCARD CHANGES\" on screen. Continue Editing hides the confirmation and leaves the dialog open with the edits. Discard changes closes the dialog without saving anything (:235-242; the toolbar removes the dialog on cancel, sa-main-toolbar.component.html:110).",
+      "note": "With unsaved edits Cancel asks first, \"Are you sure you want to exit without saving changes?\" (en-us.json:466-467); the DISCARD_CHANGES \"Discard changes\" button closes the dialog and drops the edits (sa-settings-dlg.component.ts:227, :235-238; sa-settings-dlg.component.html:261-270; en-us.json:390).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/3/5",
+      "guide": "calculation-methods",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Select [[Discard changes]] to drop it.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "217-229"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "235-242"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "261-270"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "107-112"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 466
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 388
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 390
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "217-242"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "390"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "466-467"
+        }
+      ],
+      "note": "With unsaved edits Cancel asks first, \"Are you sure you want to exit without saving changes?\" (en-us.json:466-467); the DISCARD_CHANGES \"Discard changes\" button closes the dialog and drops the edits (sa-settings-dlg.component.ts:227, :235-238; sa-settings-dlg.component.html:261-270; en-us.json:390).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/3/6",
+      "guide": "calculation-methods",
+      "step": "3",
+      "field": "caption",
+      "text": "Cancel, at the bottom of the Settings dialog.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 85
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 100
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 115
+        }
+      ],
+      "note": "Figure caption. Cancel is the second button of the dialog footer (sa-settings-dlg.component.html:56-61).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/4/1",
+      "guide": "calculation-methods",
+      "step": "4",
+      "field": "title",
+      "text": "Read the Suggested column",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "17-23"
+        }
+      ],
+      "note": "Step title. The Suggested column is the adjustment column of the station table (sa-dash-table.component.html:17-23).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/4/2",
+      "guide": "calculation-methods",
+      "step": "4",
+      "field": "do",
+      "text": "In the table, look down the [[Suggested]] column.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.html",
+          "line": "17-23"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "1008"
+        }
+      ],
+      "note": "STRINGS.SUGGESTED \"Suggested\" heads the column (sa-dash-table.component.html:17-23; en-us.json:1008).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/4/3",
+      "guide": "calculation-methods",
+      "step": "4",
+      "field": "see",
+      "text": "Under [[Option 2]], stations that need more than Daily Max Amount share one value, often in runs.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §1.1 Daily Max Amount is a cap"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "368"
+        }
+      ],
+      "note": "Under Option 2 the daily maximum caps the amount, so every station above it lands on one value, which gives runs of identical suggestions (SpatialAdjustService.cs:3041-3043).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/4/4",
+      "guide": "calculation-methods",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If the values spread out with no repeats, the site may use [[Option 1]], which has no cap.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "53-62"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
+        }
+      ],
+      "note": "Option 1 has no ceiling, so its suggestions spread out and can go far higher than intended on a very dry station (sa-algorithm.service.ts:58-60; sa-table-card.component.html:53-62).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/4/5",
+      "guide": "calculation-methods",
+      "step": "4",
+      "field": "ifNot",
+      "text": "Its values can go far higher than you intend on a very dry station.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "58-60"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "53-62"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
+        }
+      ],
+      "note": "Option 1 has no ceiling, so its suggestions spread out and can go far higher than intended on a very dry station (sa-algorithm.service.ts:58-60; sa-table-card.component.html:53-62).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/4/6",
+      "guide": "calculation-methods",
+      "step": "4",
+      "field": "why",
+      "text": "[[Option 2]] adds today’s ET to the water the delta calls for, caps it at Daily Max Amount, then divides by the Lynx Reference Amount.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2931-2932"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2973-2974"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3004-3015"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3031-3043"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
+        }
+      ],
+      "note": "Reworded from calculation-methods/2/2: today's ET is added to the water the delta calls for, the total is capped at the daily maximum, and the result is divided by the Lynx Reference Amount (SpatialAdjustService.cs:2931-3043).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/4/7",
+      "guide": "calculation-methods",
+      "step": "4",
+      "field": "caption",
+      "text": "Runs of identical values are a signature of the capped method.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3041-3043"
+        }
+      ],
+      "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/5/1",
+      "guide": "calculation-methods",
+      "step": "5",
+      "field": "title",
+      "text": "Review the column after a switch",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Domain/Site.cs",
+          "line": "40-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 486
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "262-270"
+        }
+      ],
+      "note": "Step title. Saving a new algorithm recalculates every station (sa-settings-dlg.component.ts:552-554).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/5/2",
+      "guide": "calculation-methods",
+      "step": "5",
+      "field": "do",
+      "text": "After a new method is saved, look down the whole [[Suggested]] column before you push.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "427-437"
+        }
+      ],
+      "note": "Reworded from calculation-methods/5/3: review the whole Suggested column before pushing after a switch.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/5/3",
+      "guide": "calculation-methods",
+      "step": "5",
+      "field": "see",
+      "text": "The dashboard has reloaded, and every station shows a value from the new method.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "552-554"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "262-270"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "427-437"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
+        }
+      ],
+      "note": "Saving a different algorithm recalculates every station and reloads the dashboard (sa-settings-dlg.component.ts:552-554; sa-dashboard.component.ts:262-270, :597-598).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/5/4",
+      "guide": "calculation-methods",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If the values look the same as before, the method did not change.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "552-554"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "262-270"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "427-437"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "445-464"
+        }
+      ],
+      "note": "If the algorithm did not change, no recalculation is triggered (sa-settings-dlg.component.ts:450, :552-554). The selector shows the saved algorithm on reopening (sa-settings-dlg.component.html:71-80).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/5/5",
+      "guide": "calculation-methods",
+      "step": "5",
+      "field": "ifNot",
+      "text": "Reopen [[Settings]] and check [[Suggested Percent Adjust Calculation]].",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "552-554"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "262-270"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "427-437"
+        },
+        {
+          "source": "doc",
+          "ref": "docs/claims/calculations.md §3 Option 1: ratio of target to measured"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "445-464"
+        }
+      ],
+      "note": "If the algorithm did not change, no recalculation is triggered (sa-settings-dlg.component.ts:450, :552-554). The selector shows the saved algorithm on reopening (sa-settings-dlg.component.html:71-80).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/5/6",
+      "guide": "calculation-methods",
+      "step": "5",
+      "field": "why",
+      "text": "On a production site, a switch to [[Option 2]] cannot be undone here, because the selector then disappears.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": 72
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": 127
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 7
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "72"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.ts",
+          "line": "127"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": "7"
+        }
+      ],
+      "note": "On production the selector shows only while the site algorithm is Option 1 (sa-settings-dlg.component.html:72; sa-settings-dlg.component.ts:127; environment.toro-prod.ts:7). Once Option 2 is saved the box is gone, so the switch cannot be undone from Settings. Same fact as calculation-methods/before/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-methods/5/7",
+      "guide": "calculation-methods",
+      "step": "5",
+      "field": "caption",
+      "text": "Compare the column before and after switching, not one row.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.ts",
+          "line": "427-437"
+        }
+      ],
+      "note": "",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1129,8 +1943,8 @@
       "guide": "calculation-methods",
       "step": "verify",
       "field": "verify",
-      "text": "You know why Max Amount is greyed out under Option 1.",
-      "type": "behaviour",
+      "text": "You know why Daily Max Amount is greyed out under Option 1.",
+      "type": "label",
       "status": "Verified",
       "evidence": [
         {
@@ -1146,9 +1960,23 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
           "line": "58-60"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "98-100"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-settings-dlg/sa-settings-dlg.component.html",
+          "line": "113-115"
         }
       ],
-      "note": "",
+      "note": "Reworded to the full label, Daily Max Amount. Both amount boxes and Crop Coefficient are disabled under Option 1, which uses no ET, reference amount or cap (sa-settings-dlg.component.html:83-85; sa-algorithm.service.ts:58-60).",
       "question": "",
       "developNote": "",
       "correction": ""
