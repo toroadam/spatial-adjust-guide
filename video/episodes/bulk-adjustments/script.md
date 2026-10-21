@@ -26,7 +26,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:18 | 1:26 | 14 Step 4 result | The figure swaps to the table after the change: the **Suggested** column is highlighted, and the cursor moves across a station's new target and suggestion |  | "The suggested percentages recalculate against the new targets straight away, so the Suggested column will move." | `bulk-adjustments/4/3` |
 | 1:26 | 1:36 | 15 Close | Up next **Next on Double Click: Enable and disable stations**; end card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/bulk-adjustments` goes in the published description | — | — | — |
 
-**VO total:** 167 words in 9 lines, about 60 s spoken (measured). **Running time:** about 1:36 (96 s); the series range is 60-180 s.
+**VO total:** 167 words in 9 lines, about 60 s spoken (measured). **Running time:** about 1:36 (96 s); the series range is 60-180 s. **Measured:** 1:45 (105.7 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Writes declared (all on `/demo`, none performed):** `bulk-apply` (chapter c4, "Apply to all"). The dialog and its result are shown as the guide figures show them, from the recreation; the button is highlighted and never pressed (Bulk Adjust Save is short-circuited in Demo Mode, `video/capture/SAFETY.md:101`).
 
@@ -38,7 +38,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-Not yet run.
+Whisper round-trip on 2026-10-20 (`video/vo/whisper_check.py`, model small.en, with medium.en on any line small.en flagged); reports `vo/whisper-report-<model>.json` under the media root. The only differences are homophones and spellings: 'hole' heard as 'whole' (medium.en matched it), 'writes' as 'rights to', 'dialog' as 'dialogue', and 'targets straight away' with different spacing; judged by the executor as Whisper's, not misreadings; no line was re-rendered. The lines were rendered at the API output format mp3_44100_128, because the account's plan no longer allows mp3_44100_192 (the render report records the format); voice, model and settings are unchanged.
 
 ## Never on camera
 
