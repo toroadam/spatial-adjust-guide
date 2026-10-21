@@ -42,9 +42,9 @@ When a sentence cannot be traced to one of these, leave it out or ask the questi
 Never fill the gap from memory, from the reproduction (`SpatialAdjustApp.dc.html` is a witness,
 not evidence) or from another product.
 
-`scripts/claims-extract.mjs` reads a step's `title`, `body`, `caption` and `tip`. It has to learn
-`do`, `see`, `ifNot` and `why` before the first rewritten guide lands. Otherwise a re-extraction
-drops the claims of the removed `body` and reports the lost verification.
+`scripts/claims-extract.mjs` reads a step's `title`, `do`, `see`, `ifNot`, `why`, `body`, `caption`
+and `tip`, so a re-extraction keeps the claims of a rewritten step. A new sentence in any of those
+fields needs a Verified claim before it ships.
 
 ## The step shape
 
@@ -360,21 +360,22 @@ This repository is public.
 
 | Command | What it checks |
 |---|---|
-| `npm run test:shape` | Every step has non-empty `do`, `see` and `ifNot`; `do` has a `[[label]]` unless `region: true` (region steps are listed); no rewritten step keeps `body`; at most 8 steps; `start` has `page`, `open` and `needs`; `TARGETS[key]` has one point per step; a part is first in the previous part's `next`. `--json` prints the raw result. |
+| `npm run test:shape` | Every step has non-empty `do`, `see` and `ifNot`; `do` has a `[[label]]` unless `region: true` (region steps are listed); no step that has `do` keeps `body`; at most 8 steps; `start` has `page`, `open` and `needs`; `TARGETS[key]` has one point per step; a part is first in the previous part's `next`. `--json` prints the raw result. |
 | `npm run test:readability` | Flesch-Kincaid grade per step, over `do`, `see`, `ifNot`, `why` and any remaining `body`, with markers stripped. Lists the 10 hardest steps. `--selftest` checks the scorer against reference sentences. |
-| `npm run test:validate` | The `en-us` entry is `labelProvenance`: every `[[label]]` in any guide, pending or not, is a key of `src/i18n/labels.en-us.json` and is named by a Verified ledger claim. The locale entries check every translation, including `markerDrift` (each marker holds the label the reader's screen shows in that locale) and `screenLabelDrift` (see [Label markers](#label-markers)). `--all` prints every finding rather than four of each kind. |
+| `npm run test:validate` | The `en-us` entry is `labelProvenance`: every `[[label]]` in any guide is a key of `src/i18n/labels.en-us.json` and is named by a Verified ledger claim. The locale entries check every translation, including `markerDrift` (each marker holds the label the reader's screen shows in that locale) and `screenLabelDrift` (see [Label markers](#label-markers)). `--all` prints every finding rather than four of each kind. |
 
-All three read the guides through `scripts/lib/load-guides.mjs`, which applies `transformGuide()`
+The three above read the guides through `scripts/lib/load-guides.mjs`, which applies `transformGuide()`
 to the export and evaluates the guide data in `node:vm`, so they need no browser and see exactly
 what the page publishes.
 
-**The ratchet.** `scripts/lib/rewrite-status.mjs` lists the guides not yet rewritten in `PENDING`.
-A guide in `PENDING` is reported but never fails a check. A guide not in `PENDING` fails the
-command if it breaks the standard. Remove a guide's key from `PENDING` in the same change that
-lands its rewrite. A part follows its parent key. When all 26 have landed, the module is deleted
-and the checks become unconditional.
-`labelProvenance` in `npm run test:validate` ignores the ratchet: a marker exists only once
-someone has written it as a label, so it is checked in every guide.
+**All three block, for every guide.** There is no pending list and no exemption by guide: the
+rewrite ratchet was deleted when the last of the 26 guides landed. A guide, or a `<key>-part-N`,
+that breaks the standard fails the command. `build.mjs` also runs the shape check on the
+transformed page in memory, so `npm run build` fails before anything is written to `dist/` if a
+step lacks `do`, `see` or `ifNot`. `.github/workflows/deploy.yml` runs `test:validate`,
+`test:prose`, `test:shape` and `test:readability` as blocking steps ahead of the browser tests, so
+a failing guide cannot reach the live site. None of the four needs a browser or an IntelliDash
+checkout.
 
 The grade formula is `0.39 × (words ÷ sentences) + 11.8 × (syllables ÷ words) − 15.59`. Sentences
 end at `.`, `!` or `?` followed by a space or the end of the text. Syllables are counted by vowel
@@ -384,12 +385,14 @@ one word of one syllable.
 
 ## Worked examples
 
-These two rewrites show the standard applied to steps as they are published today. They live only
-in this document: the guides change when their own rewrite lands.
+These two rewrites show the standard applied to a step. The "Before the rewrite" block is the export's
+copy before the rewrite, kept here so the change is visible; the "Rewritten" block is the step as
+first written under this standard. The guides now publish the rewritten form, and their copy lives
+in `src/rewrite/*.mjs`, which is the source if the two ever differ in a small way.
 
 ### Example 1: Set a minimum threshold, step 2
 
-Published today:
+Before the rewrite:
 
 ```js
 { title: 'Choose the Minimum Threshold tab', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold',
@@ -436,7 +439,7 @@ Readability: grade 5.1.
 
 ### Example 2: Push changes to Lynx, step 1
 
-Published today:
+Before the rewrite:
 
 ```js
 { title: 'Check the pending count', fig: 'toolbarR',

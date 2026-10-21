@@ -5,7 +5,7 @@ The point is to decide things, not to collect compliments. Four questions:
 1. **Which of the 17 unwritten guides should be written next?**
 2. **Does the step-player-plus-camera format actually teach?** It's the central bet of the system, built 7 times and validated zero.
 3. **Is the content factually correct** against the shipping product?
-4. **Where do people give up?** `target-profiles` is 28 steps against a 4–6 norm.
+4. **Where do people give up?** No guide runs past eight steps now (`npm run test:shape` enforces it); watch the longest, `minimum-threshold` at eight and `target-profiles` at seven.
 
 Site: https://toroadam.github.io/spatial-adjust-guide/
 
@@ -39,7 +39,7 @@ Give the task, then stay quiet. The instinct to help is the thing to resist — 
 
 **Task 3 — Diagnosis.** "A station is showing 0%. Use the guides to work out why." Tests whether guides are findable by problem rather than by feature name.
 
-**Task 4 — The long one.** "Work through applying a target profile." This is the 28-step guide. Record where attention drops and whether they reach the end.
+**Task 4 — The long one.** "Work through applying a target profile." This is one of the longest guides, seven steps. Record where attention drops and whether they reach the end.
 
 **Task 5 — Gap probe.** "Is there anything you expected to find that isn't here?" Then let them click any "Coming soon" card and say what they wanted from it. This is the demand signal in their own words.
 
