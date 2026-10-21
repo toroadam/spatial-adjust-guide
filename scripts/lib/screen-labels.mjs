@@ -39,8 +39,13 @@ export const present = (haystack, needle) => {
  *     that merely share a word.
  */
 export function namedScreenLabels(en, { screen, glossary = {}, hardcoded = new Set() }) {
+  // A [[marker]] whose text is not itself a screen label (a composite column such as "Avg. Target
+  // VWC", or a product message such as "Retrieving latest Percent Adjustments from Lynx") is gated
+  // by markerDrift against the product's own rendering. A screen label that only shares words with
+  // it is not named by the prose, so it is left out here.
+  const prose = en.replace(/\[\[(.+?)\]\]/g, (m, label) => (screen.has(label) ? m : ' '));
   const all = [...screen].filter((label) => label.length >= MIN_SCREEN_LABEL
-    && en.includes(label) && (label in glossary) && !hardcoded.has(label));
+    && prose.includes(label) && (label in glossary) && !hardcoded.has(label));
   return all.filter((label) => !all.some((other) => other !== label && other.includes(label)));
 }
 
