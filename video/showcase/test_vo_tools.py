@@ -74,9 +74,14 @@ class Wer(unittest.TestCase):
 
 
 class RequiredTerms(unittest.TestCase):
-    def test_lynx_heard_as_links_fails(self):
+    def test_lynx_heard_as_links_passes_as_a_homophone(self):
         terms = wr.required_terms("then reads Lynx back", wr.normalise("then reads links back"))
-        self.assertEqual(terms, {"Lynx": {"scripted": 1, "heard": 0, "ok": False}})
+        self.assertEqual(terms, {"Lynx": {"scripted": 1, "heard": 1, "homophone": 1, "ok": True}})
+
+    def test_lynx_misheard_as_something_else_fails(self):
+        for heard in ("then reads lunks back", "then reads back"):
+            terms = wr.required_terms("then reads Lynx back", wr.normalise(heard))
+            self.assertEqual(terms, {"Lynx": {"scripted": 1, "heard": 0, "homophone": 0, "ok": False}}, heard)
 
     def test_lynx_heard_as_lynx_passes(self):
         self.assertTrue(wr.required_terms("reads Lynx back", wr.normalise("reads Lynx back"))["Lynx"]["ok"])
@@ -87,8 +92,8 @@ class RequiredTerms(unittest.TestCase):
         self.assertTrue(terms["TurfRad"]["ok"])
 
     def test_every_occurrence_counts(self):
-        terms = wr.required_terms("Lynx and Lynx", wr.normalise("Lynx and links"))
-        self.assertEqual(terms["Lynx"], {"scripted": 2, "heard": 1, "ok": False})
+        terms = wr.required_terms("Lynx and Lynx", wr.normalise("Lynx and"))
+        self.assertEqual(terms["Lynx"], {"scripted": 2, "heard": 1, "homophone": 0, "ok": False})
 
     def test_lines_without_terms_have_none(self):
         self.assertEqual(wr.required_terms("Map and table stay in sync.", ["map"]), {})
@@ -132,7 +137,7 @@ class Score(unittest.TestCase):
     def test_pass_and_fail(self):
         lines = [line("a", "Then reads Lynx back.", 0, 2), line("b", "Then reads Lynx back.", 3, 5)]
         by_line = {"a": [{"word": w} for w in [" Then", " reads", " Lynx", " back."]],
-                   "b": [{"word": w} for w in [" Then", " reads", " links", " back."]]}
+                   "b": [{"word": w} for w in [" Then", " reads", " lunks", " back."]]}
         rows = wr.score(lines, by_line)
         self.assertTrue(rows[0]["pass"])
         self.assertFalse(rows[1]["pass"])

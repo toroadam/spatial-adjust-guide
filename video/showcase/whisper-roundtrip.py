@@ -7,15 +7,19 @@ transcript into the episode's VO lines by their windows, and scores every line a
   - word error rate (WER), a word-level Levenshtein distance over the scripted words, after both sides are
     normalised (lower case, no punctuation, number words, British and American spellings, spelled-out letters);
   - required terms: every scripted TurfRad, Lynx and IntelliDash must come back. TurfRad is accepted as "TurfRad" or
-    "Turf Rad", IntelliDash as "IntelliDash" or "Intelli Dash", and Lynx only as "Lynx": "links" fails.
+    "Turf Rad", IntelliDash as "IntelliDash" or "Intelli Dash", and Lynx as "Lynx" or its homophone "links" (the
+    report counts the homophones). A missing term, or one Whisper writes as something else ("lunks"), fails.
 
 A line passes when its WER is at most --max-wer (0.2) and every required term in it is heard. The run passes when every
 line passes. Words heard outside every window are listed in the report but do not fail it.
 
-Lynx and "links" sound the same, so no recording can make Whisper choose between them by ear. Whisper is given the
-film's vocabulary as its initial prompt (the required terms and every lexicon term the script uses, in their written
-form), the way a viewer who knows the product hears the narration; the prompt is recorded in the report. What the
-check then proves is that Brian says each term recognisably, in the right place, inside the window it was timed for.
+Lynx and "links" sound the same, so no recording can make Whisper choose between them by ear (on the 2026-10-20 stem
+both small.en and medium.en wrote "links", with the film's vocabulary as the prompt). The renderer sends "Links" for
+Lynx, so "links" is the sound that was asked for, and the check accepts it as the homophone and counts them in the
+report; whether Brian's "links" is the right word is judged by ear at the voice gate. Whisper is given the film's
+vocabulary as its initial prompt (the required terms and every lexicon term the script uses, in their written form),
+the way a viewer who knows the product hears the narration; the prompt is recorded in the report. What the check then
+proves is that Brian says each term recognisably, in the right place, inside the window it was timed for.
 
 Before anything is transcribed, each line's ttsText in episode.json is compared with the text video/vo/render-brian.py
 sends, which is the line's text with video/vo/lexicon.json applied. They must be equal: ttsText is a record of the
@@ -65,11 +69,12 @@ TAIL_S = 0.5   # and end this long after windowOut
 # Required terms: written form -> the normalised spellings accepted in the transcript.
 REQUIRED = {
     "TurfRad": ("turfrad",),
-    "Lynx": ("lynx",),
+    "Lynx": ("lynx", "links"),  # homophones: see the module docstring. "lynx" first, so it counts as the exact form
     "IntelliDash": ("intellidash",),
 }
 # Multi-word spellings Whisper may use, joined into one token on both sides before scoring. "links" is never joined
-# into "lynx": hearing "links" is exactly the failure the Lynx check is for.
+# into "lynx" by the normaliser (so the word error rate still counts it as a miss); the Lynx check accepts it instead,
+# as a homophone, and the report says how many were heard that way.
 JOIN = {
     ("turf", "rad"): "turfrad",
     ("intelli", "dash"): "intellidash",
@@ -157,7 +162,8 @@ def required_terms(script: str, heard_words: list[str]) -> dict:
         if not scripted:
             continue
         heard = sum(1 for w in heard_words if w in accepted)
-        out[term] = {"scripted": scripted, "heard": heard, "ok": heard >= scripted}
+        exact = sum(1 for w in heard_words if w == accepted[0])
+        out[term] = {"scripted": scripted, "heard": heard, "homophone": heard - exact, "ok": heard >= scripted}
     return out
 
 
@@ -306,7 +312,8 @@ def _rel(path: str) -> str:
 
 def print_summary(rows: list[dict], outside: list[dict]) -> None:
     for r in rows:
-        terms = ", ".join(f"{t} {v['heard']}/{v['scripted']}" for t, v in r["requiredTerms"].items())
+        terms = ", ".join(f"{t} {v['heard']}/{v['scripted']}" + (f" ({v['homophone']} as homophone)" if v["homophone"] else "")
+                          for t, v in r["requiredTerms"].items())
         mark = "PASS" if r["pass"] else "FAIL"
         print(f"{mark}  {r['line'] or r['id']:<4} {r['id']:<18} WER {r['wer']:.3f}" + (f"  [{terms}]" if terms else ""))
         print(f"        heard: {r['heard'] or '(nothing)'}")
