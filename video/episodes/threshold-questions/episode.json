@@ -1,0 +1,555 @@
+{
+  "id": "threshold-questions",
+  "title": "Threshold questions",
+  "guide": "threshold-questions",
+  "status": "script-locked",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/threshold-questions",
+  "recreationFigure": "The raw suggested value, untouched by the threshold.",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "threshold-questions/tile/1",
+    "threshold-questions/tile/2",
+    "threshold-questions/summary/1",
+    "threshold-questions/1/2",
+    "threshold-questions/1/3",
+    "threshold-questions/1/4",
+    "threshold-questions/2/2",
+    "threshold-questions/2/4",
+    "threshold-questions/2/3",
+    "threshold-questions/3/2",
+    "threshold-questions/3/3",
+    "threshold-questions/3/4",
+    "threshold-questions/3/5",
+    "threshold-questions/4/2",
+    "threshold-questions/4/4",
+    "threshold-questions/4/3",
+    "threshold-questions/5/2",
+    "threshold-questions/5/4",
+    "threshold-questions/5/3"
+  ],
+  "titleCard": {
+    "text": "Double Click: Threshold questions",
+    "claims": [
+      "threshold-questions/tile/1",
+      "threshold-questions/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "The table shows the raw suggestion",
+      "highlight": {
+        "label": "Station",
+        "selector": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../.."
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the table row of a station below the threshold; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "The push dialog shows what will be sent",
+      "highlight": {
+        "label": "Push Changes",
+        "selector": "[data-sa-frame] >> text=\"Push Changes\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the Push Changes dialog with its threshold banner, which Demo Mode only opens; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Choose what below-threshold means",
+      "highlight": {
+        "label": "Set to zero",
+        "selector": "[data-sa-frame] >> text=\"Set to zero when pushed to Lynx\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the Minimum Threshold options, whose choice Demo Mode cannot save; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Exclude Zeros protects genuine zeros",
+      "highlight": {
+        "label": "Exclude Zeros",
+        "selector": "[data-sa-frame] >> text=\"Exclude Zeros\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: the Exclude Zeros option, whose choice Demo Mode cannot save; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "Zero disables the feature",
+      "highlight": {
+        "label": "threshold of zero",
+        "selector": "[data-sa-frame] >> text=\"Minimum Threshold (%)\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a minimum threshold of 0, which Demo Mode cannot save; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Why the table and the push dialog disagree, and what the second option really does.",
+      "claims": [
+        "threshold-questions/summary/1"
+      ],
+      "next_text": "Station 11AP2 suggests 6 percent. With a 10 percent threshold set, the table still shows 6, and it always will."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "Station 11AP2 suggests 6 percent. With a 10 percent threshold set, the table still shows 6, and it always will.",
+      "claims": [
+        "threshold-questions/1/2",
+        "threshold-questions/1/3"
+      ],
+      "previous_text": "Why the table and the push dialog disagree, and what the second option really does.",
+      "next_text": "The threshold is applied only in the Push Changes dialog, and to what is sent to Lynx. Never to the table."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The threshold is applied only in the Push Changes dialog, and to what is sent to Lynx. Never to the table.",
+      "claims": [
+        "threshold-questions/1/3",
+        "threshold-questions/1/4"
+      ],
+      "previous_text": "Station 11AP2 suggests 6 percent. With a 10 percent threshold set, the table still shows 6, and it always will.",
+      "next_text": "Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected.",
+      "claims": [
+        "threshold-questions/2/2",
+        "threshold-questions/2/4"
+      ],
+      "previous_text": "The threshold is applied only in the Push Changes dialog, and to what is sent to Lynx. Never to the table.",
+      "next_text": "This is the disagreement, and it is intentional."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "This is the disagreement, and it is intentional.",
+      "claims": [
+        "threshold-questions/2/3"
+      ],
+      "previous_text": "Open Push Changes and the same station shows its original value and the rewritten one side by side, with the banner counting how many rows were affected.",
+      "next_text": "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold, so the station still gets a short run."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold, so the station still gets a short run.",
+      "claims": [
+        "threshold-questions/3/2",
+        "threshold-questions/3/3"
+      ],
+      "previous_text": "This is the disagreement, and it is intentional.",
+      "next_text": "They are opposite behaviours from the same number."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "They are opposite behaviours from the same number.",
+      "claims": [
+        "threshold-questions/3/4",
+        "threshold-questions/3/5"
+      ],
+      "previous_text": "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold, so the station still gets a short run.",
+      "next_text": "Exclude Zeros is available only under the second option. A station whose suggestion is a true zero stays at zero, instead of being lifted to the threshold."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "Exclude Zeros is available only under the second option. A station whose suggestion is a true zero stays at zero, instead of being lifted to the threshold.",
+      "claims": [
+        "threshold-questions/4/2",
+        "threshold-questions/4/4"
+      ],
+      "previous_text": "They are opposite behaviours from the same number.",
+      "next_text": "Without it, a station that needs no water gets a small run anyway."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "Without it, a station that needs no water gets a small run anyway.",
+      "claims": [
+        "threshold-questions/4/3"
+      ],
+      "previous_text": "Exclude Zeros is available only under the second option. A station whose suggestion is a true zero stays at zero, instead of being lifted to the threshold.",
+      "next_text": "A threshold of zero turns the whole thing off, and the option group is disabled with it."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "A threshold of zero turns the whole thing off, and the option group is disabled with it.",
+      "claims": [
+        "threshold-questions/5/2",
+        "threshold-questions/5/4"
+      ],
+      "previous_text": "Without it, a station that needs no water gets a small run anyway.",
+      "next_text": "If the push dialog shows no banner, check this first. The setting is site-level, and someone else may have cleared it."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "If the push dialog shows no banner, check this first. The setting is site-level, and someone else may have cleared it.",
+      "claims": [
+        "threshold-questions/5/3"
+      ],
+      "previous_text": "A threshold of zero turns the whole thing off, and the option group is disabled with it."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 11.67,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"11AP2\"",
+          "name": "11AP2"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../..",
+          "name": "11AP2 08-08-25 24.0% 17 % 100% 6% 6 %"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        },
+        {
+          "type": "wait",
+          "ms": 5061
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../../div[2]/div[4]",
+          "name": "6%"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 7.25,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../../div[2]/div[4]",
+          "name": "6%"
+        },
+        {
+          "type": "wait",
+          "ms": 1930
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../..",
+          "name": "Push 6 Changes"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 11.41,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Original and rewritten values, shown together."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Push Changes\"",
+          "name": "Push Changes"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 3154
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"→ Adjusted to 10%\"",
+          "name": "→ Adjusted to 10%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"→ Adjusted to 10%\"",
+          "name": "→ Adjusted to 10%"
+        },
+        {
+          "type": "wait",
+          "ms": 2704
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"2 stations will be adjusted according to the minimum threshold rules.\"",
+          "name": "2 stations will be adjusted according to the minimum threshold rules."
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 4.78,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Changes\"",
+          "name": "Changes"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 13.97,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Two options, opposite outcomes."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Set to zero when pushed to Lynx\"",
+          "name": "Set to zero when pushed to Lynx"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Set to zero when pushed to Lynx\"",
+          "name": "Set to zero when pushed to Lynx"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 4757
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Set to the minimum threshold value when pushed to Lynx\"",
+          "name": "Set to the minimum threshold value when pushed to Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 3.58,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Set to the minimum threshold value when pushed to Lynx\"",
+          "name": "Set to the minimum threshold value when pushed to Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 11.64,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Exclude Zeros is enabled only for the second option."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Exclude Zeros\"",
+          "name": "Exclude Zeros"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Exclude Zeros\"",
+          "name": "Exclude Zeros"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 5.11,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Set to the minimum threshold value when pushed to Lynx\"",
+          "name": "Set to the minimum threshold value when pushed to Lynx"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 7.07,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "A threshold of 0 disables the feature."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\"",
+          "name": "Minimum Threshold (%)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\"",
+          "name": "Minimum Threshold (%)"
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 7.97,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Set to zero when pushed to Lynx\"",
+          "name": "Set to zero when pushed to Lynx"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "calculation-questions",
+    "text": "Next on Double Click: Calculation questions",
+    "address": "#/threshold-questions"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}
