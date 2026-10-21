@@ -97,7 +97,11 @@ VOICE_CONFIG = {
 VOICE = VOICE_CONFIG["voice_id"]
 MODEL = VOICE_CONFIG["model_id"]
 SETTINGS = VOICE_CONFIG["voice_settings"]
-OUTPUT_FORMAT = VOICE_CONFIG["output_format"]
+# The API's output format. The default is the 192 kbps MP3 the iCentral masters used, which ElevenLabs offers on the
+# Creator tier and above; an account on a lower tier refuses it (HTTP 403, output_format_not_allowed). Set
+# SA_ELEVENLABS_OUTPUT_FORMAT=mp3_44100_128 there. The audio is trimmed, levelled and converted to the 48 kHz 24-bit
+# master either way, and the format is part of each line's text_hash, so a change re-renders the lines.
+OUTPUT_FORMAT = os.environ.get("SA_ELEVENLABS_OUTPUT_FORMAT") or VOICE_CONFIG["output_format"]
 SR = VOICE_CONFIG["sample_rate_hz"]
 TRIM_WINDOW = 240  # samples, as in the source
 
