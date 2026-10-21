@@ -13,6 +13,14 @@
 //        run the director for each shot, in order: --dry-run prints the plan, --no-record
 //        rehearses in real time, neither records; without them each shot is recorded as
 //        take<T>-recreation.mp4 (T = shot take number + attempt). Stops at the first non-zero exit
+//   node video/showcase/capture-shots.mjs log
+//        write video/showcase/capture-log.csv: one row per take on disk (every attempt), with the
+//        director's safety counts, the OCR scan's counts when video/showcase/scan-takes.py has run,
+//        and an accepted flag (the last take of a shot that passes every check)
+//   node video/showcase/capture-shots.mjs reel
+//        build the review reel from the accepted takes, in film order, at 1280x720 and 30 fps:
+//        <media root>/showcase/capture/review/showcase-capture-reel.mp4 and reel-index.csv (shot,
+//        take, start second, seconds). The reel is for looking at, never an input to the build
 //   node video/showcase/capture-shots.mjs status
 //        for every shot, the takes on disk and their safety reports (exit, refusals, aborted
 //        requests, documents after arming, denylist scans and hits by count), as CSV-ready rows
@@ -198,6 +206,78 @@ function safetySummary(ep, take, source) {
   };
 }
 
+export const CAPTURE_LOG = path.join(REPO_ROOT, 'video', 'showcase', 'capture-log.csv');
+const LOG_HEADER = ['beat', 'shot', 'take', 'attempt', 'source', 'route', 'file', 'cut_s', 'recorded', 'director_exit', 'entry',
+  'overlay_pairs', 'refusals', 'aborted_requests', 'websockets', 'documents_after_arming', 'popups', 'dom_scans', 'dom_hits',
+  'ocr_frames', 'ocr_hits', 'accepted'];
+
+// One row per take on disk. Counts only: a take's log never carries a name.
+export function logRows(ep) {
+  const rows = [];
+  const raw = episodeDir(ep.id, 'capture', 'raw');
+  const ocrDir = episodeDir(ep.id, 'capture', 'review', 'ocr');
+  for (const { beat, shot } of allShots(ep)) {
+    const taken = [];
+    for (let a = 1; a <= 9; a++) {
+      const s = safetySummary(ep, takeNumber(shot.id, a), beat.capture.source);
+      if (!s || s.recorded !== true) continue;   // a --no-record rehearsal is not a take
+      const f = path.join(ocrDir, `${s.stem}.json`);
+      const ocr = fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : null;
+      const safety = JSON.parse(fs.readFileSync(path.join(raw, `${s.stem}-safety.json`), 'utf8'));
+      const clean = s.recorded === true && s.mp4 && s.exit === 0 && s.refusals === 0 && s.aborted === 0 && s.websockets === 0
+        && s.documentsAfterArming === 0 && s.popups === 0 && s.hits === 0 && ocr?.pass === true
+        && (s.source === 'demo' ? safety.demoVerified === true && safety.overlay && typeof safety.overlay === 'object' : true);
+      taken.push({ s, ocr, safety, clean, attempt: a, shot, beat });
+    }
+    const accepted = [...taken].reverse().find((t) => t.clean);
+    for (const t of taken) {
+      rows.push([
+        t.beat.id, t.shot.id, t.s.take, t.attempt, t.s.source, t.shot.route, `capture/raw/${t.s.stem}.mp4`, t.shot.seconds,
+        t.s.recorded, t.s.exit, t.s.source === 'demo' ? 'demo route (director-verified)' : 'guide site recreation (localhost)',
+        t.safety.overlay ? t.safety.overlay.pairs : 0, t.s.refusals, t.s.aborted, t.s.websockets, t.s.documentsAfterArming, t.s.popups,
+        t.s.scans, t.s.hits, t.ocr ? t.ocr.frames : '', t.ocr ? t.ocr.hits.length : '', t === accepted ? 'yes' : 'no',
+      ]);
+    }
+  }
+  return rows;
+}
+
+function writeLog(ep) {
+  const rows = logRows(ep);
+  const csv = [LOG_HEADER, ...rows].map((r) => r.join(',')).join('\n') + '\n';
+  fs.writeFileSync(CAPTURE_LOG, csv);
+  const accepted = new Set(rows.filter((r) => r[LOG_HEADER.indexOf('accepted')] === 'yes').map((r) => r[1]));
+  const missing = allShots(ep).filter(({ shot }) => !accepted.has(shot.id)).map(({ shot }) => shot.id);
+  process.stdout.write(`capture-shots: ${rows.length} takes logged, ${accepted.size} of ${allShots(ep).length} shots accepted`
+    + `${missing.length ? `; not accepted: ${missing.join(', ')}` : ''} -> ${path.relative(REPO_ROOT, CAPTURE_LOG)}\n`);
+  return missing.length ? 1 : 0;
+}
+
+function writeReel(ep) {
+  const raw = episodeDir(ep.id, 'capture', 'raw');
+  const outDir = episodeDir(ep.id, 'capture', 'review');
+  const accepted = logRows(ep).filter((r) => r[LOG_HEADER.indexOf('accepted')] === 'yes');
+  if (!accepted.length) { process.stderr.write('capture-shots: no accepted takes to put on a reel\n'); return 1; }
+  const files = accepted.map((r) => path.join(raw, path.basename(r[LOG_HEADER.indexOf('file')])));
+  const filter = files.map((_, i) => `[${i}:v]scale=1280:720:flags=bicubic,fps=30,setsar=1[v${i}]`).join(';')
+    + ';' + files.map((_, i) => `[v${i}]`).join('') + `concat=n=${files.length}:v=1:a=0[out]`;
+  const reel = path.join(outDir, 'showcase-capture-reel.mp4');
+  const r = spawnSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', ...files.flatMap((f) => ['-i', f]), '-filter_complex', filter,
+    '-map', '[out]', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '24', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', reel], { stdio: 'inherit' });
+  if (r.status !== 0) { process.stderr.write(`capture-shots: ffmpeg exit ${r.status}\n`); return 1; }
+  let t = 0;
+  const index = ['shot,take,start_s,seconds'];
+  for (const [i, f] of files.entries()) {
+    const d = spawnSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f], { encoding: 'utf8' });
+    const sec = round(Number(d.stdout.trim()), 2);
+    index.push([accepted[i][1], accepted[i][2], round(t, 2), sec].join(','));
+    t += sec;
+  }
+  fs.writeFileSync(path.join(outDir, 'reel-index.csv'), index.join('\n') + '\n');
+  process.stdout.write(`capture-shots: reel of ${files.length} takes, ${round(t, 1)} s -> ${reel}\n`);
+  return 0;
+}
+
 export async function main(argv) {
   const [cmd, ...rest] = argv;
   let ep;
@@ -249,7 +329,9 @@ export async function main(argv) {
     }
     return 0;
   }
-  process.stderr.write('Usage: node video/showcase/capture-shots.mjs check | plans | run <shot|beat|all> [--attempt N] [--dry-run|--no-record] | status\n');
+  if (cmd === 'log') return writeLog(ep);
+  if (cmd === 'reel') return writeReel(ep);
+  process.stderr.write('Usage: node video/showcase/capture-shots.mjs check | plans | run <shot|beat|all> [--attempt N] [--dry-run|--no-record] | log | reel | status\n');
   return 2;
 }
 
