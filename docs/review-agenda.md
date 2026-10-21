@@ -438,6 +438,19 @@ and never rewrite another one.
   Question: should the player emit `returned_home` and a `guide_opened` on a deep link, so exits and
   time on task need no inference?
 
+- **The one beta step is written in the step shape, and its four new sentences were translated by the
+  executor.** "A stale course keeps its last scans" in Calculation questions (Beta, shown only when
+  beta content is on) now has Do, You should see, If not and Why, like every other step, and the
+  claims behind its sentences were re-read against the pinned develop commit and recorded as Verified
+  (beta). The build applies the rewrites before the beta step and the release gate, so a build with
+  beta content removed still ships 26 guides and no beta string. No Anthropic API key was available at
+  merge time, so the four sentences were translated into the ten languages by the executor, reusing the
+  guide's existing wording for the same ideas, and checked by `npm run test:validate`. Shows on: step 6
+  of Calculation questions, in every language. Decided by the executor under owner direction
+  2026-10-19; for review in person 2026-10-22. Question: does "Look at the table and the map for a
+  course that TurfRad has loaded nothing new for" tell a superintendent what to check, and should the
+  step go out of beta once the experts confirm the behaviour?
+
 ### Session pack for the walkthrough, 2026-10-22
 
 Use this to turn the expert walkthrough into measurable findings. The full protocol is
