@@ -254,7 +254,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Language\" >> xpath=..",
-          "name": "Language"
+          "name": "Language English ▼"
         },
         {
           "type": "wait",
@@ -263,7 +263,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Temperature Scale\" >> xpath=..",
-          "name": "Temperature Scale"
+          "name": "Temperature Scale Fahrenheit ▼"
         },
         {
           "type": "wait",
@@ -272,7 +272,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Group and Decimal Separator\" >> xpath=..",
-          "name": "Group and Decimal Separator"
+          "name": "Group and Decimal Separator 1,234.56 ▼"
         },
         {
           "type": "wait",
@@ -281,12 +281,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Units of Measure\" >> xpath=..",
-          "name": "Units of Measure"
+          "name": "Units of Measure Imperial ▼"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Units of Measure\" >> xpath=..",
-          "name": "Units of Measure"
+          "name": "Units of Measure Imperial ▼"
         }
       ]
     },
@@ -315,12 +315,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Units of Measure\" >> xpath=..",
-          "name": "Units of Measure"
+          "name": "Units of Measure Imperial ▼"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Units of Measure\" >> xpath=..",
-          "name": "Units of Measure"
+          "name": "Units of Measure Imperial ▼"
         },
         {
           "type": "cue",
@@ -350,12 +350,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Units of Measure\" >> xpath=..",
-          "name": "Units of Measure"
+          "name": "Units of Measure Imperial ▼"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Units of Measure\" >> xpath=..",
-          "name": "Units of Measure"
+          "name": "Units of Measure Imperial ▼"
         }
       ]
     },
@@ -384,12 +384,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Language\" >> xpath=..",
-          "name": "Language"
+          "name": "Language English ▼"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Language\" >> xpath=..",
-          "name": "Language"
+          "name": "Language English ▼"
         },
         {
           "type": "cue",
@@ -410,7 +410,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Language\" >> xpath=..",
-          "name": "Language"
+          "name": "Language English ▼"
         },
         {
           "type": "wait",
@@ -419,12 +419,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Preferences\" >> nth=0 >> xpath=../..",
-          "name": "the settings rail"
+          "name": "Calculation Configure calculation preferences Minimum Threshold Ignore insignificant irrigation adjustments Target Profiles Save seasonal and event-based target profiles Preferences Configure calculation preferences"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Preferences\" >> nth=0 >> xpath=../..",
-          "name": "the settings rail"
+          "name": "Calculation Configure calculation preferences Minimum Threshold Ignore insignificant irrigation adjustments Target Profiles Save seasonal and event-based target profiles Preferences Configure calculation preferences"
         }
       ]
     },
@@ -453,12 +453,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"101\"",
-          "name": "the weather strip"
+          "name": "101 F"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"101\"",
-          "name": "the weather strip"
+          "name": "101 F"
         },
         {
           "type": "cue",
@@ -488,12 +488,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"101\"",
-          "name": "the weather strip"
+          "name": "101 F"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"101\"",
-          "name": "the weather strip"
+          "name": "101 F"
         }
       ]
     }

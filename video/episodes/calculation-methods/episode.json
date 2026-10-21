@@ -263,7 +263,7 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Suggested Percent Adjust Calculation\" >> xpath=..",
-          "name": "Suggested Percent Adjust Calculation"
+          "name": "Suggested Percent Adjust Calculation Option 2 ▼"
         },
         {
           "type": "cue",
@@ -284,12 +284,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
-          "name": "Option 2"
+          "name": "Option 2 ▼"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
-          "name": "Option 2"
+          "name": "Option 2 ▼"
         }
       ]
     },
@@ -310,12 +310,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
-          "name": "Option 2"
+          "name": "Option 2 ▼"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
-          "name": "Option 2"
+          "name": "Option 2 ▼"
         },
         {
           "type": "cue",
@@ -344,7 +344,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Calculation ET: 0.34 in\"",
-          "name": "Calculation ET"
+          "name": "Calculation ET: 0.34 in"
         },
         {
           "type": "wait",
@@ -387,12 +387,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
-          "name": "Option 1"
+          "name": "Option 1 ▼"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
-          "name": "Option 1"
+          "name": "Option 1 ▼"
         },
         {
           "type": "cue",
@@ -413,7 +413,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount"
+          "name": "Daily Max Amount (in) 0.39"
         },
         {
           "type": "wait",
@@ -422,12 +422,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Lynx Reference Amount/ >> xpath=..",
-          "name": "Lynx Reference Amount"
+          "name": "Lynx Reference Amount (in) 0.12"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Lynx Reference Amount/ >> xpath=..",
-          "name": "Lynx Reference Amount"
+          "name": "Lynx Reference Amount (in) 0.12"
         }
       ]
     },

@@ -254,12 +254,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"⚙\"",
-          "name": "Settings"
+          "name": "⚙"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"⚙\"",
-          "name": "Settings"
+          "name": "⚙"
         },
         {
           "type": "cue",
@@ -348,12 +348,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=..",
-          "name": "Minimum Threshold (%)"
+          "name": "Minimum Threshold (%) 10 Suggested Percent Adjust values below the minimum threshold will be: Set to zero when pushed to Lynx Set to the minimum threshold value when pushed to Lynx Exclude Zeros"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=..",
-          "name": "Minimum Threshold (%)"
+          "name": "Minimum Threshold (%) 10 Suggested Percent Adjust values below the minimum threshold will be: Set to zero when pushed to Lynx Set to the minimum threshold value when pushed to Lynx Exclude Zeros"
         }
       ]
     },
@@ -382,12 +382,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div",
-          "name": "Minimum Threshold (%)"
+          "name": "10"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div",
-          "name": "Minimum Threshold (%)"
+          "name": "10"
         },
         {
           "type": "cue",
@@ -408,12 +408,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div",
-          "name": "Minimum Threshold (%)"
+          "name": "10"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div",
-          "name": "Minimum Threshold (%)"
+          "name": "10"
         }
       ]
     },
@@ -442,12 +442,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Suggested Percent Adjust values below the minimum threshold will be:\" >> xpath=..",
-          "name": "below the minimum threshold"
+          "name": "Suggested Percent Adjust values below the minimum threshold will be: Set to zero when pushed to Lynx Set to the minimum threshold value when pushed to Lynx Exclude Zeros"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Suggested Percent Adjust values below the minimum threshold will be:\" >> xpath=..",
-          "name": "below the minimum threshold"
+          "name": "Suggested Percent Adjust values below the minimum threshold will be: Set to zero when pushed to Lynx Set to the minimum threshold value when pushed to Lynx Exclude Zeros"
         },
         {
           "type": "cue",
@@ -456,7 +456,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Set to zero when pushed to Lynx\" >> xpath=..",
-          "name": "Set to zero"
+          "name": "Set to zero when pushed to Lynx"
         },
         {
           "type": "wait",
@@ -465,7 +465,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Set to the minimum threshold value when pushed to Lynx\" >> xpath=..",
-          "name": "Set to the minimum threshold value"
+          "name": "Set to the minimum threshold value when pushed to Lynx"
         }
       ]
     },
@@ -542,12 +542,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"2 stations will be adjusted according to the minimum threshold rules.\" >> xpath=..",
-          "name": "the pink banner"
+          "name": "2 stations will be adjusted according to the minimum threshold rules."
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"2 stations will be adjusted according to the minimum threshold rules.\" >> xpath=..",
-          "name": "the pink banner"
+          "name": "2 stations will be adjusted according to the minimum threshold rules."
         },
         {
           "type": "wait",
@@ -556,7 +556,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Adjusted to 10%/ >> nth=0",
-          "name": "Adjusted to 10%"
+          "name": "→ Adjusted to 10%"
         }
       ]
     }
