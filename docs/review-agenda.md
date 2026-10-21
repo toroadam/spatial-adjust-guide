@@ -326,3 +326,16 @@ and never rewrite another one.
   above. Decided by the executor under owner direction 2026-10-19; for review in person
   2026-10-22. Question: does each ring outline the control the step names, on a real course
   layout rather than the demo?
+
+- **The ten catalogues cover the rewritten guides through the Claude command line, not the API
+  script, and three validator rules were narrowed.** No Anthropic API key was available at merge
+  time, so the 664 new or changed strings went to Claude Opus through the same prompt and checks as
+  `npm run translate`, and the output was assembled and validated as usual. The validator now
+  ignores a screen label that only shares words with a `[[marker]]` that is not itself a screen
+  label (for example "Avg. Target VWC"), and does not demand the VWC token inside a marker, because
+  `markerDrift` already checks every marker against the product's own wording. The empty "known
+  VWC prose" list for Spanish and French is cleared, because the strings on it no longer exist.
+  Shows on: every guide in every language but English, and `npm run test:validate`. Decided by the
+  executor under owner direction 2026-10-19; for review in person 2026-10-22. Question: can a
+  native speaker read the Troubleshooting and Review & Apply guides in German, Japanese and one more
+  language, and do the progress messages quoted from the Lynx push read as the product shows them?

@@ -122,14 +122,7 @@ const namesVwcControlsOnly = (en, tr, t) => {
 // tightened the check but left the catalogues to the next translation pass. Listed by locale and
 // English prefix so they stay visible. The list may only shrink: an entry whose string no longer
 // drops VWC is reported as stale.
-const VWC_CONCEPT_KNOWN = {
-  // es-es renders the concept as CVA (Contenido Volumétrico de Agua), the product's acronym for it.
-  'es-es': ['Each sprinkler of a station scanned in the past seven days is a pin. A pin scanned today is coloured by its measured VWC',
-    'The average, high and low VWC figures summarise'],
-  // fr-fr renders the concept as Hv (humidité volumique), from the product's "Hv moyenne".
-  'fr-fr': ['Each sprinkler of a station scanned in the past seven days is a pin. A pin scanned today is coloured by its measured VWC',
-    'The average, high and low VWC figures summarise'],
-};
+const VWC_CONCEPT_KNOWN = {};
 
 const numbersOf = (s) => (s.match(/\d+(?:[.,]\d+)?/g) || [])
   // Compare numerically so a decimal comma is not read as a changed value.
@@ -227,7 +220,9 @@ for (const locale of locales) {
       // a Latin letter and a CJK/Thai character, so the target side is checked with an explicit
       // "not adjacent to another Latin letter" test instead.
       const bounded = new RegExp(`(?<![A-Za-z])${tok.replace(/[.*+?^${}()|[\]\\/]/g, '\\$&')}(?![A-Za-z])`);
-      if (bounded.test(en) && !bounded.test(tr) && !SCREEN.has(en) && !(EXEMPT[locale]?.(en, tr, tok))
+      // Text inside a [[marker]] is the screen label, which markerDrift checks against the product's
+      // own rendering; only the prose around it has to keep the token.
+      if (bounded.test(en.replace(/\[\[[^\]]*\]\]/g, ' ')) && !bounded.test(tr) && !SCREEN.has(en) && !(EXEMPT[locale]?.(en, tr, tok))
         && !(tok === 'VWC' && namesVwcControlsOnly(en, tr, t)) && !knownDrop(en, tok)) {
         issues.droppedToken.push(`${en.slice(0, 45)} :: lost "${tok}"`);
       }
