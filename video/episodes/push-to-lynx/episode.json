@@ -2,7 +2,7 @@
   "id": "push-to-lynx",
   "title": "Push changes to Lynx",
   "guide": "push-to-lynx",
-  "status": "script-locked",
+  "status": "captured",
   "durationTarget": [
     60,
     180
