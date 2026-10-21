@@ -1383,6 +1383,18 @@ export function transformGuide(src) {
     replace: '$1.5$2',
   });
 
+  // --- the catalogue's guide count ----------------------------------------------
+  // The hero link says how many guides the catalogue holds, as plain text in the export, and the
+  // export still says 24 although the catalogue now has 26 cards (24 authored plus the two this
+  // file adds). build.mjs checks the number against the catalogue on every build, so it cannot
+  // go stale again unnoticed. Changing it changes a translated string: update the key in every
+  // src/i18n catalogue, as the localisation notes in README.md describe.
+  s = edit(s, {
+    name: 'catalogue guide count in the hero link',
+    pattern: exact('or browse all 24 tasks ↓'),
+    replace: () => 'or browse all 26 tasks ↓',
+  });
+
   // --- per-concern modules ------------------------------------------------------
   // Each module under src/transforms/ is owned by one feature (see the module map in
   // docs/claims/README.md), so features can work in parallel without editing this file.
