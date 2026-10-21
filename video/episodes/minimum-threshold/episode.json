@@ -1,0 +1,572 @@
+{
+  "id": "minimum-threshold",
+  "title": "Set a minimum threshold",
+  "guide": "minimum-threshold",
+  "status": "draft",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/minimum-threshold",
+  "recreationFigure": "The gear button",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "minimum-threshold/1/1",
+    "minimum-threshold/1/2",
+    "minimum-threshold/1/3",
+    "minimum-threshold/1/4",
+    "minimum-threshold/2/1",
+    "minimum-threshold/2/2",
+    "minimum-threshold/2/3",
+    "minimum-threshold/2/4",
+    "minimum-threshold/3/1",
+    "minimum-threshold/3/2",
+    "minimum-threshold/3/4",
+    "minimum-threshold/3/5",
+    "minimum-threshold/4/1",
+    "minimum-threshold/4/2",
+    "minimum-threshold/4/3",
+    "minimum-threshold/4/4",
+    "minimum-threshold/4/6",
+    "minimum-threshold/5/1",
+    "minimum-threshold/5/2",
+    "minimum-threshold/5/3",
+    "minimum-threshold/before/4",
+    "minimum-threshold/summary/1",
+    "minimum-threshold/summary/2",
+    "minimum-threshold/tile/1",
+    "minimum-threshold/tile/2"
+  ],
+  "titleCard": {
+    "text": "Double Click: Set a minimum threshold",
+    "claims": [
+      "minimum-threshold/tile/1",
+      "minimum-threshold/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Open Settings",
+      "highlight": {
+        "label": "Settings",
+        "selector": "[data-sa-frame] >> text=\"⚙\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Choose the Minimum Threshold tab",
+      "highlight": {
+        "label": "Minimum Threshold",
+        "selector": "[data-sa-frame] >> text=\"Minimum Threshold\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Enter the percentage",
+      "highlight": {
+        "label": "percentage",
+        "selector": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div"
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "Decide what happens below the line",
+      "highlight": {
+        "label": "Exclude Zeros",
+        "selector": "[data-sa-frame] >> text=\"Exclude Zeros\" >> xpath=.."
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "Save and confirm at push time",
+      "highlight": {
+        "label": "Save",
+        "selector": "[data-sa-frame] >> text=\"Save Changes\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in. Demo Mode would also short-circuit the Settings Save (safetyRef settings-save, SAFETY.md), so the saved state is shown on the recreation, and no Save is clicked in any session (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Stop trivial adjustments reaching Lynx. Set the percentage below which a suggestion is either zeroed or lifted to the threshold value.",
+      "claims": [
+        "minimum-threshold/summary/1",
+        "minimum-threshold/summary/2"
+      ],
+      "next_text": "The gear button at the right of the toolbar, in its right-hand button group, opens the settings dialog."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "The gear button at the right of the toolbar, in its right-hand button group, opens the settings dialog.",
+      "claims": [
+        "minimum-threshold/1/2",
+        "minimum-threshold/1/4"
+      ],
+      "previous_text": "Stop trivial adjustments reaching Lynx. Set the percentage below which a suggestion is either zeroed or lifted to the threshold value.",
+      "next_text": "It opens on Calculation, unless you have used Review Threshold in the Push Changes dialog since the page loaded, in which case it opens on Minimum Threshold."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "It opens on Calculation, unless you have used Review Threshold in the Push Changes dialog since the page loaded, in which case it opens on Minimum Threshold.",
+      "claims": [
+        "minimum-threshold/1/3"
+      ],
+      "previous_text": "The gear button at the right of the toolbar, in its right-hand button group, opens the settings dialog.",
+      "next_text": "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.",
+      "claims": [
+        "minimum-threshold/2/2",
+        "minimum-threshold/2/3"
+      ],
+      "previous_text": "It opens on Calculation, unless you have used Review Threshold in the Push Changes dialog since the page loaded, in which case it opens on Minimum Threshold.",
+      "next_text": "The Settings dialog is now on the Minimum Threshold tab."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "The Settings dialog is now on the Minimum Threshold tab.",
+      "claims": [
+        "minimum-threshold/2/4"
+      ],
+      "previous_text": "The left rail lists the settings groups. Minimum Threshold sits second, under Calculation.",
+      "next_text": "Type the cutoff as a whole number between 0 and 50. Setting the percentage to 0 disables the feature entirely."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Type the cutoff as a whole number between 0 and 50. Setting the percentage to 0 disables the feature entirely.",
+      "claims": [
+        "minimum-threshold/3/2",
+        "minimum-threshold/before/4"
+      ],
+      "previous_text": "The Settings dialog is now on the Minimum Threshold tab.",
+      "next_text": "Here the threshold is set to 10 percent. The 0 to 50 bound is enforced by the dialog only. There is no server-side check."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "Here the threshold is set to 10 percent. The 0 to 50 bound is enforced by the dialog only. There is no server-side check.",
+      "claims": [
+        "minimum-threshold/3/4",
+        "minimum-threshold/3/5"
+      ],
+      "previous_text": "Type the cutoff as a whole number between 0 and 50. Setting the percentage to 0 disables the feature entirely.",
+      "next_text": "Set to zero means Lynx receives 0 percent. Set to the minimum threshold value raises the suggestion up to the threshold instead, so the station still gets a small run."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "Set to zero means Lynx receives 0 percent. Set to the minimum threshold value raises the suggestion up to the threshold instead, so the station still gets a small run.",
+      "claims": [
+        "minimum-threshold/4/2",
+        "minimum-threshold/4/3"
+      ],
+      "previous_text": "Here the threshold is set to 10 percent. The 0 to 50 bound is enforced by the dialog only. There is no server-side check.",
+      "next_text": "Exclude Zeros, available only on the second option, leaves genuine zeros at zero rather than lifting them."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "Exclude Zeros, available only on the second option, leaves genuine zeros at zero rather than lifting them.",
+      "claims": [
+        "minimum-threshold/4/4"
+      ],
+      "previous_text": "Set to zero means Lynx receives 0 percent. Set to the minimum threshold value raises the suggestion up to the threshold instead, so the station still gets a small run.",
+      "next_text": "Save Changes saves the edits on every tab of Settings together. A threshold-only change does not reload the dashboard; the pending push list is simply recalculated."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "Save Changes saves the edits on every tab of Settings together. A threshold-only change does not reload the dashboard; the pending push list is simply recalculated.",
+      "claims": [
+        "minimum-threshold/4/6",
+        "minimum-threshold/5/2"
+      ],
+      "previous_text": "Exclude Zeros, available only on the second option, leaves genuine zeros at zero rather than lifting them.",
+      "next_text": "Open Push Changes and the pink banner tells you how many stations the threshold touched, with each affected row showing its original value and the adjusted one."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "Open Push Changes and the pink banner tells you how many stations the threshold touched, with each affected row showing its original value and the adjusted one.",
+      "claims": [
+        "minimum-threshold/5/3"
+      ],
+      "previous_text": "Save Changes saves the edits on every tab of Settings together. A threshold-only change does not reload the dashboard; the pending push list is simply recalculated."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 8.27,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"⚙\"",
+          "name": "Settings"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"⚙\"",
+          "name": "Settings"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 11.07,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "wait",
+          "ms": 3419
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../../..",
+          "name": "Push 6 Changes"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 7.26,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Settings dialog, Minimum Threshold tab."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold\"",
+          "name": "Minimum Threshold"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold\"",
+          "name": "Minimum Threshold"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        },
+        {
+          "type": "wait",
+          "ms": 3013
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Calculation\" >> nth=0",
+          "name": "Calculation"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 5.11,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=..",
+          "name": "Minimum Threshold (%)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=..",
+          "name": "Minimum Threshold (%)"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 9.72,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Threshold set to 10 percent."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div",
+          "name": "Minimum Threshold (%)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div",
+          "name": "Minimum Threshold (%)"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 10.02,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div",
+          "name": "Minimum Threshold (%)"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../div[2]/div",
+          "name": "Minimum Threshold (%)"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 13.23,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Below-threshold behaviour"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested Percent Adjust values below the minimum threshold will be:\" >> xpath=..",
+          "name": "below the minimum threshold"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested Percent Adjust values below the minimum threshold will be:\" >> xpath=..",
+          "name": "below the minimum threshold"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Set to zero when pushed to Lynx\" >> xpath=..",
+          "name": "Set to zero"
+        },
+        {
+          "type": "wait",
+          "ms": 3632
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Set to the minimum threshold value when pushed to Lynx\" >> xpath=..",
+          "name": "Set to the minimum threshold value"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 7.56,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Exclude Zeros\" >> xpath=..",
+          "name": "Exclude Zeros"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Exclude Zeros\" >> xpath=..",
+          "name": "Exclude Zeros"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 11.07,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Save Changes\"",
+          "name": "Save Changes"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Save Changes\"",
+          "name": "Save Changes"
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 11.82,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Push dialog."
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"2 stations will be adjusted according to the minimum threshold rules.\" >> xpath=..",
+          "name": "the pink banner"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"2 stations will be adjusted according to the minimum threshold rules.\" >> xpath=..",
+          "name": "the pink banner"
+        },
+        {
+          "type": "wait",
+          "ms": 5357
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Adjusted to 10%/ >> nth=0",
+          "name": "Adjusted to 10%"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "calculation-settings",
+    "text": "Next on Double Click: Calculation settings",
+    "address": "#/minimum-threshold"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}

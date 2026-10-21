@@ -1,0 +1,576 @@
+{
+  "id": "calculation-methods",
+  "title": "Calculation methods",
+  "guide": "calculation-methods",
+  "status": "draft",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "source": "recreation",
+  "recreationPath": "/#/calculation-methods",
+  "recreationFigure": "The algorithm dropdown",
+  "mapPolicy": "restyle",
+  "allowClicks": [],
+  "demoWriteClicks": [],
+  "claims": [
+    "calculation-methods/1/1",
+    "calculation-methods/1/2",
+    "calculation-methods/1/3",
+    "calculation-methods/1/4",
+    "calculation-methods/2/1",
+    "calculation-methods/2/2",
+    "calculation-methods/2/3",
+    "calculation-methods/3/1",
+    "calculation-methods/3/2",
+    "calculation-methods/3/3",
+    "calculation-methods/3/4",
+    "calculation-methods/3/5",
+    "calculation-methods/4/1",
+    "calculation-methods/4/2",
+    "calculation-methods/4/3",
+    "calculation-methods/4/4",
+    "calculation-methods/5/1",
+    "calculation-methods/5/2",
+    "calculation-methods/5/3",
+    "calculation-methods/5/4",
+    "calculation-methods/before/1",
+    "calculation-methods/before/3",
+    "calculation-methods/summary/1",
+    "calculation-methods/summary/2",
+    "calculation-methods/tile/1",
+    "calculation-methods/tile/2"
+  ],
+  "titleCard": {
+    "text": "Double Click: Calculation methods",
+    "claims": [
+      "calculation-methods/tile/1",
+      "calculation-methods/tile/2"
+    ]
+  },
+  "chapters": [
+    {
+      "id": "c1",
+      "step": 1,
+      "label": "Find the selector",
+      "highlight": {
+        "label": "Suggested Percent Adjust Calculation",
+        "selector": "[data-sa-frame] >> text=\"Suggested Percent Adjust Calculation\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c2",
+      "step": 2,
+      "label": "Option 2 — delta plus today’s ET, the default",
+      "highlight": {
+        "label": "Option 2",
+        "selector": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=.."
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c3",
+      "step": 3,
+      "label": "Option 1 — ratio of target to measured",
+      "highlight": {
+        "label": "Option 1",
+        "selector": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=.."
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c4",
+      "step": 4,
+      "label": "The cap is what makes them look different",
+      "highlight": {
+        "label": "Option 2",
+        "selector": "[data-sa-frame] >> text=\"Suggested\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    },
+    {
+      "id": "c5",
+      "step": 5,
+      "label": "Switching is a course-wide change",
+      "highlight": {
+        "label": "Suggested",
+        "selector": "[data-sa-frame] >> text=\"Suggested\""
+      },
+      "source": "recreation",
+      "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "onScreen": []
+    }
+  ],
+  "vo": [
+    {
+      "id": "V0",
+      "text": "Two algorithms can produce the suggested percentage. They use different inputs and behave differently.",
+      "claims": [
+        "calculation-methods/summary/1",
+        "calculation-methods/summary/2"
+      ],
+      "next_text": "Suggested Percent Adjust Calculation is the first field on the Calculation tab. On a production site it only appears when the saved algorithm is already Option 1, so most users never see it."
+    },
+    {
+      "id": "V1a",
+      "chapter": "c1",
+      "text": "Suggested Percent Adjust Calculation is the first field on the Calculation tab. On a production site it only appears when the saved algorithm is already Option 1, so most users never see it.",
+      "claims": [
+        "calculation-methods/1/2",
+        "calculation-methods/1/3"
+      ],
+      "previous_text": "Two algorithms can produce the suggested percentage. They use different inputs and behave differently.",
+      "next_text": "The dropdown offers only Option 1 and Option 2. Nothing in the product says what either one does."
+    },
+    {
+      "id": "V1b",
+      "chapter": "c1",
+      "text": "The dropdown offers only Option 1 and Option 2. Nothing in the product says what either one does.",
+      "claims": [
+        "calculation-methods/1/4",
+        "calculation-methods/before/1"
+      ],
+      "previous_text": "Suggested Percent Adjust Calculation is the first field on the Calculation tab. On a production site it only appears when the saved algorithm is already Option 1, so most users never see it.",
+      "next_text": "The default is Option 2: delta plus today's ET. The server computes it per station. Target minus working VWC gives a deficit, and the deficit becomes an amount of water."
+    },
+    {
+      "id": "V2a",
+      "chapter": "c2",
+      "text": "The default is Option 2: delta plus today's ET. The server computes it per station. Target minus working VWC gives a deficit, and the deficit becomes an amount of water.",
+      "claims": [
+        "calculation-methods/before/3",
+        "calculation-methods/2/2"
+      ],
+      "previous_text": "The dropdown offers only Option 1 and Option 2. Nothing in the product says what either one does.",
+      "next_text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain."
+    },
+    {
+      "id": "V2b",
+      "chapter": "c2",
+      "text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain.",
+      "claims": [
+        "calculation-methods/2/2",
+        "calculation-methods/2/3"
+      ],
+      "previous_text": "The default is Option 2: delta plus today's ET. The server computes it per station. Target minus working VWC gives a deficit, and the deficit becomes an amount of water.",
+      "next_text": "Option 1 multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds. A station at 0 percent adjust stays at 0 no matter how dry it is."
+    },
+    {
+      "id": "V3a",
+      "chapter": "c3",
+      "text": "Option 1 multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds. A station at 0 percent adjust stays at 0 no matter how dry it is.",
+      "claims": [
+        "calculation-methods/3/2",
+        "calculation-methods/3/5"
+      ],
+      "previous_text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain.",
+      "next_text": "It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected."
+    },
+    {
+      "id": "V3b",
+      "chapter": "c3",
+      "text": "It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected.",
+      "claims": [
+        "calculation-methods/3/3",
+        "calculation-methods/3/4"
+      ],
+      "previous_text": "Option 1 multiplies the percent adjust Lynx currently holds by target divided by measured moisture, and rounds. A station at 0 percent adjust stays at 0 no matter how dry it is.",
+      "next_text": "Option 2 flattens everything above the daily maximum onto one number. Runs of identical values are a signature of the capped method."
+    },
+    {
+      "id": "V4a",
+      "chapter": "c4",
+      "text": "Option 2 flattens everything above the daily maximum onto one number. Runs of identical values are a signature of the capped method.",
+      "claims": [
+        "calculation-methods/4/2",
+        "calculation-methods/4/4"
+      ],
+      "previous_text": "It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected.",
+      "next_text": "Option 1 has no ceiling, so its suggestions spread out, and can go far higher than you intend on a station that reads very dry."
+    },
+    {
+      "id": "V4b",
+      "chapter": "c4",
+      "text": "Option 1 has no ceiling, so its suggestions spread out, and can go far higher than you intend on a station that reads very dry.",
+      "claims": [
+        "calculation-methods/4/3"
+      ],
+      "previous_text": "Option 2 flattens everything above the daily maximum onto one number. Runs of identical values are a signature of the capped method.",
+      "next_text": "The algorithm is stored on the site, so a switch applies to every course on the site, not just the one on screen. Saving a different algorithm recalculates every station and reloads the dashboard."
+    },
+    {
+      "id": "V5a",
+      "chapter": "c5",
+      "text": "The algorithm is stored on the site, so a switch applies to every course on the site, not just the one on screen. Saving a different algorithm recalculates every station and reloads the dashboard.",
+      "claims": [
+        "calculation-methods/5/1",
+        "calculation-methods/5/2"
+      ],
+      "previous_text": "Option 1 has no ceiling, so its suggestions spread out, and can go far higher than you intend on a station that reads very dry.",
+      "next_text": "Review the whole Suggested column before pushing anything after a switch. Compare the column before and after switching, not one row."
+    },
+    {
+      "id": "V5b",
+      "chapter": "c5",
+      "text": "Review the whole Suggested column before pushing anything after a switch. Compare the column before and after switching, not one row.",
+      "claims": [
+        "calculation-methods/5/3",
+        "calculation-methods/5/4"
+      ],
+      "previous_text": "The algorithm is stored on the site, so a switch applies to every course on the site, not just the one on screen. Saving a different algorithm recalculates every station and reloads the dashboard."
+    }
+  ],
+  "beats": [
+    {
+      "id": "b0",
+      "vo": "V0",
+      "hold": 0.6,
+      "actions": [
+        {
+          "type": "wait",
+          "ms": 500
+        }
+      ]
+    },
+    {
+      "id": "b1a",
+      "chapter": "c1",
+      "vo": "V1a",
+      "hold": 13.53,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c1-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested Percent Adjust Calculation\"",
+          "name": "Suggested Percent Adjust Calculation"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested Percent Adjust Calculation\" >> xpath=..",
+          "name": "Suggested Percent Adjust Calculation"
+        },
+        {
+          "type": "cue",
+          "id": "V1a"
+        }
+      ]
+    },
+    {
+      "id": "b1b",
+      "chapter": "c1",
+      "vo": "V1b",
+      "hold": 7.92,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V1b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
+          "name": "Option 2"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
+          "name": "Option 2"
+        }
+      ]
+    },
+    {
+      "id": "b2a",
+      "chapter": "c2",
+      "vo": "V2a",
+      "hold": 12.48,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "c2-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
+          "name": "Option 2"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
+          "name": "Option 2"
+        },
+        {
+          "type": "cue",
+          "id": "V2a"
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 14.28,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Every suggestion in this column"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "V2b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Calculation ET: 0.34 in\"",
+          "name": "Calculation ET"
+        },
+        {
+          "type": "wait",
+          "ms": 6883
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        }
+      ]
+    },
+    {
+      "id": "b3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 13.93,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "With Option 1 selected"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c3-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
+          "name": "Option 1"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=..",
+          "name": "Option 1"
+        },
+        {
+          "type": "cue",
+          "id": "V3a"
+        }
+      ]
+    },
+    {
+      "id": "b3b",
+      "chapter": "c3",
+      "vo": "V3b",
+      "hold": 9.67,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V3b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
+          "name": "Daily Max Amount"
+        },
+        {
+          "type": "wait",
+          "ms": 2648
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/Lynx Reference Amount/ >> xpath=..",
+          "name": "Lynx Reference Amount"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Lynx Reference Amount/ >> xpath=..",
+          "name": "Lynx Reference Amount"
+        }
+      ]
+    },
+    {
+      "id": "b4a",
+      "chapter": "c4",
+      "vo": "V4a",
+      "hold": 10.42,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Runs of identical values"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c4-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "cue",
+          "id": "V4a"
+        },
+        {
+          "type": "wait",
+          "ms": 3609
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"333%\" >> nth=0",
+          "name": "333%"
+        }
+      ]
+    },
+    {
+      "id": "b4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 10.37,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V4b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"293%\"",
+          "name": "293%"
+        },
+        {
+          "type": "wait",
+          "ms": 3835
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"121%\"",
+          "name": "121%"
+        }
+      ]
+    },
+    {
+      "id": "b5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 14.63,
+      "actions": [
+        {
+          "type": "figure",
+          "caption": "Compare the column before"
+        },
+        {
+          "type": "wait",
+          "ms": 750
+        },
+        {
+          "type": "cue",
+          "id": "c5-in"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=0",
+          "name": "Riverbend National"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=0",
+          "name": "Riverbend National"
+        },
+        {
+          "type": "cue",
+          "id": "V5a"
+        }
+      ]
+    },
+    {
+      "id": "b5b",
+      "chapter": "c5",
+      "vo": "V5b",
+      "hold": 8.97,
+      "actions": [
+        {
+          "type": "cue",
+          "id": "V5b"
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Suggested\"",
+          "name": "Suggested"
+        }
+      ]
+    }
+  ],
+  "endCard": {
+    "next": "preferences",
+    "text": "Next on Double Click: Preferences",
+    "address": "#/calculation-methods"
+  },
+  "music": "sa-bed-v1",
+  "treatment": "standard",
+  "approvalsRef": null
+}
