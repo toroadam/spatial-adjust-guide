@@ -26,7 +26,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:15 | 1:23 | 14 Step 4 result | The parent average **30.9%**, with its grey calculator icon, is highlighted |  | "The parent row carries a grey calculator icon beside its average, so you can tell it includes a modelled reading." | `station-details/4/3` |
 | 1:23 | 1:33 | 15 Close | Up next **Next on Double Click: Set a minimum threshold**; end card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/station-details` goes in the published description | — | — | — |
 
-**VO total:** 163 words in 9 lines, about 53 s spoken (measured). **Running time:** about 1:33 (93 s); the series range is 60-180 s.
+**VO total:** 163 words in 9 lines, about 53 s spoken (measured). **Running time:** about 1:33 (93 s); the series range is 60-180 s. **Measured:** 1:44 (104.6 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/station-details`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- station-details` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 
@@ -36,7 +36,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-Not yet run.
+Whisper round-trip on 2026-10-20 (`video/vo/whisper_check.py`, model small.en, with medium.en on any line small.en flagged); reports `vo/whisper-report-<model>.json` under the media root. Every line matched word for word apart from US spellings: 'modelled' heard as 'modeled' and 'grey' as 'gray' (the script keeps the British spelling the guide uses); judged by the executor as Whisper's, not misreadings; no line was re-rendered. The lines were rendered at the API output format mp3_44100_128, because the account's plan no longer allows mp3_44100_192 (the render report records the format); voice, model and settings are unchanged.
 
 ## Never on camera
 

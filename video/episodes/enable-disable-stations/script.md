@@ -29,7 +29,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:38 | 1:44 | 17 Step 5 result | **Enabled Stations**, the selected option, is highlighted |  | "Anything that disappeared is out, deliberately or otherwise." | `enable-disable-stations/5/3` |
 | 1:44 | 1:53 | 18 Close | Up next **Next on Double Click: Station details**; end card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/enable-disable-stations` goes in the published description | — | — | — |
 
-**VO total:** 201 words in 11 lines, about 67 s spoken (measured). **Running time:** about 1:53 (114 s); the series range is 60-180 s.
+**VO total:** 201 words in 11 lines, about 67 s spoken (measured). **Running time:** about 1:53 (114 s); the series range is 60-180 s. **Measured:** 2:07 (127.3 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Writes declared (all on `/demo`, none performed):** `enable-toggle` (chapter c1, "Enable switch (station row)"), `enable-toggle` (chapter c2, "Enable switch (hole row)"), `enable-toggle` (chapter c3, "CONTINUE"), `enable-toggle` (chapter c4, "CONTINUE"). No Enable switch has an accessible name, so the picture highlights the Enable column and the row beside the switch rather than the switch itself. The cascade Continue button is not matched by the write guard (`scripts/lib/writes.mjs`), so before any Demo Mode capture it must be covered: see the guard check in `video/episodes/README.md`.
 
@@ -41,7 +41,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-Not yet run.
+Whisper round-trip on 2026-10-20 (`video/vo/whisper_check.py`, model small.en, with medium.en on any line small.en flagged); reports `vo/whisper-report-<model>.json` under the media root. The differences are spelling and spacing: 'a p' heard as 'ap' and 'heads' as 'head' in one line (V5a), the rest matched on medium.en; judged by the executor as Whisper's, not misreadings; no line was re-rendered. The lines were rendered at the API output format mp3_44100_128, because the account's plan no longer allows mp3_44100_192 (the render report records the format); voice, model and settings are unchanged.
 
 ## Never on camera
 

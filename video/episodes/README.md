@@ -125,7 +125,7 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 4 approved, 18 planned, 4 blocked.
+26 episodes: 8 approved, 14 planned, 4 blocked.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
@@ -138,10 +138,10 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 7 | 2 | `push-to-lynx` | Push changes to Lynx | planned | — | — | — | — |
 | 8 | 2 | `reviewing-changes` | Reviewing changes | planned | — | — | — | — |
 | 9 | 2 | `verify-results` | Verify results | planned | — | — | — | — |
-| 10 | 3 | `editing-station-targets` | Editing station targets | planned | — | — | — | — |
-| 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | planned | — | — | — | — |
-| 12 | 3 | `enable-disable-stations` | Enable and disable stations | planned | — | — | — | — |
-| 13 | 3 | `station-details` | Station details | planned | — | — | — | — |
+| 10 | 3 | `editing-station-targets` | Editing station targets | approved | 1:49 | 2026-10-20 | 2026-10-20 | executor 2026-10-20; experts in person 2026-10-22 |
+| 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | approved | 1:46 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 12 | 3 | `enable-disable-stations` | Enable and disable stations | approved | 2:07 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
+| 13 | 3 | `station-details` | Station details | approved | 1:45 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
 | 14 | 4 | `minimum-threshold` | Set a minimum threshold | planned | — | — | — | — |
 | 15 | 4 | `calculation-settings` | Calculation settings | planned | — | — | — | — |
 | 16 | 4 | `calculation-methods` | Calculation methods | planned | — | — | — | — |
@@ -166,7 +166,7 @@ Blocked:
 |---|---|---|---|---|---|---|---|
 | 1 | Getting Started | 4 | 4,680 to 9,360 | 357,437 | 355,147 | 2,290 | decided by executor 2026-10-20 (episode 01); experts in person 2026-10-22 |
 | 2 | Review & Apply | 5 | 5,850 to 11,700 | — | — | — | — |
-| 3 | Station Management | 4 | 4,680 to 9,360 | — | — | — | — |
+| 3 | Station Management | 4 | 4,680 to 9,360 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-20 (episode 10); experts in person 2026-10-22 |
 | 4 | Calculations | 4 | 4,680 to 9,360 | — | — | — | — |
 | 5 | Troubleshooting | 5 | 5,850 to 11,700 | — | — | — | — |
 | 6 | Target Profiles | 4 | 4,680 to 9,360 | — | — | — | — |

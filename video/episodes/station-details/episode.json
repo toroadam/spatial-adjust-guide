@@ -2,7 +2,7 @@
   "id": "station-details",
   "title": "Station details",
   "guide": "station-details",
-  "status": "script-locked",
+  "status": "approved",
   "durationTarget": [
     60,
     180
