@@ -155,6 +155,90 @@
       "correction": ""
     },
     {
+      "id": "filter-adjustments/start/1",
+      "guide": "filter-adjustments",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The route is /spatialadjust. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/start/2",
+      "guide": "filter-adjustments",
+      "step": "start",
+      "field": "open",
+      "text": "No dialog open.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The guide starts on the dashboard with no dialog open; every dialog here opens only on a user action. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/start/3",
+      "guide": "filter-adjustments",
+      "step": "start",
+      "field": "needs",
+      "text": "A Spatial Adjust account on a site with TurfRad scan data.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §introduction"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/common/guards/spatial-adjust-guard.service.ts",
+          "line": "22-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/spatial-adjust-manager.service.ts",
+          "line": "185-189"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "180-211"
+        }
+      ],
+      "note": "Reworded from dashboard-overview/before/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "filter-adjustments/before/1",
       "guide": "filter-adjustments",
       "step": "before",
@@ -267,8 +351,51 @@
       "id": "filter-adjustments/1/2",
       "guide": "filter-adjustments",
       "step": "1",
-      "field": "body",
-      "text": "All Stations carries the full count.",
+      "field": "do",
+      "text": "Find the [[All Stations]] and [[Over/Under]] tabs above the table.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "2-17"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "3-16"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 499
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 405
+        }
+      ],
+      "note": "All Stations and Over/Under are the two tabs above the table. Reworded from filter-adjustments/1/1, filter-adjustments/1/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/1/3",
+      "guide": "filter-adjustments",
+      "step": "1",
+      "field": "see",
+      "text": "[[All Stations]] shows the full count, and [[Over/Under]] shows how many stations the filter catches.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -285,22 +412,7 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
           "line": "521-528"
-        }
-      ],
-      "note": "The count is the number of unique station names on the course. A paired station counts once, and disabled stations, holes and areas are included. It shows a dash only when the course has no stations.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/1/3",
-      "guide": "filter-adjustments",
-      "step": "1",
-      "field": "body",
-      "text": "Beside it, the Over/Under tab carries the count of stations the filter currently catches.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -316,7 +428,7 @@
           "line": "809-816"
         }
       ],
-      "note": "Counted by unique station name, like All Stations, so a caught paired row counts once.",
+      "note": "Over/Under carries the count of stations the filter catches. Reworded from filter-adjustments/1/2, filter-adjustments/1/3.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -325,8 +437,8 @@
       "id": "filter-adjustments/1/4",
       "guide": "filter-adjustments",
       "step": "1",
-      "field": "body",
-      "text": "Until you set a filter that count is a dash and the tab does nothing — it is not broken, there is simply nothing to show yet.",
+      "field": "ifNot",
+      "text": "If [[Over/Under]] shows a dash, no filter is set yet, or no station matches it.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -357,15 +469,51 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
           "line": "111-113"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": 15
         }
       ],
-      "note": "With neither end enabled the count is null. The tab shows \"--\", is styled disabled, and ignores clicks (sa-table-threshold-filter.component.ts:89). Saving with both ends unchecked also switches the table back to All Stations (:111-113). A filter that is set but catches nothing shows \"--\" as well, because the template prints the count or a dash (sa-table-threshold-filter.component.html:15), though that tab can then be selected.",
+      "note": "The tab shows a dash when the count is 0 or no filter is set (filteredStationsCount || '--', sa-table-threshold-filter.component.html:15). Reworded from filter-adjustments/1/4, filter-adjustments/verify/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "filter-adjustments/1/5",
+      "guide": "filter-adjustments",
+      "step": "1",
+      "field": "ifNot",
+      "text": "The next steps set one.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "31-36"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "101-103"
+        }
+      ],
+      "note": "The next steps open the options and set the filter. Reworded from filter-adjustments/2/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/1/6",
       "guide": "filter-adjustments",
       "step": "1",
       "field": "caption",
@@ -433,9 +581,9 @@
       "id": "filter-adjustments/2/2",
       "guide": "filter-adjustments",
       "step": "2",
-      "field": "body",
-      "text": "The link below the two tabs, beside Bulk Adjust, states the thresholds currently in force — % ADJ.",
-      "type": "calculation",
+      "field": "do",
+      "text": "Select the link below the tabs, to the right of [[Bulk Adjust]].",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -481,19 +629,140 @@
           "line": 439
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (filter-adjustments/2/2); docs/text-corrections.md §29 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "The filter link is below the tabs, beside Bulk Adjust. Reworded from filter-adjustments/2/2.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "The link to the right of the table toolbar states the thresholds currently in force — % ADJ."
+      "correction": ""
     },
     {
       "id": "filter-adjustments/2/3",
       "guide": "filter-adjustments",
       "step": "2",
-      "field": "body",
-      "text": "OVER 200%, UNDER 10% — so you can read the filter without opening it.",
-      "type": "label",
+      "field": "see",
+      "text": "[[Over/Under Options]] opens, with an [[Over]] value and an [[Under]] value.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": 31
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "101-103"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": 14
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 436
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "21-73"
+        }
+      ],
+      "note": "The Over/Under Options dialog has Over and Under values. Reworded from filter-adjustments/2/4, filter-adjustments/3/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/2/4",
+      "guide": "filter-adjustments",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If a tip about selecting stations appears, you chose [[Bulk Adjust]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-29"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "95-98"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 380
+        }
+      ],
+      "note": "Bulk Adjust shows a tooltip, \"Select one or more stations using the row checkboxes to enable bulk adjustment.\", while no station is selected (sa-table-threshold-filter.component.html:18-29; en-us.json:380; sa-table-threshold-filter.component.ts:95-98).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/2/5",
+      "guide": "filter-adjustments",
+      "step": "2",
+      "field": "ifNot",
+      "text": "Select the link to its right.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "120-134"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "31-36"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "101-103"
+        }
+      ],
+      "note": "The Over/Under link sits to the right of Bulk Adjust. Reworded from filter-adjustments/2/5, filter-adjustments/2/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/2/6",
+      "guide": "filter-adjustments",
+      "step": "2",
+      "field": "why",
+      "text": "Once a filter is set, the link shows the thresholds in force, so you can read it without opening it.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -530,58 +799,22 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/models/sa-adjust-threshold.model.ts",
           "line": "9-12"
-        }
-      ],
-      "note": "Retyped from navigation to label. With both ends enabled at the defaults, the link reads \"% ADJ. OVER 200%, UNDER 10%\" (SPATIAL_ADJUST.PERCENT_ADJUST_OVER_UNDER, upper-cased). With one end enabled it shows only that end (\"% ADJ. OVER {{over}}%\" or \"% ADJ. UNDER {{under}}%\"). With neither enabled it reads \"APPLY A FILTER TO SEE RESULTS\" (SPATIAL_ADJUST.FILTER_APPLY_FOR_RESULTS). A new user sees that last text, because both ends start disabled (sa-adjust-threshold.model.ts:9-10).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/2/4",
-      "guide": "filter-adjustments",
-      "step": "2",
-      "field": "body",
-      "text": "Clicking it opens Over/Under Options.",
-      "type": "navigation",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
-          "line": 31
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
-          "line": "101-103"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
-          "line": 14
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 436
+          "line": "120-134"
         }
       ],
-      "note": "The dialog header is SPATIAL_ADJUST.OVER_UNDER_OPTIONS \"Over/Under Options\".",
+      "note": "The link reads the thresholds in force. Reworded from filter-adjustments/2/3, filter-adjustments/2/5.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "filter-adjustments/2/5",
+      "id": "filter-adjustments/2/7",
       "guide": "filter-adjustments",
       "step": "2",
       "field": "caption",
@@ -628,8 +861,58 @@
       "id": "filter-adjustments/3/2",
       "guide": "filter-adjustments",
       "step": "3",
-      "field": "body",
-      "text": "Over accepts 0 to 300 and defaults to 200.",
+      "field": "do",
+      "text": "Tick [[Over]], [[Under]] or both.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "23-28"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "43-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "756-768"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "23-24"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "43-47"
+        }
+      ],
+      "note": "Each end has its own tick box. Reworded from filter-adjustments/3/4, filter-adjustments/3/6.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/3/3",
+      "guide": "filter-adjustments",
+      "step": "3",
+      "field": "see",
+      "text": "Each ticked end takes a value: [[Over]] from 0 to 300, default 200, and [[Under]] from 0 to 100, default 10.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -653,22 +936,7 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/models/sa-adjust-threshold.model.ts",
           "line": 9
-        }
-      ],
-      "note": "The input is bounded 0 to 300 in steps of 1, with a \" %\" suffix (sa-cfg-threshold-dlg.component.html:31-34). 200 is the default value, but the Over checkbox itself starts unticked (sa-adjust-threshold.model.ts:9).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/3/3",
-      "guide": "filter-adjustments",
-      "step": "3",
-      "field": "body",
-      "text": "Under accepts 0 to 100 and defaults to 10.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -691,7 +959,7 @@
           "line": 10
         }
       ],
-      "note": "The input is bounded 0 to 100. 10 is the default value, and the Under checkbox also starts unticked (sa-adjust-threshold.model.ts:10).",
+      "note": "Over takes 0 to 300 (default 200); Under 0 to 100 (default 10). Reworded from filter-adjustments/3/2, filter-adjustments/3/3.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -700,8 +968,8 @@
       "id": "filter-adjustments/3/4",
       "guide": "filter-adjustments",
       "step": "3",
-      "field": "body",
-      "text": "Each has its own checkbox, so you can run one end without the other — Over alone to find the stations asking for far too much, Under alone to find the ones asking for almost nothing.",
+      "field": "ifNot",
+      "text": "If a value box stays grey, its end is not ticked.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -727,13 +995,92 @@
           "line": "756-768"
         }
       ],
-      "note": "Each input is disabled while its checkbox is clear. A disabled end falls back to a value no suggestion reaches, so the filter runs on the other end alone.",
+      "note": "A value box is disabled until its end is ticked (sa-cfg-threshold-dlg.component.html:23-28, :43-52). Reworded from filter-adjustments/3/4.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "filter-adjustments/3/5",
+      "guide": "filter-adjustments",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Tick it, then type the value.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "23-28"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "43-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "756-768"
+        }
+      ],
+      "note": "Tick the end, then enter the value. Reworded from filter-adjustments/3/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/3/6",
+      "guide": "filter-adjustments",
+      "step": "3",
+      "field": "why",
+      "text": "Use [[Over]] alone to find stations asking for far too much, or [[Under]] alone for almost nothing.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "23-28"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "43-52"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "756-768"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 791
+        }
+      ],
+      "note": "Either end can run on its own. Reworded from filter-adjustments/3/4, filter-adjustments/summary/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/3/7",
       "guide": "filter-adjustments",
       "step": "3",
       "field": "caption",
@@ -783,7 +1130,7 @@
       "correction": ""
     },
     {
-      "id": "filter-adjustments/3/6",
+      "id": "filter-adjustments/3/8",
       "guide": "filter-adjustments",
       "step": "3",
       "field": "caption",
@@ -816,188 +1163,6 @@
       "guide": "filter-adjustments",
       "step": "4",
       "field": "title",
-      "text": "It catches both extremes, not a band",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 791
-        }
-      ],
-      "note": "The comparison is an OR across the two ends.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/4/2",
-      "guide": "filter-adjustments",
-      "step": "4",
-      "field": "body",
-      "text": "A station is caught if its suggestion is above the Over value OR below the Under value.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 791
-        }
-      ],
-      "note": "Both comparisons are strict, so a suggestion exactly at the Over or Under value is not caught. The value tested is the suggestion, not an edited % Adj. (see filter-adjustments/before/1).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/4/3",
-      "guide": "filter-adjustments",
-      "step": "4",
-      "field": "body",
-      "text": "With 200 and 10 set you get everything over 200 percent and everything under 10 percent — and nothing in between.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 791
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/models/sa-adjust-threshold.model.ts",
-          "line": "11-12"
-        }
-      ],
-      "note": "Because the comparisons are strict, 200 and 10 themselves fall in the middle band and are not shown.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/4/4",
-      "guide": "filter-adjustments",
-      "step": "4",
-      "field": "body",
-      "text": "It is an outlier finder.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 791
-        }
-      ],
-      "note": "It lists the stations outside the band at either end.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/4/5",
-      "guide": "filter-adjustments",
-      "step": "4",
-      "field": "body",
-      "text": "Reading it as “between 10 and 200” gives you exactly the stations it is not showing you.",
-      "type": "label",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 791
-        }
-      ],
-      "note": "Read as a range, the filter would show exactly the stations it leaves out.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/4/6",
-      "guide": "filter-adjustments",
-      "step": "4",
-      "field": "caption",
-      "text": "The filtered tab: the extremes at both ends, not the middle.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 791
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
-          "line": "44-50"
-        }
-      ],
-      "note": "Figure caption. The Over/Under tab renders the filtered list as a flat table (showFlatFilteredList).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/4/7",
-      "guide": "filter-adjustments",
-      "step": "4",
-      "field": "tip",
-      "text": "Why it matters. These are the two lists worth a second look before a push: the ones about to get a great deal of water, and the ones about to get almost none.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 791
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": "597-598"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
-          "line": "74-79"
-        }
-      ],
-      "note": "Holds for the suggestions. The filter reads the calculated suggestion, so a station whose % Adj. has been edited is listed on its suggestion, not on the value that would be pushed (sa-dashboard.component.ts:597-598, sa-confirm-push-dlg.component.ts:74-79).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "filter-adjustments/5/1",
-      "guide": "filter-adjustments",
-      "step": "5",
-      "field": "title",
       "text": "Exclude Zeros belongs to Under",
       "type": "behaviour",
       "status": "Verified",
@@ -1016,11 +1181,11 @@
       "correction": ""
     },
     {
-      "id": "filter-adjustments/5/2",
+      "id": "filter-adjustments/4/2",
       "guide": "filter-adjustments",
-      "step": "5",
-      "field": "body",
-      "text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under-threshold and the option means nothing without one.",
+      "step": "4",
+      "field": "do",
+      "text": "Tick [[Exclude Zeros]] below [[Under]] if you want to hide true zeros.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1029,27 +1194,27 @@
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
-          "line": "65-72"
+          "line": "41-73"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
-          "line": 791
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "65-72"
         }
       ],
-      "note": "Disabled while Under is unchecked (sa-cfg-threshold-dlg.component.html:67). The reason given holds for any Under value above 0. At 0 the strict comparison catches nothing, zeros included.",
+      "note": "Exclude Zeros sits below Under. Reworded from filter-adjustments/5/1, filter-adjustments/5/5.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "filter-adjustments/5/3",
+      "id": "filter-adjustments/4/3",
       "guide": "filter-adjustments",
-      "step": "5",
-      "field": "body",
-      "text": "Tick it and genuine zeros drop out of the filter, leaving the stations that asked for a little rather than the ones that asked for nothing.",
+      "step": "4",
+      "field": "see",
+      "text": "Stations suggesting 0 drop out of the filter, and those asking for a little stay.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1068,17 +1233,17 @@
           "line": 792
         }
       ],
-      "note": "With Exclude Zeros on, a station whose suggestion is exactly 0 is not caught. The saved setting is applied whether or not Under is enabled (sa-dashboard.component.ts:758, :792), but with Over alone it changes nothing, because 0 is never above the Over value.",
+      "note": "Exclude Zeros drops stations suggesting 0 and keeps those asking for a little. Reworded from filter-adjustments/5/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "filter-adjustments/5/4",
+      "id": "filter-adjustments/4/4",
       "guide": "filter-adjustments",
-      "step": "5",
-      "field": "body",
-      "text": "Your thresholds are saved to your own user preferences, not to the site.",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If [[Exclude Zeros]] is greyed out, tick [[Under]] first.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1086,40 +1251,26 @@
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.ts",
-          "line": "95-117"
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "65-72"
         },
         {
           "source": "intellidash",
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/api/dash-user/models/dash-user-preferences.model.ts",
-          "line": 82
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/api/dash-user/models/dash-user-preferences.model.ts",
-          "line": 37
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/assets/i18n/en-us.json",
-          "line": 486
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 791
         }
       ],
-      "note": "Saving writes the thresholds into the signed-in user's dashboard preferences (dashUserManager.updateDashUserPreferences) and shows \"Threshold settings have been saved.\" Another user on the same site keeps their own thresholds.",
+      "note": "Exclude Zeros is disabled until Under is on. Reworded from filter-adjustments/5/5, filter-adjustments/5/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "filter-adjustments/5/5",
+      "id": "filter-adjustments/4/5",
       "guide": "filter-adjustments",
-      "step": "5",
+      "step": "4",
       "field": "caption",
       "text": "Exclude Zeros is disabled until Under is on.",
       "type": "behaviour",
@@ -1139,9 +1290,9 @@
       "correction": ""
     },
     {
-      "id": "filter-adjustments/5/6",
+      "id": "filter-adjustments/4/6",
       "guide": "filter-adjustments",
-      "step": "5",
+      "step": "4",
       "field": "tip",
       "text": "Not the same setting. Settings › Minimum Threshold has its own Exclude Zeros.",
       "type": "navigation",
@@ -1182,9 +1333,9 @@
       "correction": ""
     },
     {
-      "id": "filter-adjustments/5/7",
+      "id": "filter-adjustments/4/7",
       "guide": "filter-adjustments",
-      "step": "5",
+      "step": "4",
       "field": "tip",
       "text": "That one changes what gets written to Lynx at push time.",
       "type": "behaviour",
@@ -1225,9 +1376,9 @@
       "correction": ""
     },
     {
-      "id": "filter-adjustments/5/8",
+      "id": "filter-adjustments/4/8",
       "guide": "filter-adjustments",
-      "step": "5",
+      "step": "4",
       "field": "tip",
       "text": "This one only changes which rows you are looking at.",
       "type": "behaviour",
@@ -1249,6 +1400,572 @@
         }
       ],
       "note": "The Over/Under Exclude Zeros is read only by the filter (sa-dashboard.component.ts:792). It is not part of what is pushed.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/5/1",
+      "guide": "filter-adjustments",
+      "step": "5",
+      "field": "title",
+      "text": "Save the filter",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": 14
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 436
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": 17
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "77-78"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "76-79"
+        }
+      ],
+      "note": "The dialog footer carries Save Changes and Cancel (sa-cfg-threshold-dlg.component.html:76-79). Reworded from filter-adjustments/3/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/5/2",
+      "guide": "filter-adjustments",
+      "step": "5",
+      "field": "do",
+      "text": "Select [[Save Changes]].",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": 14
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 436
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": 17
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "77-78"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "76-79"
+        }
+      ],
+      "note": "Save Changes is a footer button (sa-cfg-threshold-dlg.component.html:76-79). Reworded from filter-adjustments/3/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/5/3",
+      "guide": "filter-adjustments",
+      "step": "5",
+      "field": "see",
+      "text": "A message confirms the thresholds were saved, and the link below the tabs shows them.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "18-37"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.less",
+          "line": "8-11"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.less",
+          "line": "59-62"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "22-34"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "120-134"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 439
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.ts",
+          "line": "95-117"
+        }
+      ],
+      "note": "Saving stores the thresholds and the link then shows them (sa-cfg-threshold-dlg.component.ts:95-117). Reworded from filter-adjustments/2/2, filter-adjustments/2/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/5/4",
+      "guide": "filter-adjustments",
+      "step": "5",
+      "field": "ifNot",
+      "text": "If you select [[Cancel]], nothing changes.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "76-79"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.ts",
+          "line": "95-117"
+        }
+      ],
+      "note": "Cancel closes the dialog without saving (sa-cfg-threshold-dlg.component.html:76-79).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/5/5",
+      "guide": "filter-adjustments",
+      "step": "5",
+      "field": "ifNot",
+      "text": "Open the options again to set them.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "31-36"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "101-103"
+        }
+      ],
+      "note": "The options open again from the link. Reworded from filter-adjustments/2/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/5/6",
+      "guide": "filter-adjustments",
+      "step": "5",
+      "field": "why",
+      "text": "Your thresholds are saved for you alone, not for the site.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.ts",
+          "line": "95-117"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/models/dash-user-preferences.model.ts",
+          "line": 82
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/dash-user/models/dash-user-preferences.model.ts",
+          "line": 37
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 486
+        }
+      ],
+      "note": "The thresholds are saved to the user preferences. Reworded from filter-adjustments/5/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/5/7",
+      "guide": "filter-adjustments",
+      "step": "5",
+      "field": "caption",
+      "text": "Over/Under Options, with Save Changes and Cancel at the foot.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": 14
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 436
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": 17
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 402
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-cfg-threshold-dlg/sa-cfg-threshold-dlg.component.html",
+          "line": "77-78"
+        }
+      ],
+      "note": "Over/Under Options has Save Changes and Cancel at the foot. Reworded from filter-adjustments/3/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/6/1",
+      "guide": "filter-adjustments",
+      "step": "6",
+      "field": "title",
+      "text": "It catches both extremes, not a band",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 791
+        }
+      ],
+      "note": "The comparison is an OR across the two ends.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/6/2",
+      "guide": "filter-adjustments",
+      "step": "6",
+      "field": "do",
+      "text": "Select the [[Over/Under]] tab.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "9-16"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "809-816"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "3-16"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 499
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 405
+        }
+      ],
+      "note": "The Over/Under tab applies the filter. Reworded from filter-adjustments/1/3, filter-adjustments/1/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/6/3",
+      "guide": "filter-adjustments",
+      "step": "6",
+      "field": "see",
+      "text": "The table lists the stations above [[Over]] or below [[Under]], and none in between.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 791
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": "9-16"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "809-816"
+        }
+      ],
+      "note": "A station is caught if above Over or below Under. Reworded from filter-adjustments/4/2, filter-adjustments/1/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/6/4",
+      "guide": "filter-adjustments",
+      "step": "6",
+      "field": "ifNot",
+      "text": "If you expected a range, read it again: 200 and 10 show everything over 200% and everything under 10%.",
+      "type": "calculation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 791
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/models/sa-adjust-threshold.model.ts",
+          "line": "11-12"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.ts",
+          "line": "124-133"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": "438-440"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 401
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-threshold-filter/sa-table-threshold-filter.component.html",
+          "line": 34
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/models/sa-adjust-threshold.model.ts",
+          "line": "9-12"
+        }
+      ],
+      "note": "With 200 and 10 the filter catches everything over 200 and everything under 10. Reworded from filter-adjustments/4/3, filter-adjustments/2/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/6/5",
+      "guide": "filter-adjustments",
+      "step": "6",
+      "field": "why",
+      "text": "These are the stations worth a second look before a push: those about to get a great deal of water, and those about to get almost none.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 791
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "597-598"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "74-79"
+        }
+      ],
+      "note": "These are the stations worth a second look before a push. Reworded from filter-adjustments/4/7.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "filter-adjustments/6/6",
+      "guide": "filter-adjustments",
+      "step": "6",
+      "field": "caption",
+      "text": "The filtered tab: the extremes at both ends, not the middle.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": 791
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.html",
+          "line": "44-50"
+        }
+      ],
+      "note": "Figure caption. The Over/Under tab renders the filtered list as a flat table (showFlatFilteredList).",
       "question": "",
       "developNote": "",
       "correction": ""

@@ -145,7 +145,7 @@ function stationZero(src, h) {
       do: 'Read the scan date under the station’s name.',
       region: true,
       see: 'The date is today, so [[Avg. VWC]] comes from a current scan.',
-      ifNot: 'If the date is older, [[Avg. VWC]] is a modelled value, in grey italics. '
+      ifNot: 'If the date is older, [[Option 2]] shows a modelled [[Avg. VWC]], in grey italics. '
         + 'If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.',
     },
   });
@@ -164,7 +164,7 @@ function stationZero(src, h) {
       do: 'Hold Shift + Alt and click the Spatial Adjust logo.',
       region: true,
       see: 'The diagnostics dialog opens and reports TurfRad access, scan data and the last scan date, which is today.',
-      ifNot: 'If the last scan date is not today, TurfRad has not delivered a new scan. '
+      ifNot: 'If the last scan date is not today, no scan from today has reached Spatial Adjust yet. '
         + 'If nothing opens, wait a second or so after the page loads and click again.',
       why: DIAGNOSTICS_OPENS,
     },
@@ -539,7 +539,7 @@ function requestScanData(src, h) {
     set: {
       do: 'Look for the [[Request Queued]] message.',
       see: 'It says retrieval may take several minutes and that you will be notified when it is ready.',
-      ifNot: 'If [[Request Failed]] shows instead, the request did not queue. Go to the last step.',
+      ifNot: 'If [[Request Failed]] shows instead, the request did not queue. Select the button again.',
       why: 'You can keep reading the table while it runs, and the retrieval finishes even if you leave the page.',
     },
   });
@@ -562,7 +562,7 @@ function requestScanData(src, h) {
     set: {
       do: 'On the banner, select [[Reload Data]].',
       see: 'The dashboard loads the new readings, and every suggestion recalculates against them.',
-      ifNot: 'If the banner is gone, you selected [[Dismiss]], which only hides it. The next time the dashboard loads its data, it picks the new scan up.',
+      ifNot: 'If the banner has gone, [[Dismiss]] only hides it. The next time the dashboard loads its data, it picks the new scan up.',
       why: 'The banner appears whether or not TurfRad had a newer scan, so the numbers can come back unchanged.',
     },
   });
@@ -577,10 +577,11 @@ function requestScanData(src, h) {
       + 'diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all '
       + '— a course-wide problem is almost always there rather than in your settings.',
     set: {
+      title: 'If scans still do not arrive',
       do: 'Hold Shift + Alt and click the Spatial Adjust logo.',
       region: true,
       see: 'The diagnostics dialog reports TurfRad access, scan data and the last scan date.',
-      ifNot: 'If access or scan data is missing, a course-wide problem is almost always there, not in your settings.',
+      ifNot: 'If access or scan data is missing, that explains scans that never arrive, and the cause is not in your settings.',
       why: DIAGNOSTICS_OPENS,
     },
   });

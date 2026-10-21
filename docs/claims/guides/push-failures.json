@@ -133,6 +133,69 @@
       "correction": ""
     },
     {
+      "id": "push-failures/start/1",
+      "guide": "push-failures",
+      "step": "start",
+      "field": "page",
+      "text": "The Spatial Adjust dashboard, at /spatialadjust.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/app-routing.module.ts",
+          "line": "19-23"
+        }
+      ],
+      "note": "The route is /spatialadjust. Reworded from dashboard-overview/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/start/2",
+      "guide": "push-failures",
+      "step": "start",
+      "field": "open",
+      "text": "The push progress window, after a push that ended with a failure.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "121-164"
+        }
+      ],
+      "note": "The failure is reported in the push progress dialog. Reworded from push-failures/where/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/start/3",
+      "guide": "push-failures",
+      "step": "start",
+      "field": "needs",
+      "text": "Lynx must be set up as Push changes to Lynx describes, with Site Adjust and Course Adjust both at 100% in Lynx.",
+      "type": "prerequisite",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Settings Configuration, p.1"
+        }
+      ],
+      "note": "Push changes to Lynx lists the settings under Before you start. Reworded from push-failures/before/2, push-to-lynx/before/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "push-failures/before/1",
       "guide": "push-failures",
       "step": "before",
@@ -232,8 +295,86 @@
       "id": "push-failures/1/2",
       "guide": "push-failures",
       "step": "1",
-      "field": "body",
-      "text": "The message names how many stations could not be updated.",
+      "field": "do",
+      "text": "Read the number in the result line above [[Close]].",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "160-163"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.less",
+          "line": "234-240"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 162
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 413
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "426-427"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 414
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "142"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "155-164"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 648
+        }
+      ],
+      "note": "The result line sits above the Close button, which shows once the run is complete (sa-main-toolbar.component.html:142, :155-164); Close is STRINGS.CLOSE (en-us.json:648). Reworded from push-failures/1/1, push-failures/1/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/1/3",
+      "guide": "push-failures",
+      "step": "1",
+      "field": "see",
+      "text": "The line names how many stations could not be updated, such as 2.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -266,17 +407,103 @@
           "line": 414
         }
       ],
-      "note": "The result line is SPATIAL_ADJUST.LYNX_PUSH_ERROR \"Unable to Push Changes for {{num}} Station(s). Check the connection to Lynx and try again.\" The status line shown just before it is SPATIAL_ADJUST.LYNX_PUSH_ERROR_STEP \"{{num}} stations could not be updated in Lynx.\" Neither names the stations.",
+      "note": "The count is in SPATIAL_ADJUST.LYNX_PUSH_ERROR. Reworded from push-failures/1/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "push-failures/1/3",
+      "id": "push-failures/1/4",
       "guide": "push-failures",
       "step": "1",
-      "field": "body",
-      "text": "The rest of the push succeeded — a failure is partial, and the stations that verified are already live in Lynx.",
+      "field": "ifNot",
+      "text": "If the window closed with no result, Spatial Adjust could not read Lynx back.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 30
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "91-107"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.ts",
+          "line": "97-111"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/lynx-cloud.service.ts",
+          "line": "80-105"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/cloud-service-base.ts",
+          "line": "372-463"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "174-178"
+        }
+      ],
+      "note": "If the read-back from Lynx fails, the progress dialog closes with no result (sa-main-toolbar.component.ts:174-178). Reworded from push-failures/before/1, push-failures/3/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/1/5",
+      "guide": "push-failures",
+      "step": "1",
+      "field": "ifNot",
+      "text": "Check the connection to Lynx.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 413
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 386
+        }
+      ],
+      "note": "The product gives the same advice in its own failure message. Reworded from push-failures/3/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/1/6",
+      "guide": "push-failures",
+      "step": "1",
+      "field": "why",
+      "text": "A failure is partial: the stations that verified already match Lynx.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -302,13 +529,13 @@
           "line": "659-662"
         }
       ],
-      "note": "Only stations whose read-back value still differs are retried and counted. The rest matched Lynx and are no longer pending. \"A failure is partial\" assumes some stations verified: if every station failed, the count is the whole set. \"Live in Lynx\" means Lynx holds the value. Reaching the course also depends on the synchronisation that 373-1135 requires after a push (docs/claims/operational-contract.md OC-4).",
+      "note": "Only stations whose read-back value still differs are retried and counted. Reworded from push-failures/1/3.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "push-failures/1/4",
+      "id": "push-failures/1/7",
       "guide": "push-failures",
       "step": "1",
       "field": "caption",
@@ -337,7 +564,7 @@
       "correction": ""
     },
     {
-      "id": "push-failures/1/5",
+      "id": "push-failures/1/8",
       "guide": "push-failures",
       "step": "1",
       "field": "caption",
@@ -398,8 +625,8 @@
       "id": "push-failures/2/2",
       "guide": "push-failures",
       "step": "2",
-      "field": "body",
-      "text": "Failed stations are re-pushed automatically, up to two further attempts.",
+      "field": "do",
+      "text": "Look at the line under the progress bar while the failed stations are retried.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -416,9 +643,37 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
           "line": "91-101"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "95-97"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "134-141"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "213-223"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 417
         }
       ],
-      "note": "Re-confirmed on production: two further passes, each re-sending only the stations that did not verify, 5 s after the retry is announced, with 250 ms between stations.",
+      "note": "The progress dialog shows the retry line and the bar (en-us.json:417). Reworded from push-failures/2/1, push-failures/2/5.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -427,10 +682,60 @@
       "id": "push-failures/2/3",
       "guide": "push-failures",
       "step": "2",
-      "field": "body",
-      "text": "Pushing again by hand immediately afterwards is a fourth attempt at the same connection, which rarely behaves differently.",
+      "field": "see",
+      "text": "The line says the failed stations are being retried, and the bar restarts at zero and counts only those stations.",
       "type": "behaviour",
-      "status": "Needs expert",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "95-97"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "134-141"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "213-223"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 30
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "91-101"
+        }
+      ],
+      "note": "Settled fact in docs/text-corrections.md section 7: the step counter resets to 0 and the total is recalculated for the failed stations alone. Reworded from push-failures/2/5, push-failures/2/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/2/4",
+      "guide": "push-failures",
+      "step": "2",
+      "field": "ifNot",
+      "text": "If you push again by hand straight after a failure, that is a fourth attempt over the same connection.",
+      "type": "behaviour",
+      "status": "Verified",
       "evidence": [
         {
           "source": "intellidash",
@@ -461,13 +766,71 @@
           "line": "67-87"
         }
       ],
-      "note": "Half verified. \"A fourth attempt\" is right: one attempt plus MAX_RETRY_COUNT (2) automatic retries makes three, so a manual re-push is the fourth, and it goes over the same Lynx Cloud or Lynx Drive path (lynx-cloud.service.ts:80-95, lynx-drive.service.ts:67-87). \"Rarely behaves differently\" is a claim about how Lynx behaves in the field, and the source cannot settle it.",
-      "question": "When a station still fails after Spatial Adjust's three automatic attempts, how often does an immediate manual re-push succeed, and what usually makes the difference?",
+      "note": "One attempt plus two automatic retries makes three, so a manual re-push is the fourth, over the same Lynx path. The cut half of the old sentence, how often it behaves differently, stays Needs expert and is not published. Reworded from push-failures/2/3.",
+      "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "push-failures/2/4",
+      "id": "push-failures/2/5",
+      "guide": "push-failures",
+      "step": "2",
+      "field": "ifNot",
+      "text": "Check the connection first.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 413
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 386
+        }
+      ],
+      "note": "The same advice as the product's failure message. Reworded from push-failures/3/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/2/6",
+      "guide": "push-failures",
+      "step": "2",
+      "field": "why",
+      "text": "Each failed station is tried up to 2 more times before the failure is shown.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": 30
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "91-101"
+        }
+      ],
+      "note": "Two further passes, each re-sending only the stations that did not verify. Reworded from push-failures/2/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/2/7",
       "guide": "push-failures",
       "step": "2",
       "field": "caption",
@@ -503,7 +866,7 @@
       "correction": ""
     },
     {
-      "id": "push-failures/2/5",
+      "id": "push-failures/2/8",
       "guide": "push-failures",
       "step": "2",
       "field": "caption",
@@ -571,9 +934,38 @@
       "id": "push-failures/3/2",
       "guide": "push-failures",
       "step": "3",
-      "field": "body",
-      "text": "Diagnostics reports the Lynx interconnect, whether the cloud can be pinged, and the installation and course identifiers.",
-      "type": "behaviour",
+      "field": "do",
+      "text": "Hold Shift + Alt and click the Spatial Adjust logo.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 4
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "293-299"
+        }
+      ],
+      "note": "The handler opens the dialog only with Shift and Alt held (sa-main-toolbar.component.ts:293-299). Reworded from station-zero/5/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/3/3",
+      "guide": "push-failures",
+      "step": "3",
+      "field": "see",
+      "text": "The diagnostics dialog opens, and under Lynx, Can ping cloud shows true.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
         {
@@ -589,19 +981,40 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.ts",
           "line": "90-111"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
+          "line": "51-54"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.ts",
+          "line": "97-111"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-cloud/cloud-service-base.ts",
+          "line": 256
         }
       ],
-      "note": "The Lynx panel lists \"Lynx interconnect:\" (Cloud or Drive), \"Can ping cloud:\" (the result of a live ping), \"Installation ID:\" and \"Lynx course ID:\". The Diagnostics dialog opens only on a Shift+Alt click on the Spatial Adjust logo, and only once a Lynx course is loaded or Lynx has failed to load (sa-main-toolbar.component.html:4, sa-main-toolbar.component.ts:293-299). No guide step says how to open it. Its labels are hard-coded English (sa-diagnostics-dlg.component.html:22-89).",
+      "note": "Can ping cloud shows true when a live ping gets a reply; its labels are hardcoded English. Reworded from push-failures/3/2, push-failures/verify/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "push-failures/3/3",
+      "id": "push-failures/3/4",
       "guide": "push-failures",
       "step": "3",
-      "field": "body",
-      "text": "If the ping is failing, no amount of re-pushing will help.",
+      "field": "ifNot",
+      "text": "If Can ping cloud shows false, or a banner above the toolbar says the connection to Lynx is lost, re-pushing will not help.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -632,44 +1045,7 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
           "line": "174-178"
-        }
-      ],
-      "note": "Retyped from calculation to behaviour. The ping and the write go to Lynx by the same route: on Lynx Cloud both are commands on the installation's command topic (lynx-cloud.service.ts:84-86, :102-105). A push cannot verify without the read-back, which needs Lynx to answer on that route too (cloud-service-base.ts:372-463). If it cannot, the progress dialog closes with no result (sa-main-toolbar.component.ts:174-178). While the ping fails, a re-push cannot end in a verified success.",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "push-failures/3/4",
-      "guide": "push-failures",
-      "step": "3",
-      "field": "caption",
-      "text": "Diagnostics: Lynx interconnect, ping, installation ID.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
-          "line": "44-63"
-        }
-      ],
-      "note": "Figure caption. The Diagnostics dialog opens only on a Shift+Alt click on the Spatial Adjust logo, and only once a Lynx course is loaded or Lynx has failed to load (sa-main-toolbar.component.html:4, sa-main-toolbar.component.ts:293-299). No guide step says how to open it. Its labels are hard-coded English (sa-diagnostics-dlg.component.html:22-89).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
-      "id": "push-failures/3/5",
-      "guide": "push-failures",
-      "step": "3",
-      "field": "tip",
-      "text": "Also worth checking. When the connection drops, a banner appears above the toolbar and percent adjust values can be neither read nor written.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -706,7 +1082,101 @@
           "line": "83-89"
         }
       ],
-      "note": "Same evidence as push-to-lynx/before/2. The amber .sa-top-banner above the toolbar reads SPATIAL_ADJUST.CONNECTION_LOST_MSG \"Connection to Lynx lost. Unable to retrieve or update Percent Adjust values.\"",
+      "note": "A failing ping means the read-back cannot be made, so a push cannot verify; the amber banner means values can be neither read nor written. Reworded from push-failures/3/3, push-failures/3/5.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/3/5",
+      "guide": "push-failures",
+      "step": "3",
+      "field": "ifNot",
+      "text": "Check the connection to Lynx first.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 413
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/assets/i18n/en-us.json",
+          "line": 386
+        }
+      ],
+      "note": "The same advice as the product's failure message. Reworded from push-failures/3/1.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/3/6",
+      "guide": "push-failures",
+      "step": "3",
+      "field": "why",
+      "text": "The dialog opens a second or so after the page loads, and also when Lynx data has failed to load.",
+      "type": "navigation",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "293-299"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.ts",
+          "line": "221-223"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "731-733"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/lynx-proxy/lynx-proxy.service.ts",
+          "line": "109-116"
+        }
+      ],
+      "note": "Corrected rule: docs/text-corrections.md section 27. Reworded from station-zero/5/3.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/3/7",
+      "guide": "push-failures",
+      "step": "3",
+      "field": "caption",
+      "text": "Diagnostics: Lynx interconnect, ping, installation ID.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-diagnostics-dlg/sa-diagnostics-dlg.component.html",
+          "line": "44-63"
+        }
+      ],
+      "note": "Figure caption. The Diagnostics dialog opens only on a Shift+Alt click on the Spatial Adjust logo, and only once a Lynx course is loaded or Lynx has failed to load (sa-main-toolbar.component.html:4, sa-main-toolbar.component.ts:293-299). No guide step says how to open it. Its labels are hard-coded English (sa-diagnostics-dlg.component.html:22-89).",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -744,8 +1214,8 @@
       "id": "push-failures/4/2",
       "guide": "push-failures",
       "step": "4",
-      "field": "body",
-      "text": "The stations that failed are still pending, but they count as pushed today, so reopening Push Changes lists them under Pushed Today, unticked.",
+      "field": "do",
+      "text": "Under [[Pushed Today]], tick each station that failed.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -792,21 +1262,41 @@
           "line": 40
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/2); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Failed stations return under Pushed Today, unticked (docs/text-corrections.md section 18). Reworded from push-failures/4/2, push-failures/4/3.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "The stations that failed are still pending, so reopening Push Changes offers exactly them."
+      "correction": ""
     },
     {
       "id": "push-failures/4/3",
       "guide": "push-failures",
       "step": "4",
-      "field": "body",
-      "text": "Tick them to send them again.",
+      "field": "see",
+      "text": "The count on the footer button rises by 1 for each row you tick.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.html",
+          "line": 144
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "84-87"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "89-97"
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -836,21 +1326,27 @@
           "line": "174-179"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/3); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "The footer button counts only ticked rows. Reworded from push-to-lynx/4/2, push-failures/4/3.",
       "question": "",
       "developNote": "",
-      "correction": "",
-      "previousText": "Untick anything that already went out rather than sending the whole set a second time."
+      "correction": ""
     },
     {
       "id": "push-failures/4/4",
       "guide": "push-failures",
       "step": "4",
-      "field": "body",
-      "text": "The stations that went through are not listed again, so the whole set cannot go out twice; untick anything under Available to Push that you did not mean to send.",
-      "type": "behaviour",
+      "field": "ifNot",
+      "text": "If the dialog is closed, select [[Push Changes]] at the right of the toolbar.",
+      "type": "navigation",
       "status": "Verified",
       "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "33-42"
+        },
         {
           "source": "intellidash",
           "ref": "production",
@@ -892,15 +1388,136 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
           "line": 40
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": "34-41"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-failures/4/2, push-failures/4/3); docs/text-corrections.md §18 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "The Push Changes button is in the right-hand part of the toolbar (sa-main-toolbar.component.html:34-41). Reworded from push-to-lynx/where/1, push-failures/4/2.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
       "id": "push-failures/4/5",
+      "guide": "push-failures",
+      "step": "4",
+      "field": "ifNot",
+      "text": "If rows under Available to Push are ticked that you did not mean to send, untick them.",
+      "type": "label",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "174-179"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "214-231"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "23-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/sa-push-changes-station.model.ts",
+          "line": 16
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        }
+      ],
+      "note": "The stations that went through are not listed again. Reworded from push-failures/4/4.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/4/6",
+      "guide": "push-failures",
+      "step": "4",
+      "field": "why",
+      "text": "The failed stations count as pushed today, so they come back unticked.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/services/sa-push-changes.service.ts",
+          "line": "174-179"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "214-231"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dashboard.component.ts",
+          "line": "659-662"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-confirm-push-dlg/sa-confirm-push-dlg.component.ts",
+          "line": "23-26"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/sa-push-changes-station.model.ts",
+          "line": 16
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-main-toolbar/sa-main-toolbar.component.html",
+          "line": 40
+        }
+      ],
+      "note": "Failed stations count as pushed today, so they arrive unticked. Reworded from push-failures/4/2.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "push-failures/4/7",
       "guide": "push-failures",
       "step": "4",
       "field": "caption",
@@ -929,7 +1546,7 @@
       "correction": ""
     },
     {
-      "id": "push-failures/4/6",
+      "id": "push-failures/4/8",
       "guide": "push-failures",
       "step": "4",
       "field": "tip",
@@ -948,7 +1565,7 @@
       "correction": ""
     },
     {
-      "id": "push-failures/4/7",
+      "id": "push-failures/4/9",
       "guide": "push-failures",
       "step": "4",
       "field": "tip",

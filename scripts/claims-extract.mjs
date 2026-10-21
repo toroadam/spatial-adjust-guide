@@ -151,12 +151,16 @@ const clean = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
 // of these is joined to the next. "Avg." is not listed, though dashboard-overview/4/6 splits on it:
 // adding it would renumber claims that are already verified.
 const JOIN_AFTER = /(?:^|\s)Pct\.$/;
+// A label marker that is still open at the end of a segment ("[[Avg." of "[[Avg. VWC]]") is joined
+// to the next segment too, so a rewritten step's label never splits a claim in two. Only text
+// with [[ ]] markers, which is only a rewritten step, is affected.
+const openMarker = (s) => (s.match(/\[\[/g) || []).length > (s.match(/\]\]/g) || []).length;
 export const sentences = (text) => {
   const out = [];
   for (const { segment } of segmenter.segment(clean(text))) {
     const s = segment.trim();
     if (!s) continue;
-    if (out.length && JOIN_AFTER.test(out[out.length - 1])) out[out.length - 1] += ` ${s}`;
+    if (out.length && (JOIN_AFTER.test(out[out.length - 1]) || openMarker(out[out.length - 1]))) out[out.length - 1] += ` ${s}`;
     else out.push(s);
   }
   return out;
