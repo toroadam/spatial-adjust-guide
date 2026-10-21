@@ -144,6 +144,8 @@ By default the transport is **`local`**: events are buffered in `localStorage` a
 | `__saExport()` | download the raw events as JSON |
 | `__saClear()` | reset before a session |
 
+After a moderated session, `node scripts/session-readout.mjs _sessions/round1` turns the exported files into the per-task table (completion rate, median time on task, stuck steps), and `--compare` sets round 2 against round 1. `_sessions/` is gitignored: raw exports and moderator sheets never enter the repository. `node scripts/session-readout.mjs --selftest` checks the scoring on made-up sessions.
+
 That's sufficient for moderated sessions. **It does not collect from remote users.** For that, set `TRANSPORT = 'beacon'` and `SA_ENDPOINT` at the top of `src/analytics.js`, and add that origin to the allowlist in `scripts/smoke.mjs` — otherwise the smoke test will correctly fail the build for reaching a third party. Choosing that endpoint is an open decision.
 
 **Feedback** (`src/feedback.js`) is a floating **Feedback** button, bottom right, on every page
