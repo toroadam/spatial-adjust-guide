@@ -853,8 +853,9 @@ catalogues.
 
 **The harvest.** `scripts/extract-strings.mjs` also drives the contact modal and the feedback panel
 before it harvests, the way it opens the language menu, so text that only exists once a dialog is
-open reaches the catalogue. Serve `dist/` on a free port, harvest to a scratch file, and **diff and
-add** into `src/i18n/en-us.json` rather than overwriting it: `en-us.json` is the harvest **plus**
+open reaches the catalogue. Run `scripts/harvest-both-modes.mjs`, which builds and serves each release
+mode on a free port, harvests each to a scratch file and reports the union, and with `--write`
+**diff-and-adds** it into `src/i18n/en-us.json` rather than overwriting it: `en-us.json` is the harvest **plus**
 `scripts/app-strings.mjs`, so the raw harvest drops the screen labels. A clean sweep is a harvest
 with no key missing from `en-us.json` and `node scripts/seed-translate-fragments.mjs` reporting
 `0 to translate` in all ten locales. After `scripts/assemble-locale.mjs`, restore each catalogue's

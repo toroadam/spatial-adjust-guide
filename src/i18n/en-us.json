@@ -2,8 +2,8 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 1435,
-    "words": 14918
+    "strings": 1438,
+    "words": 14930
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
@@ -479,6 +479,7 @@
     "If the rows are areas or holes, they show averages only. Select a row to open the next level, until you reach stations.": "If the rows are areas or holes, they show averages only. Select a row to open the next level, until you reach stations.",
     "If the rows are areas or holes, you are not at station level. Select a row name to go down until stations show.": "If the rows are areas or holes, you are not at station level. Select a row name to go down until stations show.",
     "If the run stalls here, Spatial Adjust is waiting for Lynx to answer. If it never moves on, check the connection to Lynx.": "If the run stalls here, Spatial Adjust is waiting for Lynx to answer. If it never moves on, check the connection to Lynx.",
+    "If the scans stay old, select [[Request latest scan data]]. It looks back only two days, so the scans change only if TurfRad has loaded new scan data in that time.": "If the scans stay old, select [[Request latest scan data]]. It looks back only two days, so the scans change only if TurfRad has loaded new scan data in that time.",
     "If the slot shows a station count, it already holds a profile, and capturing into it replaces what it holds. Use a slot that shows -- if you have one.": "If the slot shows a station count, it already holds a profile, and capturing into it replaces what it holds. Use a slot that shows -- if you have one.",
     "If the switch is off, Lynx keeps the value it holds, but the suggestion is still calculated. Check the area and hole switches above the station too.": "If the switch is off, Lynx keeps the value it holds, but the suggestion is still calculated. Check the area and hole switches above the station too.",
     "If the table lists areas, select the area row first. If you know where the station is, select its pin on the map instead.": "If the table lists areas, select the area row first. If you know where the station is, select its pin on the map instead.",
@@ -595,6 +596,7 @@
     "Look at the pins on the map.": "Look at the pins on the map.",
     "Look at the scan dates beside the station names in the table.": "Look at the scan dates beside the station names in the table.",
     "Look at the sprinkler rows for an orange calculator icon beside a reading.": "Look at the sprinkler rows for an orange calculator icon beside a reading.",
+    "Look at the table and the map for a course that TurfRad has loaded nothing new for.": "Look at the table and the map for a course that TurfRad has loaded nothing new for.",
     "Look at the three boxes below [[Suggested Percent Adjust Calculation]].": "Look at the three boxes below [[Suggested Percent Adjust Calculation]].",
     "Look at the weather strip at the left of the toolbar.": "Look at the weather strip at the left of the toolbar.",
     "Look down the [[Suggested]] column for a run of the same value.": "Look down the [[Suggested]] column for a run of the same value.",
@@ -1169,6 +1171,7 @@
     "The count on the footer button drops by 1 for each row you untick.": "The count on the footer button drops by 1 for each row you untick.",
     "The count on the footer button rises by 1 for each row you tick.": "The count on the footer button rises by 1 for each row you tick.",
     "The course, coloured by measured moisture.": "The course, coloured by measured moisture.",
+    "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modelled value and a suggestion every day.": "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modelled value and a suggestion every day.",
     "The dashboard has reloaded, and every station shows a value from the new method.": "The dashboard has reloaded, and every station shows a value from the new method.",
     "The dashboard loads the new readings, and every suggestion recalculates against them.": "The dashboard loads the new readings, and every suggestion recalculates against them.",
     "The dashboard names the applied profile above the table.": "The dashboard names the applied profile above the table.",
@@ -1259,6 +1262,7 @@
     "The station joins the [[Push Changes]] count if it is enabled and the value differs from Lynx.": "The station joins the [[Push Changes]] count if it is enabled and the value differs from Lynx.",
     "The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.": "The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.",
     "The station’s Enable switch is in the state you intend.": "The station’s Enable switch is in the state you intend.",
+    "The stations stay in the table with their last scan date, and on the map as clear pins.": "The stations stay in the table with their last scan date, and on the map as clear pins.",
     "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.": "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.",
     "The stored profile is not changed by those edits; it is simply out of date.": "The stored profile is not changed by those edits; it is simply out of date.",
     "The Suggested column has moved where your new setting takes part.": "The Suggested column has moved where your new setting takes part.",
@@ -1385,7 +1389,6 @@
     "What the feature does and how the screen is laid out.": "What the feature does and how the screen is laid out.",
     "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.": "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.",
     "When the numbers are not what you expect.": "When the numbers are not what you expect.",
-    "When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last scans, even once they are more than seven days old. The stations stay in the table with their last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled value and a suggestion every day. Request latest scan data looks back only two days, so the scans stay as they are unless TurfRad has loaded new scan data in that time.": "When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last scans, even once they are more than seven days old. The stations stay in the table with their last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled value and a suggestion every day. Request latest scan data looks back only two days, so the scans stay as they are unless TurfRad has loaded new scan data in that time.",
     "When you let go, the map recolours to the new band boundary.": "When you let go, the map recolours to the new band boundary.",
     "WHERE": "WHERE",
     "Where a value is absent the column shows a dash, not a zero.": "Where a value is absent the column shows a dash, not a zero.",
@@ -2845,6 +2848,9 @@
     "If the run stalls here, Spatial Adjust is waiting for Lynx to answer. If it never moves on, check the connection to Lynx.": [
       "verify-results"
     ],
+    "If the scans stay old, select [[Request latest scan data]]. It looks back only two days, so the scans change only if TurfRad has loaded new scan data in that time.": [
+      "calculation-questions"
+    ],
     "If the slot shows a station count, it already holds a profile, and capturing into it replaces what it holds. Use a slot that shows -- if you have one.": [
       "creating-profiles"
     ],
@@ -3214,6 +3220,9 @@
     ],
     "Look at the sprinkler rows for an orange calculator icon beside a reading.": [
       "station-details"
+    ],
+    "Look at the table and the map for a course that TurfRad has loaded nothing new for.": [
+      "calculation-questions"
     ],
     "Look at the three boxes below [[Suggested Percent Adjust Calculation]].": [
       "calculation-methods"
@@ -5268,6 +5277,9 @@
     "The course, coloured by measured moisture.": [
       "map-navigation"
     ],
+    "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modelled value and a suggestion every day.": [
+      "calculation-questions"
+    ],
     "The dashboard has reloaded, and every station shows a value from the new method.": [
       "calculation-methods"
     ],
@@ -5562,6 +5574,9 @@
     ],
     "The station’s Enable switch is in the state you intend.": [
       "station-zero"
+    ],
+    "The stations stay in the table with their last scan date, and on the map as clear pins.": [
+      "calculation-questions"
     ],
     "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.": [
       "enable-disable-stations"
@@ -6000,9 +6015,6 @@
     "When the numbers are not what you expect.": [
       "catalog",
       "chrome"
-    ],
-    "When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last scans, even once they are more than seven days old. The stations stay in the table with their last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled value and a suggestion every day. Request latest scan data looks back only two days, so the scans stay as they are unless TurfRad has loaded new scan data in that time.": [
-      "calculation-questions"
     ],
     "When you let go, the map recolours to the new band boundary.": [
       "map-navigation"
