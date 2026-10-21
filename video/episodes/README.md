@@ -150,7 +150,7 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 4 approved, 22 planned.
+26 episodes: 8 approved, 18 planned.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
@@ -176,10 +176,10 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 20 | 5 | `threshold-questions` | Threshold questions | planned | — | — | — | — |
 | 21 | 5 | `calculation-questions` | Calculation questions | planned | — | — | — | — |
 | 22 | 5 | `push-failures` | Push failures | planned | — | — | — | — |
-| 23 | 6 | `target-profiles` | Apply a target profile | planned | — | — | — | — |
-| 24 | 6 | `creating-profiles` | Capturing profiles | planned | — | — | — | — |
-| 25 | 6 | `updating-profiles` | Updating profiles | planned | — | — | — | — |
-| 26 | 6 | `seasonal-profiles` | Managing seasonal profiles | planned | — | — | — | — |
+| 23 | 6 | `target-profiles` | Apply a target profile | approved | 1:58 | 2026-10-20 | 2026-10-21 | executor 2026-10-21; experts in person 2026-10-22 |
+| 24 | 6 | `creating-profiles` | Capturing profiles | approved | 1:50 | 2026-10-20 | 2026-10-21 | — |
+| 25 | 6 | `updating-profiles` | Updating profiles | approved | 1:48 | 2026-10-20 | 2026-10-21 | — |
+| 26 | 6 | `seasonal-profiles` | Managing seasonal profiles | approved | 1:47 | 2026-10-20 | 2026-10-21 | — |
 
 **Credits per wave** (ElevenLabs credits; estimate from series.json, method under Voice-over credits above; before and after from the account, counts only)
 
@@ -190,7 +190,7 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 | 3 | Station Management | 4 | 4,680 to 9,360 | — | — | — | — |
 | 4 | Calculations | 4 | 4,680 to 9,360 | — | — | — | — |
 | 5 | Troubleshooting | 5 | 5,850 to 11,700 | — | — | — | — |
-| 6 | Target Profiles | 4 | 4,680 to 9,360 | — | — | — | — |
+| 6 | Target Profiles | 4 | 4,680 to 9,360 | 29,529 | 17,717 | 11,812 | decided by executor 2026-10-21 (episode 23); experts in person 2026-10-22 |
 <!-- tracker:end -->
 
 ## Episode format
