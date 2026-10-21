@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "note": "Machine translation of the video caption cues in src/i18n/captions/en-us.json. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json, and a cue that names a guide step uses that step heading's translation from the page catalogue. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and step-label agreement. NOT reviewed by a native speaker. Regenerate keys with scripts/media-cues.mjs after any change to an English caption track.",
+    "locale": "ko-ko",
+    "strings": 24,
+    "identicalToEnglish": 0,
+    "machineValidated": true,
+    "nativeSpeakerReviewed": false,
+    "nativeReviewPlanned": false
+  },
+  "strings": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": "오늘 스캔된 핀은 판독값이 속하는 수분 구간의 색으로 표시됩니다.",
+    "A soil factor handles persistent offsets.": "토양 계수가 지속적인 편차를 보정합니다.",
+    "a suggestion is zeroed or lifted to the threshold when you push.": "전송할 때 권장값이 0으로 바뀌거나 임계값까지 올려집니다.",
+    "as the legend shows.": "범례에 나와 있는 대로입니다.",
+    "Before you push, override any suggestion, replace or shift targets in bulk,": "전송하기 전에 권장값을 덮어쓰고, 목표를 일괄 교체하거나 이동하고,",
+    "Below a minimum threshold,": "최소 임계값 미만이면",
+    "Daily Max Amount caps it, and the result becomes a suggested percent adjust.": "일일 최대 설정량이 상한을 두고, 그 결과가 권장 퍼센트 조정이 됩니다.",
+    "dated beside the station name.": "스테이션 이름 옆에 날짜가 표시됩니다.",
+    "Each sprinkler of a station scanned in the past seven days is a pin.": "지난 7일 동안 스캔된 스테이션의 각 스프링클러는 핀입니다.",
+    "Each station's average VWC comes from a TurfRad moisture scan,": "각 스테이션의 평균 VWC는 TurfRad 수분 스캔에서 가져오며,",
+    "find the outliers at both ends, or take a station or hole out of adjustment.": "양쪽 끝의 이상값을 찾고, 스테이션이나 홀을 조정에서 제외할 수 있습니다.",
+    "In IntelliDash, Spatial Adjust turns the latest moisture": "IntelliDash에서 Spatial Adjust는 최신 수분 스캔을",
+    "Lynx itself must be set up to match Spatial Adjust;": "Lynx 자체도 Spatial Adjust에 맞게 설정되어 있어야 하며,",
+    "Nothing changes until you push. Review the two lists,": "전송하기 전에는 아무것도 바뀌지 않습니다. 두 목록 검토하기,",
+    "scan into a percent adjustment, station by station.": "스테이션별 퍼센트 조정으로 변환합니다.",
+    "Spatial Adjust writes each station, then reads Lynx back and checks each one.": "Spatial Adjust는 각 스테이션을 기록한 다음 Lynx를 다시 읽어 하나씩 확인합니다.",
+    "Target minus measured, station by station. That is the whole idea.": "목표에서 측정값을 뺍니다. 스테이션별로 말이죠. 이것이 전체 원리입니다.",
+    "The gap between target and measured becomes water, today's ET is added,": "목표와 측정값의 차이가 물의 양이 되고, 오늘의 ET가 더해지며,",
+    "The map colours pins by measured moisture. Move the bands, or switch to": "지도는 측정된 수분에 따라 핀의 색을 정합니다. 구간을 옮기거나",
+    "the push guide lists the settings.": "설정 항목은 전송 가이드에 나와 있습니다.",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Spatial Adjust 기능 전체가 하나의 화면에 있습니다. 그 화면의 지도를 읽는 방법을 알아봅니다.",
+    "untick anything you're unsure of, and send.": "확신이 없는 항목은 선택을 해제한 뒤 전송합니다.",
+    "variance to see each station against its target. Map and table stay in sync.": "편차 보기로 전환하여 각 스테이션을 목표와 비교할 수 있습니다. 지도와 표는 동기화된 상태를 유지합니다.",
+    "You set the target: the moisture you want each station to hold.": "목표를 설정합니다. 각 스테이션이 유지해야 할 수분 값입니다."
+  }
+}

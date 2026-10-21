@@ -14,10 +14,18 @@
 // Keeping support.js untouched preserves the Core Design -> web round-trip: re-exporting
 // from Core Design means dropping the new .dc.html files in and rebuilding.
 
-import { readFile, writeFile, mkdir, rm, cp, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { readFile, writeFile, mkdir, rm, cp, copyFile, readdir } from 'node:fs/promises';
+import { isAbsolute, join, relative, resolve, sep } from 'node:path';
 import { transformGuide } from './src/transform-export.mjs';
 import { transformApp } from './src/transform-app.mjs';
+import { parseShowBeta, loadRelease, isGuideShipped } from './src/release.mjs';
+import { evaluateGuideData, catalogueOmissions } from './src/transforms/release-gate.mjs';
+import {
+  DEFAULT_MANIFEST, DEFAULT_MEDIA_DIR, SHOWCASE_KEY,
+  guideKeysFrom, loadManifest, validateManifest, verifyItem,
+} from './src/media/manifest.mjs';
+import { checkItems, checkSite } from './scripts/media-budget.mjs';
+import { DEFAULT_CAPTIONS_DIR, writeCaptionTracks } from './src/media/captions.mjs';
 
 const ROOT = import.meta.dirname;
 const DIST = join(ROOT, 'dist');
@@ -45,6 +53,8 @@ const A11Y_GUARDS = [
   ['aria-live="polite"', 'step-change announcements for screen readers'],
   ['class="lsa-stage-frame"', 'stage hook used by the small-screen fallback'],
   ['{{ task.ariaLabel }}', 'accessible names on guide cards'],
+  ['data-sa-media-slot="guide"', 'media panel slot (guide)'],
+  ['data-sa-media-slot="home"', 'media panel slot (catalogue home)'],
 ];
 
 const CDN_MAP = {
@@ -79,7 +89,109 @@ ${blobEntries}
 </script>`;
 }
 
+// ---- media --------------------------------------------------------------------------------------
+//
+// Videos are GitHub Release assets, never git objects. src/media/manifest.json pins each one by byte
+// count and SHA-256. They cannot be downloaded straight into dist/media/, because main() starts by
+// deleting dist/, so `npm run media:fetch` stages them in .media/ (gitignored) and the build copies
+// each one in only after it matches its pin. dist/media/ is still what the Pages artifact ships, on
+// the site's own origin.
+//
+//   SA_MEDIA_MANIFEST  another manifest file, for tests (default src/media/manifest.json)
+//   SA_MEDIA_DIR       another staging directory, for tests (default .media)
+//   SA_MEDIA_CAPTIONS_DIR  another directory of caption catalogues, for tests
+//                      (default src/i18n/captions; the fixture is scripts/fixtures/media/captions)
+//   SA_MEDIA_REQUIRED  1: a missing staged asset fails the build, which is what CI sets.
+//                      Unset, empty or 0: the item is dropped with a warning and its guide shows no
+//                      video, the same way the Feedback button is simply absent without an endpoint.
+//                      That keeps local builds and clean clones passing with nothing staged.
+// A staged file whose size or hash differs from its pin fails the build in every mode.
+
+/** Parse SA_MEDIA_REQUIRED. A value other than unset, empty, 0 or 1 is a typo, so it fails the build. */
+function mediaRequired(value) {
+  const text = (value ?? '').trim();
+  if (text === '1') return true;
+  if (text === '' || text === '0') return false;
+  throw new Error(`SA_MEDIA_REQUIRED must be unset, empty, 0 or 1; received ${JSON.stringify(value)}`);
+}
+
+/**
+ * Which guides ship in this build, and so which episodes may: the release rule in src/release.mjs
+ * (src/release.json plus SA_SHOW_BETA, read only through that module). main() parses the switch and
+ * loads the release once and passes both here, so the media step and the guide transforms can never
+ * disagree. When SA_SHOW_BETA is false a beta guide's episode, captions and transcript must be absent
+ * from dist/, not hidden. The showcase is not a guide and always ships.
+ */
+function releaseGate({ showBeta, release }) {
+  return {
+    // Every guide the release file knows, so a beta guide's item still validates when the release
+    // transforms have already removed that guide from the catalogue.
+    knownKeys: Object.keys((release && release.guides) || {}),
+    isShipped: (key) => key === SHOWCASE_KEY || isGuideShipped(release, key, showBeta),
+  };
+}
+
+/**
+ * Validate the media manifest against the catalogue in the transformed export, check the size caps,
+ * verify every staged asset of every shipped item and copy the verified ones into dist/media/.
+ * Returns the shipped items, keyed by guide key or "showcase". Everything later that publishes
+ * media (caption tracks, transcripts, the page's media list) must be derived from this object and
+ * never from the raw manifest, so an item that is left out leaves nothing behind in dist/.
+ */
+async function stageMedia(html, { showBeta, release }) {
+  const required = mediaRequired(process.env.SA_MEDIA_REQUIRED);
+  const manifestPath = resolve(ROOT, process.env.SA_MEDIA_MANIFEST || DEFAULT_MANIFEST);
+  const mediaDir = resolve(ROOT, process.env.SA_MEDIA_DIR || DEFAULT_MEDIA_DIR);
+  const gate = releaseGate({ showBeta, release });
+  const guideKeys = new Set([...guideKeysFrom(html), ...gate.knownKeys]);
+
+  const manifest = validateManifest(await loadManifest(manifestPath), { guideKeys });
+  const overCap = checkItems(manifest);
+  if (overCap.length) throw new Error(`media budget exceeded:\n- ${overCap.join('\n- ')}`);
+
+  const where = (name) => {
+    const path = join(mediaDir, name);
+    const rel = relative(ROOT, path);
+    return rel.startsWith('..') || isAbsolute(rel) ? path : rel;
+  };
+  const mediaItems = {};
+  const fatal = [];
+  for (const [key, item] of Object.entries(manifest.items)) {
+    if (!gate.isShipped(key)) {
+      console.log(`media: ${key} left out - its guide is beta and SA_SHOW_BETA is false`);
+      continue;
+    }
+    const { ok, missing, mismatched } = await verifyItem(item, mediaDir);
+    for (const m of mismatched) {
+      fatal.push(`media: ${key} ${m.name} ${m.field === 'bytes' ? 'byte count' : 'SHA-256'} mismatch - `
+        + `manifest pins ${m.expected}, staged file has ${m.actual}; delete ${where(m.name)} and run npm run media:fetch`);
+    }
+    if (missing.length) {
+      const line = `media: ${key} missing ${missing.join(', ')} - run npm run media:fetch`;
+      if (required) fatal.push(line);
+      else console.warn(`warning: ${line}. Building without this video (set SA_MEDIA_REQUIRED=1 to fail instead).`);
+    }
+    if (ok) mediaItems[key] = item;
+  }
+  if (fatal.length) throw new Error(fatal.join('\n'));
+
+  if (Object.keys(mediaItems).length) await mkdir(join(DIST, 'media'), { recursive: true });
+  for (const item of Object.values(mediaItems)) {
+    for (const name of [item.file, item.poster]) await copyFile(join(mediaDir, name), join(DIST, 'media', name));
+  }
+  return mediaItems;
+}
+
 async function main() {
+  // The release switch. SA_SHOW_BETA is the whole contract with whatever host runs the build: GitHub
+  // Actions sets it from a repository variable, an Azure pipeline from a pipeline variable, a laptop
+  // inline. Unset means beta content is shown; false removes it from dist/ altogether (see
+  // src/release.mjs). Parsed before anything is deleted, so a typo fails the build and leaves the
+  // previous dist/ alone.
+  const rawShowBeta = process.env.SA_SHOW_BETA;
+  const showBeta = parseShowBeta(rawShowBeta);
+  const { release, file: releaseFile } = loadRelease();
+
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
 
@@ -106,7 +218,49 @@ async function main() {
   // once hand-edits in the .dc.html files, which a re-export silently wiped; doing it here
   // makes re-exports free. Each transform asserts its own anchor, so a shape change fails
   // the build rather than quietly dropping keyboard support.
-  html = transformGuide(html);
+  const exported = html;
+  html = transformGuide(exported, { showBeta, release });
+
+  // With beta content removed, the strings only it used must not ship either: a catalogue is
+  // fetched by every reader and would publish the beta prose in English. transformGuide() is pure,
+  // so running it again with beta shown gives everything a build with beta would publish, and the
+  // difference between the two is computed here from src/release.json rather than kept as a list.
+  let omitted = null;
+  if (!showBeta) {
+    const catalogue = JSON.parse(await readFile(join(ROOT, 'src', 'i18n', 'en-us.json'), 'utf8'));
+    omitted = catalogueOmissions({
+      allData: evaluateGuideData(transformGuide(exported, { showBeta: true, release })),
+      shippedData: evaluateGuideData(html),
+      release,
+      catalogue,
+    }).omit;
+  }
+
+  // Run after the transforms, so the catalogue keys include the guides they add.
+  const mediaItems = await stageMedia(html, { showBeta, release });
+
+  // Eleven caption tracks per shipped video, dist/media/captions/<key>.<locale>.vtt: the English
+  // source and one per translated locale, from the caption catalogues (see src/media/captions.mjs).
+  // Built from the verified items only, so a video that is left out leaves no tracks behind. A cue
+  // with no translation in any locale fails the build, naming the locale and the cue: no partial
+  // track ever ships.
+  const captionTracks = await writeCaptionTracks({
+    items: mediaItems,
+    captionsDir: process.env.SA_MEDIA_CAPTIONS_DIR || DEFAULT_CAPTIONS_DIR,
+    distDir: DIST,
+    root: ROOT,
+  });
+  const tracks = Object.values(captionTracks).reduce((n, byLocale) => n + Object.keys(byLocale).length, 0);
+  // What the page's media panel is told about each shipped video, keyed like mediaItems. Every path
+  // is relative to dist/, so the browser loads it from the site's own origin.
+  const runtimeItems = Object.fromEntries(Object.entries(mediaItems).map(([key, item]) => [key, {
+    kind: item.kind,
+    src: `media/${item.file}`,
+    type: 'video/mp4',
+    poster: `media/${item.poster}`,
+    duration: item.duration,
+    captions: captionTracks[key],
+  }]));
 
   // Belt and braces: confirm the transforms actually produced what the runtime needs.
   for (const [marker, what] of A11Y_GUARDS) {
@@ -153,7 +307,11 @@ async function main() {
   const gateCss = await readFile(join(ROOT, 'src', 'gate.css'), 'utf8');
   const contactCss = await readFile(join(ROOT, 'src', 'contact.css'), 'utf8');
   const feedbackCss = await readFile(join(ROOT, 'src', 'feedback.css'), 'utf8');
+  const mediaCss = await readFile(join(ROOT, 'src', 'media.css'), 'utf8');
   const splashCss = await readFile(join(ROOT, 'src', 'splash.css'), 'utf8');
+  // The Beta badge, banner and step marker styles ship only with the markup they style: a build with
+  // beta content removed carries none of their class names (src/transforms/release-gate.mjs).
+  const releaseCss = showBeta ? await readFile(join(ROOT, 'src', 'release.css'), 'utf8') : '';
   // Resolved in <head>, synchronously, so the gate decision is made before the first paint
   // rather than after — see the header of src/gate-boot.js.
   const gateBoot = await readFile(join(ROOT, 'src', 'gate-boot.js'), 'utf8');
@@ -161,8 +319,9 @@ async function main() {
   // guide logic all call. gate follows it so the gate's own events are recorded, and comes
   // before the rest so the prompt is up before anything else starts wiring itself to a page
   // the reader cannot see. i18n defines window.__saLocale and must precede both i18n-apply,
-  // which reads the resolved locale, and i18n-selector, which renders from it. a11y last so it
-  // observes a fully wired tree.
+  // which reads the resolved locale, and i18n-selector, which renders from it. media follows
+  // i18n for the same reason: its caption tracks and transcript follow the locale. a11y last so
+  // it observes a fully wired tree.
   const injectedJs = [];
   // The feedback endpoint is the Power Automate trigger URL, whose sig= parameter lets anyone
   // holding it post to the list. The built page has to carry it — a browser cannot post without
@@ -174,7 +333,14 @@ async function main() {
   // string, which expands `$&`-style sequences — a `$` here would be silently rewritten. Trigger
   // URLs contain none, so refuse one rather than ship a corrupted endpoint.
   if (feedbackEndpoint.includes('$')) throw new Error('SA_FEEDBACK_ENDPOINT contains "$", which the page splice would corrupt');
-  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'a11y.js']) {
+  // The media panel's manifest: the shipped items only, as a JS object literal. Inline rather than
+  // fetched, so file:// keeps working and the page makes no extra request; it is a few hundred bytes
+  // per video. "<" is escaped so no value can close the inline <script>, and a "$" is refused for the
+  // same splice reason as the feedback endpoint. Every value is a validated key, kind, number or a
+  // media/ path, so neither should ever occur; the checks keep it that way.
+  const mediaManifest = JSON.stringify({ items: runtimeItems }).replace(/</g, '\\u003c');
+  if (mediaManifest.includes('$')) throw new Error('the media manifest contains "$", which the page splice would corrupt');
+  for (const name of ['analytics.js', 'splash.js', 'gate.js', 'i18n.js', 'i18n-apply.js', 'i18n-selector.js', 'contact.js', 'feedback.js', 'media.js', 'a11y.js']) {
     let src = await readFile(join(ROOT, 'src', name), 'utf8');
     if (name === 'feedback.js') {
       if (!src.includes('__SA_FEEDBACK_ENDPOINT__')) throw new Error('src/feedback.js lost its __SA_FEEDBACK_ENDPOINT__ placeholder');
@@ -182,13 +348,22 @@ async function main() {
       const safe = JSON.stringify(feedbackEndpoint).slice(1, -1).replace(/'/g, "\\'");
       src = src.replace('__SA_FEEDBACK_ENDPOINT__', () => safe);
     }
+    if (name === 'media.js') {
+      // Exactly once: String.replace touches only the first occurrence, so a second copy (in a
+      // comment, say) would leave the real one unreplaced and the page would throw on load.
+      const count = src.split('__SA_MEDIA_MANIFEST__').length - 1;
+      if (count !== 1) throw new Error(`src/media.js must contain the __SA_MEDIA_MANIFEST__ placeholder exactly once; found ${count}`);
+      // A function, not a string, for the same `$` reason as above.
+      src = src.replace('__SA_MEDIA_MANIFEST__', () => mediaManifest);
+    }
     injectedJs.push(`/* --- src/${name} --- */\n` + src);
   }
   const a11yJs = injectedJs.join('\n');
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
-<style>\n${a11yCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${splashCss}\n</style>
+<meta name="sa-release-mode" content="${showBeta ? 'with-beta' : 'ga-only'}">
+<style>\n${a11yCss}\n${releaseCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${mediaCss}\n${splashCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
 
@@ -239,17 +414,41 @@ async function main() {
     .filter((f) => /^[a-z]{2}-[a-z]{2}\.json$/.test(f) && f !== 'en-us.json');
   if (localeFiles.length) await mkdir(join(DIST, 'i18n'), { recursive: true });
   let shipped = 0;
+  const leftOut = new Set();
   for (const file of localeFiles) {
     const data = JSON.parse(await readFile(join(ROOT, 'src', 'i18n', file), 'utf8'));
     if (!data.strings) throw new Error(`${file} has no "strings" map — regenerate it`);
-    await writeFile(join(DIST, 'i18n', file), JSON.stringify({ strings: data.strings }));
+    let strings = data.strings;
+    if (omitted) {
+      strings = Object.fromEntries(Object.entries(strings).filter(([key]) => {
+        if (!omitted.has(key)) return true;
+        leftOut.add(key);
+        return false;
+      }));
+    }
+    await writeFile(join(DIST, 'i18n', file), JSON.stringify({ strings }));
     shipped++;
   }
 
   await writeFile(join(DIST, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
 
+  // The release status is build input. It names every beta guide, so it must never be published,
+  // whichever way the switch is set.
+  const releaseFiles = (await readdir(DIST, { recursive: true }))
+    .filter((f) => /(^|[\\/])release\.(json|mjs)$/.test(f));
+  if (releaseFiles.length) throw new Error(`dist/ must not contain the release status: ${releaseFiles.join(', ')}`);
+
+  // Last, after every write: the whole site, videos and posters included, against the Pages budget.
+  const site = await checkSite(DIST);
+  if (site.problems.length) throw new Error(`media budget exceeded:\n- ${site.problems.join('\n- ')}`);
+
   console.log(`built dist/ — entry index.html, ${COMPONENTS.length} component(s) inlined, `
-    + `${shipped} locale catalogue(s), 0 external origins`);
+    + `${shipped} locale catalogue(s), 0 external origins, ${Object.keys(mediaItems).length} video(s), `
+    + `${tracks} caption track(s)`);
+  console.log(`release mode: ${showBeta ? 'beta shown' : 'beta removed'} `
+    + `(SA_SHOW_BETA=${rawShowBeta === undefined ? 'unset' : JSON.stringify(rawShowBeta)}), `
+    + `release file ${releaseFile.startsWith(ROOT + sep) ? relative(ROOT, releaseFile) : releaseFile}`
+    + (omitted ? `, ${leftOut.size} beta-only catalogue key(s) left out of the locale catalogues` : ''));
 }
 
 await main();

@@ -12,21 +12,44 @@
 // under superseded English are dropped rather than carried, which is what makes them `todo` —
 // and carrying them would fail assemble-locale.mjs's unknown-key check anyway.
 //
-// Usage: node scripts/seed-translate-fragments.mjs [locale ...]     (default: all ten)
+// --catalogue captions does the same for the video caption catalogues: source
+// src/i18n/captions/en-us.json, existing translations src/i18n/captions/<locale>.json, fragments
+// .translate/captions/<locale>/. A locale with no caption catalogue yet seeds nothing, so every cue
+// is `todo`. The default, --catalogue main, is the page catalogue and behaves exactly as it always has.
+//
+// Usage: node scripts/seed-translate-fragments.mjs [locale ...] [--catalogue main|captions]
+//        (default: all ten locales, main catalogue)
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { join } from 'node:path';
 
 const LOCALES = ['de-de', 'es-es', 'fr-fr', 'it-it', 'nl-nl', 'pt-pt', 'ja-jp', 'ko-ko', 'th-th', 'zh-cn'];
-const targets = process.argv.slice(2).length ? process.argv.slice(2) : LOCALES;
+const argv = process.argv.slice(2);
+const at = argv.indexOf('--catalogue');
+const catalogue = at === -1 ? 'main' : argv[at + 1];
+if (catalogue !== 'main' && catalogue !== 'captions') throw new Error('--catalogue must be main or captions');
+if (at !== -1) argv.splice(at, 2);
+const targets = argv.length ? argv : LOCALES;
 
-const source = JSON.parse(await readFile('src/i18n/en-us.json', 'utf8')).strings;
+const catalogueDir = catalogue === 'captions' ? 'src/i18n/captions' : 'src/i18n';
+const fragmentRoot = catalogue === 'captions' ? join('.translate', 'captions') : '.translate';
+const source = JSON.parse(await readFile(join(catalogueDir, 'en-us.json'), 'utf8')).strings;
+
+/** A locale's translated strings. Only the captions catalogue may be missing: a new video's first run. */
+async function existingStrings(locale) {
+  try {
+    return JSON.parse(await readFile(join(catalogueDir, `${locale}.json`), 'utf8')).strings;
+  } catch (err) {
+    if (catalogue === 'captions' && err.code === 'ENOENT') return {};
+    throw err;
+  }
+}
 
 for (const locale of targets) {
-  const existing = JSON.parse(await readFile(join('src/i18n', `${locale}.json`), 'utf8')).strings;
+  const existing = await existingStrings(locale);
   const seed = {};
   for (const [k, v] of Object.entries(existing)) if (k in source) seed[k] = v;
 
-  const dir = join('.translate', locale);
+  const dir = join(fragmentRoot, locale);
   await mkdir(dir, { recursive: true });
   // chunk-000 sorts ahead of anything translate.mjs writes, and assemble-locale.mjs only
   // complains when two fragments disagree — which they cannot, since todo excludes these keys.

@@ -16,10 +16,11 @@
       "fetchedAt": "2026-10-19T17:41:40Z"
     },
     "guides": 26,
-    "claims": 871,
+    "claims": 876,
     "byStatus": {
       "Unverified": 0,
-      "Verified": 843,
+      "Verified": 844,
+      "Verified (beta)": 4,
       "Wrong": 0,
       "Not shipping": 0,
       "Needs expert": 28
@@ -27,7 +28,7 @@
     "byType": {
       "label": 32,
       "navigation": 55,
-      "behaviour": 727,
+      "behaviour": 732,
       "calculation": 35,
       "prerequisite": 22
     }
@@ -3322,6 +3323,305 @@
         }
       ],
       "note": "",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/1",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "title",
+      "text": "A stale course keeps its last scans",
+      "type": "behaviour",
+      "status": "Verified (beta)",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2140-2153"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2575
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/TerraRadService.cs",
+          "line": "104-134"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2134-2146"
+        }
+      ],
+      "note": "On develop, when TurfRad reports nothing loaded since the previous processing run, the run takes a branch that deletes no stored scans and only makes sure today’s adjustments exist (SpatialAdjustService.cs:2140-2153, reached through the early return at :2575 and the \"anything new?\" query at TerraRadService.cs:104-134). Production has no such branch: once its seven-day re-read comes back empty it deletes the stored scans (production SpatialAdjustService.cs:2134-2146).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/2",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "body",
+      "text": "When TurfRad has loaded nothing new for a course, Spatial Adjust keeps the course’s last scans, even once they are more than seven days old.",
+      "type": "behaviour",
+      "status": "Verified (beta)",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/TerraRadService.cs",
+          "line": "114-134"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2575
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2140-2153"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2169
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2134-2146"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": 2510
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2817-2836"
+        }
+      ],
+      "note": "Develop first asks TurfRad for anything loaded since the last processing run, less five minutes (TerraRadService.cs:114-119, :205-210). An empty answer ends the fetch with no results (SpatialAdjustService.cs:2575) and the run then keeps every stored scan (:2140-2153). Every run, empty or not, moves the \"since\" time forward (:2169), so a course that TurfRad stops updating keeps its last scans however old they become. The only deletions on develop are the replacement of a course’s scans when new data does arrive (:2812-2814) and the clean-up when TurfRad reports new data but the seven-day window is empty (:2154-2166). Production re-reads the last seven days on every run (production SpatialAdjustService.cs:2510) and deletes the stored scans once that window is empty (:2134-2146, :2817-2836).",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/3",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "body",
+      "text": "The stations stay in the table with their last scan date and on the map as clear pins, and under Option 2 each one still gets a modelled value and a suggestion every day.",
+      "type": "behaviour",
+      "status": "Verified (beta)",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "199-208"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-25"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": 241
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/environments/environment.toro-beta.ts",
+          "line": 89
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "173-188"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "3266-3326"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "239-260"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "48-49"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/services/sa-algorithm.service.ts",
+          "line": "62-65"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "29-31"
+        }
+      ],
+      "note": "The dashboard lists only stations that have stored scans (SpatialAdjustService.cs:199-208), so kept scans keep the stations listed. Each station row shows its latest scan date beside its name (sa-table-card.component.html:22-25, from sa-dash-table.component.ts:241). On the map a station whose latest scan is not from today is filled transparent (sa-dash-map.component.ts:315) because the beta environment sets saShowCurrentOnly (environment.toro-beta.ts:89). A station that is not current under Option 2 is modelled (spatial-adjust-course.model.ts:184-188) and its row shows the latest adjustment’s modelled VWC in grey italics (sa-dash-table.component.ts:218, sa-table-card.component.html:29-31). The no-new-data pass writes that adjustment once a day for each station with an adjustment in the last five days (SpatialAdjustService.cs:3266-3326, window :3271-3275, once a day :3293), the dashboard attaches the newest one to each station (:239-260), and under Option 2 the suggestion is read from it (sa-algorithm.service.ts:48-49, :62-65). Each day’s adjustment feeds the next, so the chain continues for as long as TurfRad loads nothing. On production the stations drop out once their scans are deleted (production SpatialAdjustService.cs:2134-2146). The value is modelled from the older of the station’s two most recent adjustments (:3217, :3304), and a station with only one adjustment in the five-day window is modelled from zero; docs/claims/beta-surfaces.md carries that as the suggestion-held-without-new-scan candidate for the experts.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/4",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "body",
+      "text": "Request latest scan data looks back only two days, so the scans stay as they are unless TurfRad has loaded new scan data in that time.",
+      "type": "behaviour",
+      "status": "Verified (beta)",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "978-1002"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/TerraRadService.cs",
+          "line": "114-134"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/TerraRadService.cs",
+          "line": "205-210"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "2140-2153"
+        }
+      ],
+      "note": "Request latest scan data (en-us.json SPATIAL_ADJUST.REQUEST_SCAN_DATA) sets the course’s last-update time to two days ago and starts a processing run (SpatialAdjustService.cs:992, :998-999). On develop that time, less five minutes, is what the run asks TurfRad about (TerraRadService.cs:114-119, :205-210), so a course with nothing loaded in those two days takes the no-new-data branch and its scans stay as they are (SpatialAdjustService.cs:2140-2153). Production sets the same time (production SpatialAdjustService.cs:992), but there it only makes the run start; the run itself always re-reads seven days (production :2510), so the two-day look-back is develop only.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "calculation-questions/6/5",
+      "guide": "calculation-questions",
+      "step": "6",
+      "field": "caption",
+      "text": "A pin last scanned on an earlier day is drawn clear.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/environments/environment.toro-prod.ts",
+          "line": 87
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
+          "line": "173-182"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/utils/spatial-adjust.util.ts",
+          "line": "17-19"
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-dash-map.component.ts",
+          "line": 315
+        },
+        {
+          "source": "intellidash",
+          "ref": "develop",
+          "sha": "bd39f465cf5a7ae0356a59825250b36044085714",
+          "path": "site/src/environments/environment.toro-beta.ts",
+          "line": 89
+        }
+      ],
+      "note": "True on both builds. A station’s scan is current only when its date is today, local to the course (spatial-adjust.util.ts:17-19, spatial-adjust-course.model.ts:173-182), and a pin that is not current is filled transparent, leaving its outline (sa-dash-map.component.ts:315), because saShowCurrentOnly is set in production (environment.toro-prod.ts:87) and in the beta environment (develop environment.toro-beta.ts:89). The map component is identical at the two SHAs.",
       "question": "",
       "developNote": "",
       "correction": ""

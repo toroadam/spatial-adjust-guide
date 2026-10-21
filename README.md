@@ -32,7 +32,9 @@ The raw export only renders inside Core Design's preview harness: it pulls React
 
 It also adds `index.html` (the export had no entry point and a space in its filename), vendors the Satoshi font, and drops files that never execute — see `DS_EXCLUDE` in `build.mjs`, chiefly the 10MB `_ds_bundle.js`.
 
-Result: **1.3MB, zero third-party origins.**
+It verifies and ships the video media too (see **Video**). After the transforms, it validates `src/media/manifest.json` against the catalogue's guide keys, holds each video to its size cap, checks every asset staged in `.media/` against its pinned byte count and SHA-256, and copies only the verified ones into `dist/media/`. A mismatch always fails the build; a missing asset fails it only under `SA_MEDIA_REQUIRED=1`, which the deploy sets. It then writes eleven caption tracks per shipped video and inlines the shipped items into `src/media.js`. Last, after every write, it holds the whole of `dist/` to 900,000,000 bytes. The summary line counts the videos and caption tracks it shipped.
+
+Result: **about 2.9MB before any video, zero third-party origins** (measured 2026-10-20; it was 1.3MB before the locale catalogues). 1.7MB of that is the ten locale catalogues, and a reader fetches only the one for their language. Videos and posters come on top, inside the size budget, and a video downloads only when a reader presses play.
 
 ### Why Babel isn't involved
 
@@ -65,16 +67,27 @@ Adding a new imported component still means adding its name to `COMPONENTS` in `
 
 | Command | What it checks |
 |---|---|
-| `npm test` | Boots the built bundle in Chromium with all external hosts blocked. Asserts the catalog renders 24 cards, a guide opens, the imported app component mounts, and there are zero external requests and zero console errors. |
-| `npm run test:guides` | Discovers every guide from the page and walks all 24, stepping through each and fingerprinting the rendered DOM. Used to prove a change is render-neutral — diff against a known-good run. |
-| `npm run test:keyboard` | Drives the interface: tab to a card, Enter to open, Space on Next, and asserts the live region changed. |
+| `npm test` | Builds, then boots the bundle in Chromium with all external hosts blocked, twice: as built, and with fixture media injected (see **Video › Placeholder clip**). Both runs assert the catalog's card count is the number of guides `src/release.json` ships in this mode, a guide opens, the imported app component mounts, and there are zero external requests and zero console errors. As built: no video panel anywhere when the build shipped no videos, and every shipped video's panel when it did, as in CI. With fixture media: the showcase on the home page, one panel on `dashboard-overview` — a `<video>` with controls, `preload="none"`, `playsinline` and a poster, never autoplay, muted or loop, and eleven caption tracks with exactly one default — and no panel on `target-profiles`. Ends with `npm run test:media`. |
+| `npm run test:media` | Unit tests for the media layer, with no browser (`node --test`): manifest validation against the catalogue's guide keys, byte-count and SHA-256 mismatches, each of the three caps at its limit and one byte over, the WebVTT round trip, a missing caption translation refused, the caption locales matching `CONTENT_LOCALES`, the caption source catalogue being current, and the git guard. |
+| `npm run test:media-budget` | Each manifest item's declared size against its cap, and the `dist/` total against 900,000,000 bytes. Exits 1 on anything over. See **Video › Size budget**. |
+| `npm run test:media-git` | No tracked video file (`.mp4` `.m4v` `.mov` `.webm` `.mkv` `.avi`, any letter case) and no Git LFS filter in any `.gitattributes`; in a full clone, also that no commit on any ref ever added one. CI's depth-1 checkout sees the tracked tree only, and the first line of output says which mode ran. The deploy runs it before building. |
+| `npm run test:guides` | Discovers every guide from the page and walks each one the build ships, stepping through each and fingerprinting the rendered DOM. Used to prove a change is render-neutral — diff against a known-good run. |
+| `npm run test:keyboard` | Drives the interface: tab to a card, Enter to open, Space on Next, and asserts the live region changed. Then, on `dashboard-overview` with fixture media, that Tab reaches the video and then the transcript toggle, each with a visible focus ring, and that Enter opens the transcript. |
 | `npm run test:routing` | Deep links, Back/Forward, and an unknown key falling back to the catalog. |
-| `npm run test:a11y` | axe-core on the catalog and inside a guide, plus a keyboard-reachability probe. |
-| `npm run test:validate` | Mechanical validation of every catalogue against the English source: numbers, product names, structural characters, empties, and `Step N of M:` agreement with the standalone translation of its own tail. |
-| `npm run test:i18n` | Per shipped locale: that the words on screen actually change, that `<html lang>` agrees with what is served, and that a locale with no catalogue degrades to English rather than to a half-translated page. |
+| `npm run test:a11y` | axe-core on the catalog and inside a guide, plus a keyboard-reachability probe. Then `dashboard-overview` again with fixture media, the player mounted and the transcript open, and once more scoped to the video panel. A violation the plain guide scan does not have, or any violation inside the panel, is listed as `newViolations` and is the only thing that fails the run; the other scans report. |
+| `npm run test:instrumentation` | The Feedback panel against a stub endpoint (see **Instrumentation and feedback**), and the video events: `play`, `play`, `ended` on the fixture video must record exactly one `video_played` and one `video_completed`, each with the guide key and a locale, in `__saReport().videos`, with no unknown-event warning. |
+| `npm run test:responsive` | Horizontal overflow at 375, 768, 1024, 1440 and 1920px on the catalog (or a guide, with `-- guide`), report only. `npm run test:responsive -- media` opens `dashboard-overview` with fixture media and the transcript open, and fails if the panel leaves the viewport or the page scrolls sideways at any width; `node scripts/overflow.mjs http://localhost:8124/ media` does the same and also names any element inside the panel that sticks out. |
+| `npm run test:validate` | Mechanical validation of every catalogue against the English source: numbers, product names, structural characters, empties, and `Step N of M:` agreement with the standalone translation of its own tail. The video caption catalogues follow, under `captions:<locale>`, with two more gates: a cue left untranslated, and a cue that quotes a step heading in words other than the heading's own translation. |
+| `npm run test:i18n` | Per shipped locale: that the words on screen actually change, that `<html lang>` agrees with what is served, and that a locale with no catalogue degrades to English rather than to a half-translated page. With fixture media on `dashboard-overview`, every shipped locale must make the caption track in its own language the default and the one showing, and switching from English to French at run time must move the showing captions with it. The transcript is left out of the coverage count: it is caption text, not page text. |
 | `npm run test:gate` | Drives the sign-in gate: that it hides the guides from `innerText`, rejects an outside domain and a lookalike (`nottoro.com`), admits a subdomain, persists the unlock across a reload, re-locks when storage is cleared, and is axe-clean. |
+| `npm run test:release` | Unit tests for `src/release.mjs` and `src/release.json`, with no browser: the committed release is valid against the guides, each kind of invalid release is rejected, `SA_SHOW_BETA` parses as documented, and the release gate removes, labels and fails as it should on the real export. |
+| `npm run test:leak` | The whole-`dist/` beta leak check (see **Beta content and the customer launch**). In a build made with `SA_SHOW_BETA=false`, any beta guide key, title, step or string in any file or locale fails it; with beta shown it reports and passes, and `npm run test:leak -- --expect-shown` also asserts the beta content is there. |
+| `npm run test:release-modes` | In the built page, every guide's steps number 1 to n alike in the player, the step rail, the contents and the written steps. With beta shown, the Beta badge, banner and step marker sit on exactly the beta items and render translated in all ten locales; with beta hidden, no Beta markup appears anywhere. |
+| `npm run release:status` | Compares `src/release.json` with the claims ledger and lists where they disagree. Advisory: it exits 0 unless given `--strict`. See [`docs/claims/README.md`](docs/claims/README.md#release-status). |
 
 The fingerprint harness verified the original port: output was **identical** between the Core Design export and the built bundle.
+
+`npm test`, `test:routing`, `test:release-modes` and `test:leak` follow `SA_SHOW_BETA` the way the build does: with beta hidden, the smoke test expects only the GA guides' cards and routing expects a beta guide's address to fall back to the catalog. Build and test with the same value. `.github/workflows/release-modes.yml` runs the suite in both modes on every push and pull request; see **Beta content and the customer launch**.
 
 ## Accessibility and responsive behaviour
 
@@ -91,19 +104,451 @@ Fourteen contrast failures remain inside `.sa-app`. That component is a faithful
 
 ## URL routing
 
-Each guide has its own address (`#/minimum-threshold`), so a guide can be linked to directly and the browser Back button returns to the catalog instead of leaving the site. The export kept the open guide purely in component state, which meant neither worked. An unknown key falls back to the catalog rather than rendering blank. Covered by `npm run test:routing`.
+Each guide has its own address (`#/minimum-threshold`), so a guide can be linked to directly and the browser Back button returns to the catalog instead of leaving the site. The export kept the open guide purely in component state, which meant neither worked. An unknown key falls back to the catalog rather than rendering blank. Covered by `npm run test:routing`. In a build without beta content, a beta guide's address falls back the same way, because the guide is not in the page at all (see **Beta content and the customer launch**).
+
+## Beta content and the customer launch
+
+The guides describe IntelliDash as it runs in production. Some Spatial Adjust behaviour exists only
+on develop and the beta environment, and not yet in production: that is **beta content**. The two
+builds are pinned in [`docs/claims/sources.json`](docs/claims/sources.json), and
+[`docs/claims/beta-surfaces.md`](docs/claims/beta-surfaces.md) classifies every commit that
+separates them and names each beta surface. Beta content is written into the guides so internal
+readers and the expert team can see it now, marked Beta, and one build-time setting removes it
+from the built site for customers until the feature ships.
+
+**What is beta: `src/release.json`.** One entry per guide key, `"status": "ga"` or `"beta"`, with a
+`basis` saying why. A GA guide can also hold beta `sections`: steps addressed by their exact step
+title, never by number, because numbers shift whenever a step is added or removed. A beta guide or
+section lists under `crossReferences` each sentence in a GA guide that names it
+(`{ "guide", "field", "text" }`), so that sentence leaves with it. Every build validates the file
+against the guides through `src/release.mjs`: a guide with no entry, a step title that matches no
+step or more than one, and a mention of a beta guide that is not registered all fail the build. As
+of 2026-10-20 all 26 guides are GA, and `calculation-questions` holds one beta section,
+`stale-scans-kept`: the step "A stale course keeps its last scans". The surfaces the reproduction
+cannot draw are under **Known gaps** as beta guide candidates.
+
+**The switch: `SA_SHOW_BETA`.** A plain environment variable, read by `build.mjs` at build time.
+Nothing in the build or the page depends on which host runs it.
+
+| `SA_SHOW_BETA` | The build |
+|---|---|
+| `true` or `1`, any letter case | Shows beta content, labelled: a Beta badge on a beta guide's catalogue tile, a banner at the top of a beta guide ("Beta. This feature is in testing and may change before it reaches your IntelliDash."), and an inline Beta marker on a beta step of a GA guide, all translated in the ten locales. |
+| unset or empty | The same as `true`. This default is for the internal and expert phase; see **The customer launch** below. |
+| `false` or `0`, any letter case | Removes beta content from `dist/`: each beta guide with its tile, cursor targets and the Next cards that point at it; each beta step of a GA guide, with the remaining steps renumbered; each registered cross-reference; and every catalogue string only beta content uses, from every locale. The page carries no Beta markup at all. |
+| anything else | Fails the build, so a typo in a pipeline cannot guess. |
+
+Removed, not hidden. CSS or a URL parameter would leave the content in the page source, and the
+sign-in gate is client-side (see **Sign-in gate**). The build records the mode in the page, as
+`<meta name="sa-release-mode" content="with-beta">` or `content="ga-only"`, and logs what it
+resolved:
+
+```
+release mode: beta removed (SA_SHOW_BETA="false"), release file src/release.json, 7 beta-only catalogue key(s) left out of the locale catalogues
+```
+
+Locally, `SA_SHOW_BETA=false npm start` builds and serves the customer site.
+
+**Where it is set today: GitHub Actions.** `.github/workflows/deploy.yml` passes the repository
+variable `SA_SHOW_BETA` (`${{ vars.SA_SHOW_BETA }}`) to the build whose `dist/` it publishes, and to
+the leak check that runs before the upload. It is a variable, not a secret: it is a setting, not a
+credential, and its value shows in the log. Until the variable exists GitHub passes an empty
+string, so the deploy shows beta content and logs `SA_SHOW_BETA=""`. To create or change it, open
+the repository's **Settings › Secrets and variables › Actions › Variables**, or run
+`gh variable set SA_SHOW_BETA --body false --repo toroadam/spatial-adjust-guide` with a token that
+may administer the repository. A new value applies to the next deploy run and needs no commit.
+
+**Where it will be set: Azure.** When the site moves to Azure behind Toro SSO, the pipeline that
+builds it sets the same variable and no code changes. Azure Pipelines exports each plain pipeline
+variable to scripts as an environment variable of the same name, so `SA_SHOW_BETA` reaches
+`build.mjs` as it is. A secret pipeline variable is not exported, so keep this one plain. A sketch,
+since no such pipeline exists yet:
+
+```yaml
+# azure-pipelines.yml (sketch)
+variables:
+  SA_SHOW_BETA: 'false'   # or define it in the pipeline's Variables panel, settable at queue time
+
+steps:
+  - task: NodeTool@0
+    inputs:
+      versionSpec: '22.x'
+  - script: npm ci && npx playwright install --with-deps chromium
+    displayName: Install
+  - script: npm test                  # build.mjs reads SA_SHOW_BETA and logs the release mode
+    displayName: Build dist/ and smoke test
+  - script: node scripts/beta-leak.mjs
+    displayName: Beta leak check      # the same check deploy.yml runs before its upload
+  # ...then publish dist/
+```
+
+Azure Static Web Apps works the same way: set `SA_SHOW_BETA` in the environment of whichever step
+builds `dist/`, either a build step like the one above or the Static Web Apps deploy task when that
+task runs the build. The application settings on a Static Web App's portal page are runtime settings
+for its API, and a static build never sees them.
+
+**The customer launch.** The pipeline that publishes the customer site, GitHub Actions now or Azure
+later, must set `SA_SHOW_BETA` explicitly. The empty default is for the internal and expert phase,
+and the published mode should never rest on it. To publish without beta content:
+
+1. Set the variable to `false`.
+2. Run the deploy: **Actions › Build and deploy to Pages › Run workflow**, or
+   `gh workflow run deploy.yml --ref main`. Start a new run rather than re-running an old one, so the
+   run reads the variable as it is now.
+3. In the run's log, the `npm test` step prints `release mode: beta removed (SA_SHOW_BETA="false")`
+   and the **Beta leak check** step ends `BETA LEAK: PASS (0 beta keys, titles or strings in …)`.
+4. On the live site, the page source carries `<meta name="sa-release-mode" content="ga-only">`, no
+   tile has a Beta badge, and a beta guide's address opens the catalogue. GitHub Pages can serve
+   the previous build for a few minutes after a deploy.
+
+**Bringing beta back**, for example to show the experts a new beta feature: set the variable to
+`true` and run the deploy again. The log then says `beta shown`. Deleting the variable has the same
+effect today, because empty means shown, but once customers use the site, set the value explicitly.
+
+**Releasing a feature.** When a beta feature reaches production, change its entry in
+`src/release.json`: a beta guide's `"status"` becomes `"ga"`, and a beta section's `"status"`
+becomes `"ga"`, or the section is removed. Delete its `crossReferences` in the same edit, because
+only beta content carries them (the build fails and says so if you forget), and point `basis` at the
+production evidence. The prose and its translations do not change: the catalogues are harvested from
+both modes, so they already hold every string either build renders, including the step numbers a
+released step brings back. The claims ledger does change. Re-check the feature's claims against
+production, because `npm run claims:lint` fails on a Verified (beta) claim in GA content and
+`npm run release:status` reports GA content that cites develop only, and re-pin
+`docs/claims/sources.json` if production has moved (see
+[`docs/claims/README.md`](docs/claims/README.md)). Then commit; the next deploy publishes the
+feature in both modes. New beta content goes the other way: it is written in
+`src/transforms/beta-content.mjs`, recorded in `src/release.json` and in `beta-surfaces.md`, and
+translated, in one change.
+
+**The leak check.** `scripts/beta-leak.mjs` (`npm run test:leak`) reads every file in `dist/` the
+way anyone who downloads the site could, and the deploy runs it before the upload. With
+`SA_SHOW_BETA=false` it fails on any beta guide key, in a file or in a file name; any beta guide's
+title, tile title or summary; any beta step title; the Beta badge, banner and their class names;
+every beta-only string, and each locale's translation of every catalogue key a build without beta
+leaves out; a catalogue whose tile count is not the GA guide count; a sitemap or media manifest that
+names a beta guide; a release file in `dist/`; and a `dist/` that was built in the other mode. Each
+hit names the file, what was found and its context. Everything it looks for is computed from
+`src/release.json` and the export, so there is no list to keep up to date. With beta shown it
+reports and passes, and `--expect-shown` asserts that the beta content and the badge are present.
+
+**Tests in both modes.** `.github/workflows/release-modes.yml` runs the suite on every push and pull
+request in four jobs: the real release shown and hidden, and a removal fixture shown and hidden.
+The fixture, `test/fixtures/release.fixture.json`, marks a whole guide and a middle step of a GA
+guide beta, so removal, Next-card cleanup and renumbering are exercised however small the real beta
+set is. It builds and tests only; what customers get is decided by the deploy's own build.
+`npm test`, `test:routing`, `test:release-modes` and `test:leak` read `SA_SHOW_BETA` as the build
+does, so build and test with the same value; `test:release-modes` and `test:leak` fail outright on a
+`dist/` built in the other mode. `test:validate`, `test:i18n` and `test:a11y` need no setting and
+check whichever build is served:
+
+```bash
+SA_SHOW_BETA=false npm test         # build without beta content, then the smoke test
+npm run serve &                     # the checks below drive the served dist/
+SA_SHOW_BETA=false npm run test:routing
+SA_SHOW_BETA=false npm run test:release-modes
+SA_SHOW_BETA=false npm run test:leak
+```
+
+`SA_RELEASE_FILE` points the build and the tests at another release file, such as the fixture. It
+is for tests only: no deploy sets it, and an empty value means `src/release.json`.
+
+**Who can read beta content.** Toro SSO on the Azure site will control who reaches the published
+site, and `SA_SHOW_BETA` controls which features a reader who gets in sees. Neither one controls
+this repository, whose visibility is a separate GitHub setting. The repository is public, so the
+beta prose in `src/transforms/beta-content.mjs` and the beta list in
+`docs/claims/beta-surfaces.md` are readable on GitHub whatever `SA_SHOW_BETA` says, like the rest
+of the source (see **Sign-in gate** and **Data**). That is accepted for the beta content written so
+far. Before writing beta content that must not be public, make the repository private, which is
+its own decision. Nothing confidential belongs in this repository, beta or not.
+
+## Video
+
+A guide that has a Double Click episode shows it at the top, above the walkthrough, and the catalogue
+home shows the Spatial Adjust showcase between the introduction and the task grid. The player is the
+browser's own `<video>`, served from this site's origin. A YouTube or Vimeo embed was never an option:
+it reaches a third party, which `npm test` fails by design, and it brings the cookies and tracking this
+site avoids.
+
+Episodes go live as they are finished; the site never waits for the full set. A guide whose episode is
+not in the manifest yet simply shows no panel. Under the owner direction of 2026-10-19 there is no
+approval step before an episode is published: the expert review happens on the live site, and the
+calls made without one are listed in [`docs/review-agenda.md`](docs/review-agenda.md).
+
+### How media reaches the site
+
+```
+finished render (MP4 with sound) + English WebVTT + poster
+      |
+      v
+npm run media:add             scripts/media-add.mjs: local ffmpeg web encode under the cap,
+      |                       staged in .media/, pinned by byte count and SHA-256
+      +---------------------------------+
+      v                                 v
+src/media/manifest.json           GitHub Release asset (media-vN),
+(committed)                       uploaded by the owner
+      |                                 |
+      v                                 v
+deploy.yml: npm run media:fetch -> .media/   (actions/cache, keyed on the manifest hash)
+      |
+      v
+build.mjs: byte count + SHA-256 check -> dist/media/   (+ eleven caption tracks per video)
+      |
+      v
+GitHub Pages, on the page's own origin
+```
+
+**Videos never enter git.** About 27 videos, 0.7 to 0.9 GB between them, would sit in every clone of
+a public repository forever, and Git LFS is no way out: Pages does not serve LFS objects, and LFS
+bandwidth on a public repo is metered. So each video and poster is a GitHub Release asset, and
+`src/media/manifest.json` pins it by byte count and SHA-256. The manifest is what is committed and
+reviewed; the bytes live in the release.
+
+**Stage, verify, then copy** (decided 2026-10-19). The build cannot download straight into
+`dist/media/`: it starts by deleting `dist/`, and `npm test` runs the build. So
+`npm run media:fetch` (`scripts/fetch-media.mjs`) first stages every pinned asset in `.media/`, which
+is gitignored, streaming each into a `.part` file and renaming it only once its size and hash match.
+The build then copies each asset into `dist/media/` only after checking it again. Downloads happen in
+Node at build time and never in the browser, so the page still loads from its own origin only.
+
+- **A mismatch always fails the build.** A staged file whose byte count or SHA-256 differs from its
+  pin stops the build in every mode, naming the file to delete and refetch.
+- **A missing asset fails only in CI.** Locally it is dropped with a warning and that guide shows no
+  panel, the same way the Feedback button is simply absent without an endpoint, so a clean clone and
+  the offline tests keep passing. The deploy sets `SA_MEDIA_REQUIRED=1`, which turns a missing asset
+  into a failed deploy rather than a guide quietly shipped without its video.
+- **The deploy caches `.media/`** with `actions/cache`, keyed on the manifest's hash, with
+  `restore-keys: media-` so a new wave downloads only its new assets. Nothing cached is trusted as-is:
+  `media:fetch` re-hashes every file before the build sees it. Re-hashing catches a damaged cache;
+  what keeps a cached file valid at all is that bytes under a pinned hash are never replaced in place
+  (see below).
+
+To build locally with the published media, run `npm run media:fetch` and then `npm test`. With an
+empty manifest it prints `media: manifest has no items` and does nothing.
+
+### Size budget
+
+| | Cap |
+|---|---|
+| One episode video | 25,000,000 bytes |
+| The showcase video | 40,000,000 bytes |
+| The whole of `dist/`: page, catalogues, videos and posters | 900,000,000 bytes |
+
+The caps are decimal byte counts, the stricter reading of "25 MB" (25 MiB would be 26,214,400), and
+they keep the site well inside GitHub Pages' 1 GB limit on a published site. Posters have no cap of
+their own but count toward the site total. The three caps are defined once, in
+`scripts/media-budget.mjs`, which `build.mjs` and `scripts/media-add.mjs` both import. Decided
+2026-10-19.
+
+The build enforces all three: the per-video caps against the manifest before anything is copied, and
+the site total after its last write. `npm run test:media-budget` prints each manifest item against its
+cap and the `dist/` total (build first, or it says `dist/` is not built), and exits 1 when anything is
+over. It reads the sizes the manifest declares; the build is what proves the staged files match them.
+Add `-- --manifest <file>` to check another manifest, such as the placeholder's.
+
+When it fails:
+
+- **A video over its cap: re-encode, never raise the cap.** `npm run media:add` sizes the bitrate from
+  the render's duration so the encode lands under the cap, refuses an encode that does not, and prints
+  a `--bitrate` to retry with. A render too long to fit at a watchable bitrate is refused with
+  "shorten the render".
+- **The site over 900,000,000 bytes: the budget is spent.** The 1 GB limit is GitHub's, not ours, so
+  the answer is shorter or fewer videos, or the fallback below.
+
+Pages also has a soft bandwidth limit of about 100 GB a month. `preload="none"` (below) means a video
+costs nothing until someone presses play, which at 25 MB a play is roughly 4,000 full plays a month.
+
+### Add or replace an episode
+
+`npm run media:add` needs ffmpeg and ffprobe locally (`brew install ffmpeg`) and never runs in CI.
+Publishing the release is the owner's step; see *Who can publish*.
+
+1. **Get the finished render, its English captions and a poster** from the video pipeline: an MP4
+   with its narration or music (one with no audio stream is refused), plain English WebVTT, and
+   optionally a poster image. Without a poster, the frame at 10% of the duration is used.
+2. **Copy the captions to `src/media/captions/<key>.en-us.vtt`**, where `<key>` is the guide key from
+   the guide's address (`#/dashboard-overview` is `dashboard-overview`), or `showcase`. Plain WebVTT
+   only: cue markup and `STYLE` and `REGION` blocks are refused, because markup does not survive
+   translation.
+3. **Rebuild the caption source catalogue:** `node scripts/media-cues.mjs`. It rewrites
+   `src/i18n/captions/en-us.json` from every English track; `--check` exits 1 if the committed file is
+   stale, and `npm test` runs that check.
+4. **Translate the new cues into the ten locales** (see *Captions and transcripts* for why they have
+   their own catalogue):
+
+   ```sh
+   node scripts/seed-translate-fragments.mjs --catalogue captions
+   node scripts/translate.mjs --locale de-de --catalogue captions
+   node scripts/assemble-locale.mjs de-de .translate/captions/de-de --catalogue captions
+   npm run test:validate
+   ```
+
+   Run the translate and assemble lines for each of the ten locales. Seeding (all ten at once) keeps
+   every cue already translated, so only new or changed cues are `todo`.
+   `translate.mjs` needs `ANTHROPIC_API_KEY` or an `ant auth login` profile, and `--dry-run` shows the
+   work without calling the API. A translation written by hand can skip it: put a JSON file mapping
+   each English cue to its translation in `.translate/captions/<locale>/`. `assemble-locale.mjs`
+   merges every file there and is the gate either way, refusing a missing or unknown cue. Assembling
+   rewrites the catalogue's `_meta`; for a locale that already had a caption catalogue, put its
+   committed `_meta` back (`git show HEAD:src/i18n/captions/<locale>.json`) and update only the
+   counts, as the page catalogues do.
+5. **Encode and pin:** `npm run media:add -- --key <key> --source <render> [--poster <image>]`. It
+   makes a two-pass 1080p H.264 High encode with AAC 128 kb/s 48 kHz stereo and `+faststart`, so
+   playback starts before the whole file arrives, with the source metadata stripped. It checks the
+   result, moves the video and poster into `.media/`, pins both in `src/media/manifest.json` with the
+   captions path, and prints the commands that publish them. It runs none of them.
+   `--release media-v2` puts a new wave under its own tag, so earlier assets are never re-uploaded.
+6. **The owner runs the printed commands**, which look like this (`create` appears only when the tag
+   does not exist yet):
+
+   ```sh
+   gh release create media-v1 --repo toroadam/spatial-adjust-guide --title 'Guide media media-v1' --notes 'Web encodes for the guides site; see README > Video'
+   gh release upload media-v1 .media/dashboard-overview.mp4 .media/dashboard-overview.jpg --repo toroadam/spatial-adjust-guide
+   ```
+
+   Upload before the manifest change reaches `main`: the deploy fails on an item whose asset is not
+   in the release yet.
+7. **Check it locally:** `npm test` builds with the files staged in `.media/` and smoke-tests every
+   shipped video's panel; `npm run test:media-budget` reports the sizes.
+8. **Commit the manifest, the English VTT, `src/i18n/captions/en-us.json` and the ten caption
+   catalogues in one PR.** The build fails if a shipped video has a cue untranslated in any locale, so
+   they belong together. **Never commit the `.mp4`:** `.media/` is gitignored, and
+   `npm run test:media-git` fails the deploy on any tracked video file or Git LFS filter.
+
+A caption correction needs no release. The tracks are written at build time from the repository, so
+edit the English VTT and repeat steps 3 and 4.
+
+**A replacement gets a new file name or a new release tag, never different bytes under a pinned
+hash.** `media:add` refuses to re-pin a key to new bytes unless it is given `--replace` together with
+a `--release` tag other than the one the key uses now:
+
+```sh
+npm run media:add -- --key <key> --source <render> --replace --release media-v3
+```
+
+The upload it prints has no `--clobber`, for the same reason. An asset swapped in place would leave
+the manifest pinning bytes the release no longer has, so every deploy would fail, and the cached
+copies in CI and in `.media/` could no longer be trusted on their hash.
+
+### Captions and transcripts
+
+**Caption cues have a catalogue of their own,** `src/i18n/captions/`, rather than living in
+`src/i18n/en-us.json` (decided 2026-10-19). `scripts/extract-strings.mjs` rebuilds `en-us.json`
+wholesale from the rendered page, so cues stored there would vanish on the next harvest, and every
+reader would download every cue of every video with the page catalogue, whether they watch or not.
+The subdirectory sits outside the locale-file filter `build.mjs`, `validate-locales.mjs` and `i18n.mjs`
+apply, so nothing in it ships as a page catalogue by accident. The seed, translate and assemble
+scripts take `--catalogue captions` and otherwise behave exactly as they do for the page.
+
+- **Eleven tracks per video.** The build writes `dist/media/captions/<key>.<locale>.vtt`, the English
+  source and one per translated locale, with ids, timings and cue settings copied from the English
+  track so every language lines up with the picture. A cue with no translation in any locale fails
+  the build, naming the locale and the cue: no partial track ever ships, the same rule
+  `assemble-locale.mjs` applies to the page.
+- **The default follows the locale.** Each track is labelled with its language's own name, and the
+  default is the language the page is actually served in, the one `<html lang>` reports. Switching
+  language moves showing captions to the new language, or leaves them off if the reader turned them
+  off.
+- **Step labels agree.** A cue that quotes a guide step heading must use that heading's own
+  translation, taken from the 122 `Step N of M: <label>` keys already in the page catalogue.
+  `translate.mjs` passes it to the model as a required term, and `npm run test:validate` checks it
+  afterwards (`stepLabelDrift`, under `captions:<locale>`), along with a cue left untranslated
+  (`missingCue`) and the usual numbers, product names and structural characters. "Double Click", the
+  series name, is a protected token and stays in English.
+- **The transcript is the same strings.** The *Transcript* under each video is the caption text,
+  fetched from the served language's track when the reader opens it, so it is always in their
+  language and costs nothing until opened. Its body is already localized, so `src/i18n-apply.js`
+  skips it and the harvester leaves it out of the page catalogue.
+
+### Player behaviour
+
+`src/media.js` and `src/media.css` are injected by the build like the rest of the runtime layer, and
+the panel mounts into two empty slots that transforms in `src/transform-export.mjs` add to the export,
+so a re-export cannot discard it.
+
+- **Native controls, no autoplay.** The browser's own player: never `autoplay`, `muted` or `loop`.
+  `preload="none"` means nothing of the video downloads until the reader presses play, which protects
+  the Pages bandwidth budget; the poster still loads. The same `<video>` stays mounted across step
+  changes and re-renders, and moving to another guide stops the old download.
+- **No manifest entry, no panel.** A guide with no shipped video renders no panel and no gap, like
+  the Feedback button without an endpoint: no player is better than a broken one.
+- **Same origin only.** The build inlines the shipped items into `src/media.js`, every path relative
+  to the page. The panel accepts only plain `media/...` paths (no scheme, host, leading slash or `..`)
+  and drops any item that breaks the rule, so neither a bad manifest nor the test override can point
+  the page at another origin.
+- **The keys belong to the player inside the panel.** With focus on the video or its transcript,
+  Space plays and pauses and the arrows seek, where elsewhere Space is Play all and the arrows change
+  step.
+- **Target Profiles.** The four Target Profiles guides get panels the same way as every other guide,
+  when their episodes are in the manifest, and until then show none; `npm test` checks that
+  `target-profiles` shows no panel against fixture media. Where `src/release.mjs` (the beta switch) is
+  in the tree, the build also asks it which guides ship: a guide marked beta has its episode, caption
+  tracks and transcript left out of `dist/` when `SA_SHOW_BETA` is `false` or `0`, absent rather than
+  hidden. The showcase is not a guide and always ships.
+
+### Placeholder clip
+
+The player, the hosting and the captions were built and tested before any real episode existed,
+against a placeholder:
+
+```sh
+npm run media:placeholder
+SA_MEDIA_MANIFEST=.media-fixture/manifest.json SA_MEDIA_DIR=.media-fixture \
+  SA_MEDIA_CAPTIONS_DIR=scripts/fixtures/media/captions npm run build && npm run serve
+```
+
+`npm run media:placeholder` encodes 8 seconds of an ffmpeg test pattern with a 440 Hz tone, using
+exactly the settings and checks `npm run media:add` uses, into the gitignored `.media-fixture/`, with
+its own manifest pinning it as the `dashboard-overview` episode and the showcase. Without ffmpeg,
+`npm run media:placeholder -- --dummy` writes bytes that build and serve but do not play. The
+placeholder never enters the committed manifest or the published site.
+
+The three overrides point the build somewhere other than the defaults:
+
+| Variable | Default | Points the build at |
+|---|---|---|
+| `SA_MEDIA_MANIFEST` | `src/media/manifest.json` | another manifest |
+| `SA_MEDIA_DIR` | `.media` | another staging directory |
+| `SA_MEDIA_CAPTIONS_DIR` | `src/i18n/captions` | another directory of caption catalogues; the fixture's three cues are translated in `scripts/fixtures/media/captions` |
+
+The browser tests do not decode video (decided 2026-10-19): Playwright's bundled Chromium likely
+cannot play H.264 and AAC, and the branded Chrome that can is not installed in CI. Instead they inject
+a runtime manifest through `window.__saMediaManifest`, the same pattern as `__saFeedbackEndpoint`,
+serve fixture media through `page.route` on the page's own origin so the zero-external-origins check
+still means something, and fire synthetic `play` and `ended` events, which `src/media.js` handles
+exactly as it handles real ones. Real playback is checked by hand with this clip.
+
+### Who can publish
+
+Creating a release and uploading assets need `contents: write` on the repository. Nothing here assumes
+it: `media:add` prints the `gh` commands and runs none of them, and the deploy job keeps
+`contents: read`, using the built-in `GITHUB_TOKEN` only to soften rate limits on downloads (public
+release assets need no token). Keeping write access out of CI means no build step can rewrite the
+media every reader downloads.
+
+The `gh` CLI login these scripts were written under has read access to the repository only; it cannot
+set repository secrets, let alone create releases. Publishing is therefore an owner action: run the
+printed commands signed in to `gh` as the repository owner (`gh auth switch` when more than one
+account is signed in).
+
+### Fallback
+
+If the Pages budget proves too tight, Microsoft Stream on SharePoint is the documented fallback. It is
+**not implemented**, and was rejected as the default on 2026-10-19: it is an external origin, which the
+smoke test would have to allowlist as it would an analytics endpoint, and it puts a second sign-in in
+front of every reader.
 
 ## Instrumentation and feedback
 
 See [`docs/test-protocol.md`](docs/test-protocol.md) for the moderated session plan.
 
-**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `search_used`, `feedback_opened`, `feedback_sent`, `returned_home`. No PII, no cookies; an anonymous per-tab session id only.
+**Events** (`src/analytics.js`) — a closed set: `guide_opened`, `step_advanced`, `guide_completed`, `play_all_used`, `stub_clicked`, `search_used`, `feedback_opened`, `feedback_sent`, `returned_home`, `locale_resolved`, `locale_changed`, `locale_applied`, `locale_catalogue_missing`, `locale_catalogue_failed`, `gate_shown`, `gate_opened`, `gate_rejected`, `contact_opened`, `splash_dismissed`, `video_played`, `video_completed`. No PII, no cookies; an anonymous per-tab session id only. An event outside the set is dropped with a console warning.
+
+The two video events carry three properties: `key` (the guide key, or `showcase`), `locale` (the reader's chosen locale) and `kind` (`episode` or `showcase`). `video_played` fires once per playthrough, not per press of play, so a reader who pauses to try a step in IntelliDash and resumes records nothing new; `video_completed` fires when the video ends, and a later play counts as a new playthrough. A start and a finish are separate events for the same reason as the Feedback pair: the drop-off between them is the interesting number. No watch position or timing is recorded beyond the event's own time.
 
 By default the transport is **`local`**: events are buffered in `localStorage` and **nothing leaves the device**, which keeps the zero-external-origins property the smoke test enforces. In the browser console:
 
 | | |
 |---|---|
-| `__saReport()` | summary — guides opened, stub demand, event counts |
+| `__saReport()` | summary — guides opened, stub demand, event counts, and `videos`: plays and completions per video, as `{ <key>: { played, completed } }` |
 | `__saExport()` | download the raw events as JSON |
 | `__saClear()` | reset before a session |
 
@@ -355,6 +800,20 @@ Dropping the superseded keys is not an optimisation — carrying them would fail
 `assemble-locale.mjs`'s unknown-key check, which is the same guard that stops a partial catalogue
 shipping. `scripts/retranslate-drift.mjs` uses the same seeding trick for its own narrower case.
 
+**Video captions are a second catalogue,** `src/i18n/captions/<locale>.json`, kept out of the page
+catalogue so the harvester cannot drop them and readers who never press play never download them.
+`scripts/media-cues.mjs` writes its source from the English caption tracks, and the same three scripts
+handle it with `--catalogue captions`, keeping fragments in `.translate/captions/<locale>/`.
+`npm run test:validate` checks it after the page catalogues, under `captions:<locale>`, adding a cue
+left untranslated and a cue that quotes a step heading in other words. The build turns it into eleven
+caption tracks per video. See **Video › Captions and transcripts**.
+
+**The transcript under a video is already localized** — it is the caption text of the served
+language — so `src/i18n-apply.js` skips its body, and `scripts/extract-strings.mjs` leaves it out of
+the harvest, which would otherwise pull every cue into the page catalogue. The panel's own strings (its headings, *Transcript*, the fallback and error text) are ordinary page
+strings, harvested with the panel open against the test fixture and translated in all ten page
+catalogues.
+
 ### Coverage
 
 | Locale | Catalogue | Coverage |
@@ -596,6 +1055,23 @@ worth knowing:
   guides: `request-scan-data` step 4 covers the update banner's Dismiss, and the guides that save
   Settings (`calculation-settings`, `calculation-methods`, `minimum-threshold` and `preferences`)
   cover the Discard changes confirmation.
+- **Beta guide candidates.** Two beta surfaces, behaviour that develop and the beta environment
+  have and production does not, cannot be drawn by the reproduction, so they have no guide text
+  and are not published in either release mode. [`docs/claims/beta-surfaces.md`](docs/claims/beta-surfaces.md)
+  is the source for both, with the develop citations. The one beta surface the reproduction can
+  draw, `stale-scans-kept`, is the beta step "A stale course keeps its last scans" in
+  `calculation-questions`.
+  - **`suggestion-held-without-new-scan`.** On a day when TurfRad has loaded nothing new, beta
+    writes today's suggestion once, at the first processing run, and later runs leave it alone,
+    modelled from the older of the station's two most recent days. Production recalculates it on
+    every run. No single figure differs from production. A guide would need the reproduction to
+    show a value changing over the day, for example two figures of the same row at two times of
+    day, and the experts to say whether the "older of the two" input is intended.
+  - **`scan-day-from-load-time`.** Beta decides whether a scan is today's from the time TurfRad
+    loaded it, while the table still dates and styles the reading by its measurement date. It
+    shows only when TurfRad loads a scan on a later day than it was measured. A guide would need
+    the reproduction to carry a scan's load time beside its measurement date, and the experts to
+    say how often a late load happens.
 - **`_incoming/`** is a scratch area for raw exports and is never tracked.
 
 ## Two export defaults corrected by transforms

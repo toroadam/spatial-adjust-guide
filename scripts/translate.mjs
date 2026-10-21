@@ -9,13 +9,21 @@
 // src/i18n/<locale>.json, so machine output goes through exactly the same completeness and
 // unknown-key checks a human's would — see its header.
 //
+// --catalogue captions translates the video caption cues instead: source
+// src/i18n/captions/en-us.json (written by scripts/media-cues.mjs), fragments
+// .translate/captions/<locale>/, assembled with `assemble-locale.mjs ... --catalogue captions`. The
+// model is told the strings are spoken narration, and a cue that quotes a guide step heading must
+// contain that heading's translation from src/i18n/<locale>.json, through the same required-terms
+// mechanism the drift re-runs use. The default, --catalogue main, is the page catalogue.
+//
 // Usage:
-//   node scripts/translate.mjs --locale fr-fr [--chunk 40] [--concurrency 3] [--dry-run]
+//   node scripts/translate.mjs --locale fr-fr [--catalogue main|captions] [--chunk 40] [--concurrency 3] [--dry-run]
 //
 // Credentials: ANTHROPIC_API_KEY, or an `ant auth login` profile — the SDK resolves both.
 import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import Anthropic from '@anthropic-ai/sdk';
+import { stepLabelMatcher, stepLabelsFrom } from '../src/media/captions.mjs';
 // Zod 4 is required, not merely allowed. The SDK's zodOutputFormat calls z.toJSONSchema, which
 // does not exist in Zod 3, and the helper resolves 'zod' at the package root — so importing the
 // 'zod/v4' subpath here does not help. The SDK's peer range (^3.25 || ^4) does not catch this.
@@ -31,8 +39,11 @@ const locale = arg('locale');
 const chunkSize = Number(arg('chunk', 40));
 const concurrency = Number(arg('concurrency', 3));
 const dryRun = argv.includes('--dry-run');
+const catalogue = arg('catalogue', 'main');
+const captions = catalogue === 'captions';
 
-if (!locale) throw new Error('usage: translate.mjs --locale <code> [--chunk N] [--concurrency N] [--dry-run]');
+if (!locale) throw new Error('usage: translate.mjs --locale <code> [--catalogue main|captions] [--chunk N] [--concurrency N] [--dry-run]');
+if (catalogue !== 'main' && !captions) throw new Error('--catalogue must be main or captions');
 
 const LANGUAGE = {
   'de-de': 'German (Germany)', 'es-es': 'Spanish (Spain)', 'fr-fr': 'French (France)',
@@ -41,12 +52,13 @@ const LANGUAGE = {
 };
 if (!LANGUAGE[locale]) throw new Error(`unknown locale ${locale} — add it to LANGUAGE`);
 
-const source = JSON.parse(await readFile('src/i18n/en-us.json', 'utf8')).strings;
+const source = JSON.parse(await readFile(captions ? 'src/i18n/captions/en-us.json' : 'src/i18n/en-us.json', 'utf8')).strings;
 const glossary = JSON.parse(await readFile('src/i18n/glossary.json', 'utf8'))[locale] || {};
 
 // Resume rather than restart. A run that dies two thirds of the way through has still done two
 // thirds of the work, and re-translating what is already correct costs money and churns the diff.
-const fragmentDir = join('.translate', locale);
+const fragmentRoot = captions ? join('.translate', 'captions') : '.translate';
+const fragmentDir = join(fragmentRoot, locale);
 await mkdir(fragmentDir, { recursive: true });
 const done = {};
 for (const f of (await readdir(fragmentDir)).filter((f) => f.endsWith('.json'))) {
@@ -57,14 +69,32 @@ for (const f of (await readdir(fragmentDir)).filter((f) => f.endsWith('.json')))
 // labels each string must name. Absent on a normal full translation.
 let requiredTerms = {};
 try {
-  requiredTerms = JSON.parse(await readFile(join('.translate', `${locale}.terms.json`), 'utf8'));
+  requiredTerms = JSON.parse(await readFile(join(fragmentRoot, `${locale}.terms.json`), 'utf8'));
   console.log(`${locale}: ${Object.keys(requiredTerms).length} string(s) carry required-label constraints`);
 } catch { /* not a drift re-run */ }
 
+// A caption that quotes a guide step heading must say it the way the heading does, or the video and
+// the page disagree on what the step is called. The step labels and their translations come from
+// the page catalogues, the same source scripts/validate-locales.mjs checks against (stepLabelDrift).
+if (captions) {
+  const pageSource = JSON.parse(await readFile('src/i18n/en-us.json', 'utf8')).strings;
+  const page = JSON.parse(await readFile(join('src/i18n', `${locale}.json`), 'utf8')).strings;
+  const labelsIn = stepLabelMatcher(stepLabelsFrom(pageSource));
+  let constrained = 0;
+  for (const cue of Object.keys(source)) {
+    const terms = labelsIn(cue).map((label) => page[label]).filter((term) => typeof term === 'string' && term.trim());
+    if (!terms.length) continue;
+    requiredTerms[cue] = [...new Set([...(requiredTerms[cue] || []), ...terms])];
+    constrained++;
+  }
+  console.log(`${locale}: ${constrained} cue(s) quote a step heading and must use its translation`);
+}
+
 const todo = Object.keys(source).filter((k) => !(k in done));
 console.log(`${locale}: ${Object.keys(source).length} strings, ${Object.keys(done).length} already done, ${todo.length} to translate`);
+const assembleHint = `node scripts/assemble-locale.mjs ${locale} ${fragmentDir}${captions ? ' --catalogue captions' : ''}`;
 if (!todo.length) {
-  console.log(`nothing to do — run: node scripts/assemble-locale.mjs ${locale} ${fragmentDir}`);
+  console.log(`nothing to do — run: ${assembleHint}`);
   process.exit(0);
 }
 
@@ -77,12 +107,21 @@ if (dryRun) {
   process.exit(0);
 }
 
+// Captions are read while the narrator speaks, in the time the cue is on screen, and the player wraps
+// the lines itself.
+const CAPTIONS_NOTE = `
+These strings are the captions of short training videos (the Double Click series): each one is a
+cue of spoken narration, shown on screen while the narrator says it. Write each translation as
+natural spoken ${LANGUAGE[locale]}, keep it close to the length of the English so it can be read in
+the time the cue is shown, and never add line breaks: the video player wraps caption lines itself.
+`;
+
 // The system prompt is identical across every chunk of a locale, so it goes first with a cache
 // breakpoint and the volatile per-chunk strings go in the user turn — the prefix stays byte-stable
 // and every chunk after the first reads the glossary from cache instead of paying for it again.
 const SYSTEM = `You are translating in-product documentation for Toro's Spatial Adjust, a golf-course
 irrigation feature inside IntelliDash. Translate from English into ${LANGUAGE[locale]}.
-
+${captions ? CAPTIONS_NOTE : ''}
 These guides tell superintendents how to make real irrigation decisions on real turf. A mistranslated
 term sends someone looking for a control that does not exist, or waters a green wrongly. Accuracy
 outranks fluency.
@@ -91,6 +130,7 @@ Rules:
 - Return a translation for EVERY string given, in the same order, with the source echoed back exactly.
 - Preserve meaning precisely. Do not summarise, expand, localise examples, or improve the prose.
 - Keep product and brand names untranslated: Toro, IntelliDash, Spatial Adjust, Lynx, TurfRad, VWC, ET.
+  Keep Double Click untranslated too: it is the name of the video series.
 - Keep station identifiers (3AP1, 11AP2), numbers, percentages and URLs exactly as they are, but use
   the decimal separator normal for the target language.
 - Preserve typographic characters: curly apostrophes, en dashes, arrows, ellipses.
@@ -128,10 +168,15 @@ async function translateChunk(strings, index) {
         // Naming the constraint per string, next to the string, rather than trusting the model to
         // find the right rows in a 649-entry glossary. This is the rule the previous run lost.
         + (strings.some((s) => requiredTerms[s]?.length)
-          ? `\n\nThese strings name a control on the reproduced IntelliDash screen. The listed text is
+          ? (captions
+            ? `\n\nThese captions quote the heading of a step in the written guide. The listed text is
+that heading as the guide shows it in ${LANGUAGE[locale]} and MUST appear verbatim, character for
+character, in your translation of that caption, so the video and the guide name the step the same
+way.\n`
+            : `\n\nThese strings name a control on the reproduced IntelliDash screen. The listed text is
 what the control is labelled in ${LANGUAGE[locale]} and MUST appear verbatim, character for
 character, in your translation of that string. Where this conflicts with keeping a name
-untranslated, this wins — the label is what the reader sees on their own screen.\n`
+untranslated, this wins — the label is what the reader sees on their own screen.\n`)
             + strings.map((s, i) => (requiredTerms[s]?.length
               ? `${i + 1}. must contain: ${requiredTerms[s].map((x) => JSON.stringify(x)).join(', ')}`
               : null)).filter(Boolean).join('\n')
@@ -157,6 +202,12 @@ untranslated, this wins — the label is what the reader sees on their own scree
   for (const s of strings) {
     const hit = bySource.get(s);
     if (hit === undefined) { missed.push(s); continue; }
+    // A caption cue is one line of text; a line break inside a translation would end up mid-cue.
+    if (captions && /[\r\n]/.test(hit)) {
+      violations.push(`${s.slice(0, 55)} :: added a line break`);
+      missed.push(s);
+      continue;
+    }
     // A required label that did not survive is the exact defect this run exists to fix, so the
     // string goes back in the queue instead of into the catalogue.
     // Same case/whitespace tolerance as validate-locales.mjs — rejecting a correctly inflected
@@ -201,5 +252,5 @@ await Promise.all(Array.from({ length: Math.min(concurrency, chunks.length) }, w
 
 console.log(`\n${completed}/${chunks.length} chunks written to ${fragmentDir}`);
 if (missedAll.length) console.log(`${missedAll.length} string(s) not returned — re-run to pick them up`);
-console.log(`\nnext: node scripts/assemble-locale.mjs ${locale} ${fragmentDir}`);
+console.log(`\nnext: ${assembleHint}`);
 console.log('(assemble refuses to emit a partial catalogue, so re-run this until it is happy)');

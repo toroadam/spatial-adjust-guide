@@ -1,0 +1,37 @@
+{
+  "_meta": {
+    "note": "Machine translation of the video caption cues in src/i18n/captions/en-us.json. Terminology follows IntelliDash's own shipped catalogues via src/i18n/glossary.json, and a cue that names a guide step uses that step heading's translation from the page catalogue. Mechanically validated by scripts/validate-locales.mjs — numbers, product names, structural characters and step-label agreement. NOT reviewed by a native speaker. Regenerate keys with scripts/media-cues.mjs after any change to an English caption track.",
+    "locale": "es-es",
+    "strings": 24,
+    "identicalToEnglish": 0,
+    "machineValidated": true,
+    "nativeSpeakerReviewed": false,
+    "nativeReviewPlanned": false
+  },
+  "strings": {
+    "A pin scanned today is coloured by the moisture band its reading falls into,": "Un marcador escaneado hoy se colorea según la banda de humedad en la que cae su lectura,",
+    "A soil factor handles persistent offsets.": "Un factor de suelo corrige los desajustes persistentes.",
+    "a suggestion is zeroed or lifted to the threshold when you push.": "una sugerencia se pone a cero o se eleva al umbral al enviar.",
+    "as the legend shows.": "como muestra la leyenda.",
+    "Before you push, override any suggestion, replace or shift targets in bulk,": "Antes de enviar, anule cualquier sugerencia, reemplace o desplace objetivos en bloque,",
+    "Below a minimum threshold,": "Por debajo de un umbral mínimo,",
+    "Daily Max Amount caps it, and the result becomes a suggested percent adjust.": "la Cantidad máxima diaria la limita, y el resultado pasa a ser un ajuste porcentual sugerido.",
+    "dated beside the station name.": "con la fecha junto al nombre de la estación.",
+    "Each sprinkler of a station scanned in the past seven days is a pin.": "Cada aspersor de una estación escaneada en los últimos siete días es un marcador.",
+    "Each station's average VWC comes from a TurfRad moisture scan,": "El VWC promedio de cada estación procede de un escaneo de humedad de TurfRad,",
+    "find the outliers at both ends, or take a station or hole out of adjustment.": "encuentre los valores atípicos en ambos extremos o excluya una estación u hoyo del ajuste.",
+    "In IntelliDash, Spatial Adjust turns the latest moisture": "En IntelliDash, Spatial Adjust convierte el último escaneo de humedad",
+    "Lynx itself must be set up to match Spatial Adjust;": "El propio Lynx debe configurarse para coincidir con Spatial Adjust;",
+    "Nothing changes until you push. Review the two lists,": "No cambia nada hasta que envía. Revisar las dos listas,",
+    "scan into a percent adjustment, station by station.": "en un ajuste porcentual, estación por estación.",
+    "Spatial Adjust writes each station, then reads Lynx back and checks each one.": "Spatial Adjust escribe cada estación, luego lee Lynx de vuelta y comprueba cada una.",
+    "Target minus measured, station by station. That is the whole idea.": "Objetivo menos medido, estación por estación. Esa es toda la idea.",
+    "The gap between target and measured becomes water, today's ET is added,": "La diferencia entre el objetivo y lo medido se convierte en agua, se suma la ET de hoy,",
+    "The map colours pins by measured moisture. Move the bands, or switch to": "El mapa colorea los marcadores según la humedad medida. Mueva las bandas o cambie a la",
+    "the push guide lists the settings.": "la guía de envío enumera los ajustes.",
+    "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.": "Toda la función Spatial Adjust vive en una sola pantalla. Así se lee su mapa.",
+    "untick anything you're unsure of, and send.": "desmarcar lo que no tenga claro y enviar.",
+    "variance to see each station against its target. Map and table stay in sync.": "varianza para ver cada estación frente a su objetivo. El mapa y la tabla se mantienen sincronizados.",
+    "You set the target: the moisture you want each station to hold.": "Usted define el objetivo: la humedad que desea que mantenga cada estación."
+  }
+}

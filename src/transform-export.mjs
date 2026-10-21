@@ -14,6 +14,9 @@ import { apply as applyCorrections } from './transforms/corrections.mjs';
 import { apply as applyChangedSurfaces } from './transforms/changed-surfaces.mjs';
 import { apply as applyOperationalContract } from './transforms/operational-contract.mjs';
 import { apply as applyReviewFixes } from './transforms/review-fixes.mjs';
+import { apply as applyBetaContent } from './transforms/beta-content.mjs';
+import { apply as applyReleaseGate } from './transforms/release-gate.mjs';
+import { loadRelease } from './release.mjs';
 
 /** Controls the export builds from <div onClick>, which have no keyboard behaviour. */
 const CONTROLS = [
@@ -40,7 +43,17 @@ const TP_NOTE_WALKTHROUGH = 'The Target Profiles tab lists five profile slots fo
   + 'Stations, Update from Current and Apply Profile columns. If your settings dialog has no Target '
   + 'Profiles entry, your IntelliDash has not yet been updated to the release that includes it.';
 
-export function transformGuide(src) {
+/**
+ * Transform the raw Core Design export into the published guide.
+ *
+ * `showBeta` decides whether beta content (see src/release.mjs) is published. It defaults to true,
+ * so every caller other than build.mjs (scripts/claims-extract.mjs, for one) sees every guide.
+ * build.mjs passes the value of SA_SHOW_BETA, parsed by parseShowBeta(). `release` is the parsed
+ * src/release.json; when it is not given, the default release file is loaded.
+ *
+ * Pure: the same source and options always give the same output, so build.mjs may call it twice.
+ */
+export function transformGuide(src, { showBeta = true, release = null } = {}) {
   let s = src;
 
   // --- class hooks the responsive layer targets -------------------------------
@@ -532,6 +545,28 @@ export function transformGuide(src) {
       + '              <div class="lsa-sr-only" aria-live="polite" aria-atomic="true">{{ guide.player.announcement }}</div>',
   });
 
+  // --- media panel slots -------------------------------------------------------
+  // Empty mount points for src/media.js, which renders the "Watch the Double Click" panel into
+  // them. They are added here rather than appended by the script because the panel has to sit
+  // inside the guide's own layout: above the walkthrough, under the guide header, and on the
+  // catalogue home between the hero and the task grid. The runtime renders them childless, and
+  // React leaves DOM children it did not create alone while their parent stays mounted, so the
+  // panel (and a playing video) survives step changes, Play all and locale switches. Guide-to-guide
+  // navigation keeps the same slot; media.js swaps its content on hashchange. src/media.css hides a
+  // slot while it is empty, so a guide with no episode shows no gap.
+  s = edit(s, {
+    name: 'media slot: guide header',
+    pattern: /<section id="walkthrough" style="margin-top:40px;scroll-margin-top:96px">/,
+    replace: '<div class="lsa-media-slot" data-sa-media-slot="guide"></div>\n'
+      + '      <section id="walkthrough" style="margin-top:40px;scroll-margin-top:96px">',
+  });
+  s = edit(s, {
+    name: 'media slot: catalogue home',
+    pattern: /<section id="tasks" style="max-width:1180px;margin:0 auto;padding:24px 32px 120px">/,
+    replace: '<div class="lsa-media-slot" data-sa-media-slot="home"></div>\n'
+      + '      <section id="tasks" style="max-width:1180px;margin:0 auto;padding:24px 32px 120px">',
+  });
+
   // --- logic: card metadata ---------------------------------------------------
   s = edit(s, {
     name: 'buildCard metadata',
@@ -861,6 +896,13 @@ export function transformGuide(src) {
   s = applyChangedSurfaces(s);
   s = applyOperationalContract(s);
   s = applyReviewFixes(s);
+
+  // Beta content and the release gate run after the four modules above. beta-content adds the
+  // steps and guides written against develop. release-gate runs last of all, so it sees every
+  // guide and step any module added, and in a build with SA_SHOW_BETA=false it deletes the beta
+  // ones and fails the build on anything left over.
+  s = applyBetaContent(s);
+  s = applyReleaseGate(s, { showBeta, release: release || loadRelease().release });
 
   return s;
 }

@@ -1,0 +1,65 @@
+/* Beta presentation for the Spatial Adjust guides.
+   Injected by build.mjs only into a build that shows beta content (SA_SHOW_BETA unset, empty, true
+   or 1), so a build without beta content carries none of these class names. The markup is added by
+   src/transforms/release-gate.mjs; the strings come from src/release.mjs.
+
+   Each treatment is a text label, not colour alone. The accent is the design system's violet (--19,
+   rgb(135,54,217)), which is 5.4:1 on white and 5.0:1 on --05, and is distinct from the informative
+   blue of the note callout and the New in IntelliDash badge. Borders are real borders rather than
+   inset shadows, so they survive forced-colours mode. */
+
+/* ---------- the Beta badge: catalogue tile and inline step marker ---------- */
+.lsa .lsa-beta-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  background: var(--white, #fff);
+  color: rgb(135, 54, 217);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Above the tile title, like the New in IntelliDash badge. The card is a flex column, so the badge
+   is a flex item and keeps to its own width. */
+.lsa .lsa-beta-badge-tile {
+  align-self: flex-start;
+  margin-bottom: 8px;
+}
+
+/* After the step title, in the written heading and the player's. The badge keeps the heading's
+   line, and the title text in front of it is left exactly as it was. */
+.lsa .lsa-beta-badge-step {
+  margin-left: 4px;
+  vertical-align: 0.25em;
+  letter-spacing: 1px;
+}
+
+/* ---------- the banner at the top of a beta guide ---------- */
+.lsa .lsa-beta-banner {
+  margin-top: 24px;
+  padding: 16px 20px;
+  border: 1px solid var(--20, rgb(217, 223, 226));
+  border-left: 4px solid rgb(135, 54, 217);
+  border-radius: 8px;
+  background: var(--white, #fff);
+  color: var(--60, rgb(100, 110, 115));
+  font-size: 14px;
+  line-height: 1.6;
+  text-wrap: pretty;
+}
+.lsa .lsa-beta-banner-label {
+  font-weight: 700;
+  color: rgb(135, 54, 217);
+}
+
+@media (forced-colors: active) {
+  .lsa .lsa-beta-badge,
+  .lsa .lsa-beta-banner-label { color: CanvasText; }
+  .lsa .lsa-beta-badge { border-color: CanvasText; }
+  .lsa .lsa-beta-banner { border-left-color: CanvasText; }
+}

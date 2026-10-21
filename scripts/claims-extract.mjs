@@ -11,6 +11,12 @@
 // export with every anchored correction applied, including the two guides that
 // src/transform-export.mjs adds. A claim about a sentence the reader never sees is worth nothing.
 //
+// Why shown mode. extractGuides() asks transformGuide() for the text with beta content shown
+// (showBeta: true), whatever SA_SHOW_BETA says. That text is a superset of a build with
+// SA_SHOW_BETA=false, so every sentence any build can publish has a claim, and step numbers are
+// the shown-mode ones. Beta content is judged against develop and may carry the status
+// Verified (beta); see "Verified (beta)" in docs/claims/README.md and releaseContext() below.
+//
 // Outputs:
 //   docs/claims/guides/<guide-key>.json  one shard per guide. Verification features edit these,
 //                                        one feature per shard (see docs/claims/README.md).
@@ -33,6 +39,7 @@ import { join, basename } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import vm from 'node:vm';
 import { transformGuide } from '../src/transform-export.mjs';
+import { loadRelease, statusOf } from '../src/release.mjs';
 
 const ROOT = join(import.meta.dirname, '..');
 const EXPORT = join(ROOT, 'Learn Spatial Adjust.dc.html');
@@ -41,7 +48,11 @@ const SHARD_DIR = join(CLAIMS_DIR, 'guides');
 const AGGREGATE = join(CLAIMS_DIR, 'claims.json');
 const SOURCES = join(CLAIMS_DIR, 'sources.json');
 
-export const STATUSES = ['Unverified', 'Verified', 'Wrong', 'Not shipping', 'Needs expert'];
+// Verified (beta) means develop and the beta environment do what the claim says. It is valid only
+// on content src/release.json marks beta, and it needs a develop citation at the pinned SHA. Any
+// check that treats Verified as passing must treat Verified (beta) as passing too.
+export const VERIFIED_BETA = 'Verified (beta)';
+export const STATUSES = ['Unverified', 'Verified', VERIFIED_BETA, 'Wrong', 'Not shipping', 'Needs expert'];
 export const TYPES = ['label', 'navigation', 'behaviour', 'calculation', 'prerequisite'];
 
 // Named buckets, in reading order. Steps sit between `before` and `verify`. `note` is the guide's
@@ -99,9 +110,10 @@ const once = (hay, needle, what) => {
 /**
  * Evaluate the published guide data. Returns plain JSON-safe copies of GUIDES, TARGETS and
  * CATEGORIES, plus `keys` (every guide key, in catalogue order) and `tiles` (key -> tile).
+ * Always the shown-mode text: beta content is included whatever SA_SHOW_BETA says.
  */
 export function extractGuides({ html } = {}) {
-  const page = transformGuide(html ?? readFileSync(EXPORT, 'utf8'));
+  const page = transformGuide(html ?? readFileSync(EXPORT, 'utf8'), { showBeta: true });
   const scripts = [...page.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/gi)]
     .map((m) => m[1]).filter((body) => body.includes('const GUIDES = {'));
   if (scripts.length !== 1) throw new Error(`expected one inline script holding GUIDES, found ${scripts.length}`);
@@ -348,8 +360,42 @@ export function extractAll() {
 const SHA = /^[0-9a-f]{40}$/;
 const STEP = /^(?:tile|summary|where|note|before|verify|[1-9]\d*)$/;
 
-/** Validate one shard object. Returns a list of error strings; empty means valid. */
-export function lintShard(key, shard, sources = readSources()) {
+/**
+ * Where beta content is, for the Verified (beta) rule. `release` defaults to src/release.json, read
+ * through src/release.mjs so SA_RELEASE_FILE applies. `guides` defaults to the shown-mode GUIDES
+ * from extractGuides(), which is what the claims' step numbers count. Both load on first use, and
+ * the guides only when a numbered step of a GA guide that has beta sections needs its title, so a
+ * ledger with no Verified (beta) claim costs nothing extra to lint.
+ *
+ * releaseOf(key, step) returns { status: 'ga' | 'beta', title? } for the content a claim sits in:
+ * a beta guide is beta throughout; in a GA guide, tile, summary, where, note, before and verify
+ * are GA, and a numbered step takes the status of the section whose steps name its shown-mode
+ * title. It returns { error } when the claim cannot be placed.
+ */
+export function releaseContext({ release, guides } = {}) {
+  let rel = release;
+  let gs = guides;
+  const getRelease = () => (rel ??= loadRelease().release);
+  const getGuides = () => (gs ??= extractGuides().guides);
+  return {
+    releaseOf(key, step) {
+      const entry = getRelease()?.guides?.[key];
+      if (!entry || typeof entry !== 'object') return { error: `guide "${key}" has no entry in the release file` };
+      if (entry.status === 'beta') return { status: 'beta' };
+      if (!/^\d+$/.test(step ?? '')) return { status: entry.status };
+      if (!(entry.sections || []).some((s) => s && s.status === 'beta')) return { status: entry.status };
+      const title = getGuides()[key]?.steps?.[Number(step) - 1]?.title;
+      if (typeof title !== 'string') return { error: `step ${step} is not a step of the published guide "${key}"` };
+      return { status: statusOf(rel, key, title), title };
+    },
+  };
+}
+
+/**
+ * Validate one shard object. Returns a list of error strings; empty means valid. `context` is a
+ * releaseContext(); pass one to share the loaded release file and guides across shards.
+ */
+export function lintShard(key, shard, sources = readSources(), context = releaseContext()) {
   const errors = [];
   const err = (where, msg) => errors.push(`${key}${where ? ` ${where}` : ''}: ${msg}`);
   if (!shard || typeof shard !== 'object' || Array.isArray(shard)) return [`${key}: shard is not an object`];
@@ -405,9 +451,24 @@ export function lintShard(key, shard, sources = readSources()) {
       });
     }
     const evidence = Array.isArray(c.evidence) ? c.evidence.length : 0;
-    if (['Verified', 'Wrong', 'Not shipping'].includes(c.status) && !evidence) err(at, `${c.status} needs at least one citation`);
+    if (['Verified', VERIFIED_BETA, 'Wrong', 'Not shipping'].includes(c.status) && !evidence) err(at, `${c.status} needs at least one citation`);
     if (c.status === 'Wrong' && !String(c.correction ?? '').trim()) err(at, 'Wrong needs a proposed correction');
     if (c.status === 'Needs expert' && !String(c.question ?? '').trim()) err(at, 'Needs expert needs a question');
+    if (c.status === VERIFIED_BETA) {
+      const atDevelop = (Array.isArray(c.evidence) ? c.evidence : []).some((e) => e && e.source === 'intellidash'
+        && e.ref === 'develop' && e.sha === pins.develop);
+      if (!atDevelop) err(at, `${VERIFIED_BETA} needs a develop citation at the pinned develop SHA ${pins.develop}`);
+      let placed;
+      try { placed = context.releaseOf(key, c.step); } catch (e) { placed = { error: e.message }; }
+      if (placed.error) err(at, `${VERIFIED_BETA} cannot be checked against the release file: ${placed.error}`);
+      else if (placed.status !== 'beta') {
+        const what = /^\d+$/.test(c.step)
+          ? `step ${c.step}${placed.title ? ` ("${placed.title}")` : ''} of GA guide "${key}" is not in a beta section`
+          : `the ${c.step} of guide "${key}" is GA`;
+        err(at, `${VERIFIED_BETA} is only valid on content src/release.json marks beta, but ${what}. `
+          + 'Cite production and mark it Verified, or record the content as beta in src/release.json');
+      }
+    }
   });
   for (let i = 1; i < shard.claims.length; i++) {
     const a = shard.claims[i - 1]?.id;
@@ -425,12 +486,13 @@ export function lint(keys = []) {
   const targets = keys.length ? keys : shardKeys();
   if (!targets.length) return ['no shards found in docs/claims/guides/'];
   const sources = readSources();
+  const context = releaseContext();
   const errors = [];
   for (const key of targets) {
     if (!existsSync(shardPath(key))) { errors.push(`${key}: no shard at docs/claims/guides/${key}.json`); continue; }
     let shard;
     try { shard = readShard(key); } catch (e) { errors.push(`${key}: does not parse as JSON (${e.message})`); continue; }
-    errors.push(...lintShard(key, shard, sources));
+    errors.push(...lintShard(key, shard, sources, context));
   }
   return errors;
 }

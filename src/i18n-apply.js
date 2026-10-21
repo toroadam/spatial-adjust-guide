@@ -30,7 +30,12 @@
   // labelled differently. Roughly half those labels are taken verbatim from IntelliDash's own
   // shipped catalogues by scripts/app-strings.mjs, so the reproduction shows the words the product
   // actually shows. Colours inside .sa-app are still left alone — see README > Deliberately not fixed.
-  var SKIP = 'script, style, noscript';
+  //
+  // The media panel's transcript body (src/media.js) is skipped: it is built from the caption track
+  // of the reader's own language, so it is already localized, and translating it again through the
+  // page catalogue could only damage it. The rest of the panel, the "Transcript" summary included,
+  // is ordinary page text and is translated like everything else.
+  var SKIP = 'script, style, noscript, .lsa-media-transcript-body';
   var ATTRS = ['aria-label', 'placeholder', 'title', 'alt'];
 
   var catalogues = {};       // locale -> { string: translation }

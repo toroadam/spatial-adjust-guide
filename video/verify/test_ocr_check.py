@@ -92,6 +92,14 @@ class MatcherTest(unittest.TestCase):
         self.assertEqual(frames, [0, 30, 42, 60, 90])                  # 0, 0.5, 0.7 (label), 1.0, 1.5; 2.3 is past the end
 
 
+    def test_select_expression_stays_shallow_for_a_long_render(self):
+        frames = list(range(0, 7000, 30))                               # a 115 s render sampled every 0.5 s
+        expr = OC.select_expr(frames)
+        self.assertEqual(expr.count('eq(n,'), len(frames))
+        self.assertTrue(all(group.count('eq(n,') <= 20 for group in expr.split('+(')))
+        self.assertEqual(OC.select_expr([0, 30]), '(eq(n,0)+eq(n,30))')
+
+
 class UnavailableTest(unittest.TestCase):
     def run_main(self, argv):
         err = io.StringIO()
