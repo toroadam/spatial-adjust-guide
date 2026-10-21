@@ -80,6 +80,27 @@ SHA-256 of the reports: `verify-report.json` `455c7aaf4627dd80d0631bb75c6d72d9dd
 `ocr-report.json` `edc6eeb34c48ba2f9526312007df7236869708452873512295f0efd31bea13aa`, `whisper-report-medium.json`
 `c78a4a7c534b765b111af0a30db763ce30d46a010249ba78760a8b8d33c443b0`.
 
+## Repository audit
+
+Run 2026-10-21 on branch `e195-showcase` (worktree of the guides repository), after the commits above.
+
+| Check | How | Result |
+|---|---|---|
+| Media in git | `npm run video -- hygiene` (media), plus `git ls-files` for media extensions | pass: no media file tracked now or anywhere in history; 0 tracked media files |
+| ElevenLabs key | hygiene (key): tracked files, every commit's diff and message | pass |
+| Tracker IDs | hygiene (tracker): tracked text files | pass |
+| Claude attribution in the commits of this work | hygiene (attribution), `origin/main..HEAD` (23 commits) | pass |
+| Claude attribution in all history | the same four patterns over every commit on every ref (281 commits) | **51 commits carry a `Claude-Session:` trailer. All 51 are in `origin/main`, on 10 days between 2026-09-04 and 2026-09-23, long before the showcase; none is from this work.** The hygiene check scans only `origin/main..HEAD`, so it never saw them |
+| Real names | hygiene (denylist): tracked files, every diff, every message | **26 findings, all one denylisted name (reported by index only, #12), in `docs/text-corrections.md` and `src/transform-export.mjs`, in 13 commits: two on `main` (2026-09-07 and 2026-10-19) and eleven merge commits of 2026-10-20. The name is in neither file at `HEAD` (0 occurrences) and no commit of the showcase work has a finding.** The same 26 were reported before this phase |
+| Site tests | `npm test` (build, then the full site suite) | pass: SMOKE PASS, 0 failed, 0 errors |
+| Video tests | `npm run test:video`, `npm run test:video:py` (own `SA_MEDIA_ROOT`) | pass: 192 Node tests, 218 Python tests (9 skipped) |
+
+Two findings are in history that was already on `origin/main`, so this phase did not rewrite it and cannot: removing
+them means rewriting public history (commit messages for the 51 trailers, the two files' diffs for the name) and a force
+push of `main`, which every other worktree and branch would then need rebased. That is the owner's call, and it is on the
+review agenda. The acceptance line "no Claude attribution in git history" is met for everything this work added and not
+met for the 51 older commits until the owner decides.
+
 The `final/` folder stays on the owner's machine. Sharing outside the owner goes through Toro SharePoint or Teams, done
 by the owner, never a public URL made from this folder. The guides site's embed is published by the site epic (E197),
 which reads the master, captions, transcript and poster from here.
