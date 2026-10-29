@@ -16,10 +16,10 @@
       "fetchedAt": "2026-10-19T17:41:40Z"
     },
     "guides": 26,
-    "claims": 1332,
+    "claims": 1337,
     "byStatus": {
       "Unverified": 0,
-      "Verified": 1307,
+      "Verified": 1312,
       "Verified (beta)": 6,
       "Wrong": 0,
       "Not shipping": 0,
@@ -28,7 +28,7 @@
     "byType": {
       "label": 66,
       "navigation": 244,
-      "behaviour": 934,
+      "behaviour": 939,
       "calculation": 47,
       "prerequisite": 41
     }
@@ -453,7 +453,7 @@
       "guide": "bulk-adjustments",
       "step": "1",
       "field": "ifNot",
-      "text": "If [[Bulk Adjust]] stays grey, no row is ticked.",
+      "text": "If [[Bulk Adjust]] stays gray, no row is ticked.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -486,7 +486,7 @@
           "line": "1510-1571"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/before/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/before/2; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -496,7 +496,7 @@
       "guide": "bulk-adjustments",
       "step": "1",
       "field": "ifNot",
-      "text": "Tick a station row, or a hole row to take all its stations.",
+      "text": "Tick a station row, or a hole row to take an entire hole at once.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -533,7 +533,7 @@
           "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/1/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/1/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -2057,7 +2057,7 @@
       "guide": "calculation-methods",
       "step": "before",
       "field": "before",
-      "text": "The default is Option 2, the delta-plus-today’s-ET method.",
+      "text": "The default is Option 2, the method that uses today’s ET.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -2097,7 +2097,7 @@
           "line": 45
         }
       ],
-      "note": "Sites are seeded with algorithm 1, which is DeltaPlusTodayEt, labelled Option 2 (appsettings.json:145; SpatialAdjust.cs:18-22; SitesService.cs:147, :173). The browser also falls back to it when no algorithm is loaded (sa-algorithm.service.ts:45).",
+      "note": "Sites are seeded with algorithm 1, which is DeltaPlusTodayEt, labelled Option 2 (appsettings.json:145; SpatialAdjust.cs:18-22; SitesService.cs:147, :173). The browser also falls back to it when no algorithm is loaded (sa-algorithm.service.ts:45). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -2493,7 +2493,7 @@
       "guide": "calculation-methods",
       "step": "2",
       "field": "see",
-      "text": "Under [[Option 1]] they are greyed out; under [[Option 2]] you can type in them.",
+      "text": "Under [[Option 1]] they are grayed out; under [[Option 2]] you can type in them.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -2554,7 +2554,7 @@
           "line": "113-115"
         }
       ],
-      "note": "Each of the three boxes is disabled while the algorithm is Option 1 and editable under Option 2 (sa-settings-dlg.component.html:83-85, :98-100, :113-115).",
+      "note": "Each of the three boxes is disabled while the algorithm is Option 1 and editable under Option 2 (sa-settings-dlg.component.html:83-85, :98-100, :113-115). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -2621,7 +2621,7 @@
       "guide": "calculation-methods",
       "step": "2",
       "field": "why",
-      "text": "[[Option 1]] scales the percentage Lynx holds now by target over measured, so it needs no ET, reference amount or cap.",
+      "text": "[[Option 1]] scales the percentage Lynx holds now, so it needs no ET, reference amount or cap.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -2665,7 +2665,7 @@
           "line": "82-123"
         }
       ],
-      "note": "Reworded from calculation-methods/3/2 and /3/3: Option 1 multiplies the percent adjust Lynx holds by target over measured and uses no ET, reference amount or cap (sa-algorithm.service.ts:58-60).",
+      "note": "Reworded from calculation-methods/3/2 and /3/3: Option 1 multiplies the percent adjust Lynx holds by target over measured and uses no ET, reference amount or cap (sa-algorithm.service.ts:58-60). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -2675,7 +2675,7 @@
       "guide": "calculation-methods",
       "step": "2",
       "field": "caption",
-      "text": "With Option 1 selected, the three boxes below it are greyed out.",
+      "text": "With Option 1 selected, the three boxes below it are grayed out.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -2701,7 +2701,7 @@
           "line": 115
         }
       ],
-      "note": "Figure caption (calculation-methods/3/4): the boxes are disabled with Option 1 selected. Now describes all three boxes (sa-settings-dlg.component.html:83-85, :98-100, :113-115).",
+      "note": "Figure caption (calculation-methods/3/4): the boxes are disabled with Option 1 selected. Now describes all three boxes (sa-settings-dlg.component.html:83-85, :98-100, :113-115). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -3194,7 +3194,7 @@
       "guide": "calculation-methods",
       "step": "4",
       "field": "why",
-      "text": "[[Option 2]] adds today’s ET to the water the delta calls for, caps it at Daily Max Amount, then divides by the Lynx Reference Amount.",
+      "text": "[[Option 2]] starts from the gap to your target and today’s ET, and Daily Max Amount caps the result.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -3231,7 +3231,7 @@
           "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
         }
       ],
-      "note": "Reworded from calculation-methods/2/2: today's ET is added to the water the delta calls for, the total is capped at the daily maximum, and the result is divided by the Lynx Reference Amount (SpatialAdjustService.cs:2931-3043).",
+      "note": "Reworded from calculation-methods/2/2: today's ET is added to the water the delta calls for, the total is capped at the daily maximum, and the result is divided by the Lynx Reference Amount (SpatialAdjustService.cs:2931-3043). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -3598,7 +3598,7 @@
       "guide": "calculation-methods",
       "step": "verify",
       "field": "verify",
-      "text": "You know why Daily Max Amount is greyed out under Option 1.",
+      "text": "You know why Daily Max Amount is grayed out under Option 1.",
       "type": "label",
       "status": "Verified",
       "evidence": [
@@ -3631,7 +3631,7 @@
           "line": "113-115"
         }
       ],
-      "note": "Reworded to the full label, Daily Max Amount. Both amount boxes and Crop Coefficient are disabled under Option 1, which uses no ET, reference amount or cap (sa-settings-dlg.component.html:83-85; sa-algorithm.service.ts:58-60).",
+      "note": "Reworded to the full label, Daily Max Amount. Both amount boxes and Crop Coefficient are disabled under Option 1, which uses no ET, reference amount or cap (sa-settings-dlg.component.html:83-85; sa-algorithm.service.ts:58-60). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -4157,7 +4157,7 @@
       "guide": "calculation-questions",
       "step": "1",
       "field": "ifNot",
-      "text": "Check whether each value is measured, modelled or a dash.",
+      "text": "Check whether each value is measured, modeled or a dash.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -4197,7 +4197,7 @@
           "line": "372-378"
         }
       ],
-      "note": "The first check for all three questions is whether the number is a measurement, a model or nothing. Reworded from calculation-questions/before/1.",
+      "note": "The first check for all three questions is whether the number is a measurement, a model or nothing. Reworded from calculation-questions/before/1. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -4637,7 +4637,7 @@
       "guide": "calculation-questions",
       "step": "3",
       "field": "see",
-      "text": "A dash means the station has no current scan and no modelled value, so there is nothing to calculate from.",
+      "text": "A dash means the station has no current scan and no modeled value, so there is nothing to calculate from.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -4681,7 +4681,7 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "A dash means no current scan and no modelled value. Reworded from calculation-questions/3/2.",
+      "note": "A dash means no current scan and no modelled value. Reworded from calculation-questions/3/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -4875,7 +4875,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "title",
-      "text": "Grey italics mean modelled",
+      "text": "Gray italics mean modeled",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -4912,7 +4912,7 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "",
+      "note": "Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -4922,7 +4922,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "do",
-      "text": "Look for an [[Avg. VWC]] value in grey italics.",
+      "text": "Look for an [[Avg. VWC]] value in gray italics.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -4966,7 +4966,7 @@
           "line": "107-110"
         }
       ],
-      "note": "The modelled value is painted grey and italic with a calculator icon (sa-table-card.component.less:100-110). Reworded from calculation-questions/4/1, calculation-questions/4/4.",
+      "note": "The modelled value is painted grey and italic with a calculator icon (sa-table-card.component.less:100-110). Reworded from calculation-questions/4/1, calculation-questions/4/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -4976,7 +4976,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "see",
-      "text": "The value is modelled, not taken from a scan that day, so the suggestion rests on an estimate.",
+      "text": "The value is modeled, not taken from a scan that day, so the suggestion rests on an estimate.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -5027,7 +5027,7 @@
           "line": "3031-3032"
         }
       ],
-      "note": "The suggestion is calculated from the model's predicted VWC. Reworded from calculation-questions/4/2, calculation-questions/4/3.",
+      "note": "The suggestion is calculated from the model's predicted VWC. Reworded from calculation-questions/4/2, calculation-questions/4/3. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -5037,7 +5037,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "ifNot",
-      "text": "If the value is not grey and italic, it is a measurement from a scan taken today.",
+      "text": "If the value is not gray and italic, it is a measurement from a scan taken today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -5077,7 +5077,7 @@
           "line": "372-378"
         }
       ],
-      "note": "Measured means a scan dated today. Reworded from calculation-questions/before/1.",
+      "note": "Measured means a scan dated today. Reworded from calculation-questions/before/1. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -5162,7 +5162,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "caption",
-      "text": "A modelled value: grey and italic.",
+      "text": "A modeled value: gray and italic.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -5174,7 +5174,7 @@
           "line": "107-110"
         }
       ],
-      "note": "",
+      "note": "Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -5579,7 +5579,7 @@
       "guide": "calculation-questions",
       "step": "6",
       "field": "see",
-      "text": "The stations stay in the table with their last scan date, and on the map as clear pins.",
+      "text": "The stations stay in the table with their last scan date, and on the map they are drawn clear.",
       "type": "behaviour",
       "status": "Verified (beta)",
       "evidence": [
@@ -5661,7 +5661,7 @@
           "line": "29-31"
         }
       ],
-      "note": "First clause of the earlier body sentence on develop: kept scans keep the stations listed (SpatialAdjustService.cs:199-208), each row shows its latest scan date beside the name (sa-table-card.component.html:22-25, from sa-dash-table.component.ts:241) and a station whose latest scan is not from today is drawn with a transparent fill on the map (sa-dash-map.component.ts:315, environment.toro-beta.ts:89). Production deletes the scans instead (production SpatialAdjustService.cs:2134-2146).",
+      "note": "First clause of the earlier body sentence on develop: kept scans keep the stations listed (SpatialAdjustService.cs:199-208), each row shows its latest scan date beside the name (sa-table-card.component.html:22-25, from sa-dash-table.component.ts:241) and a station whose latest scan is not from today is drawn with a transparent fill on the map (sa-dash-map.component.ts:315, environment.toro-beta.ts:89). Production deletes the scans instead (production SpatialAdjustService.cs:2134-2146). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -5752,7 +5752,7 @@
       "guide": "calculation-questions",
       "step": "6",
       "field": "why",
-      "text": "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modelled value and a suggestion every day.",
+      "text": "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modeled value and a suggestion every day.",
       "type": "behaviour",
       "status": "Verified (beta)",
       "evidence": [
@@ -5834,7 +5834,7 @@
           "line": "62-65"
         }
       ],
-      "note": "Joins two earlier beta sentences. Kept scans: Develop first asks TurfRad for anything loaded since the last processing run, less five minutes (TerraRadService.cs:114-119, :205-210). An empty answer ends the fetch with no results (SpatialAdjustService.cs:2575) and the run then keeps every stored scan (:2140-2153). Every run, empty or not, moves the \"since\" time forward (:2169), so a course that TurfRad stops updating keeps its last scans however old they become. The only deletions on develop are the replacement of a course’s scans when new data does arrive (:2812-2814) and the clean-up when TurfRad reports new data but the seven-day window is empty (:2154-2166). Production re-reads the last seven days on every run (production SpatialAdjustService.cs:2510) and deletes the stored scans once that window is empty (:2134-2146, :2817-2836). Modelled value and suggestion: the no-new-data pass writes an adjustment each day for each station with one in the last five days (SpatialAdjustService.cs:3266-3326), a station that is not current under Option 2 is modelled (spatial-adjust-course.model.ts:184-188), and under Option 2 the suggestion is read from that adjustment (sa-algorithm.service.ts:48-49, :62-65).",
+      "note": "Joins two earlier beta sentences. Kept scans: Develop first asks TurfRad for anything loaded since the last processing run, less five minutes (TerraRadService.cs:114-119, :205-210). An empty answer ends the fetch with no results (SpatialAdjustService.cs:2575) and the run then keeps every stored scan (:2140-2153). Every run, empty or not, moves the \"since\" time forward (:2169), so a course that TurfRad stops updating keeps its last scans however old they become. The only deletions on develop are the replacement of a course’s scans when new data does arrive (:2812-2814) and the clean-up when TurfRad reports new data but the seven-day window is empty (:2154-2166). Production re-reads the last seven days on every run (production SpatialAdjustService.cs:2510) and deletes the stored scans once that window is empty (:2134-2146, :2817-2836). Modelled value and suggestion: the no-new-data pass writes an adjustment each day for each station with one in the last five days (SpatialAdjustService.cs:3266-3326), a station that is not current under Option 2 is modelled (spatial-adjust-course.model.ts:184-188), and under Option 2 the suggestion is read from that adjustment (sa-algorithm.service.ts:48-49, :62-65). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -5844,7 +5844,7 @@
       "guide": "calculation-questions",
       "step": "6",
       "field": "caption",
-      "text": "A pin last scanned on an earlier day is drawn clear.",
+      "text": "A station last scanned on an earlier day is drawn clear.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -5891,7 +5891,7 @@
           "line": 89
         }
       ],
-      "note": "True on both builds. A station’s scan is current only when its date is today, local to the course (spatial-adjust.util.ts:17-19, spatial-adjust-course.model.ts:173-182), and a pin that is not current is filled transparent, leaving its outline (sa-dash-map.component.ts:315), because saShowCurrentOnly is set in production (environment.toro-prod.ts:87) and in the beta environment (develop environment.toro-beta.ts:89). The map component is identical at the two SHAs.",
+      "note": "True on both builds. A station’s scan is current only when its date is today, local to the course (spatial-adjust.util.ts:17-19, spatial-adjust-course.model.ts:173-182), and a pin that is not current is filled transparent, leaving its outline (sa-dash-map.component.ts:315), because saShowCurrentOnly is set in production (environment.toro-prod.ts:87) and in the beta environment (develop environment.toro-beta.ts:89). The map component is identical at the two SHAs. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -6808,7 +6808,7 @@
       "guide": "calculation-settings",
       "step": "2",
       "field": "ifNot",
-      "text": "If all three boxes are greyed out, the site uses [[Option 1]], which uses none of them.",
+      "text": "If all three boxes are grayed out, the site uses [[Option 1]], which uses none of them.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -6869,7 +6869,7 @@
           "line": "113-115"
         }
       ],
-      "note": "All three boxes are disabled while the site algorithm is Option 1, ALGO_SIMPLE (sa-settings-dlg.component.html:83-85, :98-100, :113-115; en-us.json:367).",
+      "note": "All three boxes are disabled while the site algorithm is Option 1, ALGO_SIMPLE (sa-settings-dlg.component.html:83-85, :98-100, :113-115; en-us.json:367). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -7396,7 +7396,7 @@
       "guide": "calculation-settings",
       "step": "4",
       "field": "why",
-      "text": "Each suggestion is the day’s water amount divided by this number.",
+      "text": "Each suggestion is a percentage of this number.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -7412,7 +7412,7 @@
           "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
         }
       ],
-      "note": "Reworded from calculation-settings/3/3: the suggested percentage is the applied amount divided by this reference (SpatialAdjustService.cs:3043).",
+      "note": "Reworded from calculation-settings/3/3: the suggested percentage is the applied amount divided by this reference (SpatialAdjustService.cs:3043). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -7542,7 +7542,7 @@
       "guide": "calculation-settings",
       "step": "5",
       "field": "ifNot",
-      "text": "If the box is greyed out, the site uses [[Option 1]], which uses no ET.",
+      "text": "If the box is grayed out, the site uses [[Option 1]], which uses no ET.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -7603,7 +7603,7 @@
           "line": "113-115"
         }
       ],
-      "note": "Option 1 uses no ET, so the dialog disables Crop Coefficient and both amounts while it is selected (sa-settings-dlg.component.html:83-85, :98-100, :113-115; sa-algorithm.service.ts:58-60).",
+      "note": "Option 1 uses no ET, so the dialog disables Crop Coefficient and both amounts while it is selected (sa-settings-dlg.component.html:83-85, :98-100, :113-115; sa-algorithm.service.ts:58-60). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -7613,7 +7613,7 @@
       "guide": "calculation-settings",
       "step": "5",
       "field": "ifNot",
-      "text": "The two amounts above it are greyed out too.",
+      "text": "The two amounts above it are grayed out too.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -7674,7 +7674,7 @@
           "line": "113-115"
         }
       ],
-      "note": "Option 1 uses no ET, so the dialog disables Crop Coefficient and both amounts while it is selected (sa-settings-dlg.component.html:83-85, :98-100, :113-115; sa-algorithm.service.ts:58-60).",
+      "note": "Option 1 uses no ET, so the dialog disables Crop Coefficient and both amounts while it is selected (sa-settings-dlg.component.html:83-85, :98-100, :113-115; sa-algorithm.service.ts:58-60). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -8507,7 +8507,7 @@
       "guide": "creating-profiles",
       "step": "summary",
       "field": "summary",
-      "text": "Capture the station targets you have tuned, under a name you will recognise next season.",
+      "text": "Capture the station targets you have tuned, under a name you will recognize next season.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -8526,7 +8526,7 @@
           "line": "636-678"
         }
       ],
-      "note": "Into one of the five slots, renamed as you like.",
+      "note": "Into one of the five slots, renamed as you like. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -9685,7 +9685,7 @@
       "guide": "creating-profiles",
       "step": "4",
       "field": "why",
-      "text": "A name like Overseed Recovery says why you set the targets; the date has its own column.",
+      "text": "A name like Overseed says why you set the targets; the date has its own column.",
       "type": "label",
       "status": "Verified",
       "evidence": [
@@ -9718,7 +9718,7 @@
           "line": 205
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims creating-profiles/3/2, creating-profiles/3/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims creating-profiles/3/2, creating-profiles/3/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -11031,7 +11031,7 @@
       "guide": "dashboard-overview",
       "step": "2",
       "field": "see",
-      "text": "Each sprinkler scanned in the past seven days is a pin, and pins scanned today are filled with a band colour.",
+      "text": "The map plots each station’s sprinklers scanned in the past seven days, and those scanned today are filled with a band color.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -11075,7 +11075,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/2/2, dashboard-overview/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/2/2, dashboard-overview/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -11086,7 +11086,7 @@
       "guide": "dashboard-overview",
       "step": "2",
       "field": "ifNot",
-      "text": "If you see no pins, the site has no scan from the past seven days.",
+      "text": "If the map is empty, the site has no scan from the past seven days.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -11130,7 +11130,7 @@
           "line": 846
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -11171,7 +11171,7 @@
       "guide": "dashboard-overview",
       "step": "2",
       "field": "why",
-      "text": "A pin that is clear was last scanned on an earlier day.",
+      "text": "A sprinkler drawn clear was last scanned on an earlier day.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -11215,7 +11215,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -11663,7 +11663,7 @@
       "guide": "dashboard-overview",
       "step": "4",
       "field": "see",
-      "text": "The table lists that hole’s stations, with editable columns such as [[Target VWC]] and [[% Adj.]].",
+      "text": "The table lists that hole’s stations.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -11724,7 +11724,7 @@
           "line": 695
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/4/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/4/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -11732,6 +11732,32 @@
     },
     {
       "id": "dashboard-overview/4/4",
+      "guide": "dashboard-overview",
+      "step": "4",
+      "field": "see",
+      "text": "Only [[Target VWC]], [[% Adj.]] and the [[Enable]] switch can be edited; [[Current]] and [[Suggested]] cannot.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "39-68"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Only the Target VWC box, the % Adj. box and the enable switch are inputs on a station row; Current and Suggested are plain text. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "dashboard-overview/4/5",
       "guide": "dashboard-overview",
       "step": "4",
       "field": "ifNot",
@@ -11775,11 +11801,11 @@
       "previousText": "At station level you get the editable columns — Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch."
     },
     {
-      "id": "dashboard-overview/4/5",
+      "id": "dashboard-overview/4/6",
       "guide": "dashboard-overview",
       "step": "4",
       "field": "why",
-      "text": "A grey, italic [[Avg. VWC]] with a calculator icon is modelled, not measured by a scan that day.",
+      "text": "A gray, italic [[Avg. VWC]] with a calculator icon is modeled, not measured by a scan that day.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -11816,14 +11842,14 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/4/6, dashboard-overview/4/7; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/4/6, dashboard-overview/4/7; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
       "previousText": "A grey, italic [[Avg."
     },
     {
-      "id": "dashboard-overview/4/6",
+      "id": "dashboard-overview/4/7",
       "guide": "dashboard-overview",
       "step": "4",
       "field": "caption",
@@ -11846,7 +11872,7 @@
       "previousText": "VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day."
     },
     {
-      "id": "dashboard-overview/4/7",
+      "id": "dashboard-overview/4/8",
       "guide": "dashboard-overview",
       "step": "4",
       "field": "caption",
@@ -11993,7 +12019,7 @@
       "guide": "dashboard-overview",
       "step": "5",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -12019,7 +12045,7 @@
           "line": 34
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/5/4, dashboard-overview/5/6; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/5/4, dashboard-overview/5/6; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -12273,7 +12299,7 @@
       "guide": "dashboard-overview",
       "step": "verify",
       "field": "verify",
-      "text": "The map need not match it, because it draws one pin per sprinkler and by default hides disabled stations.",
+      "text": "The map need not match it, because it draws each sprinkler of a station and by default hides disabled stations.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -12306,7 +12332,7 @@
           "line": 88
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/verify/4); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/verify/4); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -12728,7 +12754,7 @@
       "guide": "editing-station-targets",
       "step": "1",
       "field": "ifNot",
-      "text": "If you know where the station is, select its pin on the map instead.",
+      "text": "If you know where the station is, select it on the map instead.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -12775,7 +12801,7 @@
           "line": "444-469"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim editing-station-targets/1/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim editing-station-targets/1/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -13291,7 +13317,7 @@
       "guide": "editing-station-targets",
       "step": "4",
       "field": "ifNot",
-      "text": "If the box shows --, the station has no scan today and no modelled value, so there is nothing to override.",
+      "text": "If the box shows --, the station has no scan today and no modeled value, so there is nothing to override.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -13338,7 +13364,7 @@
           "line": 87
         }
       ],
-      "note": "Production sets saShowCurrentOnly (environment.toro-prod.ts:87). A station with no scan that day and no modelled value then shows -- in place of the % Adj. box (sa-table-card.component.html:52). Evidence carried over from the earlier ledger claim editing-station-targets/4/2; the sentence was reworded for the step standard.",
+      "note": "Production sets saShowCurrentOnly (environment.toro-prod.ts:87). A station with no scan that day and no modelled value then shows -- in place of the % Adj. box (sa-table-card.component.html:52). Evidence carried over from the earlier ledger claim editing-station-targets/4/2; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -13348,7 +13374,7 @@
       "guide": "editing-station-targets",
       "step": "4",
       "field": "why",
-      "text": "Change the target when a station should always be wetter or drier; change [[% Adj.]] when today is unusual.",
+      "text": "Override when today’s suggestion looks too high or too low; change the target instead when a station should always be wetter or drier.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -13385,7 +13411,7 @@
           "line": "146-164"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims editing-station-targets/4/5, editing-station-targets/4/6; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims editing-station-targets/4/5, editing-station-targets/4/6; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -13998,7 +14024,7 @@
       "guide": "enable-disable-stations",
       "step": "1",
       "field": "see",
-      "text": "The switch turns grey, and the station is switched off.",
+      "text": "The switch turns gray, and the station is switched off.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -14084,7 +14110,7 @@
           "ref": "373-1135 rev 02 §Map Indicators"
         }
       ],
-      "note": "Off is the grey track of the nova-light switch (enable-disable-stations/1/4), and the station is then disabled (sa-table-card.component.ts:334-338, :488-505).",
+      "note": "Off is the grey track of the nova-light switch (enable-disable-stations/1/4), and the station is then disabled (sa-table-card.component.ts:334-338, :488-505). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -14262,7 +14288,7 @@
       "guide": "enable-disable-stations",
       "step": "1",
       "field": "caption",
-      "text": "A disabled station: the switch on its row is grey.",
+      "text": "A disabled station: the switch on its row is gray.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -14281,7 +14307,7 @@
           "line": 80
         }
       ],
-      "note": "Figure caption. The switch is PrimeNG's p-inputSwitch under the nova-light theme (angular.json:80), whose off state is a grey track and on state blue. No Spatial Adjust style overrides it; the only inputswitch override in the site styles is scoped to a dashboard widget container.",
+      "note": "Figure caption. The switch is PrimeNG's p-inputSwitch under the nova-light theme (angular.json:80), whose off state is a grey track and on state blue. No Spatial Adjust style overrides it; the only inputswitch override in the site styles is scoped to a dashboard widget container. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -16136,7 +16162,7 @@
       "guide": "enable-disable-stations",
       "step": "verify",
       "field": "verify",
-      "text": "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.",
+      "text": "The stations you meant to disable show a gray switch, or sit under a hole or area whose switch is gray.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -16169,7 +16195,7 @@
           "line": "67-69"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/verify/1); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/verify/1); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -17192,7 +17218,7 @@
       "guide": "filter-adjustments",
       "step": "3",
       "field": "ifNot",
-      "text": "If a value box stays grey, its end is not ticked.",
+      "text": "If a value box stays gray, its end is not ticked.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -17218,7 +17244,7 @@
           "line": "756-768"
         }
       ],
-      "note": "A value box is disabled until its end is ticked (sa-cfg-threshold-dlg.component.html:23-28, :43-52). Reworded from filter-adjustments/3/4.",
+      "note": "A value box is disabled until its end is ticked (sa-cfg-threshold-dlg.component.html:23-28, :43-52). Reworded from filter-adjustments/3/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -17466,7 +17492,7 @@
       "guide": "filter-adjustments",
       "step": "4",
       "field": "ifNot",
-      "text": "If [[Exclude Zeros]] is greyed out, tick [[Under]] first.",
+      "text": "If [[Exclude Zeros]] is grayed out, tick [[Under]] first.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -17485,7 +17511,7 @@
           "line": 791
         }
       ],
-      "note": "Exclude Zeros is disabled until Under is on. Reworded from filter-adjustments/5/5, filter-adjustments/5/2.",
+      "note": "Exclude Zeros is disabled until Under is on. Reworded from filter-adjustments/5/5, filter-adjustments/5/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -18336,7 +18362,7 @@
       "guide": "map-navigation",
       "step": "summary",
       "field": "summary",
-      "text": "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.",
+      "text": "Read station colors on the map, move the moisture bands, switch to variance, and filter what the map shows.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18355,7 +18381,7 @@
           "line": "6-62"
         }
       ],
-      "note": "Pins, band handles, the variance toggle and Layers are all in the map overlay. Pins not scanned today are drawn clear; see map-navigation/1/2.",
+      "note": "Pins, band handles, the variance toggle and Layers are all in the map overlay. Pins not scanned today are drawn clear; see map-navigation/1/2. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -18431,7 +18457,7 @@
       "guide": "map-navigation",
       "step": "start",
       "field": "needs",
-      "text": "A scan from the past seven days, so that the map shows pins.",
+      "text": "A scan from the past seven days, so that the map shows stations.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18475,7 +18501,7 @@
           "line": 846
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -18521,7 +18547,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "title",
-      "text": "Pins are coloured by measured moisture",
+      "text": "Stations are colored by measured moisture",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18533,7 +18559,7 @@
           "line": "314-315"
         }
       ],
-      "note": "Step title. Only pins scanned today are coloured; see map-navigation/1/2.",
+      "note": "Step title. Only pins scanned today are coloured; see map-navigation/1/2. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -18543,7 +18569,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "do",
-      "text": "Look at the pins on the map.",
+      "text": "Look at the stations on the map.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18587,7 +18613,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -18598,7 +18624,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "see",
-      "text": "Pins scanned today are filled with a band colour: 0–5, 6–19, 20–30 or above 30 percent.",
+      "text": "Each station’s sprinklers scanned today are filled with a band color: 0–5, 6–19, 20–30 or above 30 percent.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18656,7 +18682,7 @@
           "line": "8-11"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/3, map-navigation/1/5; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/3, map-navigation/1/5; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -18667,7 +18693,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "ifNot",
-      "text": "If a pin is clear, it was last scanned on an earlier day.",
+      "text": "If a station is clear, it was last scanned on an earlier day.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18711,7 +18737,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -18722,7 +18748,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "ifNot",
-      "text": "A disabled station has no pin while [[Layers]] is set to [[Enabled Stations]].",
+      "text": "A disabled station is not drawn while [[Layers]] is set to [[Enabled Stations]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18766,7 +18792,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -18777,7 +18803,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "caption",
-      "text": "The course, coloured by measured moisture.",
+      "text": "The course, colored by measured moisture.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18796,7 +18822,7 @@
           "line": "6-16"
         }
       ],
-      "note": "Figure caption.",
+      "note": "Figure caption. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -18828,7 +18854,7 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "do",
-      "text": "Drag a handle on the colour bar under the legend.",
+      "text": "Drag a handle on the color bar under the legend.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18847,7 +18873,7 @@
           "line": "72-112"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/2; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -18858,7 +18884,7 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "see",
-      "text": "When you let go, the map recolours to the new band boundary.",
+      "text": "When you let go, the map recolors to the new band boundary.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18891,7 +18917,7 @@
           "line": "138-143"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -18945,7 +18971,7 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "ifNot",
-      "text": "The map recolours when you release it.",
+      "text": "The map recolors when you release it.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18978,7 +19004,7 @@
           "line": "138-143"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -18988,7 +19014,7 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "why",
-      "text": "Your boundaries are saved to your own user preferences, not to the site.",
+      "text": "The band boundaries are yours to change, not only the defaults, and they are saved to your own user preferences, not to the site.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -18997,31 +19023,14 @@
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "43-54"
+          "line": "120-131"
         },
         {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "97-105"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "120-145"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "120-132"
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/before/1, map-navigation/2/4; the sentence was reworded for the step standard.",
+      "note": "Dragging a band handle saves the three moisture band boundaries to the user preferences, not to the site. The colors themselves are fixed. Added after expert feedback in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -19105,7 +19114,7 @@
       "guide": "map-navigation",
       "step": "3",
       "field": "see",
-      "text": "The pins now show how far each station is from its target, in three bands.",
+      "text": "The map now shows how far each station is from its target, in three bands.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -19142,7 +19151,7 @@
           "line": "17-28"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/3/3, map-navigation/3/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/3/3, map-navigation/3/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -19153,7 +19162,7 @@
       "guide": "map-navigation",
       "step": "3",
       "field": "ifNot",
-      "text": "If a pin stays clear, it was not scanned today, so it has no variance.",
+      "text": "If a station stays clear, it was not scanned today, so it has no variance.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -19176,7 +19185,7 @@
           "ref": "373-1135 rev 02 §Map Indicators"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/3/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/3/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -19219,7 +19228,7 @@
       "guide": "map-navigation",
       "step": "3",
       "field": "caption",
-      "text": "Variance view: three bands, centred on target.",
+      "text": "Variance view: three bands, centered on target.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -19238,7 +19247,7 @@
           "line": "17-28"
         }
       ],
-      "note": "Figure caption. Default bands are below -10%, -10 to 10%, and above 10% (sa-dash-map.component.ts:65-74; legend labels sa-map-overlay.component.html:20-22).",
+      "note": "Figure caption. Default bands are below -10%, -10 to 10%, and above 10% (sa-dash-map.component.ts:65-74; legend labels sa-map-overlay.component.html:20-22). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -19617,7 +19626,7 @@
       "guide": "map-navigation",
       "step": "5",
       "field": "ifNot",
-      "text": "If a station you expect has no pin, [[Layers]] may be set to [[Enabled Stations]], the default.",
+      "text": "If a station you expect is not drawn, [[Layers]] may be set to [[Enabled Stations]], the default.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -19689,7 +19698,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/4/6, map-navigation/1/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/4/6, map-navigation/1/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -19699,7 +19708,7 @@
       "guide": "map-navigation",
       "step": "5",
       "field": "why",
-      "text": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.",
+      "text": "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -19726,7 +19735,7 @@
           "ref": "373-1135 rev 02 §Push Changes Functionality"
         }
       ],
-      "note": "A station counts as enabled on the map when its area, its hole and at least one of its sprinkler records are enabled (sa-dash-map.component.ts:351-374), the same parent rule the pending list applies (sa-dashboard.component.ts:607-678; 373-1135 rev 02 §Push Changes Functionality). A push sends only the enabled stations whose % Adj. differs from Lynx, so the filtered map shows the heads a push can affect, a superset of the ones a given push will change.",
+      "note": "A station counts as enabled on the map when its area, its hole and at least one of its sprinkler records are enabled (sa-dash-map.component.ts:351-374), the same parent rule the pending list applies (sa-dashboard.component.ts:607-678; 373-1135 rev 02 §Push Changes Functionality). A push sends only the enabled stations whose % Adj. differs from Lynx, so the filtered map shows the heads a push can affect, a superset of the ones a given push will change. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -19856,7 +19865,7 @@
       "guide": "map-navigation",
       "step": "6",
       "field": "see",
-      "text": "The map zooms to that station’s pin and outlines it.",
+      "text": "The map zooms to that station and outlines it.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -19893,7 +19902,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Selecting a station circle zooms the map to it and redraws its outline in white at weight 3 (sa-dash-map.component.ts:475-487). Evidence carried over from the earlier ledger claim map-navigation/5/2; the sentence was reworded for the step standard.",
+      "note": "Selecting a station circle zooms the map to it and redraws its outline in white at weight 3 (sa-dash-map.component.ts:475-487). Evidence carried over from the earlier ledger claim map-navigation/5/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -19904,7 +19913,7 @@
       "guide": "map-navigation",
       "step": "6",
       "field": "ifNot",
-      "text": "If no pin is outlined, the station may be disabled and hidden.",
+      "text": "If no station is outlined, it may be disabled and hidden.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -19969,7 +19978,7 @@
           "line": "43-54"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/4, map-navigation/4/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/4, map-navigation/4/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -20026,7 +20035,7 @@
       "guide": "map-navigation",
       "step": "6",
       "field": "why",
-      "text": "Selecting a pin selects its row too, so use whichever is faster.",
+      "text": "Selecting a station on the map selects its row too, so use whichever is faster.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -20063,7 +20072,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/5/2, map-navigation/5/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/5/2, map-navigation/5/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -20102,7 +20111,7 @@
       "guide": "map-navigation",
       "step": "verify",
       "field": "verify",
-      "text": "You can recolour the map by moving a band handle.",
+      "text": "You can recolor the map by moving a band handle.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -20121,7 +20130,7 @@
           "line": "138-143"
         }
       ],
-      "note": "The recolour happens on release; see map-navigation/2/3.",
+      "note": "The recolour happens on release; see map-navigation/2/3. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -21297,7 +21306,7 @@
       "guide": "minimum-threshold",
       "step": "3",
       "field": "see",
-      "text": "With 0, the threshold is off, and the two choices below stay greyed out.",
+      "text": "With 0, the threshold is off, and the two choices below stay grayed out.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -21330,7 +21339,7 @@
           "line": "145-162"
         }
       ],
-      "note": "With 0 the option radio group carries the disabled class and both radios are disabled, and the save stores the Disabled option (sa-settings-dlg.component.html:145-162; sa-settings-dlg.component.ts:429-433). Same fact as minimum-threshold/before/4.",
+      "note": "With 0 the option radio group carries the disabled class and both radios are disabled, and the save stores the Disabled option (sa-settings-dlg.component.html:145-162; sa-settings-dlg.component.ts:429-433). Same fact as minimum-threshold/before/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -21632,7 +21641,7 @@
       "guide": "minimum-threshold",
       "step": "4",
       "field": "ifNot",
-      "text": "If both choices are greyed out, the box above holds 0.",
+      "text": "If both choices are grayed out, the box above holds 0.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -21665,7 +21674,7 @@
           "line": "145-162"
         }
       ],
-      "note": "Both radios are disabled while the threshold is 0 (sa-settings-dlg.component.html:145-162), so a number above 0 has to be typed first.",
+      "note": "Both radios are disabled while the threshold is 0 (sa-settings-dlg.component.html:145-162), so a number above 0 has to be typed first. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -21772,7 +21781,7 @@
       "guide": "minimum-threshold",
       "step": "4",
       "field": "caption",
-      "text": "Below-threshold behaviour, with the second option selected.",
+      "text": "Below-threshold behavior, with the second option selected.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -21784,7 +21793,7 @@
           "line": "145-170"
         }
       ],
-      "note": "",
+      "note": "Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -21952,7 +21961,7 @@
       "guide": "minimum-threshold",
       "step": "5",
       "field": "ifNot",
-      "text": "If [[Exclude Zeros]] is greyed out, the box above holds 0 or the first choice is selected.",
+      "text": "If [[Exclude Zeros]] is grayed out, the box above holds 0 or the first choice is selected.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -21985,7 +21994,7 @@
           "line": 400
         }
       ],
-      "note": "The checkbox is disabled unless the second option is selected, or while the threshold is 0 (sa-settings-dlg.component.html:167). A threshold of 0 disables it too (:145-162, :167).",
+      "note": "The checkbox is disabled unless the second option is selected, or while the threshold is 0 (sa-settings-dlg.component.html:167). A threshold of 0 disables it too (:145-162, :167). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -22427,7 +22436,7 @@
       "guide": "minimum-threshold",
       "step": "7",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -22453,7 +22462,7 @@
           "line": "255-270"
         }
       ],
-      "note": "The button is disabled when no station is pending or a push is running (sa-main-toolbar.component.html:34; isProcessingUpdates is set while a push runs, sa-main-toolbar.component.ts:267 and cleared at :324-326).",
+      "note": "The button is disabled when no station is pending or a push is running (sa-main-toolbar.component.html:34; isProcessingUpdates is set while a push runs, sa-main-toolbar.component.ts:267 and cleared at :324-326). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -22939,7 +22948,7 @@
       "guide": "minimum-threshold",
       "step": "8",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -22948,7 +22957,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""
@@ -25522,7 +25531,7 @@
       "guide": "push-failures",
       "step": "1",
       "field": "title",
-      "text": "Read the count, not the colour",
+      "text": "Read the count, not the color",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -25541,7 +25550,7 @@
           "line": "234-240"
         }
       ],
-      "note": "The result line pairs a red times-circle icon with the text that carries the count.",
+      "note": "The result line pairs a red times-circle icon with the text that carries the count. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -26805,7 +26814,7 @@
       "guide": "push-failures",
       "step": "4",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -26814,7 +26823,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""
@@ -27285,7 +27294,7 @@
       "guide": "push-to-lynx",
       "step": "before",
       "field": "before",
-      "text": "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same head twice.",
+      "text": "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same station twice.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -27318,7 +27327,7 @@
           "line": "10-14"
         }
       ],
-      "note": "Retyped from prerequisite to behaviour. Stations whose last push falls on the current course-local day go into a separate Pushed Today list and are unticked on load. The dialog's own banner, SPECIAL_MSG.PUSH_STATION_CHANGES, gives the same reason: \"to prevent double adjustments\".",
+      "note": "Retyped from prerequisite to behaviour. Stations whose last push falls on the current course-local day go into a separate Pushed Today list and are unticked on load. The dialog's own banner, SPECIAL_MSG.PUSH_STATION_CHANGES, gives the same reason: \"to prevent double adjustments\". Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -27646,7 +27655,7 @@
       "guide": "push-to-lynx",
       "step": "1",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -27700,7 +27709,7 @@
           "line": "153-160"
         }
       ],
-      "note": "The button is disabled when nothing is queued or a push is running. Reworded from push-to-lynx/1/4, push-to-lynx/verify/2.",
+      "note": "The button is disabled when nothing is queued or a push is running. Reworded from push-to-lynx/1/4, push-to-lynx/verify/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -27904,7 +27913,7 @@
       "guide": "push-to-lynx",
       "step": "2",
       "field": "ifNot",
-      "text": "If nothing opens, [[Push Changes]] is greyed out because nothing is waiting.",
+      "text": "If nothing opens, [[Push Changes]] is grayed out because nothing is waiting.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -27923,7 +27932,7 @@
           "line": "607-678"
         }
       ],
-      "note": "The button is disabled when nothing is queued. Reworded from push-to-lynx/1/4.",
+      "note": "The button is disabled when nothing is queued. Reworded from push-to-lynx/1/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -28992,7 +29001,7 @@
       "guide": "push-to-lynx",
       "step": "5",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -29001,7 +29010,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""
@@ -29277,7 +29286,7 @@
       "guide": "push-to-lynx",
       "step": "verify",
       "field": "verify",
-      "text": "It is greyed out only if nothing else is waiting.",
+      "text": "It is grayed out only if nothing else is waiting.",
       "type": "label",
       "status": "Verified",
       "evidence": [
@@ -29324,7 +29333,7 @@
           "line": "153-160"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-to-lynx/verify/1); docs/text-corrections.md §16 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (push-to-lynx/verify/1); docs/text-corrections.md §16 gives the claimed and actual behaviour. Verified against production at the cited lines. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -29830,7 +29839,7 @@
       "guide": "request-scan-data",
       "step": "before",
       "field": "before",
-      "text": "Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon.",
+      "text": "Under Option 2 the calculation still runs, on a value modeled forward from the last scan and the weather since, and the reading is shown in gray italics with a calculator icon.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -29898,7 +29907,7 @@
           "line": "367-368"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/before/1); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/before/1); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -31945,7 +31954,7 @@
       "guide": "reviewing-changes",
       "step": "1",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -31964,7 +31973,7 @@
           "line": "607-678"
         }
       ],
-      "note": "The button is disabled when nothing is queued or a push is running (sa-main-toolbar.component.html:34). Reworded from reviewing-changes/1/3.",
+      "note": "The button is disabled when nothing is queued or a push is running (sa-main-toolbar.component.html:34). Reworded from reviewing-changes/1/3. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -32511,7 +32520,7 @@
       "guide": "reviewing-changes",
       "step": "3",
       "field": "why",
-      "text": "The hold stops you adjusting the same head twice, and it ends at midnight where the course is.",
+      "text": "The hold stops you adjusting the same station twice, and it ends at midnight where the course is.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -32565,7 +32574,7 @@
           "line": "149-165"
         }
       ],
-      "note": "Pushed Today stops the same head being adjusted twice; the hold ends at midnight where the course is. Reworded from reviewing-changes/3/3, reviewing-changes/3/4.",
+      "note": "Pushed Today stops the same head being adjusted twice; the hold ends at midnight where the course is. Reworded from reviewing-changes/3/3, reviewing-changes/3/4. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -33169,7 +33178,7 @@
       "guide": "reviewing-changes",
       "step": "5",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -33178,7 +33187,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""
@@ -33841,7 +33850,7 @@
       "guide": "seasonal-profiles",
       "step": "1",
       "field": "ifNot",
-      "text": "If a new name is lost, the dialog was cancelled.",
+      "text": "If a new name is lost, the dialog was canceled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -33860,7 +33869,7 @@
           "line": "261-270"
         }
       ],
-      "note": "Cancel with unsaved changes asks whether to discard them; choosing Discard changes closes the dialog and loses the names (sa-settings-dlg.component.ts:217-229).",
+      "note": "Cancel with unsaved changes asks whether to discard them; choosing Discard changes closes the dialog and loses the names (sa-settings-dlg.component.ts:217-229). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -34151,6 +34160,86 @@
       "correction": ""
     },
     {
+      "id": "seasonal-profiles/2/8",
+      "guide": "seasonal-profiles",
+      "step": "2",
+      "field": "tip",
+      "text": "Caution. A profile matches stations by name, so a station renamed or renumbered after capture will not match when an old profile is applied.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "413-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "742-745"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "866-915"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Caution tip for the profile apply step. A profile stores station names and matches by trimmed, case-insensitive name within its course (production SpatialAdjustService.cs); stored names with no current station are skipped and stations not in the profile are not touched. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/2/9",
+      "guide": "seasonal-profiles",
+      "step": "2",
+      "field": "tip",
+      "text": "A station added after capture keeps its target.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "413-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "742-745"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "866-915"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Applying a profile only touches the stations it holds. A profile stores station names and matches by trimmed, case-insensitive name within its course (production SpatialAdjustService.cs); stored names with no current station are skipped and stations not in the profile are not touched. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "seasonal-profiles/3/1",
       "guide": "seasonal-profiles",
       "step": "3",
@@ -34243,7 +34332,7 @@
       "guide": "seasonal-profiles",
       "step": "3",
       "field": "ifNot",
-      "text": "If there is no exclamation mark, the choice was cancelled.",
+      "text": "If there is no exclamation mark, the choice was canceled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -34262,7 +34351,7 @@
           "line": 216
         }
       ],
-      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears.",
+      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -34867,7 +34956,7 @@
       "guide": "seasonal-profiles",
       "step": "6",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -34879,7 +34968,7 @@
           "line": 34
         }
       ],
-      "note": "The button is disabled when stationsPendingUpdate is empty or a push is running (sa-main-toolbar.component.html:34).",
+      "note": "The button is disabled when stationsPendingUpdate is empty or a push is running (sa-main-toolbar.component.html:34). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -35173,7 +35262,7 @@
       "guide": "seasonal-profiles",
       "step": "7",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -35182,7 +35271,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""
@@ -35329,7 +35418,7 @@
       "guide": "station-details",
       "step": "tile",
       "field": "summary",
-      "text": "Per-sprinkler readings under a multi-head station.",
+      "text": "Per-sprinkler readings under a station with more than one sprinkler.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -35352,7 +35441,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Tile summary. A station's sprinkler records share its name and are grouped under one row (sa-dash-table.component.ts:355-408); each record gets a child row with its own reading (sa-table-card.component.html:74-98). 373-1135 rev 02 §Table Functionality: \"Expandable rows for multi-sprinkler stations\".",
+      "note": "Tile summary. A station's sprinkler records share its name and are grouped under one row (sa-dash-table.component.ts:355-408); each record gets a child row with its own reading (sa-table-card.component.html:74-98). 373-1135 rev 02 §Table Functionality: \"Expandable rows for multi-sprinkler stations\". Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -35395,7 +35484,7 @@
       "guide": "station-details",
       "step": "summary",
       "field": "summary",
-      "text": "Expand the row to see what each head actually measured.",
+      "text": "Expand the row to see what each sprinkler actually measured.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -35421,7 +35510,7 @@
           "line": "8-27"
         }
       ],
-      "note": "Each child row shows its own reading: today's scan mean when that sprinkler was scanned today, otherwise the modelled value with an orange calculator under Option 2, or \"--\" under Option 1 (sa-table-card.component.html:88-91). A child shows what it measured only if it was scanned today; see station-details/4/2.",
+      "note": "Each child row shows its own reading: today's scan mean when that sprinkler was scanned today, otherwise the modelled value with an orange calculator under Option 2, or \"--\" under Option 1 (sa-table-card.component.html:88-91). A child shows what it measured only if it was scanned today; see station-details/4/2. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36207,7 +36296,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "see",
-      "text": "The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.",
+      "text": "The station shows the average of its sprinklers, so 31.4 and 30.4 give 30.9.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -36245,9 +36334,13 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
           "line": "365-383"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "The station value is the plain mean of its sprinklers, shown to one decimal: (31.4 + 30.4) / 2 = 30.9 (sa-dash-table.component.ts:369-383; sa-table-card.component.ts:373-378).",
+      "note": "The station value is the plain mean of its sprinklers, shown to one decimal: (31.4 + 30.4) / 2 = 30.9 (sa-dash-table.component.ts:369-383; sa-table-card.component.ts:373-378). Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36257,7 +36350,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "ifNot",
-      "text": "If the average is not the mean of every row below it, a sprinkler was left out.",
+      "text": "If the average does not match the rows below it, a sprinkler was left out.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -36290,7 +36383,7 @@
           "line": "373-378"
         }
       ],
-      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\".",
+      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\". Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36300,7 +36393,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "ifNot",
-      "text": "Only sprinklers scanned today, or modelled under [[Option 2]], count.",
+      "text": "Only sprinklers scanned today, or modeled under [[Option 2]], count.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -36333,7 +36426,7 @@
           "line": "373-378"
         }
       ],
-      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\".",
+      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\". Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36343,7 +36436,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "why",
-      "text": "A station that looks fine can still hide one dry head.",
+      "text": "A station that looks fine can still hide one dry sprinkler.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -36362,7 +36455,7 @@
           "line": "373-378"
         }
       ],
-      "note": "Carried over from station-details/3/4: because the mean is unweighted, one dry sprinkler and one wet one can average to a normal-looking value (sa-dash-table.component.ts:369-383). The agronomic half of the dropped callout (a wide spread is a coverage problem) is not published.",
+      "note": "Carried over from station-details/3/4: because the mean is unweighted, one dry sprinkler and one wet one can average to a normal-looking value (sa-dash-table.component.ts:369-383). The agronomic half of the dropped callout (a wide spread is a coverage problem) is not published. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36372,7 +36465,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "caption",
-      "text": "Mean of the children, shown on the parent row.",
+      "text": "Average of the children, shown on the parent row.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -36389,9 +36482,13 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
           "line": "29-31"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Figure caption. The station row's Avg. VWC cell shows the mean (sa-table-card.component.html:29-31).",
+      "note": "Figure caption. The station row's Avg. VWC cell shows the mean (sa-table-card.component.html:29-31). Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36401,7 +36498,7 @@
       "guide": "station-details",
       "step": "4",
       "field": "title",
-      "text": "Spot a modelled sprinkler",
+      "text": "Spot a modeled sprinkler",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -36420,7 +36517,7 @@
           "line": "184-188"
         }
       ],
-      "note": "Step title (reworded). A sprinkler not scanned today is modelled under Option 2 only (spatial-adjust-course.model.ts:184-188).",
+      "note": "Step title (reworded). A sprinkler not scanned today is modelled under Option 2 only (spatial-adjust-course.model.ts:184-188). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36498,7 +36595,7 @@
       "guide": "station-details",
       "step": "4",
       "field": "see",
-      "text": "That sprinkler’s value is modelled, because its last scan is older than today.",
+      "text": "That sprinkler’s value is modeled, because its last scan is older than today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -36563,7 +36660,7 @@
           "line": 88
         }
       ],
-      "note": "A child whose scan is older than today shows a modelled value under Option 2 (sa-table-card.component.html:86-92; spatial-adjust-course.model.ts:184-188). Corrected wording from docs/text-corrections.md §25.",
+      "note": "A child whose scan is older than today shows a modelled value under Option 2 (sa-table-card.component.html:86-92; spatial-adjust-course.model.ts:184-188). Corrected wording from docs/text-corrections.md §25. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36792,7 +36889,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "do",
-      "text": "Look for a grey calculator icon beside the station’s [[Avg. VWC]].",
+      "text": "Look for a gray calculator icon beside the station’s [[Avg. VWC]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -36850,7 +36947,7 @@
           "line": 377
         }
       ],
-      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116).",
+      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36860,7 +36957,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "see",
-      "text": "The icon shows that the average includes a modelled reading.",
+      "text": "The icon shows that the average includes a modeled reading.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -36946,7 +37043,7 @@
           "line": "184-188"
         }
       ],
-      "note": "The icon marks an average that includes a modelled reading (sa-table-card.component.html:29-31; sa-table-card.component.ts:398-400). Corrected wording from docs/text-corrections.md §25.",
+      "note": "The icon marks an average that includes a modelled reading (sa-table-card.component.html:29-31; sa-table-card.component.ts:398-400). Corrected wording from docs/text-corrections.md §25. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -36956,7 +37053,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "ifNot",
-      "text": "If the row has no icon, no sprinkler under it is modelled.",
+      "text": "If the row has no icon, no sprinkler under it is modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -37000,7 +37097,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "The parent icon is drawn only when the row is estimated or has an estimated child (sa-table-card.component.html:29-31), so without it no sprinkler under the row is modelled.",
+      "note": "The parent icon is drawn only when the row is estimated or has an estimated child (sa-table-card.component.html:29-31), so without it no sprinkler under the row is modelled. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37010,7 +37107,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "caption",
-      "text": "The grey icon on the parent row marks an average that includes a modelled reading.",
+      "text": "The gray icon on the parent row marks an average that includes a modeled reading.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -37054,7 +37151,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Figure caption. The grey icon on the parent row marks an average that includes a modelled reading (sa-table-card.component.html:29-31).",
+      "note": "Figure caption. The grey icon on the parent row marks an average that includes a modelled reading (sa-table-card.component.html:29-31). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -37093,7 +37190,7 @@
       "guide": "station-details",
       "step": "verify",
       "field": "verify",
-      "text": "You can tell which child readings are modelled.",
+      "text": "You can tell which child readings are modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -37116,7 +37213,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "By the orange calculator icon at the left of the child's VWC (sa-table-card.component.html:88; sa-table-card.component.less:121-130), not by italics; see station-details/4/2. Under Option 1 nothing is modelled and a child not scanned today shows \"--\".",
+      "note": "By the orange calculator icon at the left of the child's VWC (sa-table-card.component.html:88; sa-table-card.component.less:121-130), not by italics; see station-details/4/2. Under Option 1 nothing is modelled and a child not scanned today shows \"--\". Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -38406,7 +38503,7 @@
       "guide": "station-zero",
       "step": "3",
       "field": "caption",
-      "text": "Station 5AP1 is disabled; the switch on its row is grey.",
+      "text": "Station 5AP1 is disabled; the switch on its row is gray.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -38418,7 +38515,7 @@
           "line": 68
         }
       ],
-      "note": "Illustrative screenshot. Each row has an on/off switch.",
+      "note": "Illustrative screenshot. Each row has an on/off switch. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -38529,7 +38626,7 @@
       "guide": "station-zero",
       "step": "4",
       "field": "ifNot",
-      "text": "If the date is older, [[Option 2]] shows a modelled [[Avg. VWC]], in grey italics.",
+      "text": "If the date is older, [[Option 2]] shows a modeled [[Avg. VWC]], in gray italics.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -38566,7 +38663,7 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "Under Option 2 a stale station falls back to the modelled value, painted grey and italic with a calculator icon; under Option 1 it shows a dash instead. Reworded from station-zero/4/3.",
+      "note": "Under Option 2 a stale station falls back to the modelled value, painted grey and italic with a calculator icon; under Option 1 it shows a dash instead. Reworded from station-zero/4/3. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -38647,7 +38744,7 @@
       "guide": "station-zero",
       "step": "4",
       "field": "caption",
-      "text": "A modelled value: grey, italic, and dated two days ago.",
+      "text": "A modeled value: gray, italic, and dated two days ago.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -38666,7 +38763,7 @@
           "line": 24
         }
       ],
-      "note": "Illustrative screenshot.",
+      "note": "Illustrative screenshot. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -39860,7 +39957,7 @@
       "guide": "suggested-adjustments",
       "step": "2",
       "field": "ifNot",
-      "text": "If [[Avg. VWC]] is grey and italic, the value is modelled from an older scan, so the suggestion rests on an estimate.",
+      "text": "If [[Avg. VWC]] is gray and italic, the value is modeled from an older scan, so the suggestion rests on an estimate.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -39971,7 +40068,7 @@
           "line": 87
         }
       ],
-      "note": "A grey italic Avg. VWC is modelled (sa-table-card.component.html:29-31); a modelled station still gets a suggestion from the model value (sa-table-card.component.ts:417-435). Reworded from calculation-questions/4/2, station-details/4/2, suggested-adjustments/before/2.",
+      "note": "A grey italic Avg. VWC is modelled (sa-table-card.component.html:29-31); a modelled station still gets a suggestion from the model value (sa-table-card.component.ts:417-435). Reworded from calculation-questions/4/2, station-details/4/2, suggested-adjustments/before/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -40343,7 +40440,7 @@
       "guide": "suggested-adjustments",
       "step": "4",
       "field": "ifNot",
-      "text": "If a dash shows in place of the box, the station has no current scan and no modelled value, so there is nothing to adjust.",
+      "text": "If a dash shows in place of the box, the station has no current scan and no modeled value, so there is nothing to adjust.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -40394,7 +40491,7 @@
           "line": "52"
         }
       ],
-      "note": "Where a station has no current scan and no model estimate, the table draws a dash in place of the % Adj. box (sa-table-card.component.html:52). Reworded from suggested-adjustments/before/2.",
+      "note": "Where a station has no current scan and no model estimate, the table draws a dash in place of the % Adj. box (sa-table-card.component.html:52). Reworded from suggested-adjustments/before/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -40602,7 +40699,7 @@
       "guide": "suggested-adjustments",
       "step": "5",
       "field": "see",
-      "text": "The footer counts 1 pending change, and [[Save]] is no longer greyed out.",
+      "text": "The footer counts 1 pending change, and [[Save]] is no longer grayed out.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -40628,7 +40725,7 @@
           "line": "53-97"
         }
       ],
-      "note": "Once a value differs, the footer counts the pending changes and Save is enabled (sa-soil-factor-dlg.component.html:113-118, :132-145; sa-soil-factor-dlg.component.ts:53-97).",
+      "note": "Once a value differs, the footer counts the pending changes and Save is enabled (sa-soil-factor-dlg.component.html:113-118, :132-145; sa-soil-factor-dlg.component.ts:53-97). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -40852,7 +40949,7 @@
       "guide": "suggested-adjustments",
       "step": "6",
       "field": "ifNot",
-      "text": "If [[Save]] is greyed out, nothing has changed or a value is outside 1 to 200.",
+      "text": "If [[Save]] is grayed out, nothing has changed or a value is outside 1 to 200.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -40871,7 +40968,7 @@
           "line": "132-145"
         }
       ],
-      "note": "Save is disabled when no row changed or any value is invalid (sa-soil-factor-dlg.component.html:132-145; the check is 1 to 200 at :105-106).",
+      "note": "Save is disabled when no row changed or any value is invalid (sa-soil-factor-dlg.component.html:132-145; the check is 1 to 200 at :105-106). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -42314,7 +42411,7 @@
       "guide": "target-profiles",
       "step": "4",
       "field": "why",
-      "text": "Applying changes [[Target VWC]] on every station in the profile, so suggestions change.",
+      "text": "A profile applies course-wide, changing [[Target VWC]] on every station it holds, so check the [[Suggested]] column before you push.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -42375,7 +42472,7 @@
           "line": "288-294"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims target-profiles/3/2, target-profiles/3/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims target-profiles/3/2, target-profiles/3/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -42405,6 +42502,86 @@
         }
       ],
       "note": "Course-wide per Lynx course: a site with several courses keeps a profile set for each.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "target-profiles/4/8",
+      "guide": "target-profiles",
+      "step": "4",
+      "field": "tip",
+      "text": "Caution. A profile matches stations by name, so a station renamed or renumbered after capture will not match when an old profile is applied.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "413-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "742-745"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "866-915"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Caution tip for the profile apply step. A profile stores station names and matches by trimmed, case-insensitive name within its course (production SpatialAdjustService.cs); stored names with no current station are skipped and stations not in the profile are not touched. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "target-profiles/4/9",
+      "guide": "target-profiles",
+      "step": "4",
+      "field": "tip",
+      "text": "A station added after capture keeps its target.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "413-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "742-745"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "866-915"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Applying a profile only touches the stations it holds. A profile stores station names and matches by trimmed, case-insensitive name within its course (production SpatialAdjustService.cs); stored names with no current station are skipped and stations not in the profile are not touched. Expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -42502,7 +42679,7 @@
       "guide": "target-profiles",
       "step": "5",
       "field": "ifNot",
-      "text": "If there is no exclamation mark, the choice was cancelled.",
+      "text": "If there is no exclamation mark, the choice was canceled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -42521,7 +42698,7 @@
           "line": 216
         }
       ],
-      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears.",
+      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -44259,7 +44436,7 @@
       "guide": "threshold-questions",
       "step": "3",
       "field": "ifNot",
-      "text": "If both options are greyed out, the threshold is 0, which turns the feature off.",
+      "text": "If both options are grayed out, the threshold is 0, which turns the feature off.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -44292,7 +44469,7 @@
           "line": "429-443"
         }
       ],
-      "note": "The option group is disabled at a threshold of 0. Reworded from threshold-questions/5/2, minimum-threshold/before/4.",
+      "note": "The option group is disabled at a threshold of 0. Reworded from threshold-questions/5/2, minimum-threshold/before/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -44425,7 +44602,7 @@
       "guide": "threshold-questions",
       "step": "4",
       "field": "ifNot",
-      "text": "If [[Exclude Zeros]] is greyed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.",
+      "text": "If [[Exclude Zeros]] is grayed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -44437,7 +44614,7 @@
           "line": 167
         }
       ],
-      "note": "Exclude Zeros is enabled only for the second option. Reworded from threshold-questions/4/4.",
+      "note": "Exclude Zeros is enabled only for the second option. Reworded from threshold-questions/4/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -44634,7 +44811,7 @@
       "guide": "threshold-questions",
       "step": "5",
       "field": "ifNot",
-      "text": "If it reads 0, the threshold is off and the options are greyed out.",
+      "text": "If it reads 0, the threshold is off and the options are grayed out.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -44667,7 +44844,7 @@
           "line": "145-162"
         }
       ],
-      "note": "The option group is greyed out at 0. Reworded from threshold-questions/5/2, threshold-questions/5/4.",
+      "note": "The option group is greyed out at 0. Reworded from threshold-questions/5/2, threshold-questions/5/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -45417,7 +45594,7 @@
       "guide": "understand-spatial-adjust",
       "step": "2",
       "field": "see",
-      "text": "Each station shows the mean VWC that a TurfRad scan measured, with the scan date beside the station name.",
+      "text": "Each station shows the average VWC that a TurfRad scan measured, with the scan date beside the station name.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -45438,9 +45615,13 @@
         {
           "source": "doc",
           "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -45450,7 +45631,7 @@
       "guide": "understand-spatial-adjust",
       "step": "2",
       "field": "ifNot",
-      "text": "If a value is grey and italic, no scan arrived today.",
+      "text": "If a value is gray and italic, no scan arrived today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -45511,7 +45692,7 @@
           "line": "86-92"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -45520,8 +45701,45 @@
       "id": "understand-spatial-adjust/2/5",
       "guide": "understand-spatial-adjust",
       "step": "2",
-      "field": "ifNot",
-      "text": "It is modelled instead.",
+      "field": "why",
+      "text": "Average VWC comes from a measured scan.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Average VWC comes from a TurfRad scan. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understand-spatial-adjust/2/6",
+      "guide": "understand-spatial-adjust",
+      "step": "2",
+      "field": "why",
+      "text": "When there is none, it is modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -45580,15 +45798,19 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
           "line": "86-92"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "note": "With no scan the value is modeled. Expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understand-spatial-adjust/2/6",
+      "id": "understand-spatial-adjust/2/7",
       "guide": "understand-spatial-adjust",
       "step": "2",
       "field": "caption",
@@ -45971,7 +46193,7 @@
       "guide": "understand-spatial-adjust",
       "step": "4",
       "field": "why",
-      "text": "It adds today’s ET to the delta, caps the amount, and divides by the Lynx Reference Amount.",
+      "text": "The suggestion is based on the gap to your target and today’s ET, within the daily maximum.",
       "type": "label",
       "status": "Verified",
       "evidence": [
@@ -46029,7 +46251,7 @@
           "line": 81
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/4/2, understand-spatial-adjust/4/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/4/2, understand-spatial-adjust/4/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -46168,7 +46390,7 @@
       "guide": "understand-spatial-adjust",
       "step": "5",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, no change is waiting.",
+      "text": "If [[Push Changes]] is grayed out, no change is waiting.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -46180,7 +46402,7 @@
           "line": 34
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/5/6; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/5/6; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -46399,7 +46621,7 @@
       "guide": "understanding-vwc",
       "step": "tile",
       "field": "summary",
-      "text": "Measured, modelled and target volumetric water content.",
+      "text": "Measured, modeled and target volumetric water content.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -46425,7 +46647,7 @@
           "line": "184-188"
         }
       ],
-      "note": "Tile summary. Measured is today's scan mean, modelled is the Option 2 estimate for a station not scanned today, and target is the editable Target VWC.",
+      "note": "Tile summary. Measured is today's scan mean, modelled is the Option 2 estimate for a station not scanned today, and target is the editable Target VWC. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -46688,7 +46910,7 @@
       "guide": "understanding-vwc",
       "step": "1",
       "field": "title",
-      "text": "Measured: the scan mean",
+      "text": "Measured: the scan average",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -46705,9 +46927,13 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
           "line": "173-182"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Step title.",
+      "note": "Step title. Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -46758,7 +46984,7 @@
       "guide": "understanding-vwc",
       "step": "1",
       "field": "see",
-      "text": "Its value is in plain black text: the mean VWC that TurfRad measured across the station.",
+      "text": "Its value is the average VWC that TurfRad measured across the station.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -46786,9 +47012,13 @@
         {
           "source": "doc",
           "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/1/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/1/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -46799,7 +47029,7 @@
       "guide": "understanding-vwc",
       "step": "1",
       "field": "ifNot",
-      "text": "If every value is grey and italic, nothing was scanned today.",
+      "text": "If every value is gray and italic, nothing was scanned today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -46843,7 +47073,7 @@
           "line": "97-117"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/1/2, understanding-vwc/1/5; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/1/2, understanding-vwc/1/5; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -46907,40 +47137,11 @@
       "correction": ""
     },
     {
-      "id": "understanding-vwc/1/7",
-      "guide": "understanding-vwc",
-      "step": "1",
-      "field": "caption",
-      "text": "A current scan: black text, today’s date.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": "22-32"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
-          "line": "97-117"
-        }
-      ],
-      "note": "Figure caption. A current value has no sa-vwc-estimated class, so it keeps the default text colour; the scan date beside the name is always grey (sa-table-card.component.html:24).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
       "id": "understanding-vwc/2/1",
       "guide": "understanding-vwc",
       "step": "2",
       "field": "title",
-      "text": "Modelled: the fallback",
+      "text": "Modeled: no scan today",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -46959,7 +47160,7 @@
           "line": "184-188"
         }
       ],
-      "note": "Step title. Option 2 only; see understanding-vwc/2/2.",
+      "note": "Step title. Option 2 only; see understanding-vwc/2/2. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -46969,7 +47170,7 @@
       "guide": "understanding-vwc",
       "step": "2",
       "field": "do",
-      "text": "Find a station whose [[Avg. VWC]] is grey and italic, with a calculator icon.",
+      "text": "Find a station whose [[Avg. VWC]] is gray and italic, with a calculator icon.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -47030,7 +47231,7 @@
           "line": "86-92"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -47041,7 +47242,7 @@
       "guide": "understanding-vwc",
       "step": "2",
       "field": "see",
-      "text": "That value is modelled: carried forward from the last scan and the weather since.",
+      "text": "That value is modeled: carried forward from the last scan and the weather since.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -47081,7 +47282,7 @@
           "line": "3280-3325"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/2/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/2/2; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -47091,7 +47292,7 @@
       "guide": "understanding-vwc",
       "step": "2",
       "field": "ifNot",
-      "text": "If no value is grey, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.",
+      "text": "If no value is gray, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -47152,7 +47353,7 @@
           "line": "3031-3043"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, dashboard-overview/1/5; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, dashboard-overview/1/5; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -47162,7 +47363,7 @@
       "guide": "understanding-vwc",
       "step": "2",
       "field": "caption",
-      "text": "Station 7AP1 has no current scan; the value shown is modelled.",
+      "text": "Station 7AP1 has no current scan; the value shown is modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -47181,7 +47382,7 @@
           "line": "97-117"
         }
       ],
-      "note": "Figure caption. The station name is the figure's sample data.",
+      "note": "Figure caption. The station name is the figure's sample data. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -47575,7 +47776,7 @@
       "guide": "understanding-vwc",
       "step": "4",
       "field": "why",
-      "text": "Today’s ET is added to the delta, so a hot, dry day raises the suggestions.",
+      "text": "Today’s ET also feeds in, so a hot, dry day raises the suggestions.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -47605,7 +47806,7 @@
           "line": "3211-3232"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/4/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/4/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -47867,7 +48068,7 @@
       "guide": "understanding-vwc",
       "step": "5",
       "field": "why",
-      "text": "A grey calculator icon means at least one station beneath the row is modelled.",
+      "text": "A gray calculator icon means at least one station beneath the row is modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -47911,7 +48112,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/5/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/5/3; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -47950,7 +48151,7 @@
       "guide": "understanding-vwc",
       "step": "verify",
       "field": "verify",
-      "text": "You can tell a measured value from a modelled one without checking the date.",
+      "text": "You can tell a measured value from a modeled one without checking the date.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -47976,7 +48177,7 @@
           "line": "97-130"
         }
       ],
-      "note": "Station rows: grey italic with a calculator icon when modelled. Sprinkler rows: an orange calculator icon. See understanding-vwc/2/3.",
+      "note": "Station rows: grey italic with a calculator icon when modelled. Sprinkler rows: an orange calculator icon. See understanding-vwc/2/3. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -50807,7 +51008,7 @@
       "guide": "verify-results",
       "step": "1",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -50816,7 +51017,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""

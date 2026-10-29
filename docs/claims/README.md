@@ -189,7 +189,7 @@ The extractor sets the type with a heuristic, and a verifier may change it.
 - `step` is the 1-based step number for anything inside a step. Otherwise it is one of `tile`,
   `summary`, `where`, `note`, `before` or `verify`. `tile` is the guide's card in the catalogue,
   meaning the tile title plus the tile summary. `note` is the guide's note callout before step 1.
-  The four Target Profiles guides use it for their shipping notice, labelled "New in IntelliDash."
+  The four Target Profiles guides use it for their shipping notice, labelled "New in Spatial Adjust."
   (any other guide's note is labelled "Note."). It was labelled "Concept." before
   `docs/text-corrections.md` §11.
 - `n` is the 1-based sentence index within that bucket. Inside a step it counts across the fields
@@ -378,7 +378,7 @@ Each guide has, in order:
 1. A header with the category, the catalogue card, its release status from `src/release.json`
    (a beta guide carries a **Beta** tag beside its title), the pinned production and develop SHAs,
    the time the pack was generated, and a link to the guide on the live site.
-2. For the four Target Profiles guides, the "New in IntelliDash" notice that readers see before
+2. For the four Target Profiles guides, the "New in Spatial Adjust" notice that readers see before
    step 1, with the status of its claims.
 3. The guide as written, section by section: the catalogue card, the summary, where to find it,
    the banner before step 1, before you start, each step (title, body, caption and tip), and how
@@ -466,7 +466,7 @@ verdict with the reviewer's role and the date in `docs/claims/signoff.md`.
 ### 2026-10-19: published, and handed over for the in-person review on 2026-10-22
 
 - **Published.** The live site, https://toroadam.github.io/spatial-adjust-guide/, carries every
-  correction, the changed-surfaces callouts, the "New in IntelliDash" banner and tile badges on the
+  correction, the changed-surfaces callouts, the "New in Spatial Adjust" banner and tile badges on the
   four Target Profiles guides, and the push window and Lynx prerequisites in all eleven languages.
   The guide content was last changed by `d264376`, and `bebdde6` was deployed by the
   "Build and deploy to Pages" run 39363468912, which passed, as did "Screen fidelity" on the same

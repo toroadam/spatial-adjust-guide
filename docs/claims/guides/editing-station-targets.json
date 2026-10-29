@@ -419,7 +419,7 @@
       "guide": "editing-station-targets",
       "step": "1",
       "field": "ifNot",
-      "text": "If you know where the station is, select its pin on the map instead.",
+      "text": "If you know where the station is, select it on the map instead.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -466,7 +466,7 @@
           "line": "444-469"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim editing-station-targets/1/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim editing-station-targets/1/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -982,7 +982,7 @@
       "guide": "editing-station-targets",
       "step": "4",
       "field": "ifNot",
-      "text": "If the box shows --, the station has no scan today and no modelled value, so there is nothing to override.",
+      "text": "If the box shows --, the station has no scan today and no modeled value, so there is nothing to override.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1029,7 +1029,7 @@
           "line": 87
         }
       ],
-      "note": "Production sets saShowCurrentOnly (environment.toro-prod.ts:87). A station with no scan that day and no modelled value then shows -- in place of the % Adj. box (sa-table-card.component.html:52). Evidence carried over from the earlier ledger claim editing-station-targets/4/2; the sentence was reworded for the step standard.",
+      "note": "Production sets saShowCurrentOnly (environment.toro-prod.ts:87). A station with no scan that day and no modelled value then shows -- in place of the % Adj. box (sa-table-card.component.html:52). Evidence carried over from the earlier ledger claim editing-station-targets/4/2; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1039,7 +1039,7 @@
       "guide": "editing-station-targets",
       "step": "4",
       "field": "why",
-      "text": "Change the target when a station should always be wetter or drier; change [[% Adj.]] when today is unusual.",
+      "text": "Override when today’s suggestion looks too high or too low; change the target instead when a station should always be wetter or drier.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1076,7 +1076,7 @@
           "line": "146-164"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims editing-station-targets/4/5, editing-station-targets/4/6; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims editing-station-targets/4/5, editing-station-targets/4/6; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",

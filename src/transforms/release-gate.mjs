@@ -910,7 +910,7 @@ function assertFlagged(before, after, plan) {
 
 /** The anchored markup and view-model edits that render the flags. Made whether or not anything is beta. */
 function presentBeta(s) {
-  // The catalogue tile: the badge above the title, ahead of the New in IntelliDash badge when that
+  // The catalogue tile: the badge above the title, ahead of the New in Spatial Adjust badge when that
   // is there. The title div is the anchor, so the badge survives that badge being retired.
   s = edit(s, {
     name: 'beta presentation: tile badge',

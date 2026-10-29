@@ -48,16 +48,16 @@
       "term": "Measured",
       "match": ["measured"],
       "caseSensitive": false,
-      "definition": "Read from a TurfRad moisture scan taken today, and shown in plain black text.",
+      "definition": "Read from a TurfRad moisture scan taken today.",
       "ledger": ["understanding-vwc/1/2", "understanding-vwc/1/3", "understand-spatial-adjust/2/3", "understanding-vwc/tile/2"]
     },
     {
       "id": "modelled",
-      "term": "Modelled",
+      "term": "Modeled",
       "match": ["modelled", "modeled"],
       "caseSensitive": false,
-      "definition": "From the model when there was no scan that day, shown in grey italics with a calculator icon.",
-      "ledger": ["dashboard-overview/4/5", "calculation-questions/before/1", "understanding-vwc/2/2", "understanding-vwc/2/3"]
+      "definition": "From the model when there was no scan that day, shown in gray italics with a calculator icon.",
+      "ledger": ["dashboard-overview/4/6", "calculation-questions/before/1", "understanding-vwc/2/2", "understanding-vwc/2/3"]
     },
     {
       "id": "target",

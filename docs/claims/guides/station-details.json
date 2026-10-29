@@ -36,7 +36,7 @@
       "guide": "station-details",
       "step": "tile",
       "field": "summary",
-      "text": "Per-sprinkler readings under a multi-head station.",
+      "text": "Per-sprinkler readings under a station with more than one sprinkler.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -59,7 +59,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Tile summary. A station's sprinkler records share its name and are grouped under one row (sa-dash-table.component.ts:355-408); each record gets a child row with its own reading (sa-table-card.component.html:74-98). 373-1135 rev 02 §Table Functionality: \"Expandable rows for multi-sprinkler stations\".",
+      "note": "Tile summary. A station's sprinkler records share its name and are grouped under one row (sa-dash-table.component.ts:355-408); each record gets a child row with its own reading (sa-table-card.component.html:74-98). 373-1135 rev 02 §Table Functionality: \"Expandable rows for multi-sprinkler stations\". Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -102,7 +102,7 @@
       "guide": "station-details",
       "step": "summary",
       "field": "summary",
-      "text": "Expand the row to see what each head actually measured.",
+      "text": "Expand the row to see what each sprinkler actually measured.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -128,7 +128,7 @@
           "line": "8-27"
         }
       ],
-      "note": "Each child row shows its own reading: today's scan mean when that sprinkler was scanned today, otherwise the modelled value with an orange calculator under Option 2, or \"--\" under Option 1 (sa-table-card.component.html:88-91). A child shows what it measured only if it was scanned today; see station-details/4/2.",
+      "note": "Each child row shows its own reading: today's scan mean when that sprinkler was scanned today, otherwise the modelled value with an orange calculator under Option 2, or \"--\" under Option 1 (sa-table-card.component.html:88-91). A child shows what it measured only if it was scanned today; see station-details/4/2. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -914,7 +914,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "see",
-      "text": "The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.",
+      "text": "The station shows the average of its sprinklers, so 31.4 and 30.4 give 30.9.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -952,9 +952,13 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
           "line": "365-383"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "The station value is the plain mean of its sprinklers, shown to one decimal: (31.4 + 30.4) / 2 = 30.9 (sa-dash-table.component.ts:369-383; sa-table-card.component.ts:373-378).",
+      "note": "The station value is the plain mean of its sprinklers, shown to one decimal: (31.4 + 30.4) / 2 = 30.9 (sa-dash-table.component.ts:369-383; sa-table-card.component.ts:373-378). Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -964,7 +968,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "ifNot",
-      "text": "If the average is not the mean of every row below it, a sprinkler was left out.",
+      "text": "If the average does not match the rows below it, a sprinkler was left out.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -997,7 +1001,7 @@
           "line": "373-378"
         }
       ],
-      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\".",
+      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\". Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1007,7 +1011,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "ifNot",
-      "text": "Only sprinklers scanned today, or modelled under [[Option 2]], count.",
+      "text": "Only sprinklers scanned today, or modeled under [[Option 2]], count.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1040,7 +1044,7 @@
           "line": "373-378"
         }
       ],
-      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\".",
+      "note": "The mean is unweighted and counts only sprinklers scanned today or, under Option 2, modelled (sa-dash-table.component.ts:369-383). Under Option 1 a sprinkler not scanned today is left out, and if none qualifies the cell shows \"--\". Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1050,7 +1054,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "why",
-      "text": "A station that looks fine can still hide one dry head.",
+      "text": "A station that looks fine can still hide one dry sprinkler.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1069,7 +1073,7 @@
           "line": "373-378"
         }
       ],
-      "note": "Carried over from station-details/3/4: because the mean is unweighted, one dry sprinkler and one wet one can average to a normal-looking value (sa-dash-table.component.ts:369-383). The agronomic half of the dropped callout (a wide spread is a coverage problem) is not published.",
+      "note": "Carried over from station-details/3/4: because the mean is unweighted, one dry sprinkler and one wet one can average to a normal-looking value (sa-dash-table.component.ts:369-383). The agronomic half of the dropped callout (a wide spread is a coverage problem) is not published. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1079,7 +1083,7 @@
       "guide": "station-details",
       "step": "3",
       "field": "caption",
-      "text": "Mean of the children, shown on the parent row.",
+      "text": "Average of the children, shown on the parent row.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1096,9 +1100,13 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
           "line": "29-31"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Figure caption. The station row's Avg. VWC cell shows the mean (sa-table-card.component.html:29-31).",
+      "note": "Figure caption. The station row's Avg. VWC cell shows the mean (sa-table-card.component.html:29-31). Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1108,7 +1116,7 @@
       "guide": "station-details",
       "step": "4",
       "field": "title",
-      "text": "Spot a modelled sprinkler",
+      "text": "Spot a modeled sprinkler",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1127,7 +1135,7 @@
           "line": "184-188"
         }
       ],
-      "note": "Step title (reworded). A sprinkler not scanned today is modelled under Option 2 only (spatial-adjust-course.model.ts:184-188).",
+      "note": "Step title (reworded). A sprinkler not scanned today is modelled under Option 2 only (spatial-adjust-course.model.ts:184-188). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1205,7 +1213,7 @@
       "guide": "station-details",
       "step": "4",
       "field": "see",
-      "text": "That sprinkler’s value is modelled, because its last scan is older than today.",
+      "text": "That sprinkler’s value is modeled, because its last scan is older than today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1270,7 +1278,7 @@
           "line": 88
         }
       ],
-      "note": "A child whose scan is older than today shows a modelled value under Option 2 (sa-table-card.component.html:86-92; spatial-adjust-course.model.ts:184-188). Corrected wording from docs/text-corrections.md §25.",
+      "note": "A child whose scan is older than today shows a modelled value under Option 2 (sa-table-card.component.html:86-92; spatial-adjust-course.model.ts:184-188). Corrected wording from docs/text-corrections.md §25. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1499,7 +1507,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "do",
-      "text": "Look for a grey calculator icon beside the station’s [[Avg. VWC]].",
+      "text": "Look for a gray calculator icon beside the station’s [[Avg. VWC]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1557,7 +1565,7 @@
           "line": 377
         }
       ],
-      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116).",
+      "note": "The parent row carries a grey calculator icon beside its Avg. VWC (sa-table-card.component.html:29-31; sa-table-card.component.less:112-116). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1567,7 +1575,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "see",
-      "text": "The icon shows that the average includes a modelled reading.",
+      "text": "The icon shows that the average includes a modeled reading.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1653,7 +1661,7 @@
           "line": "184-188"
         }
       ],
-      "note": "The icon marks an average that includes a modelled reading (sa-table-card.component.html:29-31; sa-table-card.component.ts:398-400). Corrected wording from docs/text-corrections.md §25.",
+      "note": "The icon marks an average that includes a modelled reading (sa-table-card.component.html:29-31; sa-table-card.component.ts:398-400). Corrected wording from docs/text-corrections.md §25. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1663,7 +1671,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "ifNot",
-      "text": "If the row has no icon, no sprinkler under it is modelled.",
+      "text": "If the row has no icon, no sprinkler under it is modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1707,7 +1715,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "The parent icon is drawn only when the row is estimated or has an estimated child (sa-table-card.component.html:29-31), so without it no sprinkler under the row is modelled.",
+      "note": "The parent icon is drawn only when the row is estimated or has an estimated child (sa-table-card.component.html:29-31), so without it no sprinkler under the row is modelled. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1717,7 +1725,7 @@
       "guide": "station-details",
       "step": "5",
       "field": "caption",
-      "text": "The grey icon on the parent row marks an average that includes a modelled reading.",
+      "text": "The gray icon on the parent row marks an average that includes a modeled reading.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1761,7 +1769,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Figure caption. The grey icon on the parent row marks an average that includes a modelled reading (sa-table-card.component.html:29-31).",
+      "note": "Figure caption. The grey icon on the parent row marks an average that includes a modelled reading (sa-table-card.component.html:29-31). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1800,7 +1808,7 @@
       "guide": "station-details",
       "step": "verify",
       "field": "verify",
-      "text": "You can tell which child readings are modelled.",
+      "text": "You can tell which child readings are modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1823,7 +1831,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "By the orange calculator icon at the left of the child's VWC (sa-table-card.component.html:88; sa-table-card.component.less:121-130), not by italics; see station-details/4/2. Under Option 1 nothing is modelled and a child not scanned today shows \"--\".",
+      "note": "By the orange calculator icon at the left of the child's VWC (sa-table-card.component.html:88; sa-table-card.component.less:121-130), not by italics; see station-details/4/2. Under Option 1 nothing is modelled and a child not scanned today shows \"--\". Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

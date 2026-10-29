@@ -58,7 +58,7 @@
       "guide": "map-navigation",
       "step": "summary",
       "field": "summary",
-      "text": "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.",
+      "text": "Read station colors on the map, move the moisture bands, switch to variance, and filter what the map shows.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -77,7 +77,7 @@
           "line": "6-62"
         }
       ],
-      "note": "Pins, band handles, the variance toggle and Layers are all in the map overlay. Pins not scanned today are drawn clear; see map-navigation/1/2.",
+      "note": "Pins, band handles, the variance toggle and Layers are all in the map overlay. Pins not scanned today are drawn clear; see map-navigation/1/2. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -153,7 +153,7 @@
       "guide": "map-navigation",
       "step": "start",
       "field": "needs",
-      "text": "A scan from the past seven days, so that the map shows pins.",
+      "text": "A scan from the past seven days, so that the map shows stations.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -197,7 +197,7 @@
           "line": 846
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -243,7 +243,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "title",
-      "text": "Pins are coloured by measured moisture",
+      "text": "Stations are colored by measured moisture",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -255,7 +255,7 @@
           "line": "314-315"
         }
       ],
-      "note": "Step title. Only pins scanned today are coloured; see map-navigation/1/2.",
+      "note": "Step title. Only pins scanned today are coloured; see map-navigation/1/2. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -265,7 +265,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "do",
-      "text": "Look at the pins on the map.",
+      "text": "Look at the stations on the map.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -309,7 +309,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -320,7 +320,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "see",
-      "text": "Pins scanned today are filled with a band colour: 0–5, 6–19, 20–30 or above 30 percent.",
+      "text": "Each station’s sprinklers scanned today are filled with a band color: 0–5, 6–19, 20–30 or above 30 percent.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -378,7 +378,7 @@
           "line": "8-11"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/3, map-navigation/1/5; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/3, map-navigation/1/5; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -389,7 +389,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "ifNot",
-      "text": "If a pin is clear, it was last scanned on an earlier day.",
+      "text": "If a station is clear, it was last scanned on an earlier day.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -433,7 +433,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -444,7 +444,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "ifNot",
-      "text": "A disabled station has no pin while [[Layers]] is set to [[Enabled Stations]].",
+      "text": "A disabled station is not drawn while [[Layers]] is set to [[Enabled Stations]].",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -488,7 +488,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/1/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -499,7 +499,7 @@
       "guide": "map-navigation",
       "step": "1",
       "field": "caption",
-      "text": "The course, coloured by measured moisture.",
+      "text": "The course, colored by measured moisture.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -518,7 +518,7 @@
           "line": "6-16"
         }
       ],
-      "note": "Figure caption.",
+      "note": "Figure caption. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -550,7 +550,7 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "do",
-      "text": "Drag a handle on the colour bar under the legend.",
+      "text": "Drag a handle on the color bar under the legend.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -569,7 +569,7 @@
           "line": "72-112"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/2; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -580,7 +580,7 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "see",
-      "text": "When you let go, the map recolours to the new band boundary.",
+      "text": "When you let go, the map recolors to the new band boundary.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -613,7 +613,7 @@
           "line": "138-143"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -667,7 +667,7 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "ifNot",
-      "text": "The map recolours when you release it.",
+      "text": "The map recolors when you release it.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -700,7 +700,7 @@
           "line": "138-143"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -710,7 +710,7 @@
       "guide": "map-navigation",
       "step": "2",
       "field": "why",
-      "text": "Your boundaries are saved to your own user preferences, not to the site.",
+      "text": "The band boundaries are yours to change, not only the defaults, and they are saved to your own user preferences, not to the site.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -719,31 +719,14 @@
           "ref": "production",
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "43-54"
+          "line": "120-131"
         },
         {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "97-105"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "120-145"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-map/sa-map-overlay/sa-map-overlay.component.ts",
-          "line": "120-132"
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/before/1, map-navigation/2/4; the sentence was reworded for the step standard.",
+      "note": "Dragging a band handle saves the three moisture band boundaries to the user preferences, not to the site. The colors themselves are fixed. Added after expert feedback in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -827,7 +810,7 @@
       "guide": "map-navigation",
       "step": "3",
       "field": "see",
-      "text": "The pins now show how far each station is from its target, in three bands.",
+      "text": "The map now shows how far each station is from its target, in three bands.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -864,7 +847,7 @@
           "line": "17-28"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/3/3, map-navigation/3/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/3/3, map-navigation/3/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -875,7 +858,7 @@
       "guide": "map-navigation",
       "step": "3",
       "field": "ifNot",
-      "text": "If a pin stays clear, it was not scanned today, so it has no variance.",
+      "text": "If a station stays clear, it was not scanned today, so it has no variance.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -898,7 +881,7 @@
           "ref": "373-1135 rev 02 §Map Indicators"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim map-navigation/3/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim map-navigation/3/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -941,7 +924,7 @@
       "guide": "map-navigation",
       "step": "3",
       "field": "caption",
-      "text": "Variance view: three bands, centred on target.",
+      "text": "Variance view: three bands, centered on target.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -960,7 +943,7 @@
           "line": "17-28"
         }
       ],
-      "note": "Figure caption. Default bands are below -10%, -10 to 10%, and above 10% (sa-dash-map.component.ts:65-74; legend labels sa-map-overlay.component.html:20-22).",
+      "note": "Figure caption. Default bands are below -10%, -10 to 10%, and above 10% (sa-dash-map.component.ts:65-74; legend labels sa-map-overlay.component.html:20-22). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1339,7 +1322,7 @@
       "guide": "map-navigation",
       "step": "5",
       "field": "ifNot",
-      "text": "If a station you expect has no pin, [[Layers]] may be set to [[Enabled Stations]], the default.",
+      "text": "If a station you expect is not drawn, [[Layers]] may be set to [[Enabled Stations]], the default.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1411,7 +1394,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/4/6, map-navigation/1/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/4/6, map-navigation/1/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1421,7 +1404,7 @@
       "guide": "map-navigation",
       "step": "5",
       "field": "why",
-      "text": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.",
+      "text": "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1448,7 +1431,7 @@
           "ref": "373-1135 rev 02 §Push Changes Functionality"
         }
       ],
-      "note": "A station counts as enabled on the map when its area, its hole and at least one of its sprinkler records are enabled (sa-dash-map.component.ts:351-374), the same parent rule the pending list applies (sa-dashboard.component.ts:607-678; 373-1135 rev 02 §Push Changes Functionality). A push sends only the enabled stations whose % Adj. differs from Lynx, so the filtered map shows the heads a push can affect, a superset of the ones a given push will change.",
+      "note": "A station counts as enabled on the map when its area, its hole and at least one of its sprinkler records are enabled (sa-dash-map.component.ts:351-374), the same parent rule the pending list applies (sa-dashboard.component.ts:607-678; 373-1135 rev 02 §Push Changes Functionality). A push sends only the enabled stations whose % Adj. differs from Lynx, so the filtered map shows the heads a push can affect, a superset of the ones a given push will change. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1578,7 +1561,7 @@
       "guide": "map-navigation",
       "step": "6",
       "field": "see",
-      "text": "The map zooms to that station’s pin and outlines it.",
+      "text": "The map zooms to that station and outlines it.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1615,7 +1598,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Selecting a station circle zooms the map to it and redraws its outline in white at weight 3 (sa-dash-map.component.ts:475-487). Evidence carried over from the earlier ledger claim map-navigation/5/2; the sentence was reworded for the step standard.",
+      "note": "Selecting a station circle zooms the map to it and redraws its outline in white at weight 3 (sa-dash-map.component.ts:475-487). Evidence carried over from the earlier ledger claim map-navigation/5/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -1626,7 +1609,7 @@
       "guide": "map-navigation",
       "step": "6",
       "field": "ifNot",
-      "text": "If no pin is outlined, the station may be disabled and hidden.",
+      "text": "If no station is outlined, it may be disabled and hidden.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1691,7 +1674,7 @@
           "line": "43-54"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/4, map-navigation/4/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/1/4, map-navigation/4/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1748,7 +1731,7 @@
       "guide": "map-navigation",
       "step": "6",
       "field": "why",
-      "text": "Selecting a pin selects its row too, so use whichever is faster.",
+      "text": "Selecting a station on the map selects its row too, so use whichever is faster.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -1785,7 +1768,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims map-navigation/5/2, map-navigation/5/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims map-navigation/5/2, map-navigation/5/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1824,7 +1807,7 @@
       "guide": "map-navigation",
       "step": "verify",
       "field": "verify",
-      "text": "You can recolour the map by moving a band handle.",
+      "text": "You can recolor the map by moving a band handle.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1843,7 +1826,7 @@
           "line": "138-143"
         }
       ],
-      "note": "The recolour happens on release; see map-navigation/2/3.",
+      "note": "The recolour happens on release; see map-navigation/2/3. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""

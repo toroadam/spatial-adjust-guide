@@ -1301,7 +1301,7 @@
       "guide": "target-profiles",
       "step": "4",
       "field": "why",
-      "text": "Applying changes [[Target VWC]] on every station in the profile, so suggestions change.",
+      "text": "A profile applies course-wide, changing [[Target VWC]] on every station it holds, so check the [[Suggested]] column before you push.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1362,7 +1362,7 @@
           "line": "288-294"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims target-profiles/3/2, target-profiles/3/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims target-profiles/3/2, target-profiles/3/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1392,6 +1392,86 @@
         }
       ],
       "note": "Course-wide per Lynx course: a site with several courses keeps a profile set for each.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "target-profiles/4/8",
+      "guide": "target-profiles",
+      "step": "4",
+      "field": "tip",
+      "text": "Caution. A profile matches stations by name, so a station renamed or renumbered after capture will not match when an old profile is applied.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "413-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "742-745"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "866-915"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Caution tip for the profile apply step. A profile stores station names and matches by trimmed, case-insensitive name within its course (production SpatialAdjustService.cs); stored names with no current station are skipped and stations not in the profile are not touched. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "target-profiles/4/9",
+      "guide": "target-profiles",
+      "step": "4",
+      "field": "tip",
+      "text": "A station added after capture keeps its target.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "413-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "742-745"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "866-915"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Applying a profile only touches the stations it holds. A profile stores station names and matches by trimmed, case-insensitive name within its course (production SpatialAdjustService.cs); stored names with no current station are skipped and stations not in the profile are not touched. Expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1489,7 +1569,7 @@
       "guide": "target-profiles",
       "step": "5",
       "field": "ifNot",
-      "text": "If there is no exclamation mark, the choice was cancelled.",
+      "text": "If there is no exclamation mark, the choice was canceled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1508,7 +1588,7 @@
           "line": 216
         }
       ],
-      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears.",
+      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

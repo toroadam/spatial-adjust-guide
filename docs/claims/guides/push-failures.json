@@ -267,7 +267,7 @@
       "guide": "push-failures",
       "step": "1",
       "field": "title",
-      "text": "Read the count, not the colour",
+      "text": "Read the count, not the color",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -286,7 +286,7 @@
           "line": "234-240"
         }
       ],
-      "note": "The result line pairs a red times-circle icon with the text that carries the count.",
+      "note": "The result line pairs a red times-circle icon with the text that carries the count. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1550,7 +1550,7 @@
       "guide": "push-failures",
       "step": "4",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -1559,7 +1559,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""

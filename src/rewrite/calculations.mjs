@@ -133,7 +133,7 @@ function minimumThreshold(src, h) {
     },
     set: {
       do: 'Type a whole number from 0 to 50 in [[Minimum Threshold (%)]].',
-      see: 'The box shows your number. With 0, the threshold is off, and the two choices below stay greyed out.',
+      see: 'The box shows your number. With 0, the threshold is off, and the two choices below stay grayed out.',
       ifNot: 'If a digit does not appear, it would take the number above 50, so the dialog refuses it. '
         + 'Only the dialog enforces that limit.',
       why: 'Ten percent is a common start: it drops small changes near target but keeps real fixes.',
@@ -153,9 +153,10 @@ function minimumThreshold(src, h) {
       caption: 'Below-threshold behaviour, with the second option selected.',
     },
     set: {
+      caption: 'Below-threshold behavior, with the second option selected.',
       do: 'Select [[Set to zero when pushed to Lynx]] or [[Set to the minimum threshold value when pushed to Lynx]].',
       see: 'Your choice is marked. With the second one, [[Exclude Zeros]] below it can be ticked.',
-      ifNot: 'If both choices are greyed out, the box above holds 0. Type a number above 0 first.',
+      ifNot: 'If both choices are grayed out, the box above holds 0. Type a number above 0 first.',
       why: 'Zero sends 0% for the station; the second choice raises it to the threshold, so it still gets a small run.',
     },
     drop: ['body', 'tipLabel', 'tip'],
@@ -168,7 +169,7 @@ function minimumThreshold(src, h) {
         thresholdValue: 10, thresholdOption: 'min',
         do: 'Tick [[Exclude Zeros]] if a station at 0% should stay at 0%.',
         see: 'The box is ticked. At push time, 0% stays 0%, and only small values above 0 are raised.',
-        ifNot: 'If [[Exclude Zeros]] is greyed out, the box above holds 0 or the first choice is selected. '
+        ifNot: 'If [[Exclude Zeros]] is grayed out, the box above holds 0 or the first choice is selected. '
         + 'Select the second choice first.',
         caption: 'Exclude Zeros, available with the second option.' },
       { title: 'Save the threshold', fig: 'dlgWide', dialog: 'settings', settingsTab: 'threshold',
@@ -181,7 +182,7 @@ function minimumThreshold(src, h) {
       { title: 'Open Push Changes', fig: 'toolbarR',
         do: 'Select [[Push Changes]] at the right of the toolbar.',
         see: 'A dialog opens with the list of stations waiting to go to Lynx.',
-        ifNot: 'If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. '
+        ifNot: 'If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. '
           + 'Wait for the push to finish, then look again.',
         caption: 'Push Changes, at the right of the toolbar.' },
     ],
@@ -310,7 +311,7 @@ function calculationSettings(src, h) {
       title: 'Choose the Calculation tab',
       do: 'In the left rail, select [[Calculation]], the first entry.',
       see: 'The right side shows Daily Max Amount, Lynx Reference Amount and [[Crop Coefficient (%)]].',
-      ifNot: 'If all three boxes are greyed out, the site uses [[Option 1]], which uses none of them. '
+      ifNot: 'If all three boxes are grayed out, the site uses [[Option 1]], which uses none of them. '
         + 'Calculation methods explains the two methods.',
     },
     drop: ['body'],
@@ -354,7 +355,7 @@ function calculationSettings(src, h) {
       do: 'On the [[Calculation]] tab, type your Lynx Reference Amount, up to 10.',
       see: 'The box shows your number, in the same units as Daily Max Amount.',
       ifNot: 'If suggestions later look far too high, this number is too low. It should match what a station applies at 100%.',
-      why: 'Each suggestion is the day’s water amount divided by this number.',
+      why: 'Each suggestion is a percentage of this number.',
     },
     drop: ['body', 'tipLabel', 'tip'],
   });
@@ -374,7 +375,7 @@ function calculationSettings(src, h) {
       title: 'Set the crop coefficient',
       do: 'Type a whole number from 0 to 200 in [[Crop Coefficient (%)]].',
       see: 'The box shows the percentage that today’s ET is scaled by.',
-      ifNot: 'If the box is greyed out, the site uses [[Option 1]], which uses no ET. The two amounts above it are greyed out too.',
+      ifNot: 'If the box is grayed out, the site uses [[Option 1]], which uses no ET. The two amounts above it are grayed out too.',
       why: 'Below 100, the course is treated as using less water than ET suggests; above 100, more.',
     },
     drop: ['body', 'tipLabel', 'tip'],
@@ -449,7 +450,7 @@ function calculationMethods(src, h) {
       verify: "['You can say which algorithm your site uses.', 'You know why Max Amount is greyed out under Option 1.']",
     },
     set: {
-      verify: ['You can say which algorithm your site uses.', 'You know why Daily Max Amount is greyed out under Option 1.'],
+      verify: ['You can say which algorithm your site uses.', 'You know why Daily Max Amount is grayed out under Option 1.'],
       start: {
         page: START_PAGE,
         open: 'The Settings dialog, on the Calculation tab. The gear button at the right of the toolbar opens it.',
@@ -492,10 +493,10 @@ function calculationMethods(src, h) {
       settingsTab: 'calculation',
       algorithm: 'simple',
       do: 'Look at the three boxes below [[Suggested Percent Adjust Calculation]].',
-      see: 'Under [[Option 1]] they are greyed out; under [[Option 2]] you can type in them.',
+      see: 'Under [[Option 1]] they are grayed out; under [[Option 2]] you can type in them.',
       ifNot: 'If you can type in them, the site uses [[Option 2]], the method these three boxes feed.',
-      why: '[[Option 1]] scales the percentage Lynx holds now by target over measured, so it needs no ET, reference amount or cap.',
-      caption: 'With Option 1 selected, the three boxes below it are greyed out.',
+      why: '[[Option 1]] scales the percentage Lynx holds now, so it needs no ET, reference amount or cap.',
+      caption: 'With Option 1 selected, the three boxes below it are grayed out.',
       tipLabel: 'Consequence.',
       tip: CONSEQUENCE_TIP,
     },
@@ -538,7 +539,7 @@ function calculationMethods(src, h) {
       see: 'Under [[Option 2]], stations that need more than Daily Max Amount share one value, often in runs.',
       ifNot: 'If the values spread out with no repeats, the site may use [[Option 1]], which has no cap. '
         + 'Its values can go far higher than you intend on a very dry station.',
-      why: '[[Option 2]] adds today’s ET to the water the delta calls for, caps it at Daily Max Amount, then divides by the Lynx Reference Amount.',
+      why: '[[Option 2]] starts from the gap to your target and today’s ET, and Daily Max Amount caps the result.',
     },
     drop: ['body'],
   });

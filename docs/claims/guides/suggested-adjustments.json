@@ -840,7 +840,7 @@
       "guide": "suggested-adjustments",
       "step": "2",
       "field": "ifNot",
-      "text": "If [[Avg. VWC]] is grey and italic, the value is modelled from an older scan, so the suggestion rests on an estimate.",
+      "text": "If [[Avg. VWC]] is gray and italic, the value is modeled from an older scan, so the suggestion rests on an estimate.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -951,7 +951,7 @@
           "line": 87
         }
       ],
-      "note": "A grey italic Avg. VWC is modelled (sa-table-card.component.html:29-31); a modelled station still gets a suggestion from the model value (sa-table-card.component.ts:417-435). Reworded from calculation-questions/4/2, station-details/4/2, suggested-adjustments/before/2.",
+      "note": "A grey italic Avg. VWC is modelled (sa-table-card.component.html:29-31); a modelled station still gets a suggestion from the model value (sa-table-card.component.ts:417-435). Reworded from calculation-questions/4/2, station-details/4/2, suggested-adjustments/before/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1323,7 +1323,7 @@
       "guide": "suggested-adjustments",
       "step": "4",
       "field": "ifNot",
-      "text": "If a dash shows in place of the box, the station has no current scan and no modelled value, so there is nothing to adjust.",
+      "text": "If a dash shows in place of the box, the station has no current scan and no modeled value, so there is nothing to adjust.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1374,7 +1374,7 @@
           "line": "52"
         }
       ],
-      "note": "Where a station has no current scan and no model estimate, the table draws a dash in place of the % Adj. box (sa-table-card.component.html:52). Reworded from suggested-adjustments/before/2.",
+      "note": "Where a station has no current scan and no model estimate, the table draws a dash in place of the % Adj. box (sa-table-card.component.html:52). Reworded from suggested-adjustments/before/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1582,7 +1582,7 @@
       "guide": "suggested-adjustments",
       "step": "5",
       "field": "see",
-      "text": "The footer counts 1 pending change, and [[Save]] is no longer greyed out.",
+      "text": "The footer counts 1 pending change, and [[Save]] is no longer grayed out.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1608,7 +1608,7 @@
           "line": "53-97"
         }
       ],
-      "note": "Once a value differs, the footer counts the pending changes and Save is enabled (sa-soil-factor-dlg.component.html:113-118, :132-145; sa-soil-factor-dlg.component.ts:53-97).",
+      "note": "Once a value differs, the footer counts the pending changes and Save is enabled (sa-soil-factor-dlg.component.html:113-118, :132-145; sa-soil-factor-dlg.component.ts:53-97). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1832,7 +1832,7 @@
       "guide": "suggested-adjustments",
       "step": "6",
       "field": "ifNot",
-      "text": "If [[Save]] is greyed out, nothing has changed or a value is outside 1 to 200.",
+      "text": "If [[Save]] is grayed out, nothing has changed or a value is outside 1 to 200.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1851,7 +1851,7 @@
           "line": "132-145"
         }
       ],
-      "note": "Save is disabled when no row changed or any value is invalid (sa-soil-factor-dlg.component.html:132-145; the check is 1 to 200 at :105-106).",
+      "note": "Save is disabled when no row changed or any value is invalid (sa-soil-factor-dlg.component.html:132-145; the check is 1 to 200 at :105-106). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

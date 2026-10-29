@@ -338,10 +338,10 @@ The captions read "The Target Profiles tab." and "The Target Profiles tab in the
 
 The note callout itself was labelled "Concept.", a word every Target Profiles note now
 contradicts. The four guides carry a `newInIntelliDash` flag (`src/transforms/corrections.mjs`),
-and for a flagged guide the callout is labelled "New in IntelliDash." and is a `role="note"`
+and for a flagged guide the callout is labelled "New in Spatial Adjust." and is a `role="note"`
 banner with an accent rule, ahead of step 1; any other note would be labelled "Note.". The
-same four catalogue tiles carry a "New in IntelliDash" text badge above the title, and the card's
-accessible name includes it ("Apply a target profile — New in IntelliDash, 2 MIN, difficulty 1
+same four catalogue tiles carry a "New in Spatial Adjust" text badge above the title, and the card's
+accessible name includes it ("Apply a target profile — New in Spatial Adjust, 2 MIN, difficulty 1
 of 3"), because the card's `aria-label` replaces its content for a screen reader. The notes no
 longer open with "Target Profiles is new in IntelliDash", which the label now says. When the
 feature stops being new, or if the production pin is ever re-pointed at a build without it,
@@ -350,7 +350,7 @@ only text to change.
 
 The review plan proposed a banner reading "Not yet in IntelliDash. This feature is on a
 development branch and is not in the version you are using." That sentence is the claim this
-section corrects, so it was not used; the banner says "New in IntelliDash." instead. Whether to
+section corrects, so it was not used; the banner says "New in Spatial Adjust." instead. Whether to
 hide these guides is for the expert review; they stay visible and reachable by deep link.
 
 **Claims:** creating-profiles/note/1, creating-profiles/note/2, seasonal-profiles/note/1,
@@ -829,6 +829,47 @@ caption of Enable and disable stations step 5, "Layers filtered to enabled stati
 
 **Checks run:** `npm test`, `npm run test:guides` (26 guides render), `npm run test:fidelity`
 (PASS, no label without product backing) and `npm run test:parity` (PASS).
+
+## 31. In-person review, 2026-10-22: terminology, a caution and a softer calculation
+
+**Source:** the walkthrough with the product experts. The triage is `docs/review-2026-10-22-feedback.md`.
+
+**Terminology (T1 to T6).** The guides say *station*, never *pin* or *head*: the map plots each
+station's sprinklers, and a station is what a reader adjusts. The estimated value is *modeled*, not
+"fallback"; the statistical figure is the *average*, not the "mean" (a verb such as "means" is
+untouched); spelling is American English; and the Target Profiles notice reads "New in Spatial
+Adjust". Bulk adjustments say "an entire hole". CSS classes, ids and code identifiers keep their
+names.
+
+**Content.** Only Target VWC, % Adj. and the Enable switch are editable at station level; Current and
+Suggested are not (`sa-table-card.component.html:40-68`). Average VWC comes from a measured scan and
+is modeled when there is none, said once in Understand Spatial Adjust. The early "black text,
+today's date" caption in Understanding VWC is dropped. The percent adjustment step says why to
+override (a suggestion that looks too high or too low). The example profile name is "Overseed", not
+"Overseed Recovery". Applying a profile is course-wide, so the guide says to check the Suggested
+column before pushing.
+
+**Profile matching (confirmed by an expert, and read at the production pin).** A profile stores
+station names with their targets. Applying it matches those names against the stations on the
+course and sets the target only on a match; a name with no station is skipped, and a station added
+later is not touched (`SpatialAdjustService.cs:426-460` for the matching count, `:742-745`,
+`:801-818` for the name lookups, `:868-930` for the apply loop). A renamed or renumbered station
+therefore does not match an old profile. The Apply a target profile and Managing seasonal
+profiles guides carry a one-line caution on the choose step.
+
+**Calculation prose.** The guides describe what influences the suggestion (the gap to the target,
+today's ET and the daily maximum) and no longer spell out the arithmetic, because the soil factor
+and later adjustments will change it. The claims behind the removed detail stay in the ledger and
+in `docs/claims/calculations.md`.
+
+**Band colors.** The map legend's boundaries are the reader's to change and are saved to the
+reader's preferences (`sa-map-overlay.component.ts:120-132`). The three boundaries are the only
+thing the product lets a reader move; the band colors come from a fixed set
+(`toro.enums.ts`, `SaRangeColor`), so the guides say *boundaries* and not *colors*.
+
+**Where it lives.** Terminology and wording edits to export text are in
+`src/transforms/review-fixes.mjs`; the rest are in `src/rewrite/` and the transforms that wrote the
+text. The catalogues are re-keyed to the new English in all ten locales.
 
 ## Checked and found correct — no change made
 

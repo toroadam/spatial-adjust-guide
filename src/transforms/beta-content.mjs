@@ -74,12 +74,12 @@ export const STEPS = [
       fig: 'map',
       do: 'Look at the table and the map for a course that TurfRad has loaded nothing new for.',
       region: true,
-      see: 'The stations stay in the table with their last scan date, and on the map as clear pins.',
+      see: 'The stations stay in the table with their last scan date, and on the map they are drawn clear.',
       ifNot: 'If the scans stay old, select [[Request latest scan data]]. It looks back only two days, so the '
         + 'scans change only if TurfRad has loaded new scan data in that time.',
       why: 'The course’s last scans are kept even once they are more than seven days old, and under '
-        + '[[Option 2]] each station still gets a modelled value and a suggestion every day.',
-      caption: 'A pin last scanned on an earlier day is drawn clear.',
+        + '[[Option 2]] each station still gets a modeled value and a suggestion every day.',
+      caption: 'A station last scanned on an earlier day is drawn clear.',
     },
   },
 ];

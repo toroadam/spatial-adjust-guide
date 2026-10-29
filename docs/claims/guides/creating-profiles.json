@@ -94,7 +94,7 @@
       "guide": "creating-profiles",
       "step": "summary",
       "field": "summary",
-      "text": "Capture the station targets you have tuned, under a name you will recognise next season.",
+      "text": "Capture the station targets you have tuned, under a name you will recognize next season.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -113,7 +113,7 @@
           "line": "636-678"
         }
       ],
-      "note": "Into one of the five slots, renamed as you like.",
+      "note": "Into one of the five slots, renamed as you like. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1272,7 +1272,7 @@
       "guide": "creating-profiles",
       "step": "4",
       "field": "why",
-      "text": "A name like Overseed Recovery says why you set the targets; the date has its own column.",
+      "text": "A name like Overseed says why you set the targets; the date has its own column.",
       "type": "label",
       "status": "Verified",
       "evidence": [
@@ -1305,7 +1305,7 @@
           "line": 205
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims creating-profiles/3/2, creating-profiles/3/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims creating-profiles/3/2, creating-profiles/3/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""

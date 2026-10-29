@@ -402,7 +402,7 @@
       "guide": "calculation-methods",
       "step": "before",
       "field": "before",
-      "text": "The default is Option 2, the delta-plus-today’s-ET method.",
+      "text": "The default is Option 2, the method that uses today’s ET.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -442,7 +442,7 @@
           "line": 45
         }
       ],
-      "note": "Sites are seeded with algorithm 1, which is DeltaPlusTodayEt, labelled Option 2 (appsettings.json:145; SpatialAdjust.cs:18-22; SitesService.cs:147, :173). The browser also falls back to it when no algorithm is loaded (sa-algorithm.service.ts:45).",
+      "note": "Sites are seeded with algorithm 1, which is DeltaPlusTodayEt, labelled Option 2 (appsettings.json:145; SpatialAdjust.cs:18-22; SitesService.cs:147, :173). The browser also falls back to it when no algorithm is loaded (sa-algorithm.service.ts:45). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -838,7 +838,7 @@
       "guide": "calculation-methods",
       "step": "2",
       "field": "see",
-      "text": "Under [[Option 1]] they are greyed out; under [[Option 2]] you can type in them.",
+      "text": "Under [[Option 1]] they are grayed out; under [[Option 2]] you can type in them.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -899,7 +899,7 @@
           "line": "113-115"
         }
       ],
-      "note": "Each of the three boxes is disabled while the algorithm is Option 1 and editable under Option 2 (sa-settings-dlg.component.html:83-85, :98-100, :113-115).",
+      "note": "Each of the three boxes is disabled while the algorithm is Option 1 and editable under Option 2 (sa-settings-dlg.component.html:83-85, :98-100, :113-115). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -966,7 +966,7 @@
       "guide": "calculation-methods",
       "step": "2",
       "field": "why",
-      "text": "[[Option 1]] scales the percentage Lynx holds now by target over measured, so it needs no ET, reference amount or cap.",
+      "text": "[[Option 1]] scales the percentage Lynx holds now, so it needs no ET, reference amount or cap.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1010,7 +1010,7 @@
           "line": "82-123"
         }
       ],
-      "note": "Reworded from calculation-methods/3/2 and /3/3: Option 1 multiplies the percent adjust Lynx holds by target over measured and uses no ET, reference amount or cap (sa-algorithm.service.ts:58-60).",
+      "note": "Reworded from calculation-methods/3/2 and /3/3: Option 1 multiplies the percent adjust Lynx holds by target over measured and uses no ET, reference amount or cap (sa-algorithm.service.ts:58-60). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1020,7 +1020,7 @@
       "guide": "calculation-methods",
       "step": "2",
       "field": "caption",
-      "text": "With Option 1 selected, the three boxes below it are greyed out.",
+      "text": "With Option 1 selected, the three boxes below it are grayed out.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1046,7 +1046,7 @@
           "line": 115
         }
       ],
-      "note": "Figure caption (calculation-methods/3/4): the boxes are disabled with Option 1 selected. Now describes all three boxes (sa-settings-dlg.component.html:83-85, :98-100, :113-115).",
+      "note": "Figure caption (calculation-methods/3/4): the boxes are disabled with Option 1 selected. Now describes all three boxes (sa-settings-dlg.component.html:83-85, :98-100, :113-115). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1539,7 +1539,7 @@
       "guide": "calculation-methods",
       "step": "4",
       "field": "why",
-      "text": "[[Option 2]] adds today’s ET to the water the delta calls for, caps it at Daily Max Amount, then divides by the Lynx Reference Amount.",
+      "text": "[[Option 2]] starts from the gap to your target and today’s ET, and Daily Max Amount caps the result.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1576,7 +1576,7 @@
           "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
         }
       ],
-      "note": "Reworded from calculation-methods/2/2: today's ET is added to the water the delta calls for, the total is capped at the daily maximum, and the result is divided by the Lynx Reference Amount (SpatialAdjustService.cs:2931-3043).",
+      "note": "Reworded from calculation-methods/2/2: today's ET is added to the water the delta calls for, the total is capped at the daily maximum, and the result is divided by the Lynx Reference Amount (SpatialAdjustService.cs:2931-3043). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1943,7 +1943,7 @@
       "guide": "calculation-methods",
       "step": "verify",
       "field": "verify",
-      "text": "You know why Daily Max Amount is greyed out under Option 1.",
+      "text": "You know why Daily Max Amount is grayed out under Option 1.",
       "type": "label",
       "status": "Verified",
       "evidence": [
@@ -1976,7 +1976,7 @@
           "line": "113-115"
         }
       ],
-      "note": "Reworded to the full label, Daily Max Amount. Both amount boxes and Crop Coefficient are disabled under Option 1, which uses no ET, reference amount or cap (sa-settings-dlg.component.html:83-85; sa-algorithm.service.ts:58-60).",
+      "note": "Reworded to the full label, Daily Max Amount. Both amount boxes and Crop Coefficient are disabled under Option 1, which uses no ET, reference amount or cap (sa-settings-dlg.component.html:83-85; sa-algorithm.service.ts:58-60). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

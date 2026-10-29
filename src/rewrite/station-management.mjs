@@ -83,8 +83,9 @@ function enableDisableStations(src, h) {
       caption: 'A disabled station: the switch on its row is grey.',
     },
     set: {
+      caption: 'A disabled station: the switch on its row is gray.',
       do: 'In the [[Enable]] column, select the switch on a station’s row.',
-      see: 'The switch turns grey, and the station is switched off.',
+      see: 'The switch turns gray, and the station is switched off.',
       ifNot: 'If the rows are areas or holes, you are not at station level. Select a row name to go down until stations show.',
       why: 'A station that is switched off is left out of the push, however dry it reads.',
     },
@@ -262,11 +263,12 @@ function stationDetails(src, h) {
       tip: 'A station at target with a wide spread between heads is a coverage problem, not an irrigation-amount problem.',
     },
     set: {
+      caption: 'Average of the children, shown on the parent row.',
       do: 'Compare the station’s [[Avg. VWC]] with the readings on its sprinkler rows.',
-      see: 'The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.',
-      ifNot: 'If the average is not the mean of every row below it, a sprinkler was left out. '
-        + 'Only sprinklers scanned today, or modelled under [[Option 2]], count.',
-      why: 'A station that looks fine can still hide one dry head.',
+      see: 'The station shows the average of its sprinklers, so 31.4 and 30.4 give 30.9.',
+      ifNot: 'If the average does not match the rows below it, a sprinkler was left out. '
+        + 'Only sprinklers scanned today, or modeled under [[Option 2]], count.',
+      why: 'A station that looks fine can still hide one dry sprinkler.',
     },
     drop: ['body', 'tipLabel', 'tip'],
   });
@@ -274,9 +276,9 @@ function stationDetails(src, h) {
     name: 'rewrite: station-details step 4 (Spot a modelled sprinkler)',
     before: 'Watch for a modelled child',
     steps: [
-      { title: 'Spot a modelled sprinkler', fig: 'table', expandStation: '6AP1', region: true,
+      { title: 'Spot a modeled sprinkler', fig: 'table', expandStation: '6AP1', region: true,
         do: 'Look at the sprinkler rows for an orange calculator icon beside a reading.',
-        see: 'That sprinkler’s value is modelled, because its last scan is older than today.',
+        see: 'That sprinkler’s value is modeled, because its last scan is older than today.',
         ifNot: 'If no sprinkler has the icon, each was scanned today, or the site uses [[Option 1]]. '
           + 'Under [[Option 1]], a sprinkler not scanned today shows --.',
         caption: 'The second sprinkler was last scanned two days ago.' },
@@ -295,10 +297,10 @@ function stationDetails(src, h) {
     set: {
       title: 'Check the parent row',
       region: true,
-      do: 'Look for a grey calculator icon beside the station’s [[Avg. VWC]].',
-      see: 'The icon shows that the average includes a modelled reading.',
-      ifNot: 'If the row has no icon, no sprinkler under it is modelled.',
-      caption: 'The grey icon on the parent row marks an average that includes a modelled reading.',
+      do: 'Look for a gray calculator icon beside the station’s [[Avg. VWC]].',
+      see: 'The icon shows that the average includes a modeled reading.',
+      ifNot: 'If the row has no icon, no sprinkler under it is modeled.',
+      caption: 'The gray icon on the parent row marks an average that includes a modeled reading.',
     },
     drop: ['body'],
   });

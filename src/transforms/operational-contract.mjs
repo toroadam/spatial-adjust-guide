@@ -52,7 +52,7 @@ const prose = (sentences) => sentences.map((x) => x.text).join(' ');
 export const PUSH_WINDOW = {
   label: 'Push window.',
   sentences: [
-    sentence('Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.',
+    sentence('Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.',
       { source: SRC.pushDialog, rules: ['OC-1', 'OC-3', 'OC-4'], open: ['Q1', 'Q2'] }),
     // 373-1135 gives the window but never says what happens outside it.
     sentence('Outside that window the push does not reach the course, and no error tells you so.',
@@ -72,7 +72,7 @@ export const PUSH_STEPS = [
   { guide: 'push-failures', step: 4, title: 'Re-push only the failures' },
   // The export titles this step 'It reads Lynx first'. src/transform-export.mjs reorders it.
   { guide: 'verify-results', step: 1, title: 'It writes first, station by station' },
-  // Target Profiles ships in production (its guides are labelled New in IntelliDash), and this
+  // Target Profiles ships in production (its guides are labelled New in Spatial Adjust), and this
   // step is an ordinary push.
   { guide: 'seasonal-profiles', step: 4, title: 'Push once you agree with them' },
 ];

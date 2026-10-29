@@ -993,7 +993,7 @@
       "guide": "threshold-questions",
       "step": "3",
       "field": "ifNot",
-      "text": "If both options are greyed out, the threshold is 0, which turns the feature off.",
+      "text": "If both options are grayed out, the threshold is 0, which turns the feature off.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1026,7 +1026,7 @@
           "line": "429-443"
         }
       ],
-      "note": "The option group is disabled at a threshold of 0. Reworded from threshold-questions/5/2, minimum-threshold/before/4.",
+      "note": "The option group is disabled at a threshold of 0. Reworded from threshold-questions/5/2, minimum-threshold/before/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1159,7 +1159,7 @@
       "guide": "threshold-questions",
       "step": "4",
       "field": "ifNot",
-      "text": "If [[Exclude Zeros]] is greyed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.",
+      "text": "If [[Exclude Zeros]] is grayed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.",
       "type": "navigation",
       "status": "Verified",
       "evidence": [
@@ -1171,7 +1171,7 @@
           "line": 167
         }
       ],
-      "note": "Exclude Zeros is enabled only for the second option. Reworded from threshold-questions/4/4.",
+      "note": "Exclude Zeros is enabled only for the second option. Reworded from threshold-questions/4/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1368,7 +1368,7 @@
       "guide": "threshold-questions",
       "step": "5",
       "field": "ifNot",
-      "text": "If it reads 0, the threshold is off and the options are greyed out.",
+      "text": "If it reads 0, the threshold is off and the options are grayed out.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1401,7 +1401,7 @@
           "line": "145-162"
         }
       ],
-      "note": "The option group is greyed out at 0. Reworded from threshold-questions/5/2, threshold-questions/5/4.",
+      "note": "The option group is greyed out at 0. Reworded from threshold-questions/5/2, threshold-questions/5/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

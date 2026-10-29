@@ -31,7 +31,7 @@
 
 const DASHBOARD = 'The Spatial Adjust dashboard, at /spatialadjust.';
 const TURFRAD_NEEDS = 'A Spatial Adjust account on a site with TurfRad scan data.';
-const PUSH_WINDOW = 'Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after '
+const PUSH_WINDOW = 'Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after '
   + 'the push. Outside that window the push does not reach the course, and no error tells you so.';
 const DIAGNOSTICS_OPENS = 'The dialog opens a second or so after the page loads, and also when Lynx data has failed to load.';
 
@@ -145,7 +145,7 @@ function stationZero(src, h) {
       do: 'Read the scan date under the station’s name.',
       region: true,
       see: 'The date is today, so [[Avg. VWC]] comes from a current scan.',
-      ifNot: 'If the date is older, [[Option 2]] shows a modelled [[Avg. VWC]], in grey italics. '
+      ifNot: 'If the date is older, [[Option 2]] shows a modeled [[Avg. VWC]], in gray italics. '
         + 'If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.',
     },
   });
@@ -234,7 +234,7 @@ function thresholdQuestions(src, h) {
     set: {
       do: 'Find the two options under [[Minimum Threshold (%)]] on the [[Minimum Threshold]] tab of [[Settings]].',
       see: '[[Set to zero when pushed to Lynx]] sends 0 to Lynx, and [[Set to the minimum threshold value when pushed to Lynx]] sends the threshold.',
-      ifNot: 'If both options are greyed out, the threshold is 0, which turns the feature off.',
+      ifNot: 'If both options are grayed out, the threshold is 0, which turns the feature off.',
     },
   });
 
@@ -247,7 +247,7 @@ function thresholdQuestions(src, h) {
     set: {
       do: 'Find [[Exclude Zeros]] below the two options.',
       see: 'Tick it, and a station at a true zero stays at 0 instead of being lifted to the threshold.',
-      ifNot: 'If [[Exclude Zeros]] is greyed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.',
+      ifNot: 'If [[Exclude Zeros]] is grayed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.',
       why: 'Without it, a station that needs no water still gets a small run.',
     },
   });
@@ -268,7 +268,7 @@ function thresholdQuestions(src, h) {
     set: {
       do: 'Read the [[Minimum Threshold (%)]] box.',
       see: 'It holds a number above 0, so the threshold is on and the banner can show.',
-      ifNot: 'If it reads 0, the threshold is off and the options are greyed out. '
+      ifNot: 'If it reads 0, the threshold is off and the options are grayed out. '
         + 'The setting is site-wide, so someone else may have cleared it.',
       why: 'After you use [[Review Threshold]], the gear button opens on this tab until the page is reloaded.',
     },
@@ -298,7 +298,7 @@ function calculationQuestions(src, h) {
     set: {
       do: 'Look down the [[Suggested]] column for a run of the same value.',
       see: 'Many stations show the same value, which means the daily cap is deciding, not the scan.',
-      ifNot: 'If the values all differ, the cap is not involved. Check whether each value is measured, modelled or a dash.',
+      ifNot: 'If the values all differ, the cap is not involved. Check whether each value is measured, modeled or a dash.',
       why: 'Under [[Option 2]], every station that needs more than the daily cap lands on the same percentage.',
     },
   });
@@ -336,7 +336,7 @@ function calculationQuestions(src, h) {
     set: {
       do: 'Look for a dash in place of a number on a station’s row.',
       region: true,
-      see: 'A dash means the station has no current scan and no modelled value, so there is nothing to calculate from.',
+      see: 'A dash means the station has no current scan and no modeled value, so there is nothing to calculate from.',
       ifNot: 'If the row shows 0 and not a dash, the calculation ran and asked for no water. Follow Why is this station 0%?',
       why: 'A dash is not zero, and it is not an error in the calculation.',
     },
@@ -351,9 +351,10 @@ function calculationQuestions(src, h) {
     body: 'A greyed, italic average means the value came from the model rather than a scan taken that day. The '
       + 'calculation still runs, but it is running on an estimate.',
     set: {
-      do: 'Look for an [[Avg. VWC]] value in grey italics.',
-      see: 'The value is modelled, not taken from a scan that day, so the suggestion rests on an estimate.',
-      ifNot: 'If the value is not grey and italic, it is a measurement from a scan taken today.',
+      title: 'Gray italics mean modeled',
+      do: 'Look for an [[Avg. VWC]] value in gray italics.',
+      see: 'The value is modeled, not taken from a scan that day, so the suggestion rests on an estimate.',
+      ifNot: 'If the value is not gray and italic, it is a measurement from a scan taken today.',
       why: 'Only [[Option 2]] models a value; under [[Option 1]], a station with no scan today shows a dash.',
     },
   });
@@ -403,6 +404,7 @@ function pushFailures(src, h) {
     body: 'The message names how many stations could not be updated. The rest of the push succeeded — a failure is '
       + 'partial, and the stations that verified are already live in Lynx.',
     set: {
+      title: 'Read the count, not the color',
       do: 'Read the number in the result line above [[Close]].',
       see: 'The line names how many stations could not be updated, such as 2.',
       ifNot: 'If the window closed with no result, Spatial Adjust could not read Lynx back. Check the connection to Lynx.',

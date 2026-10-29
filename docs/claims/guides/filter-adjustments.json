@@ -969,7 +969,7 @@
       "guide": "filter-adjustments",
       "step": "3",
       "field": "ifNot",
-      "text": "If a value box stays grey, its end is not ticked.",
+      "text": "If a value box stays gray, its end is not ticked.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -995,7 +995,7 @@
           "line": "756-768"
         }
       ],
-      "note": "A value box is disabled until its end is ticked (sa-cfg-threshold-dlg.component.html:23-28, :43-52). Reworded from filter-adjustments/3/4.",
+      "note": "A value box is disabled until its end is ticked (sa-cfg-threshold-dlg.component.html:23-28, :43-52). Reworded from filter-adjustments/3/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1243,7 +1243,7 @@
       "guide": "filter-adjustments",
       "step": "4",
       "field": "ifNot",
-      "text": "If [[Exclude Zeros]] is greyed out, tick [[Under]] first.",
+      "text": "If [[Exclude Zeros]] is grayed out, tick [[Under]] first.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1262,7 +1262,7 @@
           "line": 791
         }
       ],
-      "note": "Exclude Zeros is disabled until Under is on. Reworded from filter-adjustments/5/5, filter-adjustments/5/2.",
+      "note": "Exclude Zeros is disabled until Under is on. Reworded from filter-adjustments/5/5, filter-adjustments/5/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

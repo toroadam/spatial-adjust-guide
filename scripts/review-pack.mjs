@@ -74,7 +74,7 @@ const SITE = 'https://toroadam.github.io/spatial-adjust-guide/';
 // which the pack lifts to the top of the page so the expert judges it first.
 const TARGET_PROFILE_GUIDES = ['target-profiles', 'creating-profiles', 'updating-profiles', 'seasonal-profiles'];
 /** The label the site prints before a guide's note, as src/transform-export.mjs renders it. */
-const noteLabel = (guide) => (guide.newInIntelliDash ? 'New in IntelliDash.' : 'Note.');
+const noteLabel = (guide) => (guide.newInIntelliDash ? 'New in Spatial Adjust.' : 'Note.');
 
 // Display order and meaning of each status. Mirrors the status vocabulary in docs/claims/README.md.
 const STATUS_INFO = [
@@ -498,7 +498,7 @@ ${tallyLine(claims)}
     parts.push(`<section class="notice">
 <h3>Target Profiles: shipping notice</h3>
 ${guide.note
-    ? `<p>Readers see this notice before step 1, and the guide's catalogue tile carries a “New in IntelliDash” badge:</p><p><strong>${esc(noteLabel(guide))}</strong> ${esc(guide.note)}</p>
+    ? `<p>Readers see this notice before step 1, and the guide's catalogue tile carries a “New in Spatial Adjust” badge:</p><p><strong>${esc(noteLabel(guide))}</strong> ${esc(guide.note)}</p>
 <p class="small">${noteClaims.map((c) => `<a href="#${anchor(c.id)}"><span class="cid">${esc(c.id)}</span></a> ${badge(c.status)}`).join(' · ')}</p>
 <p class="small">Please say whether this still describes what customers have.</p>`
     : '<p>This guide covers Target Profiles but carries no shipping notice. Please say whether it needs one.</p>'}

@@ -31,7 +31,7 @@ const CONTROLS = [
 
 /** The label on the Target Profiles note callout and the badge on their catalogue tiles (§8 below).
  *  The note text follows the label, so neither note repeats it. */
-const NEW_LABEL = 'New in IntelliDash';
+const NEW_LABEL = 'New in Spatial Adjust';
 
 /** The Target Profiles note, in the three guides that carry the short form (see §8 below). */
 const TP_NOTE = 'The Target Profiles tab lists five named profile slots for each Lynx course. If your '
@@ -688,7 +688,7 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
   s = edit(s, {
     name: 'algorithm names: before list',
     pattern: /'The algorithm selector is deliberately hidden in production unless the site is already set to Simple\.',\n      'The default is the delta-plus-today\\u2019s-ET method\.'/,
-    replace: `'The dropdown labels the two methods Option 1 and Option 2, and describes neither.',\n      'The selector is hidden in production unless the site is already set to Option 1.',\n      'The default is Option 2, the delta-plus-today’s-ET method.'`,
+    replace: `'The dropdown labels the two methods Option 1 and Option 2, and describes neither.',\n      'The selector is hidden in production unless the site is already set to Option 1.',\n      'The default is Option 2, the method that uses today’s ET.'`,
   });
 
   s = edit(s, {
@@ -968,7 +968,7 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
     where: 'Toolbar',
     summary: 'A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Ask for the latest scan data TurfRad holds, and reload when it is ready.',
     before: [
-      'When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.'
+      'When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modeled forward from the last scan and the weather since, and the reading is shown in gray italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.'
     ],
     steps: [
       { title: 'Read the scan date before anything else', fig: 'tableTop', t: [900, 32],
@@ -1230,7 +1230,7 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
   //    (sa-settings-dlg.component.html:177-226). The entry is absent from every earlier release
   //    branch, so the feature is new rather than long-standing.
   //
-  //    The callout now carries the label "New in IntelliDash." (see the 'note callout' edits
+  //    The callout now carries the label "New in Spatial Adjust." (see the 'note callout' edits
   //    below), and the notes say what the shipped tab holds, so a reader can match the screen to
   //    the guide. The last sentence covers a reader whose IntelliDash predates the release, and it
   //    stays true whichever release they are on. docs/text-corrections.md §11 gives the
@@ -1255,14 +1255,14 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
   s = edit(s, {
     name: 'target profiles catalogue card subtitle',
     pattern: /Concept — saved sets of station targets\./,
-    replace: 'New in IntelliDash — saved sets of station targets.',
+    replace: 'New in Spatial Adjust — saved sets of station targets.',
     // The catalogue section is now authored as "Targets", so this legacy subtitle may be absent.
     expected: 0,
   });
 
   //    The note callout is labelled "Concept." in the export, a word that now contradicts every
   //    note it introduces. A guide carrying the newInIntelliDash flag (set on the four Target
-  //    Profiles guides by src/transforms/corrections.mjs) gets the label "New in IntelliDash." and
+  //    Profiles guides by src/transforms/corrections.mjs) gets the label "New in Spatial Adjust." and
   //    any other note gets "Note.", which the locale catalogues already translate. The callout is a
   //    role="note" landmark with a blue label and the same plain box as the other callouts, so it reads
   //    as a banner ahead of step 1 rather than as part of the header. The note text says what the shipped tab holds and what a reader

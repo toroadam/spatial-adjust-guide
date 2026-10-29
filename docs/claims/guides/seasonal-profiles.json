@@ -581,7 +581,7 @@
       "guide": "seasonal-profiles",
       "step": "1",
       "field": "ifNot",
-      "text": "If a new name is lost, the dialog was cancelled.",
+      "text": "If a new name is lost, the dialog was canceled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -600,7 +600,7 @@
           "line": "261-270"
         }
       ],
-      "note": "Cancel with unsaved changes asks whether to discard them; choosing Discard changes closes the dialog and loses the names (sa-settings-dlg.component.ts:217-229).",
+      "note": "Cancel with unsaved changes asks whether to discard them; choosing Discard changes closes the dialog and loses the names (sa-settings-dlg.component.ts:217-229). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -891,6 +891,86 @@
       "correction": ""
     },
     {
+      "id": "seasonal-profiles/2/8",
+      "guide": "seasonal-profiles",
+      "step": "2",
+      "field": "tip",
+      "text": "Caution. A profile matches stations by name, so a station renamed or renumbered after capture will not match when an old profile is applied.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "413-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "742-745"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "866-915"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Caution tip for the profile apply step. A profile stores station names and matches by trimmed, case-insensitive name within its course (production SpatialAdjustService.cs); stored names with no current station are skipped and stations not in the profile are not touched. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "seasonal-profiles/2/9",
+      "guide": "seasonal-profiles",
+      "step": "2",
+      "field": "tip",
+      "text": "A station added after capture keeps its target.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "413-457"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "742-745"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "api/Services/SpatialAdjustService.cs",
+          "line": "866-915"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Applying a profile only touches the stations it holds. A profile stores station names and matches by trimmed, case-insensitive name within its course (production SpatialAdjustService.cs); stored names with no current station are skipped and stations not in the profile are not touched. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
       "id": "seasonal-profiles/3/1",
       "guide": "seasonal-profiles",
       "step": "3",
@@ -983,7 +1063,7 @@
       "guide": "seasonal-profiles",
       "step": "3",
       "field": "ifNot",
-      "text": "If there is no exclamation mark, the choice was cancelled.",
+      "text": "If there is no exclamation mark, the choice was canceled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1002,7 +1082,7 @@
           "line": 216
         }
       ],
-      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears.",
+      "note": "Cancel closes the dialog and leaves applyProfile unset (sa-settings-dlg.component.ts:281-285), so no mark appears. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1607,7 +1687,7 @@
       "guide": "seasonal-profiles",
       "step": "6",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1619,7 +1699,7 @@
           "line": 34
         }
       ],
-      "note": "The button is disabled when stationsPendingUpdate is empty or a push is running (sa-main-toolbar.component.html:34).",
+      "note": "The button is disabled when stationsPendingUpdate is empty or a push is running (sa-main-toolbar.component.html:34). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -1913,7 +1993,7 @@
       "guide": "seasonal-profiles",
       "step": "7",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -1922,7 +2002,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""
