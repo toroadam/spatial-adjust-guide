@@ -70,9 +70,9 @@ function dashboardOverview(src, h) {
     },
     set: {
       do: 'Look at the map on the left of the screen.',
-      see: 'Each sprinkler scanned in the past seven days is a pin, and pins scanned today are filled with a band colour.',
-      ifNot: 'If you see no pins, the site has no scan from the past seven days. See Get fresh scan data.',
-      why: 'A pin that is clear was last scanned on an earlier day.',
+      see: 'The map plots each station’s sprinklers scanned in the past seven days, and those scanned today are filled with a band color.',
+      ifNot: 'If the map is empty, the site has no scan from the past seven days. See Get fresh scan data.',
+      why: 'A sprinkler drawn clear was last scanned on an earlier day.',
       region: true,
     },
     drop: ['body', 'tipLabel', 'tip'],
@@ -104,9 +104,9 @@ function dashboardOverview(src, h) {
     set: {
       tableLevel: 'holes',
       do: 'In the table, select a hole row.',
-      see: 'The table lists that hole’s stations, with editable columns such as [[Target VWC]] and [[% Adj.]].',
+      see: 'The table lists that hole’s stations. Only [[Target VWC]], [[% Adj.]] and the [[Enable]] switch can be edited; [[Current]] and [[Suggested]] cannot.',
       ifNot: 'If you went too far, select a name in the trail at the top left of the table to go back up.',
-      why: 'A grey, italic [[Avg. VWC]] with a calculator icon is modelled, not measured by a scan that day.',
+      why: 'A gray, italic [[Avg. VWC]] with a calculator icon is modeled, not measured by a scan that day.',
       region: true,
       caption: 'Hole rows for area AP. Selecting one shows its stations.',
     },
@@ -121,7 +121,7 @@ function dashboardOverview(src, h) {
     set: {
       do: 'At the right of the toolbar, read the number on [[Push Changes]].',
       see: 'The button shows a count, such as Push 6 Changes, and the green counter beside it shows how many went out today.',
-      ifNot: 'If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.',
+      ifNot: 'If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.',
     },
     drop: ['body'],
   });
@@ -193,8 +193,9 @@ function understandSpatialAdjust(src, h) {
     },
     set: {
       do: 'In the table, find the [[Avg. VWC]] column.',
-      see: 'Each station shows the mean VWC that a TurfRad scan measured, with the scan date beside the station name.',
-      ifNot: 'If a value is grey and italic, no scan arrived today. It is modelled instead.',
+      see: 'Each station shows the average VWC that a TurfRad scan measured, with the scan date beside the station name.',
+      ifNot: 'If a value is gray and italic, no scan arrived today.',
+      why: 'Average VWC comes from a measured scan. When there is none, it is modeled.',
     },
     drop: ['body'],
   });
@@ -224,7 +225,7 @@ function understandSpatialAdjust(src, h) {
       do: 'Find the [[Suggested]] column, next to [[Current]].',
       see: 'Each station shows a percent: the result of the calculation.',
       ifNot: 'If [[Suggested]] shows the same top value on many rows, the daily maximum is capping it.',
-      why: 'It adds today’s ET to the delta, caps the amount, and divides by the Lynx Reference Amount.',
+      why: 'The suggestion is based on the gap to your target and today’s ET, within the daily maximum.',
     },
     drop: ['body', 'tipLabel', 'tip'],
   });
@@ -237,7 +238,7 @@ function understandSpatialAdjust(src, h) {
     set: {
       do: 'At the right of the toolbar, find [[Push Changes]].',
       see: 'It is the only control that sends your changes to Lynx.',
-      ifNot: 'If [[Push Changes]] is greyed out, no change is waiting.',
+      ifNot: 'If [[Push Changes]] is grayed out, no change is waiting.',
       why: 'Spatial Adjust never waters anything, and nothing changes in Lynx until you push.',
     },
     drop: ['body'],
@@ -270,7 +271,7 @@ function mapNavigation(src, h) {
       start: {
         page: PAGE_DASHBOARD,
         open: NO_DIALOG,
-        needs: 'A scan from the past seven days, so that the map shows pins.',
+        needs: 'A scan from the past seven days, so that the map shows stations.',
       },
     },
   });
@@ -281,9 +282,10 @@ function mapNavigation(src, h) {
       do: null,
     },
     set: {
-      do: 'Look at the pins on the map.',
-      see: 'Pins scanned today are filled with a band colour: 0–5, 6–19, 20–30 or above 30 percent.',
-      ifNot: 'If a pin is clear, it was last scanned on an earlier day. A disabled station has no pin while [[Layers]] is set to [[Enabled Stations]].',
+      title: 'Stations are colored by measured moisture',
+      do: 'Look at the stations on the map.',
+      see: 'Each station’s sprinklers scanned today are filled with a band color: 0–5, 6–19, 20–30 or above 30 percent.',
+      ifNot: 'If a station is clear, it was last scanned on an earlier day. A disabled station is not drawn while [[Layers]] is set to [[Enabled Stations]].',
       region: true,
     },
     drop: ['body'],
@@ -295,10 +297,10 @@ function mapNavigation(src, h) {
       do: null,
     },
     set: {
-      do: 'Drag a handle on the colour bar under the legend.',
-      see: 'When you let go, the map recolours to the new band boundary.',
-      ifNot: 'If nothing changes, let go of the handle. The map recolours when you release it.',
-      why: 'Your boundaries are saved to your own user preferences, not to the site.',
+      do: 'Drag a handle on the color bar under the legend.',
+      see: 'When you let go, the map recolors to the new band boundary.',
+      ifNot: 'If nothing changes, let go of the handle. The map recolors when you release it.',
+      why: 'The band boundaries are yours to change, not only the defaults, and they are saved to your own user preferences, not to the site.',
       region: true,
     },
     drop: ['body'],
@@ -311,8 +313,8 @@ function mapNavigation(src, h) {
     },
     set: {
       do: 'Select the variance button, [[Toggle VWC or Variance View]], beside the legend.',
-      see: 'The pins now show how far each station is from its target, in three bands.',
-      ifNot: 'If a pin stays clear, it was not scanned today, so it has no variance.',
+      see: 'The map now shows how far each station is from its target, in three bands.',
+      ifNot: 'If a station stays clear, it was not scanned today, so it has no variance.',
       why: 'Use variance when targets differ across the course.',
     },
     drop: ['body'],
@@ -339,8 +341,8 @@ function mapNavigation(src, h) {
       title: 'Choose the stations', fig: 'map', layersOpen: true,
       do: 'Select [[Enabled Stations]] or [[All Stations]].',
       see: 'The map draws only the enabled stations, or every station.',
-      ifNot: 'If a station you expect has no pin, [[Layers]] may be set to [[Enabled Stations]], the default.',
-      why: 'Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.',
+      ifNot: 'If a station you expect is not drawn, [[Layers]] may be set to [[Enabled Stations]], the default.',
+      why: 'Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect.',
       caption: 'Layers, with All Stations and Enabled Stations.',
     },
   });
@@ -352,9 +354,9 @@ function mapNavigation(src, h) {
     },
     set: {
       do: 'In the table, select a station row.',
-      see: 'The map zooms to that station’s pin and outlines it.',
-      ifNot: 'If no pin is outlined, the station may be disabled and hidden. Set [[Layers]] to [[All Stations]].',
-      why: 'Selecting a pin selects its row too, so use whichever is faster.',
+      see: 'The map zooms to that station and outlines it.',
+      ifNot: 'If no station is outlined, it may be disabled and hidden. Set [[Layers]] to [[All Stations]].',
+      why: 'Selecting a station on the map selects its row too, so use whichever is faster.',
       region: true,
     },
     drop: ['body'],

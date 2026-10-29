@@ -374,7 +374,7 @@
       "guide": "request-scan-data",
       "step": "before",
       "field": "before",
-      "text": "Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon.",
+      "text": "Under Option 2 the calculation still runs, on a value modeled forward from the last scan and the weather since, and the reading is shown in gray italics with a calculator icon.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -442,7 +442,7 @@
           "line": "367-368"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/before/1); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (request-scan-data/before/1); docs/text-corrections.md §25 gives the claimed and actual behaviour. Verified against production at the cited lines. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

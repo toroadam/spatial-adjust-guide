@@ -1287,7 +1287,7 @@
       "guide": "station-zero",
       "step": "3",
       "field": "caption",
-      "text": "Station 5AP1 is disabled; the switch on its row is grey.",
+      "text": "Station 5AP1 is disabled; the switch on its row is gray.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1299,7 +1299,7 @@
           "line": 68
         }
       ],
-      "note": "Illustrative screenshot. Each row has an on/off switch.",
+      "note": "Illustrative screenshot. Each row has an on/off switch. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1410,7 +1410,7 @@
       "guide": "station-zero",
       "step": "4",
       "field": "ifNot",
-      "text": "If the date is older, [[Option 2]] shows a modelled [[Avg. VWC]], in grey italics.",
+      "text": "If the date is older, [[Option 2]] shows a modeled [[Avg. VWC]], in gray italics.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1447,7 +1447,7 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "Under Option 2 a stale station falls back to the modelled value, painted grey and italic with a calculator icon; under Option 1 it shows a dash instead. Reworded from station-zero/4/3.",
+      "note": "Under Option 2 a stale station falls back to the modelled value, painted grey and italic with a calculator icon; under Option 1 it shows a dash instead. Reworded from station-zero/4/3. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1528,7 +1528,7 @@
       "guide": "station-zero",
       "step": "4",
       "field": "caption",
-      "text": "A modelled value: grey, italic, and dated two days ago.",
+      "text": "A modeled value: gray, italic, and dated two days ago.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1547,7 +1547,7 @@
           "line": 24
         }
       ],
-      "note": "Illustrative screenshot.",
+      "note": "Illustrative screenshot. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

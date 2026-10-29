@@ -56,7 +56,7 @@ export const STATUSES = ['Unverified', 'Verified', VERIFIED_BETA, 'Wrong', 'Not 
 export const TYPES = ['label', 'navigation', 'behaviour', 'calculation', 'prerequisite'];
 
 // Named buckets, in reading order. Steps sit between `before` and `verify`. `note` is the guide's
-// note callout ("New in IntelliDash." on the four Target Profiles guides, "Note." elsewhere). It
+// note callout ("New in Spatial Adjust." on the four Target Profiles guides, "Note." elsewhere). It
 // is published prose that makes claims (the Target Profiles shipping notice),
 // so it is extracted like any other field. The ID scheme in docs/claims/README.md lists it.
 // `start` is a rewritten guide's start state ({ page, open, needs }), which the page shows first

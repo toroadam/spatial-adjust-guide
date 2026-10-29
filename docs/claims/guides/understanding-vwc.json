@@ -43,7 +43,7 @@
       "guide": "understanding-vwc",
       "step": "tile",
       "field": "summary",
-      "text": "Measured, modelled and target volumetric water content.",
+      "text": "Measured, modeled and target volumetric water content.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -69,7 +69,7 @@
           "line": "184-188"
         }
       ],
-      "note": "Tile summary. Measured is today's scan mean, modelled is the Option 2 estimate for a station not scanned today, and target is the editable Target VWC.",
+      "note": "Tile summary. Measured is today's scan mean, modelled is the Option 2 estimate for a station not scanned today, and target is the editable Target VWC. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -332,7 +332,7 @@
       "guide": "understanding-vwc",
       "step": "1",
       "field": "title",
-      "text": "Measured: the scan mean",
+      "text": "Measured: the scan average",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -349,9 +349,13 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/api/spatial-adjust/models/spatial-adjust-course.model.ts",
           "line": "173-182"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Step title.",
+      "note": "Step title. Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -402,7 +406,7 @@
       "guide": "understanding-vwc",
       "step": "1",
       "field": "see",
-      "text": "Its value is in plain black text: the mean VWC that TurfRad measured across the station.",
+      "text": "Its value is the average VWC that TurfRad measured across the station.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -430,9 +434,13 @@
         {
           "source": "doc",
           "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/1/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/1/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -443,7 +451,7 @@
       "guide": "understanding-vwc",
       "step": "1",
       "field": "ifNot",
-      "text": "If every value is grey and italic, nothing was scanned today.",
+      "text": "If every value is gray and italic, nothing was scanned today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -487,7 +495,7 @@
           "line": "97-117"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/1/2, understanding-vwc/1/5; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/1/2, understanding-vwc/1/5; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -551,40 +559,11 @@
       "correction": ""
     },
     {
-      "id": "understanding-vwc/1/7",
-      "guide": "understanding-vwc",
-      "step": "1",
-      "field": "caption",
-      "text": "A current scan: black text, today’s date.",
-      "type": "behaviour",
-      "status": "Verified",
-      "evidence": [
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
-          "line": "22-32"
-        },
-        {
-          "source": "intellidash",
-          "ref": "production",
-          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
-          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.less",
-          "line": "97-117"
-        }
-      ],
-      "note": "Figure caption. A current value has no sa-vwc-estimated class, so it keeps the default text colour; the scan date beside the name is always grey (sa-table-card.component.html:24).",
-      "question": "",
-      "developNote": "",
-      "correction": ""
-    },
-    {
       "id": "understanding-vwc/2/1",
       "guide": "understanding-vwc",
       "step": "2",
       "field": "title",
-      "text": "Modelled: the fallback",
+      "text": "Modeled: no scan today",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -603,7 +582,7 @@
           "line": "184-188"
         }
       ],
-      "note": "Step title. Option 2 only; see understanding-vwc/2/2.",
+      "note": "Step title. Option 2 only; see understanding-vwc/2/2. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -613,7 +592,7 @@
       "guide": "understanding-vwc",
       "step": "2",
       "field": "do",
-      "text": "Find a station whose [[Avg. VWC]] is grey and italic, with a calculator icon.",
+      "text": "Find a station whose [[Avg. VWC]] is gray and italic, with a calculator icon.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -674,7 +653,7 @@
           "line": "86-92"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -685,7 +664,7 @@
       "guide": "understanding-vwc",
       "step": "2",
       "field": "see",
-      "text": "That value is modelled: carried forward from the last scan and the weather since.",
+      "text": "That value is modeled: carried forward from the last scan and the weather since.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -725,7 +704,7 @@
           "line": "3280-3325"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/2/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/2/2; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -735,7 +714,7 @@
       "guide": "understanding-vwc",
       "step": "2",
       "field": "ifNot",
-      "text": "If no value is grey, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.",
+      "text": "If no value is gray, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -796,7 +775,7 @@
           "line": "3031-3043"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, dashboard-overview/1/5; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, dashboard-overview/1/5; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -806,7 +785,7 @@
       "guide": "understanding-vwc",
       "step": "2",
       "field": "caption",
-      "text": "Station 7AP1 has no current scan; the value shown is modelled.",
+      "text": "Station 7AP1 has no current scan; the value shown is modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -825,7 +804,7 @@
           "line": "97-117"
         }
       ],
-      "note": "Figure caption. The station name is the figure's sample data.",
+      "note": "Figure caption. The station name is the figure's sample data. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1219,7 +1198,7 @@
       "guide": "understanding-vwc",
       "step": "4",
       "field": "why",
-      "text": "Today’s ET is added to the delta, so a hot, dry day raises the suggestions.",
+      "text": "Today’s ET also feeds in, so a hot, dry day raises the suggestions.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1249,7 +1228,7 @@
           "line": "3211-3232"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/4/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/4/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1511,7 +1490,7 @@
       "guide": "understanding-vwc",
       "step": "5",
       "field": "why",
-      "text": "A grey calculator icon means at least one station beneath the row is modelled.",
+      "text": "A gray calculator icon means at least one station beneath the row is modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1555,7 +1534,7 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/5/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understanding-vwc/5/3; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1594,7 +1573,7 @@
       "guide": "understanding-vwc",
       "step": "verify",
       "field": "verify",
-      "text": "You can tell a measured value from a modelled one without checking the date.",
+      "text": "You can tell a measured value from a modeled one without checking the date.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1620,7 +1599,7 @@
           "line": "97-130"
         }
       ],
-      "note": "Station rows: grey italic with a calculator icon when modelled. Sprinkler rows: an orange calculator icon. See understanding-vwc/2/3.",
+      "note": "Station rows: grey italic with a calculator icon when modelled. Sprinkler rows: an orange calculator icon. See understanding-vwc/2/3. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

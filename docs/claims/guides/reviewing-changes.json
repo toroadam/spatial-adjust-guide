@@ -463,7 +463,7 @@
       "guide": "reviewing-changes",
       "step": "1",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -482,7 +482,7 @@
           "line": "607-678"
         }
       ],
-      "note": "The button is disabled when nothing is queued or a push is running (sa-main-toolbar.component.html:34). Reworded from reviewing-changes/1/3.",
+      "note": "The button is disabled when nothing is queued or a push is running (sa-main-toolbar.component.html:34). Reworded from reviewing-changes/1/3. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1029,7 +1029,7 @@
       "guide": "reviewing-changes",
       "step": "3",
       "field": "why",
-      "text": "The hold stops you adjusting the same head twice, and it ends at midnight where the course is.",
+      "text": "The hold stops you adjusting the same station twice, and it ends at midnight where the course is.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1083,7 +1083,7 @@
           "line": "149-165"
         }
       ],
-      "note": "Pushed Today stops the same head being adjusted twice; the hold ends at midnight where the course is. Reworded from reviewing-changes/3/3, reviewing-changes/3/4.",
+      "note": "Pushed Today stops the same head being adjusted twice; the hold ends at midnight where the course is. Reworded from reviewing-changes/3/3, reviewing-changes/3/4. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1687,7 +1687,7 @@
       "guide": "reviewing-changes",
       "step": "5",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -1696,7 +1696,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""

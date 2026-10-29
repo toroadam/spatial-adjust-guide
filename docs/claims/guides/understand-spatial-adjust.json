@@ -542,7 +542,7 @@
       "guide": "understand-spatial-adjust",
       "step": "2",
       "field": "see",
-      "text": "Each station shows the mean VWC that a TurfRad scan measured, with the scan date beside the station name.",
+      "text": "Each station shows the average VWC that a TurfRad scan measured, with the scan date beside the station name.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -563,9 +563,13 @@
         {
           "source": "doc",
           "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim understand-spatial-adjust/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review. Average, not mean: expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -575,7 +579,7 @@
       "guide": "understand-spatial-adjust",
       "step": "2",
       "field": "ifNot",
-      "text": "If a value is grey and italic, no scan arrived today.",
+      "text": "If a value is gray and italic, no scan arrived today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -636,7 +640,7 @@
           "line": "86-92"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -645,8 +649,45 @@
       "id": "understand-spatial-adjust/2/5",
       "guide": "understand-spatial-adjust",
       "step": "2",
-      "field": "ifNot",
-      "text": "It is modelled instead.",
+      "field": "why",
+      "text": "Average VWC comes from a measured scan.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "22-32"
+        },
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-dash-table.component.ts",
+          "line": "365-396"
+        },
+        {
+          "source": "doc",
+          "ref": "373-1135 rev 02 §Table Functionality"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Average VWC comes from a TurfRad scan. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "understand-spatial-adjust/2/6",
+      "guide": "understand-spatial-adjust",
+      "step": "2",
+      "field": "why",
+      "text": "When there is none, it is modeled.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -705,15 +746,19 @@
           "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
           "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
           "line": "86-92"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understanding-vwc/2/2, understanding-vwc/2/3; the sentence was reworded for the step standard.",
+      "note": "With no scan the value is modeled. Expert confirmed in the 2026-10-22 walkthrough.",
       "question": "",
       "developNote": "",
       "correction": ""
     },
     {
-      "id": "understand-spatial-adjust/2/6",
+      "id": "understand-spatial-adjust/2/7",
       "guide": "understand-spatial-adjust",
       "step": "2",
       "field": "caption",
@@ -1096,7 +1141,7 @@
       "guide": "understand-spatial-adjust",
       "step": "4",
       "field": "why",
-      "text": "It adds today’s ET to the delta, caps the amount, and divides by the Lynx Reference Amount.",
+      "text": "The suggestion is based on the gap to your target and today’s ET, within the daily maximum.",
       "type": "label",
       "status": "Verified",
       "evidence": [
@@ -1154,7 +1199,7 @@
           "line": 81
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/4/2, understand-spatial-adjust/4/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims understand-spatial-adjust/4/2, understand-spatial-adjust/4/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1293,7 +1338,7 @@
       "guide": "understand-spatial-adjust",
       "step": "5",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, no change is waiting.",
+      "text": "If [[Push Changes]] is grayed out, no change is waiting.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1305,7 +1350,7 @@
           "line": 34
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/5/6; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/5/6; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",

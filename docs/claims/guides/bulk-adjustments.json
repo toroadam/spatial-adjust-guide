@@ -421,7 +421,7 @@
       "guide": "bulk-adjustments",
       "step": "1",
       "field": "ifNot",
-      "text": "If [[Bulk Adjust]] stays grey, no row is ticked.",
+      "text": "If [[Bulk Adjust]] stays gray, no row is ticked.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -454,7 +454,7 @@
           "line": "1510-1571"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/before/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/before/2; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -464,7 +464,7 @@
       "guide": "bulk-adjustments",
       "step": "1",
       "field": "ifNot",
-      "text": "Tick a station row, or a hole row to take all its stations.",
+      "text": "Tick a station row, or a hole row to take an entire hole at once.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -501,7 +501,7 @@
           "ref": "373-1135 rev 02 §Bulk Adjust Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/1/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim bulk-adjustments/1/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""

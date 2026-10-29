@@ -810,7 +810,7 @@
       "guide": "dashboard-overview",
       "step": "2",
       "field": "see",
-      "text": "Each sprinkler scanned in the past seven days is a pin, and pins scanned today are filled with a band colour.",
+      "text": "The map plots each station’s sprinklers scanned in the past seven days, and those scanned today are filled with a band color.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -854,7 +854,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/2/2, dashboard-overview/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/2/2, dashboard-overview/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -865,7 +865,7 @@
       "guide": "dashboard-overview",
       "step": "2",
       "field": "ifNot",
-      "text": "If you see no pins, the site has no scan from the past seven days.",
+      "text": "If the map is empty, the site has no scan from the past seven days.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -909,7 +909,7 @@
           "line": 846
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/before/2; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -950,7 +950,7 @@
       "guide": "dashboard-overview",
       "step": "2",
       "field": "why",
-      "text": "A pin that is clear was last scanned on an earlier day.",
+      "text": "A sprinkler drawn clear was last scanned on an earlier day.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -994,7 +994,7 @@
           "ref": "373-1135 rev 02 §Map Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/2/3; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/2/3; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1442,7 +1442,7 @@
       "guide": "dashboard-overview",
       "step": "4",
       "field": "see",
-      "text": "The table lists that hole’s stations, with editable columns such as [[Target VWC]] and [[% Adj.]].",
+      "text": "The table lists that hole’s stations.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1503,7 +1503,7 @@
           "line": 695
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/4/4; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claim dashboard-overview/4/4; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -1511,6 +1511,32 @@
     },
     {
       "id": "dashboard-overview/4/4",
+      "guide": "dashboard-overview",
+      "step": "4",
+      "field": "see",
+      "text": "Only [[Target VWC]], [[% Adj.]] and the [[Enable]] switch can be edited; [[Current]] and [[Suggested]] cannot.",
+      "type": "behaviour",
+      "status": "Verified",
+      "evidence": [
+        {
+          "source": "intellidash",
+          "ref": "production",
+          "sha": "1aa4f28622cc3cc9637f0d61a438bf16bcf01924",
+          "path": "site/src/app/spatial-adjust/components/sa-dashboard/sa-dash-table/sa-table-card/sa-table-card.component.html",
+          "line": "39-68"
+        },
+        {
+          "source": "doc",
+          "ref": "expert confirmed in the 2026-10-22 walkthrough"
+        }
+      ],
+      "note": "Only the Target VWC box, the % Adj. box and the enable switch are inputs on a station row; Current and Suggested are plain text. Expert confirmed in the 2026-10-22 walkthrough.",
+      "question": "",
+      "developNote": "",
+      "correction": ""
+    },
+    {
+      "id": "dashboard-overview/4/5",
       "guide": "dashboard-overview",
       "step": "4",
       "field": "ifNot",
@@ -1554,11 +1580,11 @@
       "previousText": "At station level you get the editable columns — Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch."
     },
     {
-      "id": "dashboard-overview/4/5",
+      "id": "dashboard-overview/4/6",
       "guide": "dashboard-overview",
       "step": "4",
       "field": "why",
-      "text": "A grey, italic [[Avg. VWC]] with a calculator icon is modelled, not measured by a scan that day.",
+      "text": "A gray, italic [[Avg. VWC]] with a calculator icon is modeled, not measured by a scan that day.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1595,14 +1621,14 @@
           "ref": "373-1135 rev 02 §Table Functionality"
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/4/6, dashboard-overview/4/7; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/4/6, dashboard-overview/4/7; the sentence was reworded for the step standard. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
       "previousText": "A grey, italic [[Avg."
     },
     {
-      "id": "dashboard-overview/4/6",
+      "id": "dashboard-overview/4/7",
       "guide": "dashboard-overview",
       "step": "4",
       "field": "caption",
@@ -1625,7 +1651,7 @@
       "previousText": "VWC with a calculator icon means the value was estimated from the model rather than measured by a scan that day."
     },
     {
-      "id": "dashboard-overview/4/7",
+      "id": "dashboard-overview/4/8",
       "guide": "dashboard-overview",
       "step": "4",
       "field": "caption",
@@ -1772,7 +1798,7 @@
       "guide": "dashboard-overview",
       "step": "5",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1798,7 +1824,7 @@
           "line": 34
         }
       ],
-      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/5/4, dashboard-overview/5/6; the sentence was reworded for the step standard.",
+      "note": "Evidence carried over from the earlier ledger claims dashboard-overview/5/4, dashboard-overview/5/6; the sentence was reworded for the step standard. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -2052,7 +2078,7 @@
       "guide": "dashboard-overview",
       "step": "verify",
       "field": "verify",
-      "text": "The map need not match it, because it draws one pin per sprinkler and by default hides disabled stations.",
+      "text": "The map need not match it, because it draws each sprinkler of a station and by default hides disabled stations.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -2085,7 +2111,7 @@
           "line": 88
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/verify/4); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (dashboard-overview/verify/4); docs/text-corrections.md §23 gives the claimed and actual behaviour. Verified against production at the cited lines. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""

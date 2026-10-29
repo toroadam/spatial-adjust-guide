@@ -1115,7 +1115,7 @@
       "guide": "minimum-threshold",
       "step": "3",
       "field": "see",
-      "text": "With 0, the threshold is off, and the two choices below stay greyed out.",
+      "text": "With 0, the threshold is off, and the two choices below stay grayed out.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1148,7 +1148,7 @@
           "line": "145-162"
         }
       ],
-      "note": "With 0 the option radio group carries the disabled class and both radios are disabled, and the save stores the Disabled option (sa-settings-dlg.component.html:145-162; sa-settings-dlg.component.ts:429-433). Same fact as minimum-threshold/before/4.",
+      "note": "With 0 the option radio group carries the disabled class and both radios are disabled, and the save stores the Disabled option (sa-settings-dlg.component.html:145-162; sa-settings-dlg.component.ts:429-433). Same fact as minimum-threshold/before/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1450,7 +1450,7 @@
       "guide": "minimum-threshold",
       "step": "4",
       "field": "ifNot",
-      "text": "If both choices are greyed out, the box above holds 0.",
+      "text": "If both choices are grayed out, the box above holds 0.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1483,7 +1483,7 @@
           "line": "145-162"
         }
       ],
-      "note": "Both radios are disabled while the threshold is 0 (sa-settings-dlg.component.html:145-162), so a number above 0 has to be typed first.",
+      "note": "Both radios are disabled while the threshold is 0 (sa-settings-dlg.component.html:145-162), so a number above 0 has to be typed first. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1590,7 +1590,7 @@
       "guide": "minimum-threshold",
       "step": "4",
       "field": "caption",
-      "text": "Below-threshold behaviour, with the second option selected.",
+      "text": "Below-threshold behavior, with the second option selected.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1602,7 +1602,7 @@
           "line": "145-170"
         }
       ],
-      "note": "",
+      "note": "Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1770,7 +1770,7 @@
       "guide": "minimum-threshold",
       "step": "5",
       "field": "ifNot",
-      "text": "If [[Exclude Zeros]] is greyed out, the box above holds 0 or the first choice is selected.",
+      "text": "If [[Exclude Zeros]] is grayed out, the box above holds 0 or the first choice is selected.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1803,7 +1803,7 @@
           "line": 400
         }
       ],
-      "note": "The checkbox is disabled unless the second option is selected, or while the threshold is 0 (sa-settings-dlg.component.html:167). A threshold of 0 disables it too (:145-162, :167).",
+      "note": "The checkbox is disabled unless the second option is selected, or while the threshold is 0 (sa-settings-dlg.component.html:167). A threshold of 0 disables it too (:145-162, :167). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -2245,7 +2245,7 @@
       "guide": "minimum-threshold",
       "step": "7",
       "field": "ifNot",
-      "text": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
+      "text": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -2271,7 +2271,7 @@
           "line": "255-270"
         }
       ],
-      "note": "The button is disabled when no station is pending or a push is running (sa-main-toolbar.component.html:34; isProcessingUpdates is set while a push runs, sa-main-toolbar.component.ts:267 and cleared at :324-326).",
+      "note": "The button is disabled when no station is pending or a push is running (sa-main-toolbar.component.html:34; isProcessingUpdates is set while a push runs, sa-main-toolbar.component.ts:267 and cleared at :324-326). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -2757,7 +2757,7 @@
       "guide": "minimum-threshold",
       "step": "8",
       "field": "tip",
-      "text": "Push window. Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push.",
+      "text": "Push window. Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push.",
       "type": "prerequisite",
       "status": "Needs expert",
       "evidence": [
@@ -2766,7 +2766,7 @@
           "ref": "373-1135 rev 02 §Push Changes Dialog Box, p.10"
         }
       ],
-      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing).",
+      "note": "373-1135 rev 02 p.10 gives the window, 11 AM to the synchronisation time set in Lynx, and says to synchronise after the push. It names no time zone and does not say how to synchronise. Published before the answer by the guides owner's decision of 2026-10-19, for the in-person review on 2026-10-22 (docs/claims/operational-contract.md § Publishing). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "Q1 and Q2 (docs/claims/operational-contract.md): is the 11 AM in the course's local time or US Eastern Time, and does the synchronisation Lynx runs at its scheduled time pick up an earlier push, or must the superintendent synchronise Lynx by hand after every push?",
       "developNote": "",
       "correction": ""

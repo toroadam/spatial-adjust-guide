@@ -2,16 +2,16 @@
   "_meta": {
     "note": "Source strings harvested from the rendered site by scripts/extract-strings.mjs. Keys are the exact English rendering; src/i18n-apply.js matches on them verbatim. Regenerate after any Core Design re-export.",
     "locale": "en-us",
-    "strings": 1439,
-    "words": 14931
+    "strings": 1440,
+    "words": 14989
   },
   "strings": {
     "-5 to 5%": "-5 to 5%",
     "[[All Stations]] shows the full count, and [[Over/Under]] shows how many stations the filter catches.": "[[All Stations]] shows the full count, and [[Over/Under]] shows how many stations the filter catches.",
     "[[Avg. VWC]] is well above [[Target VWC]], so the station needs no water today and 0 is correct.": "[[Avg. VWC]] is well above [[Target VWC]], so the station needs no water today and 0 is correct.",
     "[[Current]] is the percent adjust Lynx holds now, and [[Suggested]] is what Spatial Adjust worked out from the latest scan.": "[[Current]] is the percent adjust Lynx holds now, and [[Suggested]] is what Spatial Adjust worked out from the latest scan.",
-    "[[Option 1]] scales the percentage Lynx holds now by target over measured, so it needs no ET, reference amount or cap.": "[[Option 1]] scales the percentage Lynx holds now by target over measured, so it needs no ET, reference amount or cap.",
-    "[[Option 2]] adds today’s ET to the water the delta calls for, caps it at Daily Max Amount, then divides by the Lynx Reference Amount.": "[[Option 2]] adds today’s ET to the water the delta calls for, caps it at Daily Max Amount, then divides by the Lynx Reference Amount.",
+    "[[Option 1]] scales the percentage Lynx holds now, so it needs no ET, reference amount or cap.": "[[Option 1]] scales the percentage Lynx holds now, so it needs no ET, reference amount or cap.",
+    "[[Option 2]] starts from the gap to your target and today’s ET, and Daily Max Amount caps the result.": "[[Option 2]] starts from the gap to your target and today’s ET, and Daily Max Amount caps the result.",
     "[[Over/Under Options]] opens, with an [[Over]] value and an [[Under]] value.": "[[Over/Under Options]] opens, with an [[Over]] value and an [[Under]] value.",
     "[[Review Threshold]] closes this dialog and opens [[Settings]] without sending anything.": "[[Review Threshold]] closes this dialog and opens [[Settings]] without sending anything.",
     "[[Review Threshold]] closes this dialog without sending, so you can fix the threshold first.": "[[Review Threshold]] closes this dialog without sending, so you can fix the threshold first.",
@@ -76,29 +76,28 @@
     "A chevron sits between the row’s checkbox and the station name.": "A chevron sits between the row’s checkbox and the station name.",
     "A chosen profile waits for Save Changes.": "A chosen profile waits for Save Changes.",
     "A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Ask for the latest scan data TurfRad holds, and reload when it is ready.": "A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Ask for the latest scan data TurfRad holds, and reload when it is ready.",
-    "A current scan: black text, today’s date.": "A current scan: black text, today’s date.",
     "A dash instead of a number": "A dash instead of a number",
     "A dash is not zero, and it is not an error in the calculation.": "A dash is not zero, and it is not an error in the calculation.",
-    "A dash means the station has no current scan and no modelled value, so there is nothing to calculate from.": "A dash means the station has no current scan and no modelled value, so there is nothing to calculate from.",
+    "A dash means the station has no current scan and no modeled value, so there is nothing to calculate from.": "A dash means the station has no current scan and no modeled value, so there is nothing to calculate from.",
     "A dialog opens with the list of stations waiting to go to Lynx.": "A dialog opens with the list of stations waiting to go to Lynx.",
     "A disabled station is excluded from adjustment entirely; it is not sent a zero, it is simply not sent.": "A disabled station is excluded from adjustment entirely; it is not sent a zero, it is simply not sent.",
-    "A disabled station: the switch on its row is grey.": "A disabled station: the switch on its row is grey.",
+    "A disabled station: the switch on its row is gray.": "A disabled station: the switch on its row is gray.",
     "A failure is partial: the stations that verified already match Lynx.": "A failure is partial: the stations that verified already match Lynx.",
-    "A grey calculator icon means at least one station beneath the row is modelled.": "A grey calculator icon means at least one station beneath the row is modelled.",
-    "A grey, italic [[Avg. VWC]] with a calculator icon is modelled, not measured by a scan that day.": "A grey, italic [[Avg. VWC]] with a calculator icon is modelled, not measured by a scan that day.",
+    "A gray calculator icon means at least one station beneath the row is modeled.": "A gray calculator icon means at least one station beneath the row is modeled.",
+    "A gray, italic [[Avg. VWC]] with a calculator icon is modeled, not measured by a scan that day.": "A gray, italic [[Avg. VWC]] with a calculator icon is modeled, not measured by a scan that day.",
     "A higher target asks for more water, so the suggestion rises; a lower one does the opposite.": "A higher target asks for more water, so the suggestion rises; a lower one does the opposite.",
     "A hole or area row in the table, which shows the average of the rows under it.": "A hole or area row in the table, which shows the average of the rows under it.",
     "A list opens with [[All Stations]] and [[Enabled Stations]].": "A list opens with [[All Stations]] and [[Enabled Stations]].",
     "A message confirms the thresholds were saved, and the link below the tabs shows them.": "A message confirms the thresholds were saved, and the link below the tabs shows them.",
     "A message says the soil factors were saved, and the editor closes a few seconds later with the suggestions updated.": "A message says the soil factors were saved, and the editor closes a few seconds later with the suggestions updated.",
-    "A modelled value: grey and italic.": "A modelled value: grey and italic.",
-    "A modelled value: grey, italic, and dated two days ago.": "A modelled value: grey, italic, and dated two days ago.",
-    "A name like Overseed Recovery says why you set the targets; the date has its own column.": "A name like Overseed Recovery says why you set the targets; the date has its own column.",
+    "A modeled value: gray and italic.": "A modeled value: gray and italic.",
+    "A modeled value: gray, italic, and dated two days ago.": "A modeled value: gray, italic, and dated two days ago.",
+    "A name like Overseed says why you set the targets; the date has its own column.": "A name like Overseed says why you set the targets; the date has its own column.",
     "A new Lynx Reference Amount rescales every suggestion above 0; a new Daily Max Amount moves only stations at the cap.": "A new Lynx Reference Amount rescales every suggestion above 0; a new Daily Max Amount moves only stations at the cap.",
-    "A pin last scanned on an earlier day is drawn clear.": "A pin last scanned on an earlier day is drawn clear.",
-    "A pin that is clear was last scanned on an earlier day.": "A pin that is clear was last scanned on an earlier day.",
+    "A profile applies course-wide, changing [[Target VWC]] on every station it holds, so check the [[Suggested]] column before you push.": "A profile applies course-wide, changing [[Target VWC]] on every station it holds, so check the [[Suggested]] column before you push.",
     "A profile changes targets, and targets change deficits.": "A profile changes targets, and targets change deficits.",
     "A profile is a snapshot of the targets at the moment you save it.": "A profile is a snapshot of the targets at the moment you save it.",
+    "A profile matches stations by name, so a station renamed or renumbered after capture will not match when an old profile is applied. A station added after capture keeps its target.": "A profile matches stations by name, so a station renamed or renumbered after capture will not match when an old profile is applied. A station added after capture keeps its target.",
     "A profile per season and per event.": "A profile per season and per event.",
     "A profile stores one Target VWC per station and nothing else — no percent adjustments, no enable states.": "A profile stores one Target VWC per station and nothing else — no percent adjustments, no enable states.",
     "A profile stores one Target VWC per station. It does not store percent adjustments or enable states.": "A profile stores one Target VWC per station. It does not store percent adjustments or enable states.",
@@ -111,7 +110,7 @@
     "A run of identical values is the cap, not a fault.": "A run of identical values is the cap, not a fault.",
     "A saved profile whose targets you have since changed in the table.": "A saved profile whose targets you have since changed in the table.",
     "A saved profile: a slot that shows a station count, not --.": "A saved profile: a slot that shows a station count, not --.",
-    "A scan from the past seven days, so that the map shows pins.": "A scan from the past seven days, so that the map shows pins.",
+    "A scan from the past seven days, so that the map shows stations.": "A scan from the past seven days, so that the map shows stations.",
     "A short list stays readable a year later.": "A short list stays readable a year later.",
     "A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.": "A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.",
     "A Spatial Adjust account on a site with TurfRad scan data, on a desktop or tablet.": "A Spatial Adjust account on a site with TurfRad scan data, on a desktop or tablet.",
@@ -121,11 +120,13 @@
     "A Spatial Adjust account on a site with TurfRad scan data. The threshold is a site setting, so it applies to every user on the site.": "A Spatial Adjust account on a site with TurfRad scan data. The threshold is a site setting, so it applies to every user on the site.",
     "A Spatial Adjust account on a site with TurfRad scan data. These are site settings, so they apply to every user on the site.": "A Spatial Adjust account on a site with TurfRad scan data. These are site settings, so they apply to every user on the site.",
     "A Spatial Adjust account. Preferences belong to your account, not to the site.": "A Spatial Adjust account. Preferences belong to your account, not to the site.",
+    "A sprinkler drawn clear was last scanned on an earlier day.": "A sprinkler drawn clear was last scanned on an earlier day.",
     "A stale course keeps its last scans": "A stale course keeps its last scans",
+    "A station last scanned on an earlier day is drawn clear.": "A station last scanned on an earlier day is drawn clear.",
     "A station row shows its Avg. VWC, its Target VWC and a Suggested percent.": "A station row shows its Avg. VWC, its Target VWC and a Suggested percent.",
     "A station that has gone from the map will not be pushed.": "A station that has gone from the map will not be pushed.",
     "A station that is switched off is left out of the push, however dry it reads.": "A station that is switched off is left out of the push, however dry it reads.",
-    "A station that looks fine can still hide one dry head.": "A station that looks fine can still hide one dry head.",
+    "A station that looks fine can still hide one dry sprinkler.": "A station that looks fine can still hide one dry sprinkler.",
     "A station well under its target asks for more water, and one over its target asks for less.": "A station well under its target asks for more water, and one over its target asks for less.",
     "A station with no current scan and no model estimate shows a dash rather than a number.": "A station with no current scan and no model estimate shows a dash rather than a number.",
     "A target change recalculates that station’s suggestion; it does not push anything.": "A target change recalculates that station’s suggestion; it does not push anything.",
@@ -156,26 +157,27 @@
     "Apply a bulk adjustment": "Apply a bulk adjustment",
     "Apply a bulk adjustment — 2 MIN, difficulty 2 of 3": "Apply a bulk adjustment — 2 MIN, difficulty 2 of 3",
     "Apply a target profile": "Apply a target profile",
-    "Apply a target profile — New in IntelliDash, 2 MIN, difficulty 1 of 3": "Apply a target profile — New in IntelliDash, 2 MIN, difficulty 1 of 3",
+    "Apply a target profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3": "Apply a target profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3",
     "Apply the evening before": "Apply the evening before",
     "Apply to all": "Apply to all",
     "Apply, then review the next morning’s suggestions.": "Apply, then review the next morning’s suggestions.",
     "Applying a profile changes the target of every station it holds a value for, which recalculates their suggestions; stations not in the profile keep their targets.": "Applying a profile changes the target of every station it holds a value for, which recalculates their suggestions; stations not in the profile keep their targets.",
     "Applying a profile is a course-wide change.": "Applying a profile is a course-wide change.",
     "Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch.": "Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch.",
-    "Applying changes [[Target VWC]] on every station in the profile, so suggestions change.": "Applying changes [[Target VWC]] on every station in the profile, so suggestions change.",
     "Area": "Area",
     "At the right of the toolbar, find [[Push Changes]].": "At the right of the toolbar, find [[Push Changes]].",
     "At the right of the toolbar, read the number on [[Push Changes]].": "At the right of the toolbar, read the number on [[Push Changes]].",
     "At the right of the toolbar, select [[Push Changes]].": "At the right of the toolbar, select [[Push Changes]].",
     "At the right of the toolbar, select the gear button, [[Settings]].": "At the right of the toolbar, select the gear button, [[Settings]].",
+    "Average of the children, shown on the parent row.": "Average of the children, shown on the parent row.",
+    "Average VWC comes from a measured scan. When there is none, it is modeled.": "Average VWC comes from a measured scan. When there is none, it is modeled.",
     "Avg. Moisture": "Avg. Moisture",
     "Avg. VWC": "Avg. VWC",
     "Band boundaries and the variance view are saved to your own user preferences, not to the site.": "Band boundaries and the variance view are saved to your own user preferences, not to the site.",
     "Because Option 1 scales the current Lynx value, a station sitting at 0 percent adjust stays at 0 no matter how dry it is.": "Because Option 1 scales the current Lynx value, a station sitting at 0 percent adjust stays at 0 no matter how dry it is.",
     "Before you start": "Before you start",
     "Below 100, the course is treated as using less water than ET suggests; above 100, more.": "Below 100, the course is treated as using less water than ET suggests; above 100, more.",
-    "Below-threshold behaviour, with the second option selected.": "Below-threshold behaviour, with the second option selected.",
+    "Below-threshold behavior, with the second option selected.": "Below-threshold behavior, with the second option selected.",
     "Beta": "Beta",
     "Beta.": "Beta.",
     "Both sides name the same station: what Lynx holds now, then what will replace it.": "Both sides name the same station: what Lynx holds now, then what will replace it.",
@@ -199,15 +201,15 @@
     "Cancel without saving": "Cancel without saving",
     "Cancel, at the bottom of the Settings dialog.": "Cancel, at the bottom of the Settings dialog.",
     "Capture the current targets under a name.": "Capture the current targets under a name.",
-    "Capture the station targets you have tuned, under a name you will recognise next season.": "Capture the station targets you have tuned, under a name you will recognise next season.",
+    "Capture the station targets you have tuned, under a name you will recognize next season.": "Capture the station targets you have tuned, under a name you will recognize next season.",
     "Capturing profiles": "Capturing profiles",
-    "Capturing profiles — New in IntelliDash, 3 MIN, difficulty 2 of 3": "Capturing profiles — New in IntelliDash, 3 MIN, difficulty 2 of 3",
+    "Capturing profiles — New in Spatial Adjust, 3 MIN, difficulty 2 of 3": "Capturing profiles — New in Spatial Adjust, 3 MIN, difficulty 2 of 3",
     "Careful.": "Careful.",
     "Cascading enable state across areas, holes and stations.": "Cascading enable state across areas, holes and stations.",
+    "Caution.": "Caution.",
     "Change one station’s target and watch what it does to the suggestion.": "Change one station’s target and watch what it does to the suggestion.",
     "Change one station’s Target VWC and see the effect.": "Change one station’s Target VWC and see the effect.",
     "Change the Target VWC of many stations at once, either by replacing every value or by shifting them all by the same amount.": "Change the Target VWC of many stations at once, either by replacing every value or by shifting them all by the same amount.",
-    "Change the target when a station should always be wetter or drier; change [[% Adj.]] when today is unusual.": "Change the target when a station should always be wetter or drier; change [[% Adj.]] when today is unusual.",
     "Changes": "Changes",
     "Changing any of them recalculates every suggestion and reloads the dashboard.": "Changing any of them recalculates every suggestion and reloads the dashboard.",
     "Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab — they are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.": "Changing Units of Measure and saving in the same visit does not re-convert the amounts already on the Calculation tab — they are saved as though they were already in the new unit, which rescales them by 25.4. After a unit change, save, then reopen Settings and check Max Amount and Lynx Reference Amount before you push anything.",
@@ -281,11 +283,11 @@
     "Difficulty 1 of 3": "Difficulty 1 of 3",
     "Difficulty 2 of 3": "Difficulty 2 of 3",
     "Difficulty 3 of 3": "Difficulty 3 of 3",
-    "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.",
+    "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect.": "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect.",
     "Dismissing is not declining. The next reload picks the new scan up.": "Dismissing is not declining. The next reload picks the new scan up.",
     "Do": "Do",
     "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan.": "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan.",
-    "Drag a handle on the colour bar under the legend.": "Drag a handle on the colour bar under the legend.",
+    "Drag a handle on the color bar under the legend.": "Drag a handle on the color bar under the legend.",
     "Dragging a handle changes the boundary and saves it to your preferences.": "Dragging a handle changes the boundary and saves it to your preferences.",
     "Drill down to the station": "Drill down to the station",
     "Each box shows its new name, such as Summer Baseline or Tournament Week.": "Each box shows its new name, such as Summer Baseline or Tournament Week.",
@@ -293,11 +295,11 @@
     "Each failed station is tried up to 2 more times before the result is shown.": "Each failed station is tried up to 2 more times before the result is shown.",
     "Each row shows the date its reading was captured, and the dates are today.": "Each row shows the date its reading was captured, and the dates are today.",
     "Each row the threshold changed shows its own value and, after Adjusted to, the value that will be sent.": "Each row the threshold changed shows its own value and, after Adjusted to, the value that will be sent.",
-    "Each sprinkler scanned in the past seven days is a pin, and pins scanned today are filled with a band colour.": "Each sprinkler scanned in the past seven days is a pin, and pins scanned today are filled with a band colour.",
     "Each sprinkler shows on its own row, named for the station and numbered, with its own scan date and moisture.": "Each sprinkler shows on its own row, named for the station and numbered, with its own scan date and moisture.",
     "Each station shows a percent: the result of the calculation.": "Each station shows a percent: the result of the calculation.",
-    "Each station shows the mean VWC that a TurfRad scan measured, with the scan date beside the station name.": "Each station shows the mean VWC that a TurfRad scan measured, with the scan date beside the station name.",
-    "Each suggestion is the day’s water amount divided by this number.": "Each suggestion is the day’s water amount divided by this number.",
+    "Each station shows the average VWC that a TurfRad scan measured, with the scan date beside the station name.": "Each station shows the average VWC that a TurfRad scan measured, with the scan date beside the station name.",
+    "Each station’s sprinklers scanned today are filled with a band color: 0–5, 6–19, 20–30 or above 30 percent.": "Each station’s sprinklers scanned today are filled with a band color: 0–5, 6–19, 20–30 or above 30 percent.",
+    "Each suggestion is a percentage of this number.": "Each suggestion is a percentage of this number.",
     "Each ticked end takes a value: [[Over]] from 0 to 300, default 200, and [[Under]] from 0 to 100, default 10.": "Each ticked end takes a value: [[Over]] from 0 to 300, default 200, and [[Under]] from 0 to 100, default 10.",
     "Each value averages the stations under the row, and [[Last Scan]] is the newest scan beneath it.": "Each value averages the stations under the row, and [[Last Scan]] is the newest scan beneath it.",
     "Editing % Adj. queues the station when the new value differs from what Lynx holds; a push icon appears beside the field only on a station that has been pushed before.": "Editing % Adj. queues the station when the new value differs from what Lynx holds; a push icon appears beside the field only on a station that has been pushed before.",
@@ -335,7 +337,7 @@
     "Find [[Push Changes]] at the right of the toolbar and read the number on it.": "Find [[Push Changes]] at the right of the toolbar and read the number on it.",
     "Find [[Suggested Percent Adjust Calculation]], the first box on the [[Calculation]] tab.": "Find [[Suggested Percent Adjust Calculation]], the first box on the [[Calculation]] tab.",
     "Find a hole row, with [[Avg. Target VWC]] and [[Last Scan]] columns.": "Find a hole row, with [[Avg. Target VWC]] and [[Last Scan]] columns.",
-    "Find a station whose [[Avg. VWC]] is grey and italic, with a calculator icon.": "Find a station whose [[Avg. VWC]] is grey and italic, with a calculator icon.",
+    "Find a station whose [[Avg. VWC]] is gray and italic, with a calculator icon.": "Find a station whose [[Avg. VWC]] is gray and italic, with a calculator icon.",
     "Find the [[All Stations]] and [[Over/Under]] tabs above the table.": "Find the [[All Stations]] and [[Over/Under]] tabs above the table.",
     "Find the [[Pushed Today]] list below Available to Push.": "Find the [[Pushed Today]] list below Available to Push.",
     "Find the [[Suggested]] column, next to [[Current]].": "Find the [[Suggested]] column, next to [[Current]].",
@@ -355,14 +357,13 @@
     "For a one-off event, capture into a spare slot instead, so this profile stays as it is.": "For a one-off event, capture into a spare slot instead, so this profile stays as it is.",
     "Four checks, in order, for a zero suggestion.": "Four checks, in order, for a zero suggestion.",
     "From suggestion to controller.": "From suggestion to controller.",
-    "From the model when there was no scan that day, shown in grey italics with a calculator icon.": "From the model when there was no scan that day, shown in grey italics with a calculator icon.",
+    "From the model when there was no scan that day, shown in gray italics with a calculator icon.": "From the model when there was no scan that day, shown in gray italics with a calculator icon.",
     "Get fresh scan data": "Get fresh scan data",
     "Get fresh scan data — 3 MIN, difficulty 2 of 3": "Get fresh scan data — 3 MIN, difficulty 2 of 3",
     "Getting Started": "Getting Started",
     "GETTING STARTED": "GETTING STARTED",
-    "Grey italics mean modelled": "Grey italics mean modelled",
+    "Gray italics mean modeled": "Gray italics mean modeled",
     "Group and Decimal Separator, under Temperature Scale.": "Group and Decimal Separator, under Temperature Scale.",
-    "Guide": "Guide",
     "Guides": "Guides",
     "Have open": "Have open",
     "High": "High",
@@ -381,64 +382,64 @@
     "Identical suggestions, missing values and stale scans — three things that look like bugs and are not.": "Identical suggestions, missing values and stale scans — three things that look like bugs and are not.",
     "Identical suggestions, missing values, stale scans.": "Identical suggestions, missing values, stale scans.",
     "If [[% Adj.]] did not follow the new suggestion, you typed that value earlier. A typed value is kept.": "If [[% Adj.]] did not follow the new suggestion, you typed that value earlier. A typed value is kept.",
-    "If [[Avg. VWC]] is grey and italic, the value is modelled from an older scan, so the suggestion rests on an estimate.": "If [[Avg. VWC]] is grey and italic, the value is modelled from an older scan, so the suggestion rests on an estimate.",
+    "If [[Avg. VWC]] is gray and italic, the value is modeled from an older scan, so the suggestion rests on an estimate.": "If [[Avg. VWC]] is gray and italic, the value is modeled from an older scan, so the suggestion rests on an estimate.",
     "If [[Avg. VWC]] is near or below [[Target VWC]], the zero has another cause. Go on to the next check.": "If [[Avg. VWC]] is near or below [[Target VWC]], the zero has another cause. Go on to the next check.",
     "If [[Bulk Adjust Error]] appears, reload the page and check [[Target VWC]] before you try again.": "If [[Bulk Adjust Error]] appears, reload the page and check [[Target VWC]] before you try again.",
-    "If [[Bulk Adjust]] stays grey, no row is ticked. Tick a station row, or a hole row to take all its stations.": "If [[Bulk Adjust]] stays grey, no row is ticked. Tick a station row, or a hole row to take all its stations.",
-    "If [[Exclude Zeros]] is greyed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.": "If [[Exclude Zeros]] is greyed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.",
-    "If [[Exclude Zeros]] is greyed out, the box above holds 0 or the first choice is selected. Select the second choice first.": "If [[Exclude Zeros]] is greyed out, the box above holds 0 or the first choice is selected. Select the second choice first.",
-    "If [[Exclude Zeros]] is greyed out, tick [[Under]] first.": "If [[Exclude Zeros]] is greyed out, tick [[Under]] first.",
+    "If [[Bulk Adjust]] stays gray, no row is ticked. Tick a station row, or a hole row to take an entire hole at once.": "If [[Bulk Adjust]] stays gray, no row is ticked. Tick a station row, or a hole row to take an entire hole at once.",
+    "If [[Exclude Zeros]] is grayed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.": "If [[Exclude Zeros]] is grayed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.",
+    "If [[Exclude Zeros]] is grayed out, the box above holds 0 or the first choice is selected. Select the second choice first.": "If [[Exclude Zeros]] is grayed out, the box above holds 0 or the first choice is selected. Select the second choice first.",
+    "If [[Exclude Zeros]] is grayed out, tick [[Under]] first.": "If [[Exclude Zeros]] is grayed out, tick [[Under]] first.",
     "If [[Over/Under]] shows a dash, no filter is set yet, or no station matches it. The next steps set one.": "If [[Over/Under]] shows a dash, no filter is set yet, or no station matches it. The next steps set one.",
-    "If [[Push Changes]] is greyed out, no change is waiting.": "If [[Push Changes]] is greyed out, no change is waiting.",
-    "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.",
-    "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. Wait for the push to finish, then look again.": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. Wait for the push to finish, then look again.",
-    "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. Wait for the push to finish, then try again.": "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. Wait for the push to finish, then try again.",
-    "If [[Push Changes]] is greyed out, nothing is waiting. Check that the profile was applied.": "If [[Push Changes]] is greyed out, nothing is waiting. Check that the profile was applied.",
+    "If [[Push Changes]] is grayed out, no change is waiting.": "If [[Push Changes]] is grayed out, no change is waiting.",
+    "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.",
+    "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. Wait for the push to finish, then look again.": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. Wait for the push to finish, then look again.",
+    "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. Wait for the push to finish, then try again.": "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. Wait for the push to finish, then try again.",
+    "If [[Push Changes]] is grayed out, nothing is waiting. Check that the profile was applied.": "If [[Push Changes]] is grayed out, nothing is waiting. Check that the profile was applied.",
     "If [[Pushed Today]] rows became ticked, you used the box beside [[Changes]] in the heading, which ticks both lists. Untick the rows you did not mean.": "If [[Pushed Today]] rows became ticked, you used the box beside [[Changes]] in the heading, which ticks both lists. Untick the rows you did not mean.",
     "If [[Request Failed]] shows instead, the request did not queue. Select the button again.": "If [[Request Failed]] shows instead, the request did not queue. Select the button again.",
-    "If [[Save]] is greyed out, nothing has changed or a value is outside 1 to 200.": "If [[Save]] is greyed out, nothing has changed or a value is outside 1 to 200.",
+    "If [[Save]] is grayed out, nothing has changed or a value is outside 1 to 200.": "If [[Save]] is grayed out, nothing has changed or a value is outside 1 to 200.",
     "If [[Set to zero when pushed to Lynx]] is selected, small changes go to Lynx as 0. To keep those stations running, select [[Set to the minimum threshold value when pushed to Lynx]], then select [[Save Changes]].": "If [[Set to zero when pushed to Lynx]] is selected, small changes go to Lynx as 0. To keep those stations running, select [[Set to the minimum threshold value when pushed to Lynx]], then select [[Save Changes]].",
     "If [[Suggested]] shows the same top value on many rows, the daily maximum is capping it.": "If [[Suggested]] shows the same top value on many rows, the daily maximum is capping it.",
     "If [[Suggested]] sits at the same top value on many rows, the daily maximum is capping it. See Calculation settings.": "If [[Suggested]] sits at the same top value on many rows, the daily maximum is capping it. See Calculation settings.",
     "If [[Suggested]] stays at the same top value, the daily maximum is capping it rather than the target.": "If [[Suggested]] stays at the same top value, the daily maximum is capping it rather than the target.",
-    "If a dash shows in place of the box, the station has no current scan and no modelled value, so there is nothing to adjust.": "If a dash shows in place of the box, the station has no current scan and no modelled value, so there is nothing to adjust.",
+    "If a dash shows in place of the box, the station has no current scan and no modeled value, so there is nothing to adjust.": "If a dash shows in place of the box, the station has no current scan and no modeled value, so there is nothing to adjust.",
     "If a digit does not appear, it would take the number above 15. The box refuses it.": "If a digit does not appear, it would take the number above 15. The box refuses it.",
     "If a digit does not appear, it would take the number above 50, so the dialog refuses it. Only the dialog enforces that limit.": "If a digit does not appear, it would take the number above 50, so the dialog refuses it. Only the dialog enforces that limit.",
     "If a digit does not appear, it would take the number above 50, which the box refuses.": "If a digit does not appear, it would take the number above 50, which the box refuses.",
     "If a message says Unable to save data, the save failed and the dialog is still open. Select [[Save Changes]] again.": "If a message says Unable to save data, the save failed and the dialog is still open. Select [[Save Changes]] again.",
-    "If a new name is lost, the dialog was cancelled. Rename the slot again and select [[Save Changes]].": "If a new name is lost, the dialog was cancelled. Rename the slot again and select [[Save Changes]].",
-    "If a pin is clear, it was last scanned on an earlier day. A disabled station has no pin while [[Layers]] is set to [[Enabled Stations]].": "If a pin is clear, it was last scanned on an earlier day. A disabled station has no pin while [[Layers]] is set to [[Enabled Stations]].",
-    "If a pin stays clear, it was not scanned today, so it has no variance.": "If a pin stays clear, it was not scanned today, so it has no variance.",
+    "If a new name is lost, the dialog was canceled. Rename the slot again and select [[Save Changes]].": "If a new name is lost, the dialog was canceled. Rename the slot again and select [[Save Changes]].",
+    "If a station is clear, it was last scanned on an earlier day. A disabled station is not drawn while [[Layers]] is set to [[Enabled Stations]].": "If a station is clear, it was last scanned on an earlier day. A disabled station is not drawn while [[Layers]] is set to [[Enabled Stations]].",
     "If a station is not in the table, it has no recent scan. The profile still captures its stored target.": "If a station is not in the table, it has no recent scan. The profile still captures its stored target.",
-    "If a station you expect has no pin, [[Layers]] may be set to [[Enabled Stations]], the default.": "If a station you expect has no pin, [[Layers]] may be set to [[Enabled Stations]], the default.",
+    "If a station stays clear, it was not scanned today, so it has no variance.": "If a station stays clear, it was not scanned today, so it has no variance.",
+    "If a station you expect is not drawn, [[Layers]] may be set to [[Enabled Stations]], the default.": "If a station you expect is not drawn, [[Layers]] may be set to [[Enabled Stations]], the default.",
     "If a station you switched off is still on the map, another sprinkler of that station may still be on.": "If a station you switched off is still on the map, another sprinkler of that station may still be on.",
     "If a tip about selecting stations appears, you chose [[Bulk Adjust]]. Select the link to its right.": "If a tip about selecting stations appears, you chose [[Bulk Adjust]]. Select the link to its right.",
-    "If a value box stays grey, its end is not ticked. Tick it, then type the value.": "If a value box stays grey, its end is not ticked. Tick it, then type the value.",
+    "If a value box stays gray, its end is not ticked. Tick it, then type the value.": "If a value box stays gray, its end is not ticked. Tick it, then type the value.",
     "If a value does not match, the station is treated as failed, and the next phase retries it.": "If a value does not match, the station is treated as failed, and the next phase retries it.",
-    "If a value is grey and italic, no scan arrived today. It is modelled instead.": "If a value is grey and italic, no scan arrived today. It is modelled instead.",
+    "If a value is gray and italic, no scan arrived today.": "If a value is gray and italic, no scan arrived today.",
     "If a value looks wrong, select [[Cancel]] and fix it in the table first. Nothing has been sent yet.": "If a value looks wrong, select [[Cancel]] and fix it in the table first. Nothing has been sent yet.",
     "If access or scan data is missing, that explains scans that never arrive, and the cause is not in your settings.": "If access or scan data is missing, that explains scans that never arrive, and the cause is not in your settings.",
-    "If all three boxes are greyed out, the site uses [[Option 1]], which uses none of them. Calculation methods explains the two methods.": "If all three boxes are greyed out, the site uses [[Option 1]], which uses none of them. Calculation methods explains the two methods.",
+    "If all three boxes are grayed out, the site uses [[Option 1]], which uses none of them. Calculation methods explains the two methods.": "If all three boxes are grayed out, the site uses [[Option 1]], which uses none of them. Calculation methods explains the two methods.",
     "If another dialog is open, close it first. The gear is just right of [[Announcements]].": "If another dialog is open, close it first. The gear is just right of [[Announcements]].",
-    "If both choices are greyed out, the box above holds 0. Type a number above 0 first.": "If both choices are greyed out, the box above holds 0. Type a number above 0 first.",
-    "If both options are greyed out, the threshold is 0, which turns the feature off.": "If both options are greyed out, the threshold is 0, which turns the feature off.",
+    "If both choices are grayed out, the box above holds 0. Type a number above 0 first.": "If both choices are grayed out, the box above holds 0. Type a number above 0 first.",
+    "If both options are grayed out, the threshold is 0, which turns the feature off.": "If both options are grayed out, the threshold is 0, which turns the feature off.",
     "If both read --, the slot is empty and cannot be applied. Fill it first: see Capturing profiles.": "If both read --, the slot is empty and cannot be applied. Fill it first: see Capturing profiles.",
     "If Can ping cloud shows false, or a banner above the toolbar says the connection to Lynx is lost, re-pushing will not help. Check the connection to Lynx first.": "If Can ping cloud shows false, or a banner above the toolbar says the connection to Lynx is lost, re-pushing will not help. Check the connection to Lynx first.",
-    "If every value is grey and italic, nothing was scanned today. See Get fresh scan data.": "If every value is grey and italic, nothing was scanned today. See Get fresh scan data.",
+    "If every value is gray and italic, nothing was scanned today. See Get fresh scan data.": "If every value is gray and italic, nothing was scanned today. See Get fresh scan data.",
     "If it names stations that could not be updated, check the connection to Lynx, then follow Push failures.": "If it names stations that could not be updated, check the connection to Lynx, then follow Push failures.",
     "If it names stations that could not be updated, select [[Close]] and follow Push failures.": "If it names stations that could not be updated, select [[Close]] and follow Push failures.",
     "If it opens on [[Minimum Threshold]], you used [[Review Threshold]] since the page loaded. The next step picks the tab you need.": "If it opens on [[Minimum Threshold]], you used [[Review Threshold]] since the page loaded. The next step picks the tab you need.",
-    "If it reads 0, the threshold is off and the options are greyed out. The setting is site-wide, so someone else may have cleared it.": "If it reads 0, the threshold is off and the options are greyed out. The setting is site-wide, so someone else may have cleared it.",
+    "If it reads 0, the threshold is off and the options are grayed out. The setting is site-wide, so someone else may have cleared it.": "If it reads 0, the threshold is off and the options are grayed out. The setting is site-wide, so someone else may have cleared it.",
     "If most of the course shows that value, the cap is deciding, not the scan. Raise Daily Max Amount in [[Settings]] › [[Calculation]] if it is too low.": "If most of the course shows that value, the cap is deciding, not the scan. Raise Daily Max Amount in [[Settings]] › [[Calculation]] if it is too low.",
     "If no box opens and the stations beneath did not change, Shift was not held. Without Shift, the switch changes only its own row.": "If no box opens and the stations beneath did not change, Shift was not held. Without Shift, the switch changes only its own row.",
     "If no name looks right, a slot may have been renamed. A rename also changes its date, which can help.": "If no name looks right, a slot may have been renamed. A rename also changes its date, which can help.",
-    "If no pin is outlined, the station may be disabled and hidden. Set [[Layers]] to [[All Stations]].": "If no pin is outlined, the station may be disabled and hidden. Set [[Layers]] to [[All Stations]].",
     "If no sprinkler has the icon, each was scanned today, or the site uses [[Option 1]]. Under [[Option 1]], a sprinkler not scanned today shows --.": "If no sprinkler has the icon, each was scanned today, or the site uses [[Option 1]]. Under [[Option 1]], a sprinkler not scanned today shows --.",
     "If no station has a chevron, none of them has more than one sprinkler. There is nothing to expand here.": "If no station has a chevron, none of them has more than one sprinkler. There is nothing to expand here.",
-    "If no value is grey, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.": "If no value is grey, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.",
+    "If no station is outlined, it may be disabled and hidden. Set [[Layers]] to [[All Stations]].": "If no station is outlined, it may be disabled and hidden. Set [[Layers]] to [[All Stations]].",
+    "If no value is gray, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.": "If no value is gray, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.",
     "If not": "If not",
-    "If nothing changes, let go of the handle. The map recolours when you release it.": "If nothing changes, let go of the handle. The map recolours when you release it.",
-    "If nothing opens, [[Push Changes]] is greyed out because nothing is waiting.": "If nothing opens, [[Push Changes]] is greyed out because nothing is waiting.",
+    "If nothing changes, let go of the handle. The map recolors when you release it.": "If nothing changes, let go of the handle. The map recolors when you release it.",
+    "If nothing opens, [[Push Changes]] is grayed out because nothing is waiting.": "If nothing opens, [[Push Changes]] is grayed out because nothing is waiting.",
     "If nothing opens, you may have cleared an earlier choice on that row. Select the icon again.": "If nothing opens, you may have cleared an earlier choice on that row. Select the icon again.",
     "If numbers still look the same after you save, check that the box shows the format you want.": "If numbers still look the same after you save, check that the box shows the format you want.",
     "If one date is old, that is one station. If every date is old, no setting will fix it, so go on to request the data.": "If one date is old, that is one station. If every date is old, no setting will fix it, so go on to request the data.",
@@ -446,35 +447,36 @@
     "If some text stays in English after you save, the product has no translation for it. The tab names in the left rail are always English.": "If some text stays in English after you save, the product has no translation for it. The tab names in the left rail are always English.",
     "If suggestions later look far too high, this number is too low. It should match what a station applies at 100%.": "If suggestions later look far too high, this number is too low. It should match what a station applies at 100%.",
     "If the [[Push Changes]] dialog is not open, select [[Push Changes]] at the right of the toolbar first.": "If the [[Push Changes]] dialog is not open, select [[Push Changes]] at the right of the toolbar first.",
-    "If the average is not the mean of every row below it, a sprinkler was left out. Only sprinklers scanned today, or modelled under [[Option 2]], count.": "If the average is not the mean of every row below it, a sprinkler was left out. Only sprinklers scanned today, or modelled under [[Option 2]], count.",
+    "If the average does not match the rows below it, a sprinkler was left out. Only sprinklers scanned today, or modeled under [[Option 2]], count.": "If the average does not match the rows below it, a sprinkler was left out. Only sprinklers scanned today, or modeled under [[Option 2]], count.",
     "If the banner has gone, [[Dismiss]] only hides it. The next time the dashboard loads its data, it picks the new scan up.": "If the banner has gone, [[Dismiss]] only hides it. The next time the dashboard loads its data, it picks the new scan up.",
     "If the bar drops back to 0 near the end, a retry has begun for the stations that failed. Let it run.": "If the bar drops back to 0 near the end, a retry has begun for the stations that failed. Let it run.",
     "If the bar drops from nearly full to 0, that is the retry starting, not the push failing.": "If the bar drops from nearly full to 0, that is the retry starting, not the push failing.",
     "If the bar seems slow on a large course, that is normal: each station takes at least a tenth of a second.": "If the bar seems slow on a large course, that is normal: each station takes at least a tenth of a second.",
     "If the box already holds a number, it is your last amount for that choice, or the default. Type over it.": "If the box already holds a number, it is your last amount for that choice, or the default. Type over it.",
     "If the box does not open, select [[Layers]] again. Selecting anywhere else closes it.": "If the box does not open, select [[Layers]] again. Selecting anywhere else closes it.",
-    "If the box is greyed out, the site uses [[Option 1]], which uses no ET. The two amounts above it are greyed out too.": "If the box is greyed out, the site uses [[Option 1]], which uses no ET. The two amounts above it are greyed out too.",
+    "If the box is grayed out, the site uses [[Option 1]], which uses no ET. The two amounts above it are grayed out too.": "If the box is grayed out, the site uses [[Option 1]], which uses no ET. The two amounts above it are grayed out too.",
     "If the box is not there, the site uses [[Option 2]]. On a production site it shows only while the site uses [[Option 1]].": "If the box is not there, the site uses [[Option 2]]. On a production site it shows only while the site uses [[Option 1]].",
-    "If the box shows --, the station has no scan today and no modelled value, so there is nothing to override.": "If the box shows --, the station has no scan today and no modelled value, so there is nothing to override.",
+    "If the box shows --, the station has no scan today and no modeled value, so there is nothing to override.": "If the box shows --, the station has no scan today and no modeled value, so there is nothing to override.",
     "If the box shows a number you did not expect, check which choice is marked.": "If the box shows a number you did not expect, check which choice is marked.",
     "If the ceiling is too low for your course, raise Daily Max Amount, then select [[Save Changes]]. Lowering Lynx Reference Amount raises every uncapped suggestion as well.": "If the ceiling is too low for your course, raise Daily Max Amount, then select [[Save Changes]]. Lowering Lynx Reference Amount raises every uncapped suggestion as well.",
     "If the count is higher than you expect, untick the rows you do not want. Their edits stay in the table for next time.": "If the count is higher than you expect, untick the rows you do not want. Their edits stay in the table for next time.",
     "If the count is not what you expect, select [[Cancel]] and fix the ticks first.": "If the count is not what you expect, select [[Cancel]] and fix the ticks first.",
     "If the date is old but TurfRad access and scan data are fine, select [[Request latest scan data]] in the toolbar. It cannot make TurfRad scan, so the date stays old if TurfRad has nothing newer.": "If the date is old but TurfRad access and scan data are fine, select [[Request latest scan data]] in the toolbar. It cannot make TurfRad scan, so the date stays old if TurfRad has nothing newer.",
-    "If the date is older, [[Option 2]] shows a modelled [[Avg. VWC]], in grey italics. If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.": "If the date is older, [[Option 2]] shows a modelled [[Avg. VWC]], in grey italics. If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.",
+    "If the date is older, [[Option 2]] shows a modeled [[Avg. VWC]], in gray italics. If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.": "If the date is older, [[Option 2]] shows a modeled [[Avg. VWC]], in gray italics. If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.",
     "If the dialog is closed, select [[Push Changes]] at the right of the toolbar. If rows under Available to Push are ticked that you did not mean to send, untick them.": "If the dialog is closed, select [[Push Changes]] at the right of the toolbar. If rows under Available to Push are ticked that you did not mean to send, untick them.",
     "If the dialog is not open, select [[Push Changes]] at the right of the toolbar. If there is no banner, see the last step.": "If the dialog is not open, select [[Push Changes]] at the right of the toolbar. If there is no banner, see the last step.",
     "If the dialog stays open with [[Unable to save data]], the save did not finish. Reload the page and check the profile list before you try again.": "If the dialog stays open with [[Unable to save data]], the save did not finish. Reload the page and check the profile list before you try again.",
     "If the editor is not open, hold Shift + Alt and select the gear, [[Settings]]. To find the station, type its name under Filter station.": "If the editor is not open, hold Shift + Alt and select the gear, [[Settings]]. To find the station, type its name under Filter station.",
     "If the last scan date is not today, no scan from today has reached Spatial Adjust yet. If nothing opens, wait a second or so after the page loads and click again.": "If the last scan date is not today, no scan from today has reached Spatial Adjust yet. If nothing opens, wait a second or so after the page loads and click again.",
     "If the list does not open, select [[Layers]] again.": "If the list does not open, select [[Layers]] again.",
+    "If the map is empty, the site has no scan from the past seven days. See Get fresh scan data.": "If the map is empty, the site has no scan from the past seven days. See Get fresh scan data.",
     "If the mark goes away, you selected the icon twice. Select it once more.": "If the mark goes away, you selected the icon twice. Select it once more.",
     "If the name is missing, a target was edited after you applied the profile. The stored profile is unchanged.": "If the name is missing, a target was edited after you applied the profile. The stored profile is unchanged.",
     "If the name is still there, no target has changed since you applied it. There is nothing to update.": "If the name is still there, no target has changed since you applied it. There is nothing to update.",
     "If the profile’s name is not above the table, it was not applied, or a target has been edited since.": "If the profile’s name is not above the table, it was not applied, or a target has been edited since.",
     "If the rail has no [[Target Profiles]], your IntelliDash predates it. Change targets in the table instead.": "If the rail has no [[Target Profiles]], your IntelliDash predates it. Change targets in the table instead.",
     "If the row did not open, you selected the station name, which only selects the station. Select the chevron.": "If the row did not open, you selected the station name, which only selects the station. Select the chevron.",
-    "If the row has no icon, no sprinkler under it is modelled.": "If the row has no icon, no sprinkler under it is modelled.",
+    "If the row has no icon, no sprinkler under it is modeled.": "If the row has no icon, no sprinkler under it is modeled.",
     "If the row shows [[Avg. Target VWC]], it is a hole or area row. Select a hole row to see its stations.": "If the row shows [[Avg. Target VWC]], it is a hole or area row. Select a hole row to see its stations.",
     "If the row shows 0 and not a dash, the calculation ran and asked for no water. Follow Why is this station 0%?": "If the row shows 0 and not a dash, the calculation ran and asked for no water. Follow Why is this station 0%?",
     "If the rows are areas or holes, they show averages only. Select a row to open the next level, until you reach stations.": "If the rows are areas or holes, they show averages only. Select a row to open the next level, until you reach stations.",
@@ -483,9 +485,9 @@
     "If the scans stay old, select [[Request latest scan data]]. It looks back only two days, so the scans change only if TurfRad has loaded new scan data in that time.": "If the scans stay old, select [[Request latest scan data]]. It looks back only two days, so the scans change only if TurfRad has loaded new scan data in that time.",
     "If the slot shows a station count, it already holds a profile, and capturing into it replaces what it holds. Use a slot that shows -- if you have one.": "If the slot shows a station count, it already holds a profile, and capturing into it replaces what it holds. Use a slot that shows -- if you have one.",
     "If the switch is off, Lynx keeps the value it holds, but the suggestion is still calculated. Check the area and hole switches above the station too.": "If the switch is off, Lynx keeps the value it holds, but the suggestion is still calculated. Check the area and hole switches above the station too.",
-    "If the table lists areas, select the area row first. If you know where the station is, select its pin on the map instead.": "If the table lists areas, select the area row first. If you know where the station is, select its pin on the map instead.",
-    "If the value is not grey and italic, it is a measurement from a scan taken today.": "If the value is not grey and italic, it is a measurement from a scan taken today.",
-    "If the values all differ, the cap is not involved. Check whether each value is measured, modelled or a dash.": "If the values all differ, the cap is not involved. Check whether each value is measured, modelled or a dash.",
+    "If the table lists areas, select the area row first. If you know where the station is, select it on the map instead.": "If the table lists areas, select the area row first. If you know where the station is, select it on the map instead.",
+    "If the value is not gray and italic, it is a measurement from a scan taken today.": "If the value is not gray and italic, it is a measurement from a scan taken today.",
+    "If the values all differ, the cap is not involved. Check whether each value is measured, modeled or a dash.": "If the values all differ, the cap is not involved. Check whether each value is measured, modeled or a dash.",
     "If the values look the same as before, the method did not change. Reopen [[Settings]] and check [[Suggested Percent Adjust Calculation]].": "If the values look the same as before, the method did not change. Reopen [[Settings]] and check [[Suggested Percent Adjust Calculation]].",
     "If the values spread out with no repeats, the site may use [[Option 1]], which has no cap. Its values can go far higher than you intend on a very dry station.": "If the values spread out with no repeats, the site may use [[Option 1]], which has no cap. Its values can go far higher than you intend on a very dry station.",
     "If the weather strip still shows the old scale later, the change was not saved. Choose it again and select [[Save Changes]].": "If the weather strip still shows the old scale later, the change was not saved. Choose it again and select [[Save Changes]].",
@@ -495,7 +497,7 @@
     "If there is no banner, the threshold changed no station or is set to 0.": "If there is no banner, the threshold changed no station or is set to 0.",
     "If there is no chart, the screen is 1400 px wide or narrower, which hides it. Use a wider window.": "If there is no chart, the screen is 1400 px wide or narrower, which hides it. Use a wider window.",
     "If there is no course list by the site name, the site has only one Lynx course.": "If there is no course list by the site name, the site has only one Lynx course.",
-    "If there is no exclamation mark, the choice was cancelled. Select the icon under [[Apply Profile]] again.": "If there is no exclamation mark, the choice was cancelled. Select the icon under [[Apply Profile]] again.",
+    "If there is no exclamation mark, the choice was canceled. Select the icon under [[Apply Profile]] again.": "If there is no exclamation mark, the choice was canceled. Select the icon under [[Apply Profile]] again.",
     "If there is no left rail, Settings is not open. Select the gear button, [[Settings]], at the right of the toolbar.": "If there is no left rail, Settings is not open. Select the gear button, [[Settings]], at the right of the toolbar.",
     "If there is no pink banner, no waiting station is below the threshold. Nothing is changed by it this time.": "If there is no pink banner, no waiting station is below the threshold. Nothing is changed by it this time.",
     "If they changed, the save did more, such as applying a profile or changing a calculation setting.": "If they changed, the save did more, such as applying a profile or changing a calculation setting.",
@@ -513,7 +515,6 @@
     "If you see [[Target VWC]] boxes, you are at station level. Select the area’s name at the top left to go up.": "If you see [[Target VWC]] boxes, you are at station level. Select the area’s name at the top left to go up.",
     "If you see an error page, check the address. A camelCase address such as /spatialAdjust does not work.": "If you see an error page, check the address. A camelCase address such as /spatialAdjust does not work.",
     "If you see another tab, select [[Minimum Threshold]] again; Settings opens on [[Calculation]]. If there is no left rail, select the gear button, [[Settings]], at the right of the toolbar.": "If you see another tab, select [[Minimum Threshold]] again; Settings opens on [[Calculation]]. If there is no left rail, select the gear button, [[Settings]], at the right of the toolbar.",
-    "If you see no pins, the site has no scan from the past seven days. See Get fresh scan data.": "If you see no pins, the site has no scan from the past seven days. See Get fresh scan data.",
     "If you select [[Cancel]] with the box ticked, nothing is saved, and the prompt keeps coming.": "If you select [[Cancel]] with the box ticked, nothing is saved, and the prompt keeps coming.",
     "If you select [[Cancel]], nothing changes. Open the options again to set them.": "If you select [[Cancel]], nothing changes. Open the options again to set them.",
     "If you went too far, select a name in the trail at the top left of the table to go back up.": "If you went too far, select a name in the trail at the top left of the table to go back up.",
@@ -549,7 +550,6 @@
     "intellidash.toro.com/spatialadjust": "intellidash.toro.com/spatialadjust",
     "Intermediate": "Intermediate",
     "Introductory": "Introductory",
-    "It adds today’s ET to the delta, caps the amount, and divides by the Lynx Reference Amount.": "It adds today’s ET to the delta, caps the amount, and divides by the Lynx Reference Amount.",
     "It catches both extremes, not a band": "It catches both extremes, not a band",
     "It ends in /spatialadjust, all lowercase, and the Spatial Adjust toolbar shows at the top of the page.": "It ends in /spatialadjust, all lowercase, and the Spatial Adjust toolbar shows at the top of the page.",
     "It fetches only what TurfRad already holds, and it does not order a new scan.": "It fetches only what TurfRad already holds, and it does not order a new scan.",
@@ -571,7 +571,7 @@
     "It writes first, station by station": "It writes first, station by station",
     "Its row shows when it was last updated and how many stations it holds.": "Its row shows when it was last updated and how many stations it holds.",
     "Its rows are unticked, so they are not sent unless you tick them.": "Its rows are unticked, so they are not sent unless you tick them.",
-    "Its value is in plain black text: the mean VWC that TurfRad measured across the station.": "Its value is in plain black text: the mean VWC that TurfRad measured across the station.",
+    "Its value is the average VWC that TurfRad measured across the station.": "Its value is the average VWC that TurfRad measured across the station.",
     "Keep trivial adjustments from reaching Lynx.": "Keep trivial adjustments from reaching Lynx.",
     "Keep zeros at zero": "Keep zeros at zero",
     "Know what has already been tried": "Know what has already been tried",
@@ -594,9 +594,9 @@
     "Look at the left end of the toolbar, at the top of the screen.": "Look at the left end of the toolbar, at the top of the screen.",
     "Look at the line under the progress bar while the failed stations are retried.": "Look at the line under the progress bar while the failed stations are retried.",
     "Look at the map on the left of the screen.": "Look at the map on the left of the screen.",
-    "Look at the pins on the map.": "Look at the pins on the map.",
     "Look at the scan dates beside the station names in the table.": "Look at the scan dates beside the station names in the table.",
     "Look at the sprinkler rows for an orange calculator icon beside a reading.": "Look at the sprinkler rows for an orange calculator icon beside a reading.",
+    "Look at the stations on the map.": "Look at the stations on the map.",
     "Look at the table and the map for a course that TurfRad has loaded nothing new for.": "Look at the table and the map for a course that TurfRad has loaded nothing new for.",
     "Look at the three boxes below [[Suggested Percent Adjust Calculation]].": "Look at the three boxes below [[Suggested Percent Adjust Calculation]].",
     "Look at the weather strip at the left of the toolbar.": "Look at the weather strip at the left of the toolbar.",
@@ -606,8 +606,8 @@
     "Look for [[Retrieving latest Percent Adjustments from Lynx for comparison]] under the bar.": "Look for [[Retrieving latest Percent Adjustments from Lynx for comparison]] under the bar.",
     "Look for [[Verifying adjustments sent to Lynx]] under the bar.": "Look for [[Verifying adjustments sent to Lynx]] under the bar.",
     "Look for a dash in place of a number on a station’s row.": "Look for a dash in place of a number on a station’s row.",
-    "Look for a grey calculator icon beside the station’s [[Avg. VWC]].": "Look for a grey calculator icon beside the station’s [[Avg. VWC]].",
-    "Look for an [[Avg. VWC]] value in grey italics.": "Look for an [[Avg. VWC]] value in grey italics.",
+    "Look for a gray calculator icon beside the station’s [[Avg. VWC]].": "Look for a gray calculator icon beside the station’s [[Avg. VWC]].",
+    "Look for an [[Avg. VWC]] value in gray italics.": "Look for an [[Avg. VWC]] value in gray italics.",
     "Look for the [[Request Queued]] message.": "Look for the [[Request Queued]] message.",
     "Look for threshold adjustments": "Look for threshold adjustments",
     "Low": "Low",
@@ -623,7 +623,7 @@
     "Lynx Reference Amount, ceiling of 10.": "Lynx Reference Amount, ceiling of 10.",
     "Lynx runs the water": "Lynx runs the water",
     "Managing seasonal profiles": "Managing seasonal profiles",
-    "Managing seasonal profiles — New in IntelliDash, 4 MIN, difficulty 2 of 3": "Managing seasonal profiles — New in IntelliDash, 4 MIN, difficulty 2 of 3",
+    "Managing seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3": "Managing seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3",
     "Managing station state and detail rows.": "Managing station state and detail rows.",
     "Many stations show the same value, which means the daily cap is deciding, not the scan.": "Many stations show the same value, which means the daily cap is deciding, not the scan.",
     "Map and table stay in sync": "Map and table stay in sync",
@@ -634,20 +634,19 @@
     "Mark it for capture": "Mark it for capture",
     "Max Amount over Lynx Reference Amount sets the ceiling.": "Max Amount over Lynx Reference Amount sets the ceiling.",
     "Max Amount, Lynx Reference Amount and Crop Coefficient.": "Max Amount, Lynx Reference Amount and Crop Coefficient.",
-    "Mean of the children, shown on the parent row.": "Mean of the children, shown on the parent row.",
     "Measured": "Measured",
     "Measured 34.5 percent against a 16 percent target. Zero is the right answer.": "Measured 34.5 percent against a 16 percent target. Zero is the right answer.",
     "Measured moisture and its scan date, per station.": "Measured moisture and its scan date, per station.",
-    "Measured, modelled and target volumetric water content.": "Measured, modelled and target volumetric water content.",
-    "Measured: the scan mean": "Measured: the scan mean",
+    "Measured, modeled and target volumetric water content.": "Measured, modeled and target volumetric water content.",
+    "Measured: the scan average": "Measured: the scan average",
     "Minimum Threshold": "Minimum Threshold",
     "Minimum Threshold (%)": "Minimum Threshold (%)",
-    "Modelled": "Modelled",
-    "Modelled: the fallback": "Modelled: the fallback",
+    "Modeled": "Modeled",
+    "Modeled: no scan today": "Modeled: no scan today",
     "Move the band boundaries": "Move the band boundaries",
     "Name it for the condition": "Name it for the condition",
-    "New in IntelliDash": "New in IntelliDash",
-    "New in IntelliDash.": "New in IntelliDash.",
+    "New in Spatial Adjust": "New in Spatial Adjust",
+    "New in Spatial Adjust.": "New in Spatial Adjust.",
     "New targets, new suggestions — review before pushing.": "New targets, new suggestions — review before pushing.",
     "Next": "Next",
     "Next step": "Next step",
@@ -700,16 +699,15 @@
     "Over/Under Options, with Save Changes and Cancel at the foot.": "Over/Under Options, with Save Changes and Cancel at the foot.",
     "Over/Under Options. Each threshold has its own checkbox.": "Over/Under Options. Each threshold has its own checkbox.",
     "Override the percentage if you need to": "Override the percentage if you need to",
+    "Override when today’s suggestion looks too high or too low; change the target instead when a station should always be wetter or drier.": "Override when today’s suggestion looks too high or too low; change the target instead when a station should always be wetter or drier.",
     "Override where you disagree": "Override where you disagree",
     "Pan, zoom, layers, and switching between moisture and variance.": "Pan, zoom, layers, and switching between moisture and variance.",
-    "Per-sprinkler readings under a multi-head station.": "Per-sprinkler readings under a multi-head station.",
+    "Per-sprinkler readings under a station with more than one sprinkler.": "Per-sprinkler readings under a station with more than one sprinkler.",
     "Phase four: retrying the stations that did not verify.": "Phase four: retrying the stations that did not verify.",
     "Phase one: writing, four of six.": "Phase one: writing, four of six.",
     "Phase three: comparing what Lynx reports against what was sent.": "Phase three: comparing what Lynx reports against what was sent.",
     "Phase two: reading back what Lynx now holds.": "Phase two: reading back what Lynx now holds.",
     "Phone": "Phone",
-    "Pins are coloured by measured moisture": "Pins are coloured by measured moisture",
-    "Pins scanned today are filled with a band colour: 0–5, 6–19, 20–30 or above 30 percent.": "Pins scanned today are filled with a band colour: 0–5, 6–19, 20–30 or above 30 percent.",
     "Plan what goes in the five slots": "Plan what goes in the five slots",
     "Play all steps": "Play all steps",
     "Preferences": "Preferences",
@@ -721,12 +719,12 @@
     "Profiles captured for the conditions you plan for. Capturing profiles shows how.": "Profiles captured for the conditions you plan for. Capturing profiles shows how.",
     "Push 6 Changes": "Push 6 Changes",
     "Push 6 changes to Lynx": "Push 6 changes to Lynx",
-    "Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.": "Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.",
+    "Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.": "Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.",
     "Push Changes": "Push Changes",
     "Push Changes dialog": "Push Changes dialog",
     "Push Changes is the only thing that writes to the controller.": "Push Changes is the only thing that writes to the controller.",
     "Push Changes no longer counts the stations you sent, and the pushed-today counter increased.": "Push Changes no longer counts the stations you sent, and the pushed-today counter increased.",
-    "Push Changes no longer counts the stations you sent. It is greyed out only if nothing else is waiting.": "Push Changes no longer counts the stations you sent. It is greyed out only if nothing else is waiting.",
+    "Push Changes no longer counts the stations you sent. It is grayed out only if nothing else is waiting.": "Push Changes no longer counts the stations you sent. It is grayed out only if nothing else is waiting.",
     "Push Changes sits at the left of the toolbar’s right-hand group.": "Push Changes sits at the left of the toolbar’s right-hand group.",
     "Push changes to Lynx": "Push changes to Lynx",
     "Push changes to Lynx — 4 MIN, difficulty 2 of 3": "Push changes to Lynx — 4 MIN, difficulty 2 of 3",
@@ -747,12 +745,13 @@
     "Read [[Suggested]] on the same row.": "Read [[Suggested]] on the same row.",
     "Read Current against Changes": "Read Current against Changes",
     "Read each row from [[Current]] on the left to [[Changes]] on the right.": "Read each row from [[Current]] on the left to [[Changes]] on the right.",
-    "Read from a TurfRad moisture scan taken today, and shown in plain black text.": "Read from a TurfRad moisture scan taken today, and shown in plain black text.",
+    "Read from a TurfRad moisture scan taken today.": "Read from a TurfRad moisture scan taken today.",
     "Read it against Avg. VWC and Target VWC": "Read it against Avg. VWC and Target VWC",
+    "Read station colors on the map, move the moisture bands, switch to variance, and filter what the map shows.": "Read station colors on the map, move the moisture bands, switch to variance, and filter what the map shows.",
     "Read the [[Minimum Threshold (%)]] box.": "Read the [[Minimum Threshold (%)]] box.",
     "Read the [[Suggested]] column the next morning.": "Read the [[Suggested]] column the next morning.",
     "Read the count on the footer button of the [[Push Changes]] dialog.": "Read the count on the footer button of the [[Push Changes]] dialog.",
-    "Read the count, not the colour": "Read the count, not the colour",
+    "Read the count, not the color": "Read the count, not the color",
     "Read the failure count, understand what has already been tried, and re-push only what failed.": "Read the failure count, understand what has already been tried, and re-push only what failed.",
     "Read the map": "Read the map",
     "Read the moisture scan, tune the calculation, push the right percent adjustment to Lynx. Each task is walked through step by step on the screen you will actually be using.": "Read the moisture scan, tune the calculation, push the right percent adjustment to Lynx. Each task is walked through step by step on the screen you will actually be using.",
@@ -761,7 +760,6 @@
     "Read the number in the result line above [[Close]].": "Read the number in the result line above [[Close]].",
     "Read the outcome": "Read the outcome",
     "Read the pink banner at the top of the list, next to [[Review Threshold]].": "Read the pink banner at the top of the list, next to [[Review Threshold]].",
-    "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.": "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.",
     "Read the profile list": "Read the profile list",
     "Read the push dialog properly before you send: two lists, two columns, and one count that matters.": "Read the push dialog properly before you send: two lists, two columns, and one count that matters.",
     "Read the result line above [[Close]].": "Read the result line above [[Close]].",
@@ -830,7 +828,7 @@
     "Select the link below the tabs, to the right of [[Bulk Adjust]].": "Select the link below the tabs, to the right of [[Bulk Adjust]].",
     "Select the stations": "Select the stations",
     "Select the variance button, [[Toggle VWC or Variance View]], beside the legend.": "Select the variance button, [[Toggle VWC or Variance View]], beside the legend.",
-    "Selecting a pin selects its row too, so use whichever is faster.": "Selecting a pin selects its row too, so use whichever is faster.",
+    "Selecting a station on the map selects its row too, so use whichever is faster.": "Selecting a station on the map selects its row too, so use whichever is faster.",
     "Selecting a table row changes the chart header to match, so the chart and the table describe the same thing.": "Selecting a table row changes the chart header to match, so the chart and the table describe the same thing.",
     "Send": "Send",
     "Send and watch the progress": "Send and watch the progress",
@@ -871,7 +869,7 @@
     "Soil Factor Editor": "Soil Factor Editor",
     "Soil Factor Editor, opened with Shift + Alt on the toolbar gear.": "Soil Factor Editor, opened with Shift + Alt on the toolbar gear.",
     "Soil Factor Editor, with Save and Cancel at the foot.": "Soil Factor Editor, with Save and Cancel at the foot.",
-    "Some stations drive more than one sprinkler. Expand the row to see what each head actually measured.": "Some stations drive more than one sprinkler. Expand the row to see what each head actually measured.",
+    "Some stations drive more than one sprinkler. Expand the row to see what each sprinkler actually measured.": "Some stations drive more than one sprinkler. Expand the row to see what each sprinkler actually measured.",
     "Spatial Adjust does the arithmetic": "Spatial Adjust does the arithmetic",
     "Spatial Adjust Guides": "Spatial Adjust Guides",
     "Spatial Adjust Guides — back to all tasks": "Spatial Adjust Guides — back to all tasks",
@@ -880,7 +878,7 @@
     "Spatial Adjust never waters anything, and nothing changes in Lynx until you push.": "Spatial Adjust never waters anything, and nothing changes in Lynx until you push.",
     "Spatial Adjust writes each station, reads Lynx back to check it, and retries any that do not match.": "Spatial Adjust writes each station, reads Lynx back to check it, and retries any that do not match.",
     "Spatial Adjust. Copyright © 2026 The Toro Company.": "Spatial Adjust. Copyright © 2026 The Toro Company.",
-    "Spot a modelled sprinkler": "Spot a modelled sprinkler",
+    "Spot a modeled sprinkler": "Spot a modeled sprinkler",
     "Spot the expandable rows": "Spot the expandable rows",
     "START": "START",
     "Start on": "Start on",
@@ -888,15 +886,16 @@
     "Start with the toolbar": "Start with the toolbar",
     "Station": "Station",
     "Station 3AP1 measured 27.6 percent against a 54 percent target — the largest deficit on the hole.": "Station 3AP1 measured 27.6 percent against a 54 percent target — the largest deficit on the hole.",
-    "Station 5AP1 is disabled; the switch on its row is grey.": "Station 5AP1 is disabled; the switch on its row is grey.",
+    "Station 5AP1 is disabled; the switch on its row is gray.": "Station 5AP1 is disabled; the switch on its row is gray.",
     "Station 6AP1 has a chevron: more than one sprinkler.": "Station 6AP1 has a chevron: more than one sprinkler.",
-    "Station 7AP1 has no current scan; the value shown is modelled.": "Station 7AP1 has no current scan; the value shown is modelled.",
+    "Station 7AP1 has no current scan; the value shown is modeled.": "Station 7AP1 has no current scan; the value shown is modeled.",
     "Station details": "Station details",
     "Station details — 3 MIN, difficulty 2 of 3": "Station details — 3 MIN, difficulty 2 of 3",
     "Station Management": "Station Management",
     "STATION MANAGEMENT": "STATION MANAGEMENT",
     "Station targets set the way you want to keep them, and a slot you can spare.": "Station targets set the way you want to keep them, and a slot you can spare.",
-    "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same head twice.": "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same head twice.",
+    "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same station twice.": "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same station twice.",
+    "Stations are colored by measured moisture": "Stations are colored by measured moisture",
     "Stations far below their new target rise toward the cap; stations far above it fall toward 0%.": "Stations far below their new target rise toward the cap; stations far above it fall toward 0%.",
     "Stations in the profile that are no longer scanned are skipped, which is why [[Matching Stations]] can be lower.": "Stations in the profile that are no longer scanned are skipped, which is why [[Matching Stations]] can be lower.",
     "Stations pushed today appear unselected in a separate list to prevent double adjustments. To adjust one again, simply select it.": "Stations pushed today appear unselected in a separate list to prevent double adjustments. To adjust one again, simply select it.",
@@ -905,14 +904,14 @@
     "STEP": "STEP",
     "Step 1 of 4": "Step 1 of 4",
     "Step 1 of 4: Drill down to the station": "Step 1 of 4: Drill down to the station",
-    "Step 1 of 4: Read the count, not the colour": "Step 1 of 4: Read the count, not the colour",
+    "Step 1 of 4: Read the count, not the color": "Step 1 of 4: Read the count, not the color",
     "Step 1 of 5": "Step 1 of 5",
     "Step 1 of 5: Check whether the station is already wet": "Step 1 of 5: Check whether the station is already wet",
     "Step 1 of 5: Find the selector": "Step 1 of 5: Find the selector",
     "Step 1 of 5: Identical suggestions across many stations": "Step 1 of 5: Identical suggestions across many stations",
     "Step 1 of 5: It lives inside IntelliDash": "Step 1 of 5: It lives inside IntelliDash",
     "Step 1 of 5: It writes first, station by station": "Step 1 of 5: It writes first, station by station",
-    "Step 1 of 5: Measured: the scan mean": "Step 1 of 5: Measured: the scan mean",
+    "Step 1 of 5: Measured: the scan average": "Step 1 of 5: Measured: the scan average",
     "Step 1 of 5: Open Push Changes": "Step 1 of 5: Open Push Changes",
     "Step 1 of 5: Read the scan date before anything else": "Step 1 of 5: Read the scan date before anything else",
     "Step 1 of 5: Select the stations": "Step 1 of 5: Select the stations",
@@ -923,8 +922,8 @@
     "Step 1 of 6: Check the pending count": "Step 1 of 6: Check the pending count",
     "Step 1 of 6: Find the two adjustment columns": "Step 1 of 6: Find the two adjustment columns",
     "Step 1 of 6: Identical suggestions across many stations": "Step 1 of 6: Identical suggestions across many stations",
-    "Step 1 of 6: Pins are coloured by measured moisture": "Step 1 of 6: Pins are coloured by measured moisture",
     "Step 1 of 6: Read the two tabs": "Step 1 of 6: Read the two tabs",
+    "Step 1 of 6: Stations are colored by measured moisture": "Step 1 of 6: Stations are colored by measured moisture",
     "Step 1 of 6: Toggle a single station": "Step 1 of 6: Toggle a single station",
     "Step 1 of 6: Tune the targets first": "Step 1 of 6: Tune the targets first",
     "Step 1 of 7": "Step 1 of 7",
@@ -940,7 +939,7 @@
     "Step 2 of 5": "Step 2 of 5",
     "Step 2 of 5: Check the minimum threshold": "Step 2 of 5: Check the minimum threshold",
     "Step 2 of 5: Expand the station": "Step 2 of 5: Expand the station",
-    "Step 2 of 5: Modelled: the fallback": "Step 2 of 5: Modelled: the fallback",
+    "Step 2 of 5: Modeled: no scan today": "Step 2 of 5: Modeled: no scan today",
     "Step 2 of 5: Open Bulk Adjust": "Step 2 of 5: Open Bulk Adjust",
     "Step 2 of 5: Read Current against Changes": "Step 2 of 5: Read Current against Changes",
     "Step 2 of 5: Read the map": "Step 2 of 5: Read the map",
@@ -1006,17 +1005,17 @@
     "Step 4 of 5: Check the scan date": "Step 4 of 5: Check the scan date",
     "Step 4 of 5: Exclude Zeros protects genuine zeros": "Step 4 of 5: Exclude Zeros protects genuine zeros",
     "Step 4 of 5: Failures are retried automatically": "Step 4 of 5: Failures are retried automatically",
-    "Step 4 of 5: Grey italics mean modelled": "Step 4 of 5: Grey italics mean modelled",
+    "Step 4 of 5: Gray italics mean modeled": "Step 4 of 5: Gray italics mean modeled",
     "Step 4 of 5: Read the Suggested column": "Step 4 of 5: Read the Suggested column",
     "Step 4 of 5: Reload when the banner appears": "Step 4 of 5: Reload when the banner appears",
     "Step 4 of 5: Spatial Adjust does the arithmetic": "Step 4 of 5: Spatial Adjust does the arithmetic",
-    "Step 4 of 5: Spot a modelled sprinkler": "Step 4 of 5: Spot a modelled sprinkler",
+    "Step 4 of 5: Spot a modeled sprinkler": "Step 4 of 5: Spot a modeled sprinkler",
     "Step 4 of 5: The delta is what drives the suggestion": "Step 4 of 5: The delta is what drives the suggestion",
     "Step 4 of 5: Type the amount": "Step 4 of 5: Type the amount",
     "Step 4 of 5: Work in the table": "Step 4 of 5: Work in the table",
     "Step 4 of 6": "Step 4 of 6",
     "Step 4 of 6: Exclude Zeros belongs to Under": "Step 4 of 6: Exclude Zeros belongs to Under",
-    "Step 4 of 6: Grey italics mean modelled": "Step 4 of 6: Grey italics mean modelled",
+    "Step 4 of 6: Gray italics mean modeled": "Step 4 of 6: Gray italics mean modeled",
     "Step 4 of 6: Name it for the condition": "Step 4 of 6: Name it for the condition",
     "Step 4 of 6: Open Layers": "Step 4 of 6: Open Layers",
     "Step 4 of 6: Override where you disagree": "Step 4 of 6: Override where you disagree",
@@ -1128,8 +1127,8 @@
     "Ten percent is a common start: it drops small changes near target but keeps real fixes.": "Ten percent is a common start: it drops small changes near target but keeps real fixes.",
     "Terms of Use": "Terms of Use",
     "Thanks — your feedback has been sent.": "Thanks — your feedback has been sent.",
-    "That sprinkler’s value is modelled, because its last scan is older than today.": "That sprinkler’s value is modelled, because its last scan is older than today.",
-    "That value is modelled: carried forward from the last scan and the weather since.": "That value is modelled: carried forward from the last scan and the weather since.",
+    "That sprinkler’s value is modeled, because its last scan is older than today.": "That sprinkler’s value is modeled, because its last scan is older than today.",
+    "That value is modeled: carried forward from the last scan and the weather since.": "That value is modeled: carried forward from the last scan and the weather since.",
     "The [[Bulk Adjust]] dialog opens with the number of stations you ticked at the top, as in 5 Stations selected.": "The [[Bulk Adjust]] dialog opens with the number of stations you ticked at the top, as in 5 Stations selected.",
     "The [[Bulk Adjust]] link above the table becomes active.": "The [[Bulk Adjust]] link above the table becomes active.",
     "The [[Push Changes]] dialog lists Available to Push first, all ticked, then [[Pushed Today]], unticked.": "The [[Push Changes]] dialog lists Available to Push first, all ticked, then [[Pushed Today]], unticked.",
@@ -1140,6 +1139,7 @@
     "The algorithm dropdown, above the three amounts.": "The algorithm dropdown, above the three amounts.",
     "The amount of water a station applies at 100 percent.": "The amount of water a station applies at 100 percent.",
     "The automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried.": "The automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried.",
+    "The band boundaries are yours to change, not only the defaults, and they are saved to your own user preferences, not to the site.": "The band boundaries are yours to change, not only the defaults, and they are saved to your own user preferences, not to the site.",
     "The banner appears whether or not TurfRad had a newer scan, so the numbers can come back unchanged.": "The banner appears whether or not TurfRad had a newer scan, so the numbers can come back unchanged.",
     "The banner counts the stations the threshold changed, and each row shows Adjusted to and the value that will be sent.": "The banner counts the stations the threshold changed, and each row shows Adjusted to and the value that will be sent.",
     "The banner offers Reload Data or Dismiss.": "The banner offers Reload Data or Dismiss.",
@@ -1162,7 +1162,7 @@
     "The box shows your choice, and the screen switches to it when you save.": "The box shows your choice, and the screen switches to it when you save.",
     "The box shows your number in your own units. It goes up to 15.": "The box shows your number in your own units. It goes up to 15.",
     "The box shows your number, in the same units as Daily Max Amount.": "The box shows your number, in the same units as Daily Max Amount.",
-    "The box shows your number. With 0, the threshold is off, and the two choices below stay greyed out.": "The box shows your number. With 0, the threshold is off, and the two choices below stay greyed out.",
+    "The box shows your number. With 0, the threshold is off, and the two choices below stay grayed out.": "The box shows your number. With 0, the threshold is off, and the two choices below stay grayed out.",
     "The button dims and its icon spins while the request runs.": "The button dims and its icon spins while the request runs.",
     "The button shows a count, such as Push 6 Changes, and the green counter beside it shows how many went out today.": "The button shows a count, such as Push 6 Changes, and the green counter beside it shows how many went out today.",
     "The button stays disabled until at least one row checkbox is ticked.": "The button stays disabled until at least one row checkbox is ticked.",
@@ -1171,14 +1171,14 @@
     "The choice is saved for you only, and no screen on the dashboard turns the prompt back on.": "The choice is saved for you only, and no screen on the dashboard turns the prompt back on.",
     "The count on the footer button drops by 1 for each row you untick.": "The count on the footer button drops by 1 for each row you untick.",
     "The count on the footer button rises by 1 for each row you tick.": "The count on the footer button rises by 1 for each row you tick.",
-    "The course, coloured by measured moisture.": "The course, coloured by measured moisture.",
-    "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modelled value and a suggestion every day.": "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modelled value and a suggestion every day.",
+    "The course, colored by measured moisture.": "The course, colored by measured moisture.",
+    "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modeled value and a suggestion every day.": "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modeled value and a suggestion every day.",
     "The dashboard has reloaded, and every station shows a value from the new method.": "The dashboard has reloaded, and every station shows a value from the new method.",
     "The dashboard loads the new readings, and every suggestion recalculates against them.": "The dashboard loads the new readings, and every suggestion recalculates against them.",
     "The dashboard names the applied profile above the table.": "The dashboard names the applied profile above the table.",
     "The dashboard names the intended profile above the table, for example “Summer Target Profile”.": "The dashboard names the intended profile above the table, for example “Summer Target Profile”.",
     "The date is today, so [[Avg. VWC]] comes from a current scan.": "The date is today, so [[Avg. VWC]] comes from a current scan.",
-    "The default is Option 2, the delta-plus-today’s-ET method.": "The default is Option 2, the delta-plus-today’s-ET method.",
+    "The default is Option 2, the method that uses today’s ET.": "The default is Option 2, the method that uses today’s ET.",
     "The delta is what drives the suggestion": "The delta is what drives the suggestion",
     "The diagnostics dialog opens and reports TurfRad access, scan data and the last scan date, which is today.": "The diagnostics dialog opens and reports TurfRad access, scan data and the last scan date, which is today.",
     "The diagnostics dialog opens, and under Lynx, Can ping cloud shows true.": "The diagnostics dialog opens, and under Lynx, Can ping cloud shows true.",
@@ -1200,17 +1200,17 @@
     "The footer button always names the number of changes that will be sent.": "The footer button always names the number of changes that will be sent.",
     "The footer count is the contract.": "The footer count is the contract.",
     "The footer count matches the rows you ticked.": "The footer count matches the rows you ticked.",
-    "The footer counts 1 pending change, and [[Save]] is no longer greyed out.": "The footer counts 1 pending change, and [[Save]] is no longer greyed out.",
+    "The footer counts 1 pending change, and [[Save]] is no longer grayed out.": "The footer counts 1 pending change, and [[Save]] is no longer grayed out.",
     "The format changes how every number on the screen is written, which matters most in the table.": "The format changes how every number on the screen is written, which matters most in the table.",
     "The four regions of the screen and what each one is telling you.": "The four regions of the screen and what each one is telling you.",
     "The gap between the measured value and the target is what the calculation works on.": "The gap between the measured value and the target is what the calculation works on.",
     "The gap between the two is the change you are being asked to make.": "The gap between the two is the change you are being asked to make.",
     "The gear button in the toolbar’s right-hand button group.": "The gear button in the toolbar’s right-hand button group.",
     "The gear button sits in the toolbar’s right-hand group.": "The gear button sits in the toolbar’s right-hand group.",
+    "The gray icon on the parent row marks an average that includes a modeled reading.": "The gray icon on the parent row marks an average that includes a modeled reading.",
     "The green pushed-today counter increased by the number you sent.": "The green pushed-today counter increased by the number you sent.",
-    "The grey icon on the parent row marks an average that includes a modelled reading.": "The grey icon on the parent row marks an average that includes a modelled reading.",
-    "The hold stops you adjusting the same head twice, and it ends at midnight where the course is.": "The hold stops you adjusting the same head twice, and it ends at midnight where the course is.",
-    "The icon shows that the average includes a modelled reading.": "The icon shows that the average includes a modelled reading.",
+    "The hold stops you adjusting the same station twice, and it ends at midnight where the course is.": "The hold stops you adjusting the same station twice, and it ends at midnight where the course is.",
+    "The icon shows that the average includes a modeled reading.": "The icon shows that the average includes a modeled reading.",
     "The inputs that decide every suggested percentage.": "The inputs that decide every suggested percentage.",
     "The interactive walkthrough needs a wider screen.": "The interactive walkthrough needs a wider screen.",
     "The line names how many stations could not be updated, such as 2.": "The line names how many stations could not be updated, such as 2.",
@@ -1219,14 +1219,15 @@
     "The list does not mark which profile was applied, so go by its name.": "The list does not mark which profile was applied, so go by its name.",
     "The list holds the areas, holes or stations to plot, and the chart draws the ones you pick.": "The list holds the areas, holes or stations to plot, and the chart draws the ones you pick.",
     "The map draws only the enabled stations, or every station.": "The map draws only the enabled stations, or every station.",
+    "The map now shows how far each station is from its target, in three bands.": "The map now shows how far each station is from its target, in three bands.",
+    "The map plots each station’s sprinklers scanned in the past seven days, and those scanned today are filled with a band color.": "The map plots each station’s sprinklers scanned in the past seven days, and those scanned today are filled with a band color.",
     "The map shows only the stations that are still switched on.": "The map shows only the stations that are still switched on.",
-    "The map zooms to that station’s pin and outlines it.": "The map zooms to that station’s pin and outlines it.",
+    "The map zooms to that station and outlines it.": "The map zooms to that station and outlines it.",
     "The map, chart and table all show the course selected in the toolbar.": "The map, chart and table all show the course selected in the toolbar.",
     "The new profile appears in the list with today’s date and the full station count.": "The new profile appears in the list with today’s date and the full station count.",
     "The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.": "The Over/Under filter finds the extremes at both ends at once. It is not a range, and reading it as one will mislead you.",
     "The parent value is an average": "The parent value is an average",
     "The pending icon marks a station queued for push.": "The pending icon marks a station queued for push.",
-    "The pins now show how far each station is from its target, in three bands.": "The pins now show how far each station is from its target, in three bands.",
     "The profile will hold every station on the course at that moment, enabled or not.": "The profile will hold every station on the course at that moment, enabled or not.",
     "The profile’s last-updated date is today.": "The profile’s last-updated date is today.",
     "The profile’s row, with Update from Current.": "The profile’s row, with Update from Current.",
@@ -1259,22 +1260,23 @@
     "The Spatial Adjust dashboard, with a hole’s stations in the table.": "The Spatial Adjust dashboard, with a hole’s stations in the table.",
     "The Spatial Adjust header, inside IntelliDash.": "The Spatial Adjust header, inside IntelliDash.",
     "The station appears in the Push Changes count if it is enabled and its % Adj. differs from Lynx’s Current, whether from your edit or from the new suggestion.": "The station appears in the Push Changes count if it is enabled and its % Adj. differs from Lynx’s Current, whether from your edit or from the new suggestion.",
-    "The station count on the All Stations tab is the number of stations in the course. The map need not match it, because it draws one pin per sprinkler and by default hides disabled stations.": "The station count on the All Stations tab is the number of stations in the course. The map need not match it, because it draws one pin per sprinkler and by default hides disabled stations.",
+    "The station count on the All Stations tab is the number of stations in the course. The map need not match it, because it draws each sprinkler of a station and by default hides disabled stations.": "The station count on the All Stations tab is the number of stations in the course. The map need not match it, because it draws each sprinkler of a station and by default hides disabled stations.",
     "The station joins the [[Push Changes]] count if it is enabled and the value differs from Lynx.": "The station joins the [[Push Changes]] count if it is enabled and the value differs from Lynx.",
-    "The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.": "The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.",
+    "The station shows the average of its sprinklers, so 31.4 and 30.4 give 30.9.": "The station shows the average of its sprinklers, so 31.4 and 30.4 give 30.9.",
     "The station’s Enable switch is in the state you intend.": "The station’s Enable switch is in the state you intend.",
-    "The stations stay in the table with their last scan date, and on the map as clear pins.": "The stations stay in the table with their last scan date, and on the map as clear pins.",
-    "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.": "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.",
+    "The stations stay in the table with their last scan date, and on the map they are drawn clear.": "The stations stay in the table with their last scan date, and on the map they are drawn clear.",
+    "The stations you meant to disable show a gray switch, or sit under a hole or area whose switch is gray.": "The stations you meant to disable show a gray switch, or sit under a hole or area whose switch is gray.",
     "The stored profile is not changed by those edits; it is simply out of date.": "The stored profile is not changed by those edits; it is simply out of date.",
     "The Suggested column has moved where your new setting takes part.": "The Suggested column has moved where your new setting takes part.",
     "The Suggested column is the output of that chain.": "The Suggested column is the output of that chain.",
     "The Suggested column moved to reflect the new targets.": "The Suggested column moved to reflect the new targets.",
+    "The suggestion is based on the gap to your target and today’s ET, within the daily maximum.": "The suggestion is based on the gap to your target and today’s ET, within the daily maximum.",
     "The suggestion recalculated.": "The suggestion recalculated.",
     "The switch is on, so the station is part of every push.": "The switch is on, so the station is part of every push.",
-    "The switch turns grey, and the station is switched off.": "The switch turns grey, and the station is switched off.",
+    "The switch turns gray, and the station is switched off.": "The switch turns gray, and the station is switched off.",
     "The table and this dialog differ on purpose: the threshold applies only to what is sent.": "The table and this dialog differ on purpose: the threshold applies only to what is sent.",
     "The table lists that hole’s stations, each with a [[Target VWC]] box.": "The table lists that hole’s stations, each with a [[Target VWC]] box.",
-    "The table lists that hole’s stations, with editable columns such as [[Target VWC]] and [[% Adj.]].": "The table lists that hole’s stations, with editable columns such as [[Target VWC]] and [[% Adj.]].",
+    "The table lists that hole’s stations. Only [[Target VWC]], [[% Adj.]] and the [[Enable]] switch can be edited; [[Current]] and [[Suggested]] cannot.": "The table lists that hole’s stations. Only [[Target VWC]], [[% Adj.]] and the [[Enable]] switch can be edited; [[Current]] and [[Suggested]] cannot.",
     "The table lists the stations above [[Over]] or below [[Under]], and none in between.": "The table lists the stations above [[Over]] or below [[Under]], and none in between.",
     "The table shows the raw suggestion": "The table shows the raw suggestion",
     "The target minus the station’s moisture: the gap the suggestion tries to close.": "The target minus the station’s moisture: the gap the suggestion tries to close.",
@@ -1292,7 +1294,7 @@
     "The threshold is applied when you push, not when the suggestion is calculated.": "The threshold is applied when you push, not when the suggestion is calculated.",
     "The transcript could not be loaded.": "The transcript could not be loaded.",
     "The Update from Current icon marks a slot to capture on save.": "The Update from Current icon marks a slot to capture on save.",
-    "The value is modelled, not taken from a scan that day, so the suggestion rests on an estimate.": "The value is modelled, not taken from a scan that day, so the suggestion rests on an estimate.",
+    "The value is modeled, not taken from a scan that day, so the suggestion rests on an estimate.": "The value is modeled, not taken from a scan that day, so the suggestion rests on an estimate.",
     "The view is desktop and tablet only; phones are turned away by the route guard.": "The view is desktop and tablet only; phones are turned away by the route guard.",
     "The VWC you want a station to hold, which you set from 0 to 50 percent.": "The VWC you want a station to hold, which you set from 0 to 50 percent.",
     "The weather strip follows your temperature scale.": "The weather strip follows your temperature scale.",
@@ -1323,7 +1325,7 @@
     "Tick the checkbox on each station row you want to change.": "Tick the checkbox on each station row you want to change.",
     "TIME": "TIME",
     "To override today’s percent, type a number from 0 to 900 in [[% Adj.]].": "To override today’s percent, type a number from 0 to 900 in [[% Adj.]].",
-    "Today’s ET is added to the delta, so a hot, dry day raises the suggestions.": "Today’s ET is added to the delta, so a hot, dry day raises the suggestions.",
+    "Today’s ET also feeds in, so a hot, dry day raises the suggestions.": "Today’s ET also feeds in, so a hot, dry day raises the suggestions.",
     "Toggle a single station": "Toggle a single station",
     "Toolbar": "Toolbar",
     "Toolbar › Push Changes": "Toolbar › Push Changes",
@@ -1349,7 +1351,7 @@
     "Type the amount in the box under [[Shift]] and [[Replace]].": "Type the amount in the box under [[Shift]] and [[Replace]].",
     "Type the new target": "Type the new target",
     "Type your own value in the [[% Adj.]] box of a station you know behaves differently.": "Type your own value in the [[% Adj.]] box of a station you know behaves differently.",
-    "Under [[Option 1]] they are greyed out; under [[Option 2]] you can type in them.": "Under [[Option 1]] they are greyed out; under [[Option 2]] you can type in them.",
+    "Under [[Option 1]] they are grayed out; under [[Option 2]] you can type in them.": "Under [[Option 1]] they are grayed out; under [[Option 2]] you can type in them.",
     "Under [[Option 2]], a soil factor scales the station’s calculated amount until someone changes it.": "Under [[Option 2]], a soil factor scales the station’s calculated amount until someone changes it.",
     "Under [[Option 2]], a station wetter than its target by more than today’s ET asks for no water.": "Under [[Option 2]], a station wetter than its target by more than today’s ET asks for no water.",
     "Under [[Option 2]], every station that needs more than the daily cap lands on the same percentage.": "Under [[Option 2]], every station that needs more than the daily cap lands on the same percentage.",
@@ -1369,12 +1371,12 @@
     "Updating a profile rewrites what it stores. It does not change any station until the profile is applied.": "Updating a profile rewrites what it stores. It does not change any station until the profile is applied.",
     "Updating overwrites the stored targets in place.": "Updating overwrites the stored targets in place.",
     "Updating profiles": "Updating profiles",
-    "Updating profiles — New in IntelliDash, 2 MIN, difficulty 2 of 3": "Updating profiles — New in IntelliDash, 2 MIN, difficulty 2 of 3",
+    "Updating profiles — New in Spatial Adjust, 2 MIN, difficulty 2 of 3": "Updating profiles — New in Spatial Adjust, 2 MIN, difficulty 2 of 3",
     "Use [[Over]] alone to find stations asking for far too much, or [[Under]] alone for almost nothing.": "Use [[Over]] alone to find stations asking for far too much, or [[Under]] alone for almost nothing.",
     "Use replace to overwrite all values, or shift to move them up/down by the entered amount.": "Use replace to overwrite all values, or shift to move them up/down by the entered amount.",
     "Use the chart for one area at a time": "Use the chart for one area at a time",
     "Use variance when targets differ across the course.": "Use variance when targets differ across the course.",
-    "Variance view: three bands, centred on target.": "Variance view: three bands, centred on target.",
+    "Variance view: three bands, centered on target.": "Variance view: three bands, centered on target.",
     "Verification is automatic. You do not have to check Lynx by hand to know whether a push landed.": "Verification is automatic. You do not have to check Lynx by hand to know whether a push landed.",
     "Verify results": "Verify results",
     "Verify results — 3 MIN, difficulty 2 of 3": "Verify results — 3 MIN, difficulty 2 of 3",
@@ -1388,9 +1390,9 @@
     "What targets mean, and how to set and manage them.": "What targets mean, and how to set and manage them.",
     "What the feature actually does: turn the latest moisture scan into today’s percent adjustment, and write it to Lynx when you push.": "What the feature actually does: turn the latest moisture scan into today’s percent adjustment, and write it to Lynx when you push.",
     "What the feature does and how the screen is laid out.": "What the feature does and how the screen is laid out.",
-    "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.": "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.",
+    "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modeled forward from the last scan and the weather since, and the reading is shown in gray italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.": "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modeled forward from the last scan and the weather since, and the reading is shown in gray italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.",
     "When the numbers are not what you expect.": "When the numbers are not what you expect.",
-    "When you let go, the map recolours to the new band boundary.": "When you let go, the map recolours to the new band boundary.",
+    "When you let go, the map recolors to the new band boundary.": "When you let go, the map recolors to the new band boundary.",
     "WHERE": "WHERE",
     "Where a value is absent the column shows a dash, not a zero.": "Where a value is absent the column shows a dash, not a zero.",
     "Where moisture scans come from and what the feature does with them.": "Where moisture scans come from and what the feature does with them.",
@@ -1403,7 +1405,7 @@
     "Why the table and the push dialog disagree.": "Why the table and the push dialog disagree.",
     "With a threshold of 10, a station that suggests 6 still shows 6 here.": "With a threshold of 10, a station that suggests 6 still shows 6 here.",
     "With only 5 slots per course, name each one for a condition, not a date.": "With only 5 slots per course, name each one for a condition, not a date.",
-    "With Option 1 selected, the three boxes below it are greyed out.": "With Option 1 selected, the three boxes below it are greyed out.",
+    "With Option 1 selected, the three boxes below it are grayed out.": "With Option 1 selected, the three boxes below it are grayed out.",
     "With the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a footer message to show for it.": "With the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a footer message to show for it.",
     "Without it, a station that needs no water still gets a small run.": "Without it, a station that needs no water still gets a small run.",
     "Without Shift, a hole that is off leaves the stations beneath it out of the push, but their own switches stay as they were.": "Without Shift, a hole that is off leaves the stations beneath it out of the push, but their own switches stay as they were.",
@@ -1414,14 +1416,14 @@
     "You can explain why the table and the push dialog differ.": "You can explain why the table and the push dialog differ.",
     "You can keep reading the table while it runs, and the retrieval finishes even if you leave the page.": "You can keep reading the table while it runs, and the retrieval finishes even if you leave the page.",
     "You can name which of the four causes applies to the station.": "You can name which of the four causes applies to the station.",
-    "You can recolour the map by moving a band handle.": "You can recolour the map by moving a band handle.",
+    "You can recolor the map by moving a band handle.": "You can recolor the map by moving a band handle.",
     "You can say which algorithm your site uses.": "You can say which algorithm your site uses.",
     "You can state that the filter is an OR across both ends, not a range.": "You can state that the filter is an OR across both ends, not a range.",
     "You can switch between moisture and variance.": "You can switch between moisture and variance.",
     "You can tell a dash from a zero.": "You can tell a dash from a zero.",
-    "You can tell a measured value from a modelled one without checking the date.": "You can tell a measured value from a modelled one without checking the date.",
+    "You can tell a measured value from a modeled one without checking the date.": "You can tell a measured value from a modeled one without checking the date.",
     "You can tell Request latest scan data from Reload Data.": "You can tell Request latest scan data from Reload Data.",
-    "You can tell which child readings are modelled.": "You can tell which child readings are modelled.",
+    "You can tell which child readings are modeled.": "You can tell which child readings are modeled.",
     "You know Dismiss leaves the dashboard on the data it already had.": "You know Dismiss leaves the dashboard on the data it already had.",
     "You know how many stations failed and which they were.": "You know how many stations failed and which they were.",
     "You know Target VWC is capped at 50.": "You know Target VWC is capped at 50.",
@@ -1430,13 +1432,12 @@
     "You know today’s last scan date.": "You know today’s last scan date.",
     "You know which Exclude Zeros changes the push and which only changes the view.": "You know which Exclude Zeros changes the push and which only changes the view.",
     "You know which option needs Exclude Zeros.": "You know which option needs Exclude Zeros.",
-    "You know why Daily Max Amount is greyed out under Option 1.": "You know why Daily Max Amount is greyed out under Option 1.",
+    "You know why Daily Max Amount is grayed out under Option 1.": "You know why Daily Max Amount is grayed out under Option 1.",
     "You need": "You need",
     "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.": "You need a Spatial Adjust account on a site with TurfRad scan data. Without recent scans the map and table are empty.",
     "You reviewed the recalculated suggestions before pushing.": "You reviewed the recalculated suggestions before pushing.",
     "You should see": "You should see",
     "You supply the target": "You supply the target",
-    "Your boundaries are saved to your own user preferences, not to the site.": "Your boundaries are saved to your own user preferences, not to the site.",
     "Your browser cannot play this video. Read the transcript below.": "Your browser cannot play this video. Read the transcript below.",
     "Your choice is marked. With the second one, [[Exclude Zeros]] below it can be ticked.": "Your choice is marked. With the second one, [[Exclude Zeros]] below it can be ticked.",
     "Your comments": "Your comments",
@@ -1456,10 +1457,10 @@
     "[[Current]] is the percent adjust Lynx holds now, and [[Suggested]] is what Spatial Adjust worked out from the latest scan.": [
       "suggested-adjustments"
     ],
-    "[[Option 1]] scales the percentage Lynx holds now by target over measured, so it needs no ET, reference amount or cap.": [
+    "[[Option 1]] scales the percentage Lynx holds now, so it needs no ET, reference amount or cap.": [
       "calculation-methods"
     ],
-    "[[Option 2]] adds today’s ET to the water the delta calls for, caps it at Daily Max Amount, then divides by the Lynx Reference Amount.": [
+    "[[Option 2]] starts from the gap to your target and today’s ET, and Daily Max Amount caps the result.": [
       "calculation-methods"
     ],
     "[[Over/Under Options]] opens, with an [[Over]] value and an [[Under]] value.": [
@@ -1562,16 +1563,13 @@
     "A course that has fallen behind TurfRad does not have to wait for the next automatic retrieval. Ask for the latest scan data TurfRad holds, and reload when it is ready.": [
       "request-scan-data"
     ],
-    "A current scan: black text, today’s date.": [
-      "understanding-vwc"
-    ],
     "A dash instead of a number": [
       "calculation-questions"
     ],
     "A dash is not zero, and it is not an error in the calculation.": [
       "calculation-questions"
     ],
-    "A dash means the station has no current scan and no modelled value, so there is nothing to calculate from.": [
+    "A dash means the station has no current scan and no modeled value, so there is nothing to calculate from.": [
       "calculation-questions"
     ],
     "A dialog opens with the list of stations waiting to go to Lynx.": [
@@ -1580,16 +1578,16 @@
     "A disabled station is excluded from adjustment entirely; it is not sent a zero, it is simply not sent.": [
       "enable-disable-stations"
     ],
-    "A disabled station: the switch on its row is grey.": [
+    "A disabled station: the switch on its row is gray.": [
       "enable-disable-stations"
     ],
     "A failure is partial: the stations that verified already match Lynx.": [
       "push-failures"
     ],
-    "A grey calculator icon means at least one station beneath the row is modelled.": [
+    "A gray calculator icon means at least one station beneath the row is modeled.": [
       "understanding-vwc"
     ],
-    "A grey, italic [[Avg. VWC]] with a calculator icon is modelled, not measured by a scan that day.": [
+    "A gray, italic [[Avg. VWC]] with a calculator icon is modeled, not measured by a scan that day.": [
       "dashboard-overview",
       "chrome"
     ],
@@ -1608,30 +1606,30 @@
     "A message says the soil factors were saved, and the editor closes a few seconds later with the suggestions updated.": [
       "suggested-adjustments"
     ],
-    "A modelled value: grey and italic.": [
+    "A modeled value: gray and italic.": [
       "calculation-questions"
     ],
-    "A modelled value: grey, italic, and dated two days ago.": [
+    "A modeled value: gray, italic, and dated two days ago.": [
       "station-zero"
     ],
-    "A name like Overseed Recovery says why you set the targets; the date has its own column.": [
+    "A name like Overseed says why you set the targets; the date has its own column.": [
       "creating-profiles"
     ],
     "A new Lynx Reference Amount rescales every suggestion above 0; a new Daily Max Amount moves only stations at the cap.": [
       "calculation-settings"
     ],
-    "A pin last scanned on an earlier day is drawn clear.": [
-      "calculation-questions"
-    ],
-    "A pin that is clear was last scanned on an earlier day.": [
-      "dashboard-overview",
-      "chrome"
+    "A profile applies course-wide, changing [[Target VWC]] on every station it holds, so check the [[Suggested]] column before you push.": [
+      "target-profiles"
     ],
     "A profile changes targets, and targets change deficits.": [
       "seasonal-profiles"
     ],
     "A profile is a snapshot of the targets at the moment you save it.": [
       "creating-profiles"
+    ],
+    "A profile matches stations by name, so a station renamed or renumbered after capture will not match when an old profile is applied. A station added after capture keeps its target.": [
+      "target-profiles",
+      "seasonal-profiles"
     ],
     "A profile per season and per event.": [
       "catalog",
@@ -1672,7 +1670,7 @@
     "A saved profile: a slot that shows a station count, not --.": [
       "target-profiles"
     ],
-    "A scan from the past seven days, so that the map shows pins.": [
+    "A scan from the past seven days, so that the map shows stations.": [
       "map-navigation"
     ],
     "A short list stays readable a year later.": [
@@ -1710,7 +1708,14 @@
     "A Spatial Adjust account. Preferences belong to your account, not to the site.": [
       "preferences"
     ],
+    "A sprinkler drawn clear was last scanned on an earlier day.": [
+      "dashboard-overview",
+      "chrome"
+    ],
     "A stale course keeps its last scans": [
+      "calculation-questions"
+    ],
+    "A station last scanned on an earlier day is drawn clear.": [
       "calculation-questions"
     ],
     "A station row shows its Avg. VWC, its Target VWC and a Suggested percent.": [
@@ -1722,7 +1727,7 @@
     "A station that is switched off is left out of the push, however dry it reads.": [
       "enable-disable-stations"
     ],
-    "A station that looks fine can still hide one dry head.": [
+    "A station that looks fine can still hide one dry sprinkler.": [
       "station-details"
     ],
     "A station well under its target asks for more water, and one over its target asks for less.": [
@@ -1818,7 +1823,7 @@
       "target-profiles",
       "creating-profiles"
     ],
-    "Apply a target profile — New in IntelliDash, 2 MIN, difficulty 1 of 3": [
+    "Apply a target profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3": [
       "catalog:attr",
       "chrome:attr"
     ],
@@ -1840,9 +1845,6 @@
     "Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch.": [
       "seasonal-profiles"
     ],
-    "Applying changes [[Target VWC]] on every station in the profile, so suggestions change.": [
-      "target-profiles"
-    ],
     "At the right of the toolbar, find [[Push Changes]].": [
       "understand-spatial-adjust"
     ],
@@ -1857,6 +1859,12 @@
       "target-profiles",
       "creating-profiles",
       "updating-profiles"
+    ],
+    "Average of the children, shown on the parent row.": [
+      "station-details"
+    ],
+    "Average VWC comes from a measured scan. When there is none, it is modeled.": [
+      "understand-spatial-adjust"
     ],
     "Band boundaries and the variance view are saved to your own user preferences, not to the site.": [
       "map-navigation"
@@ -1873,7 +1881,7 @@
     "Below 100, the course is treated as using less water than ET suggests; above 100, more.": [
       "calculation-settings"
     ],
-    "Below-threshold behaviour, with the second option selected.": [
+    "Below-threshold behavior, with the second option selected.": [
       "minimum-threshold"
     ],
     "Beta": [
@@ -1955,7 +1963,7 @@
       "catalog",
       "chrome"
     ],
-    "Capture the station targets you have tuned, under a name you will recognise next season.": [
+    "Capture the station targets you have tuned, under a name you will recognize next season.": [
       "target-profiles",
       "creating-profiles"
     ],
@@ -1965,7 +1973,7 @@
       "target-profiles",
       "creating-profiles"
     ],
-    "Capturing profiles — New in IntelliDash, 3 MIN, difficulty 2 of 3": [
+    "Capturing profiles — New in Spatial Adjust, 3 MIN, difficulty 2 of 3": [
       "catalog:attr",
       "chrome:attr"
     ],
@@ -1976,6 +1984,10 @@
     "Cascading enable state across areas, holes and stations.": [
       "catalog",
       "chrome"
+    ],
+    "Caution.": [
+      "target-profiles",
+      "seasonal-profiles"
     ],
     "Change one station’s target and watch what it does to the suggestion.": [
       "editing-station-targets"
@@ -1989,9 +2001,6 @@
       "editing-station-targets",
       "enable-disable-stations",
       "suggested-adjustments"
-    ],
-    "Change the target when a station should always be wetter or drier; change [[% Adj.]] when today is unusual.": [
-      "editing-station-targets"
     ],
     "Changing any of them recalculates every suggestion and reloads the dashboard.": [
       "calculation-settings"
@@ -2215,7 +2224,7 @@
       "catalog",
       "chrome"
     ],
-    "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect.": [
+    "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect.": [
       "map-navigation"
     ],
     "Dismissing is not declining. The next reload picks the new scan up.": [
@@ -2230,7 +2239,7 @@
     "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan.": [
       "seasonal-profiles"
     ],
-    "Drag a handle on the colour bar under the legend.": [
+    "Drag a handle on the color bar under the legend.": [
       "map-navigation"
     ],
     "Dragging a handle changes the boundary and saves it to your preferences.": [
@@ -2254,20 +2263,19 @@
     "Each row the threshold changed shows its own value and, after Adjusted to, the value that will be sent.": [
       "reviewing-changes"
     ],
-    "Each sprinkler scanned in the past seven days is a pin, and pins scanned today are filled with a band colour.": [
-      "dashboard-overview",
-      "chrome"
-    ],
     "Each sprinkler shows on its own row, named for the station and numbered, with its own scan date and moisture.": [
       "station-details"
     ],
     "Each station shows a percent: the result of the calculation.": [
       "understand-spatial-adjust"
     ],
-    "Each station shows the mean VWC that a TurfRad scan measured, with the scan date beside the station name.": [
+    "Each station shows the average VWC that a TurfRad scan measured, with the scan date beside the station name.": [
       "understand-spatial-adjust"
     ],
-    "Each suggestion is the day’s water amount divided by this number.": [
+    "Each station’s sprinklers scanned today are filled with a band color: 0–5, 6–19, 20–30 or above 30 percent.": [
+      "map-navigation"
+    ],
+    "Each suggestion is a percentage of this number.": [
       "calculation-settings"
     ],
     "Each ticked end takes a value: [[Over]] from 0 to 300, default 200, and [[Under]] from 0 to 100, default 10.": [
@@ -2370,7 +2378,7 @@
     "Find a hole row, with [[Avg. Target VWC]] and [[Last Scan]] columns.": [
       "understanding-vwc"
     ],
-    "Find a station whose [[Avg. VWC]] is grey and italic, with a calculator icon.": [
+    "Find a station whose [[Avg. VWC]] is gray and italic, with a calculator icon.": [
       "understanding-vwc"
     ],
     "Find the [[All Stations]] and [[Over/Under]] tabs above the table.": [
@@ -2438,7 +2446,7 @@
       "catalog",
       "chrome"
     ],
-    "From the model when there was no scan that day, shown in grey italics with a calculator icon.": [
+    "From the model when there was no scan that day, shown in gray italics with a calculator icon.": [
       "dashboard-overview",
       "understand-spatial-adjust",
       "understanding-vwc",
@@ -2465,16 +2473,11 @@
       "map-navigation",
       "understanding-vwc"
     ],
-    "Grey italics mean modelled": [
+    "Gray italics mean modeled": [
       "calculation-questions"
     ],
     "Group and Decimal Separator, under Temperature Scale.": [
       "preferences"
-    ],
-    "Guide": [
-      "catalog",
-      "dashboard-overview",
-      "understand-spatial-adjust"
     ],
     "Guides": [
       "chrome"
@@ -2537,7 +2540,7 @@
     "If [[% Adj.]] did not follow the new suggestion, you typed that value earlier. A typed value is kept.": [
       "calculation-settings"
     ],
-    "If [[Avg. VWC]] is grey and italic, the value is modelled from an older scan, so the suggestion rests on an estimate.": [
+    "If [[Avg. VWC]] is gray and italic, the value is modeled from an older scan, so the suggestion rests on an estimate.": [
       "suggested-adjustments"
     ],
     "If [[Avg. VWC]] is near or below [[Target VWC]], the zero has another cause. Go on to the next check.": [
@@ -2546,36 +2549,36 @@
     "If [[Bulk Adjust Error]] appears, reload the page and check [[Target VWC]] before you try again.": [
       "bulk-adjustments"
     ],
-    "If [[Bulk Adjust]] stays grey, no row is ticked. Tick a station row, or a hole row to take all its stations.": [
+    "If [[Bulk Adjust]] stays gray, no row is ticked. Tick a station row, or a hole row to take an entire hole at once.": [
       "bulk-adjustments"
     ],
-    "If [[Exclude Zeros]] is greyed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.": [
+    "If [[Exclude Zeros]] is grayed out, select [[Set to the minimum threshold value when pushed to Lynx]] first.": [
       "threshold-questions"
     ],
-    "If [[Exclude Zeros]] is greyed out, the box above holds 0 or the first choice is selected. Select the second choice first.": [
+    "If [[Exclude Zeros]] is grayed out, the box above holds 0 or the first choice is selected. Select the second choice first.": [
       "minimum-threshold"
     ],
-    "If [[Exclude Zeros]] is greyed out, tick [[Under]] first.": [
+    "If [[Exclude Zeros]] is grayed out, tick [[Under]] first.": [
       "filter-adjustments"
     ],
     "If [[Over/Under]] shows a dash, no filter is set yet, or no station matches it. The next steps set one.": [
       "filter-adjustments"
     ],
-    "If [[Push Changes]] is greyed out, no change is waiting.": [
+    "If [[Push Changes]] is grayed out, no change is waiting.": [
       "understand-spatial-adjust"
     ],
-    "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running.": [
+    "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running.": [
       "dashboard-overview",
       "chrome"
     ],
-    "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. Wait for the push to finish, then look again.": [
+    "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. Wait for the push to finish, then look again.": [
       "minimum-threshold",
       "push-to-lynx"
     ],
-    "If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. Wait for the push to finish, then try again.": [
+    "If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. Wait for the push to finish, then try again.": [
       "reviewing-changes"
     ],
-    "If [[Push Changes]] is greyed out, nothing is waiting. Check that the profile was applied.": [
+    "If [[Push Changes]] is grayed out, nothing is waiting. Check that the profile was applied.": [
       "seasonal-profiles"
     ],
     "If [[Pushed Today]] rows became ticked, you used the box beside [[Changes]] in the heading, which ticks both lists. Untick the rows you did not mean.": [
@@ -2584,7 +2587,7 @@
     "If [[Request Failed]] shows instead, the request did not queue. Select the button again.": [
       "request-scan-data"
     ],
-    "If [[Save]] is greyed out, nothing has changed or a value is outside 1 to 200.": [
+    "If [[Save]] is grayed out, nothing has changed or a value is outside 1 to 200.": [
       "suggested-adjustments"
     ],
     "If [[Set to zero when pushed to Lynx]] is selected, small changes go to Lynx as 0. To keep those stations running, select [[Set to the minimum threshold value when pushed to Lynx]], then select [[Save Changes]].": [
@@ -2599,7 +2602,7 @@
     "If [[Suggested]] stays at the same top value, the daily maximum is capping it rather than the target.": [
       "editing-station-targets"
     ],
-    "If a dash shows in place of the box, the station has no current scan and no modelled value, so there is nothing to adjust.": [
+    "If a dash shows in place of the box, the station has no current scan and no modeled value, so there is nothing to adjust.": [
       "suggested-adjustments"
     ],
     "If a digit does not appear, it would take the number above 15. The box refuses it.": [
@@ -2615,19 +2618,19 @@
       "minimum-threshold",
       "preferences"
     ],
-    "If a new name is lost, the dialog was cancelled. Rename the slot again and select [[Save Changes]].": [
+    "If a new name is lost, the dialog was canceled. Rename the slot again and select [[Save Changes]].": [
       "seasonal-profiles"
     ],
-    "If a pin is clear, it was last scanned on an earlier day. A disabled station has no pin while [[Layers]] is set to [[Enabled Stations]].": [
-      "map-navigation"
-    ],
-    "If a pin stays clear, it was not scanned today, so it has no variance.": [
+    "If a station is clear, it was last scanned on an earlier day. A disabled station is not drawn while [[Layers]] is set to [[Enabled Stations]].": [
       "map-navigation"
     ],
     "If a station is not in the table, it has no recent scan. The profile still captures its stored target.": [
       "creating-profiles"
     ],
-    "If a station you expect has no pin, [[Layers]] may be set to [[Enabled Stations]], the default.": [
+    "If a station stays clear, it was not scanned today, so it has no variance.": [
+      "map-navigation"
+    ],
+    "If a station you expect is not drawn, [[Layers]] may be set to [[Enabled Stations]], the default.": [
       "map-navigation"
     ],
     "If a station you switched off is still on the map, another sprinkler of that station may still be on.": [
@@ -2636,13 +2639,13 @@
     "If a tip about selecting stations appears, you chose [[Bulk Adjust]]. Select the link to its right.": [
       "filter-adjustments"
     ],
-    "If a value box stays grey, its end is not ticked. Tick it, then type the value.": [
+    "If a value box stays gray, its end is not ticked. Tick it, then type the value.": [
       "filter-adjustments"
     ],
     "If a value does not match, the station is treated as failed, and the next phase retries it.": [
       "verify-results"
     ],
-    "If a value is grey and italic, no scan arrived today. It is modelled instead.": [
+    "If a value is gray and italic, no scan arrived today.": [
       "understand-spatial-adjust"
     ],
     "If a value looks wrong, select [[Cancel]] and fix it in the table first. Nothing has been sent yet.": [
@@ -2651,7 +2654,7 @@
     "If access or scan data is missing, that explains scans that never arrive, and the cause is not in your settings.": [
       "request-scan-data"
     ],
-    "If all three boxes are greyed out, the site uses [[Option 1]], which uses none of them. Calculation methods explains the two methods.": [
+    "If all three boxes are grayed out, the site uses [[Option 1]], which uses none of them. Calculation methods explains the two methods.": [
       "calculation-settings"
     ],
     "If another dialog is open, close it first. The gear is just right of [[Announcements]].": [
@@ -2659,10 +2662,10 @@
       "creating-profiles",
       "updating-profiles"
     ],
-    "If both choices are greyed out, the box above holds 0. Type a number above 0 first.": [
+    "If both choices are grayed out, the box above holds 0. Type a number above 0 first.": [
       "minimum-threshold"
     ],
-    "If both options are greyed out, the threshold is 0, which turns the feature off.": [
+    "If both options are grayed out, the threshold is 0, which turns the feature off.": [
       "threshold-questions"
     ],
     "If both read --, the slot is empty and cannot be applied. Fill it first: see Capturing profiles.": [
@@ -2671,7 +2674,7 @@
     "If Can ping cloud shows false, or a banner above the toolbar says the connection to Lynx is lost, re-pushing will not help. Check the connection to Lynx first.": [
       "push-failures"
     ],
-    "If every value is grey and italic, nothing was scanned today. See Get fresh scan data.": [
+    "If every value is gray and italic, nothing was scanned today. See Get fresh scan data.": [
       "understanding-vwc"
     ],
     "If it names stations that could not be updated, check the connection to Lynx, then follow Push failures.": [
@@ -2684,7 +2687,7 @@
       "minimum-threshold",
       "calculation-settings"
     ],
-    "If it reads 0, the threshold is off and the options are greyed out. The setting is site-wide, so someone else may have cleared it.": [
+    "If it reads 0, the threshold is off and the options are grayed out. The setting is site-wide, so someone else may have cleared it.": [
       "threshold-questions"
     ],
     "If most of the course shows that value, the cap is deciding, not the scan. Raise Daily Max Amount in [[Settings]] › [[Calculation]] if it is too low.": [
@@ -2696,16 +2699,16 @@
     "If no name looks right, a slot may have been renamed. A rename also changes its date, which can help.": [
       "updating-profiles"
     ],
-    "If no pin is outlined, the station may be disabled and hidden. Set [[Layers]] to [[All Stations]].": [
-      "map-navigation"
-    ],
     "If no sprinkler has the icon, each was scanned today, or the site uses [[Option 1]]. Under [[Option 1]], a sprinkler not scanned today shows --.": [
       "station-details"
     ],
     "If no station has a chevron, none of them has more than one sprinkler. There is nothing to expand here.": [
       "station-details"
     ],
-    "If no value is grey, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.": [
+    "If no station is outlined, it may be disabled and hidden. Set [[Layers]] to [[All Stations]].": [
+      "map-navigation"
+    ],
+    "If no value is gray, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.": [
       "understanding-vwc"
     ],
     "If not": [
@@ -2714,10 +2717,10 @@
       "map-navigation",
       "understanding-vwc"
     ],
-    "If nothing changes, let go of the handle. The map recolours when you release it.": [
+    "If nothing changes, let go of the handle. The map recolors when you release it.": [
       "map-navigation"
     ],
-    "If nothing opens, [[Push Changes]] is greyed out because nothing is waiting.": [
+    "If nothing opens, [[Push Changes]] is grayed out because nothing is waiting.": [
       "push-to-lynx"
     ],
     "If nothing opens, you may have cleared an earlier choice on that row. Select the icon again.": [
@@ -2742,7 +2745,7 @@
     "If the [[Push Changes]] dialog is not open, select [[Push Changes]] at the right of the toolbar first.": [
       "seasonal-profiles"
     ],
-    "If the average is not the mean of every row below it, a sprinkler was left out. Only sprinklers scanned today, or modelled under [[Option 2]], count.": [
+    "If the average does not match the rows below it, a sprinkler was left out. Only sprinklers scanned today, or modeled under [[Option 2]], count.": [
       "station-details"
     ],
     "If the banner has gone, [[Dismiss]] only hides it. The next time the dashboard loads its data, it picks the new scan up.": [
@@ -2763,13 +2766,13 @@
     "If the box does not open, select [[Layers]] again. Selecting anywhere else closes it.": [
       "map-navigation"
     ],
-    "If the box is greyed out, the site uses [[Option 1]], which uses no ET. The two amounts above it are greyed out too.": [
+    "If the box is grayed out, the site uses [[Option 1]], which uses no ET. The two amounts above it are grayed out too.": [
       "calculation-settings"
     ],
     "If the box is not there, the site uses [[Option 2]]. On a production site it shows only while the site uses [[Option 1]].": [
       "calculation-methods"
     ],
-    "If the box shows --, the station has no scan today and no modelled value, so there is nothing to override.": [
+    "If the box shows --, the station has no scan today and no modeled value, so there is nothing to override.": [
       "editing-station-targets"
     ],
     "If the box shows a number you did not expect, check which choice is marked.": [
@@ -2787,7 +2790,7 @@
     "If the date is old but TurfRad access and scan data are fine, select [[Request latest scan data]] in the toolbar. It cannot make TurfRad scan, so the date stays old if TurfRad has nothing newer.": [
       "calculation-questions"
     ],
-    "If the date is older, [[Option 2]] shows a modelled [[Avg. VWC]], in grey italics. If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.": [
+    "If the date is older, [[Option 2]] shows a modeled [[Avg. VWC]], in gray italics. If every station is old, select [[Request latest scan data]] in the toolbar, then [[Reload Data]] on the banner.": [
       "station-zero"
     ],
     "If the dialog is closed, select [[Push Changes]] at the right of the toolbar. If rows under Available to Push are ticked that you did not mean to send, untick them.": [
@@ -2811,6 +2814,10 @@
     "If the list does not open, select [[Layers]] again.": [
       "enable-disable-stations"
     ],
+    "If the map is empty, the site has no scan from the past seven days. See Get fresh scan data.": [
+      "dashboard-overview",
+      "chrome"
+    ],
     "If the mark goes away, you selected the icon twice. Select it once more.": [
       "creating-profiles",
       "updating-profiles"
@@ -2832,7 +2839,7 @@
     "If the row did not open, you selected the station name, which only selects the station. Select the chevron.": [
       "station-details"
     ],
-    "If the row has no icon, no sprinkler under it is modelled.": [
+    "If the row has no icon, no sprinkler under it is modeled.": [
       "station-details"
     ],
     "If the row shows [[Avg. Target VWC]], it is a hole or area row. Select a hole row to see its stations.": [
@@ -2860,13 +2867,13 @@
     "If the switch is off, Lynx keeps the value it holds, but the suggestion is still calculated. Check the area and hole switches above the station too.": [
       "station-zero"
     ],
-    "If the table lists areas, select the area row first. If you know where the station is, select its pin on the map instead.": [
+    "If the table lists areas, select the area row first. If you know where the station is, select it on the map instead.": [
       "editing-station-targets"
     ],
-    "If the value is not grey and italic, it is a measurement from a scan taken today.": [
+    "If the value is not gray and italic, it is a measurement from a scan taken today.": [
       "calculation-questions"
     ],
-    "If the values all differ, the cap is not involved. Check whether each value is measured, modelled or a dash.": [
+    "If the values all differ, the cap is not involved. Check whether each value is measured, modeled or a dash.": [
       "calculation-questions"
     ],
     "If the values look the same as before, the method did not change. Reopen [[Settings]] and check [[Suggested Percent Adjust Calculation]].": [
@@ -2898,7 +2905,7 @@
       "dashboard-overview",
       "chrome"
     ],
-    "If there is no exclamation mark, the choice was cancelled. Select the icon under [[Apply Profile]] again.": [
+    "If there is no exclamation mark, the choice was canceled. Select the icon under [[Apply Profile]] again.": [
       "target-profiles",
       "seasonal-profiles"
     ],
@@ -2952,10 +2959,6 @@
     ],
     "If you see another tab, select [[Minimum Threshold]] again; Settings opens on [[Calculation]]. If there is no left rail, select the gear button, [[Settings]], at the right of the toolbar.": [
       "minimum-threshold"
-    ],
-    "If you see no pins, the site has no scan from the past seven days. See Get fresh scan data.": [
-      "dashboard-overview",
-      "chrome"
     ],
     "If you select [[Cancel]] with the box ticked, nothing is saved, and the prompt keeps coming.": [
       "enable-disable-stations"
@@ -3070,9 +3073,6 @@
       "map-navigation",
       "preferences"
     ],
-    "It adds today’s ET to the delta, caps the amount, and divides by the Lynx Reference Amount.": [
-      "understand-spatial-adjust"
-    ],
     "It catches both extremes, not a band": [
       "filter-adjustments"
     ],
@@ -3139,7 +3139,7 @@
     "Its rows are unticked, so they are not sent unless you tick them.": [
       "reviewing-changes"
     ],
-    "Its value is in plain black text: the mean VWC that TurfRad measured across the station.": [
+    "Its value is the average VWC that TurfRad measured across the station.": [
       "understanding-vwc"
     ],
     "Keep trivial adjustments from reaching Lynx.": [
@@ -3215,14 +3215,14 @@
       "dashboard-overview",
       "chrome"
     ],
-    "Look at the pins on the map.": [
-      "map-navigation"
-    ],
     "Look at the scan dates beside the station names in the table.": [
       "request-scan-data"
     ],
     "Look at the sprinkler rows for an orange calculator icon beside a reading.": [
       "station-details"
+    ],
+    "Look at the stations on the map.": [
+      "map-navigation"
     ],
     "Look at the table and the map for a course that TurfRad has loaded nothing new for.": [
       "calculation-questions"
@@ -3252,10 +3252,10 @@
     "Look for a dash in place of a number on a station’s row.": [
       "calculation-questions"
     ],
-    "Look for a grey calculator icon beside the station’s [[Avg. VWC]].": [
+    "Look for a gray calculator icon beside the station’s [[Avg. VWC]].": [
       "station-details"
     ],
-    "Look for an [[Avg. VWC]] value in grey italics.": [
+    "Look for an [[Avg. VWC]] value in gray italics.": [
       "calculation-questions"
     ],
     "Look for the [[Request Queued]] message.": [
@@ -3307,7 +3307,7 @@
       "updating-profiles",
       "seasonal-profiles"
     ],
-    "Managing seasonal profiles — New in IntelliDash, 4 MIN, difficulty 2 of 3": [
+    "Managing seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3": [
       "catalog:attr",
       "chrome:attr"
     ],
@@ -3347,9 +3347,6 @@
       "catalog",
       "chrome"
     ],
-    "Mean of the children, shown on the parent row.": [
-      "station-details"
-    ],
     "Measured": [
       "dashboard-overview",
       "understand-spatial-adjust",
@@ -3362,20 +3359,20 @@
     "Measured moisture and its scan date, per station.": [
       "understand-spatial-adjust"
     ],
-    "Measured, modelled and target volumetric water content.": [
+    "Measured, modeled and target volumetric water content.": [
       "catalog",
       "chrome"
     ],
-    "Measured: the scan mean": [
+    "Measured: the scan average": [
       "understanding-vwc"
     ],
-    "Modelled": [
+    "Modeled": [
       "dashboard-overview",
       "understand-spatial-adjust",
       "understanding-vwc",
       "editing-station-targets"
     ],
-    "Modelled: the fallback": [
+    "Modeled: no scan today": [
       "understanding-vwc"
     ],
     "Move the band boundaries": [
@@ -3384,11 +3381,11 @@
     "Name it for the condition": [
       "creating-profiles"
     ],
-    "New in IntelliDash": [
+    "New in Spatial Adjust": [
       "catalog",
       "chrome"
     ],
-    "New in IntelliDash.": [
+    "New in Spatial Adjust.": [
       "target-profiles",
       "creating-profiles",
       "updating-profiles",
@@ -3576,6 +3573,9 @@
     "Override the percentage if you need to": [
       "editing-station-targets"
     ],
+    "Override when today’s suggestion looks too high or too low; change the target instead when a station should always be wetter or drier.": [
+      "editing-station-targets"
+    ],
     "Override where you disagree": [
       "suggested-adjustments"
     ],
@@ -3583,7 +3583,7 @@
       "catalog",
       "chrome"
     ],
-    "Per-sprinkler readings under a multi-head station.": [
+    "Per-sprinkler readings under a station with more than one sprinkler.": [
       "catalog",
       "chrome"
     ],
@@ -3601,12 +3601,6 @@
     ],
     "Phone": [
       "chrome"
-    ],
-    "Pins are coloured by measured moisture": [
-      "map-navigation"
-    ],
-    "Pins scanned today are filled with a band colour: 0–5, 6–19, 20–30 or above 30 percent.": [
-      "map-navigation"
     ],
     "Plan what goes in the five slots": [
       "seasonal-profiles"
@@ -3650,9 +3644,9 @@
     "Profiles captured for the conditions you plan for. Capturing profiles shows how.": [
       "seasonal-profiles"
     ],
-    "Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.": [
-      "minimum-threshold",
+    "Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after the push. Outside that window the push does not reach the course, and no error tells you so.": [
       "seasonal-profiles",
+      "minimum-threshold",
       "push-to-lynx",
       "reviewing-changes"
     ],
@@ -3665,7 +3659,7 @@
     "Push Changes no longer counts the stations you sent, and the pushed-today counter increased.": [
       "verify-results"
     ],
-    "Push Changes no longer counts the stations you sent. It is greyed out only if nothing else is waiting.": [
+    "Push Changes no longer counts the stations you sent. It is grayed out only if nothing else is waiting.": [
       "push-to-lynx"
     ],
     "Push Changes sits at the left of the toolbar’s right-hand group.": [
@@ -3734,7 +3728,7 @@
     "Read each row from [[Current]] on the left to [[Changes]] on the right.": [
       "reviewing-changes"
     ],
-    "Read from a TurfRad moisture scan taken today, and shown in plain black text.": [
+    "Read from a TurfRad moisture scan taken today.": [
       "dashboard-overview",
       "understand-spatial-adjust",
       "map-navigation",
@@ -3742,6 +3736,9 @@
     ],
     "Read it against Avg. VWC and Target VWC": [
       "suggested-adjustments"
+    ],
+    "Read station colors on the map, move the moisture bands, switch to variance, and filter what the map shows.": [
+      "map-navigation"
     ],
     "Read the [[Minimum Threshold (%)]] box.": [
       "threshold-questions"
@@ -3752,7 +3749,7 @@
     "Read the count on the footer button of the [[Push Changes]] dialog.": [
       "reviewing-changes"
     ],
-    "Read the count, not the colour": [
+    "Read the count, not the color": [
       "push-failures"
     ],
     "Read the failure count, understand what has already been tried, and re-push only what failed.": [
@@ -3782,9 +3779,6 @@
     ],
     "Read the pink banner at the top of the list, next to [[Review Threshold]].": [
       "minimum-threshold"
-    ],
-    "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.": [
-      "map-navigation"
     ],
     "Read the profile list": [
       "target-profiles"
@@ -4010,7 +4004,7 @@
     "Select the variance button, [[Toggle VWC or Variance View]], beside the legend.": [
       "map-navigation"
     ],
-    "Selecting a pin selects its row too, so use whichever is faster.": [
+    "Selecting a station on the map selects its row too, so use whichever is faster.": [
       "map-navigation"
     ],
     "Selecting a table row changes the chart header to match, so the chart and the table describe the same thing.": [
@@ -4126,7 +4120,7 @@
     "Soil Factor Editor, with Save and Cancel at the foot.": [
       "suggested-adjustments"
     ],
-    "Some stations drive more than one sprinkler. Expand the row to see what each head actually measured.": [
+    "Some stations drive more than one sprinkler. Expand the row to see what each sprinkler actually measured.": [
       "station-details"
     ],
     "Spatial Adjust does the arithmetic": [
@@ -4163,7 +4157,7 @@
       "dashboard-overview",
       "understand-spatial-adjust"
     ],
-    "Spot a modelled sprinkler": [
+    "Spot a modeled sprinkler": [
       "station-details"
     ],
     "Spot the expandable rows": [
@@ -4190,13 +4184,13 @@
     "Station 3AP1 measured 27.6 percent against a 54 percent target — the largest deficit on the hole.": [
       "suggested-adjustments"
     ],
-    "Station 5AP1 is disabled; the switch on its row is grey.": [
+    "Station 5AP1 is disabled; the switch on its row is gray.": [
       "station-zero"
     ],
     "Station 6AP1 has a chevron: more than one sprinkler.": [
       "station-details"
     ],
-    "Station 7AP1 has no current scan; the value shown is modelled.": [
+    "Station 7AP1 has no current scan; the value shown is modeled.": [
       "understanding-vwc"
     ],
     "Station details": [
@@ -4223,8 +4217,11 @@
     "Station targets set the way you want to keep them, and a slot you can spare.": [
       "creating-profiles"
     ],
-    "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same head twice.": [
+    "Stations already pushed today are listed separately and arrive unselected, so you do not adjust the same station twice.": [
       "push-to-lynx"
+    ],
+    "Stations are colored by measured moisture": [
+      "map-navigation"
     ],
     "Stations far below their new target rise toward the cap; stations far above it fall toward 0%.": [
       "seasonal-profiles"
@@ -4253,7 +4250,7 @@
       "editing-station-targets",
       "editing-station-targets:attr"
     ],
-    "Step 1 of 4: Read the count, not the colour": [
+    "Step 1 of 4: Read the count, not the color": [
       "push-failures",
       "push-failures:attr"
     ],
@@ -4283,7 +4280,7 @@
       "verify-results",
       "verify-results:attr"
     ],
-    "Step 1 of 5: Measured: the scan mean": [
+    "Step 1 of 5: Measured: the scan average": [
       "understanding-vwc",
       "understanding-vwc:attr"
     ],
@@ -4330,13 +4327,13 @@
     "Step 1 of 6: Identical suggestions across many stations": [
       "calculation-questions"
     ],
-    "Step 1 of 6: Pins are coloured by measured moisture": [
-      "map-navigation",
-      "map-navigation:attr"
-    ],
     "Step 1 of 6: Read the two tabs": [
       "filter-adjustments",
       "filter-adjustments:attr"
+    ],
+    "Step 1 of 6: Stations are colored by measured moisture": [
+      "map-navigation",
+      "map-navigation:attr"
     ],
     "Step 1 of 6: Toggle a single station": [
       "enable-disable-stations",
@@ -4403,7 +4400,7 @@
       "station-details:attr",
       "station-details"
     ],
-    "Step 2 of 5: Modelled: the fallback": [
+    "Step 2 of 5: Modeled: no scan today": [
       "understanding-vwc:attr",
       "understanding-vwc"
     ],
@@ -4677,7 +4674,7 @@
       "verify-results:attr",
       "verify-results"
     ],
-    "Step 4 of 5: Grey italics mean modelled": [
+    "Step 4 of 5: Gray italics mean modeled": [
       "calculation-questions:attr",
       "calculation-questions"
     ],
@@ -4693,7 +4690,7 @@
       "understand-spatial-adjust:attr",
       "understand-spatial-adjust"
     ],
-    "Step 4 of 5: Spot a modelled sprinkler": [
+    "Step 4 of 5: Spot a modeled sprinkler": [
       "station-details:attr",
       "station-details"
     ],
@@ -4720,7 +4717,8 @@
       "filter-adjustments:attr",
       "filter-adjustments"
     ],
-    "Step 4 of 6: Grey italics mean modelled": [
+    "Step 4 of 6: Gray italics mean modeled": [
+      "calculation-questions:attr",
       "calculation-questions"
     ],
     "Step 4 of 6: Name it for the condition": [
@@ -5142,10 +5140,10 @@
     "Thanks — your feedback has been sent.": [
       "chrome"
     ],
-    "That sprinkler’s value is modelled, because its last scan is older than today.": [
+    "That sprinkler’s value is modeled, because its last scan is older than today.": [
       "station-details"
     ],
-    "That value is modelled: carried forward from the last scan and the weather since.": [
+    "That value is modeled: carried forward from the last scan and the weather since.": [
       "understanding-vwc"
     ],
     "The [[Bulk Adjust]] dialog opens with the number of stations you ticked at the top, as in 5 Stations selected.": [
@@ -5181,6 +5179,9 @@
     ],
     "The automatic retry pass, before the failure is reported. The bar restarts at zero and counts only the stations being retried.": [
       "push-failures"
+    ],
+    "The band boundaries are yours to change, not only the defaults, and they are saved to your own user preferences, not to the site.": [
+      "map-navigation"
     ],
     "The banner appears whether or not TurfRad had a newer scan, so the numbers can come back unchanged.": [
       "request-scan-data"
@@ -5248,7 +5249,7 @@
     "The box shows your number, in the same units as Daily Max Amount.": [
       "calculation-settings"
     ],
-    "The box shows your number. With 0, the threshold is off, and the two choices below stay greyed out.": [
+    "The box shows your number. With 0, the threshold is off, and the two choices below stay grayed out.": [
       "minimum-threshold"
     ],
     "The button dims and its icon spins while the request runs.": [
@@ -5277,10 +5278,10 @@
     "The count on the footer button rises by 1 for each row you tick.": [
       "push-failures"
     ],
-    "The course, coloured by measured moisture.": [
+    "The course, colored by measured moisture.": [
       "map-navigation"
     ],
-    "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modelled value and a suggestion every day.": [
+    "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modeled value and a suggestion every day.": [
       "calculation-questions"
     ],
     "The dashboard has reloaded, and every station shows a value from the new method.": [
@@ -5298,7 +5299,7 @@
     "The date is today, so [[Avg. VWC]] comes from a current scan.": [
       "station-zero"
     ],
-    "The default is Option 2, the delta-plus-today’s-ET method.": [
+    "The default is Option 2, the method that uses today’s ET.": [
       "calculation-methods"
     ],
     "The delta is what drives the suggestion": [
@@ -5368,7 +5369,7 @@
     "The footer count matches the rows you ticked.": [
       "reviewing-changes"
     ],
-    "The footer counts 1 pending change, and [[Save]] is no longer greyed out.": [
+    "The footer counts 1 pending change, and [[Save]] is no longer grayed out.": [
       "suggested-adjustments"
     ],
     "The format changes how every number on the screen is written, which matters most in the table.": [
@@ -5393,16 +5394,16 @@
       "creating-profiles",
       "updating-profiles"
     ],
+    "The gray icon on the parent row marks an average that includes a modeled reading.": [
+      "station-details"
+    ],
     "The green pushed-today counter increased by the number you sent.": [
       "push-to-lynx"
     ],
-    "The grey icon on the parent row marks an average that includes a modelled reading.": [
-      "station-details"
-    ],
-    "The hold stops you adjusting the same head twice, and it ends at midnight where the course is.": [
+    "The hold stops you adjusting the same station twice, and it ends at midnight where the course is.": [
       "reviewing-changes"
     ],
-    "The icon shows that the average includes a modelled reading.": [
+    "The icon shows that the average includes a modeled reading.": [
       "station-details"
     ],
     "The inputs that decide every suggested percentage.": [
@@ -5434,10 +5435,17 @@
     "The map draws only the enabled stations, or every station.": [
       "map-navigation"
     ],
+    "The map now shows how far each station is from its target, in three bands.": [
+      "map-navigation"
+    ],
+    "The map plots each station’s sprinklers scanned in the past seven days, and those scanned today are filled with a band color.": [
+      "dashboard-overview",
+      "chrome"
+    ],
     "The map shows only the stations that are still switched on.": [
       "enable-disable-stations"
     ],
-    "The map zooms to that station’s pin and outlines it.": [
+    "The map zooms to that station and outlines it.": [
       "map-navigation"
     ],
     "The map, chart and table all show the course selected in the toolbar.": [
@@ -5455,9 +5463,6 @@
     ],
     "The pending icon marks a station queued for push.": [
       "editing-station-targets"
-    ],
-    "The pins now show how far each station is from its target, in three bands.": [
-      "map-navigation"
     ],
     "The profile will hold every station on the course at that moment, enabled or not.": [
       "creating-profiles"
@@ -5565,23 +5570,23 @@
     "The station appears in the Push Changes count if it is enabled and its % Adj. differs from Lynx’s Current, whether from your edit or from the new suggestion.": [
       "editing-station-targets"
     ],
-    "The station count on the All Stations tab is the number of stations in the course. The map need not match it, because it draws one pin per sprinkler and by default hides disabled stations.": [
+    "The station count on the All Stations tab is the number of stations in the course. The map need not match it, because it draws each sprinkler of a station and by default hides disabled stations.": [
       "dashboard-overview",
       "chrome"
     ],
     "The station joins the [[Push Changes]] count if it is enabled and the value differs from Lynx.": [
       "editing-station-targets"
     ],
-    "The station shows the mean of its sprinklers, so 31.4 and 30.4 give 30.9.": [
+    "The station shows the average of its sprinklers, so 31.4 and 30.4 give 30.9.": [
       "station-details"
     ],
     "The station’s Enable switch is in the state you intend.": [
       "station-zero"
     ],
-    "The stations stay in the table with their last scan date, and on the map as clear pins.": [
+    "The stations stay in the table with their last scan date, and on the map they are drawn clear.": [
       "calculation-questions"
     ],
-    "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.": [
+    "The stations you meant to disable show a gray switch, or sit under a hole or area whose switch is gray.": [
       "enable-disable-stations"
     ],
     "The stored profile is not changed by those edits; it is simply out of date.": [
@@ -5596,13 +5601,16 @@
     "The Suggested column moved to reflect the new targets.": [
       "bulk-adjustments"
     ],
+    "The suggestion is based on the gap to your target and today’s ET, within the daily maximum.": [
+      "understand-spatial-adjust"
+    ],
     "The suggestion recalculated.": [
       "editing-station-targets"
     ],
     "The switch is on, so the station is part of every push.": [
       "station-zero"
     ],
-    "The switch turns grey, and the station is switched off.": [
+    "The switch turns gray, and the station is switched off.": [
       "enable-disable-stations"
     ],
     "The table and this dialog differ on purpose: the threshold applies only to what is sent.": [
@@ -5611,7 +5619,7 @@
     "The table lists that hole’s stations, each with a [[Target VWC]] box.": [
       "editing-station-targets"
     ],
-    "The table lists that hole’s stations, with editable columns such as [[Target VWC]] and [[% Adj.]].": [
+    "The table lists that hole’s stations. Only [[Target VWC]], [[% Adj.]] and the [[Enable]] switch can be edited; [[Current]] and [[Suggested]] cannot.": [
       "dashboard-overview",
       "chrome"
     ],
@@ -5671,7 +5679,7 @@
     "The Update from Current icon marks a slot to capture on save.": [
       "creating-profiles"
     ],
-    "The value is modelled, not taken from a scan that day, so the suggestion rests on an estimate.": [
+    "The value is modeled, not taken from a scan that day, so the suggestion rests on an estimate.": [
       "calculation-questions"
     ],
     "The view is desktop and tablet only; phones are turned away by the route guard.": [
@@ -5784,7 +5792,7 @@
     "To override today’s percent, type a number from 0 to 900 in [[% Adj.]].": [
       "editing-station-targets"
     ],
-    "Today’s ET is added to the delta, so a hot, dry day raises the suggestions.": [
+    "Today’s ET also feeds in, so a hot, dry day raises the suggestions.": [
       "understanding-vwc"
     ],
     "Toggle a single station": [
@@ -5870,7 +5878,7 @@
     "Type your own value in the [[% Adj.]] box of a station you know behaves differently.": [
       "suggested-adjustments"
     ],
-    "Under [[Option 1]] they are greyed out; under [[Option 2]] you can type in them.": [
+    "Under [[Option 1]] they are grayed out; under [[Option 2]] you can type in them.": [
       "calculation-methods"
     ],
     "Under [[Option 2]], a soil factor scales the station’s calculated amount until someone changes it.": [
@@ -5944,7 +5952,7 @@
       "creating-profiles",
       "updating-profiles"
     ],
-    "Updating profiles — New in IntelliDash, 2 MIN, difficulty 2 of 3": [
+    "Updating profiles — New in Spatial Adjust, 2 MIN, difficulty 2 of 3": [
       "catalog:attr",
       "chrome:attr"
     ],
@@ -5958,7 +5966,7 @@
     "Use variance when targets differ across the course.": [
       "map-navigation"
     ],
-    "Variance view: three bands, centred on target.": [
+    "Variance view: three bands, centered on target.": [
       "map-navigation"
     ],
     "Verification is automatic. You do not have to check Lynx by hand to know whether a push landed.": [
@@ -6012,14 +6020,14 @@
       "catalog",
       "chrome"
     ],
-    "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modelled forward from the last scan and the weather since, and the reading is shown in grey italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.": [
+    "When a scan is not current, what you see depends on the calculation option. Under Option 2 the calculation still runs, on a value modeled forward from the last scan and the weather since, and the reading is shown in gray italics with a calculator icon. Under Option 1 the station shows a dash in % Adj. and is left out of the push until a current scan arrives.": [
       "request-scan-data"
     ],
     "When the numbers are not what you expect.": [
       "catalog",
       "chrome"
     ],
-    "When you let go, the map recolours to the new band boundary.": [
+    "When you let go, the map recolors to the new band boundary.": [
       "map-navigation"
     ],
     "WHERE": [
@@ -6074,7 +6082,7 @@
     "With only 5 slots per course, name each one for a condition, not a date.": [
       "seasonal-profiles"
     ],
-    "With Option 1 selected, the three boxes below it are greyed out.": [
+    "With Option 1 selected, the three boxes below it are grayed out.": [
       "calculation-methods"
     ],
     "With the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a footer message to show for it.": [
@@ -6108,7 +6116,7 @@
     "You can name which of the four causes applies to the station.": [
       "station-zero"
     ],
-    "You can recolour the map by moving a band handle.": [
+    "You can recolor the map by moving a band handle.": [
       "map-navigation"
     ],
     "You can say which algorithm your site uses.": [
@@ -6123,13 +6131,13 @@
     "You can tell a dash from a zero.": [
       "calculation-questions"
     ],
-    "You can tell a measured value from a modelled one without checking the date.": [
+    "You can tell a measured value from a modeled one without checking the date.": [
       "understanding-vwc"
     ],
     "You can tell Request latest scan data from Reload Data.": [
       "request-scan-data"
     ],
-    "You can tell which child readings are modelled.": [
+    "You can tell which child readings are modeled.": [
       "station-details"
     ],
     "You know Dismiss leaves the dashboard on the data it already had.": [
@@ -6156,7 +6164,7 @@
     "You know which option needs Exclude Zeros.": [
       "threshold-questions"
     ],
-    "You know why Daily Max Amount is greyed out under Option 1.": [
+    "You know why Daily Max Amount is grayed out under Option 1.": [
       "calculation-methods"
     ],
     "You need": [
@@ -6180,9 +6188,6 @@
     ],
     "You supply the target": [
       "understand-spatial-adjust"
-    ],
-    "Your boundaries are saved to your own user preferences, not to the site.": [
-      "map-navigation"
     ],
     "Your browser cannot play this video. Read the transcript below.": [
       "chrome"

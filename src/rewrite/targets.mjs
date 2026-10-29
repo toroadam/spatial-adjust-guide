@@ -122,6 +122,8 @@ const APPLY_ICON = {
   do: 'On the profile’s row, select the icon under [[Apply Profile]].',
   see: 'The [[Use Target Profile?]] dialog opens, with a count of [[Matching Stations]].',
   ifNot: 'If nothing opens, you may have cleared an earlier choice on that row. Select the icon again.',
+  tipLabel: 'Caution.',
+  tip: 'A profile matches stations by name, so a station renamed or renumbered after capture will not match when an old profile is applied. A station added after capture keeps its target.',
 };
 
 /** Update from Current toggles a mark on the slot, an exclamation icon with the tooltip "Will
@@ -144,7 +146,7 @@ const CONFIRM_PROFILE = {
   fig: 'dlgWide', dialog: 'settings', settingsTab: 'profiles',
   do: 'In the [[Use Target Profile?]] dialog, select [[Confirm]].',
   see: 'The dialog closes, and an exclamation mark on the icon shows the profile will be applied on save.',
-  ifNot: 'If there is no exclamation mark, the choice was cancelled. Select the icon under [[Apply Profile]] again.',
+  ifNot: 'If there is no exclamation mark, the choice was canceled. Select the icon under [[Apply Profile]] again.',
   why: 'Stations in the profile that are no longer scanned are skipped, which is why [[Matching Stations]] can be lower.',
   caption: 'A chosen profile waits for Save Changes.',
 };
@@ -191,9 +193,10 @@ function understandingVwc(src, h) {
     name: 'rewrite: understanding-vwc step 1', guide, title: 'Measured: the scan mean',
     expect: { body: 'When the scan date is today, Avg. VWC is the mean moisture TurfRad measured across that station. It is a measurement, and it is the number the calculation prefers.', do: null },
     set: {
+      title: 'Measured: the scan average',
       do: 'In the [[Avg. VWC]] column, find a station scanned today.',
-      see: 'Its value is in plain black text: the mean VWC that TurfRad measured across the station.',
-      ifNot: 'If every value is grey and italic, nothing was scanned today. See Get fresh scan data.',
+      see: 'Its value is the average VWC that TurfRad measured across the station.',
+      ifNot: 'If every value is gray and italic, nothing was scanned today. See Get fresh scan data.',
       why: 'The calculation uses a measured value whenever there is one.',
     },
     drop: ['body'],
@@ -202,9 +205,10 @@ function understandingVwc(src, h) {
     name: 'rewrite: understanding-vwc step 2', guide, title: 'Modelled: the fallback',
     expect: { body: 'When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since. It is shown in grey italics so you can tell it apart at a glance.', do: null },
     set: {
-      do: 'Find a station whose [[Avg. VWC]] is grey and italic, with a calculator icon.',
-      see: 'That value is modelled: carried forward from the last scan and the weather since.',
-      ifNot: 'If no value is grey, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.',
+      title: 'Modeled: no scan today',
+      do: 'Find a station whose [[Avg. VWC]] is gray and italic, with a calculator icon.',
+      see: 'That value is modeled: carried forward from the last scan and the weather since.',
+      ifNot: 'If no value is gray, every station was scanned today, or [[Option 1]] is set in Settings, which models nothing.',
     },
     drop: ['body'],
   });
@@ -226,7 +230,7 @@ function understandingVwc(src, h) {
       do: 'Compare a station’s [[Target VWC]] with its [[Avg. VWC]].',
       see: 'The bigger the delta, the higher the [[Suggested]] percent, up to the daily maximum.',
       ifNot: 'If [[Suggested]] sits at the same top value on many rows, the daily maximum is capping it. See Calculation settings.',
-      why: 'Today’s ET is added to the delta, so a hot, dry day raises the suggestions.',
+      why: 'Today’s ET also feeds in, so a hot, dry day raises the suggestions.',
     },
     drop: ['body'],
   });
@@ -237,7 +241,7 @@ function understandingVwc(src, h) {
       do: 'Find a hole row, with [[Avg. Target VWC]] and [[Last Scan]] columns.',
       see: 'Each value averages the stations under the row, and [[Last Scan]] is the newest scan beneath it.',
       ifNot: 'If you see [[Target VWC]] boxes, you are at station level. Select the area’s name at the top left to go up.',
-      why: 'A grey calculator icon means at least one station beneath the row is modelled.',
+      why: 'A gray calculator icon means at least one station beneath the row is modeled.',
     },
     drop: ['body'],
   });
@@ -274,7 +278,7 @@ function editingStationTargets(src, h) {
     set: {
       do: 'In the table, select the hole row that holds the station.',
       see: 'The table lists that hole’s stations, each with a [[Target VWC]] box.',
-      ifNot: 'If the table lists areas, select the area row first. If you know where the station is, select its pin on the map instead.',
+      ifNot: 'If the table lists areas, select the area row first. If you know where the station is, select it on the map instead.',
       region: true,
     },
     drop: ['body'],
@@ -311,8 +315,8 @@ function editingStationTargets(src, h) {
     set: {
       do: 'To override today’s percent, type a number from 0 to 900 in [[% Adj.]].',
       see: 'The station joins the [[Push Changes]] count if it is enabled and the value differs from Lynx.',
-      ifNot: 'If the box shows --, the station has no scan today and no modelled value, so there is nothing to override.',
-      why: 'Change the target when a station should always be wetter or drier; change [[% Adj.]] when today is unusual.',
+      ifNot: 'If the box shows --, the station has no scan today and no modeled value, so there is nothing to override.',
+      why: 'Override when today’s suggestion looks too high or too low; change the target instead when a station should always be wetter or drier.',
     },
     drop: ['body', 'tipLabel', 'tip'],
   });
@@ -350,7 +354,7 @@ function bulkAdjustments(src, h) {
     set: {
       do: 'Tick the checkbox on each station row you want to change.',
       see: 'The [[Bulk Adjust]] link above the table becomes active.',
-      ifNot: 'If [[Bulk Adjust]] stays grey, no row is ticked. Tick a station row, or a hole row to take all its stations.',
+      ifNot: 'If [[Bulk Adjust]] stays gray, no row is ticked. Tick a station row, or a hole row to take an entire hole at once.',
       region: true,
     },
     drop: ['body'],
@@ -472,9 +476,9 @@ function targetProfiles(src, h) {
     set: {
       title: 'Choose the profile',
       ...APPLY_ICON,
-      why: 'Applying changes [[Target VWC]] on every station in the profile, so suggestions change.',
+      why: 'A profile applies course-wide, changing [[Target VWC]] on every station it holds, so check the [[Suggested]] column before you push.',
     },
-    drop: ['body', 'tipLabel', 'tip'],
+    drop: ['body'],
   });
   s = stepOp(s, h, {
     name: 'rewrite: target-profiles insert step 5 (Confirm the profile)', guide, title: 'Choose the profile', op: 'after',
@@ -557,7 +561,7 @@ function creatingProfiles(src, h) {
       do: 'In the [[Target Profile]] column, type a new name over a slot you can spare.',
       see: 'The box shows the new name, such as Tournament Week.',
       ifNot: 'If the slot shows a station count, it already holds a profile, and capturing into it replaces what it holds. Use a slot that shows -- if you have one.',
-      why: 'A name like Overseed Recovery says why you set the targets; the date has its own column.',
+      why: 'A name like Overseed says why you set the targets; the date has its own column.',
     },
     drop: ['body'],
   });
@@ -700,7 +704,7 @@ function seasonalProfiles(src, h) {
     set: {
       do: 'In the [[Target Profile]] column, name each slot for a condition you plan for.',
       see: 'Each box shows its new name, such as Summer Baseline or Tournament Week.',
-      ifNot: 'If a new name is lost, the dialog was cancelled. Rename the slot again and select [[Save Changes]].',
+      ifNot: 'If a new name is lost, the dialog was canceled. Rename the slot again and select [[Save Changes]].',
       why: 'With only 5 slots per course, name each one for a condition, not a date.',
     },
     drop: ['body'],
@@ -750,7 +754,7 @@ function seasonalProfiles(src, h) {
       title: 'Open Push Changes', fig: 'toolbarR',
       do: 'At the right of the toolbar, select [[Push Changes]].',
       see: 'The [[Push Changes]] dialog opens, with the changes it will send.',
-      ifNot: 'If [[Push Changes]] is greyed out, nothing is waiting. Check that the profile was applied.',
+      ifNot: 'If [[Push Changes]] is grayed out, nothing is waiting. Check that the profile was applied.',
       caption: 'Push Changes sits at the left of the toolbar’s right-hand group.',
     },
   });

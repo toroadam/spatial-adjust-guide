@@ -79,7 +79,7 @@ export const CORRECTIONS = [
   { ids: 'dashboard-overview/verify/4',
     from: 'The station count on the All Stations tab matches the number of pins on the map.',
     to: 'The station count on the All Stations tab is the number of stations in the course. '
-      + 'The map need not match it, because it draws one pin per sprinkler and by default hides disabled stations.' },
+      + 'The map need not match it, because it draws each sprinkler of a station and by default hides disabled stations.' },
 
   // ---- Map navigation --------------------------------------------------------------------------
   { ids: 'map-navigation/1/2',
@@ -171,7 +171,7 @@ export const CORRECTIONS = [
     to: 'With the prompt suppressed, a Shift-click on an area switch changes every hole and station under it at once, with only a footer message to show for it.' },
   { ids: 'enable-disable-stations/verify/1',
     from: 'The stations you meant to disable show a grey switch.',
-    to: 'The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.' },
+    to: 'The stations you meant to disable show a gray switch, or sit under a hole or area whose switch is gray.' },
   { ids: 'station-zero/3/2',
     from: 'A station with the Enable switch off is excluded from adjustment entirely.',
     to: 'A station with the Enable switch off is left out of every push, so Lynx keeps whatever percent adjust it already holds. '
@@ -190,7 +190,7 @@ export const CORRECTIONS = [
       + 'Check the Lynx connection, then reopen Push Changes: the failed stations are listed under Pushed Today, unticked, so tick them to send them again.' },
   { ids: 'push-to-lynx/verify/1',
     from: 'The Push Changes button is disabled and the pending count is zero.',
-    to: 'Push Changes no longer counts the stations you sent. It is greyed out only if nothing else is waiting.' },
+    to: 'Push Changes no longer counts the stations you sent. It is grayed out only if nothing else is waiting.' },
   { ids: 'push-to-lynx/verify/3',
     from: 'Pushed rows in the table now show the pushed icon rather than the pending one.',
     to: 'Rows you pushed successfully no longer show a push icon. '

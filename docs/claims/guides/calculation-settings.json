@@ -822,7 +822,7 @@
       "guide": "calculation-settings",
       "step": "2",
       "field": "ifNot",
-      "text": "If all three boxes are greyed out, the site uses [[Option 1]], which uses none of them.",
+      "text": "If all three boxes are grayed out, the site uses [[Option 1]], which uses none of them.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -883,7 +883,7 @@
           "line": "113-115"
         }
       ],
-      "note": "All three boxes are disabled while the site algorithm is Option 1, ALGO_SIMPLE (sa-settings-dlg.component.html:83-85, :98-100, :113-115; en-us.json:367).",
+      "note": "All three boxes are disabled while the site algorithm is Option 1, ALGO_SIMPLE (sa-settings-dlg.component.html:83-85, :98-100, :113-115; en-us.json:367). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1410,7 +1410,7 @@
       "guide": "calculation-settings",
       "step": "4",
       "field": "why",
-      "text": "Each suggestion is the day’s water amount divided by this number.",
+      "text": "Each suggestion is a percentage of this number.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1426,7 +1426,7 @@
           "ref": "docs/claims/calculations.md §2.2 The chain, per station, per day"
         }
       ],
-      "note": "Reworded from calculation-settings/3/3: the suggested percentage is the applied amount divided by this reference (SpatialAdjustService.cs:3043).",
+      "note": "Reworded from calculation-settings/3/3: the suggested percentage is the applied amount divided by this reference (SpatialAdjustService.cs:3043). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1556,7 +1556,7 @@
       "guide": "calculation-settings",
       "step": "5",
       "field": "ifNot",
-      "text": "If the box is greyed out, the site uses [[Option 1]], which uses no ET.",
+      "text": "If the box is grayed out, the site uses [[Option 1]], which uses no ET.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1617,7 +1617,7 @@
           "line": "113-115"
         }
       ],
-      "note": "Option 1 uses no ET, so the dialog disables Crop Coefficient and both amounts while it is selected (sa-settings-dlg.component.html:83-85, :98-100, :113-115; sa-algorithm.service.ts:58-60).",
+      "note": "Option 1 uses no ET, so the dialog disables Crop Coefficient and both amounts while it is selected (sa-settings-dlg.component.html:83-85, :98-100, :113-115; sa-algorithm.service.ts:58-60). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1627,7 +1627,7 @@
       "guide": "calculation-settings",
       "step": "5",
       "field": "ifNot",
-      "text": "The two amounts above it are greyed out too.",
+      "text": "The two amounts above it are grayed out too.",
       "type": "calculation",
       "status": "Verified",
       "evidence": [
@@ -1688,7 +1688,7 @@
           "line": "113-115"
         }
       ],
-      "note": "Option 1 uses no ET, so the dialog disables Crop Coefficient and both amounts while it is selected (sa-settings-dlg.component.html:83-85, :98-100, :113-115; sa-algorithm.service.ts:58-60).",
+      "note": "Option 1 uses no ET, so the dialog disables Crop Coefficient and both amounts while it is selected (sa-settings-dlg.component.html:83-85, :98-100, :113-115; sa-algorithm.service.ts:58-60). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""

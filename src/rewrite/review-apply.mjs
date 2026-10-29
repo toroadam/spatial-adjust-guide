@@ -26,7 +26,7 @@ import { insertStepAfter, moveStepBefore } from './step-order.mjs';
 
 const DASHBOARD = 'The Spatial Adjust dashboard, at /spatialadjust.';
 const PUSH_NEEDS = 'Lynx must be reachable, and Site Adjust and Course Adjust must both be 100% in Lynx.';
-const PUSH_WINDOW = 'Push between 11 AM and the synchronisation time set in Lynx, and synchronise Lynx after '
+const PUSH_WINDOW = 'Push between 11 AM and the synchronization time set in Lynx, and synchronize Lynx after '
   + 'the push. Outside that window the push does not reach the course, and no error tells you so.';
 
 /** One rewritten step: anchored on its current body, which it drops. */
@@ -102,7 +102,7 @@ function suggestedAdjustments(src, h) {
     set: {
       do: 'On the same row, compare [[Avg. VWC]] with [[Target VWC]].',
       see: 'A station well under its target asks for more water, and one over its target asks for less.',
-      ifNot: 'If [[Avg. VWC]] is grey and italic, the value is modelled from an older scan, so the suggestion rests on an estimate.',
+      ifNot: 'If [[Avg. VWC]] is gray and italic, the value is modeled from an older scan, so the suggestion rests on an estimate.',
     },
   });
 
@@ -144,7 +144,7 @@ function suggestedAdjustments(src, h) {
     set: {
       do: 'Type your own value in the [[% Adj.]] box of a station you know behaves differently.',
       see: 'Your value shows in [[% Adj.]], and [[Suggested]] keeps the calculated value.',
-      ifNot: 'If a dash shows in place of the box, the station has no current scan and no modelled value, so there is nothing to adjust.',
+      ifNot: 'If a dash shows in place of the box, the station has no current scan and no modeled value, so there is nothing to adjust.',
       why: 'The push sends [[% Adj.]], so your value replaces the suggestion for that station.',
     },
   });
@@ -163,7 +163,7 @@ function suggestedAdjustments(src, h) {
       + 'opened with Shift + Alt on the gear button.',
     set: {
       do: 'In the Soil Factor Editor, type a value from 1 to 200 under [[Soil Factor (%)]] for the station.',
-      see: 'The footer counts 1 pending change, and [[Save]] is no longer greyed out.',
+      see: 'The footer counts 1 pending change, and [[Save]] is no longer grayed out.',
       ifNot: 'If the editor is not open, hold Shift + Alt and select the gear, [[Settings]]. '
         + 'To find the station, type its name under Filter station.',
       why: 'Under [[Option 2]], a soil factor scales the station’s calculated amount until someone changes it.',
@@ -187,7 +187,7 @@ function suggestedAdjustments(src, h) {
     set: {
       do: 'Select [[Save]] at the foot of the Soil Factor Editor.',
       see: 'A message says the soil factors were saved, and the editor closes a few seconds later with the suggestions updated.',
-      ifNot: 'If [[Save]] is greyed out, nothing has changed or a value is outside 1 to 200.',
+      ifNot: 'If [[Save]] is grayed out, nothing has changed or a value is outside 1 to 200.',
       caption: 'Soil Factor Editor, with Save and Cancel at the foot.',
     },
   });
@@ -218,7 +218,7 @@ function pushToLynx(src, h) {
     set: {
       do: 'Find [[Push Changes]] at the right of the toolbar and read the number on it.',
       see: 'The button shows a count, such as Push 6 Changes, and the green counter beside it shows how many went out today.',
-      ifNot: 'If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. Wait for the push to finish, then look again.',
+      ifNot: 'If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. Wait for the push to finish, then look again.',
     },
   });
 
@@ -236,7 +236,7 @@ function pushToLynx(src, h) {
     set: {
       do: 'Select [[Push Changes]].',
       see: 'The [[Push Changes]] dialog lists Available to Push first, all ticked, then [[Pushed Today]], unticked.',
-      ifNot: 'If nothing opens, [[Push Changes]] is greyed out because nothing is waiting.',
+      ifNot: 'If nothing opens, [[Push Changes]] is grayed out because nothing is waiting.',
       why: 'Tick a [[Pushed Today]] row only if you mean to adjust that station a second time today.',
     },
   });
@@ -343,7 +343,7 @@ function reviewingChanges(src, h) {
     set: {
       do: 'Select [[Push Changes]] at the right of the toolbar.',
       see: 'The [[Push Changes]] dialog opens and lists every station waiting to be sent.',
-      ifNot: 'If [[Push Changes]] is greyed out, nothing is waiting or a push is still running. Wait for the push to finish, then try again.',
+      ifNot: 'If [[Push Changes]] is grayed out, nothing is waiting or a push is still running. Wait for the push to finish, then try again.',
     },
   });
 
@@ -374,7 +374,7 @@ function reviewingChanges(src, h) {
       do: 'Find the [[Pushed Today]] list below Available to Push.',
       see: 'Its rows are unticked, so they are not sent unless you tick them.',
       ifNot: 'If you need to change one of those stations again today, tick its row.',
-      why: 'The hold stops you adjusting the same head twice, and it ends at midnight where the course is.',
+      why: 'The hold stops you adjusting the same station twice, and it ends at midnight where the course is.',
     },
   });
 
@@ -558,7 +558,7 @@ function filterAdjustments(src, h) {
     set: {
       do: 'Tick [[Over]], [[Under]] or both.',
       see: 'Each ticked end takes a value: [[Over]] from 0 to 300, default 200, and [[Under]] from 0 to 100, default 10.',
-      ifNot: 'If a value box stays grey, its end is not ticked. Tick it, then type the value.',
+      ifNot: 'If a value box stays gray, its end is not ticked. Tick it, then type the value.',
       why: 'Use [[Over]] alone to find stations asking for far too much, or [[Under]] alone for almost nothing.',
     },
   });
@@ -598,7 +598,7 @@ function filterAdjustments(src, h) {
     set: {
       do: 'Tick [[Exclude Zeros]] below [[Under]] if you want to hide true zeros.',
       see: 'Stations suggesting 0 drop out of the filter, and those asking for a little stay.',
-      ifNot: 'If [[Exclude Zeros]] is greyed out, tick [[Under]] first.',
+      ifNot: 'If [[Exclude Zeros]] is grayed out, tick [[Under]] first.',
     },
   });
 

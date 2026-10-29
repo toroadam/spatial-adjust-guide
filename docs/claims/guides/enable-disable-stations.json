@@ -477,7 +477,7 @@
       "guide": "enable-disable-stations",
       "step": "1",
       "field": "see",
-      "text": "The switch turns grey, and the station is switched off.",
+      "text": "The switch turns gray, and the station is switched off.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -563,7 +563,7 @@
           "ref": "373-1135 rev 02 §Map Indicators"
         }
       ],
-      "note": "Off is the grey track of the nova-light switch (enable-disable-stations/1/4), and the station is then disabled (sa-table-card.component.ts:334-338, :488-505).",
+      "note": "Off is the grey track of the nova-light switch (enable-disable-stations/1/4), and the station is then disabled (sa-table-card.component.ts:334-338, :488-505). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -741,7 +741,7 @@
       "guide": "enable-disable-stations",
       "step": "1",
       "field": "caption",
-      "text": "A disabled station: the switch on its row is grey.",
+      "text": "A disabled station: the switch on its row is gray.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -760,7 +760,7 @@
           "line": 80
         }
       ],
-      "note": "Figure caption. The switch is PrimeNG's p-inputSwitch under the nova-light theme (angular.json:80), whose off state is a grey track and on state blue. No Spatial Adjust style overrides it; the only inputswitch override in the site styles is scoped to a dashboard widget container.",
+      "note": "Figure caption. The switch is PrimeNG's p-inputSwitch under the nova-light theme (angular.json:80), whose off state is a grey track and on state blue. No Spatial Adjust style overrides it; the only inputswitch override in the site styles is scoped to a dashboard widget container. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -2615,7 +2615,7 @@
       "guide": "enable-disable-stations",
       "step": "verify",
       "field": "verify",
-      "text": "The stations you meant to disable show a grey switch, or sit under a hole or area whose switch is grey.",
+      "text": "The stations you meant to disable show a gray switch, or sit under a hole or area whose switch is gray.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -2648,7 +2648,7 @@
           "line": "67-69"
         }
       ],
-      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/verify/1); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines.",
+      "note": "Corrected wording, replacing the sentence the ledger marked Wrong (enable-disable-stations/verify/1); docs/text-corrections.md §26 gives the claimed and actual behaviour. Verified against production at the cited lines. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": "",

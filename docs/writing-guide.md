@@ -91,8 +91,8 @@ What stays and what goes:
 - `tip` and `tipLabel` are not part of the shape. Keep a callout only for a warning the reader must
   see at that step, such as the push window.
 
-Write in the second person and the present tense. Spelling follows the existing guides (colour,
-modelled, synchronise), except inside a label, which is spelled exactly as the product spells it.
+Write in the second person and the present tense. Spelling is American English (color,
+modeled, synchronize), except inside a label, which is spelled exactly as the product spells it.
 
 ## Label markers
 
@@ -490,11 +490,11 @@ From Dashboard overview, step 2, where the reader looks at the map rather than a
 ```js
 { title: 'Read the map', fig: 'map', region: true,
   do: 'Look at the map on the left of the screen.',
-  see: 'Each sprinkler scanned in the past seven days is a pin, and pins scanned today are filled with a band colour.',
-  ifNot: 'If you see no pins, the site has no scan from the past seven days. Follow Get fresh scan data.',
+  see: 'The map plots each station’s sprinklers scanned in the past seven days, and those scanned today are filled with a band color.',
+  ifNot: 'If the map is empty, the site has no scan from the past seven days. Follow Get fresh scan data.',
   caption: 'Map with the moisture legend.' }
 ```
 
-The pins and colours rest on ledger `dashboard-overview/2/2` and `dashboard-overview/2/3`. The way
+The sprinklers and colors rest on ledger `dashboard-overview/2/2` and `dashboard-overview/2/3`. The way
 back points at the guide that fetches new scan data rather than explaining it again. Readability:
 grade 3.5.

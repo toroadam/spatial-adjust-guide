@@ -523,7 +523,7 @@
       "guide": "calculation-questions",
       "step": "1",
       "field": "ifNot",
-      "text": "Check whether each value is measured, modelled or a dash.",
+      "text": "Check whether each value is measured, modeled or a dash.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -563,7 +563,7 @@
           "line": "372-378"
         }
       ],
-      "note": "The first check for all three questions is whether the number is a measurement, a model or nothing. Reworded from calculation-questions/before/1.",
+      "note": "The first check for all three questions is whether the number is a measurement, a model or nothing. Reworded from calculation-questions/before/1. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1003,7 +1003,7 @@
       "guide": "calculation-questions",
       "step": "3",
       "field": "see",
-      "text": "A dash means the station has no current scan and no modelled value, so there is nothing to calculate from.",
+      "text": "A dash means the station has no current scan and no modeled value, so there is nothing to calculate from.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1047,7 +1047,7 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "A dash means no current scan and no modelled value. Reworded from calculation-questions/3/2.",
+      "note": "A dash means no current scan and no modelled value. Reworded from calculation-questions/3/2. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1241,7 +1241,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "title",
-      "text": "Grey italics mean modelled",
+      "text": "Gray italics mean modeled",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1278,7 +1278,7 @@
           "ref": "docs/claims/calculations.md §4 What the station table shows"
         }
       ],
-      "note": "",
+      "note": "Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1288,7 +1288,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "do",
-      "text": "Look for an [[Avg. VWC]] value in grey italics.",
+      "text": "Look for an [[Avg. VWC]] value in gray italics.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1332,7 +1332,7 @@
           "line": "107-110"
         }
       ],
-      "note": "The modelled value is painted grey and italic with a calculator icon (sa-table-card.component.less:100-110). Reworded from calculation-questions/4/1, calculation-questions/4/4.",
+      "note": "The modelled value is painted grey and italic with a calculator icon (sa-table-card.component.less:100-110). Reworded from calculation-questions/4/1, calculation-questions/4/4. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1342,7 +1342,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "see",
-      "text": "The value is modelled, not taken from a scan that day, so the suggestion rests on an estimate.",
+      "text": "The value is modeled, not taken from a scan that day, so the suggestion rests on an estimate.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1393,7 +1393,7 @@
           "line": "3031-3032"
         }
       ],
-      "note": "The suggestion is calculated from the model's predicted VWC. Reworded from calculation-questions/4/2, calculation-questions/4/3.",
+      "note": "The suggestion is calculated from the model's predicted VWC. Reworded from calculation-questions/4/2, calculation-questions/4/3. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1403,7 +1403,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "ifNot",
-      "text": "If the value is not grey and italic, it is a measurement from a scan taken today.",
+      "text": "If the value is not gray and italic, it is a measurement from a scan taken today.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1443,7 +1443,7 @@
           "line": "372-378"
         }
       ],
-      "note": "Measured means a scan dated today. Reworded from calculation-questions/before/1.",
+      "note": "Measured means a scan dated today. Reworded from calculation-questions/before/1. Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1528,7 +1528,7 @@
       "guide": "calculation-questions",
       "step": "4",
       "field": "caption",
-      "text": "A modelled value: grey and italic.",
+      "text": "A modeled value: gray and italic.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -1540,7 +1540,7 @@
           "line": "107-110"
         }
       ],
-      "note": "",
+      "note": "Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -1945,7 +1945,7 @@
       "guide": "calculation-questions",
       "step": "6",
       "field": "see",
-      "text": "The stations stay in the table with their last scan date, and on the map as clear pins.",
+      "text": "The stations stay in the table with their last scan date, and on the map they are drawn clear.",
       "type": "behaviour",
       "status": "Verified (beta)",
       "evidence": [
@@ -2027,7 +2027,7 @@
           "line": "29-31"
         }
       ],
-      "note": "First clause of the earlier body sentence on develop: kept scans keep the stations listed (SpatialAdjustService.cs:199-208), each row shows its latest scan date beside the name (sa-table-card.component.html:22-25, from sa-dash-table.component.ts:241) and a station whose latest scan is not from today is drawn with a transparent fill on the map (sa-dash-map.component.ts:315, environment.toro-beta.ts:89). Production deletes the scans instead (production SpatialAdjustService.cs:2134-2146).",
+      "note": "First clause of the earlier body sentence on develop: kept scans keep the stations listed (SpatialAdjustService.cs:199-208), each row shows its latest scan date beside the name (sa-table-card.component.html:22-25, from sa-dash-table.component.ts:241) and a station whose latest scan is not from today is drawn with a transparent fill on the map (sa-dash-map.component.ts:315, environment.toro-beta.ts:89). Production deletes the scans instead (production SpatialAdjustService.cs:2134-2146). Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": "",
@@ -2118,7 +2118,7 @@
       "guide": "calculation-questions",
       "step": "6",
       "field": "why",
-      "text": "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modelled value and a suggestion every day.",
+      "text": "The course’s last scans are kept even once they are more than seven days old, and under [[Option 2]] each station still gets a modeled value and a suggestion every day.",
       "type": "behaviour",
       "status": "Verified (beta)",
       "evidence": [
@@ -2200,7 +2200,7 @@
           "line": "62-65"
         }
       ],
-      "note": "Joins two earlier beta sentences. Kept scans: Develop first asks TurfRad for anything loaded since the last processing run, less five minutes (TerraRadService.cs:114-119, :205-210). An empty answer ends the fetch with no results (SpatialAdjustService.cs:2575) and the run then keeps every stored scan (:2140-2153). Every run, empty or not, moves the \"since\" time forward (:2169), so a course that TurfRad stops updating keeps its last scans however old they become. The only deletions on develop are the replacement of a course’s scans when new data does arrive (:2812-2814) and the clean-up when TurfRad reports new data but the seven-day window is empty (:2154-2166). Production re-reads the last seven days on every run (production SpatialAdjustService.cs:2510) and deletes the stored scans once that window is empty (:2134-2146, :2817-2836). Modelled value and suggestion: the no-new-data pass writes an adjustment each day for each station with one in the last five days (SpatialAdjustService.cs:3266-3326), a station that is not current under Option 2 is modelled (spatial-adjust-course.model.ts:184-188), and under Option 2 the suggestion is read from that adjustment (sa-algorithm.service.ts:48-49, :62-65).",
+      "note": "Joins two earlier beta sentences. Kept scans: Develop first asks TurfRad for anything loaded since the last processing run, less five minutes (TerraRadService.cs:114-119, :205-210). An empty answer ends the fetch with no results (SpatialAdjustService.cs:2575) and the run then keeps every stored scan (:2140-2153). Every run, empty or not, moves the \"since\" time forward (:2169), so a course that TurfRad stops updating keeps its last scans however old they become. The only deletions on develop are the replacement of a course’s scans when new data does arrive (:2812-2814) and the clean-up when TurfRad reports new data but the seven-day window is empty (:2154-2166). Production re-reads the last seven days on every run (production SpatialAdjustService.cs:2510) and deletes the stored scans once that window is empty (:2134-2146, :2817-2836). Modelled value and suggestion: the no-new-data pass writes an adjustment each day for each station with one in the last five days (SpatialAdjustService.cs:3266-3326), a station that is not current under Option 2 is modelled (spatial-adjust-course.model.ts:184-188), and under Option 2 the suggestion is read from that adjustment (sa-algorithm.service.ts:48-49, :62-65). Wording updated after the 2026-10-22 walkthrough review (American spelling, station and sprinkler terms); the fact is unchanged.",
       "question": "",
       "developNote": "",
       "correction": ""
@@ -2210,7 +2210,7 @@
       "guide": "calculation-questions",
       "step": "6",
       "field": "caption",
-      "text": "A pin last scanned on an earlier day is drawn clear.",
+      "text": "A station last scanned on an earlier day is drawn clear.",
       "type": "behaviour",
       "status": "Verified",
       "evidence": [
@@ -2257,7 +2257,7 @@
           "line": 89
         }
       ],
-      "note": "True on both builds. A station’s scan is current only when its date is today, local to the course (spatial-adjust.util.ts:17-19, spatial-adjust-course.model.ts:173-182), and a pin that is not current is filled transparent, leaving its outline (sa-dash-map.component.ts:315), because saShowCurrentOnly is set in production (environment.toro-prod.ts:87) and in the beta environment (develop environment.toro-beta.ts:89). The map component is identical at the two SHAs.",
+      "note": "True on both builds. A station’s scan is current only when its date is today, local to the course (spatial-adjust.util.ts:17-19, spatial-adjust-course.model.ts:173-182), and a pin that is not current is filled transparent, leaving its outline (sa-dash-map.component.ts:315), because saShowCurrentOnly is set in production (environment.toro-prod.ts:87) and in the beta environment (develop environment.toro-beta.ts:89). The map component is identical at the two SHAs. Wording changed after expert feedback in the 2026-10-22 walkthrough review.",
       "question": "",
       "developNote": "",
       "correction": ""
