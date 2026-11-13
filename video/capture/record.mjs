@@ -45,7 +45,9 @@ import { AGENT_MARKERS, TEMP_ROOTS, isInside, mediaRoot, resolveReal } from '../
 
 export const FPS = 60;
 export const VIEWPORT = Object.freeze({ width: 1920, height: 1080 });
-export const DEVICE_SCALE_FACTOR = 2;
+// 2 for every real take (3840x2160). SA_CAPTURE_DSF=1 records a 1920x1080 rehearsal take for checking
+// timing, framing and cursor alignment cheaply; the builder reads the scale from the take's width.
+export const DEVICE_SCALE_FACTOR = process.env.SA_CAPTURE_DSF === '1' ? 1 : 2;
 export const FRAME = Object.freeze({ width: VIEWPORT.width * DEVICE_SCALE_FACTOR, height: VIEWPORT.height * DEVICE_SCALE_FACTOR });
 // Requests in flight longer than this are treated as long-lived (polling, streaming) and no
 // longer hold a frame.

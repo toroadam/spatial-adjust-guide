@@ -148,12 +148,12 @@
         "calculation-methods/4/6"
       ],
       "previous_text": "The dropdown offers only Option 1 and Option 2. Nothing in the product says what either one does.",
-      "next_text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain."
+      "next_text": "Today's ET, adjusted by the crop coefficient, and your calculation settings shape the result. Every suggestion in this column came from that calculation."
     },
     {
       "id": "V2b",
       "chapter": "c2",
-      "text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain.",
+      "text": "Today's ET, adjusted by the crop coefficient, and your calculation settings shape the result. Every suggestion in this column came from that calculation.",
       "claims": [
         "calculation-methods/4/6"
       ],
@@ -168,7 +168,7 @@
         "calculation-methods/2/5",
         "calculation-methods/2/7"
       ],
-      "previous_text": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain.",
+      "previous_text": "Today's ET, adjusted by the crop coefficient, and your calculation settings shape the result. Every suggestion in this column came from that calculation.",
       "next_text": "It uses no ET, no reference amount and no cap, so Max Amount and Lynx Reference Amount are disabled while it is selected."
     },
     {
@@ -411,7 +411,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount (in) 0.39"
+          "name": "Daily Max Amount (in) 0.15"
         },
         {
           "type": "wait",
@@ -471,8 +471,8 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"333%\" >> nth=0",
-          "name": "333%"
+          "target": "[data-sa-frame] >> text=\"125%\" >> nth=0",
+          "name": "125%"
         }
       ]
     },
@@ -488,8 +488,8 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"293%\"",
-          "name": "293%"
+          "target": "[data-sa-frame] >> text=\"6AP1\" >> xpath=../../.. >> text=\"125%\"",
+          "name": "125%"
         },
         {
           "type": "wait",

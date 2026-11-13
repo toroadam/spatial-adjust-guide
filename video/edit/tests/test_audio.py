@@ -235,9 +235,10 @@ if P.IN_PIPELINE:
             stem = os.path.join(os.path.dirname(self.tl['mix_wav']), 'stems', f'{EPISODE}-music.wav')
             x, sr = sf.read(stem)
             db = lambda a, b: 10 * np.log10(np.mean(x[int(a * sr):int(b * sr)] ** 2))
-            # inside each line, clear of the 80 ms attack; in the gaps, clear of the 350 ms release and the next line's lookahead
-            under = np.mean([db(2.6, 4.2), db(8.6, 10.2)])
-            clear = np.mean([db(5.2, 7.6), db(11.2, 13.0)])
+            # inside each line, clear of the 200 ms attack (gain 0.96 by 0.5 s in); in the gap, clear of the 1 s release (under
+            # 0.1 of the duck by 2.5 s after the line, 0.07 of it at 7.0 s) and ahead of the next line's 120 ms lookahead
+            under = np.mean([db(3.0, 4.2), db(9.0, 10.2)])
+            clear = np.mean([db(7.1, 7.8), db(12.6, 13.0)])
             self.assertAlmostEqual(under - clear, -9.0, delta=1.5)
             self.assertAlmostEqual(self.report['duck_db'], -9.0, delta=1.5)
 

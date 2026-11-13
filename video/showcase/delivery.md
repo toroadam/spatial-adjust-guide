@@ -51,7 +51,7 @@ folder holds only the four deliverables).
 
 | Check | Command | Result |
 |---|---|---|
-| Release gate | `python3 video/verify/verify.py --render <final>/SpatialAdjust-showcase-16x9.mp4 --timeline <media>/showcase/edit/timeline.json --episode video/showcase/episode.json` | exit 0, PASS (final): H.264 High, yuv420p, 1920x1080, constant 60 fps, AAC 48 kHz stereo; 114.77 s; -14.1 LUFS integrated, -1.5 dBTP true peak; 11 label holds met; 10 VO lines, none overlapping; no black frames; no frozen picture; music licence record present (original bed, gate G5 decided) |
+| Release gate | `python3 video/verify/verify.py --render <final>/SpatialAdjust-showcase-16x9.mp4 --timeline <media>/showcase/edit/timeline.json --episode video/showcase/episode.json` | exit 0, PASS (final): H.264 High, yuv420p, 1920x1080, constant 60 fps, AAC 48 kHz stereo; 114.77 s; -14.1 LUFS integrated, -1.5 dBTP true peak; 11 label holds met; 10 VO lines, none overlapping; no black frames; no frozen picture; music license record present (original bed, gate G5 decided) |
 | OCR denylist | `python3 video/verify/ocr_check.py --render ... --timeline ... --episode ...` | exit 0, 240 frames read (every 0.5 s plus after each label), 19 denylist terms, **0 hits** |
 | Whisper round-trip, final mix | `$SA_VIDEO_PYTHON video/showcase/whisper-roundtrip.py --audio <final-mix 16 kHz mono wav from the master> --episode video/showcase/episode.json --timeline <media>/showcase/edit/timeline.json --model medium.en` | exit 0, **10 of 10 lines pass** (WER 0 to 0.062; IntelliDash, TurfRad and Lynx all heard, Lynx as "links", the homophone the check accepts) |
 | Runtime | `ffprobe` and verify check b | 114.77 s, inside 60 to 120 s |

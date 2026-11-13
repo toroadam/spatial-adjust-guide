@@ -378,7 +378,7 @@ It prints `ok` and exits 0, or lists every problem, naming the beat or action at
 | `allowClicks` | string[] | no, default `[]` | Accessible names of the read-only controls a click action may press. Empty unless a specific read-only click has been decided and recorded in [`../approvals.md`](../approvals.md). An entry that matches the write guard is an error. |
 | `demoWriteClicks` | `[{ name, target, reason }]` | no, default `[]` | Write-like clicks the episode deliberately shows, each with the reason. Clicked only when `source` is `demo`, where Demo Mode blocks the write. A `recreation` episode may also declare a write it shows without performing it, when the entry's `outcome` is `recreation`; no `click` action may press it. The pilot declares none. |
 | `claims` | string[] of claim ids | no, default `[]` | Every claim from the claims ledger (`docs/claims/claims.json`) that the narration relies on. Ids look like `<guide>/<step>/<n>`, for example `dashboard-overview/2/2`. `parseEpisode` checks each id exists in the ledger. |
-| `chapters` | `[Chapter]` | no, default `[]` | Chapter markers, in order. |
+| `chapters` | `[Chapter]` | no, default `[]` | Chapter markers, in order. A chapter may carry `crop`: `[x0, y0, x1, y1]` in CSS px of the 1920x1080 capture. The edit then shows only that part of the screen (a card, such as the map) as the floating window for the chapter and frames it to fit; the capture itself is unchanged. |
 | `vo` | `[VoLine]` | no, default `[]` | Voice-over lines, in order. |
 | `beats` | `[Beat]` | no, default `[]` | What happens on screen, in order. |
 
@@ -410,7 +410,7 @@ Unknown fields are kept, at every level. A later episode can add a field without
 | `label` | non-empty string | no | On-screen label for the beat. Its word count sets the minimum hold. |
 | `vo` | VO line id | no | The VO line spoken over the beat. Must exist in `vo`. |
 | `hold` | seconds, 0 or more | yes | How long the beat stays on screen. |
-| `highlight` | target | no | A target the highlight box is drawn around for the whole beat (the same box a `focus` action draws). |
+| `highlight` | target | no | A target the spotlight is on for the whole beat (the same spotlight a `focus` action draws). |
 | `actions` | `[Action]` | no, default `[]` | What the capture director does during the beat, in order. |
 | `cutAfter` | seconds | no | Read by the builder, not the schema: the beat's chapter ends this many seconds after the beat's VO line has finished (or after its first cue when it has no VO line), instead of at the next chapter's cut. Use it to leave a page before the take moves on (dc_build.py's per-chapter end override). |
 
@@ -424,7 +424,7 @@ Every action has a `type`; the other fields depend on it. A `target` is a Playwr
 | `cue` | `id` | Marks this moment in the take's cue log; the builder lines up timeline events, such as the start of a VO line, against cue ids. Cue ids are unique within the episode. |
 | `hover` | `target`, `name` | Moves the pointer over the target. |
 | `scroll` | `target`, `dy` (pixels, negative scrolls up) | Scrolls the target. |
-| `focus` | `target`, `name` | Draws the highlight box around the target. Never clicks. |
+| `focus` | `target`, `name` | Spotlights the target: the rest of the frame dims and the target stays lit, until the beat ends. Never clicks. |
 | `click` | `target`, `name` | Clicks the target. Allowed only for a name listed in `allowClicks`, or for a write-like click declared in `demoWriteClicks` on a `demo` episode. |
 
 ## How the builder reads an episode
@@ -522,7 +522,7 @@ A complete episode that `parseEpisode` accepts (the schema tests parse this bloc
 }
 ```
 
-The last beat only draws the highlight box around Push Changes. A `click` on it would be rejected: the name matches the write guard and the episode declares no demo-mode clicks.
+The last beat only spotlights Push Changes. A `click` on it would be rejected: the name matches the write guard and the episode declares no demo-mode clicks.
 
 ## Adding an episode
 

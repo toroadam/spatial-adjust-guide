@@ -179,12 +179,12 @@
         "calculation-settings/4/6"
       ],
       "previous_text": "Every station whose deficit exceeds this lands on the same suggested percentage, which is why identical numbers appear in runs.",
-      "next_text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units."
+      "next_text": "Set it too low and every suggestion looks enormous, because a smaller reference raises every suggestion in the same proportion. In Lynx, Next Amount must equal this reference, in the same units."
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units.",
+      "text": "Set it too low and every suggestion looks enormous, because a smaller reference raises every suggestion in the same proportion. In Lynx, Next Amount must equal this reference, in the same units.",
       "claims": [
         "calculation-settings/4/4",
         "push-to-lynx/before/8"
@@ -201,13 +201,13 @@
         "calculation-settings/5/3",
         "calculation-settings/5/7"
       ],
-      "previous_text": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units.",
-      "next_text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog greys it out, along with Daily Max Amount and Lynx Reference Amount."
+      "previous_text": "Set it too low and every suggestion looks enormous, because a smaller reference raises every suggestion in the same proportion. In Lynx, Next Amount must equal this reference, in the same units.",
+      "next_text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog grays it out, along with Daily Max Amount and Lynx Reference Amount."
     },
     {
       "id": "V4b",
       "chapter": "c4",
-      "text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog greys it out, along with Daily Max Amount and Lynx Reference Amount.",
+      "text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog grays it out, along with Daily Max Amount and Lynx Reference Amount.",
       "claims": [
         "calculation-settings/5/6",
         "calculation-settings/5/4",
@@ -226,7 +226,7 @@
         "calculation-settings/6/3",
         "calculation-settings/before/2"
       ],
-      "previous_text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog greys it out, along with Daily Max Amount and Lynx Reference Amount.",
+      "previous_text": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog grays it out, along with Daily Max Amount and Lynx Reference Amount.",
       "next_text": "A new Lynx Reference Amount rescales every suggestion above zero. A new Daily Max Amount moves only the stations at the old or new cap, and stations at zero usually stay there. A % Adj. you typed earlier keeps its value."
     },
     {
@@ -340,12 +340,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount (in) 0.39"
+          "name": "Daily Max Amount (in) 0.15"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount (in) 0.39"
+          "name": "Daily Max Amount (in) 0.15"
         },
         {
           "type": "cue",
@@ -366,12 +366,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount (in) 0.39"
+          "name": "Daily Max Amount (in) 0.15"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=/Daily Max Amount/ >> xpath=..",
-          "name": "Daily Max Amount (in) 0.39"
+          "name": "Daily Max Amount (in) 0.15"
         }
       ]
     },

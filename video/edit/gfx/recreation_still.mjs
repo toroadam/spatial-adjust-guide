@@ -1,13 +1,13 @@
 // A still of the guide site's own Spatial Adjust recreation, for the style frame's window shot (video/edit/style_frame.py):
 // no IntelliDash, no Demo Mode, nothing of the owner's. The recreation is the built guide site (dist/), served on loopback
 // by video/capture/recreation.mjs; Playwright's own headless Chromium loads one guide page, lifts the first full-size
-// SpatialAdjustApp figure out of the page to fill the 1920x1080 viewport, draws the capture director's focus box and
-// arrow cursor over it from the values the spec carries (brand.py focus_box and cursor_spec), and screenshots it at
+// SpatialAdjustApp figure out of the page to fill the 1920x1080 viewport, draws the capture director's spotlight and
+// arrow cursor over it from the values the spec carries (brand.py spotlight and cursor_spec), and screenshots it at
 // device scale `scale` (2: a 3840x2160 PNG, the size a capture records).
 //
 //   node video/edit/gfx/recreation_still.mjs <spec.json>
-//   spec: { out, path: '/#/<guide>', scale: 2, highlightText: ['0-5%', '> 30%'], pad: 6,
-//           cursorAt: [dx, dy] (fraction of the highlighted element), focusBox: {...}, cursor: {...} }
+//   spec: { out, path: '/#/<guide>', scale: 2, highlightText: ['0-5%', '> 30%'],
+//           cursorAt: [dx, dy] (fraction of the highlighted element), spotlight: {...}, cursor: {...} }
 //   prints { out, focusBox: [x0, y0, x1, y1], cursor: [x, y] } in CSS px of the 1920x1080 frame
 //
 // The PNG must resolve under the media root (video/lib/media-root.mjs). Every request outside the recreation server is
@@ -35,7 +35,7 @@ try {
   await page.waitForSelector('.sa-app');
   await page.evaluate(() => document.fonts.ready);
   await page.waitForTimeout(spec.settleMs ?? 1200);
-  const res = await page.evaluate(async ({ highlightText, pad, cursorAt, fb, cu }) => {
+  const res = await page.evaluate(async ({ highlightText, cursorAt, sp, cu }) => {
     const frame = () => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)));
     // lift the first app figure that fills the viewport exactly once its wrapper's transform is removed
     let app = null;
@@ -62,14 +62,22 @@ try {
     }
     if (!target) return { error: `no element holds ${highlightText.join(', ')}` };
     const b = target.getBoundingClientRect();
+    // the director's spotlight (director-runtime.js spotTarget/spotTick): grown by a size-scaled pad, rounded, feathered
+    const clamp = (v, lo, hi) => Math.min(hi, Math.max(lo, v));
+    const pad = clamp(sp.pad_frac * Math.max(b.width, b.height), sp.pad_min, sp.pad_max);
     const box = [b.left - pad, b.top - pad, b.right + pad, b.bottom + pad];
-    const rgba = (hex, a) => `rgba(${parseInt(hex.slice(1, 3), 16)},${parseInt(hex.slice(3, 5), 16)},${parseInt(hex.slice(5, 7), 16)},${a})`;
+    const rad = clamp(sp.radius_frac * Math.min(box[2] - box[0], box[3] - box[1]), sp.radius_min, sp.radius_max);
+    const W = innerWidth, H = innerHeight;
     const layer = document.createElement('div');
     layer.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:2147483646';
     const hl = document.createElement('div');
-    hl.style.cssText = `position:fixed;left:${box[0]}px;top:${box[1]}px;width:${box[2] - box[0]}px;height:${box[3] - box[1]}px;`
-      + `border:${fb.border}px solid ${fb.color};border-radius:${fb.radius}px;box-sizing:border-box;`
-      + `box-shadow:0 0 0 ${fb.ring}px ${rgba(fb.color, fb.ring_alpha)},0 0 ${fb.glow}px ${rgba(fb.color, fb.glow_alpha)}`;
+    hl.innerHTML = `<svg width="${W}" height="${H}" style="position:fixed;left:0;top:0"><defs>`
+      + `<radialGradient id="vg" gradientUnits="userSpaceOnUse" cx="${W / 2}" cy="${H / 2}" r="${Math.hypot(W, H) / 2}">`
+      + `<stop offset="0.35" stop-color="#000" stop-opacity="${sp.dim}"/><stop offset="1" stop-color="#000" stop-opacity="${Math.min(0.9, sp.dim + sp.vignette)}"/></radialGradient>`
+      + `<filter id="ft" x="-25%" y="-25%" width="150%" height="150%"><feGaussianBlur stdDeviation="${sp.feather / 2}"/></filter>`
+      + `<mask id="mk" maskUnits="userSpaceOnUse" x="0" y="0" width="${W}" height="${H}"><rect width="${W}" height="${H}" fill="#fff"/>`
+      + `<rect x="${box[0]}" y="${box[1]}" width="${box[2] - box[0]}" height="${box[3] - box[1]}" rx="${rad}" ry="${rad}" fill="#000" filter="url(#ft)"/></mask></defs>`
+      + `<rect width="${W}" height="${H}" fill="url(#vg)" mask="url(#mk)"/></svg>`;
     const [vw, vh] = cu.view_box, [cw, ch] = cu.css_size;
     const cur = [b.left + b.width * cursorAt[0], b.top + b.height * cursorAt[1]];
     const svg = `<svg viewBox="0 0 ${vw} ${vh}" style="position:fixed;left:${cur[0] - 1.1}px;top:${cur[1] - 1.1}px;width:${cw}px;height:${ch}px;`
@@ -80,7 +88,7 @@ try {
     document.body.appendChild(layer);
     await frame();
     return { focusBox: box.map((v) => Math.round(v * 100) / 100), cursor: cur.map((v) => Math.round(v * 100) / 100) };
-  }, { highlightText: spec.highlightText ?? [], pad: spec.pad ?? 6, cursorAt: spec.cursorAt ?? [0.5, 0.5], fb: spec.focusBox, cu: spec.cursor });
+  }, { highlightText: spec.highlightText ?? [], cursorAt: spec.cursorAt ?? [0.5, 0.5], sp: spec.spotlight, cu: spec.cursor });
   if (res.error) { console.error(`recreation_still: ${res.error}`); process.exitCode = 1; }
   else {
     await page.screenshot({ path: out });

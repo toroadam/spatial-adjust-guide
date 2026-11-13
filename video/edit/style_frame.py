@@ -4,7 +4,7 @@
   npm run video -- style-frame --version v1
 
 Builds one short 16:9 timeline with lib/cards.py (the lockup on the hero wall, the title card for "Dashboard overview",
-the typed chapter card READ THE MAP, one window shot with the chapter strip and the blue focus box, the end card) plus a
+the typed chapter card READ THE MAP, one window shot with the chapter strip and the spotlight, the end card) plus a
 second of each wall preset, renders a still at the key moment of each with video/edit/render.py --still, and writes:
 
   <media root>/style-frames/<version>/01-lockup.png ... 08-wall-hero.png   one still per element (FRAMES)
@@ -13,7 +13,7 @@ second of each wall preset, renders a still at the key moment of each with video
   <media root>/style-frames/<version>/_build/                              timeline, graphics and the window shot's plate
 
 The window shot's plate is a still of the guide site's own recreation of Spatial Adjust (gfx/recreation_still.mjs: the
-built dist/ on loopback, the "Dashboard overview" guide's app figure at 3840x2160 with the focus box on the moisture
+built dist/ on loopback, the "Dashboard overview" guide's app figure at 3840x2160 with the spotlight on the moisture
 legend), looped into a 4 s clip; --plate smoke uses the compositor's synthetic test clip instead, and the recreation falls
 back to it when dist/ or Chromium is missing. No IntelliDash is needed. The end card is drawn in draft mode: with gate G4
 decided it shows the decided URL, otherwise URL PENDING APPROVAL. Nothing is written to the repository.
@@ -51,7 +51,7 @@ FRAMES = (
     ('01-lockup', 'Lockup on the hero wall'),
     ('02-title-card', 'Title card'),
     ('03-chapter-card', 'Chapter card'),
-    ('04-window-shot', 'Window shot, chapter strip, focus box'),
+    ('04-window-shot', 'Window shot, chapter strip, spotlight'),
     ('05-end-card', 'End card'),
     ('06-wall-bloom', 'Wall: bloom (behind window shots)'),
     ('07-wall-card', 'Wall: card (behind cards)'),
@@ -80,8 +80,8 @@ def recreation_plate(build, ff):
     """The recreation still looped into a PLATE-second clip: (clip, track rows, provenance) or None when it cannot be made."""
     from brand import BRAND
     png = os.path.join(build, 'recreation.png')
-    spec = dict(out=png, path=GUIDE_PATH, scale=2, highlightText=HIGHLIGHT, pad=6, cursorAt=[0.36, 0.74],
-                focusBox=BRAND['focus_box'], cursor=BRAND['cursor_spec'])
+    spec = dict(out=png, path=GUIDE_PATH, scale=2, highlightText=HIGHLIGHT, cursorAt=[0.36, 0.74],
+                spotlight=BRAND['spotlight'], cursor=BRAND['cursor_spec'])
     spec_file = os.path.join(build, 'recreation-spec.json')
     with open(spec_file, 'w') as f:
         json.dump(spec, f, indent=1)

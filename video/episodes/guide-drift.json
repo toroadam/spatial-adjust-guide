@@ -108,7 +108,6 @@
       "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
       "findings": [
         "station-details: 4 chapters != 5 rendered steps",
-        "station-details chapter 4: label 'Watch for a modelled child' != step title 'Spot a modelled sprinkler'",
         "station-details chapter 1: highlight.label 'Station' is not a bold label of step 1 (none)",
         "station-details chapter 2: highlight.label 'child row' is not a bold label of step 2 (none)",
         "station-details chapter 4: highlight.label 'calculator icon' is not a bold label of step 4 ('Option 1')"
@@ -213,7 +212,7 @@
         "target-profiles chapter 1: highlight.label 'Calculation' is not a bold label of step 1 ('Settings', 'Announcements')",
         "target-profiles chapter 2: highlight.label 'Current' is not a bold label of step 2 ('Target Profiles', 'Minimum Threshold', 'Update from Current', 'Apply Profile')",
         "target-profiles chapter 3: highlight.label 'Target VWC' is not a bold label of step 3 ('Target Profile')",
-        "target-profiles chapter 4: highlight.label 'Save' is not a bold label of step 4 ('Apply Profile', 'Use Target Profile?', 'Matching Stations', 'Target VWC')"
+        "target-profiles chapter 4: highlight.label 'Save' is not a bold label of step 4 ('Apply Profile', 'Use Target Profile?', 'Matching Stations', 'Target VWC', 'Suggested')"
       ]
     },
     "creating-profiles": {

@@ -80,7 +80,7 @@
     {
       "id": "c4",
       "step": 4,
-      "label": "Watch for a modelled child",
+      "label": "Spot a modeled sprinkler",
       "highlight": {
         "label": "calculator icon",
         "selector": "[data-sa-frame] >> text=\"30.4%\""
@@ -93,7 +93,7 @@
   "vo": [
     {
       "id": "V0",
-      "text": "Some stations drive more than one sprinkler. Expand the row to see what each head actually measured.",
+      "text": "Some stations drive more than one sprinkler. Expand the row to see what each sprinkler actually measured.",
       "claims": [
         "station-details/summary/1",
         "station-details/summary/2"
@@ -109,7 +109,7 @@
         "station-details/1/4",
         "station-details/start/4"
       ],
-      "previous_text": "Some stations drive more than one sprinkler. Expand the row to see what each head actually measured.",
+      "previous_text": "Some stations drive more than one sprinkler. Expand the row to see what each sprinkler actually measured.",
       "next_text": "Without the chevron, the row is the whole story."
     },
     {
@@ -141,52 +141,52 @@
         "station-details/2/6"
       ],
       "previous_text": "Each child row is named for its parent and numbered, and carries its own scan date and its own measured moisture.",
-      "next_text": "The station's average VWC is the mean of its sprinklers."
+      "next_text": "The station's Avg. VWC is the average of its sprinklers' readings."
     },
     {
       "id": "V3a",
       "chapter": "c3",
-      "text": "The station's average VWC is the mean of its sprinklers.",
+      "text": "The station's Avg. VWC is the average of its sprinklers' readings.",
       "claims": [
         "station-details/3/3",
         "station-details/3/7"
       ],
       "previous_text": "Nothing else is editable at sprinkler level. The target and the adjustment belong to the station.",
-      "next_text": "Two heads reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry head."
+      "next_text": "Two sprinklers reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry sprinkler."
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "Two heads reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry head.",
+      "text": "Two sprinklers reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry sprinkler.",
       "claims": [
         "station-details/3/3",
         "station-details/3/6"
       ],
-      "previous_text": "The station's average VWC is the mean of its sprinklers.",
-      "next_text": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model."
+      "previous_text": "The station's Avg. VWC is the average of its sprinklers' readings.",
+      "next_text": "A child whose scan is older than today shows a modeled value marked with an orange calculator icon, and the parent average is then part measurement and part model."
     },
     {
       "id": "V4a",
       "chapter": "c4",
-      "text": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model.",
+      "text": "A child whose scan is older than today shows a modeled value marked with an orange calculator icon, and the parent average is then part measurement and part model.",
       "claims": [
         "station-details/4/2",
         "station-details/4/3",
         "station-details/5/3"
       ],
-      "previous_text": "Two heads reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry head.",
-      "next_text": "The parent row carries a grey calculator icon beside its average, so you can tell it includes a modelled reading."
+      "previous_text": "Two sprinklers reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry sprinkler.",
+      "next_text": "The parent row carries a gray calculator icon beside its average, so you can tell it includes a modeled reading."
     },
     {
       "id": "V4b",
       "chapter": "c4",
-      "text": "The parent row carries a grey calculator icon beside its average, so you can tell it includes a modelled reading.",
+      "text": "The parent row carries a gray calculator icon beside its average, so you can tell it includes a modeled reading.",
       "claims": [
         "station-details/5/2",
         "station-details/5/3",
         "station-details/5/5"
       ],
-      "previous_text": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model."
+      "previous_text": "A child whose scan is older than today shows a modeled value marked with an orange calculator icon, and the parent average is then part measurement and part model."
     }
   ],
   "beats": [
@@ -359,7 +359,7 @@
       "actions": [
         {
           "type": "figure",
-          "caption": "Mean of the children"
+          "caption": "Average of the children"
         },
         {
           "type": "wait",

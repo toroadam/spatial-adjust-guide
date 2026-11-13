@@ -9,7 +9,8 @@ Standard library only (brand.py and theme.py import no torch), so it runs in CI 
   - the moisture accents equal the app legend (SpatialAdjustApp.dc.html) with the transform layer's corrected boundaries
   - Golos UI weights are 400/500/700 only: no 600 anywhere
   - min_hold(words) == 1.5 + 0.3 * words, the same rule as the episode schema
-  - red appears only as the lockup tile colour and the 0-5 % band; strip_active, highlight and the cursors are blue
+  - red appears only as the red screens' palette, the lockup tile, the 0-5 % band and the footage wall's glow; the highlight is
+    blue; strip_active and the typewriter cursor are white
   - theme.THEME takes every value from BRAND; glass.py and timeline.py draw the active fill, URL dot and type cursor from it
   - the eases equal the engine's EASE table; the focus box and cursor equal the capture runtime's
   - motion-system.md states every value BRAND holds (and no colour BRAND lacks)
@@ -92,11 +93,13 @@ def walk(obj, path=()):
 
 RED_FAMILY = {COLORS['red'].upper(), COLORS['red_shade'].upper(), COLORS['red_tint'].upper()}
 RED_ALLOWED = {('red',), ('red_shade',), ('red_tint',), ('moisture', 0, 'color')}
+RED_ALLOWED_PREFIXES = (('wall', 'blooms'), ('wall', 'screen'))    # the red screens' palette and the glow on the footage wall
 
 
 def red_leaks(brand_dict):
-    """Paths where a Toro red value appears outside the colour table and the 0-5 % band."""
-    return [p for p, v in walk(brand_dict) if isinstance(v, str) and v.upper() in RED_FAMILY and p not in RED_ALLOWED]
+    """Paths where a Toro red value appears outside the colour table, the 0-5 % band, the red screens' palette and the wall glow."""
+    return [p for p, v in walk(brand_dict) if isinstance(v, str) and v.upper() in RED_FAMILY
+            and p not in RED_ALLOWED and p[:2] not in RED_ALLOWED_PREFIXES]
 
 
 def num(s):
@@ -145,6 +148,14 @@ def doc_drift(full):
     if not r or f'Golos UI Bold ({LOCKUP["wordmark_weight"]})' not in r[0] or LOCKUP['wordmark'] not in r[0]: bad('lockup wordmark')
     r = row(doc, 'tile')
     if not r or LOCKUP['tile'] not in r[0]: bad('lockup tile')
+    r = row(doc, 'plate')
+    pl = LOCKUP['plate']
+    if not r or pl['color'].upper() not in r[0].upper() or f'{pl["pad_ratio"]:g} of the tile' not in r[0] or f'{pl["radius_ratio"]:g} of the tile' not in r[0]:
+        bad('lockup plate')
+    bg = BRAND['bug']
+    for k, want in (('tile_h', f'{bg["tile_h"]} px'), ('margin', f'({bg["margin"][0]}, {bg["margin"][1]})'), ('opacity', f'{bg["opacity"]:g}'), ('fade', f'{bg["fade"]:g} s')):
+        r = row(doc, k)
+        if not r or not r[0].startswith(want): bad(f'bug {k}: doc {r and r[0]} != {want}')
     # background
     doc = section(full, 'Background')
     W = BRAND['wall']
@@ -212,11 +223,15 @@ def doc_drift(full):
     if not r or f'scale {ww["s"]} at {tuple(ww["pos"])}' not in r[0]: bad('window_wide')
     # cursor and focus box
     doc = section(full, 'Cursor and highlight')
-    fb, cu = BRAND['focus_box'], BRAND['cursor_spec']
-    r = row(doc, 'focus_box')
-    for want in (f'{fb["border"]} px {fb["color"]} border', f'radius {fb["radius"]}', f'{fb["ring"]} px blue ring at {round(fb["ring_alpha"] * 100)} %',
-                 f'{fb["glow"]} px glow at {round(fb["glow_alpha"] * 100)} %', f'{fb["fade"]} s'):
-        if not r or want not in r[0]: bad(f'focus box: want "{want}"')
+    sp, cu = BRAND['spotlight'], BRAND['cursor_spec']
+    r = row(doc, 'spotlight')
+    for want in (f'dims to {round(sp["dim"] * 100)} % black', f'{round(sp["vignette"] * 100)} % darker at the corners', f'{sp["feather"]} px feather',
+                 f'{round(sp["pad_frac"] * 100)} % of the longer side, {sp["pad_min"]} to {sp["pad_max"]} px', f'{round(sp["radius_frac"] * 100)} % of the shorter side, {sp["radius_min"]} to {sp["radius_max"]} px',
+                 f'fades over {sp["fade"]} s', f'{sp["follow"]} s time constant'):
+        if not r or want not in r[0]: bad(f'spotlight: want "{want}"')
+    r = row(doc, 'click')
+    for want in (f'presses to {sp["press_scale"]}', f'ripple at {round(sp["ripple_alpha"] * 100)} %'):
+        if not r or want not in r[0]: bad(f'click: want "{want}"')
     r = row(doc, 'cursor_spec')
     for want in (f'viewBox {cu["view_box"][0]} x {cu["view_box"][1]}', f'{cu["css_size"][0]:g} x {cu["css_size"][1]:g} CSS px',
                  f'outline', f'{cu["title_scale"]} px per unit'):
@@ -307,15 +322,16 @@ class HoldTest(unittest.TestCase):
 
 
 class RedTest(unittest.TestCase):
-    def test_red_only_in_the_lockup_tile_and_the_dry_band(self):
+    def test_red_only_on_the_red_screens_the_dry_band_and_the_wall_glow(self):
         self.assertEqual(red_leaks(BRAND), [])
 
-    def test_highlights_are_blue(self):
-        for k in ('strip_active', 'highlight', 'type_cursor', 'cursor'):
+    def test_the_highlight_role_is_blue_but_the_spotlight_has_no_colour(self):
+        self.assertEqual(BRAND['highlight'], COLORS['blue'])
+        self.assertNotIn('color', BRAND['spotlight'])                # a black dim only: nothing blue, nothing red, no outline
+        for k in ('strip_active', 'type_cursor', 'cursor'):        # white on the red screens: a blue or red block would vibrate
             self.assertNotEqual(BRAND[k].upper(), COLORS['red'].upper(), k)
-            self.assertEqual(BRAND[k], COLORS['blue'], k)
-        self.assertEqual(BRAND['focus_box']['color'], COLORS['blue'])
-        self.assertNotIn(COLORS['red'], [c for c, _ in sum(BRAND['wall']['blooms'].values(), ())])
+            self.assertEqual(BRAND[k], COLORS['white'], k)
+        self.assertEqual(BRAND['wall']['red_variants'], ('card', 'hero'))
 
     def test_strip_active_red_is_caught(self):
         drifted = dict(BRAND, strip_active=COLORS['red'])
@@ -351,16 +367,17 @@ class EngineMirrorTest(unittest.TestCase):
             self.assertIsNotNone(m, name)
             self.assertEqual(tuple(float(x) for x in m.group(1).split(',')), tuple(float(x) for x in bz), key)
 
-    def test_focus_box_and_cursor_match_the_capture_runtime(self):
+    def test_spotlight_and_cursor_match_the_capture_runtime(self):
         js = read(os.path.join(VIDEO, 'capture', 'director-runtime.js'))
-        fb, cu = BRAND['focus_box'], BRAND['cursor_spec']
-        self.assertIn(f"const BLUE = '{fb['color']}'", js)
-        h = fb['color'].lstrip('#'); rgb = ','.join(str(int(h[i:i + 2], 16)) for i in (0, 2, 4))
-        self.assertIn(f'border:{fb["border"]}px solid', js)
-        self.assertIn(f'border-radius:{fb["radius"]}px', js)
-        self.assertIn(f'0 0 0 {fb["ring"]}px rgba({rgb},{str(fb["ring_alpha"]).lstrip("0")})', js)
-        self.assertIn(f'0 0 {fb["glow"]}px rgba({rgb},{str(fb["glow_alpha"]).lstrip("0")})', js)
-        self.assertIn(f'transition:opacity {str(fb["fade"]).lstrip("0")}s', js)
+        sp, cu = BRAND['spotlight'], BRAND['cursor_spec']
+        m = re.search(r'const SPOT = \{([^}]*)\}', js)
+        self.assertIsNotNone(m, 'director-runtime.js has no SPOT block')
+        runtime = {k: float(v) for k, v in re.findall(r'(\w+): ([\d.]+)', m.group(1))}
+        camel = lambda k: re.sub(r'_(\w)', lambda g: g.group(1).upper(), k)
+        self.assertEqual(runtime, {camel(k): float(v) for k, v in sp.items()})
+        self.assertNotRegex(js, r'#3079F0|\.sa-hl|border:\s*[\d.]+px solid')      # the blue focus box is gone
+        self.assertIn('mask="url(#sa-mask)"', js)                                    # the dim is an SVG mask with a feathered cutout
+        self.assertIn('feGaussianBlur stdDeviation="${SPOT.feather / 2}"', js)
         self.assertIn(f'viewBox="0 0 {cu["view_box"][0]} {cu["view_box"][1]}"', js)
         self.assertIn(f'width:{cu["css_size"][0]:g}px;height:{cu["css_size"][1]:g}px', js)
 
@@ -374,7 +391,7 @@ class DocMirrorTest(unittest.TestCase):
         self.assertEqual(heads, ['Lockup', 'Palette', 'Background', 'Type', 'Motion', 'Holds', 'Layout', 'Cursor and highlight',
                                  'Sound', "Do and don't"])
         self.assertNotRegex(self.doc, r'\bTBD\b')
-        for must in ('#080D12', '#F5F7F8', '#646E73', 'No red boxes', 'design-system blue'):
+        for must in ('#080D12', '#F5F7F8', '#646E73', 'Red is a background, never a pointer', 'design-system blue'):
             self.assertIn(must, self.doc)
 
     def test_doc_states_every_brand_value(self):

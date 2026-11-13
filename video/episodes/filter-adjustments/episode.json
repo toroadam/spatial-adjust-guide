@@ -207,12 +207,12 @@
         "filter-adjustments/summary/2"
       ],
       "previous_text": "A station is caught if its suggestion is above the Over value or below the Under value. With 200 and 10 set, you get everything over 200 percent and everything under 10 percent, and nothing in between.",
-      "next_text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
+      "next_text": "Exclude Zeros is grayed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
     },
     {
       "id": "V5a",
       "chapter": "c5",
-      "text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter.",
+      "text": "Exclude Zeros is grayed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter.",
       "claims": [
         "filter-adjustments/4/5",
         "filter-adjustments/4/4",
@@ -230,7 +230,7 @@
         "filter-adjustments/5/6",
         "filter-adjustments/4/6"
       ],
-      "previous_text": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
+      "previous_text": "Exclude Zeros is grayed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
     }
   ],
   "beats": [

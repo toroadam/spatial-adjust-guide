@@ -43,8 +43,12 @@ def mix(tl, stems_dir=None):
     if has_vo:
         vo2 = np.stack([vo, vo], 1)
         if has_music:
-            bed = bed * 10 ** ((B.lufs(vo2) + LOUDNESS['music_under_vo_db'] - B.lufs(bed)) / 20)     # 3 dB under the VO
-            gain = 10 ** (LOUDNESS['duck_db'] * B.vo_activity(vo) / 20)                              # 9 dB more while it speaks
+            # a music record may ask for a different bed level (track.mix, carried in the timeline's music block)
+            lv = (tl.get('music') or {}).get('mix') or {}
+            under = lv.get('under_vo_db', LOUDNESS['music_under_vo_db'])
+            duck_db = lv.get('duck_db', LOUDNESS['duck_db'])
+            bed = bed * 10 ** ((B.lufs(vo2) + under - B.lufs(bed)) / 20)                             # 3 dB under the VO by default
+            gain = 10 ** (duck_db * B.vo_activity(vo) / 20)                                          # 9 dB more while it speaks
             bed = bed * gain[:, None]
             duck = duck_depth(gain, vo)
         out = vo2 + bed + s

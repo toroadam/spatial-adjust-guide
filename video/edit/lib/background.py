@@ -2,13 +2,13 @@
 
 An abstract, procedural wall in Oasis neutrals that replaces the iCentral red satin wave: a dark vertical gradient with a
 lifted centre, faint topographic contour lines like the slope map of a green (every 5th an index line), and soft out-of-focus
-blooms in the moisture-band accents, never red. Contour lines crossing a bloom take its colour. Built on the ported
+blooms in the moisture-band accents. Contour lines crossing a bloom take its colour. Built on the ported
 wallpaper.py's helpers (device, smoothstep, separable Gaussian, dithered export); the palette is THEME['wall'] (brand.py).
 
   render(W, H, variant) -> float32 HxWx3 in 0..1 (same contract as wallpaper.render; Gfx.wall caches it per palette)
-  variants: 'bloom'  behind window shots: blooms low left and low right, under the window
-            'card'   behind title and chapter cards: darker and quieter, one blue bloom low right
-            'hero'   behind the lockup and the end card: a fuller blue bloom centred behind the lockup
+  variants: 'bloom'  behind window shots: dark neutrals, a soft Toro red glow low left and low right, under the window
+            'card'   behind title and chapter cards: Toro red (the base token at the top, the shade token at the foot)
+            'hero'   behind the lockup, the up-next card and the end card: Toro red with a deeper glow behind the lockup
 
 TL.wallpaper(kind, t0, t1, z0, pan) keeps working unchanged: it asks Gfx.wall(kind) for the PNG, which now comes from here.
 Gfx.wall caches each PNG under a key of THEME['wall'] (which carries the style name, 'sa-contour-1') and this file's source,
@@ -76,10 +76,12 @@ def render(W, H, variant='bloom'):
     S = H / 1080.0
     X, Y = xs / W, ys / H
     # base: vertical gradient, top to bottom, with a lifted centre
-    top, bottom, lift = hx(P['top']), hx(P['bottom']), hx(P['lift'])
+    red = variant in P['red_variants']                              # the Toro red screens: their own palette
+    Q = {**P, **P['screen']} if red else P
+    top, bottom, lift = hx(Q['top']), hx(Q['bottom']), hx(Q['lift'])
     v = smooth(0.0, 1.0, Y)
     img = top * (1 - v) + bottom * v
-    lift_amt = {'hero': 0.55, 'bloom': 0.40, 'card': 0.30}[variant]
+    lift_amt = {'hero': 0.55, 'bloom': 0.40, 'card': 0.30}[variant] * (0.5 if red else 1.0)
     g = torch.exp(-(((X - 0.5) / 0.55) ** 2 + ((Y - 0.42) / 0.50) ** 2)) * lift_amt
     img = img * (1 - g) + lift * g
     # blooms: soft glows in the accents; their summed colour and strength also tint the contour lines
@@ -92,14 +94,14 @@ def render(W, H, variant='bloom'):
     # contour lines over the gradient, brighter and coloured inside a bloom
     line, index = contours(height(X, Y), S)
     k = {'card': 0.7, 'bloom': 1.0, 'hero': 0.9}[variant]
-    a = line * (P['line_alpha'] + (P['index_alpha'] - P['line_alpha']) * index) * k
+    a = line * (Q['line_alpha'] + (Q['index_alpha'] - Q['line_alpha']) * index) * k
     near_bloom = (strength / 0.25).clamp(0, 1)
     a = a * (1 + 1.6 * near_bloom)
-    lc = hx(P['line']) * (1 - near_bloom) + tint * near_bloom
+    lc = hx(Q['line']) * (1 - near_bloom) + tint * near_bloom
     img = img * (1 - a) + lc * a
     # a quiet vignette, as the satin wall had
     vig = smooth(0.35, 1.0, torch.sqrt(((xs - W / 2) / (W * 0.62)) ** 2 + ((ys - H / 2) / (H * 0.62)) ** 2))
-    img = img * (1 - 0.35 * vig)
+    img = img * (1 - Q.get('vignette', 0.35) * vig)
     return img.permute(1, 2, 0).clamp(0, 1).cpu().numpy()
 
 

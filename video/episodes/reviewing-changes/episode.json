@@ -125,12 +125,12 @@
         "suggested-adjustments/verify/2"
       ],
       "previous_text": "Read the push dialog properly before you send: two lists, two columns, and one count that matters.",
-      "next_text": "It is disabled when nothing is queued, so a greyed-out button means there is nothing to review."
+      "next_text": "It is disabled when nothing is queued, so a grayed-out button means there is nothing to review."
     },
     {
       "id": "V1b",
       "chapter": "c1",
-      "text": "It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.",
+      "text": "It is disabled when nothing is queued, so a grayed-out button means there is nothing to review.",
       "claims": [
         "reviewing-changes/1/4"
       ],
@@ -145,30 +145,30 @@
         "reviewing-changes/2/2",
         "reviewing-changes/2/3"
       ],
-      "previous_text": "It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.",
-      "next_text": "Both name the station, so you are always comparing the same head across the row."
+      "previous_text": "It is disabled when nothing is queued, so a grayed-out button means there is nothing to review.",
+      "next_text": "Both name the station, so you are always comparing the same station across the row."
     },
     {
       "id": "V2b",
       "chapter": "c2",
-      "text": "Both name the station, so you are always comparing the same head across the row.",
+      "text": "Both name the station, so you are always comparing the same station across the row.",
       "claims": [
         "reviewing-changes/2/3"
       ],
       "previous_text": "The left column is what Lynx holds now; the right is what will replace it.",
-      "next_text": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day."
+      "next_text": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same station twice in a day."
     },
     {
       "id": "V3a",
       "chapter": "c3",
-      "text": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day.",
+      "text": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same station twice in a day.",
       "claims": [
         "reviewing-changes/3/2",
         "push-to-lynx/2/3",
         "reviewing-changes/3/3",
         "reviewing-changes/3/5"
       ],
-      "previous_text": "Both name the station, so you are always comparing the same head across the row.",
+      "previous_text": "Both name the station, so you are always comparing the same station across the row.",
       "next_text": "That hold releases at midnight where the course is, not 24 hours after the push. Tick a pushed station only when you mean to."
     },
     {
@@ -180,7 +180,7 @@
         "reviewing-changes/3/4",
         "reviewing-changes/verify/2"
       ],
-      "previous_text": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day.",
+      "previous_text": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same station twice in a day.",
       "next_text": "When a minimum threshold is set, the banner counts the stations it will rewrite."
     },
     {

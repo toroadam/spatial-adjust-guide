@@ -37,6 +37,7 @@ Usage:
               nothing is written.
   --lines     render only these VO line ids (comma-separated); context still comes from the whole episode.
   --force     send the selected lines to the API even when their text_hash is unchanged.
+  --relevel   condition the saved takes again (no API call), for example after CONDITION changed.
 
 The key. THIS REPOSITORY IS PUBLIC, so a leaked key is a revocation event. _key() reads ~/.claude.json in process
 (SA_ELEVENLABS_CONFIG points it at a fixture for tests) and the key goes only into the xi-api-key header of a request
@@ -85,7 +86,7 @@ VOICE_CONFIG = {
         "use_speaker_boost": True,
         "speed": 1.0,
     },
-    "output_format": "mp3_44100_192",  # what the API returns; converted to the master format below
+    "output_format": "pcm_48000",  # what the API returns: lossless 16-bit PCM at 48 kHz (the best format this account is allowed)
     "sample_rate_hz": 48000,
     "bit_depth": 24,
     "channels": 1,
@@ -97,15 +98,18 @@ VOICE_CONFIG = {
 VOICE = VOICE_CONFIG["voice_id"]
 MODEL = VOICE_CONFIG["model_id"]
 SETTINGS = VOICE_CONFIG["voice_settings"]
-# An account below the Creator tier is refused mp3_44100_192 (HTTP 403 output_format_not_allowed). SA_VO_OUTPUT_FORMAT
-# asks for another MP3 format instead (for example mp3_44100_128); unset, the voice definition above is used unchanged.
+# Which formats the account may ask for was probed on 2026-10-29: pcm_48000, pcm_24000, pcm_22050, pcm_16000,
+# opus_48000_192 and mp3_44100_128 are allowed; pcm_44100, wav_44100 and mp3_44100_192 are refused (HTTP 403, Pro and
+# Creator tiers). pcm_48000 is lossless, so no lossy step comes before the one AAC encode of the final file.
+# SA_VO_OUTPUT_FORMAT asks for another format instead (for example mp3_44100_128); unset, the voice definition above is used.
 # SA_ELEVENLABS_OUTPUT_FORMAT is the older name for the same setting and is still read. The audio is trimmed, levelled
 # and converted to the 48 kHz 24-bit master either way, and the format is part of each line's text_hash, so a change
 # re-renders the lines.
 _FORMAT_OVERRIDE = (os.environ.get("SA_VO_OUTPUT_FORMAT") or os.environ.get("SA_ELEVENLABS_OUTPUT_FORMAT") or "").strip()
-if _FORMAT_OVERRIDE and not re.fullmatch(r"mp3_\d{5}_\d{2,3}", _FORMAT_OVERRIDE):
-    raise SystemExit("render-brian: SA_VO_OUTPUT_FORMAT must look like mp3_44100_128")
+if _FORMAT_OVERRIDE and not re.fullmatch(r"(mp3_\d{5}_\d{2,3}|pcm_\d{5})", _FORMAT_OVERRIDE):
+    raise SystemExit("render-brian: SA_VO_OUTPUT_FORMAT must look like mp3_44100_128 or pcm_48000")
 OUTPUT_FORMAT = _FORMAT_OVERRIDE or VOICE_CONFIG["output_format"]
+RAW_EXT = ".wav" if OUTPUT_FORMAT.startswith("pcm_") else ".mp3"      # what vo/raw/ keeps: a WAV wrapper around the PCM, or the MP3
 SR = VOICE_CONFIG["sample_rate_hz"]
 TRIM_WINDOW = 240  # samples, as in the source
 
@@ -559,6 +563,177 @@ def level(y: list[float], target_rms: float, ceiling: float = VOICE_CONFIG["peak
     return y
 
 
+def wrap_pcm(audio: bytes, fmt: str = None) -> bytes:
+    """What the API returned, as the file vo/raw/ keeps: a pcm_<rate> body (16-bit little-endian mono) is wrapped in a WAV
+    header so ffmpeg and any player can read it; an MP3 is kept as it came."""
+    fmt = fmt or OUTPUT_FORMAT
+    m = re.fullmatch(r"pcm_(\d{5})", fmt)
+    if not m:
+        return audio
+    import io
+    buf = io.BytesIO()
+    with wave.open(buf, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(int(m.group(1)))
+        w.writeframes(audio[: len(audio) - len(audio) % 2])
+    return buf.getvalue()
+
+
+# Voice conditioning (every line, every episode). The API's take is cut to its speech, its edges are faded at zero
+# crossings, a stray sound after the last word is dropped, and the line is levelled by its speech, not by its pauses.
+CONDITION = {
+    "frame_s": 0.01,           # analysis frame
+    "gate_db": -45.0,          # a frame is speech when its RMS is within this many dB of the loudest frame
+    "merge_gap_s": 0.20,       # speech separated by less than this is one phrase
+    "stray_max_s": 0.15,       # a phrase shorter than this at either end, behind a pause, is not speech: a leaked syllable or a click
+    "stray_gap_s": 0.20,       # ... when the pause before it is at least this long
+    "pad_head_s": 0.06,
+    "pad_tail_s": 0.06,
+    "fade_in_s": 0.05,         # raised-cosine, edges moved to the nearest quiet sample
+    "fade_out_s": 0.07,
+    "zero_search_s": 0.004,
+    "rel_gate_db": -10.0,      # the speech level is the gated, K-weighted mean square (BS.1770): blocks within this many dB of the mean
+    "max_gap_s": 0.5,          # a pause inside a line longer than this is shortened to it: no pause sounds like a dropout
+    "peak_ceiling": 0.891,     # -1.0 dBFS, held by a soft knee (soft_limit), not by turning the line down
+}
+
+
+def _frame_db(x: list[float], hop: int) -> list[float]:
+    out = []
+    for i in range(0, len(x) - hop + 1, hop):
+        e = math.fsum(v * v for v in x[i:i + hop]) / hop
+        out.append(10 * math.log10(e) if e > 1e-14 else -140.0)
+    return out
+
+
+def speech_regions(x: list[float], sr: int = SR, c: dict = CONDITION) -> list[tuple[int, int]]:
+    """Sample ranges (start, end) of the speech in x: loud frames, joined across short pauses, minus stray edge sounds."""
+    hop = max(1, int(c["frame_s"] * sr))
+    db = _frame_db(x, hop)
+    if not db:
+        return []
+    thr = max(db) + c["gate_db"]
+    runs, start = [], None
+    for k, v in enumerate(db + [-999.0]):
+        if v > thr and start is None:
+            start = k
+        elif v <= thr and start is not None:
+            runs.append([start, k])
+            start = None
+    merged = []
+    for r in runs:
+        if merged and (r[0] - merged[-1][1]) * hop / sr < c["merge_gap_s"]:
+            merged[-1][1] = r[1]
+        else:
+            merged.append(r)
+    def short(r):
+        return (r[1] - r[0]) * hop / sr < c["stray_max_s"]
+    while len(merged) > 1 and short(merged[-1]) and (merged[-1][0] - merged[-2][1]) * hop / sr >= c["stray_gap_s"]:
+        merged.pop()
+    while len(merged) > 1 and short(merged[0]) and (merged[1][0] - merged[0][1]) * hop / sr >= c["stray_gap_s"]:
+        merged.pop(0)
+    return [(r[0] * hop, r[1] * hop) for r in merged]
+
+
+def _quiet_index(x: list[float], i: int, search: int) -> int:
+    """The sample nearest i, within search, where the signal is closest to zero (a zero crossing, when there is one)."""
+    lo, hi = max(1, i - search), min(len(x) - 1, i + search)
+    best, bi = 9.0, max(0, min(len(x) - 1, i))
+    for j in range(lo, hi + 1):
+        v = 0.0 if x[j - 1] * x[j] <= 0 else abs(x[j])
+        if v < best or (v == best and abs(j - i) < abs(bi - i)):
+            best, bi = v, j
+    return bi
+
+
+def _biquad(x: list[float], b0, b1, b2, a1, a2) -> list[float]:
+    y = [0.0] * len(x)
+    x1 = x2 = y1 = y2 = 0.0
+    for i, v in enumerate(x):
+        o = b0 * v + b1 * x1 + b2 * x2 - a1 * y1 - a2 * y2
+        y[i] = o
+        x2, x1, y2, y1 = x1, v, y1, o
+    return y
+
+
+def _k_weight(x: list[float]) -> list[float]:
+    """ITU-R BS.1770 K-weighting (48 kHz coefficients): high shelf, then the revised low-cut."""
+    h = _biquad(x, 1.53512485958697, -2.69169618940638, 1.19839281085285, -1.69065929318241, 0.73248077421585)
+    return _biquad(h, 1.0, -2.0, 1.0, -1.99004745483398, 0.99007225036621)
+
+
+def speech_rms(y: list[float], sr: int = SR, c: dict = CONDITION) -> float:
+    """The line's speech level as a linear RMS: the BS.1770 gated, K-weighted mean square (400 ms blocks every 100 ms, the
+    absolute gate at -70 and the relative gate 10 dB under the mean), so pauses do not count and every line is matched
+    by how loud it sounds. A line shorter than one block is measured as plain RMS."""
+    blk, hop = int(0.4 * sr), int(0.1 * sr)
+    if len(y) < blk + hop:
+        return rms(y)
+    w = _k_weight(y)
+    csum = [0.0]
+    t = 0.0
+    for v in w:
+        t += v * v
+        csum.append(t)
+    ms = [(csum[i + blk] - csum[i]) / blk for i in range(0, len(w) - blk, hop)]
+    g = [m for m in ms if m > 0 and -0.691 + 10 * math.log10(m) > -70.0]
+    if not g:
+        return rms(y)
+    rel = 10 * math.log10(math.fsum(g) / len(g)) + c["rel_gate_db"]
+    g2 = [m for m in g if 10 * math.log10(m) > rel]
+    return math.sqrt(math.fsum(g2) / len(g2)) if g2 else math.sqrt(math.fsum(g) / len(g))
+
+
+def soft_limit(y: list[float], ceiling: float, knee: float = 0.6) -> list[float]:
+    """Hold peaks under the ceiling by bending them (tanh above the knee) rather than turning the whole line down, so a line
+    with a strong consonant is not played quieter than the others. Samples under the knee are untouched."""
+    span = ceiling - knee
+    return [v if abs(v) <= knee else math.copysign(knee + span * math.tanh((abs(v) - knee) / span), v) for v in y]
+
+
+def condition(x: list[float], target_rms: float, ceiling: float = None, sr: int = SR, c: dict = CONDITION) -> list[float]:
+    """The voice line as it goes into the mix: cut to the speech (a stray sound after the last word dropped, a pause over
+    max_gap_s shortened), padded with silence where the take starts or ends on speech, the edges moved to quiet samples
+    and faded with a raised cosine, levelled so its speech loudness is target_rms, peaks bent under the ceiling."""
+    ceiling = c["peak_ceiling"] if ceiling is None else ceiling
+    n = len(x)
+    if n == 0:
+        raise RenderError("the decoded audio is empty")
+    if max(abs(v) for v in x) <= 0.0:
+        raise RenderError("the decoded audio is silent")
+    regions = speech_regions(x, sr, c)
+    if not regions:
+        raise RenderError(f"no sound above the {c['gate_db']:g} dB speech gate")
+    zs = int(c["zero_search_s"] * sr)
+    ph, pt = int(c["pad_head_s"] * sr), int(c["pad_tail_s"] * sr)
+    a0, b0 = regions[0][0] - ph, regions[-1][1] + pt
+    head_pad, tail_pad = max(0, -a0), max(0, b0 - n)           # the take starts or ends on speech: pad with silence instead of eating it
+    a, b = _quiet_index(x, max(0, a0), zs), _quiet_index(x, min(n, b0), zs)
+    # shorten any pause inside the line that is longer than max_gap_s to max_gap_s (cut from its middle, where it is silent)
+    pieces, pos = [], a
+    for (r0, r1), (n0, _n1) in zip(regions, regions[1:]):
+        gap = n0 - r1
+        if gap > int(c["max_gap_s"] * sr):
+            keep = int(c["max_gap_s"] * sr) // 2
+            cut_a, cut_b = _quiet_index(x, r1 + keep, zs), _quiet_index(x, n0 - keep, zs)
+            if cut_b > cut_a:
+                pieces.append(x[pos:cut_a]); pos = cut_b
+    pieces.append(x[pos:b])
+    y = [0.0] * head_pad + [v for p_ in pieces for v in p_] + [0.0] * tail_pad
+    fi, fo = int(c["fade_in_s"] * sr), int(c["fade_out_s"] * sr)
+    fi, fo = min(fi, len(y) // 3), min(fo, len(y) // 3)
+    for k in range(fi):
+        y[k] *= 0.5 - 0.5 * math.cos(math.pi * k / fi)
+    for k in range(fo):
+        y[len(y) - 1 - k] *= 0.5 - 0.5 * math.cos(math.pi * k / fo)
+    cur = speech_rms(y, sr, c)
+    if cur <= 0.0:
+        raise RenderError("cannot level silent audio")
+    y = [v * (target_rms / cur) for v in y]
+    return soft_limit(y, ceiling)
+
+
 def write_wav24(path: str, y: list[float], sr: int = SR) -> None:
     """Write mono 24-bit PCM WAV, atomically (a .part file beside the target, then a rename)."""
     ints = array("i", (max(-8388608, min(8388607, int(round(v * 8388608.0)))) for v in y))
@@ -712,7 +887,7 @@ def _credits_after(api: ElevenLabs, before: int, sent_chars: int):
         time.sleep(SETTLE_STEP_S)
 
 
-def render(episode: dict, plan: list[dict], chosen: list[dict], force: bool, ctx: dict) -> int:
+def render(episode: dict, plan: list[dict], chosen: list[dict], force: bool, ctx: dict, relevel: bool = False) -> int:
     eid = episode["id"]
     rms_target_dbfs = read_rms_target()
     target = 10 ** (rms_target_dbfs / 20)
@@ -729,10 +904,10 @@ def render(episode: dict, plan: list[dict], chosen: list[dict], force: bool, ctx
     for p in chosen:
         lid = p["line"]
         wav_path = os.path.join(vo_dir, f"{lid}.wav")
-        raw_path = os.path.join(raw_dir, f"{lid}.mp3")
+        raw_path = os.path.join(raw_dir, f"{lid}{RAW_EXT}")
         old = entries.get(lid)
         unchanged = bool(old) and old.get("text_hash") == p["text_hash"] and os.path.exists(raw_path)
-        if unchanged and not force and os.path.exists(wav_path) and same_level:
+        if unchanged and not force and os.path.exists(wav_path) and same_level and not relevel:
             action = "skip"
         elif unchanged and not force:
             action = "relevel"
@@ -757,11 +932,11 @@ def render(episode: dict, plan: list[dict], chosen: list[dict], force: bool, ctx
             if action == "relevel":
                 action = "re-levelled from the saved take"
             else:
-                _write_bytes(raw_path, api.speech(p["spoken"], p["previous_text"], p["next_text"]))
+                _write_bytes(raw_path, wrap_pcm(api.speech(p["spoken"], p["previous_text"], p["next_text"])))
                 sent_lines += 1
                 sent_chars += p["characters"]
                 action = "rendered"
-            y = level(trim(decode(raw_path)), target)
+            y = condition(decode(raw_path), target)
             write_wav24(wav_path, y)
             seconds = round(len(y) / SR, 2)
             entries[lid] = {"line": lid, "text": p["text"], "seconds": seconds, "characters": p["characters"],
@@ -795,6 +970,8 @@ def parse_args(argv):
     ap.add_argument("--lines", help="comma-separated VO line ids to render (default: all)")
     ap.add_argument("--dry-run", action="store_true", help="list lines, characters and credits; no network call")
     ap.add_argument("--force", action="store_true", help="re-render lines even when their text_hash is unchanged")
+    ap.add_argument("--relevel", action="store_true",
+                    help="re-condition the saved takes (cut, fades, level) without calling the API; use after changing CONDITION")
     return ap.parse_args(argv)
 
 
@@ -814,7 +991,7 @@ def main(argv: list[str] | None = None) -> int:
         chosen = select(plan, args.lines)
         if args.dry_run:
             return dry_run(episode, plan, chosen)
-        return render(episode, plan, chosen, args.force, ctx)
+        return render(episode, plan, chosen, args.force, ctx, args.relevel)
     except (ConfigError, media_root.MediaRootError) as err:
         print(f"render-brian: {scrubbed(err)}", file=sys.stderr)
         return 2

@@ -2,7 +2,7 @@
 
 **Episode:** 18 of 26 · **Wave:** 5 (Troubleshooting) · **Guide:** `#/station-zero` · **Template:** v1 ([`../RUNBOOK.md`](../RUNBOOK.md)) · **Script version:** v1
 **Voice:** ElevenLabs Brian (`Gubgw9l4dtIoQA9YZHgx`, eleven_multilingual_v2) · **Music:** `sa-bed-v1` · **Map:** restyle (gate G2)
-**Source:** the guide site's recreation (`"source": "recreation"`), one lifted figure per chapter: step 1 "Measured 34.5 percent against a 16 percent target"; step 2 "Set to zero when pushed to Lynx converts small adjustments into zeros"; step 3 "Station 5AP1 is disabled; the switch on its row is grey"; step 4 "A modelled value: grey, italic, and dated two days ago"; step 5 "Diagnostics dialog, opened from the toolbar logo". Every chapter carries a `sourceReason`; no control is clicked in the recreation, so no retry, push or scan request is made anywhere.
+**Source:** the guide site's recreation (`"source": "recreation"`), one lifted figure per chapter: step 1 "Measured 34.5 percent against a 16 percent target"; step 2 "Set to zero when pushed to Lynx converts small adjustments into zeros"; step 3 "Station 5AP1 is disabled; the switch on its row is gray"; step 4 "A modeled value: gray, italic, and dated two days ago"; step 5 "Diagnostics dialog, opened from the toolbar logo". Every chapter carries a `sourceReason`; no control is clicked in the recreation, so no retry, push or scan request is made anywhere.
 
 ## Script
 
@@ -20,10 +20,10 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 0:40 | 0:50 | 8 Step 2 result | Push in on **Set to the minimum threshold value when pushe...**, highlighted; the cursor moves to Set to the minimum threshold value when pushe... |  | "The table still shows the raw value, so the two disagree. Switch to the minimum threshold value option if you want those stations to keep running." | `station-zero/2/3`, `station-zero/2/4` |
 | 0:50 | 0:51 | 9 Chapter 3 | Typed chapter card | CHECK WHETHER THE STATION IS DISABLED | — | `station-zero/3/1` (the step title) |
 | 0:51 | 1:01 | 10 Step 3 | The lifted figure for step 3. Push in on **Enable**, highlighted; the cursor moves to Enable |  | "A station with the Enable switch off is left out of every push, so Lynx keeps whatever percent adjust it already holds." | `station-zero/3/2` |
-| 1:01 | 1:15 | 11 Step 3 result | Push in on **the 5AP1 row**, highlighted; the cursor moves to 333%, then the 5AP1 row |  | "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is grey." | `station-zero/3/3`, `station-zero/3/5` |
+| 1:01 | 1:15 | 11 Step 3 result | Push in on **the 5AP1 row**, highlighted; the cursor moves to 125%, then the 5AP1 row |  | "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is gray." | `station-zero/3/3`, `station-zero/3/5` |
 | 1:15 | 1:16 | 12 Chapter 4 | Typed chapter card | CHECK THE SCAN DATE | — | `station-zero/4/1` (the step title) |
-| 1:16 | 1:29 | 13 Step 4 | The lifted figure for step 4. Push in on **50.0%**, highlighted; the cursor moves to 08-06-25 |  | "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, in grey italics with a calculator icon." | `station-zero/4/2`, `station-zero/4/3` |
-| 1:29 | 1:40 | 14 Step 4 result | Hold on the screen; the cursor moves to the 7AP1 row, then 08-06-25 |  | "Station 7AP1 shows a modelled value, grey and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet." | `station-zero/4/6`, `station-zero/4/4` |
+| 1:16 | 1:29 | 13 Step 4 | The lifted figure for step 4. Push in on **50.0%**, highlighted; the cursor moves to 08-06-25 |  | "A scan date older than today means the reading is stale. Spatial Adjust uses the modeled value, in gray italics with a calculator icon." | `station-zero/4/2`, `station-zero/4/3` |
+| 1:29 | 1:40 | 14 Step 4 result | Hold on the screen; the cursor moves to the 7AP1 row, then 08-06-25 |  | "Station 7AP1 shows a modeled value, gray and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet." | `station-zero/4/6`, `station-zero/4/4` |
 | 1:40 | 1:42 | 15 Chapter 5 | Typed chapter card | CONFIRM THE DATA PATH | — | `station-zero/5/1` (the step title) |
 | 1:42 | 1:51 | 16 Step 5 | The lifted figure for step 5. Push in on **Spatial Adjust Diagnostics**, highlighted; the cursor moves to Spatial Adjust Diagnostics |  | "If nothing above explains it, open the diagnostics dialog by holding Shift and Alt and clicking the Spatial Adjust logo." | `station-zero/5/2`, `station-zero/5/5` |
 | 1:51 | 2:01 | 17 Step 5 result | Hold on the screen; the cursor moves to SA has org access:, then Org has scan data:, then Last scan date:, then Can ping cloud: |  | "It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable." | `station-zero/5/4` |
@@ -39,7 +39,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-Whisper small.en on all 11 lines, medium.en on V3a. 6 lines differ, all judged Whisper's: "A P 1" heard as "AP1", "Links" as "link"/"Lynx", US for UK spelling ("modelled", "grey"), "Turf Rad" as two words. One line is worth a listen: V3a, where both models hear "percent adjust it" as "percent adjusted"; the audio reads naturally and the written text is unchanged. No line was re-rendered.
+Whisper small.en on all 11 lines, medium.en on V3a. 6 lines differ, all judged Whisper's: "A P 1" heard as "AP1", "Links" as "link"/"Lynx", US for UK spelling ("modeled", "gray"), "Turf Rad" as two words. One line is worth a listen: V3a, where both models hear "percent adjust it" as "percent adjusted"; the audio reads naturally and the written text is unchanged. No line was re-rendered.
 
 ## Never on camera
 

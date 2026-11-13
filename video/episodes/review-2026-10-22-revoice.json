@@ -1,0 +1,623 @@
+{
+  "$comment": "Voice lines changed by the 2026-10-22 review pass (station not pin/head, modeled not fallback, average not mean, American spelling, calculation narration kept high level, worked examples back in range, why-you-would-override, profile naming, course-wide profile caution). Audible lines need a new ElevenLabs take and fresh caption cues (npm run video -- captions); the English caption text and timings are already edited in src/media/captions/*.en-us.vtt as placeholders inside the old line spans. Lines with audible:false only changed in written spelling the voice reads the same, so the existing take stays. dashboard-overview-pilot is a pilot, not a shipped episode. The showcase locale caption catalogues (src/i18n/captions/*.json) still hold the old English keys for the five showcase cues that changed (vo-b3-see-1, vo-b3-see-2, vo-b4-target-2, vo-b5-calculate-1, vo-b5-calculate-2) and are redone separately.",
+  "summary": {
+    "audibleLines": 40,
+    "silentLines": 18,
+    "episodes": 23,
+    "elevenLabsCharacters": 5296,
+    "elevenLabsCharactersWithRetakeAllowance": 10592,
+    "note": "One credit per character. The second figure doubles the first for the usual one-retake allowance."
+  },
+  "episodes": {
+    "bulk-adjustments": {
+      "lines": [
+        {
+          "id": "V1a",
+          "audible": true,
+          "old": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take a whole hole in one click.",
+          "new": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take an entire hole in one click.",
+          "characters": 160
+        },
+        {
+          "id": "V4b",
+          "audible": true,
+          "old": "The suggested percentages recalculate against the new targets straight away, so the Suggested column will move.",
+          "new": "The suggested percentages recalculate against the new targets right away, so the Suggested column will move.",
+          "characters": 108
+        }
+      ]
+    },
+    "calculation-methods": {
+      "lines": [
+        {
+          "id": "V2b",
+          "audible": true,
+          "old": "Today's ET, adjusted by the crop coefficient, is added, the daily maximum caps the total, and the result is divided by the Lynx reference amount. Every suggestion in this column came from that chain.",
+          "new": "Today's ET, adjusted by the crop coefficient, and your calculation settings shape the result. Every suggestion in this column came from that calculation.",
+          "characters": 153
+        }
+      ]
+    },
+    "calculation-questions": {
+      "lines": [
+        {
+          "id": "V3a",
+          "audible": false,
+          "old": "A dash means there is nothing to show: no current scan, and no modelled value either.",
+          "new": "A dash means there is nothing to show: no current scan, and no modeled value either."
+        },
+        {
+          "id": "V4a",
+          "audible": false,
+          "old": "A greyed, italic average means the value came from the model, rather than a scan taken that day.",
+          "new": "A grayed, italic average means the value came from the model, rather than a scan taken that day."
+        },
+        {
+          "id": "V5a",
+          "audible": false,
+          "old": "The diagnostics dialog reports whether the organisation has TurfRad access, whether it has scan data at all, and the last scan date.",
+          "new": "The diagnostics dialog reports whether the organization has TurfRad access, whether it has scan data at all, and the last scan date."
+        }
+      ]
+    },
+    "calculation-settings": {
+      "lines": [
+        {
+          "id": "V3b",
+          "audible": true,
+          "old": "Set it too low and every suggestion looks enormous: a 10 mm cap against a 3 mm reference gives a maximum suggestion of 333 percent. In Lynx, Next Amount must equal this reference, in the same units.",
+          "new": "Set it too low and every suggestion looks enormous, because a smaller reference raises every suggestion in the same proportion. In Lynx, Next Amount must equal this reference, in the same units.",
+          "characters": 194
+        },
+        {
+          "id": "V4b",
+          "audible": false,
+          "old": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog greys it out, along with Daily Max Amount and Lynx Reference Amount.",
+          "new": "Below 100, the course is treated as using less water than reference ET suggests; above 100, more. Under Option 1 the dialog grays it out, along with Daily Max Amount and Lynx Reference Amount."
+        }
+      ]
+    },
+    "creating-profiles": {
+      "lines": [
+        {
+          "id": "V0",
+          "audible": false,
+          "old": "Capture the station targets you have tuned, under a name you will recognise next season.",
+          "new": "Capture the station targets you have tuned, under a name you will recognize next season."
+        },
+        {
+          "id": "V3a",
+          "audible": true,
+          "old": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery.",
+          "new": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed.",
+          "characters": 104
+        }
+      ]
+    },
+    "dashboard-overview": {
+      "lines": [
+        {
+          "id": "V1b",
+          "audible": false,
+          "old": "Next to it, the weather strip reports current conditions, and the average, high and low VWC summarise the areas of the selected course that were scanned today.",
+          "new": "Next to it, the weather strip reports current conditions, and the average, high and low VWC summarize the areas of the selected course that were scanned today."
+        },
+        {
+          "id": "V2a",
+          "audible": true,
+          "old": "Each sprinkler of a station scanned in the past seven days is a pin. A pin scanned today is coloured by its measured VWC against the four moisture bands in the legend, and a pin last scanned on an earlier day is drawn clear.",
+          "new": "The map plots each sprinkler of a station scanned in the past seven days. A station scanned today is colored by its measured VWC against the four moisture bands in the legend, and a station last scanned on an earlier day is drawn clear.",
+          "characters": 236
+        },
+        {
+          "id": "V2b",
+          "audible": true,
+          "old": "Bands default to 0 to 5, 6 to 19, 20 to 30 and above 30 percent. Disabled stations stay hidden while Layers is set to Enabled Stations, the default.",
+          "new": "Bands default to 0 to 5, 6 to 19, 20 to 30 and above 30 percent, and their colors and boundaries are yours to change. Disabled stations stay hidden while Layers is set to Enabled Stations, the default.",
+          "characters": 201
+        },
+        {
+          "id": "V4b",
+          "audible": true,
+          "old": "At station level you get the editable columns: Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch.",
+          "new": "At station level you get the columns to work with. Current and suggested adjustment sit side by side for reference; Target VWC, your own % Adj. value and the Enable switch are the three you can edit.",
+          "characters": 199
+        }
+      ]
+    },
+    "dashboard-overview-pilot": {
+      "lines": [
+        {
+          "id": "vo-pins",
+          "audible": true,
+          "old": "Each sprinkler of a station scanned in the past seven days is a pin.",
+          "new": "The map plots each sprinkler of a station scanned in the past seven days.",
+          "characters": 73
+        },
+        {
+          "id": "vo-bands",
+          "audible": true,
+          "old": "A pin scanned today is coloured by the moisture band its reading falls into, as the legend shows.",
+          "new": "A station scanned today is colored by the moisture band its reading falls into, as the legend shows.",
+          "characters": 100
+        }
+      ]
+    },
+    "editing-station-targets": {
+      "lines": [
+        {
+          "id": "V1b",
+          "audible": true,
+          "old": "If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row.",
+          "new": "If you already know where the station is, click it on the map: the table drills straight to its hole and scrolls to the row.",
+          "characters": 124
+        },
+        {
+          "id": "V3b",
+          "audible": true,
+          "old": "If it lands on the top value, Daily Max Amount divided by Lynx Reference Amount times 100, the daily maximum is capping it rather than the target deciding it.",
+          "new": "If it lands on the highest value in the column, the daily maximum is capping it rather than the target deciding it.",
+          "characters": 115
+        },
+        {
+          "id": "V4a",
+          "audible": true,
+          "old": "The % Adj. field is separate from the target and accepts 0 to 900.",
+          "new": "The % Adj. field is separate from the target and accepts 0 to 900. Override it when the suggestion looks too high or too low for a station you know well.",
+          "characters": 153
+        }
+      ]
+    },
+    "enable-disable-stations": {
+      "lines": [
+        {
+          "id": "V3a",
+          "audible": true,
+          "old": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
+          "new": "Because a cascade can affect dozens of stations, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
+          "characters": 135
+        },
+        {
+          "id": "V5a",
+          "audible": true,
+          "old": "Switch Layers to Enabled Stations to see only the heads still in adjustment.",
+          "new": "Switch Layers to Enabled Stations to see only the stations still in adjustment.",
+          "characters": 79
+        }
+      ]
+    },
+    "filter-adjustments": {
+      "lines": [
+        {
+          "id": "V5a",
+          "audible": false,
+          "old": "Exclude Zeros is greyed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter.",
+          "new": "Exclude Zeros is grayed out until Under is enabled, because a zero is below any under threshold. Tick it and genuine zeros drop out of the filter."
+        }
+      ]
+    },
+    "map-navigation": {
+      "lines": [
+        {
+          "id": "V0",
+          "audible": true,
+          "old": "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.",
+          "new": "Read the stations on the map, move the moisture bands, switch to variance, and filter what the map shows.",
+          "characters": 105
+        },
+        {
+          "id": "V1a",
+          "audible": true,
+          "old": "Each sprinkler of a station scanned in the past seven days is a pin at its own coordinates. A pin scanned today is filled with the colour of the moisture band its reading falls into, and a pin last scanned on an earlier day is drawn clear.",
+          "new": "The map plots each sprinkler of a station scanned in the past seven days at its own coordinates. A station scanned today is filled with the color of the moisture band its reading falls into, and a station last scanned on an earlier day is drawn clear.",
+          "characters": 251
+        },
+        {
+          "id": "V1b",
+          "audible": true,
+          "old": "Four bands by default: 0 to 5, 6 to 19, 20 to 30, and above 30 percent.",
+          "new": "Four bands by default: 0 to 5, 6 to 19, 20 to 30, and above 30 percent. The colors and boundaries are yours to change.",
+          "characters": 118
+        },
+        {
+          "id": "V2a",
+          "audible": false,
+          "old": "The colour bar under the legend has draggable handles. Move one and the map recolours when you let go.",
+          "new": "The color bar under the legend has draggable handles. Move one and the map recolors when you let go."
+        },
+        {
+          "id": "V3b",
+          "audible": true,
+          "old": "Variance colours each pin by how far it sits from its own target instead of by its raw reading: three bands, centred on target.",
+          "new": "Variance colors each station by how far it sits from its own target instead of by its raw reading: three bands, centered on target.",
+          "characters": 131
+        },
+        {
+          "id": "V4b",
+          "audible": true,
+          "old": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect. Layers saves your choice to your user preferences.",
+          "new": "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect. Layers saves your choice to your user preferences.",
+          "characters": 155
+        },
+        {
+          "id": "V5a",
+          "audible": true,
+          "old": "Selecting a station in the table highlights it on the map, and selecting a pin selects the row.",
+          "new": "Selecting a station in the table highlights it on the map, and selecting a station on the map selects the row.",
+          "characters": 110
+        },
+        {
+          "id": "V5b",
+          "audible": true,
+          "old": "One selection, shown in both panels. Use whichever is faster to find the head you mean.",
+          "new": "One selection, shown in both panels. Use whichever is faster to find the station you mean.",
+          "characters": 90
+        }
+      ]
+    },
+    "preferences": {
+      "lines": [
+        {
+          "id": "V2a",
+          "audible": false,
+          "old": "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place.",
+          "new": "The stored amounts are millimeters. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place."
+        }
+      ]
+    },
+    "push-to-lynx": {
+      "lines": [
+        {
+          "id": "V1b",
+          "audible": false,
+          "old": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued.",
+          "new": "Beside it, the green counter shows how many have already gone out today. If Push Changes is grayed out, there is nothing queued."
+        }
+      ]
+    },
+    "request-scan-data": {
+      "lines": [
+        {
+          "id": "V5a",
+          "audible": true,
+          "old": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all.",
+          "new": "A failed request says so right away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organization has TurfRad access and whether it has scan data at all.",
+          "characters": 204
+        }
+      ]
+    },
+    "reviewing-changes": {
+      "lines": [
+        {
+          "id": "V1b",
+          "audible": false,
+          "old": "It is disabled when nothing is queued, so a greyed-out button means there is nothing to review.",
+          "new": "It is disabled when nothing is queued, so a grayed-out button means there is nothing to review."
+        },
+        {
+          "id": "V2b",
+          "audible": true,
+          "old": "Both name the station, so you are always comparing the same head across the row.",
+          "new": "Both name the station, so you are always comparing the same station across the row.",
+          "characters": 83
+        },
+        {
+          "id": "V3a",
+          "audible": true,
+          "old": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same head twice in a day.",
+          "new": "Available to Push comes first, ticked. Pushed Today follows, unticked, and is there to stop you adjusting the same station twice in a day.",
+          "characters": 138
+        }
+      ]
+    },
+    "station-details": {
+      "lines": [
+        {
+          "id": "V0",
+          "audible": true,
+          "old": "Some stations drive more than one sprinkler. Expand the row to see what each head actually measured.",
+          "new": "Some stations drive more than one sprinkler. Expand the row to see what each sprinkler actually measured.",
+          "characters": 105
+        },
+        {
+          "id": "V3a",
+          "audible": true,
+          "old": "The station's average VWC is the mean of its sprinklers.",
+          "new": "The station's Avg. VWC is the average of its sprinklers' readings.",
+          "characters": 66
+        },
+        {
+          "id": "V3b",
+          "audible": true,
+          "old": "Two heads reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry head.",
+          "new": "Two sprinklers reading 31.4 and 30.4 give a station average of 30.9, and a station that looks fine can still hide one dry sprinkler.",
+          "characters": 132
+        },
+        {
+          "id": "V4a",
+          "audible": false,
+          "old": "A child whose scan is older than today shows a modelled value marked with an orange calculator icon, and the parent average is then part measurement and part model.",
+          "new": "A child whose scan is older than today shows a modeled value marked with an orange calculator icon, and the parent average is then part measurement and part model."
+        },
+        {
+          "id": "V4b",
+          "audible": false,
+          "old": "The parent row carries a grey calculator icon beside its average, so you can tell it includes a modelled reading.",
+          "new": "The parent row carries a gray calculator icon beside its average, so you can tell it includes a modeled reading."
+        }
+      ]
+    },
+    "station-zero": {
+      "lines": [
+        {
+          "id": "V3b",
+          "audible": false,
+          "old": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is grey.",
+          "new": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is gray."
+        },
+        {
+          "id": "V4a",
+          "audible": true,
+          "old": "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, in grey italics with a calculator icon.",
+          "new": "A scan date older than today means the reading is stale. Spatial Adjust uses the modeled value, in gray italics with a calculator icon.",
+          "characters": 135
+        },
+        {
+          "id": "V4b",
+          "audible": false,
+          "old": "Station 7AP1 shows a modelled value, grey and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet.",
+          "new": "Station 7AP1 shows a modeled value, gray and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet."
+        }
+      ]
+    },
+    "suggested-adjustments": {
+      "lines": [
+        {
+          "id": "V2b",
+          "audible": true,
+          "old": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole.",
+          "new": "Station 3AP1 sits furthest under its target on the hole, so it asks for the most water.",
+          "characters": 87
+        }
+      ]
+    },
+    "target-profiles": {
+      "lines": [
+        {
+          "id": "V3b",
+          "audible": true,
+          "old": "Applying a profile is a course-wide change. Applying and pushing in the same minute leaves no time to sanity-check.",
+          "new": "A profile applies course-wide, so check the Suggested column before you push.",
+          "characters": 77
+        }
+      ]
+    },
+    "threshold-questions": {
+      "lines": [
+        {
+          "id": "V3b",
+          "audible": false,
+          "old": "They are opposite behaviours from the same number.",
+          "new": "They are opposite behaviors from the same number."
+        }
+      ]
+    },
+    "understand-spatial-adjust": {
+      "lines": [
+        {
+          "id": "V2a",
+          "audible": true,
+          "old": "Each station's Avg. VWC comes from a TurfRad moisture scan: the mean volumetric water content measured across the station, with the date it was captured beside the station name.",
+          "new": "Each station's Avg. VWC comes from a TurfRad moisture scan: the average volumetric water content measured across the station, with the date it was captured beside the station name. When a station has no scan, the value is modeled instead.",
+          "characters": 238
+        },
+        {
+          "id": "V4a",
+          "audible": true,
+          "old": "The difference between target and measured moisture becomes an amount of water, today's ET is added, the daily maximum caps it, and the result is divided by the Lynx reference amount to give a percentage.",
+          "new": "Spatial Adjust turns the difference between target and measured moisture into a suggested percentage, taking today's ET and your calculation settings into account.",
+          "characters": 163
+        }
+      ]
+    },
+    "understanding-vwc": {
+      "lines": [
+        {
+          "id": "V1a",
+          "audible": true,
+          "old": "When the scan date is today, Avg. VWC is the mean moisture TurfRad measured across that station.",
+          "new": "When the scan date is today, Avg. VWC is the average moisture TurfRad measured across that station.",
+          "characters": 99
+        },
+        {
+          "id": "V1b",
+          "audible": true,
+          "old": "It is a measurement, and it is the number the calculation prefers. A current scan: black text, today's date.",
+          "new": "It is a measurement, and it is the number the calculation prefers.",
+          "characters": 66
+        },
+        {
+          "id": "V2a",
+          "audible": true,
+          "old": "When the scan is not current, Spatial Adjust falls back to a modelled value carried forward from the last scan and the weather since.",
+          "new": "When the scan is not current, Spatial Adjust uses a modeled value carried forward from the last scan and the weather since.",
+          "characters": 123
+        },
+        {
+          "id": "V2b",
+          "audible": false,
+          "old": "It is shown in grey italics so you can tell it apart at a glance. Station 7AP1 has no current scan; the value shown is modelled.",
+          "new": "It is shown in gray italics so you can tell it apart at a glance. Station 7AP1 has no current scan; the value shown is modeled."
+        },
+        {
+          "id": "V4b",
+          "audible": true,
+          "old": "Add today's ET, cap it at the daily maximum, and express it against the Lynx reference amount. Target minus measured, per station, is the whole idea.",
+          "new": "Today's ET and your calculation settings then shape the suggestion. Target minus measured, per station, is the whole idea.",
+          "characters": 122
+        },
+        {
+          "id": "V5b",
+          "audible": false,
+          "old": "A grey calculator icon on a hole or area row means at least one station beneath it is modelled.",
+          "new": "A gray calculator icon on a hole or area row means at least one station beneath it is modeled."
+        }
+      ]
+    },
+    "showcase": {
+      "lines": [
+        {
+          "id": "vo-b3-see",
+          "audible": true,
+          "old": "The map colours pins by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync.",
+          "new": "The map colors stations by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync.",
+          "oldTts": "The map colours pins by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync.",
+          "newTts": "The map colors stations by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync.",
+          "characters": 151
+        },
+        {
+          "id": "vo-b4-target",
+          "audible": true,
+          "old": "You set the target: the moisture you want each station to hold. A soil factor handles persistent offsets.",
+          "new": "You set the target: the moisture you want each station to hold. Every station gets its own.",
+          "oldTts": "You set the target: the moisture you want each station to hold. A soil factor handles persistent offsets.",
+          "newTts": "You set the target: the moisture you want each station to hold. Every station gets its own.",
+          "characters": 91
+        },
+        {
+          "id": "vo-b5-calculate",
+          "audible": true,
+          "old": "The gap between target and measured becomes water, today's ET is added, Daily Max Amount caps it, and the result becomes a suggested percent adjust.",
+          "new": "The gap between target and measured, today's ET and your calculation settings together become a suggested percent adjust.",
+          "oldTts": "The gap between target and measured becomes water, today's E T is added, Daily Max Amount caps it, and the result becomes a suggested percent adjust.",
+          "newTts": "The gap between target and measured, today's E T and your calculation settings together become a suggested percent adjust.",
+          "characters": 122
+        }
+      ]
+    }
+  },
+  "selectMisuse": {
+    "rule": "Click a row, a name, an area, a hole, a station or a breadcrumb; tick only a check box. In the table the row check box is the bulk-change pick; clicking the row selects the station and moves the chart header (IntelliDash sa-table-card: isSelected is the tick, onRowSelect is the click). Say \"selected\" only for what the app itself labels so. Scan of every vo[] line in video/episodes/*/episode.json and every script.md. No other episode re-voiced yet: audible lines below need an ElevenLabs render when the owner says go.",
+    "fixedInTake7": [
+      {
+        "id": "dashboard-overview V4b",
+        "verdict": "fixed, re-voiced",
+        "old": "Select an area to see its holes.",
+        "audible": true,
+        "new": "Click an area to see its holes.",
+        "characters": 31
+      },
+      {
+        "id": "dashboard-overview V4c",
+        "verdict": "fixed, re-voiced",
+        "old": "Select a hole to see its stations.",
+        "audible": true,
+        "new": "Click a hole to see its stations.",
+        "characters": 33
+      },
+      {
+        "id": "dashboard-overview V4d",
+        "verdict": "fixed, re-voiced; footage now clicks the row, the check box stays unticked",
+        "old": "Select a station, and the chart header follows.",
+        "audible": true,
+        "new": "Click a station's row, and the chart header follows.",
+        "characters": 52
+      },
+      {
+        "id": "dashboard-overview V4g",
+        "verdict": "fixed, re-voiced",
+        "old": "To go back up, select a name in the trail.",
+        "audible": true,
+        "new": "To go back up, click a name in the trail.",
+        "characters": 41
+      },
+      {
+        "id": "dashboard-overview V4d2",
+        "verdict": "added, voiced (claims bulk-adjustments/1/2 and bulk-adjustments/summary/1)",
+        "old": null,
+        "audible": true,
+        "new": "The check box is separate. It picks stations for a bulk change.",
+        "characters": 63
+      }
+    ],
+    "misuse": [
+      {
+        "id": "map-navigation V5a",
+        "verdict": "misuse: both \"selecting\" are clicks",
+        "old": "Selecting a station in the table highlights it on the map, and selecting a station on the map selects the row.",
+        "audible": true,
+        "new": "Clicking a station in the table highlights it on the map, and clicking a station on the map selects its row.",
+        "characters": 108
+      },
+      {
+        "id": "map-navigation V5b",
+        "verdict": "related: \"selection\" is the clicked station, which is correct once V5a says click; keep, no re-voice needed on its own",
+        "old": "One selection, shown in both panels. Use whichever is faster to find the station you mean.",
+        "audible": true
+      },
+      {
+        "id": "bulk-adjustments V1b",
+        "verdict": "misuse: the check boxes are ticked, not selected (the app's own label reads \"Five stations selected\", so the on-screen text stays; the voice can say ticked)",
+        "old": "Five stations selected. The Bulk Adjust link above the table becomes active.",
+        "audible": true,
+        "new": "Five stations ticked. The Bulk Adjust link above the table becomes active.",
+        "characters": 74
+      },
+      {
+        "id": "bulk-adjustments V2b",
+        "verdict": "misuse: ticked",
+        "old": "The dialog opens with the count of stations you selected at the top. Check it before going further.",
+        "audible": true,
+        "new": "The dialog opens with the count of stations you ticked at the top. Check it before going further.",
+        "characters": 97
+      },
+      {
+        "id": "bulk-adjustments V3a",
+        "verdict": "misuse: ticked",
+        "old": "Replace overwrites every selected station with the value you enter. Shift moves each station up or down by that amount, keeping the differences between them.",
+        "audible": true,
+        "new": "Replace overwrites every ticked station with the value you enter. Shift moves each station up or down by that amount, keeping the differences between them.",
+        "characters": 155
+      }
+    ],
+    "borderline": [
+      {
+        "id": "bulk-adjustments V1a",
+        "verdict": "ok: ticks correctly; \"the selection\" is the set of ticked rows",
+        "old": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take an entire hole in one click.",
+        "audible": true
+      },
+      {
+        "id": "push-to-lynx V6a",
+        "verdict": "not a row click: \"selected change\" is the pushed set (and quotes the dialog's \"All selected changes successfully pushed\"); keep",
+        "old": "A successful run confirms every selected change reached Lynx.",
+        "audible": true
+      },
+      {
+        "id": "verify-results V5a",
+        "verdict": "same as push-to-lynx V6a; keep",
+        "old": "A clean run confirms that every selected change reached Lynx and verified.",
+        "audible": true
+      },
+      {
+        "id": "dashboard-overview V3b",
+        "verdict": "ok: the chart list and header selection; V4d now shows a row click changing it",
+        "old": "The header shows your selection and its average moisture.",
+        "audible": true
+      }
+    ],
+    "notMisuse": [
+      "calculation-methods V3b (a radio option \"selected\")",
+      "station-zero V2a (an option \"selected\")",
+      "preferences, updating-profiles V3b (\"pick one you no longer need\" is a slot choice)",
+      "dashboard-overview V3a (\"picks\": the chart list)"
+    ],
+    "scriptMdWording": [
+      "map-navigation/script.md lines 26-29 (picture column \"selected row\", VO \"Selecting a station...\"): update with V5a",
+      "bulk-adjustments/script.md lines 5, 15-22 (picture column \"selected\"): picture text only; chapter card SELECT THE STATIONS is the guide's own step title, leave",
+      "push-to-lynx/script.md, verify-results/script.md, filter-adjustments/script.md, reviewing-changes/script.md, suggested-adjustments/script.md picture columns still say \"Focus box on ...\" although the picture is now a spotlight (wording only, no audible change)",
+      "dashboard-overview/script.md: updated in take 7"
+    ],
+    "misuseReVoiceCharacters": 434
+  }
+}

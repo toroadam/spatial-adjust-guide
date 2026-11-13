@@ -201,12 +201,12 @@
         "enable-disable-stations/3/2"
       ],
       "previous_text": "Hole and area rows carry the same switch. Turning one off takes everything beneath it out of the push and off the Enabled Stations map, but leaves their own switches as they were.",
-      "next_text": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it."
+      "next_text": "Because a cascade can affect dozens of stations, Spatial Adjust asks first and names the scope: this hole and every station beneath it."
     },
     {
       "id": "V3a",
       "chapter": "c3",
-      "text": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
+      "text": "Because a cascade can affect dozens of stations, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
       "claims": [
         "enable-disable-stations/2/3",
         "enable-disable-stations/3/6"
@@ -224,7 +224,7 @@
         "enable-disable-stations/3/4",
         "enable-disable-stations/3/5"
       ],
-      "previous_text": "Because a cascade can affect dozens of heads, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
+      "previous_text": "Because a cascade can affect dozens of stations, Spatial Adjust asks first and names the scope: this hole and every station beneath it.",
       "next_text": "The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues."
     },
     {
@@ -248,12 +248,12 @@
         "enable-disable-stations/4/6"
       ],
       "previous_text": "The checkbox suppresses the confirmation for future cascades. It is stored in your own preferences, so it hides the prompt for you and not for your colleagues.",
-      "next_text": "Switch Layers to Enabled Stations to see only the heads still in adjustment."
+      "next_text": "Switch Layers to Enabled Stations to see only the stations still in adjustment."
     },
     {
       "id": "V5a",
       "chapter": "c5",
-      "text": "Switch Layers to Enabled Stations to see only the heads still in adjustment.",
+      "text": "Switch Layers to Enabled Stations to see only the stations still in adjustment.",
       "claims": [
         "enable-disable-stations/5/2",
         "enable-disable-stations/5/3",
@@ -271,7 +271,7 @@
         "enable-disable-stations/6/5",
         "enable-disable-stations/6/3"
       ],
-      "previous_text": "Switch Layers to Enabled Stations to see only the heads still in adjustment."
+      "previous_text": "Switch Layers to Enabled Stations to see only the stations still in adjustment."
     }
   ],
   "beats": [
@@ -317,7 +317,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> xpath=./div[2]",
-          "name": "27.6% 54 % 100% 333% 333 %"
+          "name": "27.6% 40 % 100% 125% 125 %"
         }
       ]
     },
@@ -335,7 +335,7 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../.. >> xpath=./div[2]",
-          "name": "27.9% 30 % 100% 333% 333 %"
+          "name": "27.9% 30 % 100% 125% 125 %"
         },
         {
           "type": "cue",
@@ -344,7 +344,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../.. >> xpath=./div[2]/div[5]",
-          "name": "333 %"
+          "name": "125 %"
         }
       ]
     },
@@ -387,7 +387,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../div[2]",
-          "name": "29.0% 61.5% 08-08-25"
+          "name": "29.0% 37.5% 08-08-25"
         },
         {
           "type": "wait",
@@ -409,12 +409,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../div[2]",
-          "name": "29.0% 61.5% 08-08-25"
+          "name": "29.0% 37.5% 08-08-25"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../div[2]",
-          "name": "29.0% 61.5% 08-08-25"
+          "name": "29.0% 37.5% 08-08-25"
         },
         {
           "type": "cue",

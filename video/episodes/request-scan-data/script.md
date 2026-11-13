@@ -25,7 +25,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:06 | 1:19 | 13 Step 4 | The lifted figure for step 4. Push in on **Reload Data**, highlighted; the cursor moves to The requested scan data is ready. |  | "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard, and every suggestion recalculates." | `request-scan-data/4/2`, `request-scan-data/4/3` |
 | 1:19 | 1:27 | 14 Step 4 result | Push in on **Dismiss**, highlighted; the cursor moves to Dismiss |  | "Dismiss closes the banner and leaves you on the data you already had. The new scan is not thrown away; it is simply not loaded yet." | `request-scan-data/4/4` |
 | 1:27 | 1:29 | 15 Chapter 5 | Typed chapter card | IF THE REQUEST WILL NOT QUEUE | — | `request-scan-data/5/1` (the step title) |
-| 1:29 | 1:44 | 16 Step 5 | The lifted figure for step 5. Push in on **Spatial Adjust Diagnostics**, highlighted; the cursor moves to Spatial Adjust Diagnostics, then SA has org access:, then Org has scan data: |  | "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all." | `request-scan-data/5/2`, `request-scan-data/5/3`, `request-scan-data/5/4` |
+| 1:29 | 1:44 | 16 Step 5 | The lifted figure for step 5. Push in on **Spatial Adjust Diagnostics**, highlighted; the cursor moves to Spatial Adjust Diagnostics, then SA has org access:, then Org has scan data: |  | "A failed request says so right away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organization has TurfRad access and whether it has scan data at all." | `request-scan-data/5/2`, `request-scan-data/5/3`, `request-scan-data/5/4` |
 | 1:44 | 1:52 | 17 Step 5 result | Push in on **Last scan date:**, highlighted; the cursor moves to Last scan date: |  | "A course-wide problem is almost always there, rather than in your settings. Check the last scan date." | `request-scan-data/5/3`, `request-scan-data/5/4` |
 | 1:52 | 2:01 | 18 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; up next **Next on Double Click: Threshold questions**; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/request-scan-data` goes in the published description | — | — | — |
 
@@ -39,7 +39,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-Whisper small.en on all 11 lines, medium.en on V5a. Differences are Whisper's: US for UK spelling ("organisation", "dialog"), "Turf Rad" as one word, "straight away" as "straightaway". V5a ("scan" heard as "scanned" in one pass) is worth a listen. No line was re-rendered.
+Whisper small.en on all 11 lines, medium.en on V5a. Differences are Whisper's: US for UK spelling ("organization", "dialog"), "Turf Rad" as one word, "right away" as "straightaway". V5a ("scan" heard as "scanned" in one pass) is worth a listen. No line was re-rendered.
 
 ## Never on camera
 

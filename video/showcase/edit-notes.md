@@ -58,7 +58,7 @@ verify report in `showcase/edit/rough-cuts/v1/`.
 | Loudness | -14.1 LUFS integrated, -1.5 dBTP true peak |
 | Format | H.264 High, yuv420p, 1920x1080, constant 60 fps, AAC 48 kHz stereo |
 | Render time | 20 min 15 s for 6,886 frames, while three other renders ran on the machine |
-| verify.py (draft) | PASS: format, duration, loudness, label holds (11 labels), VO overlap (10 lines), black frames, frozen frames; the music licence check runs only on a final |
+| verify.py (draft) | PASS: format, duration, loudness, label holds (11 labels), VO overlap (10 lines), black frames, frozen frames; the music license check runs only on a final |
 
 Where the builder put things (seconds of the film):
 
@@ -80,15 +80,15 @@ Notes from watching v1 (stills at every 4.8 s, and six full-size frames):
   shorter, so the film is 114.76 s, not 115.2 s. Every line ends well inside its `windowOut`, none overlaps another,
   and each starts on its own cue, so picture and voice stay in sync. The windows are not a pipeline check.
 - Every chapter card, strip entry, title and end-card line reads as `episode.json` and `end-card.json` say.
-- The highlight boxes are blue; no red appears outside the lockup tile and the app's own 0-5 % band and pin colours.
+- The highlight boxes are blue; no red appears outside the lockup tile and the app's own 0-5 % band and station colors.
 - The camera pushes in hard on the narrow targets (the Minimum Threshold field, the Push Changes counter). The text
   stays sharp because the take is 4K.
 - The Push dialog shots (b7-s2, b7-s3) are wide, so the dialog's text is small on a phone. They are overview shots.
-- The Soil Factor Editor, in B4, shows the app's own Save button on screen. The shot is the guides' recreation and no
-  click fires; the VO says nothing is saved.
+- Shot b4-s3 in B4 (the Soil Factor Editor look) is dropped after the 2026-10-22 review: cut it or replace it with another
+  view of the Suggested value at the next edit. The narration no longer refers to it.
 - The seams between shots inside a chapter are hard cuts with the cursor jumping to the next target.
 
 ## Picture lock
 
 See the SC-G5 rows in [`../approvals.md`](../approvals.md): v1 is the rough cut; the picture is then locked
-unchanged and rendered in final mode, which also checks the music licence record, as the master.
+unchanged and rendered in final mode, which also checks the music license record, as the master.

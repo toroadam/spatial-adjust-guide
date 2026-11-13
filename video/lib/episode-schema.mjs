@@ -44,18 +44,29 @@ const seconds = z.number().finite().nonnegative();
 
 const Wait = z.looseObject({ type: z.literal('wait'), ms: z.number().int().nonnegative() });
 const Cue = z.looseObject({ type: z.literal('cue'), id: text });
-const Hover = z.looseObject({ type: z.literal('hover'), target: text, name: text });
+// hover and focus take an optional name: an element with no accessible name (a check box) has none to give. When a name is
+// given the director still refuses the step unless the element's accessible name matches. A click always needs one.
+const Hover = z.looseObject({ type: z.literal('hover'), target: text, name: text.optional() });
 const Scroll = z.looseObject({ type: z.literal('scroll'), target: text, dy: z.number().finite() });
-// focus draws the highlight box around the target only; it never clicks.
-const Focus = z.looseObject({ type: z.literal('focus'), target: text, name: text });
+// focus spotlights the target only; it never clicks.
+const Focus = z.looseObject({ type: z.literal('focus'), target: text, name: text.optional() });
 const Click = z.looseObject({ type: z.literal('click'), target: text, name: text });
 // figure swaps the lifted recreation figure for another figure of the same guide page (the start of
 // its caption), so a chapter can show the state its step's figure shows. Recreation episodes only.
 const Figure = z.looseObject({ type: z.literal('figure'), caption: text });
+// frame widens what the camera keeps in view without drawing a highlight: the target's box joins the
+// focus box the planner fits (the way a focus box does), invisibly. `name` is optional.
+const Frame = z.looseObject({ type: z.literal('frame'), target: text, name: text.optional() });
+// drag presses the target (a slider handle), moves it `dx` CSS px sideways over `ms` milliseconds
+// and lets go. Recreation episodes only: only the guide site's own figure answers a drag. `name` is
+// optional because a handle carries no text.
+const Drag = z.looseObject({ type: z.literal('drag'), target: text, name: text.optional(), dx: z.number().finite(), ms: z.number().int().positive().optional() });
 
-export const Action = z.discriminatedUnion('type', [Wait, Cue, Hover, Scroll, Focus, Click, Figure]);
+export const Action = z.discriminatedUnion('type', [Wait, Cue, Hover, Scroll, Focus, Click, Figure, Frame, Drag]);
 
-export const Chapter = z.looseObject({ id: text, label: text });
+// crop (optional): [x0, y0, x1, y1] in CSS px of the 1920x1080 capture. The edit shows only that part of the screen as the
+// floating window for this chapter (a chapter about one card, such as the map) and frames it to fit; see video/episodes/README.md.
+export const Chapter = z.looseObject({ id: text, label: text, crop: z.tuple([z.number(), z.number(), z.number(), z.number()]).refine((c) => c[2] > c[0] && c[3] > c[1], 'crop must be [x0, y0, x1, y1] with x1 > x0 and y1 > y0').optional() });
 
 export const VoLine = z.looseObject({
   id: text,
@@ -164,6 +175,9 @@ function crossFieldRules(ep, ctx) {
       if (action.type === 'cue') {
         if (cueIds.has(action.id)) add(['beats', i, 'actions', j, 'id'], `${where(beat, j, action)}: duplicate cue id "${action.id}" (first used in beat "${cueIds.get(action.id)}")`);
         else cueIds.set(action.id, beat.id);
+      }
+      if (action.type === 'drag' && ep.source !== 'recreation') {
+        add(['beats', i, 'actions', j], `${where(beat, j, action)}: a drag action is only allowed when source is "recreation" (source is "${ep.source}")`);
       }
       if (action.type === 'figure' && ep.source !== 'recreation') {
         add(['beats', i, 'actions', j], `${where(beat, j, action)}: a figure action swaps the lifted recreation figure, so it is only allowed when source is "recreation" (source is "${ep.source}")`);

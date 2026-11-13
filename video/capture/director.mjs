@@ -66,7 +66,10 @@ export const COURSE_IDENTITY = path.join(REPO_ROOT, 'video', 'brand', 'course.js
 // Timing of the in-page plan (seconds). The start flash is 0.25 s; beats start at LEAD.
 export const LEAD_S = 0.75;
 const TAIL_S = 0.2 + 0.25 + 1.0; // unhover pause, end flash, then a second of still frames
-const STEP_S = { hover: 0.75, click: 0.75 + 0.12, scroll: 0.9, focus: 0, cue: 0 };
+const STEP_S = { hover: 0.75, click: 0.75 + 0.25, scroll: 0.9, focus: 0, frame: 0, cue: 0 };
+// A drag: the glide to the handle, a beat to settle, the move itself, and a beat before it lets go.
+export const DRAG_DEFAULT_MS = 1200;
+export const dragSeconds = (a) => 0.75 + 0.15 + (a.ms ?? DRAG_DEFAULT_MS) / 1000 + 0.25 + 0.1;
 // The denylist is re-scanned every SCAN_EVERY frames while recording.
 export const SCAN_EVERY = 15;
 const SIGN_IN_POLL_MS = 250;
@@ -138,13 +141,14 @@ export function buildPlan(episode) {
     let busy = 0;
     const highlight = b.highlight ? ref(b.highlight, null, 'highlight') : null;
     const actions = b.actions.map((a) => {
-      busy += a.type === 'wait' ? a.ms / 1000 : STEP_S[a.type] ?? 0;
+      busy += a.type === 'wait' ? a.ms / 1000 : a.type === 'drag' ? dragSeconds(a) : STEP_S[a.type] ?? 0;
       switch (a.type) {
         case 'wait': return { type: 'wait', ms: a.ms };
         case 'cue': return { type: 'cue', id: a.id };
         case 'scroll': return { type: 'scroll', i: ref(a.target, null, 'scroll'), dy: a.dy };
         // The caption stays in Node like every target; the page asks for the swap by index.
         case 'figure': return { type: 'figure', i: ref(a.caption, null, 'figure') };
+        case 'drag': return { type: 'drag', i: ref(a.target, a.name, 'drag'), dx: a.dx, ms: a.ms ?? DRAG_DEFAULT_MS };
         default: return { type: a.type, i: ref(a.target, a.name, a.type), name: a.name };
       }
     });
@@ -228,6 +232,7 @@ function dryRun({ args, file, episode, source }) {
       if (a.type === 'wait') log(`    wait ${a.ms} ms`);
       else if (a.type === 'cue') log(`    cue ${a.id}`);
       else if (a.type === 'figure') log(`    #${a.i} figure: lift "${targets[a.i].target}"`);
+      else if (a.type === 'drag') log(`    #${a.i} drag ${targets[a.i].target} by ${a.dx} px over ${a.ms} ms`);
       else log(`    #${a.i} ${a.type}${a.name ? ` "${a.name}"` : ''} ${targets[a.i].target}${a.type === 'scroll' ? ` by ${a.dy} px` : ''}`);
     }
   }
@@ -324,6 +329,11 @@ async function capture(ctx) {
     }, { writes: WRITES.source, flags: WRITES.flags });
     await page.addInitScript({ path: RUNTIME_SCRIPT });
     if (overlayFile) await page.addInitScript({ path: overlayFile });
+    // The recreation's starting view (the episode's "recreationState"): plain data the guide site's own
+    // figure reads when it draws, so a take can open on the course level of the table, say. Data only.
+    if (source === 'recreation' && episode.recreationState !== undefined) {
+      await page.addInitScript((init) => { window.__saLiveInit = init; }, JSON.parse(JSON.stringify(episode.recreationState)));
+    }
 
     // Bindings: target resolution and trip reports from the runtime.
     const declared = (name) => (episode.demoWriteClicks ?? []).some((d) => normaliseName(d.name).toLowerCase() === normaliseName(name).toLowerCase());
@@ -402,6 +412,19 @@ async function capture(ctx) {
     } else if (source === 'demo') {
       end(EXIT.OVERLAY, 'the map treatment (video/capture/map-routes.mjs) is missing');
       return state.end.code;
+    }
+
+    // The recreation's map in the product's look: the satellite backdrop from the media root, and the circles and legend
+    // restyled (video/capture/recreation-map.mjs). Recreation takes only, and only when the episode asks for it.
+    if (source === 'recreation' && episode.recreationMap) {
+      try {
+        const m = await (await import('./recreation-map.mjs')).installRecreationMap(page, episode.recreationMap);
+        safety.recreationMap = m;
+        log(`recreation map: backdrop ${m.image} (${Math.round(m.bytes / 1024)} KB, from the media root)`);
+      } catch (err) {
+        end(EXIT.OVERLAY, `the recreation map could not be installed: ${err.message}`);
+        return state.end.code;
+      }
     }
 
     const demoLoginRequests = new WeakSet();
@@ -646,6 +669,10 @@ export async function main(argv) {
   if (source !== episode.source) {
     warn(`--source ${source} does not match the episode's source "${episode.source}"; a take is always captured from the source the episode declares`);
     return EXIT.ENTRY;
+  }
+  if (episode.recreationState !== undefined && (source !== 'recreation' || typeof episode.recreationState !== 'object' || episode.recreationState === null || Array.isArray(episode.recreationState))) {
+    warn('"recreationState" is an object of starting-view props, and only a recreation episode may set it');
+    return EXIT.EPISODE;
   }
   if (episode.recreationFigure !== undefined && (source !== 'recreation' || typeof episode.recreationFigure !== 'string' || !episode.recreationFigure.trim())) {
     warn('"recreationFigure" is the start of a figure caption, and only a recreation episode may set it');

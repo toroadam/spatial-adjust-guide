@@ -19,11 +19,14 @@ sys.path.insert(0, HERE)
 from camplan import plan  # noqa: E402
 from theme import THEME, rgba, font_spec  # noqa: E402
 from media import episode_dir, ensure_media_dir  # noqa: E402
+from brand import BUG  # noqa: E402
+
+LOCKUP_CLEAR = (BUG['margin'][1] + BUG['tile_h'] + 16) / 1080.0     # fraction of the view's height under the corner lockup, plus a 16 px gap
 
 RENDER_GFX = os.path.join(os.path.dirname(HERE), 'gfx', 'render_gfx.mjs')
 RATIOS = {'16x9': (1920, 1080), '1x1': (1080, 1080), '9x16': (1080, 1920)}
 RED, GRAY05, GRAY30, GRAY40 = THEME['red'], THEME['gray05'], THEME['gray30'], THEME['gray40']
-HIGHLIGHT, TYPE_CURSOR = THEME['highlight'], THEME['type_cursor']   # design-system blue: no red outside the lockup tile
+HIGHLIGHT, TYPE_CURSOR = THEME['highlight'], THEME['type_cursor']   # blue highlight; the type cursor is white on the red screens
 WALL_SIZE = (2304, 1296)          # wallpapers are rendered once per palette at this size and cover-fitted by the engine
 
 
@@ -202,10 +205,13 @@ class TL:
 
     def window_shot(self, shot, take, file, t0, t1, src_in, src_out, clicks=None, track=None, Z=None, focus=None, lifts=None, z_floor=0.0,
                     entrance=0.04, mblur=True, dof=0.35, wall_v='bloom', lead=0.95, hold=0.5, merge=1.6, macro_over=None, wide_over=None, effect='',
-                    up_dur=0.9, down_dur=1.1, dsf=2.0, win=(1920, 1080), z_cap=None, drift=(1.0, 0.5, 7.0), planner=None):
+                    up_dur=0.9, down_dur=1.1, dsf=2.0, win=(1920, 1080), z_cap=None, drift=(1.0, 0.5, 7.0), planner=None, crop=None, crop_radius=8.0):
         """track: capture frames [t, x, y, a, ripple(, focusBox)] in source seconds. planner: None for camplan.plan, which gets
         the 5-column cursor_frames; a planner marked full_rows (dc_camplan.dc_plan) gets the rows unchanged. drift=None keeps
-        the window still (the Double Click look, dc_build.py:41-42)."""
+        the window still (the Double Click look, dc_build.py:41-42). crop: [x0, y0, x1, y1] in source CSS px, to show only that
+        part of the plate (a card of the app) as the floating window; the planner frames it (dc_camplan's `region`) and the plate
+        is cut to it with corners of crop_radius CSS px. dof: depth-of-field blur on the plate's edge (0 = none, the default look
+        of the polished episodes: it softened the whole map)."""
         wide, macro, Zr = self.framing()
         kw_ = win[0] / 1920.0                         # v3e: larger-CSS takes (2880x1620 @1.333x) keep the same on-screen window size
         if kw_ != 1.0: wide = dict(wide, s=wide['s'] / kw_)
@@ -217,19 +223,37 @@ class TL:
         trk = track if track is not None else [[0, 960, 540], [60, 960, 540]]
         pl = planner or plan
         if not getattr(pl, 'full_rows', False): trk = cursor_frames(trk)
-        P = pl(trk, src_in, src_out, speed, t0, clicks or [], Z, wide, macro, focus_override=focus, lead=lead, hold=hold, merge=merge,
+        extra = dict(region=crop) if crop else {}
+        if crop: extra['region_top'] = LOCKUP_CLEAR      # a cropped window's top edge may sit as low as under the corner lockup, so content near it is not covered by it
+        P = pl(trk, src_in, src_out, speed, t0, clicks or [], Z, wide, macro, **extra, focus_override=focus, lead=lead, hold=hold, merge=merge,
                z_floor=z_floor, omega_f=3.0, omega_z=3.2, entrance=entrance, drift=drift, view=(self.W, self.H), up_dur=up_dur, down_dur=down_dur, post_sigma=0.3, win=win, z_cap=z_cap)
         self.wallpaper(wall_v, t0, t1)
         for c in (clicks or []):
             tc = t0 + (c - src_in) / speed
             if t0 + 0.05 < tc < t1 - 0.05: self.sfx.append([round(tc, 3), 'click' if track is not None else 'tick_soft'])
         lay = dict(type='plate', id=f'w_{shot}_{t0:.2f}', file=self.raw(file), src_in=src_in, speed=speed, t0=t0, t1=t1,
-                   cam=P['cam'], pos=P['pos'], rx=P['rx'], ry=P['ry'], rz=P['rz'], radius_src=26 * kw_, shadow=1.0, mblur=mblur, persp=2000.0 * max(1, self.H / 1080),
+                   cam=P['cam'], pos=P['pos'], rx=P['rx'], ry=P['ry'], rz=P['rz'], radius_src=(crop_radius if crop else 26) * kw_, shadow=1.0, mblur=mblur, persp=2000.0 * max(1, self.H / 1080),
                    dsf=dsf, shot=shot, take=take, effect=effect or f'window float + cursor-follow zoom (Z {Z}, speed {speed:.2f}x)',
                    dof=[[a, round(dof * z, 3), 'linear'] for a, z in zip(P['t'], P['z'])])
+        if crop: lay['crop'] = [round(float(v), 2) for v in crop]
         if lifts: lay['lifts'] = lifts
         self.L.append(lay)
         return P, speed
+
+    def crossfade(self, x=0.35, tol=0.12):
+        """Dissolve every cut between a card and a window shot (and card to card): at each time a wall or plate starts as another
+        ends, the incoming layers ramp their opacity 0 -> 1 over x s. A window shot built with a tail of x s (window_shot's t1 past
+        the cut) already runs on under the dissolve with the camera still moving; any other outgoing layer is held x s longer."""
+        base = [L for L in self.L if L['type'] in ('wall', 'plate') and 'opacity' not in L]
+        hold = []
+        for B in base:
+            if B['t0'] < 0.05: continue
+            out = [A for A in base if A is not B and A['t0'] < B['t0'] and -tol <= A['t1'] - B['t0'] <= x + tol]
+            if not out: continue
+            B['opacity'] = [[B['t0'], 0.0], [round(B['t0'] + x, 3), 1.0, 'inOutSine']]
+            hold += [A for A in out if A['t1'] < B['t0'] + 0.5 * x]
+        for A in {id(A): A for A in hold}.values():
+            A['t1'] = round(A['t1'] + x, 3)
 
     def end_card(self, t0, t1, url, lockup=None):
         """End card: optional logo lockup, CTA, URL pill and legal line. url and lockup must match g.common(url, lockup)."""

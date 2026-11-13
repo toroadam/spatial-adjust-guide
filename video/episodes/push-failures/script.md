@@ -12,7 +12,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 |---|---|---|---|---|---|---|
 | 0:00 | 0:02 | 1 Open | The Spatial Adjust lockup on the contour wall | — | — | — |
 | 0:02 | 0:08 | 2 Title | Title card **Double Click: Push failures** | — | "Read the failure count, understand what has already been tried, and re-push only what failed." | `push-failures/tile/1`, `push-failures/tile/2`, `push-failures/summary/1` |
-| 0:08 | 0:09 | 3 Chapter 1 | Typed chapter card | READ THE COUNT, NOT THE COLOUR | — | `push-failures/1/1` (the step title) |
+| 0:08 | 0:09 | 3 Chapter 1 | Typed chapter card | READ THE COUNT, NOT THE COLOR | — | `push-failures/1/1` (the step title) |
 | 0:09 | 0:15 | 4 Step 1 | Push in on **2 stations could not be updated in Lynx.**, highlighted; the cursor moves to Pushing Changes To Lynx |  | "The message names how many stations could not be updated: here, two." | `push-failures/1/2`, `push-failures/1/4` |
 | 0:15 | 0:25 | 5 Step 1 result | Hold on the screen; the cursor moves to Unable to Push Changes for 2 Station(s). Chec... |  | "The rest of the push succeeded. A failure is partial, and the stations that verified are already live in Lynx. The other four are done." | `push-failures/1/3`, `push-failures/1/5` |
 | 0:25 | 0:27 | 6 Chapter 2 | Typed chapter card | KNOW WHAT HAS ALREADY BEEN TRIED | — | `push-failures/2/1` (the step title) |

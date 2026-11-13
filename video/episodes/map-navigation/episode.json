@@ -9,7 +9,7 @@
   ],
   "source": "recreation",
   "recreationPath": "/#/map-navigation",
-  "recreationFigure": "The course, coloured by measured moisture.",
+  "recreationFigure": "The course, colored by measured moisture.",
   "mapPolicy": "restyle",
   "allowClicks": [],
   "demoWriteClicks": [],
@@ -48,7 +48,7 @@
     {
       "id": "c1",
       "step": 1,
-      "label": "Pins are coloured by measured moisture",
+      "label": "Stations are colored by measured moisture",
       "highlight": {
         "label": "Enabled Stations",
         "selector": "[data-sa-frame] >> text=\"LAYERS\" >> xpath=.."
@@ -109,44 +109,44 @@
   "vo": [
     {
       "id": "V0",
-      "text": "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.",
+      "text": "Read the stations on the map, move the moisture bands, switch to variance, and filter what the map shows.",
       "claims": [
         "map-navigation/summary/1"
       ],
-      "next_text": "Each sprinkler of a station scanned in the past seven days is a pin at its own coordinates. A pin scanned today is filled with the colour of the moisture band its reading falls into, and a pin last scanned on an earlier day is drawn clear."
+      "next_text": "The map plots each sprinkler of a station scanned in the past seven days at its own coordinates. A station scanned today is filled with the color of the moisture band its reading falls into, and a station last scanned on an earlier day is drawn clear."
     },
     {
       "id": "V1a",
       "chapter": "c1",
-      "text": "Each sprinkler of a station scanned in the past seven days is a pin at its own coordinates. A pin scanned today is filled with the colour of the moisture band its reading falls into, and a pin last scanned on an earlier day is drawn clear.",
+      "text": "The map plots each sprinkler of a station scanned in the past seven days at its own coordinates. A station scanned today is filled with the color of the moisture band its reading falls into, and a station last scanned on an earlier day is drawn clear.",
       "claims": [
         "map-navigation/start/3",
         "map-navigation/1/3",
         "map-navigation/1/4"
       ],
-      "previous_text": "Read the pins, move the moisture bands, switch to variance, and filter what the map shows.",
-      "next_text": "Four bands by default: 0 to 5, 6 to 19, 20 to 30, and above 30 percent."
+      "previous_text": "Read the stations on the map, move the moisture bands, switch to variance, and filter what the map shows.",
+      "next_text": "Four bands by default: 0 to 5, 6 to 19, 20 to 30, and above 30 percent. The colors and boundaries are yours to change."
     },
     {
       "id": "V1b",
       "chapter": "c1",
-      "text": "Four bands by default: 0 to 5, 6 to 19, 20 to 30, and above 30 percent.",
+      "text": "Four bands by default: 0 to 5, 6 to 19, 20 to 30, and above 30 percent. The colors and boundaries are yours to change.",
       "claims": [
         "map-navigation/1/3"
       ],
-      "previous_text": "Each sprinkler of a station scanned in the past seven days is a pin at its own coordinates. A pin scanned today is filled with the colour of the moisture band its reading falls into, and a pin last scanned on an earlier day is drawn clear.",
-      "next_text": "The colour bar under the legend has draggable handles. Move one and the map recolours when you let go."
+      "previous_text": "The map plots each sprinkler of a station scanned in the past seven days at its own coordinates. A station scanned today is filled with the color of the moisture band its reading falls into, and a station last scanned on an earlier day is drawn clear.",
+      "next_text": "The color bar under the legend has draggable handles. Move one and the map recolors when you let go."
     },
     {
       "id": "V2a",
       "chapter": "c2",
-      "text": "The colour bar under the legend has draggable handles. Move one and the map recolours when you let go.",
+      "text": "The color bar under the legend has draggable handles. Move one and the map recolors when you let go.",
       "claims": [
         "map-navigation/2/2",
         "map-navigation/2/3",
         "map-navigation/2/5"
       ],
-      "previous_text": "Four bands by default: 0 to 5, 6 to 19, 20 to 30, and above 30 percent.",
+      "previous_text": "Four bands by default: 0 to 5, 6 to 19, 20 to 30, and above 30 percent. The colors and boundaries are yours to change.",
       "next_text": "Dragging a handle changes the boundary and saves it to your preferences."
     },
     {
@@ -157,7 +157,7 @@
         "map-navigation/2/7",
         "map-navigation/2/6"
       ],
-      "previous_text": "The colour bar under the legend has draggable handles. Move one and the map recolours when you let go.",
+      "previous_text": "The color bar under the legend has draggable handles. Move one and the map recolors when you let go.",
       "next_text": "The button beside the legend toggles between VWC and variance."
     },
     {
@@ -168,12 +168,12 @@
         "map-navigation/3/2"
       ],
       "previous_text": "Dragging a handle changes the boundary and saves it to your preferences.",
-      "next_text": "Variance colours each pin by how far it sits from its own target instead of by its raw reading: three bands, centred on target."
+      "next_text": "Variance colors each station by how far it sits from its own target instead of by its raw reading: three bands, centered on target."
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "Variance colours each pin by how far it sits from its own target instead of by its raw reading: three bands, centred on target.",
+      "text": "Variance colors each station by how far it sits from its own target instead of by its raw reading: three bands, centered on target.",
       "claims": [
         "map-navigation/3/3",
         "map-navigation/3/6"
@@ -189,41 +189,41 @@
         "map-navigation/4/3",
         "map-navigation/5/3"
       ],
-      "previous_text": "Variance colours each pin by how far it sits from its own target instead of by its raw reading: three bands, centred on target.",
-      "next_text": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect. Layers saves your choice to your user preferences."
+      "previous_text": "Variance colors each station by how far it sits from its own target instead of by its raw reading: three bands, centered on target.",
+      "next_text": "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect. Layers saves your choice to your user preferences."
     },
     {
       "id": "V4b",
       "chapter": "c4",
-      "text": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect. Layers saves your choice to your user preferences.",
+      "text": "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect. Layers saves your choice to your user preferences.",
       "claims": [
         "map-navigation/5/5",
         "map-navigation/verify/3"
       ],
       "previous_text": "Layers chooses which stations are drawn: all of them, or only the enabled ones.",
-      "next_text": "Selecting a station in the table highlights it on the map, and selecting a pin selects the row."
+      "next_text": "Selecting a station in the table highlights it on the map, and selecting a station on the map selects the row."
     },
     {
       "id": "V5a",
       "chapter": "c5",
-      "text": "Selecting a station in the table highlights it on the map, and selecting a pin selects the row.",
+      "text": "Selecting a station in the table highlights it on the map, and selecting a station on the map selects the row.",
       "claims": [
         "map-navigation/6/2",
         "map-navigation/6/3",
         "map-navigation/6/6"
       ],
-      "previous_text": "Disabled stations are not being adjusted, so hiding them leaves only the heads your push will affect. Layers saves your choice to your user preferences.",
-      "next_text": "One selection, shown in both panels. Use whichever is faster to find the head you mean."
+      "previous_text": "Disabled stations are not being adjusted, so hiding them leaves only the stations your push will affect. Layers saves your choice to your user preferences.",
+      "next_text": "One selection, shown in both panels. Use whichever is faster to find the station you mean."
     },
     {
       "id": "V5b",
       "chapter": "c5",
-      "text": "One selection, shown in both panels. Use whichever is faster to find the head you mean.",
+      "text": "One selection, shown in both panels. Use whichever is faster to find the station you mean.",
       "claims": [
         "map-navigation/6/7",
         "map-navigation/6/6"
       ],
-      "previous_text": "Selecting a station in the table highlights it on the map, and selecting a pin selects the row."
+      "previous_text": "Selecting a station in the table highlights it on the map, and selecting a station on the map selects the row."
     }
   ],
   "beats": [
@@ -391,7 +391,7 @@
       "actions": [
         {
           "type": "figure",
-          "caption": "The course, coloured by measured moisture."
+          "caption": "The course, colored by measured moisture."
         },
         {
           "type": "wait",
@@ -481,7 +481,7 @@
       "actions": [
         {
           "type": "figure",
-          "caption": "The course, coloured by measured moisture."
+          "caption": "The course, colored by measured moisture."
         },
         {
           "type": "wait",
@@ -615,7 +615,7 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"6AP1\" >> xpath=../../..",
-          "name": "❯ 6AP1 08-08-25 30.9% 31 % 100% 293% 293 %"
+          "name": "❯ 6AP1 08-08-25 30.9% 31 % 100% 125% 125 %"
         }
       ]
     }

@@ -2,47 +2,56 @@
   "id": "dashboard-overview",
   "title": "Dashboard overview",
   "guide": "dashboard-overview",
-  "status": "approved",
+  "status": "verified",
   "durationTarget": [
     60,
     180
   ],
   "source": "recreation",
   "recreationPath": "/#/dashboard-overview",
-  "recreationFigure": "Toolbar, left: site, course selector",
+  "recreationFigure": "Toolbar, left",
   "mapPolicy": "restyle",
-  "allowClicks": [],
+  "allowClicks": [
+    "3",
+    "3AP1",
+    "AP",
+    "Toggle VWC or Variance View"
+  ],
   "demoWriteClicks": [],
   "claims": [
-    "dashboard-overview/tile/1",
-    "dashboard-overview/tile/2",
     "dashboard-overview/summary/1",
+    "dashboard-overview/tile/2",
     "dashboard-overview/1/1",
-    "dashboard-overview/1/4",
-    "dashboard-overview/1/7",
-    "dashboard-overview/1/5",
     "dashboard-overview/1/3",
+    "dashboard-overview/1/5",
+    "dashboard-overview/1/7",
     "dashboard-overview/2/3",
     "dashboard-overview/2/6",
-    "dashboard-overview/2/7",
     "dashboard-overview/2/8",
-    "map-navigation/5/4",
-    "dashboard-overview/verify/5",
+    "map-navigation/2/6",
+    "map-navigation/2/2",
+    "map-navigation/2/3",
+    "map-navigation/3/2",
+    "map-navigation/3/3",
     "dashboard-overview/3/2",
     "dashboard-overview/3/3",
-    "dashboard-overview/3/6",
-    "dashboard-overview/3/7",
     "dashboard-overview/3/8",
+    "dashboard-overview/3/6",
     "dashboard-overview/4/2",
-    "dashboard-overview/4/6",
     "dashboard-overview/4/7",
-    "dashboard-overview/4/4",
+    "dashboard-overview/4/8",
     "dashboard-overview/4/3",
-    "suggested-adjustments/1/7",
+    "bulk-adjustments/1/2",
+    "bulk-adjustments/summary/1",
+    "dashboard-overview/4/4",
+    "dashboard-overview/4/5",
     "dashboard-overview/5/2",
     "dashboard-overview/5/3",
-    "suggested-adjustments/verify/2",
-    "dashboard-overview/5/6"
+    "dashboard-overview/tile/1",
+    "dashboard-overview/2/1",
+    "dashboard-overview/3/1",
+    "dashboard-overview/4/1",
+    "dashboard-overview/5/1"
   ],
   "titleCard": {
     "text": "Double Click: Dashboard overview",
@@ -62,7 +71,13 @@
       },
       "source": "recreation",
       "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
-      "onScreen": []
+      "onScreen": [],
+      "crop": [
+        0,
+        0,
+        1920,
+        800
+      ]
     },
     {
       "id": "c2",
@@ -74,7 +89,13 @@
       },
       "source": "recreation",
       "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
-      "onScreen": []
+      "onScreen": [],
+      "crop": [
+        10,
+        79,
+        1056,
+        1022
+      ]
     },
     {
       "id": "c3",
@@ -86,7 +107,13 @@
       },
       "source": "recreation",
       "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
-      "onScreen": []
+      "onScreen": [],
+      "crop": [
+        1066,
+        79,
+        1910,
+        1022
+      ]
     },
     {
       "id": "c4",
@@ -98,7 +125,13 @@
       },
       "source": "recreation",
       "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
-      "onScreen": []
+      "onScreen": [],
+      "crop": [
+        1066,
+        79,
+        1910,
+        650
+      ]
     },
     {
       "id": "c5",
@@ -116,129 +149,171 @@
   "vo": [
     {
       "id": "V0",
-      "text": "The whole feature lives on one screen. Here is what each of its four regions is telling you.",
+      "text": "The whole feature lives on one screen. Here are its four regions.",
       "claims": [
         "dashboard-overview/summary/1",
         "dashboard-overview/tile/2"
-      ],
-      "next_text": "Start with the toolbar. Its left side identifies where you are: the site name, and a course selector that only appears when the site has more than one Lynx course."
+      ]
     },
     {
-      "id": "V1a",
+      "id": "V1",
       "chapter": "c1",
-      "text": "Start with the toolbar. Its left side identifies where you are: the site name, and a course selector that only appears when the site has more than one Lynx course.",
+      "text": "Start at the toolbar. It shows your site name, the weather strip, and the average, high, and low moisture for the course.",
       "claims": [
         "dashboard-overview/1/1",
-        "dashboard-overview/1/4",
-        "dashboard-overview/1/7"
-      ],
-      "previous_text": "The whole feature lives on one screen. Here is what each of its four regions is telling you.",
-      "next_text": "Next to it, the weather strip reports current conditions, and the average, high and low VWC summarise the areas of the selected course that were scanned today."
-    },
-    {
-      "id": "V1b",
-      "chapter": "c1",
-      "text": "Next to it, the weather strip reports current conditions, and the average, high and low VWC summarise the areas of the selected course that were scanned today.",
-      "claims": [
-        "dashboard-overview/1/5",
         "dashboard-overview/1/3",
+        "dashboard-overview/1/5",
         "dashboard-overview/1/7"
-      ],
-      "previous_text": "Start with the toolbar. Its left side identifies where you are: the site name, and a course selector that only appears when the site has more than one Lynx course.",
-      "next_text": "Each sprinkler of a station scanned in the past seven days is a pin. A pin scanned today is coloured by its measured VWC against the four moisture bands in the legend, and a pin last scanned on an earlier day is drawn clear."
+      ]
     },
     {
       "id": "V2a",
       "chapter": "c2",
-      "text": "Each sprinkler of a station scanned in the past seven days is a pin. A pin scanned today is coloured by its measured VWC against the four moisture bands in the legend, and a pin last scanned on an earlier day is drawn clear.",
+      "text": "On the map, stations scanned today are filled with a color. Stations from an earlier scan are drawn clear.",
       "claims": [
         "dashboard-overview/2/3",
-        "dashboard-overview/2/6",
-        "dashboard-overview/2/7"
-      ],
-      "previous_text": "Next to it, the weather strip reports current conditions, and the average, high and low VWC summarise the areas of the selected course that were scanned today.",
-      "next_text": "Bands default to 0 to 5, 6 to 19, 20 to 30 and above 30 percent. Disabled stations stay hidden while Layers is set to Enabled Stations, the default."
+        "dashboard-overview/2/6"
+      ]
     },
     {
       "id": "V2b",
       "chapter": "c2",
-      "text": "Bands default to 0 to 5, 6 to 19, 20 to 30 and above 30 percent. Disabled stations stay hidden while Layers is set to Enabled Stations, the default.",
+      "text": "The legend gives four bands, from 0 to 5 percent up to above 30. Each station takes its band's color, so you can see which stations are dry.",
       "claims": [
         "dashboard-overview/2/8",
-        "map-navigation/5/4",
-        "dashboard-overview/verify/5"
-      ],
-      "previous_text": "Each sprinkler of a station scanned in the past seven days is a pin. A pin scanned today is coloured by its measured VWC against the four moisture bands in the legend, and a pin last scanned on an earlier day is drawn clear.",
-      "next_text": "The chart above the table plots the areas, holes or stations you pick in its multiselect, whichever level the table is showing."
+        "dashboard-overview/2/3"
+      ]
+    },
+    {
+      "id": "V2c",
+      "chapter": "c2",
+      "text": "These bands are only the starting point. The band boundaries are yours to change.",
+      "claims": [
+        "dashboard-overview/2/8",
+        "map-navigation/2/6"
+      ]
+    },
+    {
+      "id": "V2d",
+      "chapter": "c2",
+      "text": "Drag a handle, then let go, and the map recolors.",
+      "claims": [
+        "map-navigation/2/2",
+        "map-navigation/2/3"
+      ]
+    },
+    {
+      "id": "V2e",
+      "chapter": "c2",
+      "text": "This button switches to variance, which shows how far each station is from its target.",
+      "claims": [
+        "map-navigation/3/2",
+        "map-navigation/3/3"
+      ]
     },
     {
       "id": "V3a",
       "chapter": "c3",
-      "text": "The chart above the table plots the areas, holes or stations you pick in its multiselect, whichever level the table is showing.",
+      "text": "This list picks the areas, holes, or stations the chart plots.",
       "claims": [
         "dashboard-overview/3/2",
         "dashboard-overview/3/3"
-      ],
-      "previous_text": "Bands default to 0 to 5, 6 to 19, 20 to 30 and above 30 percent. Disabled stations stay hidden while Layers is set to Enabled Stations, the default.",
-      "next_text": "Selecting a row in the table changes the chart header to that area or hole and its average moisture, so the chart and the table always describe the same thing."
+      ]
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "Selecting a row in the table changes the chart header to that area or hole and its average moisture, so the chart and the table always describe the same thing.",
+      "text": "The header shows your selection and its average moisture.",
       "claims": [
-        "dashboard-overview/3/6",
-        "dashboard-overview/3/7",
-        "dashboard-overview/3/8"
-      ],
-      "previous_text": "The chart above the table plots the areas, holes or stations you pick in its multiselect, whichever level the table is showing.",
-      "next_text": "The table is a drill-down: course, then areas, then holes, then stations. Breadcrumbs at the top left take you back up."
+        "dashboard-overview/3/8",
+        "dashboard-overview/3/6"
+      ]
     },
     {
       "id": "V4a",
       "chapter": "c4",
-      "text": "The table is a drill-down: course, then areas, then holes, then stations. Breadcrumbs at the top left take you back up.",
+      "text": "The table is a drill-down. It starts at the course, with a row for each area.",
       "claims": [
         "dashboard-overview/4/2",
-        "dashboard-overview/4/6",
-        "dashboard-overview/4/7",
-        "dashboard-overview/4/4"
-      ],
-      "previous_text": "Selecting a row in the table changes the chart header to that area or hole and its average moisture, so the chart and the table always describe the same thing.",
-      "next_text": "At station level you get the editable columns: Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch."
+        "dashboard-overview/4/7"
+      ]
     },
     {
       "id": "V4b",
       "chapter": "c4",
-      "text": "At station level you get the editable columns: Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch.",
+      "text": "Click an area to see its holes.",
       "claims": [
-        "dashboard-overview/4/3",
-        "suggested-adjustments/1/7"
-      ],
-      "previous_text": "The table is a drill-down: course, then areas, then holes, then stations. Breadcrumbs at the top left take you back up.",
-      "next_text": "The right of the toolbar is your work queue. Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today."
+        "dashboard-overview/4/7",
+        "dashboard-overview/4/8"
+      ]
+    },
+    {
+      "id": "V4c",
+      "chapter": "c4",
+      "text": "Click a hole to see its stations.",
+      "claims": [
+        "dashboard-overview/4/2",
+        "dashboard-overview/4/3"
+      ]
+    },
+    {
+      "id": "V4d",
+      "chapter": "c4",
+      "text": "Click a station's row, and the chart header follows.",
+      "claims": [
+        "dashboard-overview/4/8",
+        "dashboard-overview/3/6"
+      ]
+    },
+    {
+      "id": "V4d2",
+      "chapter": "c4",
+      "text": "The check box is separate. It picks stations for a bulk change.",
+      "claims": [
+        "bulk-adjustments/1/2",
+        "bulk-adjustments/summary/1"
+      ]
+    },
+    {
+      "id": "V4e",
+      "chapter": "c4",
+      "text": "Three columns are yours to edit: Target VWC, the percent adjustment, and the Enable switch.",
+      "claims": [
+        "dashboard-overview/4/4"
+      ]
+    },
+    {
+      "id": "V4f",
+      "chapter": "c4",
+      "text": "You can't edit Current or Suggested adjustment.",
+      "claims": [
+        "dashboard-overview/4/4"
+      ]
+    },
+    {
+      "id": "V4g",
+      "chapter": "c4",
+      "text": "To go back up, click a name in the trail.",
+      "claims": [
+        "dashboard-overview/4/5"
+      ]
     },
     {
       "id": "V5a",
       "chapter": "c5",
-      "text": "The right of the toolbar is your work queue. Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today.",
+      "text": "Before you leave, read the number on Push Changes. That is how many changes are pending.",
       "claims": [
         "dashboard-overview/5/2",
-        "dashboard-overview/5/3",
-        "suggested-adjustments/verify/2"
-      ],
-      "previous_text": "At station level you get the editable columns: Target VWC, the current and suggested adjustment side by side, your own % Adj. value, and the Enable switch.",
-      "next_text": "The green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding."
+        "dashboard-overview/5/3"
+      ]
     },
     {
       "id": "V5b",
       "chapter": "c5",
-      "text": "The green counter beside it counts stations already pushed today. When both are quiet, there is nothing outstanding.",
+      "text": "The green counter beside it shows how many went out today.",
       "claims": [
-        "dashboard-overview/5/3",
-        "dashboard-overview/5/6"
-      ],
-      "previous_text": "The right of the toolbar is your work queue. Push Changes counts the enabled stations whose % Adj. differs from what Lynx holds, edited or not, leaving out any already pushed today."
+        "dashboard-overview/5/3"
+      ]
     }
   ],
   "beats": [
@@ -254,11 +329,23 @@
       ]
     },
     {
-      "id": "b1a",
+      "id": "bV1",
       "chapter": "c1",
-      "vo": "V1a",
-      "hold": 11.11,
+      "vo": "V1",
+      "hold": 3.54,
       "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=0"
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"RH\" >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=0 >> xpath=../.."
+        },
         {
           "type": "cue",
           "id": "c1-in"
@@ -279,19 +366,26 @@
         },
         {
           "type": "cue",
-          "id": "V1a"
+          "id": "V1"
         }
       ]
     },
     {
-      "id": "b1b",
+      "id": "bV1-1",
       "chapter": "c1",
-      "vo": "V1b",
-      "hold": 10.81,
+      "hold": 1.16,
       "actions": [
         {
-          "type": "cue",
-          "id": "V1b"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=0"
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"RH\" >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=0 >> xpath=../.."
         },
         {
           "type": "hover",
@@ -302,10 +396,25 @@
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"RH\" >> xpath=../..",
           "name": "101 F 18 % RH 0.34 in ET 0.00 in ⌄"
+        }
+      ]
+    },
+    {
+      "id": "bV1-2",
+      "chapter": "c1",
+      "hold": 3.86,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=0"
         },
         {
-          "type": "wait",
-          "ms": 3855
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"RH\" >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=0 >> xpath=../.."
         },
         {
           "type": "hover",
@@ -320,18 +429,14 @@
       ]
     },
     {
-      "id": "b2a",
+      "id": "bV2a",
       "chapter": "c2",
       "vo": "V2a",
-      "hold": 16.25,
+      "hold": 5.5,
       "actions": [
         {
-          "type": "figure",
-          "caption": "Map with the moisture legend."
-        },
-        {
-          "type": "wait",
-          "ms": 750
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../../.."
         },
         {
           "type": "cue",
@@ -343,100 +448,311 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"26\"",
-          "name": "26"
-        },
-        {
-          "type": "cue",
-          "id": "V2a"
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"31\"",
-          "name": "31"
-        },
-        {
-          "type": "wait",
-          "ms": 2637
-        },
-        {
-          "type": "hover",
           "target": "[data-sa-frame] >> text=\"4\"",
           "name": "4"
         },
         {
-          "type": "wait",
-          "ms": 2637
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../../.."
         },
         {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"0-5%\"",
-          "name": "0-5%"
-        },
-        {
-          "type": "wait",
-          "ms": 2637
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"50\" >> nth=0",
-          "name": "50"
+          "type": "cue",
+          "id": "V2a"
         }
       ]
     },
     {
-      "id": "b2b",
+      "id": "bV2a-1",
       "chapter": "c2",
-      "vo": "V2b",
-      "hold": 12.51,
+      "hold": 1.8,
       "actions": [
         {
-          "type": "cue",
-          "id": "V2b"
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"50\"",
+          "name": "50"
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"LAYERS\" >> xpath=../..",
-          "name": "0-5% 6-19% 20-30% > 30% LAYERS"
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"6-19%\"",
-          "name": "6-19%"
-        },
-        {
-          "type": "wait",
-          "ms": 2887
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"> 30%\"",
-          "name": "> 30%"
-        },
-        {
-          "type": "wait",
-          "ms": 2887
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"LAYERS\" >> xpath=..",
-          "name": "LAYERS"
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../../.."
         }
       ]
     },
     {
-      "id": "b3a",
-      "chapter": "c3",
-      "vo": "V3a",
-      "hold": 9.69,
+      "id": "bV2b",
+      "chapter": "c2",
+      "vo": "V2b",
+      "hold": 4.41,
       "actions": [
         {
-          "type": "figure",
-          "caption": "Chart and table share a selection."
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/^0\\s*[-–]\\s*5%/",
+          "name": "0-5%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/^0\\s*[-–]\\s*5%/",
+          "name": "0-5%"
+        },
+        {
+          "type": "cue",
+          "id": "V2b"
+        }
+      ]
+    },
+    {
+      "id": "bV2b-1",
+      "chapter": "c2",
+      "hold": 4.98,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/^>\\s*30%/",
+          "name": "> 30%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/^>\\s*30%/",
+          "name": "> 30%"
+        }
+      ]
+    },
+    {
+      "id": "bV2b-2",
+      "chapter": "c2",
+      "hold": 1.54,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/^0\\s*[-–]\\s*5%/",
+          "name": "0-5%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/^0\\s*[-–]\\s*5%/",
+          "name": "0-5%"
+        }
+      ]
+    },
+    {
+      "id": "bV2c",
+      "chapter": "c2",
+      "vo": "V2c",
+      "hold": 2.35,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-handle=\"1\"]",
+          "name": "Legend handle 1"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-handle=\"1\"]",
+          "name": "Legend handle 1"
+        },
+        {
+          "type": "cue",
+          "id": "V2c"
+        }
+      ]
+    },
+    {
+      "id": "bV2c-1",
+      "chapter": "c2",
+      "hold": 2.62,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-handle=\"3\"]",
+          "name": "Legend handle 3"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-handle=\"3\"]",
+          "name": "Legend handle 3"
+        }
+      ]
+    },
+    {
+      "id": "bV2d",
+      "chapter": "c2",
+      "vo": "V2d",
+      "hold": 0.8,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"32\""
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"33\""
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-handle=\"3\"]",
+          "name": "Legend handle 3"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-handle=\"3\"]",
+          "name": "Legend handle 3"
+        },
+        {
+          "type": "cue",
+          "id": "V2d"
+        }
+      ]
+    },
+    {
+      "id": "bV2d-1",
+      "chapter": "c2",
+      "hold": 3.72,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"32\""
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"33\""
+        },
+        {
+          "type": "drag",
+          "target": "[data-sa-frame] >> [data-sa-handle=\"3\"]",
+          "name": "Legend handle 3",
+          "dx": 34,
+          "ms": 1100
+        }
+      ]
+    },
+    {
+      "id": "bV2e",
+      "chapter": "c2",
+      "vo": "V2e",
+      "hold": 1.41,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-variance]",
+          "name": "Toggle VWC or Variance View"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-variance]",
+          "name": "Toggle VWC or Variance View"
+        },
+        {
+          "type": "cue",
+          "id": "V2e"
+        }
+      ]
+    },
+    {
+      "id": "bV2e-1",
+      "chapter": "c2",
+      "hold": 1.0,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-variance]",
+          "name": "Toggle VWC or Variance View"
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-variance]",
+          "name": "Toggle VWC or Variance View"
+        }
+      ]
+    },
+    {
+      "id": "bV2e-2",
+      "chapter": "c2",
+      "hold": 3.66,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../../.."
+        }
+      ]
+    },
+    {
+      "id": "bV2e-back",
+      "chapter": "c2",
+      "hold": 3.2,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-variance] >> xpath=../.."
         },
         {
           "type": "wait",
-          "ms": 750
+          "ms": 1400
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-variance]",
+          "name": "Toggle VWC or Variance View"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-variance]",
+          "name": "Toggle VWC or Variance View"
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-variance]",
+          "name": "Toggle VWC or Variance View"
+        }
+      ]
+    },
+    {
+      "id": "bV3a",
+      "chapter": "c3",
+      "vo": "V3a",
+      "hold": 4.98,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../../.."
         },
         {
           "type": "cue",
@@ -463,49 +779,40 @@
       ]
     },
     {
-      "id": "b3b",
+      "id": "bV3b",
       "chapter": "c3",
       "vo": "V3b",
-      "hold": 9.9,
+      "hold": 4.15,
       "actions": [
         {
-          "type": "cue",
-          "id": "V3b"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../..",
+          "name": "Riverbend National 33.70 Avg. Moisture"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../..",
-          "name": "AP 33.70 Avg. Moisture"
+          "name": "Riverbend National 33.70 Avg. Moisture"
         },
         {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../..",
-          "name": "AP 33.70 Avg. Moisture"
-        },
-        {
-          "type": "wait",
-          "ms": 3400
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"3AP1\"",
-          "name": "3AP1"
+          "type": "cue",
+          "id": "V3b"
         }
       ]
     },
     {
-      "id": "b4a",
+      "id": "bV4a",
       "chapter": "c4",
       "vo": "V4a",
-      "hold": 10.1,
+      "hold": 3.4,
       "actions": [
         {
-          "type": "figure",
-          "caption": "Station-level rows for hole 3 of area AP."
-        },
-        {
-          "type": "wait",
-          "ms": 750
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../../.."
         },
         {
           "type": "cue",
@@ -517,92 +824,442 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=1",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"]",
+          "name": "Riverbend National"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"]",
           "name": "Riverbend National"
         },
         {
           "type": "cue",
           "id": "V4a"
-        },
+        }
+      ]
+    },
+    {
+      "id": "bV4a-1",
+      "chapter": "c4",
+      "hold": 2.13,
+      "actions": [
         {
-          "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=1",
-          "name": "Riverbend National"
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../../.."
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"3AP1\"",
+          "target": "[data-sa-frame] >> [data-sa-row=\"AP\"]",
+          "name": "AP"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-row=\"AP\"]",
+          "name": "AP"
+        }
+      ]
+    },
+    {
+      "id": "bV4b",
+      "chapter": "c4",
+      "vo": "V4b",
+      "hold": 0.8,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-row=\"AP\"]",
+          "name": "AP"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-row=\"AP\"]",
+          "name": "AP"
+        },
+        {
+          "type": "cue",
+          "id": "V4b"
+        }
+      ]
+    },
+    {
+      "id": "bV4b-1",
+      "chapter": "c4",
+      "hold": 1.84,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-row=\"AP\"]",
+          "name": "AP"
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-row=\"AP\"]",
+          "name": "AP"
+        }
+      ]
+    },
+    {
+      "id": "bV4c",
+      "chapter": "c4",
+      "vo": "V4c",
+      "hold": 0.8,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-row=\"3\"]",
+          "name": "3"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-row=\"3\"]",
+          "name": "3"
+        },
+        {
+          "type": "cue",
+          "id": "V4c"
+        }
+      ]
+    },
+    {
+      "id": "bV4c-1",
+      "chapter": "c4",
+      "hold": 1.91,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-row=\"3\"]",
+          "name": "3"
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-row=\"3\"]",
+          "name": "3"
+        }
+      ]
+    },
+    {
+      "id": "bV4d",
+      "chapter": "c4",
+      "vo": "V4d",
+      "hold": 0.99,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"]",
+          "name": "3AP1"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../.."
+        },
+        {
+          "type": "cue",
+          "id": "V4d"
+        }
+      ]
+    },
+    {
+      "id": "bV4d-1",
+      "chapter": "c4",
+      "hold": 1.12,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../.."
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"]",
           "name": "3AP1"
         }
       ]
     },
     {
-      "id": "b4b",
+      "id": "bV4d-2",
       "chapter": "c4",
-      "vo": "V4b",
-      "hold": 11.56,
+      "hold": 2.01,
       "actions": [
         {
-          "type": "cue",
-          "id": "V4b"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../.."
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Target VWC\"",
-          "name": "Target VWC"
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Target VWC\"",
-          "name": "Target VWC"
-        },
-        {
-          "type": "wait",
-          "ms": 1740
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Adjustment\" >> xpath=..",
-          "name": "Adjustment Current Suggested"
-        },
-        {
-          "type": "wait",
-          "ms": 1740
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"% Adj.\" >> nth=0",
-          "name": "% Adj."
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"% Adj.\" >> nth=0",
-          "name": "% Adj."
-        },
-        {
-          "type": "wait",
-          "ms": 1740
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Enable\"",
-          "name": "Enable"
+          "target": "[data-sa-frame] >> text=\"Avg. Moisture\" >> nth=1 >> xpath=../.."
         }
       ]
     },
     {
-      "id": "b5a",
-      "chapter": "c5",
-      "vo": "V5a",
-      "hold": 14.27,
+      "id": "bV4d2",
+      "chapter": "c4",
+      "vo": "V4d2",
+      "hold": 4.76,
       "actions": [
         {
-          "type": "figure",
-          "caption": "Six stations pending, six already pushed today."
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
         },
         {
-          "type": "wait",
-          "ms": 750
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> xpath=./div[1]/div[1]"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> xpath=./div[1]/div[1]"
+        },
+        {
+          "type": "cue",
+          "id": "V4d2"
+        }
+      ]
+    },
+    {
+      "id": "bV4e",
+      "chapter": "c4",
+      "vo": "V4e",
+      "hold": 4.41,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> text=\"40\"",
+          "name": "40"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> text=\"40\"",
+          "name": "40"
+        },
+        {
+          "type": "cue",
+          "id": "V4e"
+        }
+      ]
+    },
+    {
+      "id": "bV4e-1",
+      "chapter": "c4",
+      "hold": 1.5,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> text=\"125\"",
+          "name": "125"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> text=\"125\"",
+          "name": "125"
+        }
+      ]
+    },
+    {
+      "id": "bV4e-2",
+      "chapter": "c4",
+      "hold": 1.99,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> xpath=./div[2]/div[last()]/div",
+          "name": "Enable switch"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> xpath=./div[2]/div[last()]/div",
+          "name": "Enable switch"
+        }
+      ]
+    },
+    {
+      "id": "bV4f",
+      "chapter": "c4",
+      "vo": "V4f",
+      "hold": 1.33,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> text=\"100%\"",
+          "name": "100%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> text=\"100%\"",
+          "name": "100%"
+        },
+        {
+          "type": "cue",
+          "id": "V4f"
+        }
+      ]
+    },
+    {
+      "id": "bV4f-1",
+      "chapter": "c4",
+      "hold": 2.15,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> text=\"125%\"",
+          "name": "125%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-station=\"3AP1\"] >> xpath=../../.. >> text=\"125%\"",
+          "name": "125%"
+        }
+      ]
+    },
+    {
+      "id": "bV4g",
+      "chapter": "c4",
+      "vo": "V4g",
+      "hold": 1.59,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"AP\"]",
+          "name": "AP"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"AP\"]",
+          "name": "AP"
+        },
+        {
+          "type": "cue",
+          "id": "V4g"
+        }
+      ]
+    },
+    {
+      "id": "bV4g-1",
+      "chapter": "c4",
+      "hold": 1.84,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"] >> xpath=../../../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"AP\"]",
+          "name": "AP"
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"AP\"]",
+          "name": "AP"
+        }
+      ]
+    },
+    {
+      "id": "bV5a",
+      "chapter": "c5",
+      "vo": "V5a",
+      "hold": 6.15,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../../../following-sibling::div[1]"
         },
         {
           "type": "cue",
@@ -629,14 +1286,18 @@
       ]
     },
     {
-      "id": "b5b",
+      "id": "bV5b",
       "chapter": "c5",
       "vo": "V5b",
-      "hold": 7.88,
+      "hold": 3.98,
       "actions": [
         {
-          "type": "cue",
-          "id": "V5b"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../.."
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../../../following-sibling::div[1]"
         },
         {
           "type": "hover",
@@ -647,6 +1308,10 @@
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"Push 6 Changes\" >> xpath=../../../following-sibling::div[1]",
           "name": "6"
+        },
+        {
+          "type": "cue",
+          "id": "V5b"
         }
       ]
     }
@@ -658,5 +1323,921 @@
   },
   "music": "sa-bed-v1",
   "treatment": "standard",
-  "approvalsRef": null
+  "approvalsRef": null,
+  "recreationState": {
+    "tableLevel": "areas",
+    "crumb": "Riverbend National",
+    "chartTitle": "Riverbend National",
+    "chartAvg": "33.70"
+  },
+  "recreationMap": {
+    "file": "backdrop-z19-3072.jpg",
+    "zoom": 17.2,
+    "diameter": 32,
+    "view": {
+      "x0": 936,
+      "y0": 790,
+      "w": 3642,
+      "h": 3283
+    },
+    "pins": [
+      {
+        "x": 7,
+        "y": 20,
+        "name": "3AP1"
+      },
+      {
+        "x": 9,
+        "y": 28,
+        "name": "3AP2"
+      },
+      {
+        "x": 12,
+        "y": 34,
+        "name": "3AP3"
+      },
+      {
+        "x": 16,
+        "y": 39,
+        "name": "3AP4"
+      },
+      {
+        "x": 19,
+        "y": 43,
+        "name": "3AP5"
+      },
+      {
+        "x": 22,
+        "y": 48,
+        "name": "3AP6"
+      },
+      {
+        "x": 94,
+        "y": 52,
+        "name": "5AP1"
+      },
+      {
+        "x": 46,
+        "y": 55,
+        "name": "4AP2"
+      },
+      {
+        "x": 36,
+        "y": 55,
+        "name": "4AP1"
+      },
+      {
+        "x": 55,
+        "y": 54,
+        "name": "4AP3"
+      },
+      {
+        "x": 64,
+        "y": 52,
+        "name": "4AP4"
+      },
+      {
+        "x": 70,
+        "y": 47,
+        "name": "4AP5"
+      },
+      {
+        "x": 75,
+        "y": 43,
+        "name": "4AP6"
+      },
+      {
+        "x": 95,
+        "y": 58,
+        "name": "5AP2"
+      },
+      {
+        "x": 96,
+        "y": 64,
+        "name": "5AP3"
+      },
+      {
+        "x": 66,
+        "y": 60,
+        "name": "6AP1"
+      },
+      {
+        "x": 97,
+        "y": 70,
+        "name": "5AP5"
+      },
+      {
+        "x": 93,
+        "y": 45,
+        "name": "5AP4"
+      },
+      {
+        "x": 62,
+        "y": 67,
+        "name": "6AP2"
+      },
+      {
+        "x": 82,
+        "y": 15,
+        "name": "7AP1"
+      },
+      {
+        "x": 97,
+        "y": 76,
+        "name": "5AP6"
+      },
+      {
+        "x": 58,
+        "y": 73,
+        "name": "6AP3"
+      },
+      {
+        "x": 92,
+        "y": 12,
+        "name": "7AP2"
+      },
+      {
+        "x": 55,
+        "y": 78,
+        "name": "6AP4"
+      }
+    ],
+    "fullWidth": 5120,
+    "fullHeight": 4096,
+    "total": 148,
+    "seed": 5,
+    "full": "backdrop-z19.jpg",
+    "card": [
+      1046,
+      943
+    ],
+    "exclude": [
+      [
+        51,
+        23,
+        22,
+        25
+      ],
+      [
+        77,
+        87.5,
+        4.5,
+        3.5
+      ],
+      [
+        37,
+        43,
+        4,
+        3.5
+      ],
+      [
+        73,
+        30,
+        4,
+        3.5
+      ]
+    ],
+    "spots": [
+      [
+        5.54,
+        11.35,
+        0
+      ],
+      [
+        6.12,
+        16.01,
+        0
+      ],
+      [
+        8.99,
+        23.59,
+        0
+      ],
+      [
+        10.33,
+        26.14,
+        0
+      ],
+      [
+        9.66,
+        28.26,
+        0
+      ],
+      [
+        10.61,
+        30.28,
+        0
+      ],
+      [
+        12.62,
+        29.9,
+        0
+      ],
+      [
+        13.05,
+        27.41,
+        0
+      ],
+      [
+        12.38,
+        33.51,
+        0
+      ],
+      [
+        12.62,
+        35.74,
+        0
+      ],
+      [
+        14.29,
+        37.06,
+        0
+      ],
+      [
+        15.01,
+        34.09,
+        0
+      ],
+      [
+        10.23,
+        33.99,
+        0
+      ],
+      [
+        9.42,
+        36.06,
+        0
+      ],
+      [
+        11.19,
+        38.65,
+        0
+      ],
+      [
+        11.57,
+        41.2,
+        0
+      ],
+      [
+        13.24,
+        42.47,
+        0
+      ],
+      [
+        15.3,
+        40.67,
+        0
+      ],
+      [
+        17.26,
+        42.79,
+        0
+      ],
+      [
+        19.02,
+        44.91,
+        0
+      ],
+      [
+        18.69,
+        47.14,
+        0
+      ],
+      [
+        20.7,
+        47.99,
+        0
+      ],
+      [
+        21.85,
+        49.89,
+        0
+      ],
+      [
+        23.57,
+        48.09,
+        0
+      ],
+      [
+        24.47,
+        50.11,
+        0
+      ],
+      [
+        21.03,
+        44.43,
+        0
+      ],
+      [
+        7.98,
+        32.4,
+        0
+      ],
+      [
+        98.71,
+        86.43,
+        1
+      ],
+      [
+        97.08,
+        82.82,
+        1
+      ],
+      [
+        95.98,
+        79.06,
+        1
+      ],
+      [
+        96.13,
+        76.14,
+        1
+      ],
+      [
+        95.75,
+        73.28,
+        1
+      ],
+      [
+        95.36,
+        71.05,
+        1
+      ],
+      [
+        95.46,
+        68.5,
+        1
+      ],
+      [
+        95.32,
+        65.59,
+        1
+      ],
+      [
+        93.98,
+        63.79,
+        1
+      ],
+      [
+        95.75,
+        62.67,
+        1
+      ],
+      [
+        97.51,
+        61.56,
+        1
+      ],
+      [
+        95.89,
+        59.7,
+        1
+      ],
+      [
+        96.7,
+        57.64,
+        1
+      ],
+      [
+        96.51,
+        55.36,
+        1
+      ],
+      [
+        94.46,
+        53.55,
+        1
+      ],
+      [
+        93.31,
+        55.41,
+        1
+      ],
+      [
+        92.83,
+        52.17,
+        1
+      ],
+      [
+        94.12,
+        50.42,
+        1
+      ],
+      [
+        92.54,
+        48.99,
+        1
+      ],
+      [
+        94.07,
+        47.51,
+        1
+      ],
+      [
+        94.02,
+        44.59,
+        1
+      ],
+      [
+        93.16,
+        41.78,
+        1
+      ],
+      [
+        91.68,
+        39.4,
+        1
+      ],
+      [
+        93.21,
+        37.91,
+        1
+      ],
+      [
+        89.1,
+        38.81,
+        1
+      ],
+      [
+        95.75,
+        51.8,
+        1
+      ],
+      [
+        94.02,
+        61.45,
+        1
+      ],
+      [
+        67.16,
+        62.57,
+        2
+      ],
+      [
+        65.3,
+        64.69,
+        2
+      ],
+      [
+        63.96,
+        66.97,
+        2
+      ],
+      [
+        62.28,
+        68.24,
+        2
+      ],
+      [
+        60.52,
+        70.68,
+        2
+      ],
+      [
+        59.08,
+        73.59,
+        2
+      ],
+      [
+        58.56,
+        75.77,
+        2
+      ],
+      [
+        60.04,
+        77.31,
+        2
+      ],
+      [
+        56.5,
+        75.66,
+        2
+      ],
+      [
+        55.88,
+        77.84,
+        2
+      ],
+      [
+        55.11,
+        79.96,
+        2
+      ],
+      [
+        53.35,
+        81.07,
+        2
+      ],
+      [
+        55.07,
+        82.29,
+        2
+      ],
+      [
+        52.01,
+        84.36,
+        2
+      ],
+      [
+        50.33,
+        85.63,
+        2
+      ],
+      [
+        48.23,
+        84.99,
+        2
+      ],
+      [
+        49.57,
+        88.39,
+        2
+      ],
+      [
+        48.47,
+        90.3,
+        2
+      ],
+      [
+        46.61,
+        91.41,
+        2
+      ],
+      [
+        44.65,
+        91.99,
+        2
+      ],
+      [
+        42.21,
+        93.05,
+        2
+      ],
+      [
+        43.83,
+        88.76,
+        2
+      ],
+      [
+        51.29,
+        81.02,
+        2
+      ],
+      [
+        76.0,
+        78.15,
+        3
+      ],
+      [
+        74.47,
+        79.96,
+        3
+      ],
+      [
+        74.19,
+        82.18,
+        3
+      ],
+      [
+        71.61,
+        83.88,
+        3
+      ],
+      [
+        68.93,
+        83.93,
+        3
+      ],
+      [
+        67.83,
+        82.03,
+        3
+      ],
+      [
+        69.74,
+        81.18,
+        3
+      ],
+      [
+        69.41,
+        78.95,
+        3
+      ],
+      [
+        71.37,
+        78.31,
+        3
+      ],
+      [
+        73.37,
+        78.05,
+        3
+      ],
+      [
+        67.02,
+        84.73,
+        3
+      ],
+      [
+        66.3,
+        86.9,
+        3
+      ],
+      [
+        64.34,
+        88.87,
+        3
+      ],
+      [
+        62.52,
+        91.78,
+        3
+      ],
+      [
+        59.89,
+        94.22,
+        3
+      ],
+      [
+        58.41,
+        96.08,
+        3
+      ],
+      [
+        57.6,
+        98.2,
+        3
+      ],
+      [
+        69.17,
+        86.85,
+        3
+      ],
+      [
+        44.41,
+        56.84,
+        4
+      ],
+      [
+        46.46,
+        57.05,
+        4
+      ],
+      [
+        49.09,
+        56.84,
+        4
+      ],
+      [
+        51.67,
+        56.31,
+        4
+      ],
+      [
+        53.68,
+        54.45,
+        4
+      ],
+      [
+        55.64,
+        55.62,
+        4
+      ],
+      [
+        58.22,
+        55.36,
+        4
+      ],
+      [
+        60.71,
+        54.51,
+        4
+      ],
+      [
+        61.66,
+        52.49,
+        4
+      ],
+      [
+        63.72,
+        52.55,
+        4
+      ],
+      [
+        64.15,
+        49.89,
+        4
+      ],
+      [
+        66.16,
+        48.83,
+        4
+      ],
+      [
+        68.74,
+        48.36,
+        4
+      ],
+      [
+        71.61,
+        47.51,
+        4
+      ],
+      [
+        73.23,
+        44.11,
+        4
+      ],
+      [
+        75.05,
+        42.15,
+        4
+      ],
+      [
+        58.94,
+        52.39,
+        4
+      ],
+      [
+        79.54,
+        19.51,
+        5
+      ],
+      [
+        77.44,
+        17.34,
+        5
+      ],
+      [
+        75.81,
+        18.72,
+        5
+      ],
+      [
+        74.95,
+        15.85,
+        5
+      ],
+      [
+        72.94,
+        15.38,
+        5
+      ],
+      [
+        71.61,
+        12.57,
+        5
+      ],
+      [
+        70.08,
+        8.8,
+        5
+      ],
+      [
+        89.15,
+        3.18,
+        6
+      ],
+      [
+        90.77,
+        4.56,
+        6
+      ],
+      [
+        91.59,
+        6.63,
+        6
+      ],
+      [
+        93.21,
+        8.96,
+        6
+      ],
+      [
+        94.55,
+        11.13,
+        6
+      ],
+      [
+        96.7,
+        12.2,
+        6
+      ],
+      [
+        77.29,
+        10.29,
+        7
+      ],
+      [
+        78.01,
+        7.32,
+        7
+      ],
+      [
+        77.92,
+        5.04,
+        7
+      ],
+      [
+        75.57,
+        6.15,
+        7
+      ],
+      [
+        74.81,
+        3.39,
+        7
+      ],
+      [
+        73.9,
+        1.38,
+        7
+      ],
+      [
+        81.36,
+        1.54,
+        8
+      ],
+      [
+        83.37,
+        1.8,
+        8
+      ],
+      [
+        82.89,
+        4.67,
+        8
+      ],
+      [
+        83.51,
+        8.01,
+        8
+      ],
+      [
+        84.32,
+        10.18,
+        8
+      ],
+      [
+        84.94,
+        45.76,
+        9
+      ],
+      [
+        86.81,
+        43.74,
+        9
+      ],
+      [
+        86.23,
+        40.51,
+        9
+      ],
+      [
+        99.14,
+        6.84,
+        10
+      ],
+      [
+        98.9,
+        3.98,
+        10
+      ],
+      [
+        99.04,
+        1.01,
+        10
+      ],
+      [
+        65.63,
+        44.54,
+        11
+      ],
+      [
+        62.95,
+        46.29,
+        11
+      ],
+      [
+        83.65,
+        18.82,
+        12
+      ],
+      [
+        82.84,
+        16.76,
+        12
+      ],
+      [
+        98.52,
+        92.68,
+        13
+      ],
+      [
+        96.94,
+        95.07,
+        13
+      ]
+    ]
+  }
 }

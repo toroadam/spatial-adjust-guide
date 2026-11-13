@@ -5,15 +5,17 @@ two disagree, when a colour drifts from the design tokens (_ds .../tokens/figma/
 (SpatialAdjustApp.dc.html), when an ease or the title spring drifts from the engine, or when red leaves the lockup tile.
 
   from brand import BRAND, min_hold
-  BRAND['highlight']           '#3079F0', the design-system blue on the element being described
+  BRAND['highlight']           '#3079F0', the design-system blue (the URL pill dot, the > 30 % band; not a pointer: the thing being described is spotlit)
   BRAND['type']['title']       {'size': 200, 'weight': 700, ...} at 1920x1080
   min_hold(4)                  2.7: an on-screen label of 4 words holds at least 1.5 s + 0.3 s per word
 
 theme.py applies BRAND with THEME.update(BRAND), so the ported engine, the wallpaper, the timeline builder and the layer
 types all read these values through THEME. Nothing else under video/edit/lib holds a colour literal.
 
-Red (#E11837, Toro red) appears in exactly two places: the lockup's Toro tile, and the 0-5 % moisture band when the data
-itself shows it. Every highlight, active fill, cursor and pointer is design-system blue. There are no red boxes.
+Red (#E11837, Toro red) appears in four places: the background of the title, chapter, up-next and end screens (the 'card'
+and 'hero' walls, Toro red from the tokens), the lockup's Toro tile, the 0-5 % moisture band when the data itself shows it,
+and a soft glow on the footage wall. What the voice is on is marked by a spotlight (the rest of the frame dims; SPOTLIGHT),
+not a box, and the moisture bands keep the app's own colours. There are no red or blue boxes, outlines or cursors.
 """
 import os
 
@@ -27,7 +29,7 @@ APP_HTML = os.path.join(REPO, 'SpatialAdjustApp.dc.html')
 # own legend colour (SpatialAdjustApp.dc.html:315) and has no design token.
 # ----------------------------------------------------------------------------------------------------------------------
 COLORS = dict(
-    red='#E11837', red_shade='#C91E38', red_tint='#FA5069',                 # Toro red: the lockup tile only
+    red='#E11837', red_shade='#C91E38', red_tint='#FA5069',                 # Toro red: the tile screens' background, the lockup tile, the 0-5 % band
     blue='#3079F0', blue_tint='#66A1FF', blue_shade='#2165DB',              # design-system blue: highlights
     green='#42CE11', yellow='#F3D43B',                                      # moisture-band accents
     gray100='#080D12', gray90='#1B1E21', gray80='#33393D', gray70='#4C5459', gray60='#646E73', gray50='#848E94',
@@ -53,12 +55,12 @@ MOISTURE = (
 # Semantic roles (what each colour is for)
 ROLES = dict(
     text=COLORS['gray100'],            # type on light surfaces
-    light=COLORS['gray05'],            # type on the dark wall
+    light=COLORS['white'],             # type on the Toro red screens (4.8:1 on #E11837)
     secondary=COLORS['gray60'],        # secondary type on light surfaces
-    muted=COLORS['gray30'],            # secondary type on the dark wall (tags, legal line)
-    highlight=COLORS['blue'],          # the element being described: focus box, URL pill dot
-    strip_active=COLORS['blue'],       # chapter strip: the active chapter's fill and its glowing head
-    type_cursor=COLORS['blue'],        # typewriter block cursor on chapter cards
+    muted=COLORS['gray100'],           # secondary type on the Toro red screens (tags, legal line): near-black, 4.1:1, large text only
+    highlight=COLORS['blue'],          # design-system blue: the URL pill dot (the element being described is spotlit, not boxed)
+    strip_active=COLORS['white'],      # chapter strip: the active chapter's fill and its glowing head
+    type_cursor=COLORS['white'],       # typewriter block cursor on chapter cards (a blue block on red would vibrate)
     title_cursor_fill=COLORS['white'], title_cursor_stroke=COLORS['gray100'],   # arrow cursor on the title card
     ripple=COLORS['white'],            # click ripple and the title card's double-click pulse
 )
@@ -75,22 +77,33 @@ LOCKUP = dict(
     gap_ratio=0.35,                    # ink gap tile -> S / tile height (22 / 63)
     tile_open=150,                     # tile height on the open (lockup moment), px at 1920x1080
     tile_end=104,                      # tile height on the end card
-    color_dark_wall=COLORS['gray05'],  # wordmark on the dark wall; on light surfaces it is ROLES['text']
+    color_dark_wall=COLORS['white'],   # wordmark on the Toro red screens; on light surfaces it is ROLES['text']
+    # The tile is the approved logo file, unaltered. On a red screen it sits on a white plate whose padding is its clear
+    # space (a quarter of the tile's height on every side), so it is never set on red.
+    plate=dict(pad_ratio=0.25, radius_ratio=0.22, color=COLORS['white']),
 )
+
+# The corner bug: the same tile on its plate, small, in the top-left safe corner of every footage shot.
+BUG = dict(tile_h=40, margin=(96, 54), opacity=0.95, fade=0.4)     # margins = the title-safe box's top-left corner
 
 # ----------------------------------------------------------------------------------------------------------------------
 # Background: the contour wall (background.py). Dark Oasis neutrals, faint topographic contour lines like the slope map of
 # a green, and soft blooms in the moisture-band accents (never red). Replaces the iCentral red satin wave.
 # ----------------------------------------------------------------------------------------------------------------------
 WALL = dict(
-    style='sa-contour-1',
+    style='sa-contour-2',
     top=COLORS['gray90'], bottom=COLORS['gray100'], lift=COLORS['gray80'],
     line=COLORS['gray40'], line_alpha=0.07, index_alpha=0.13, index_every=5,
     blooms=dict(
-        bloom=((COLORS['blue'], 0.30), (COLORS['green'], 0.12), (COLORS['yellow'], 0.05)),
-        hero=((COLORS['blue'], 0.34), (COLORS['green'], 0.10), (COLORS['yellow'], 0.05)),
-        card=((COLORS['blue'], 0.22), (COLORS['green'], 0.06)),
+        bloom=((COLORS['red'], 0.16), (COLORS['gray70'], 0.20), (COLORS['red_shade'], 0.08)),
+        hero=((COLORS['red_shade'], 0.45), (COLORS['red_shade'], 0.30), (COLORS['red_shade'], 0.20)),
+        card=((COLORS['red_shade'], 0.45), (COLORS['red_shade'], 0.25)),
     ),
+    # The title, chapter, up-next and end screens are Toro red: the base token at the top, the shade token at the foot, no
+    # tint (white type needs 4.5:1, and the tint is lighter than the base), contour lines in the lighter tint at low alpha.
+    red_variants=('card', 'hero'),
+    screen=dict(top=COLORS['red'], bottom=COLORS['red_shade'], lift=COLORS['red'], line=COLORS['red_tint'],
+             line_alpha=0.24, index_alpha=0.40, vignette=0.22),
     # wallpaper.py (the ported iCentral satin) still imports; its ribbon slots are re-skinned in design-system blue
     red=COLORS['blue'], shade=COLORS['blue_shade'], tint=COLORS['blue_tint'], g100=COLORS['gray100'], g90=COLORS['gray90'],
     g80=COLORS['gray80'], g70=COLORS['gray70'], g40=COLORS['gray40'], g20=COLORS['gray20'],
@@ -129,7 +142,7 @@ SPRING = dict(w=15.0, z=0.42)                      # underdamped title pop, over
 DURATIONS = dict(                                   # seconds
     enter=0.55, exit=0.30, type_word=0.60, type_stagger=0.07, type_out=0.22, type_cps=50,
     push_in=(1.2, 2.5), window_float=(0.8, 1.2), click_pulse=0.60, double_click_gap=0.16,
-    lockup=2.3, title_card=5.9, up_next_card=4.6, chapter_card=1.7, end_card=5.0, strip_fade=0.5,
+    lockup=1.8, title_card=5.4, up_next_card=4.6, chapter_card=1.7, end_card=5.0, strip_fade=0.5,
 )
 CAMERA = dict(tilt=True, flat_only=('title card', 'end card'))   # the window shot is the tilted plate with cursor-follow push-ins
 
@@ -155,7 +168,13 @@ LAYOUT = dict(
     strip=dict(box=(250, 958, 1670, 1016), r=20, blur=22, pad=22, gap=14),
     end_card=dict(lockup=0.31, cta=0.475, url=0.615),  # centres as fractions of the frame height; legal on title-safe's bottom
 )
-FOCUS_BOX = dict(color=ROLES['highlight'], border=2.5, radius=10, ring=6, ring_alpha=0.16, glow=24, glow_alpha=0.25, fade=0.28)
+# The spotlight (director-runtime.js SPOT, drawn in the page during capture; test_brand.py checks the two agree): the frame dims
+# to `dim` black (`vignette` darker at the corners) except a rounded cutout over the union of the live highlight boxes, grown
+# by clamp(pad_frac x its longer side, pad_min, pad_max) px; corners radius_frac of the shorter side (radius_min..radius_max px),
+# edge feathered `feather` px, eased to a new element with time constant `follow` s, faded in and out over `fade` s. A click presses
+# the cursor to `press_scale` and sends a white ripple at `ripple_alpha`. No blue, no outline.
+SPOTLIGHT = dict(dim=0.5, vignette=0.06, feather=10, pad_frac=0.1, pad_min=12, pad_max=44, radius_frac=0.08, radius_min=10, radius_max=22,
+                 fade=0.4, follow=0.18, press_scale=0.86, ripple_alpha=0.45)
 CURSOR = dict(view_box=(13, 20), css_size=(15.6, 24), fill=ROLES['title_cursor_fill'], stroke=ROLES['title_cursor_stroke'],
               title_scale=6.4)                     # the title card draws the same arrow at 6.4 px per viewBox unit (2x asset)
 
@@ -164,7 +183,7 @@ CURSOR = dict(view_box=(13, 20), css_size=(15.6, 24), fill=ROLES['title_cursor_f
 # ----------------------------------------------------------------------------------------------------------------------
 LOUDNESS = dict(
     integrated_lufs=-14.0, tolerance_lu=0.5, true_peak_max_dbtp=-1.0, limiter_ceiling_dbtp=-1.85,
-    music_under_vo_db=-3.0, duck_db=-9.0, duck_key_dbfs=-45.0, duck_lookahead_ms=50, duck_attack_ms=80, duck_release_ms=350,
+    music_under_vo_db=-3.0, duck_db=-9.0, duck_key_dbfs=-45.0, duck_hold_ms=600, duck_lookahead_ms=120, duck_attack_ms=200, duck_release_ms=1000,
     sample_rate=48000,
 )
 SFX = dict(click=-10.0, hit_soft=-14.0, tick_soft=-10.0, type=-6.0)     # 'type' is one tick per character (type:<n>:<cps>)
@@ -175,8 +194,8 @@ SFX = dict(click=-10.0, hit_soft=-14.0, tick_soft=-10.0, type=-6.0)     # 'type'
 BRAND = dict(COLORS)
 BRAND.update(ROLES)
 BRAND.update(
-    moisture=MOISTURE, lockup=LOCKUP, wall=WALL, type=TYPE, series_word=SERIES_WORD, eases=EASES, spring=SPRING,
-    durations=DURATIONS, camera=CAMERA, title_card=TITLE_CARD, end_card=END_CARD, hold=HOLD, frame=FRAME, layout=LAYOUT, focus_box=FOCUS_BOX, cursor_spec=CURSOR,
+    moisture=MOISTURE, lockup=LOCKUP, bug=BUG, wall=WALL, type=TYPE, series_word=SERIES_WORD, eases=EASES, spring=SPRING,
+    durations=DURATIONS, camera=CAMERA, title_card=TITLE_CARD, end_card=END_CARD, hold=HOLD, frame=FRAME, layout=LAYOUT, spotlight=SPOTLIGHT, cursor_spec=CURSOR,
     loudness=LOUDNESS, sfx_levels=SFX,
     # engine fallbacks (engine.py v1 background and defaults, engine2 peel, glass layer tint)
     bg_tint=COLORS['gray10'], bloom_a=COLORS['blue'], bloom_b=COLORS['blue_tint'], cursor=ROLES['type_cursor'],

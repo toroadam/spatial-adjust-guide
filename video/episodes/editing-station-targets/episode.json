@@ -42,7 +42,8 @@
     "editing-station-targets/4/3",
     "editing-station-targets/verify/3",
     "editing-station-targets/tile/1",
-    "editing-station-targets/tile/2"
+    "editing-station-targets/tile/2",
+    "suggested-adjustments/4/2"
   ],
   "titleCard": {
     "text": "Double Click: Editing station targets",
@@ -120,12 +121,12 @@
         "editing-station-targets/1/4"
       ],
       "previous_text": "Change one station's target, and watch what it does to the suggestion.",
-      "next_text": "If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row."
+      "next_text": "If you already know where the station is, click it on the map: the table drills straight to its hole and scrolls to the row."
     },
     {
       "id": "V1b",
       "chapter": "c1",
-      "text": "If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row.",
+      "text": "If you already know where the station is, click it on the map: the table drills straight to its hole and scrolls to the row.",
       "claims": [
         "editing-station-targets/1/5"
       ],
@@ -140,7 +141,7 @@
         "editing-station-targets/2/2",
         "editing-station-targets/before/1"
       ],
-      "previous_text": "If you already know where the station is, click its pin on the map: the table drills straight to its hole and scrolls to the row.",
+      "previous_text": "If you already know where the station is, click it on the map: the table drills straight to its hole and scrolls to the row.",
       "next_text": "Raising it increases the deficit and therefore the suggestion; lowering it does the opposite."
     },
     {
@@ -162,29 +163,30 @@
         "editing-station-targets/3/3"
       ],
       "previous_text": "Raising it increases the deficit and therefore the suggestion; lowering it does the opposite.",
-      "next_text": "If it lands on the top value, Daily Max Amount divided by Lynx Reference Amount times 100, the daily maximum is capping it rather than the target deciding it."
+      "next_text": "If it lands on the highest value in the column, the daily maximum is capping it rather than the target deciding it."
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "If it lands on the top value, Daily Max Amount divided by Lynx Reference Amount times 100, the daily maximum is capping it rather than the target deciding it.",
+      "text": "If it lands on the highest value in the column, the daily maximum is capping it rather than the target deciding it.",
       "claims": [
         "editing-station-targets/3/4",
         "calculation-questions/2/2",
         "calculation-questions/2/3"
       ],
       "previous_text": "The Suggested column recalculates against the new target.",
-      "next_text": "The % Adj. field is separate from the target and accepts 0 to 900."
+      "next_text": "The % Adj. field is separate from the target and accepts 0 to 900. Override it when the suggestion looks too high or too low for a station you know well."
     },
     {
       "id": "V4a",
       "chapter": "c4",
-      "text": "The % Adj. field is separate from the target and accepts 0 to 900.",
+      "text": "The % Adj. field is separate from the target and accepts 0 to 900. Override it when the suggestion looks too high or too low for a station you know well.",
       "claims": [
         "editing-station-targets/4/2",
-        "editing-station-targets/4/5"
+        "editing-station-targets/4/5",
+        "suggested-adjustments/4/2"
       ],
-      "previous_text": "If it lands on the top value, Daily Max Amount divided by Lynx Reference Amount times 100, the daily maximum is capping it rather than the target deciding it.",
+      "previous_text": "If it lands on the highest value in the column, the daily maximum is capping it rather than the target deciding it.",
       "next_text": "Editing it queues the station for push when the station is enabled and the new value differs from the Current value in Lynx. The Suggested value stays visible beside it for comparison."
     },
     {
@@ -195,7 +197,7 @@
         "editing-station-targets/4/3",
         "editing-station-targets/verify/3"
       ],
-      "previous_text": "The % Adj. field is separate from the target and accepts 0 to 900."
+      "previous_text": "The % Adj. field is separate from the target and accepts 0 to 900. Override it when the suggestion looks too high or too low for a station you know well."
     }
   ],
   "beats": [
@@ -394,12 +396,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> xpath=./div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> xpath=./div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "cue",
@@ -408,7 +410,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../.. >> xpath=./div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         }
       ]
     },

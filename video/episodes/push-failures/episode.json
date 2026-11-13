@@ -44,7 +44,7 @@
     {
       "id": "c1",
       "step": 1,
-      "label": "Read the count, not the colour",
+      "label": "Read the count, not the color",
       "highlight": {
         "label": "could not be updated",
         "selector": "[data-sa-frame] >> text=\"2 stations could not be updated in Lynx.\""

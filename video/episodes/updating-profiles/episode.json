@@ -240,7 +240,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[2]",
-          "name": "54"
+          "name": "40"
         },
         {
           "type": "wait",
@@ -280,7 +280,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[2]",
-          "name": "69"
+          "name": "35"
         }
       ]
     },
@@ -514,7 +514,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "wait",
@@ -523,7 +523,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         }
       ]
     }

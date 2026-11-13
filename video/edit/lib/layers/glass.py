@@ -7,7 +7,7 @@
   blur, pad, gap   optional (22, 22, 14)
 Look: frosted dark glass (the frame under it blurred sigma 22, tinted THEME['glass_tint']), 1.25 px hairline edge, soft
 shadow. Per chapter: the name (55% white, 100% when active), and a 3 px track under it that fills while the chapter plays
-(THEME['strip_active'], design-system blue, while active; white once done), with a glowing head on the active fill.
+(THEME["strip_active"], white), with a glowing head on the active fill.
 """
 import os, sys
 import torch

@@ -138,12 +138,12 @@
         "suggested-adjustments/verify/2"
       ],
       "previous_text": "Review every pending adjustment, drop the ones you do not want, and send the rest to the controller.",
-      "next_text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued."
+      "next_text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is grayed out, there is nothing queued."
     },
     {
       "id": "V1b",
       "chapter": "c1",
-      "text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued.",
+      "text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is grayed out, there is nothing queued.",
       "claims": [
         "push-to-lynx/1/3",
         "push-to-lynx/1/4"
@@ -158,7 +158,7 @@
       "claims": [
         "push-to-lynx/2/7"
       ],
-      "previous_text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is greyed out, there is nothing queued.",
+      "previous_text": "Beside it, the green counter shows how many have already gone out today. If Push Changes is grayed out, there is nothing queued.",
       "next_text": "Available to Push comes first, with everything ticked. Pushed Today follows, unticked. Tick a pushed station only if you genuinely mean to adjust it a second time today."
     },
     {

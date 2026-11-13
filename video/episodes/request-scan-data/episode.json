@@ -206,12 +206,12 @@
         "request-scan-data/verify/3"
       ],
       "previous_text": "When the retrieval finishes, a banner says so, whether or not TurfRad had a newer scan. Reload Data pulls it into the dashboard, and every suggestion recalculates.",
-      "next_text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all."
+      "next_text": "A failed request says so right away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organization has TurfRad access and whether it has scan data at all."
     },
     {
       "id": "V5a",
       "chapter": "c5",
-      "text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all.",
+      "text": "A failed request says so right away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organization has TurfRad access and whether it has scan data at all.",
       "claims": [
         "request-scan-data/3/4",
         "request-scan-data/5/3"
@@ -227,7 +227,7 @@
         "request-scan-data/5/4",
         "request-scan-data/5/6"
       ],
-      "previous_text": "A failed request says so straight away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organisation has TurfRad access and whether it has scan data at all."
+      "previous_text": "A failed request says so right away rather than silently doing nothing. If it keeps failing, the diagnostics dialog reports whether the organization has TurfRad access and whether it has scan data at all."
     }
   ],
   "beats": [
@@ -264,7 +264,7 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../..",
-          "name": "3AP1 08-08-25 27.6% 54 % 100% 333% 333 %"
+          "name": "3AP1 08-08-25 27.6% 40 % 100% 125% 125 %"
         },
         {
           "type": "cue",

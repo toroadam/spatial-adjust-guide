@@ -70,7 +70,7 @@ Taken from [`../brand/motion-system.md`](../brand/motion-system.md), which is th
 |---|---|
 | Lockup | The Spatial Adjust lockup: the Toro red tile and "Spatial Adjust" in Golos UI Bold. It opens the film on the hero wall and closes it on the end card. |
 | Type | Golos UI only, weights 400, 500 and 700. |
-| Colour | Oasis neutrals: #080D12, #F5F7F8 and #646E73. The moisture-band colours are the accents, and each appears only with the data it describes: #E11837 for 0-5 %, #F3D43B for 6-19 %, #42CE11 for 20-30 %, #3079F0 above 30 %. |
+| Color | Oasis neutrals: #080D12, #F5F7F8 and #646E73. The moisture-band colors are the accents, and each appears only with the data it describes: #E11837 for 0-5 %, #F3D43B for 6-19 %, #42CE11 for 20-30 %, #3079F0 above 30 %. |
 | Highlight | The design-system blue focus box (#3079F0) on the control being described. **No red boxes**: red is the lockup tile and the 0-5 % band, nothing else. |
 | Camera | The app window floats, slightly tilted, on the contour wall, and the camera pushes in on the control being described, following the cursor. No UI shot is ever static. |
 | Shot types | Three, as in the iCentral hero: a full-window float, a macro push-in on one control, and a type card. |

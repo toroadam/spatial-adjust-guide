@@ -97,6 +97,14 @@ test('an allowed read-only click passes', () => {
   assert.equal(validateEpisode(ep).success, true);
 });
 
+test('hover and focus need no name (a check box has none); a click still does', () => {
+  const ep = load('episode.valid.json');
+  ep.beats[1].actions.push({ type: 'hover', target: 'role=checkbox' }, { type: 'focus', target: 'role=checkbox' });
+  assert.equal(validateEpisode(ep).success, true);
+  ep.beats[1].actions.push({ type: 'click', target: 'role=checkbox' });
+  assert.equal(validateEpisode(ep).success, false);
+});
+
 test('a dangling chapter reference is rejected', () => {
   const ep = load('episode.valid.json');
   ep.beats[0].chapter = 'nowhere';
@@ -164,4 +172,13 @@ test('the write guard has exactly one definition, in scripts/lib/writes.mjs', ()
   assert.match(harvest, /from '\.\/lib\/guarded-click\.mjs';/);
   const guard = readFileSync(path.join(REPO_ROOT, 'scripts', 'lib', 'guarded-click.mjs'), 'utf8');
   assert.match(guard, /import \{ WRITES \} from '\.\/writes\.mjs';/);
+});
+
+test('a chapter may crop the window to a card of the screen, as [x0, y0, x1, y1]', () => {
+  const base = load('episode.valid.json');
+  const withCrop = (crop) => validateEpisode({ ...base, chapters: base.chapters.map((c, i) => (i === 0 ? { ...c, crop } : c)) });
+  assert.equal(withCrop([10, 79, 1056, 1022]).success, true);
+  assert.equal(withCrop([10, 79, 1056]).success, false);
+  assert.equal(withCrop([10, 79, 5, 1022]).success, false, 'x1 must be past x0');
+  assert.equal(withCrop([10, 79, 1056, 79]).success, false, 'y1 must be past y0');
 });

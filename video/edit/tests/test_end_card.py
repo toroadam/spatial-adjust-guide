@@ -160,9 +160,10 @@ if P.IN_PIPELINE:
             x0, y0, x1, y1 = LAYOUT['title_safe_box']
             for key, a in (('final', final), ('draft', draft)):
                 self.assertEqual(a.shape[:2], (1080, 1920)); self.assertGreater(a.std(), 8.0, key)
-                red = (a[..., 0] > 180) & (a[..., 1] < 80) & (a[..., 2] < 100)
-                ys, xs = np.nonzero(red)
-                self.assertAlmostEqual(ys.max() - ys.min() + 1, LOCKUP['tile_end'], delta=3, msg=f'{key}: red outside the tile')
+                white = (a.min(axis=2) > 235)[200:470]                      # the lockup's plate and wordmark, 0.31 H down
+                ys, xs = np.nonzero(white)
+                col = np.nonzero(white[:, xs.min() + 40])[0]               # a column inside the plate, past its rounded corner
+                self.assertAlmostEqual((col.max() - col.min() + 1) / (1 + 2 * LOCKUP['plate']['pad_ratio']), LOCKUP['tile_end'], delta=4, msg=f'{key}: the tile on its plate')
                 ink = a.min(axis=2) > 170                                   # light type and the pill's text
                 ys, xs = np.nonzero(ink)
                 self.assertGreaterEqual(xs.min(), x0, key); self.assertLessEqual(xs.max(), x1, key)
@@ -170,16 +171,22 @@ if P.IN_PIPELINE:
             pill = (slice(610, 720), slice(200, 1720))
             self.assertGreater(np.abs(final[pill] - draft[pill]).mean(), 2.0, 'the pending pill looks like the final one')
             blue = lambda a: ((a[..., 2] > 200) & (a[..., 0] < 90) & (a[..., 1] > 90))[pill].sum()
-            self.assertGreater(blue(final), 500, 'the final pill has the blue dot')
-            self.assertLess(blue(draft), 50, 'the pending pill has no blue dot')
+            self.assertLess(blue(final), 50, 'no blue on the red end card'); self.assertLess(blue(draft), 50, 'no blue on the draft end card')
 
-        def test_walls_have_no_red(self):
+        def test_card_and_hero_walls_are_toro_red_and_bloom_is_dark(self):
             import numpy as np
             from background import render
+            lum = lambda c: sum(w * (v / 12.92 if v <= 0.03928 else ((v + 0.055) / 1.055) ** 2.4) for w, v in zip((0.2126, 0.7152, 0.0722), c))
             for v in ('bloom', 'card', 'hero'):
                 a = render(480, 270, v) * 255
                 self.assertGreater(a.std(), 2.0, v)
-                self.assertFalse(((a[..., 0] > a[..., 2] + 25) & (a[..., 0] > a[..., 1] + 25)).any(), f'{v} wall has red')
+                red = (a[..., 0] > a[..., 2] + 25) & (a[..., 0] > a[..., 1] + 25)
+                if v == 'bloom':
+                    self.assertLess(a.mean(), 70, 'the footage wall is dark')
+                else:
+                    self.assertGreater(red.mean(), 0.9, f'{v} wall is Toro red')
+                    px = a.reshape(-1, 3)[a.reshape(-1, 3).sum(1).argmax()] / 255
+                    self.assertGreaterEqual(1.05 / (lum(px) + 0.05), 4.5, f'white type on the brightest {v} pixel')
             with self.assertRaises(ValueError):
                 render(64, 36, 'wave')
 else:

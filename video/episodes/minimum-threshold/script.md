@@ -2,7 +2,7 @@
 
 **Episode:** 14 of 26 · **Wave:** 4 (Calculations), first of the wave · **Guide:** `#/minimum-threshold` · **Template:** v1 ([`../RUNBOOK.md`](../RUNBOOK.md)) · **Script version:** v1
 **Voice:** ElevenLabs Brian (`Gubgw9l4dtIoQA9YZHgx`, eleven_multilingual_v2) · **Music:** `sa-bed-v1` · **Map:** restyle (gate G2)
-**Source:** the guide site's recreation (`"source": "recreation"`), lifted figures per chapter: step 1 "(the figure already lifted)"; step 2 "Settings dialog, Minimum Threshold tab."; step 3 "Threshold set to 10 percent."; step 4 "Below-threshold behaviour"; step 5 "Push dialog."
+**Source:** the guide site's recreation (`"source": "recreation"`), lifted figures per chapter: step 1 "(the figure already lifted)"; step 2 "Settings dialog, Minimum Threshold tab."; step 3 "Threshold set to 10 percent."; step 4 "Below-threshold behavior"; step 5 "Push dialog."
 
 ## Script
 

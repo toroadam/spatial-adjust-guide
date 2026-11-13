@@ -243,6 +243,7 @@ From the pilot's runs:
 - **Tests fail with `moov atom not found` or a contact sheet exit 254.** Two test runs shared `<media>/_tests/capture` and deleted each other's takes. Give each run its own root: `SA_MEDIA_ROOT=<media>/_tests/<name> npm run test:video`.
 - **`render` prints `Error submitting a packet to the muxer: Broken pipe`.** Once per window shot, when the take's decoder is closed after the shot has read its frames. The render exits 0 with every frame; it is not an error.
 - **The camera pushes in too early.** A `focus` box is fitted to about 60 % of the view and held until the beat ends, so a box on a small element (the pilot's 318 x 32 px legend) is the maximum push-in for the whole beat. Put the focus in a beat of its own, after the hovers that need the wide shot.
+- **A row or a check box has no accessible name to quote.** `hover` and `focus` take an optional `name`; leave it out and the director skips the name check (a whole table row's name is its cell text, a check box has none). `click` always needs the name, so click the station label, not the check box.
 - **`render` exits 2: torch is not installed.** `$SA_VIDEO_PYTHON` is unset in this shell; export it.
 - **A Demo Mode take ends with exit 5 before anything happens.** `video/capture/overlay.local.json` is missing or its denylist is empty.
 - **The final render is `<id>-take<N>.mp4`,** not `<id>.mp4`: the builder names renders by take, so a new take never overwrites the render of an earlier one.

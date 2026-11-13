@@ -109,12 +109,12 @@
       "claims": [
         "bulk-adjustments/summary/1"
       ],
-      "next_text": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take a whole hole in one click."
+      "next_text": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take an entire hole in one click."
     },
     {
       "id": "V1a",
       "chapter": "c1",
-      "text": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take a whole hole in one click.",
+      "text": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take an entire hole in one click.",
       "claims": [
         "bulk-adjustments/1/2",
         "bulk-adjustments/1/5"
@@ -131,7 +131,7 @@
         "bulk-adjustments/1/7",
         "bulk-adjustments/1/3"
       ],
-      "previous_text": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take a whole hole in one click.",
+      "previous_text": "Tick the checkbox on each station row. Ticking an area or hole row cascades the selection to everything beneath it, so you can take an entire hole in one click.",
       "next_text": "The link sits above the table beside the threshold filter."
     },
     {
@@ -188,12 +188,12 @@
         "bulk-adjustments/5/6"
       ],
       "previous_text": "Shift is the safer choice when the stations were individually tuned. Here it shifts by minus 5 percent, preserving the relative targets.",
-      "next_text": "The suggested percentages recalculate against the new targets straight away, so the Suggested column will move."
+      "next_text": "The suggested percentages recalculate against the new targets right away, so the Suggested column will move."
     },
     {
       "id": "V4b",
       "chapter": "c4",
-      "text": "The suggested percentages recalculate against the new targets straight away, so the Suggested column will move.",
+      "text": "The suggested percentages recalculate against the new targets right away, so the Suggested column will move.",
       "claims": [
         "bulk-adjustments/5/4",
         "bulk-adjustments/5/6",
@@ -481,7 +481,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> xpath=./div[2]/div[2]",
-          "name": "54"
+          "name": "40"
         },
         {
           "type": "wait",
@@ -490,7 +490,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> xpath=./div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         }
       ]
     }

@@ -173,7 +173,13 @@ export async function liftFigure(page, caption, { timeout = 30000 } = {}) {
       const style = document.createElement('style');
       style.id = 'sa-frame-style';
       style.textContent = `[${attr}-wrap]{position:fixed!important;left:0!important;top:0!important;transform:none!important;`
-        + 'margin:0!important;width:1920px!important;height:1080px!important;z-index:2147483000!important}';
+        + 'margin:0!important;width:1920px!important;height:1080px!important;z-index:2147483000!important}'
+        // The guide page isolates each step figure (isolation: isolate), which traps the lifted app's
+        // z-index inside the figure so the sticky site header paints over its toolbar. Let it out.
+        + `figure:has([${attr}-wrap]){isolation:auto!important}`
+        // The page also marks each figure's app inert (pointer-events: none) so a reader cannot click it. A take
+        // that clicks and drags the lifted figure needs it live; nothing outside the lifted figure changes.
+        + `[${attr}-wrap],[${attr}-wrap] *{pointer-events:auto!important}`;
       document.head.appendChild(style);
     }
     // A second lift (the episode's figure action) puts the figure lifted before back in the page,

@@ -147,12 +147,12 @@
         "suggested-adjustments/2/2"
       ],
       "previous_text": "The gap between them is the change you are being asked to make. Current and Suggested sit side by side under the Adjustment heading.",
-      "next_text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole."
+      "next_text": "Station 3AP1 sits furthest under its target on the hole, so it asks for the most water."
     },
     {
       "id": "V2b",
       "chapter": "c2",
-      "text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole.",
+      "text": "Station 3AP1 sits furthest under its target on the hole, so it asks for the most water.",
       "claims": [
         "suggested-adjustments/2/5"
       ],
@@ -168,7 +168,7 @@
         "suggested-adjustments/3/3",
         "suggested-adjustments/3/6"
       ],
-      "previous_text": "Station 3AP1 measured 27.6 percent against a 54 percent target. That is the largest deficit on the hole.",
+      "previous_text": "Station 3AP1 sits furthest under its target on the hole, so it asks for the most water.",
       "next_text": "If most of your course reads identically, the cap is doing the deciding, not the scan. Raise Daily Max Amount in Settings, Calculation, or accept that the course is being deliberately limited."
     },
     {
@@ -301,7 +301,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "focus",
@@ -384,7 +384,7 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../..",
-          "name": "3AP1 08-08-25 27.6% 54 % 100% 333% 333 %"
+          "name": "3AP1 08-08-25 27.6% 40 % 100% 125% 125 %"
         },
         {
           "type": "wait",
@@ -393,7 +393,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[2]",
-          "name": "54"
+          "name": "40"
         }
       ]
     },
@@ -440,7 +440,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "wait",
@@ -449,7 +449,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "wait",
@@ -458,7 +458,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "wait",
@@ -467,7 +467,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         }
       ]
     },
@@ -484,12 +484,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"6AP2\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "wait",
@@ -498,7 +498,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         }
       ]
     },
@@ -545,7 +545,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[5]",
-          "name": "333 %"
+          "name": "125 %"
         },
         {
           "type": "wait",
@@ -554,7 +554,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[5]",
-          "name": "333 %"
+          "name": "125 %"
         }
       ]
     },
@@ -571,12 +571,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[5]",
-          "name": "333 %"
+          "name": "125 %"
         },
         {
           "type": "wait",

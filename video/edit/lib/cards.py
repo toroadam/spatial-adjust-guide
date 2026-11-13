@@ -7,7 +7,7 @@ first, then g.render(), then the card functions.
 
   lockup(g, T, t0, t1, size='open')                     Toro tile + "Spatial Adjust" on the hero wall (size 'end': end card)
   title_card(g, T, t0, t1, 'Dashboard overview', tag=None)   the series word double-clicked, the episode name springs out
-  chapter_card(g, T, t0, t1, 'READ THE MAP')            typed caps on the card wall, blue block cursor
+  chapter_card(g, T, t0, t1, 'READ THE MAP')            typed caps on the red card wall, white block cursor
   chapter_strip(T, [dict(asset, t_in, t_out), ...])      the frosted glass chapter strip (strip_names(g, names) makes assets)
   end_card(g, T, t0, t1=None, cfg=None, draft=False)    lockup, call to action, URL pill and legal line on the hero wall,
                                                         from video/brand/end-card.json; needs gate G4 decided unless draft
@@ -25,7 +25,7 @@ from pathlib import Path
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import approvals  # noqa: E402
-from brand import REPO, LOCKUP, TYPE, TITLE_CARD, END_CARD, DURATIONS, LAYOUT, SERIES_WORD, CURSOR, css, min_hold  # noqa: E402
+from brand import REPO, LOCKUP, BUG, TYPE, TITLE_CARD, END_CARD, DURATIONS, LAYOUT, SERIES_WORD, CURSOR, css, min_hold  # noqa: E402
 from theme import THEME, rgba  # noqa: E402
 from timeline import RATIOS  # noqa: E402
 
@@ -81,14 +81,40 @@ def _check_hold(items, what):
 # ----------------------------------------------------------------------------------------------------------------------
 # lockup
 # ----------------------------------------------------------------------------------------------------------------------
+def _tile_on_plate(H):
+    """The Toro tile (the approved logo file, unaltered, H px high) on its white plate. The plate's padding is the logo's clear
+    space and keeps the red tile off the red screens. The returned markup is the plate; the tile is H px high inside it."""
+    pl = LOCKUP['plate']
+    pad = int(round(H * pl['pad_ratio'])); r = int(round(H * pl['radius_ratio']))
+    return (f'<div style="display:inline-block;padding:{pad}px;border-radius:{r}px;background:{pl["color"]};line-height:0">'
+            f'<img src="{_file_url(os.path.join(REPO, LOCKUP["tile"]))}" style="height:{H}px;width:{H * LOCKUP["tile_aspect"]:.2f}px;display:block"></div>')
+
+
+def bug_assets(g):
+    """The corner bug's asset: the tile on its plate at BUG tile_h. Returns its id."""
+    g.add('sa_bug', _tile_on_plate(BUG['tile_h']), 'line-height:0')
+    return 'sa_bug'
+
+
+def bug(g, T, t0, t1):
+    """The corner bug over a footage shot t0-t1: top-left of the title-safe box, fading in and out. Placed by the plate's
+    top-left corner, so its tile sits on the safe margin."""
+    aid = bug_assets(g)
+    m = _rendered(g, [aid])
+    w, h = m[aid]['w'], m[aid]['h']
+    x, y = BUG['margin']
+    f = BUG['fade']
+    T.L.append(dict(type='logo', asset=aid, t0=t0, t1=t1, pos=[x + w / 2, y + h / 2],
+                    opacity=[[t0, 0.0], [t0 + f, BUG['opacity'], 'outCubic'], [t1 - f, BUG['opacity']], [t1, 0.0, 'inCubic']]))
+
+
 def lockup_assets(g, size='open', on='dark'):
     """Add the tile and wordmark assets for a lockup size ('open' or 'end'); returns (tile_id, word_id)."""
     H = LOCKUP['tile_open' if size == 'open' else 'tile_end']
     fs = round(H * LOCKUP['font_ratio'], 2)
     pad = int(round(WORD_PAD * fs))
     tile_id, word_id = f'sa_tile_{size}', f'sa_word_{size}_{on}'
-    g.add(tile_id, f'<img src="{_file_url(os.path.join(REPO, LOCKUP["tile"]))}" style="height:{H}px;width:{H * LOCKUP["tile_aspect"]:.2f}px;display:block">',
-          'line-height:0')
+    g.add(tile_id, _tile_on_plate(H), 'line-height:0')
     col = LOCKUP['color_dark_wall'] if on == 'dark' else THEME['text']
     g.add(word_id, LOCKUP['wordmark'], f'font-weight:{LOCKUP["wordmark_weight"]};font-size:{fs}px;letter-spacing:{LOCKUP["wordmark_tracking"]};'
           f'color:{col};line-height:1;white-space:nowrap', words=True, pad=pad)
@@ -215,7 +241,7 @@ def chapter_card_min(g, ids, label, cps=None):
 
 
 def chapter_card(g, T, t0, t1, label, aid=None, cps=None):
-    """A typed chapter card in caps on the card wall (TL.card: one blue block cursor, line by line). t1=None makes it as long
+    """A typed chapter card in caps on the card wall (TL.card: one white block cursor, line by line). t1=None makes it as long
     as the label needs; a t1 too short for the hold rule raises ValueError."""
     cps = cps or DURATIONS['type_cps']
     aid = aid or 'ch_' + re.sub(r'[^a-z0-9]+', '_', label.lower()).strip('_')
@@ -299,17 +325,17 @@ def end_card_config(cfg=None, draft=False, approvals_path=None):
 
 
 def _url_pill(text, pending):
-    """The URL pill: frosted light pill, a blue arrow dot (grey while the URL is pending) and the address."""
+    """The URL pill: a translucent dark pill on the red screen, a white arrow dot (black while the URL is pending) and the address."""
     t = TYPE['url']; fs = t['size']
     dot = int(fs * 1.45)
-    dot_col = THEME['gray60'] if pending else THEME['highlight']
+    dot_col = THEME['gray100'] if pending else THEME['white']
     return ('<div style="display:flex;align-items:center;gap:%dpx;padding:%dpx %dpx %dpx %dpx;border-radius:999px;'
             'background:%s;border:1.5px solid %s;box-shadow:0 18px 50px %s">'
             % (int(fs * 0.55), int(fs * 0.55), int(fs), int(fs * 0.55), int(fs * 0.6),
-               rgba('gray05', 0.10), rgba('gray05', 0.28), rgba('gray100', 0.45)) +
+               rgba('gray100', 0.20), rgba('white', 0.45), rgba('gray100', 0.30)) +
             f'<span style="width:{dot}px;height:{dot}px;border-radius:50%;background:{dot_col};display:flex;align-items:center;'
             f'justify-content:center;flex:none"><svg width="{int(dot * 0.48)}" height="{int(dot * 0.48)}" viewBox="0 0 24 24">'
-            f'<path d="M5 12h12M12 6l6 6-6 6" stroke="{THEME["white"]}" stroke-width="2.6" fill="none" stroke-linecap="round" '
+            f'<path d="M5 12h12M12 6l6 6-6 6" stroke="{THEME["red"]}" stroke-width="2.6" fill="none" stroke-linecap="round" '
             f'stroke-linejoin="round"/></svg></span>'
             f'<span style="font-weight:{t["weight"]};font-size:{fs}px;letter-spacing:{t["tracking"]};color:{THEME[t["color"]]};'
             f'white-space:nowrap">{html.escape(text)}</span></div>')

@@ -91,7 +91,7 @@
   "vo": [
     {
       "id": "V0",
-      "text": "Capture the station targets you have tuned, under a name you will recognise next season.",
+      "text": "Capture the station targets you have tuned, under a name you will recognize next season.",
       "claims": [
         "creating-profiles/summary/1"
       ],
@@ -105,7 +105,7 @@
         "creating-profiles/1/6",
         "creating-profiles/1/2"
       ],
-      "previous_text": "Capture the station targets you have tuned, under a name you will recognise next season.",
+      "previous_text": "Capture the station targets you have tuned, under a name you will recognize next season.",
       "next_text": "The Target VWC column is what a profile would capture. A profile stores one Target VWC per station and nothing else, no percent adjustments, no enable states."
     },
     {
@@ -139,12 +139,12 @@
         "creating-profiles/3/2"
       ],
       "previous_text": "Open the Target Profiles tab in Settings.",
-      "next_text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery."
+      "next_text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed."
     },
     {
       "id": "V3a",
       "chapter": "c3",
-      "text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery.",
+      "text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed.",
       "claims": [
         "creating-profiles/4/1",
         "creating-profiles/4/6",
@@ -160,7 +160,7 @@
       "claims": [
         "creating-profiles/4/6"
       ],
-      "previous_text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed Recovery.",
+      "previous_text": "Name a profile for the reason the targets are what they are: Summer Baseline, Tournament Week, Overseed.",
       "next_text": "The count beside each profile says how many stations it covers. A profile holds every station the course had when it was captured, enabled or not."
     },
     {
@@ -233,7 +233,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[2]",
-          "name": "54"
+          "name": "40"
         },
         {
           "type": "wait",
@@ -259,12 +259,12 @@
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[2]",
-          "name": "69"
+          "name": "35"
         },
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../../div[2]/div[2]",
-          "name": "69"
+          "name": "35"
         },
         {
           "type": "wait",

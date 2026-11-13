@@ -91,7 +91,7 @@
         "selector": "[data-sa-frame] >> text=\"50.0%\""
       },
       "source": "recreation",
-      "sourceReason": "recreation: a stale scan date with a modelled value; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
+      "sourceReason": "recreation: a stale scan date with a modeled value; a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have, so the guide site's recreation of this step's screen stands in (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
       "onScreen": []
     },
     {
@@ -170,40 +170,40 @@
         "station-zero/3/3"
       ],
       "previous_text": "The table still shows the raw value, so the two disagree. Switch to the minimum threshold value option if you want those stations to keep running.",
-      "next_text": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is grey."
+      "next_text": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is gray."
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is grey.",
+      "text": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is gray.",
       "claims": [
         "station-zero/3/4",
         "station-zero/3/6"
       ],
       "previous_text": "A station with the Enable switch off is left out of every push, so Lynx keeps whatever percent adjust it already holds.",
-      "next_text": "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, in grey italics with a calculator icon."
+      "next_text": "A scan date older than today means the reading is stale. Spatial Adjust uses the modeled value, in gray italics with a calculator icon."
     },
     {
       "id": "V4a",
       "chapter": "c4",
-      "text": "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, in grey italics with a calculator icon.",
+      "text": "A scan date older than today means the reading is stale. Spatial Adjust uses the modeled value, in gray italics with a calculator icon.",
       "claims": [
         "station-zero/4/2",
         "station-zero/4/4"
       ],
-      "previous_text": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is grey.",
-      "next_text": "Station 7AP1 shows a modelled value, grey and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet."
+      "previous_text": "Its suggestion is still calculated and shown, so being disabled does not by itself explain a zero. Station 5AP1 is disabled; the switch on its row is gray.",
+      "next_text": "Station 7AP1 shows a modeled value, gray and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet."
     },
     {
       "id": "V4b",
       "chapter": "c4",
-      "text": "Station 7AP1 shows a modelled value, grey and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet.",
+      "text": "Station 7AP1 shows a modeled value, gray and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet.",
       "claims": [
         "station-zero/4/6",
         "station-zero/4/5",
         "station-zero/5/4"
       ],
-      "previous_text": "A scan date older than today means the reading is stale. Spatial Adjust falls back to the modelled value, in grey italics with a calculator icon.",
+      "previous_text": "A scan date older than today means the reading is stale. Spatial Adjust uses the modeled value, in gray italics with a calculator icon.",
       "next_text": "If nothing above explains it, open the diagnostics dialog by holding Shift and Alt and clicking the Spatial Adjust logo."
     },
     {
@@ -214,7 +214,7 @@
         "station-zero/5/2",
         "station-zero/5/7"
       ],
-      "previous_text": "Station 7AP1 shows a modelled value, grey and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet.",
+      "previous_text": "Station 7AP1 shows a modeled value, gray and italic, dated two days ago. If the whole course is stale, TurfRad has not delivered new scans yet.",
       "next_text": "It reports whether the org has TurfRad access, whether it has scan data at all, the last scan date, and whether Lynx is reachable."
     },
     {
@@ -395,7 +395,7 @@
       "actions": [
         {
           "type": "figure",
-          "caption": "Station 5AP1 is disabled; the switch on its row is grey."
+          "caption": "Station 5AP1 is disabled; the switch on its row is gray."
         },
         {
           "type": "wait",
@@ -438,7 +438,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "333%"
+          "name": "125%"
         },
         {
           "type": "wait",
@@ -447,12 +447,12 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../..",
-          "name": "5AP1 08-08-25 27.9% 30 % 100% 333% 333 %"
+          "name": "5AP1 08-08-25 27.9% 30 % 100% 125% 125 %"
         },
         {
           "type": "focus",
           "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../..",
-          "name": "5AP1 08-08-25 27.9% 30 % 100% 333% 333 %"
+          "name": "5AP1 08-08-25 27.9% 30 % 100% 125% 125 %"
         }
       ]
     },
@@ -464,7 +464,7 @@
       "actions": [
         {
           "type": "figure",
-          "caption": "A modelled value: grey, italic, and dated two days ago."
+          "caption": "A modeled value: gray, italic, and dated two days ago."
         },
         {
           "type": "wait",
@@ -507,7 +507,7 @@
         {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"7AP1\" >> xpath=../../..",
-          "name": "7AP1 08-06-25 50.0% 50 % 100% 288% 288 %"
+          "name": "7AP1 08-06-25 50.0% 50 % 100% 125% 125 %"
         },
         {
           "type": "wait",

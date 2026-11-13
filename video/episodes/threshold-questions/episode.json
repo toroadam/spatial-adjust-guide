@@ -167,12 +167,12 @@
         "threshold-questions/3/3"
       ],
       "previous_text": "This is the disagreement, and it is intentional.",
-      "next_text": "They are opposite behaviours from the same number."
+      "next_text": "They are opposite behaviors from the same number."
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "They are opposite behaviours from the same number.",
+      "text": "They are opposite behaviors from the same number.",
       "claims": [
         "threshold-questions/3/5",
         "threshold-questions/3/3"
@@ -188,7 +188,7 @@
         "threshold-questions/4/6",
         "threshold-questions/4/3"
       ],
-      "previous_text": "They are opposite behaviours from the same number.",
+      "previous_text": "They are opposite behaviors from the same number.",
       "next_text": "Without it, a station that needs no water gets a small run anyway."
     },
     {

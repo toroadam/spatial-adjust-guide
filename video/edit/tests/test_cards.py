@@ -143,21 +143,30 @@ if P.IN_PIPELINE:
             import numpy as np
             from brand import LOCKUP
             a = self.still('lockup')
-            red = (a[..., 0] > 180) & (a[..., 1] < 80) & (a[..., 2] < 100)
-            ys, xs = np.nonzero(red)
-            tx0, tx1, ty0, ty1 = xs.min(), xs.max(), ys.min(), ys.max()
-            H = ty1 - ty0 + 1
-            self.assertAlmostEqual(H, LOCKUP['tile_open'], delta=3)
-            light = a.min(axis=2) > 200
+            white = a.min(axis=2) > 235                          # the plate and the wordmark on the red wall
+            ys, xs = np.nonzero(white)
+            px0 = xs.min()                                       # the plate's left edge
+            col = np.nonzero(white[:, px0 + 60])[0]
+            py0, py1 = col.min(), col.max()
+            Hp = py1 - py0 + 1                                   # plate height = tile height x (1 + 2 x pad ratio)
+            k = 1 + 2 * LOCKUP['plate']['pad_ratio']
+            H = Hp / k
+            self.assertAlmostEqual(H, LOCKUP['tile_open'], delta=4)
+            top_row = np.nonzero(white[py0 + int(0.23 * H)])[0]  # a row inside the plate's top padding: white right across it
+            run = top_row[top_row >= px0]
+            tx1 = run[:int(np.argmax(np.diff(run) > 1)) + 1].max() if (np.diff(run) > 1).any() else run.max()
+            self.assertAlmostEqual((tx1 - px0 + 1) / Hp, LOCKUP['tile_aspect'] * H / Hp + 2 * LOCKUP['plate']['pad_ratio'] * H / Hp, delta=0.02)
+            light = white.copy()
             light[:, :tx1 + 4] = False
-            cols = np.nonzero(light[ty0:ty1].any(0))[0]
+            cols = np.nonzero(light[py0:py1].any(0))[0]
             s0 = cols.min()                                     # the S's first ink column
-            run = cols[cols < s0 + 0.4 * H]                      # the S itself
-            srows = np.nonzero(light[ty0 - 20:ty1 + 20, run.min():run.max() + 1].any(1))[0] + ty0 - 20
-            self.assertAlmostEqual((s0 - tx1 - 1) / H, LOCKUP['gap_ratio'], delta=0.02)
+            gaps = np.nonzero(np.diff(cols) > 1)[0]
+            run = cols[:gaps[0] + 1] if len(gaps) else cols      # the S itself: the first run of ink columns
+            srows = np.nonzero(light[py0 - 20:py1 + 20, run.min():run.max() + 1].any(1))[0] + py0 - 20
+            self.assertAlmostEqual((s0 - tx1 - 1) / H, LOCKUP['gap_ratio'], delta=0.03)
             self.assertAlmostEqual((srows.max() - srows.min() + 1) / H, 28 / 63, delta=0.03)       # cap height, header logo
-            self.assertAlmostEqual((srows.max() + srows.min()) / 2, (ty0 + ty1) / 2, delta=3)     # caps centred on the tile
-            ink_x = np.nonzero((red | (a.min(axis=2) > 200))[ty0:ty1].any(0))[0]
+            self.assertAlmostEqual((srows.max() + srows.min()) / 2, (py0 + py1) / 2, delta=3)     # caps centred on the plate
+            ink_x = np.nonzero(white[py0:py1].any(0))[0]
             self.assertAlmostEqual((ink_x.min() + ink_x.max()) / 2, 960, delta=4)                  # the lockup is centred
 
     class HoldTest(unittest.TestCase):

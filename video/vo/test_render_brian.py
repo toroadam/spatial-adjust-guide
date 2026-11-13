@@ -293,7 +293,7 @@ class Render(_Sandbox):
         speech = fake.speech_calls()
         self.assertEqual(len(speech), 4)
         bodies = [json.loads(b) for _u, _h, b in speech]
-        self.assertTrue(all(f"/v1/text-to-speech/{rb.VOICE}?output_format=mp3_44100_192" in u for u, _h, _b in speech))
+        self.assertTrue(all(f"/v1/text-to-speech/{rb.VOICE}?output_format=pcm_48000" in u for u, _h, _b in speech))
         self.assertTrue(all(b["model_id"] == "eleven_multilingual_v2" and b["voice_settings"] == rb.SETTINGS
                             for b in bodies))
         self.assertNotIn("previous_text", bodies[0])
@@ -504,8 +504,50 @@ class Audio(unittest.TestCase):
 
 
 
+class Conditioning(unittest.TestCase):
+    """condition(): cut to the speech, drop a stray sound after the last word, fade at quiet samples, level by speech."""
+
+    def phrase(self, n=48000, amp=0.3, f=220):
+        return [amp * math.sin(2 * math.pi * f * i / 48000) for i in range(n)]
+
+    def test_a_leaked_syllable_after_the_last_word_is_dropped(self):
+        body = self.phrase(48000)
+        leak = self.phrase(1800, amp=0.2, f=330)                    # 37 ms, behind a 0.5 s pause
+        x = [0.0] * 4800 + body + [0.0] * 24000 + leak
+        y = rb.condition(x, 10 ** (-20 / 20))
+        self.assertAlmostEqual(len(y) / 48000, 1.0 + 2 * 0.06, delta=0.02)
+
+    def test_a_short_phrase_inside_the_line_is_kept(self):
+        x = [0.0] * 2400 + self.phrase(24000) + [0.0] * 14400 + self.phrase(3600, f=330) + [0.0] * 14400 + self.phrase(24000) + [0.0] * 4800    # a 75 ms word between pauses
+        y = rb.condition(x, 10 ** (-20 / 20))
+        self.assertGreater(len(y) / 48000, 0.5 + 0.3 + 0.075 + 0.3 + 0.5)
+
+    def test_edges_fade_and_start_and_end_at_zero(self):
+        y = rb.condition([0.0] * 9600 + self.phrase(48000) + [0.0] * 9600, 10 ** (-20 / 20))
+        self.assertLess(abs(y[0]), 1e-3)
+        self.assertLess(abs(y[-1]), 1e-3)
+        fi = int(0.05 * 48000)
+        self.assertLess(max(abs(v) for v in y[:fi // 4]), 0.25 * max(abs(v) for v in y))      # the head rises over 50 ms, no click
+
+    def test_pauses_do_not_change_the_level(self):
+        a = rb.condition(self.phrase(48000), 10 ** (-20 / 20))
+        b = rb.condition(self.phrase(24000) + [0.0] * 48000 + self.phrase(24000), 10 ** (-20 / 20))
+        self.assertAlmostEqual(20 * math.log10(rb.speech_rms(a)), 20 * math.log10(rb.speech_rms(b)), delta=0.1)
+        self.assertAlmostEqual(20 * math.log10(rb.speech_rms(b)), -20.0, delta=0.1)
+
+    def test_peak_ceiling(self):
+        y = rb.condition(self.phrase(48000, amp=0.05) + self.phrase(480, amp=0.9), 0.5)
+        self.assertLessEqual(max(abs(v) for v in y), 0.98 + 1e-9)
+
+    def test_pcm_is_wrapped_as_a_wav_and_an_mp3_is_kept(self):
+        data = b"\x00\x01" * 100
+        wav = rb.wrap_pcm(data, "pcm_48000")
+        self.assertEqual(wav[:4], b"RIFF")
+        self.assertEqual(rb.wrap_pcm(b"ID3x", "mp3_44100_128"), b"ID3x")
+
+
 class OutputFormatOverride(unittest.TestCase):
-    """SA_VO_OUTPUT_FORMAT: an account below the Creator tier is refused mp3_44100_192, so another MP3 format can be asked for."""
+    """SA_VO_OUTPUT_FORMAT: the account is refused mp3_44100_192 and pcm_44100, so the default is pcm_48000 and another allowed format can be asked for."""
 
     def load_with(self, value):
         env = {k: v for k, v in os.environ.items() if k != "SA_VO_OUTPUT_FORMAT"}
@@ -515,14 +557,17 @@ class OutputFormatOverride(unittest.TestCase):
             return load_renderer()
 
     def test_default_is_the_voice_definition(self):
-        self.assertEqual(self.load_with(None).OUTPUT_FORMAT, "mp3_44100_192")
-        self.assertEqual(self.load_with("").OUTPUT_FORMAT, "mp3_44100_192")
+        self.assertEqual(self.load_with(None).OUTPUT_FORMAT, "pcm_48000")
+        self.assertEqual(self.load_with("").OUTPUT_FORMAT, "pcm_48000")
+        self.assertEqual(self.load_with(None).RAW_EXT, ".wav")
 
     def test_override_is_used(self):
         self.assertEqual(self.load_with("mp3_44100_128").OUTPUT_FORMAT, "mp3_44100_128")
+        self.assertEqual(self.load_with("mp3_44100_128").RAW_EXT, ".mp3")
+        self.assertEqual(self.load_with("pcm_24000").OUTPUT_FORMAT, "pcm_24000")
 
     def test_anything_else_is_refused(self):
-        for bad in ("pcm_44100", "mp3_44100_128&voice=x", "../x"):
+        for bad in ("wav_44100", "mp3_44100_128&voice=x", "../x", "pcm_48000&x=1"):
             with self.assertRaises(SystemExit):
                 self.load_with(bad)
 

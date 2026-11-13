@@ -59,7 +59,7 @@ prints them. Every other line is sent exactly as written.
 |---|---|
 | L1 | In Intelli-Dash, Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station. |
 | L2 | Each station's average V W C comes from a Turf Rad moisture scan, dated beside the station name. |
-| L5 | The gap between target and measured becomes water, today's E T is added, Daily Max Amount caps it, and the result becomes a suggested percent adjust. |
+| L5 | The gap between target and measured, today's E T and your calculation settings together become a suggested percent adjust. |
 | L8 | Nothing changes until you push. Review the two lists, untick anything you're unsure of, and send. Spatial Adjust writes each station, then reads Links back and checks each one. |
 | L9 | Links itself must be set up to match Spatial Adjust; the push guide lists the settings. |
 
@@ -76,23 +76,23 @@ minimum gap between lines. The capture phase places each line's cue inside its w
 |---|---|---|---|---|---|---|---|---|---|---|
 | L1 | `vo-b1-hook` | 0:11.85 | 0:18.90 | 7.05 s | B1 Station by station | In IntelliDash, Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station. | 16 | 5.82 s | yes, 1.23 s spare (by characters: 6.75 s, 0.30 s spare) | `understand-spatial-adjust/before/1`, `understand-spatial-adjust/summary/1`, `calculation-methods/2/2` |
 | L2 | `vo-b2-measure` | 0:21.75 | 0:31.20 | 9.45 s | B2 Measure | Each station's average VWC comes from a TurfRad moisture scan, dated beside the station name. | 15 | 5.45 s | yes, 4.00 s spare | `understand-spatial-adjust/2/2`, `understand-spatial-adjust/2/3`, `request-scan-data/1/4` |
-| L3 | `vo-b3-see` | 0:33.95 | 0:44.20 | 10.25 s | B3 See | The map colours pins by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync. | 27 | 9.82 s | yes, 0.43 s spare | `map-navigation/1/1`, `map-navigation/2/1`, `map-navigation/3/1`, `map-navigation/3/3`, `map-navigation/5/1`, `map-navigation/5/2` |
-| L4 | `vo-b4-target` | 0:47.75 | 0:55.20 | 7.45 s | B4 Set the target | You set the target: the moisture you want each station to hold. A soil factor handles persistent offsets. | 18 | 6.55 s | yes, 0.90 s spare | `understand-spatial-adjust/3/1`, `understand-spatial-adjust/3/2`, `suggested-adjustments/5/1`, `suggested-adjustments/5/3` |
-| L5 | `vo-b5-calculate` | 0:58.05 | 1:07.60 | 9.55 s | B5 Calculate | The gap between target and measured becomes water, today's ET is added, Daily Max Amount caps it, and the result becomes a suggested percent adjust. | 25 | 9.09 s | yes, 0.46 s spare | `understand-spatial-adjust/4/2`, `understand-spatial-adjust/4/3`, `calculation-methods/2/2`, `calculation-settings/2/1` |
+| L3 | `vo-b3-see` | 0:33.95 | 0:44.20 | 10.25 s | B3 See | The map colors stations by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync. | 27 | 9.82 s | yes, 0.43 s spare | `map-navigation/1/1`, `map-navigation/2/1`, `map-navigation/3/1`, `map-navigation/3/3`, `map-navigation/5/1`, `map-navigation/5/2` |
+| L4 | `vo-b4-target` | 0:47.75 | 0:55.20 | 7.45 s | B4 Set the target | You set the target: the moisture you want each station to hold. Every station gets its own. | 17 | 6.18 s | yes, 1.27 s spare | `understand-spatial-adjust/3/1`, `understand-spatial-adjust/3/2`, `understanding-vwc/3/3` |
+| L5 | `vo-b5-calculate` | 0:58.05 | 1:07.60 | 9.55 s | B5 Calculate | The gap between target and measured, today's ET and your calculation settings together become a suggested percent adjust. | 18 | 6.55 s | yes, 3.00 s spare | `understand-spatial-adjust/4/2`, `understand-spatial-adjust/4/3`, `calculation-methods/2/2` |
 | L6 | `vo-b5-threshold` | 1:07.80 | 1:14.00 | 6.20 s | B5 Calculate | Below a minimum threshold, a suggestion is zeroed or lifted to the threshold when you push. | 16 | 5.82 s | yes, 0.38 s spare | `minimum-threshold/summary/2`, `minimum-threshold/before/3` |
 | L7 | `vo-b6-review` | 1:16.85 | 1:27.90 | 11.05 s | B6 Review | Before you push, override any suggestion, replace or shift targets in bulk, find the outliers at both ends, or take a station or hole out of adjustment. | 27 | 9.82 s | yes, 1.23 s spare | `filter-adjustments/tile/2`, `editing-station-targets/4/1`, `bulk-adjustments/tile/2`, `bulk-adjustments/3/1`, `filter-adjustments/4/2`, `enable-disable-stations/summary/1` |
 | L8 | `vo-b7-push` | 1:31.45 | 1:44.00 | 12.55 s | B7 Push to Lynx | Nothing changes until you push. Review the two lists, untick anything you're unsure of, and send. Spatial Adjust writes each station, then reads Lynx back and checks each one. | 29 | 10.55 s | yes, 2.00 s spare (by characters: 10.89 s, 1.66 s spare) | `understand-spatial-adjust/5/4`, `push-to-lynx/2/1`, `push-to-lynx/2/3`, `push-to-lynx/4/1`, `push-to-lynx/5/1`, `push-to-lynx/5/2` |
 | L9 | `vo-b7-lynx` | 1:44.20 | 1:50.20 | 6.00 s | B7 Push to Lynx | Lynx itself must be set up to match Spatial Adjust; the push guide lists the settings. | 16 | 5.82 s | yes, 0.18 s spare | `reviewing-changes/before/3`, `reviewing-changes/before/4` |
 | L10 | `vo-b8-close` | 1:50.50 | 1:55.20 | 4.70 s | B8 end card | Target minus measured, station by station. That is the whole idea. | 11 | 4.00 s | yes, 0.70 s spare | `understanding-vwc/4/4` |
-| **Total** | | | | | | | **200** | **72.73 s** | **10 of 10** | 43 claim IDs, all Verified |
+| **Total** | | | | | | | **192** | **69.82 s** | **10 of 10** | 41 claim IDs, all Verified |
 
-**Totals:** 200 words (the top of the 150-200 range), counted from `episode.json` by
+**Totals:** 192 words (inside the 150-200 range), counted from `episode.json` by
 
 ```bash
 node -e "const ep=JSON.parse(require('fs').readFileSync('video/showcase/episode.json','utf8')); console.log(ep.vo.reduce((n,l)=>n+l.text.trim().split(/\s+/).filter(Boolean).length,0))"
 ```
 
-which prints `200`; about 72.7 s of narration at 2.75 words a second inside a 115.2 s film, the rest being the open,
+which prints `192`; about 69.8 s of narration at 2.75 words a second inside a 115.2 s film, the rest being the open,
 the chapter cards and the music. The rendered lengths replace the budget in [Fit check](#fit-check).
 
 **Changes since the claims check:** one. L1 gains "In IntelliDash," (`understand-spatial-adjust/before/1`, Verified),
@@ -107,7 +107,7 @@ warnings).
 
 ## Delivery notes
 
-Brian's delivery comes from the voice settings and each line's neighbours, which `render-brian.py` sends as
+Brian's delivery comes from the voice settings and each line's neighbors, which `render-brian.py` sends as
 `previous_text` and `next_text`; the model takes no stage directions. These notes are what to listen for at SC-G3.
 
 - **Tone:** confident and plain, never salesy (the brief). Unhurried, with air between lines.
@@ -121,9 +121,9 @@ Brian's delivery comes from the voice settings and each line's neighbours, which
 
 ## Credits
 
-`python3 video/vo/estimate.py --episode video/showcase/episode.json`, 2026-10-20: 10 lines, 200 words, **1,179
-characters** after the lexicon, so about **1,179 credits** for one render at 1 credit a character (2,358 with the
-pipeline's retake factor of 2), and about 73.0 s of narration at 16.16 characters a second.
+`python3 video/vo/estimate.py --episode video/showcase/episode.json`, 2026-10-28 (after the 2026-10-22 review): 10 lines, 192 words, **1,141
+characters** after the lexicon, so about **1,141 credits** for one render at 1 credit a character (2,282 with the
+pipeline's retake factor of 2), and about 70.6 s of narration at 16.16 characters a second.
 
 ## Render
 
@@ -152,6 +152,8 @@ character, unlike the pipeline's 1 credit a character estimate (1,179), so the e
 account; the log in `video/vo/credits-log.md` has the character counts.
 
 ## Fit check
+
+**Review 2026-10-22:** L3, L4 and L5 were reworded after the render below (L3 says stations, not pins; L4 and L5 are shorter). Their rendered times in the table are the old audio's and are stale until those three lines are voiced again; the new words are shorter or equal, so the windows hold. See `video/episodes/review-2026-10-22-revoice.json`.
 
 `python3 video/showcase/vo-stem.py --episode video/showcase/episode.json`, after the render. Three lines were longer
 than their windows, so the beats' footage grew rather than the wording (no new SC-G2 row: not a word changed, and the

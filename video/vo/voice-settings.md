@@ -15,7 +15,7 @@ similarity_boost: 0.75
 style: 0.0
 use_speaker_boost: true
 speed: 1.0
-output_format: mp3_44100_192
+output_format: pcm_48000
 sample_rate_hz: 48000
 bit_depth: 24
 channels: 1
@@ -35,10 +35,10 @@ rms_target_dbfs: -19.3451
 | Style | 0.0 | |
 | Speaker boost | on | |
 | Speed | 1.0 | |
-| API format | `mp3_44100_192` | What the API is asked for, as in the iCentral renderer. The MP3 is kept under `vo/raw/` so a re-level costs no credits. An account below the Creator tier is refused this format (HTTP 403); `SA_VO_OUTPUT_FORMAT=mp3_44100_128` asks for another MP3 format instead, and is recorded in the masters' manifest. Unset, nothing changes. |
-| Master format | 48 kHz, 24-bit PCM WAV, mono | ffmpeg decodes the MP3 to 48 kHz mono floats; the script trims, levels and writes the WAV. |
-| Trim | -45 dB below the line's peak | On a 240-sample moving average of the absolute signal, padded by 0.06 s each side, with 10 ms linear fades. Identical to the iCentral `trim()`; `test_render_brian.py` checks the port against a NumPy copy of the original. |
-| Loudness | RMS -19.3451 dBFS | Each line is scaled to this RMS, then pulled down if its peak would pass 0.98. |
+| API format | `pcm_48000` | What the API is asked for: lossless 16-bit PCM at 48 kHz, kept as a WAV under `vo/raw/` so a re-level costs no credits. Probed 2026-10-29 on this account: allowed `pcm_48000`, `pcm_24000`, `pcm_22050`, `pcm_16000`, `opus_48000_192`, `mp3_44100_128`; refused (HTTP 403) `pcm_44100`, `wav_44100`, `mp3_44100_192` (Pro and Creator tiers). Nothing lossy comes before the single AAC encode of the final file. `SA_VO_OUTPUT_FORMAT` asks for another format (`mp3_44100_128`, `pcm_24000`); the format is part of each line's text hash. |
+| Master format | 48 kHz, 24-bit PCM WAV, mono | ffmpeg decodes the take to 48 kHz mono floats; the script conditions it (below) and writes the WAV. |
+| Conditioning | `CONDITION` in `render-brian.py` | The take is cut to its speech: 10 ms frames within 45 dB of the loudest are speech, joined across pauses under 0.2 s. A phrase shorter than 0.15 s at either end behind a pause of 0.2 s or more is not speech and is dropped (the API sometimes leaks the first syllable of the next line, or a click, after the last word; the old trim kept it and cut it off mid-sound). 0.06 s of padding each side, the edges moved to the nearest zero crossing and faded with a raised cosine (0.05 s in, 0.07 s out), so no line starts or ends with a click. |
+| Loudness | speech RMS -19.3451 dBFS | Each line is scaled so the RMS of its speech (50 ms frames above -50 dBFS and within 10 dB of their mean, BS.1770 style) is the target, so a line with long pauses is not played louder or softer than one without; then pulled down if its peak would pass 0.98. The target number is the iCentral masters' whole-file RMS (below); it is applied to speech only from 2026-10-29. |
 | Continuity | `previous_text` / `next_text` | Each line is sent with its neighbours' text (or its own `previous_text` / `next_text` from `episode.json`), lexicon applied, so the delivery joins up across lines. |
 
 ## How the RMS target was measured

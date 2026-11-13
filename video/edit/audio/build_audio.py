@@ -212,18 +212,28 @@ def master(x, target=None, ceiling=None):
 
 
 def vo_activity(vo):
-    """Sidechain key from the VO: 10 ms RMS above duck_key_dbfs, duck_lookahead_ms look-ahead, duck_attack_ms attack,
-    duck_release_ms release -> 0..1."""
+    """Sidechain key from the VO, 0..1, built to follow the phrase and not the words: 20 ms RMS above duck_key_dbfs; pauses
+    shorter than duck_hold_ms (between words and between the sentences of a line) are bridged; the key starts
+    duck_lookahead_ms early; a slow attack and release (one pole, duck_attack_ms / duck_release_ms) then a 150 ms smoothing,
+    so the music glides down before a line and back up after it, with no pumping inside it. Computed at 100 Hz and
+    interpolated to the sample rate."""
+    from scipy.ndimage import maximum_filter1d, minimum_filter1d, uniform_filter1d
     hop = int(0.01 * SR)
-    rms = np.sqrt(np.convolve(vo ** 2, np.ones(hop * 2) / (hop * 2), mode='same'))
+    n = len(vo) // hop
+    rms = np.sqrt((vo[:n * hop].reshape(n, hop) ** 2).mean(1))
     act = (20 * np.log10(rms + 1e-9) > LOUDNESS['duck_key_dbfs']).astype(float)
-    la = int(LOUDNESS['duck_lookahead_ms'] / 1000 * SR)
-    act = np.concatenate([act[la:], np.zeros(la)])                                  # look-ahead
+    act = uniform_filter1d(act, 2, mode='nearest') > 0                                   # 20 ms
+    h = max(1, int(LOUDNESS['duck_hold_ms'] / 10))
+    act = minimum_filter1d(maximum_filter1d(act.astype(float), 2 * h + 1), 2 * h + 1)    # closing: bridge pauses under the hold
+    la = int(LOUDNESS['duck_lookahead_ms'] / 10)
+    act = np.concatenate([act[la:], np.zeros(la)])                                       # look-ahead
+    a, r = np.exp(-10 / LOUDNESS['duck_attack_ms']), np.exp(-10 / LOUDNESS['duck_release_ms'])   # per 10 ms frame
     out = np.empty_like(act); cur = 0.0
-    a, r = np.exp(-1 / (LOUDNESS['duck_attack_ms'] / 1000 * SR)), np.exp(-1 / (LOUDNESS['duck_release_ms'] / 1000 * SR))
     for i, v in enumerate(act):
         cur = v + (cur - v) * (a if v > cur else r); out[i] = cur
-    return out
+    out = uniform_filter1d(out, 15, mode='nearest')                                      # 150 ms smoothing
+    t = (np.arange(len(vo)) / hop) - 0.5
+    return np.interp(t, np.arange(n), out[:n])
 
 
 # ----------------------------------------------------------------------------------------------------------------------

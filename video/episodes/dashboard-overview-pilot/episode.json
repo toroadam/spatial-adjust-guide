@@ -24,20 +24,20 @@
     {
       "id": "vo-intro",
       "text": "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.",
-      "next_text": "Each sprinkler of a station scanned in the past seven days is a pin.",
+      "next_text": "The map plots each sprinkler of a station scanned in the past seven days.",
       "claims": ["dashboard-overview/summary/1", "dashboard-overview/2/1"]
     },
     {
       "id": "vo-pins",
-      "text": "Each sprinkler of a station scanned in the past seven days is a pin.",
+      "text": "The map plots each sprinkler of a station scanned in the past seven days.",
       "previous_text": "The whole Spatial Adjust feature lives on one screen. Here is how to read its map.",
-      "next_text": "A pin scanned today is coloured by the moisture band its reading falls into, as the legend shows.",
+      "next_text": "A station scanned today is colored by the moisture band its reading falls into, as the legend shows.",
       "claims": ["dashboard-overview/2/2"]
     },
     {
       "id": "vo-bands",
-      "text": "A pin scanned today is coloured by the moisture band its reading falls into, as the legend shows.",
-      "previous_text": "Each sprinkler of a station scanned in the past seven days is a pin.",
+      "text": "A station scanned today is colored by the moisture band its reading falls into, as the legend shows.",
+      "previous_text": "The map plots each sprinkler of a station scanned in the past seven days.",
       "claims": ["dashboard-overview/2/3", "dashboard-overview/2/6"]
     }
   ],

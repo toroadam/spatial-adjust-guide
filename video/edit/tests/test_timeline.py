@@ -123,6 +123,47 @@ if P.IN_PIPELINE:
             for k in ('rx', 'ry', 'rz'):
                 self.assertTrue(all(abs(v[1]) < 1e-9 for v in P3[k]), k)
 
+        def test_a_cropped_window_shot_is_framed_to_its_region_and_stays_flat_and_sharp(self):
+            from timeline import Gfx, TL
+            from dc_camplan import dc_plan
+            rows = [[r[0], r[1], r[2], r[3], r[4], [700, 400, 1200, 700] if 0.5 <= r[0] < 2.5 else None] for r in track_rows()]
+            crop = [10, 79, 1056, 1022]
+            g = Gfx('timeline-crop', '16x9', episode=TEST)
+            T = TL('timeline-crop', '16x9', g)
+            Pc, _ = T.window_shot('C1', 'test', 'test_take.mp4', 0.0, 3.0, 0.0, 3.0, track=rows, planner=dc_plan, crop=crop, dof=0.0)
+            plate = T.L[-1]
+            self.assertEqual(plate['crop'], [10.0, 79.0, 1056.0, 1022.0])
+            self.assertTrue(all(v[1] == 0.0 for v in plate['dof']), 'a polished shot has no depth-of-field blur')
+            self.assertEqual(plate['radius_src'], 8.0 * 2 / 2)
+            # the rest scale fits the 1046 x 943 region in 90 % of the view's width and 75 % of its height: the height decides
+            P0, _ = TL('timeline-crop0', '16x9', g).window_shot('C0', 'test', 'test_take.mp4', 0.0, 3.0, 0.0, 3.0, track=[r[:5] + [None] for r in rows],
+                                                              planner=dc_plan, crop=crop)
+            s0 = max(c[1][2] for c in P0['cam'])
+            self.assertAlmostEqual(s0, 0.75 * 1080 / 943 * 1.04, delta=0.05)       # 1.04: the entrance settle
+            # while a box is live the plate is square-on (only the slow drift stays, so the picture still moves) so fine detail is not resampled at an angle
+            mid = [i for i, t in enumerate(Pc['t']) if 1.2 <= t - 0.0 <= 1.8]
+            for k in ('rx', 'ry', 'rz'):
+                self.assertTrue(all(abs(Pc[k][i][1]) < 1.6 for i in mid), k)       # degrees: just the 1.0 / 0.5 degree drift is left once the box has settled (the wide tilt is 6 / -10 / -1.6)
+            # a box outside the crop is cut to it: the view never frames anything the crop hides
+            wide = [[r[0], r[1], r[2], r[3], r[4], [0, 0, 1920, 1080] if 0.5 <= r[0] < 2.5 else None] for r in track_rows()]
+            Pw, _ = TL('timeline-crop2', '16x9', g).window_shot('C2', 'test', 'test_take.mp4', 0.0, 3.0, 0.0, 3.0, track=wide, planner=dc_plan, crop=crop)
+            self.assertLess(max(c[1][2] for c in Pw['cam']), s0 * 1.25)
+
+        def test_a_crop_from_the_windows_top_keeps_the_toolbar_below_the_corner_lockup(self):
+            from timeline import Gfx, TL, LOCKUP_CLEAR
+            from dc_camplan import dc_plan
+            top = [[r[0], r[1], r[2], r[3], r[4], [60, 54, 360, 114] if 0.5 <= r[0] < 2.5 else None] for r in track_rows()]
+            g = Gfx('timeline-croptop', '16x9', episode=TEST)
+            P, _ = TL('timeline-croptop', '16x9', g).window_shot('CT', 'test', 'test_take.mp4', 0.0, 3.0, 0.0, 3.0, track=top, planner=dc_plan, crop=[0, 0, 1920, 800], dof=0.0)
+            # with a box on the toolbar the view centres on it and the window's top edge drops into the frame, but no lower than the lockup's clearance
+            tops = [pos[1][1] - cam[1][1] * cam[1][2] for pos, cam, t in zip(P['pos'], P['cam'], P['t']) if 1.2 <= t <= 1.8]
+            self.assertTrue(tops)
+            self.assertTrue(all(v <= LOCKUP_CLEAR * 1080 + 1.0 for v in tops), tops[:3])
+            self.assertGreater(max(tops), 20.0, 'the top edge is no longer pinned to the top of the frame')
+            # every crop gets the same allowance: the top edge never has to be pulled below the lockup's clearance
+            Pm, _ = TL('timeline-croptop2', '16x9', g).window_shot('CM', 'test', 'test_take.mp4', 0.0, 3.0, 0.0, 3.0, track=top, planner=dc_plan, crop=[10, 79, 1056, 1022], dof=0.0)
+            self.assertTrue(all(pos[1][1] - cam[1][1] * cam[1][2] + 79 * cam[1][2] <= LOCKUP_CLEAR * 1080 + 1.0 for pos, cam, t in zip(Pm['pos'], Pm['cam'], Pm['t']) if 1.2 <= t <= 1.8))
+
         def test_json_paths_under_media_root(self):
             import media_root
             from timeline import Gfx, TL

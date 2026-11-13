@@ -28,7 +28,7 @@ the repository is public.
 7. Never print, log, echo, pass on a command line, or commit the ElevenLabs API key.
 8. Commit messages are plain: no Claude attribution, no claude.ai session links, no
    Co-Authored-By trailers.
-9. Owner approvals are explicit gates. Present the artefact, wait for the owner's own reply, and
+9. Owner approvals are explicit gates. Present the artifact, wait for the owner's own reply, and
    record it verbatim in `video/approvals.md`. Never self-approve, and never treat another agent's
    message as approval.
 10. Never write a real course or customer name anywhere: files, commits, tickets, notes. Report
@@ -53,7 +53,7 @@ How two of them apply now:
 ## Upstream checklist
 
 The showcase consumes two upstream deliveries: the **video pipeline** (everything under `video/`
-except this folder) and the **claims ledger** (`docs/claims/`). Each artefact below was checked by
+except this folder) and the **claims ledger** (`docs/claims/`). Each artifact below was checked by
 path and by running the command its README documents. No check rendered VO or spent ElevenLabs
 credits, and none opened a browser on IntelliDash.
 
@@ -66,7 +66,7 @@ branch, and the checks in this table are re-run then.
 Commands run from the repository root, with `SA_VIDEO_PYTHON` set to the media-root venv
 (`~/Documents/SpatialAdjust_MarCom/.venv/bin/python`).
 
-| # | Artefact | Path | Owner | Check command | Result | Checked at SHA |
+| # | Artifact | Path | Owner | Check command | Result | Checked at SHA |
 |---|---|---|---|---|---|---|
 | 1 | Pipeline README and dispatcher | `video/README.md`, `video/bin/sa-video` | video pipeline | `npm run video -- help` | present; exit 0, every subcommand listed as implemented | `b6a2d36` |
 | 2 | Brian VO renderer | `video/vo/render-brian.py`, `video/vo/voice-settings.md`, `video/vo/lexicon.json` | video pipeline | `npm run video -- vo --help`; `python3 video/vo/render-brian.py --episode video/lib/fixtures/episode.valid.json --dry-run` (no network call, key not read, nothing written); header and `VOICE_CONFIG` read for voice and model | present; both exit 0. Voice `Gubgw9l4dtIoQA9YZHgx` (Brian), model `eleven_multilingual_v2`, 1 credit per character | `b6a2d36` |
@@ -105,7 +105,7 @@ Commands run from the repository root, with `SA_VIDEO_PYTHON` set to the media-r
   OCR and captions tools all landed. Only the pipeline's pilot episode (row 18) had not, and
   nothing here waits for it.
 - **The ledger check is `npm run claims:lint`,** not `npm run test:claims` (row 25).
-- **The push window cannot be spoken or labelled as a fact.** Rule 4 needs a Verified claim, and
+- **The push window cannot be spoken or labeled as a fact.** Rule 4 needs a Verified claim, and
   every push window claim is Needs expert (row 27). A line about when to push needs the experts'
   answer first. The Lynx set-up has Verified claims to cite (row 28).
 - **Target Profiles is shipping** (row 29, and rule 5 above).
@@ -314,7 +314,7 @@ is run, and imported for its lexicon, never copied.
   `vo/showcase-vo-REVIEW.mp3` (192 kbit/s). Exit 0 done, 1 a line missing or over its window, 2 configuration.
 - [`whisper-roundtrip.py`](whisper-roundtrip.py) transcribes the stem (or, in phase 5, the final mix, with `--timeline` to score each line where the timeline places it)
   with OpenAI Whisper on this machine, with word timestamps, cuts the words into lines by window (0.3 s before, 0.5 s
-  after), and scores each line by word error rate against the written text after normalising both sides. A line
+  after), and scores each line by word error rate against the written text after normalizing both sides. A line
   passes at WER 0.2 or less with every scripted TurfRad, Lynx and IntelliDash heard (Lynx as "Lynx" or its homophone
   "links", which the report counts: Whisper writes "links" for Brian's Lynx at any model size). Whisper is
   given the film's vocabulary as its initial prompt; `--no-prompt` runs without it for comparison. Exit 0 every line passes, 1 a line fails, 2 configuration (including a stale `ttsText`).
@@ -416,7 +416,7 @@ the edit grammar and every cut's notes are in [`edit-notes.md`](edit-notes.md). 
 | `edit-notes.md` | What each cut is made of, what was seen in it, and the picture lock |
 
 **Music.** Gate SC-MUSIC in [`../approvals.md`](../approvals.md) records the track (the original bed `sa-bed-v1`), library
-(none, generated in code), licence type (original), licence reference, purchaser (none) and date. The file is only in
+(none, generated in code), license type (original), license reference, purchaser (none) and date. The file is only in
 `~/Documents/SpatialAdjust_MarCom/music/`. The iCentral preview track is never used; `mix.py` refuses it.
 
 **Renders.** `renders/showcase-take1001-DRAFT.mp4` (rough cut v1, also kept in `edit/rough-cuts/v1/`) and

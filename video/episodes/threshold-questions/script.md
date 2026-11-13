@@ -20,7 +20,7 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 0:41 | 0:46 | 8 Step 2 result | Hold on the screen; the cursor moves to Changes |  | "This is the disagreement, and it is intentional." | `threshold-questions/2/3` |
 | 0:46 | 0:48 | 9 Chapter 3 | Typed chapter card | CHOOSE WHAT BELOW-THRESHOLD MEANS | — | `threshold-questions/3/1` (the step title) |
 | 0:48 | 1:02 | 10 Step 3 | The lifted figure for step 3. Push in on **Set to zero when pushed to Lynx**, highlighted; the cursor moves to Set to zero when pushed to Lynx, then Set to the minimum threshold value when pushe... |  | "Set to zero skips the station: Lynx receives 0 percent. Set to the minimum threshold value lifts the suggestion up to the threshold, so the station still gets a short run." | `threshold-questions/3/2`, `threshold-questions/3/3` |
-| 1:02 | 1:05 | 11 Step 3 result | Hold on the screen; the cursor moves to Set to the minimum threshold value when pushe... |  | "They are opposite behaviours from the same number." | `threshold-questions/3/4`, `threshold-questions/3/5` |
+| 1:02 | 1:05 | 11 Step 3 result | Hold on the screen; the cursor moves to Set to the minimum threshold value when pushe... |  | "They are opposite behaviors from the same number." | `threshold-questions/3/4`, `threshold-questions/3/5` |
 | 1:05 | 1:07 | 12 Chapter 4 | Typed chapter card | EXCLUDE ZEROS PROTECTS GENUINE ZEROS | — | `threshold-questions/4/1` (the step title) |
 | 1:07 | 1:19 | 13 Step 4 | The lifted figure for step 4. Push in on **Exclude Zeros**, highlighted; the cursor moves to Exclude Zeros |  | "Exclude Zeros is available only under the second option. A station whose suggestion is a true zero stays at zero, instead of being lifted to the threshold." | `threshold-questions/4/2`, `threshold-questions/4/4` |
 | 1:19 | 1:24 | 14 Step 4 result | Hold on the screen; the cursor moves to Set to the minimum threshold value when pushe... |  | "Without it, a station that needs no water gets a small run anyway." | `threshold-questions/4/3` |
@@ -39,7 +39,7 @@ Every claim the episode cites is Verified in `docs/claims/claims.json` (episode 
 
 ## Voice-over check
 
-Whisper small.en on all 11 lines, medium.en on the 2 flagged. Differences are Whisper's: "A P 2" heard as "AP2", "behaviours" as "behaviors", and the punctuation after "Links receives 0 percent" run together. No line was re-rendered.
+Whisper small.en on all 11 lines, medium.en on the 2 flagged. Differences are Whisper's: "A P 2" heard as "AP2", "behaviors" as "behaviors", and the punctuation after "Links receives 0 percent" run together. No line was re-rendered.
 
 ## Never on camera
 

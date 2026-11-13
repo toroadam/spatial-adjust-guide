@@ -68,9 +68,10 @@ STATUSES = ('draft', 'script-locked', 'captured', 'edited', 'verified', 'approve
 # Edit rules carried over from dc_build.py (seconds)
 LEAD = 0.55          # footage before a chapter's first cue (dc_build.py:54)
 FIRST_IN = 0.30      # the first footage starts at least this long after the start flash (dc_build.py:55)
-END_PAD = 0.05       # the last footage ends this long before the take's end (dc_build.py:55)
+END_PAD = 0.05       # the last footage ends this long before the take's end (dc_build.py:55); XFADE more, so the dissolve tail stays clear of the end flash
 TITLE_VO_AT = 0.45   # a line on the title card starts this long after the card (dc_build.py:101)
 END_VO_AT = 0.30     # a line on the end card starts this long after the card (dc_build.py:125)
+XFADE = 0.35         # seconds: the dissolve between a card and a window shot
 VO_GAP = 0.15        # two VO lines closer than this overlap (dc_build.py:139)
 MIN_SHOT = 0.5       # a chapter's footage must be at least this long
 CSS_W = 1920         # capture CSS width: the take's pixel width over this is its dsf (2 for a 3840x2160 take)
@@ -315,7 +316,7 @@ def title_card_seconds(title):
 
 
 def chapter_plan(ep, LOG, src, F, E, vo_len):
-    """Per chapter: dict(id, label, cue, s0, s1). Raises BuildError when a chapter has no cue in the take's log."""
+    """Per chapter: dict(id, label, cue, s0, s1, crop), crop being the episode chapter's optional [x0, y0, x1, y1] (CSS px) or None. Raises BuildError when a chapter has no cue in the take's log."""
     beats = ep.get('beats', [])
     out = []
     for ch in ep['chapters']:
@@ -324,13 +325,13 @@ def chapter_plan(ep, LOG, src, F, E, vo_len):
         if not logged:
             raise BuildError(f'chapter {ch["id"]} ("{ch["label"]}") has no cue in the take\'s log (its beats\' cues: '
                              f'{cues or "none"}); the builder cuts each chapter on its first cue')
-        out.append(dict(id=ch['id'], label=ch['label'], cue=logged[0], s0=src(logged[0]) - LEAD))
+        out.append(dict(id=ch['id'], label=ch['label'], cue=logged[0], s0=src(logged[0]) - LEAD, crop=ch.get('crop')))
     for k, c in enumerate(out):
         if k and c['s0'] <= out[k - 1]['s0']:
             raise BuildError(f'chapter {c["id"]} starts before chapter {out[k - 1]["id"]} in the take: chapters must be in take order')
     out[0]['s0'] = max(out[0]['s0'], F + FIRST_IN)
     for k, c in enumerate(out):
-        c['s1'] = out[k + 1]['s0'] if k + 1 < len(out) else E - END_PAD
+        c['s1'] = out[k + 1]['s0'] if k + 1 < len(out) else E - END_PAD - XFADE
         for b in beats:
             if b.get('chapter') != c['id'] or b.get('cutAfter') is None: continue
             vo = b.get('vo')
@@ -452,6 +453,7 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
     end_cfg = cards.end_card_config(draft=mode == 'draft', approvals_path=ap)
     sub_id = 'title_' + slug(ep['title'])
     cards.lockup_assets(g, 'open')
+    cards.bug_assets(g)
     cards.title_assets(g, sub_id, ep['title'])
     ch_aid = {c['id']: 'ch_' + slug(c['label']) for c in chapters}
     for c in chapters:
@@ -485,9 +487,12 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
             if len(trk) < 2:
                 trk = [[s0, CSS_W / 2, 540, 1, 0, None], [s1, CSS_W / 2, 540, 1, 0, None]]
             cl = [x for x in clicks if s0 <= x <= s1]
-            T.window_shot(f'{ep["id"]}-{k + 1}', str(take), files['mp4'], t, t1, s0, s0 + (t1 - t), clicks=cl, track=trk, Z=1.7, dsf=dsf,
+            tail = XFADE                                                  # the shot runs on under the dissolve into the next card
+            T.window_shot(f'{ep["id"]}-{k + 1}', str(take), files['mp4'], t, round(t1 + tail, 3), s0, s0 + (t1 + tail - t), clicks=cl, track=trk, Z=1.7, dsf=dsf,
                           lead=0.8, hold=0.9, merge=2.4, wide_over=wide_over, macro_over=macro_over, drift=drift, planner=dc_plan,
+                          dof=0.0, crop=c.get('crop'),
                           effect=f'chapter {k + 1}: {c["label"]} ({cam} window, cursor-follow push-ins)')
+            cards.bug(g, T, t, t1)
             shots.append((t, t1))
             t = t1
             segs.append(dict(asset=strip[k], t_in=t_in, t_out=t))
@@ -521,11 +526,12 @@ def build(episode_path, take, mode='draft', source=None, camera=None, validate=T
         tr = cfg['track']
         lic = cfg.get('licence') or {}
         music = dict(track=music_file, id=tr['id'], sha256=tr['sha256'], licence=lic or None,
-                     licenceRef=lic.get('reference'), bpm=tr.get('bpm'), bar=tr['bar'],
+                     licenceRef=lic.get('reference'), bpm=tr.get('bpm'), bar=tr['bar'], mix=tr.get('mix'),
                      segments=music_segments(D, tr['sections'], tr['bar'], land=t_card), fade_in=MUSIC_FADE_IN, fade_out=[round(D - MUSIC_FADE_OUT, 3), D],
-                     xfade=MUSIC_XFADE, source=os.path.relpath(cfg['_source'], REPO) if cfg['_source'].startswith(REPO) else cfg['_source'],
+                     xfade=tr.get('xfade', MUSIC_XFADE), source=os.path.relpath(cfg['_source'], REPO) if cfg['_source'].startswith(REPO) else cfg['_source'],
                      notes='intro, whole bars of the loop, then the outro, its final chord on the end card')
 
+    T.crossfade(XFADE)
     d = T.json(D, music, vo)
     gates = {gid: (lambda r: dict(decision=r['decision'], date=r['date'], version=r['version']) if r else None)(approvals.latest(gid, ap))
              for gid in GATES['final']}

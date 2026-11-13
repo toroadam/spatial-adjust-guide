@@ -122,12 +122,12 @@
         "preferences/2/5"
       ],
       "previous_text": "Preferences is the last entry in the settings rail. Preferences are stored against your user account; the calculation settings on the other tabs are stored against the site.",
-      "next_text": "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place."
+      "next_text": "The stored amounts are millimeters. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place."
     },
     {
       "id": "V2a",
       "chapter": "c2",
-      "text": "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place.",
+      "text": "The stored amounts are millimeters. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place.",
       "claims": [
         "preferences/2/3",
         "preferences/2/7"
@@ -144,7 +144,7 @@
         "preferences/2/8",
         "preferences/2/9"
       ],
-      "previous_text": "The stored amounts are millimetres. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place.",
+      "previous_text": "The stored amounts are millimeters. Switching to imperial shows them in inches, with two decimal places; metric gets one decimal place.",
       "next_text": "Saving a new language re-applies translations across the site without a reload, and refetches your user record so the choice sticks on your next visit."
     },
     {
@@ -471,8 +471,8 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"333%\" >> nth=0",
-          "name": "333%"
+          "target": "[data-sa-frame] >> text=\"125%\" >> nth=0",
+          "name": "125%"
         }
       ]
     },

@@ -2,7 +2,7 @@
 
 **Episode:** `dashboard-overview-pilot` · **Guide:** `dashboard-overview` (Learn Spatial Adjust.dc.html, `GUIDES['dashboard-overview']`, step 2 "Read the map") · **Script version:** v1 (VO text), actions v2 · **Gate:** G6 in [`../../approvals.md`](../../approvals.md)
 
-The pilot takes one beat of the Dashboard overview guide through every step of the pipeline: script, capture, voice-over, build, render, mix, verify. It is 20 to 30 seconds long: the Spatial Adjust lockup and the title card, one chapter on the station map coloured by moisture band, and the end card.
+The pilot takes one beat of the Dashboard overview guide through every step of the pipeline: script, capture, voice-over, build, render, mix, verify. It is 20 to 30 seconds long: the Spatial Adjust lockup and the title card, one chapter on the station map colored by moisture band, and the end card.
 
 ## Footage source: the guide site's recreation
 
@@ -19,7 +19,7 @@ Planned times; the build measures the real ones from the take and the VO render.
 | 1 | Lockup | 2.3 | Spatial Adjust lockup on the hero wall | — |
 | 2 | Title card | 5.9 | "Double Click" / "Dashboard overview" | `vo-intro` |
 | 3 | Chapter card | about 1.7 | READ THE MAP, typed | — |
-| 4 | Window shot: Read the map | about 12.5 | The app, map left: the cursor visits a green, a blue and a yellow pin, then a red, a yellow and a blue one; then the highlight box on the moisture legend, with the cursor on the red band and the blue band | `vo-pins`, `vo-bands` |
+| 4 | Window shot: Read the map | about 12.5 | The app, map left: the cursor visits a green, a blue and a yellow station, then a red, a yellow and a blue one; then the highlight box on the moisture legend, with the cursor on the red band and the blue band | `vo-pins`, `vo-bands` |
 | 5 | End card | 5.0 | Lockup, "Explore the Spatial Adjust Guides", `toroadam.github.io/spatial-adjust-guide` (G4) | — |
 | | **Total** | **about 27.4** | | **48 words** |
 
@@ -32,10 +32,10 @@ Every line is backed by a claim in the claims ledger. A line says nothing the ci
 | VO line id | Text | Claim id | Shown on screen |
 |---|---|---|---|
 | `vo-intro` | The whole Spatial Adjust feature lives on one screen. Here is how to read its map. | `dashboard-overview/summary/1`, `dashboard-overview/2/1` | Title card "Dashboard overview", then the chapter card READ THE MAP |
-| `vo-pins` | Each sprinkler of a station scanned in the past seven days is a pin. | `dashboard-overview/2/2` | The map with its pins; the cursor rests on a green, a blue and a red pin |
-| `vo-bands` | A pin scanned today is coloured by the moisture band its reading falls into, as the legend shows. | `dashboard-overview/2/3`, `dashboard-overview/2/6` | The cursor on a red, a yellow and a blue pin; then the highlight box on the legend (0-5%, 6-19%, 20-30%, > 30%) |
+| `vo-pins` | The map plots each sprinkler of a station scanned in the past seven days. | `dashboard-overview/2/2` | The map with its stations; the cursor rests on a green, a blue and a red station |
+| `vo-bands` | A station scanned today is colored by the moisture band its reading falls into, as the legend shows. | `dashboard-overview/2/3`, `dashboard-overview/2/6` | The cursor on a red, a yellow and a blue station; then the highlight box on the legend (0-5%, 6-19%, 20-30%, > 30%) |
 
-48 words, 247 characters after the lexicon (no term in these lines is rewritten). The lines are sent with their neighbours as `previous_text` and `next_text`, as set in `episode.json`.
+48 words, 247 characters after the lexicon (no term in these lines is rewritten). The lines are sent with their neighbors as `previous_text` and `next_text`, as set in `episode.json`.
 
 ### The claims, as verified
 
@@ -45,15 +45,15 @@ Quoted from the verified claims ledger on `main` at commit e6459ba (`docs/claims
 |---|---|
 | `dashboard-overview/summary/1` | The whole feature lives on one screen. |
 | `dashboard-overview/2/1` | Read the map |
-| `dashboard-overview/2/2` | Each sprinkler of a station scanned in the past seven days is a pin. |
-| `dashboard-overview/2/3` | A pin scanned today is coloured by its measured VWC against the four moisture bands in the legend, and a pin last scanned on an earlier day is drawn clear. |
+| `dashboard-overview/2/2` | The map plots each sprinkler of a station scanned in the past seven days. |
+| `dashboard-overview/2/3` | A station scanned today is colored by its measured VWC against the four moisture bands in the legend, and a station last scanned on an earlier day is drawn clear. |
 | `dashboard-overview/2/6` | Map with the moisture legend. |
 
 This branch (`e200-video-pipeline`) was cut from `main` at c37d80e, before the claims audit re-extracted the ledger, so its own `docs/claims/claims.json` still holds the unverified ledger, in which `2/2`, `2/3` and `2/6` name different sentences (`2/2` there is the sentence the audit marked Wrong and corrected). The ids above resolve to the verified text once the branch is merged into `main`. `parseEpisode` passes against both ledgers: the branch's (`node video/lib/episode-schema.mjs`) and `main`'s (the same check with `parseEpisode(file, { ledger })` on `git show main:docs/claims/claims.json`). After the merge, re-run the schema and compare the five texts above with `docs/claims/guides/dashboard-overview.json`; if the audit has renumbered them again, the script needs a new G6 row.
 
 ### What the script leaves out, and why
 
-- **"A pin last scanned on an earlier day is drawn clear"** (the rest of `2/3`): every pin in the recreation's map is filled, so the footage cannot show it. Cut rather than recreated.
+- **"A station last scanned on an earlier day is drawn clear"** (the rest of `2/3`): every station in the recreation's map is filled, so the footage cannot show it. Cut rather than recreated.
 - **The default band boundaries, 0-5, 6-19, 20-30 and above 30 percent** (`2/7` on `main`): shown on screen by the legend, not spoken. The id has no counterpart in this branch's ledger, and the legend is easier to read than to hear.
 - **"VWC"**: the line says "moisture", the word the guide and the legend use for the bands ("the four moisture bands in the legend"); measured VWC is the measured soil moisture. Whether Brian should say "V W C" is already on the review agenda.
 - **Dragging the band handles and the variance view** (`2/5`, `2/8`): both need a click or a drag, and the pilot has no clicks (`allowClicks` is empty).
@@ -65,11 +65,11 @@ Hover, focus and wait only: `allowClicks` and `demoWriteClicks` are empty and th
 | Beat | Hold (s) | Actions |
 |---|---|---|
 | `title` | 1.0 | wait 600 ms for the page to settle (spoken over the title card: `vo-intro`) |
-| `pins`, label "Read the map" | 4.6 | cue `vo-pins`; hover pin 26 (green), wait 700 ms; hover pin 31 (blue), wait 700 ms; hover pin 13 (yellow), wait 500 ms |
-| `bands` | 3.4 | cue `vo-bands`; hover pin 4 (red), wait 450 ms; hover pin 15 (yellow), wait 450 ms; hover pin 33 (blue), wait 200 ms |
+| `pins`, label "Read the map" | 4.6 | cue `vo-pins`; hover station 26 (green), wait 700 ms; hover station 31 (blue), wait 700 ms; hover station 13 (yellow), wait 500 ms |
+| `bands` | 3.4 | cue `vo-bands`; hover station 4 (red), wait 450 ms; hover station 15 (yellow), wait 450 ms; hover station 33 (blue), wait 200 ms |
 | `legend` | 3.0 | focus the legend chips "0-5% 6-19% 20-30% > 30%" (the camera pushes in on it as Brian says "as the legend shows"); hover "0-5%", wait 600 ms; hover "> 30%", wait 850 ms |
 
-Actions v2 (this table). In v1 the `bands` beat focused the legend from its first frame, so the camera pushed in on the legend at once and the pins the cursor then visited were out of shot (draft of take 1). v2 visits a red, a yellow and a blue pin while the camera is wide and moves the legend focus into a beat of its own at the end. The VO text is unchanged from v1; the new version has its own G6 row.
+Actions v2 (this table). In v1 the `bands` beat focused the legend from its first frame, so the camera pushed in on the legend at once and the stations the cursor then visited were out of shot (draft of take 1). v2 visits a red, a yellow and a blue station while the camera is wide and moves the legend focus into a beat of its own at the end. The VO text is unchanged from v1; the new version has its own G6 row.
 
 The label "Read the map" is three words, so its beat must hold at least 2.4 s (1.5 s + 0.3 s per word); it holds 4.6 s. The director's dry run (`npm run video -- capture --episode dashboard-overview-pilot --dry-run`) lists 4 beats, 9 targets and about 14.2 s of take, and "click guard: no clicks".
 
@@ -83,7 +83,7 @@ Characters are counted after the lexicon is applied; 1 credit per character; ret
 
 line        chars   credits  x retakes
 vo-intro       82        82        164
-vo-pins        68        68        136
+vo-stations        68        68        136
 vo-bands       97        97        194
 total         247       247        494
 
