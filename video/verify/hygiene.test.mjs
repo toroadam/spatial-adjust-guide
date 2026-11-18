@@ -107,7 +107,7 @@ test('a clean repository passes with exit 0', () => {
   assert.match(r.out, /^ok {4}key:/m);
   assert.match(r.out, /^ok {4}denylist:/m);
   assert.match(r.out, /^ok {4}tracker:/m);
-  assert.match(r.out, /^ok {4}attribution: .*\(the last 200 commits \(origin\/main not found\)\)/m);
+  assert.match(r.out, /^ok {4}attribution: .*\(every commit on every ref\)/m);
   assert.match(r.out, /^hygiene: clean$/m);
 });
 
@@ -239,19 +239,19 @@ test('every attribution form is recognised, and ordinary messages are not', () =
   assert.deepEqual(hits('Fix the session timeout\n\nCo-Authored-By: Jo Bloggs <jo@example.invalid>'), []);
 });
 
-test('only origin/main..HEAD is checked for attribution when origin/main exists', () => {
+test('attribution already pushed to origin/main is still a finding', () => {
   const dir = repo();
   write(dir, 'a.txt', 'a\n');
   const pushed = commit(dir, 'Old commit\n\nClaude-Session: https://claude.ai/code/session_old\n');
   git(dir, 'update-ref', 'refs/remotes/origin/main', pushed);
   write(dir, 'b.txt', 'b\n');
   commit(dir, 'New commit, no attribution');
-  const clean = run(dir);
-  assert.equal(clean.code, 0, clean.all);
-  assert.match(clean.out, /attribution: .*\(origin\/main\.\.HEAD\)/);
-  // --range widens the check on request.
-  const wide = run(dir, '--range', 'HEAD');
-  assert.equal(wide.code, 1, wide.all);
+  const all = run(dir);
+  assert.equal(all.code, 1, all.all);
+  assert.match(all.out, /attribution: .*\(every commit on every ref\)/);
+  // --range narrows the check on request.
+  const narrow = run(dir, '--range', 'origin/main..HEAD');
+  assert.equal(narrow.code, 0, narrow.all);
 });
 
 test('all four findings at once: exit 1, each check fails, neither secret is printed', () => {

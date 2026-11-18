@@ -12,8 +12,9 @@
 //   tracker      a tracked text file in the working tree holds an internal tracker ID (a
 //                work-item, feature or epic number; TRACKER_ID below). The repository is
 //                public, so work is described in words, never by its tracker number;
-//   attribution  a commit message in origin/main..HEAD (the last 200 commits when origin/main
-//                does not exist) carries Claude attribution.
+//   attribution  a commit message on any ref (every commit, as for the other history checks)
+//                carries Claude attribution. It used to read only origin/main..HEAD, which let
+//                trailers that were already pushed go unreported.
 //
 // It reports locations only. Media file names and paths are printed; the key and denylisted
 // terms never are: a key hit reads "ElevenLabs key found in <file> | commit <sha>", a denylist
@@ -36,7 +37,6 @@ import { loadLocalMaps } from '../lib/local-maps.mjs';
 
 export const REPO_ROOT = path.resolve(import.meta.dirname, '..', '..');
 export const MEDIA = /\.(mp4|mov|wav|mp3|m4a|aac|flac|webm)$/i;
-export const ATTRIBUTION_FALLBACK_COMMITS = 200;
 // Denylist matching by term length. A term is matched case-insensitively; how strictly depends on
 // how distinctive it is:
 //   shorter than DENY_MIN_LENGTH   not scanned. A two- or three-character term (a short code,
@@ -273,14 +273,10 @@ export function checkTrackerIds(repo) {
 
 // --- attribution -------------------------------------------------------------------------------
 
-export function attributionRange(repo) {
-  if (gitOk(repo, ['rev-parse', '--verify', '-q', 'refs/remotes/origin/main'])) {
-    return { args: ['origin/main..HEAD'], label: 'origin/main..HEAD' };
-  }
-  return {
-    args: ['-n', String(ATTRIBUTION_FALLBACK_COMMITS), 'HEAD'],
-    label: `the last ${ATTRIBUTION_FALLBACK_COMMITS} commits (origin/main not found)`,
-  };
+// Every commit on every ref, like the media, key and denylist scans. Pushed history is public, so
+// a trailer that is already on origin/main is still a finding, not something to skip.
+export function attributionRange() {
+  return { args: ['--all'], label: 'every commit on every ref' };
 }
 
 export function checkAttribution(repo, range) {
@@ -372,7 +368,7 @@ function parseArgs(argv) {
 const USAGE = `Usage: npm run video -- hygiene [--repo <dir>] [--range <rev-range>]
   --repo   repository to check (default: this repository)
   --range  commits whose messages are checked for attribution
-           (default: origin/main..HEAD, or the last ${ATTRIBUTION_FALLBACK_COMMITS} commits without origin/main)
+           (default: every commit on every ref)
 Exit codes: 0 clean, 1 findings, 2 internal error, 64 usage.
 `;
 
