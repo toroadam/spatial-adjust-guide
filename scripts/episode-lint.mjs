@@ -12,13 +12,13 @@
 //
 // Always: video/episodes/series.json is checked for shape (unique keys, wave order, statuses,
 // blocked entries with a reason and a date, first-of-wave flags). Every episode whose series status
-// is neither planned nor blocked (or each named key) then has video/episodes/<id>/episode.json
+// is not planned, blocked or retired (or each named key) then has video/episodes/<id>/episode.json
 // checked:
 //   schema  it passes video/lib/episode-schema.mjs (the pipeline's own contract);
 //   (a)     guide and id match series.json and the folder;
 //   (b)     chapters, in order, are labelled exactly with the rendered step titles, one per step;
 //   (c)     title is the rendered guide title and titleCard.text is "Double Click: <title>";
-//   (d)     endCard.next is the next series episode that is not blocked, endCard.text is
+//   (d)     endCard.next is the next series episode that is not blocked or retired, endCard.text is
 //           "Next on Double Click: <its title>" (or the RUNBOOK's series-end line when there is
 //           none) and endCard.address is "#/<key>";
 //   (e)     every vo line and on-screen text cites claim IDs that are Verified in
@@ -78,8 +78,8 @@ export const PATHS = {
   fixtures: path.join(REPO_ROOT, 'scripts', 'fixtures', 'episode-lint'),
 };
 
-export const SERIES_STATUSES = ['planned', 'scripted', 'captured', 'voiced', 'edited', 'approved', 'blocked'];
-export const NOT_CHECKED = new Set(['planned', 'blocked']);
+export const SERIES_STATUSES = ['planned', 'scripted', 'captured', 'voiced', 'edited', 'approved', 'blocked', 'retired'];
+export const NOT_CHECKED = new Set(['planned', 'blocked', 'retired']);
 export const CHAPTER_SOURCES = ['demo', 'recreation', 'mixed'];
 export const OUTCOMES = ['demo', 'recreation'];
 export const TREATMENTS = ['standard', 'coming-soon'];
@@ -196,11 +196,11 @@ export function checkSeries(series) {
   return f;
 }
 
-// The next episode in series order that is not blocked, or null.
+// The next episode in series order that is not blocked or retired, or null.
 export function nextEntry(series, entry) {
   const eps = series.episodes ?? [];
   const i = eps.findIndex((e) => e.key === entry.key);
-  return eps.slice(i + 1).find((e) => e.status !== 'blocked') ?? null;
+  return eps.slice(i + 1).find((e) => e.status !== 'blocked' && e.status !== 'retired') ?? null;
 }
 
 // ---------------------------------------------------------------------------------------------

@@ -3,109 +3,109 @@ WEBVTT
 NOTE minimum-threshold: written VO text from episode.json, timed from the timeline VO placements
 
 V0-1
-00:00:02.750 --> 00:00:06.614
+00:00:02.250 --> 00:00:06.114
 Stop trivial adjustments reaching
 Lynx. Set the percentage below
 
 V0-2
-00:00:06.714 --> 00:00:10.880
+00:00:06.214 --> 00:00:10.380
 which a suggestion is either zeroed
 or lifted to the threshold value.
 
 V1a-1
-00:00:12.490 --> 00:00:14.948
+00:00:12.020 --> 00:00:14.478
 The gear button at the
 right of the toolbar,
 
 V1a-2
-00:00:15.048 --> 00:00:18.290
+00:00:14.578 --> 00:00:17.820
 in its right-hand button group,
 opens the settings dialog.
 
 V1b-1
-00:00:18.856 --> 00:00:23.613
+00:00:18.387 --> 00:00:23.144
 It opens on Calculation, unless you have
 used Review Threshold in the Push Changes
 
 V1b-2
-00:00:23.713 --> 00:00:28.006
+00:00:23.244 --> 00:00:27.537
 dialog since the page loaded, in which
 case it opens on Minimum Threshold.
 
 V2a-1
-00:00:35.056 --> 00:00:37.429
+00:00:34.587 --> 00:00:36.960
 The left rail lists the settings groups.
 
 V2a-2
-00:00:37.529 --> 00:00:40.436
+00:00:37.060 --> 00:00:39.967
 Minimum Threshold sits
 second, under Calculation.
 
 V2b-1
-00:00:40.990 --> 00:00:43.780
+00:00:40.520 --> 00:00:43.310
 The Settings dialog is now
 on the Minimum Threshold tab.
 
 V3a-1
-00:00:50.090 --> 00:00:53.683
+00:00:49.620 --> 00:00:53.213
 Type the cutoff as a whole
 number between 0 and 50.
 
 V3a-2
-00:00:53.783 --> 00:00:57.870
+00:00:53.313 --> 00:00:57.400
 Setting the percentage to 0
 disables the feature entirely.
 
 V3b-1
-00:00:58.373 --> 00:01:02.485
+00:00:57.903 --> 00:01:02.015
 Here the threshold is set to 10
 percent. The 0 to 50 bound is
 
 V3b-2
-00:01:02.585 --> 00:01:06.563
+00:01:02.115 --> 00:01:06.093
 enforced by the dialog only.
 There is no server-side check.
 
 V4a-1
-00:01:14.033 --> 00:01:17.021
+00:01:13.563 --> 00:01:16.551
 Set to zero means Lynx receives 0 percent.
 
 V4a-2
-00:01:17.121 --> 00:01:21.532
+00:01:16.651 --> 00:01:21.062
 Set to the minimum threshold
 value raises the suggestion up to
 
 V4a-3
-00:01:21.632 --> 00:01:25.973
+00:01:21.162 --> 00:01:25.503
 the threshold instead, so the
 station still gets a small run.
 
 V4b-1
-00:01:26.483 --> 00:01:30.014
+00:01:26.013 --> 00:01:29.544
 Exclude Zeros, available
 only on the second option,
 
 V4b-2
-00:01:30.114 --> 00:01:33.853
+00:01:29.644 --> 00:01:33.383
 leaves genuine zeros at zero
 rather than lifting them.
 
 V5a-1
-00:01:40.386 --> 00:01:45.554
+00:01:39.917 --> 00:01:45.085
 Save Changes saves the edits on every tab
 of Settings together. A threshold-only
 
 V5a-2
-00:01:45.654 --> 00:01:51.016
+00:01:45.185 --> 00:01:50.547
 change does not reload the dashboard; the
 pending push list is simply recalculated.
 
 V5b-1
-00:01:52.320 --> 00:01:56.448
+00:01:51.850 --> 00:01:55.978
 Open Push Changes and the pink banner
 tells you how many stations the threshold
 
 V5b-2
-00:01:56.548 --> 00:02:00.730
+00:01:56.078 --> 00:02:00.260
 touched, with each affected row showing
 its original value and the adjusted one.

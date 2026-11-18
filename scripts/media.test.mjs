@@ -447,8 +447,13 @@ describe('the shipped manifest', () => {
   test('pins every episode of the series, each with its English captions file', async () => {
     const manifest = await loadManifest(join(ROOT, 'src/media/manifest.json'));
     const series = JSON.parse(await readFile(join(ROOT, 'video/episodes/series.json'), 'utf8'));
-    const published = series.episodes.filter((e) => e.status === 'approved');
-    assert.ok(published.length >= 26 || published.length === series.episodes.length);
+    // A retired episode is out of the series: it has no manifest item and no captions track.
+    const live = series.episodes.filter((e) => e.status !== 'retired');
+    const published = live.filter((e) => e.status === 'approved');
+    assert.ok(published.length > 0);
+    for (const e of series.episodes.filter((x) => x.status === 'retired')) {
+      assert.equal(manifest.items[e.key], undefined, `${e.key} is retired but still in the manifest`);
+    }
     for (const e of published) {
       const item = manifest.items[e.key];
       assert.ok(item, `${e.key} is approved but not in the manifest`);

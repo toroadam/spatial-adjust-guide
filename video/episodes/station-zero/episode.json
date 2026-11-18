@@ -460,7 +460,7 @@
       "id": "b4a",
       "chapter": "c4",
       "vo": "V4a",
-      "hold": 12.18,
+      "hold": 11.11,
       "actions": [
         {
           "type": "figure",
@@ -485,12 +485,26 @@
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"50.0%\"",
-          "name": "50.0%"
+          "target": "[data-sa-frame] >> text=\"08-06-25\"",
+          "name": "08-06-25"
         },
         {
           "type": "cue",
           "id": "V4a"
+        },
+        {
+          "type": "wait",
+          "ms": 4480
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"50.0%\"",
+          "name": "50.0%"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"50.0%\"",
+          "name": "50.0%"
         }
       ]
     },

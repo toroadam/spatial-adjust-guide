@@ -205,7 +205,7 @@
       "id": "b1a",
       "chapter": "c1",
       "vo": "V1a",
-      "hold": 7.14,
+      "hold": 7.39,
       "actions": [
         {
           "type": "cue",
@@ -301,7 +301,7 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"31.4%\"",
+          "target": "[data-sa-frame] >> text=\"31.4%\" >> xpath=..",
           "name": "31.4%"
         },
         {
@@ -319,7 +319,7 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"30.4%\"",
+          "target": "[data-sa-frame] >> text=\"30.4%\" >> xpath=..",
           "name": "30.4%"
         }
       ]
@@ -355,7 +355,7 @@
       "id": "b3a",
       "chapter": "c3",
       "vo": "V3a",
-      "hold": 6.79,
+      "hold": 7.81,
       "actions": [
         {
           "type": "figure",
@@ -388,17 +388,21 @@
           "id": "V3a"
         },
         {
+          "type": "wait",
+          "ms": 2300
+        },
+        {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"31.4%\"",
+          "target": "[data-sa-frame] >> text=\"31.4%\" >> xpath=..",
           "name": "31.4%"
         },
         {
           "type": "wait",
-          "ms": 720
+          "ms": 100
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"30.4%\"",
+          "target": "[data-sa-frame] >> text=\"30.4%\" >> xpath=..",
           "name": "30.4%"
         }
       ]
@@ -407,16 +411,16 @@
       "id": "b3b",
       "chapter": "c3",
       "vo": "V3b",
-      "hold": 11.23,
+      "hold": 12.19,
       "actions": [
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"31.4%\"",
+          "target": "[data-sa-frame] >> text=\"31.4%\" >> xpath=..",
           "name": "31.4%"
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"31.4%\"",
+          "target": "[data-sa-frame] >> text=\"31.4%\" >> xpath=..",
           "name": "31.4%"
         },
         {
@@ -424,13 +428,17 @@
           "id": "V3b"
         },
         {
+          "type": "wait",
+          "ms": 1540
+        },
+        {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"30.4%\"",
+          "target": "[data-sa-frame] >> text=\"30.4%\" >> xpath=..",
           "name": "30.4%"
         },
         {
           "type": "wait",
-          "ms": 3665
+          "ms": 1850
         },
         {
           "type": "hover",
@@ -477,7 +485,7 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"30.4%\"",
+          "target": "[data-sa-frame] >> text=\"30.4%\" >> xpath=..",
           "name": "30.4%"
         }
       ]

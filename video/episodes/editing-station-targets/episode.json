@@ -251,7 +251,7 @@
       "id": "b1b",
       "chapter": "c1",
       "vo": "V1b",
-      "hold": 9.02,
+      "hold": 8.43,
       "actions": [
         {
           "type": "hover",
@@ -266,6 +266,10 @@
         {
           "type": "cue",
           "id": "V1b"
+        },
+        {
+          "type": "wait",
+          "ms": 2750
         },
         {
           "type": "hover",
@@ -333,6 +337,10 @@
           "id": "V2b"
         },
         {
+          "type": "wait",
+          "ms": 1980
+        },
+        {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> xpath=./div[2]/div[4]",
           "name": "121%"
@@ -381,6 +389,10 @@
           "id": "V3a"
         },
         {
+          "type": "wait",
+          "ms": 250
+        },
+        {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> xpath=./div[2]/div[4]",
           "name": "121%"
@@ -391,7 +403,7 @@
       "id": "b3b",
       "chapter": "c3",
       "vo": "V3b",
-      "hold": 11.16,
+      "hold": 8.74,
       "actions": [
         {
           "type": "hover",
@@ -408,6 +420,10 @@
           "id": "V3b"
         },
         {
+          "type": "wait",
+          "ms": 1920
+        },
+        {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../.. >> xpath=./div[2]/div[4]",
           "name": "125%"
@@ -418,7 +434,7 @@
       "id": "b4a",
       "chapter": "c4",
       "vo": "V4a",
-      "hold": 7.83,
+      "hold": 12.33,
       "actions": [
         {
           "type": "figure",
@@ -451,6 +467,28 @@
           "id": "V4a"
         },
         {
+          "type": "wait",
+          "ms": 2080
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> xpath=./div[2]/div[5]",
+          "name": "121 %"
+        },
+        {
+          "type": "wait",
+          "ms": 1510
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> xpath=./div[2]/div[4]",
+          "name": "121%"
+        },
+        {
+          "type": "wait",
+          "ms": 2560
+        },
+        {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> xpath=./div[2]/div[5]",
           "name": "121 %"
@@ -476,6 +514,10 @@
         {
           "type": "cue",
           "id": "V4b"
+        },
+        {
+          "type": "wait",
+          "ms": 6600
         },
         {
           "type": "hover",

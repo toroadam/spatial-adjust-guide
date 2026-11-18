@@ -244,7 +244,7 @@
       "id": "b1a",
       "chapter": "c1",
       "vo": "V1a",
-      "hold": 9.68,
+      "hold": 9.93,
       "actions": [
         {
           "type": "cue",
@@ -316,6 +316,10 @@
           "ms": 750
         },
         {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push Changes\" >> xpath=.."
+        },
+        {
           "type": "cue",
           "id": "c2-in"
         },
@@ -355,6 +359,10 @@
       "hold": 5.43,
       "actions": [
         {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push Changes\" >> xpath=.."
+        },
+        {
           "type": "cue",
           "id": "V2b"
         },
@@ -370,7 +378,7 @@
         },
         {
           "type": "wait",
-          "ms": 1353
+          "ms": 1210
         },
         {
           "type": "hover",
@@ -383,7 +391,7 @@
       "id": "b3a",
       "chapter": "c3",
       "vo": "V3a",
-      "hold": 11.24,
+      "hold": 11.55,
       "actions": [
         {
           "type": "figure",
@@ -392,6 +400,10 @@
         {
           "type": "wait",
           "ms": 750
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push Changes\" >> xpath=.."
         },
         {
           "type": "cue",
@@ -417,7 +429,7 @@
         },
         {
           "type": "wait",
-          "ms": 3536
+          "ms": 2220
         },
         {
           "type": "hover",
@@ -432,6 +444,10 @@
       "vo": "V3b",
       "hold": 9.37,
       "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push Changes\" >> xpath=.."
+        },
         {
           "type": "cue",
           "id": "V3b"
@@ -470,6 +486,10 @@
         {
           "type": "wait",
           "ms": 750
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push Changes\" >> xpath=.."
         },
         {
           "type": "cue",
@@ -511,6 +531,10 @@
       "hold": 5.26,
       "actions": [
         {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push Changes\" >> xpath=.."
+        },
+        {
           "type": "cue",
           "id": "V4b"
         },
@@ -548,6 +572,10 @@
         {
           "type": "wait",
           "ms": 750
+        },
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push Changes\" >> xpath=.."
         },
         {
           "type": "cue",
@@ -588,6 +616,10 @@
       "vo": "V5b",
       "hold": 6.04,
       "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Push Changes\" >> xpath=.."
+        },
         {
           "type": "cue",
           "id": "V5b"

@@ -156,8 +156,8 @@
     "AP": "AP",
     "Apply a bulk adjustment": "Apply a bulk adjustment",
     "Apply a bulk adjustment — 2 MIN, difficulty 2 of 3": "Apply a bulk adjustment — 2 MIN, difficulty 2 of 3",
-    "Apply a target profile": "Apply a target profile",
-    "Apply a target profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3": "Apply a target profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3",
+    "Capture and apply a profile": "Capture and apply a profile",
+    "Capture and apply a profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3": "Capture and apply a profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3",
     "Apply the evening before": "Apply the evening before",
     "Apply to all": "Apply to all",
     "Apply, then review the next morning’s suggestions.": "Apply, then review the next morning’s suggestions.",
@@ -622,8 +622,8 @@
     "Lynx Reference Amount (in)": "Lynx Reference Amount (in)",
     "Lynx Reference Amount, ceiling of 10.": "Lynx Reference Amount, ceiling of 10.",
     "Lynx runs the water": "Lynx runs the water",
-    "Managing seasonal profiles": "Managing seasonal profiles",
-    "Managing seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3": "Managing seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3",
+    "Update and manage seasonal profiles": "Update and manage seasonal profiles",
+    "Update and manage seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3": "Update and manage seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3",
     "Managing station state and detail rows.": "Managing station state and detail rows.",
     "Many stations show the same value, which means the daily cap is deciding, not the scan.": "Many stations show the same value, which means the daily cap is deciding, not the scan.",
     "Map and table stay in sync": "Map and table stay in sync",
@@ -1817,13 +1817,13 @@
       "catalog:attr",
       "chrome:attr"
     ],
-    "Apply a target profile": [
+    "Capture and apply a profile": [
       "catalog",
       "chrome",
       "target-profiles",
       "creating-profiles"
     ],
-    "Apply a target profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3": [
+    "Capture and apply a profile — New in Spatial Adjust, 2 MIN, difficulty 1 of 3": [
       "catalog:attr",
       "chrome:attr"
     ],
@@ -3301,13 +3301,13 @@
     "Lynx runs the water": [
       "understand-spatial-adjust"
     ],
-    "Managing seasonal profiles": [
+    "Update and manage seasonal profiles": [
       "catalog",
       "chrome",
       "updating-profiles",
       "seasonal-profiles"
     ],
-    "Managing seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3": [
+    "Update and manage seasonal profiles — New in Spatial Adjust, 4 MIN, difficulty 2 of 3": [
       "catalog:attr",
       "chrome:attr"
     ],

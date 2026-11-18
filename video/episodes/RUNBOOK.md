@@ -21,7 +21,7 @@ The pipeline the procedure drives is described in [`../README.md`](../README.md)
 | Length | 1 to 3 minutes | `series.json` `targets.runtimeSec` [60, 180], or the entry's `runtimeRange` | checked by `verify.py` and the lint |
 | Sound | One music bed for the whole series, `sa-bed-v1`, 3 dB under the voice and ducked a further 9 dB while Brian speaks; -14 LUFS integrated, true peak at or below -1.0 dBTP | `episode.music` = `series.json` `musicBed`; `video/brand/music.json` (gate G5) | `video/edit/mix.py` |
 
-The close points to the next episode in `series.json` that is not blocked. When no later episode is open, the episode ends on the series-end line instead:
+The close points to the next episode in `series.json` that is not blocked or retired. When no later episode is open, the episode ends on the series-end line instead:
 
 **Series-end line:** "That's the latest Double Click. Find every guide on the Spatial Adjust Guides site."
 
@@ -87,7 +87,7 @@ Every value below is in code, with the file named; a change to any of them is a 
 | `chapters[]` | `{id, step, label, highlight: {label, selector}, source, sourceReason, onScreen: [{text, stateShown, claims}]}` | one per rendered step, in order; `label` is the step title exactly; `highlight.label` is a bold label of the step and `selector` finds it on screen; `source` is `demo`, `recreation` or `mixed`, and the last two need a `sourceReason` |
 | `vo[]` | `{id, chapter, text, previous_text, next_text, claims}` | `V<n>a` the Do line, `V<n>b` the You-should-see line; every line cites Verified claims |
 | `beats[]` | as in the pipeline | one per VO line at least, each starting on a cue named after its line |
-| `endCard` | `{next, text, address}` | `next` is the next series episode that is not blocked and `text` is `"Next on Double Click: <its title>"`, or `next` null and `text` the series-end line; `address` is `"#/<key>"` |
+| `endCard` | `{next, text, address}` | `next` is the next series episode that is not blocked or retired and `text` is `"Next on Double Click: <its title>"`, or `next` null and `text` the series-end line; `address` is `"#/<key>"` |
 | `music` | string | `series.json` `musicBed` |
 | `treatment` | `standard` or `coming-soon` | `coming-soon` may cite Not shipping claims, only with an `approvalsRef` that appears in `video/approvals.md` |
 | `approvalsRef` | string or null | the approvals row that allows a non-standard treatment |
@@ -96,7 +96,7 @@ Every value below is in code, with the file named; a change to any of them is a 
 
 ### series.json
 
-One entry per episode, in wave order: `n`, `key`, `id`, `wave`, `title`, `status` (`planned`, `scripted`, `captured`, `voiced`, `edited`, `approved`, `blocked`), `blockedReason` and `checkedAt` (both required while blocked), `firstOfWave`, `runtimeSec`, `lufs`, `truePeak`, `startedAt`, `approvedAt`, `expertReview`, `media` (`episodes/<key>` under the media root), `treatment`, `approvalsRef`, and optionally `runtimeRange` to override the series range for one episode. Each wave has `n`, `name`, `creditsEstimate` [low, high], `creditsBefore`, `creditsAfter` and `expertSignoff`.
+One entry per episode, in wave order: `n`, `key`, `id`, `wave`, `title`, `status` (`planned`, `scripted`, `captured`, `voiced`, `edited`, `approved`, `blocked`, `retired`), `blockedReason` and `checkedAt` (both required while blocked), `firstOfWave`, `runtimeSec`, `lufs`, `truePeak`, `startedAt`, `approvedAt`, `expertReview`, `media` (`episodes/<key>` under the media root), `treatment`, `approvalsRef`, and optionally `runtimeRange` to override the series range for one episode. Each wave has `n`, `name`, `creditsEstimate` [low, high], `creditsBefore`, `creditsAfter` and `expertSignoff`. A `retired` entry stays in its place so the numbers do not move; it is not checked, not published, and the next-episode rule skips it.
 
 The series status moves with the episode file: `scripted` when the script is locked, `captured`, `voiced` once the VO is rendered, `edited` once the render passes verify, `approved` at EP-9. Edit `series.json`, never the tracker: `npm run test:episodes -- --write-tracker` regenerates it.
 

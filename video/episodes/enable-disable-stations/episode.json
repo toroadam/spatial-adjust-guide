@@ -24,7 +24,7 @@
     },
     {
       "name": "Enable switch (hole row)",
-      "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../div[2]",
+      "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../../div[2]",
       "reason": "Shift-clicking the Enable switch of a hole row starts a cascade; it is shown highlighted, never clicked.",
       "route": "/demo",
       "safetyRef": "enable-toggle",
@@ -386,7 +386,7 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../div[2]",
+          "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../../div[2]",
           "name": "29.0% 37.5% 08-08-25"
         },
         {
@@ -395,7 +395,7 @@
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"5\" >> xpath=../../div[2]",
+          "target": "[data-sa-frame] >> text=\"5\" >> xpath=../../../div[2]",
           "name": "27.9% 30.0% 08-08-25"
         }
       ]
@@ -408,12 +408,12 @@
       "actions": [
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../div[2]",
+          "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../../div[2]",
           "name": "29.0% 37.5% 08-08-25"
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../div[2]",
+          "target": "[data-sa-frame] >> text=\"3\" >> xpath=../../../div[2]",
           "name": "29.0% 37.5% 08-08-25"
         },
         {
@@ -426,7 +426,7 @@
       "id": "b3a",
       "chapter": "c3",
       "vo": "V3a",
-      "hold": 11.59,
+      "hold": 12.08,
       "actions": [
         {
           "type": "figure",
@@ -457,6 +457,10 @@
         {
           "type": "cue",
           "id": "V3a"
+        },
+        {
+          "type": "wait",
+          "ms": 5800
         },
         {
           "type": "hover",
@@ -529,9 +533,32 @@
           "id": "V4a"
         },
         {
+          "type": "wait",
+          "ms": 4300
+        },
+        {
           "type": "hover",
           "target": "[data-sa-frame] >> text=/Enable this area/",
           "name": "Enable this area and all child holes and stations?"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/Enable this area/",
+          "name": "Enable this area and all child holes and stations?"
+        },
+        {
+          "type": "wait",
+          "ms": 2400
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=/This will enable the selected area/",
+          "name": "This will enable the selected area and every hole and station beneath it."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=/This will enable the selected area/",
+          "name": "This will enable the selected area and every hole and station beneath it."
         }
       ]
     },
@@ -566,7 +593,7 @@
       "id": "b5a",
       "chapter": "c5",
       "vo": "V5a",
-      "hold": 7.17,
+      "hold": 5.9,
       "actions": [
         {
           "type": "figure",

@@ -3,91 +3,91 @@ WEBVTT
 NOTE understand-spatial-adjust: written VO text from episode.json, timed from the timeline VO placements
 
 V0-1
-00:00:02.750 --> 00:00:06.505
+00:00:02.250 --> 00:00:06.005
 What the feature actually does:
 turn the latest moisture scan into
 
 V0-2
-00:00:06.605 --> 00:00:10.190
+00:00:06.105 --> 00:00:09.690
 today's percent adjustment, and
 write it to Lynx when you push.
 
 V1a-1
-00:00:12.620 --> 00:00:17.080
+00:00:11.850 --> 00:00:16.310
 It lives inside IntelliDash. Access is
 checked per user before the view loads.
 
 V1b-1
-00:00:17.636 --> 00:00:20.566
+00:00:16.866 --> 00:00:19.796
 The Spatial Adjust header,
 inside IntelliDash.
 
 V2a-1
-00:00:27.390 --> 00:00:31.486
-Each station's Avg. VWC comes
-from a TurfRad moisture scan:
+00:00:25.670 --> 00:00:30.309
+Each station's Avg. VWC comes from
+a TurfRad moisture scan: the average
 
 V2a-2
-00:00:31.586 --> 00:00:35.890
-the mean volumetric water content
-measured across the station,
+00:00:30.409 --> 00:00:35.832
+volumetric water content measured across
+the station, with the date it was captured
 
 V2a-3
-00:00:35.990 --> 00:00:39.740
-with the date it was captured
-beside the station name.
+00:00:35.932 --> 00:00:41.290
+beside the station name. When a station
+has no scan, the value is modeled instead.
 
 V2b-1
-00:00:40.240 --> 00:00:42.890
+00:00:41.603 --> 00:00:44.253
 Measured moisture and its
 scan date, per station.
 
 V3a-1
-00:00:49.490 --> 00:00:53.423
+00:00:49.903 --> 00:00:53.836
 Target VWC is the moisture
 you want that station to hold.
 
 V3a-2
-00:00:53.523 --> 00:00:58.010
+00:00:53.936 --> 00:00:58.423
 It is yours to set, station by
 station, between 0 and 50 percent.
 
 V3b-1
-00:00:58.523 --> 00:01:03.228
+00:00:58.936 --> 00:01:03.641
 The gap between measured and target
 is what the calculation works on.
 
 V3b-2
-00:01:03.328 --> 00:01:06.533
+00:01:03.741 --> 00:01:06.946
 Target VWC is an editable
 input, not a reading.
 
 V4a-1
-00:01:13.720 --> 00:01:18.233
-The difference between target and measured
-moisture becomes an amount of water,
+00:01:13.183 --> 00:01:16.096
+Spatial Adjust turns the
+difference between target
 
 V4a-2
-00:01:18.333 --> 00:01:21.018
-today's ET is added,
-the daily maximum caps it,
+00:01:16.196 --> 00:01:19.109
+and measured moisture into
+a suggested percentage,
 
 V4a-3
-00:01:21.118 --> 00:01:25.460
-and the result is divided by the Lynx
-reference amount to give a percentage.
+00:01:19.209 --> 00:01:22.763
+taking today's ET and your
+calculation settings into account.
 
 V4b-1
-00:01:25.970 --> 00:01:28.840
+00:01:23.066 --> 00:01:25.936
 The Suggested column is
 the output of that chain.
 
 V5a-1
-00:01:34.613 --> 00:01:38.833
+00:01:30.760 --> 00:01:34.980
 Spatial Adjust never waters anything.
 Nothing changes until you push.
 
 V5b-1
-00:01:39.396 --> 00:01:42.416
+00:01:35.543 --> 00:01:38.563
 Push Changes is the only thing
 that writes to the controller.

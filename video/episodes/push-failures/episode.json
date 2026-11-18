@@ -464,7 +464,7 @@
   ],
   "endCard": {
     "next": "target-profiles",
-    "text": "Next on Double Click: Apply a target profile",
+    "text": "Next on Double Click: Capture and apply a profile",
     "address": "#/push-failures"
   },
   "music": "sa-bed-v1",

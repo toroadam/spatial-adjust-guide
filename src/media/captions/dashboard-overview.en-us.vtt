@@ -3,125 +3,121 @@ WEBVTT
 NOTE dashboard-overview: written VO text from episode.json, timed from the timeline VO placements
 
 V0-1
-00:00:02.750 --> 00:00:05.030
-The whole feature lives on one screen.
+00:00:02.250 --> 00:00:05.760
+The whole feature lives on one
+screen. Here are its four regions.
 
-V0-2
-00:00:05.130 --> 00:00:08.310
-Here is what each of its
-four regions is telling you.
+V1-1
+00:00:12.270 --> 00:00:15.931
+Start at the toolbar. It shows
+your site name, the weather strip,
 
-V1a-1
-00:00:13.270 --> 00:00:16.893
-Start with the toolbar. Its left
-side identifies where you are:
-
-V1a-2
-00:00:16.993 --> 00:00:19.638
-the site name, and a
-course selector that only
-
-V1a-3
-00:00:19.738 --> 00:00:22.730
-appears when the site has
-more than one Lynx course.
-
-V1b-1
-00:00:23.286 --> 00:00:27.991
-Next to it, the weather strip reports
-current conditions, and the average, high
-
-V1b-2
-00:00:28.091 --> 00:00:32.796
-and low VWC summarise the areas of the
-selected course that were scanned today.
+V1-2
+00:00:16.031 --> 00:00:19.130
+and the average, high, and
+low moisture for the course.
 
 V2a-1
-00:00:38.853 --> 00:00:43.034
-Each sprinkler of a station scanned
-in the past seven days is a pin.
+00:00:23.786 --> 00:00:27.073
+On the map, stations scanned
+today are filled with a color.
 
 V2a-2
-00:00:43.134 --> 00:00:47.868
-A pin scanned today is coloured by its
-measured VWC against the four moisture
-
-V2a-3
-00:00:47.968 --> 00:00:52.703
-bands in the legend, and a pin last
-scanned on an earlier day is drawn clear.
+00:00:27.173 --> 00:00:29.736
+Stations from an earlier
+scan are drawn clear.
 
 V2b-1
-00:00:53.270 --> 00:00:58.107
-Bands default to 0 to 5, 6 to 19,
-20 to 30 and above 30 percent.
+00:00:30.720 --> 00:00:35.246
+The legend gives four bands,
+from 0 to 5 percent up to above 30.
 
 V2b-2
-00:00:58.207 --> 00:01:04.480
-Disabled stations stay hidden while Layers
-is set to Enabled Stations, the default.
+00:00:35.346 --> 00:00:40.650
+Each station takes its band's color,
+so you can see which stations are dry.
+
+V2c-1
+00:00:41.670 --> 00:00:45.640
+These bands are only the starting point.
+The band boundaries are yours to change.
+
+V2d-1
+00:00:46.670 --> 00:00:50.190
+Drag a handle, then let go,
+and the map recolors.
+
+V2e-1
+00:00:51.220 --> 00:00:53.013
+This button switches to variance,
+
+V2e-2
+00:00:53.113 --> 00:00:55.940
+which shows how far each
+station is from its target.
 
 V3a-1
-00:01:12.786 --> 00:01:16.438
-The chart above the table plots
-the areas, holes or stations you
-
-V3a-2
-00:01:16.538 --> 00:01:20.076
-pick in its multiselect,
-whichever level the table is showing.
+00:01:06.020 --> 00:01:09.650
+This list picks the areas, holes,
+or stations the chart plots.
 
 V3b-1
-00:01:20.586 --> 00:01:24.782
-Selecting a row in the table changes the
-chart header to that area or hole and
-
-V3b-2
-00:01:24.882 --> 00:01:29.186
-its average moisture, so the chart and
-the table always describe the same thing.
+00:01:10.636 --> 00:01:13.436
+The header shows your selection
+and its average moisture.
 
 V4a-1
-00:01:35.616 --> 00:01:39.351
-The table is a drill-down:
-course, then areas, then holes,
-
-V4a-2
-00:01:39.451 --> 00:01:43.316
-then stations. Breadcrumbs at
-the top left take you back up.
+00:01:18.450 --> 00:01:22.810
+The table is a drill-down. It starts at
+the course, with a row for each area.
 
 V4b-1
-00:01:43.866 --> 00:01:48.748
-At station level you get the editable
-columns: Target VWC, the current and
+00:01:23.633 --> 00:01:25.273
+Click an area to see its holes.
 
-V4b-2
-00:01:48.848 --> 00:01:54.126
-suggested adjustment side by side, your
-own % Adj. value, and the Enable switch.
+V4c-1
+00:01:26.283 --> 00:01:27.993
+Click a hole to see its stations.
+
+V4d-1
+00:01:29.000 --> 00:01:32.120
+Click a station's row,
+and the chart header follows.
+
+V4d2-1
+00:01:33.150 --> 00:01:36.910
+The check box is separate.
+It picks stations for a bulk change.
+
+V4e-1
+00:01:37.916 --> 00:01:40.873
+Three columns are yours
+to edit: Target VWC,
+
+V4e-2
+00:01:40.973 --> 00:01:44.066
+the percent adjustment,
+and the Enable switch.
+
+V4f-1
+00:01:45.833 --> 00:01:48.343
+You can't edit Current
+or Suggested adjustment.
+
+V4g-1
+00:01:49.316 --> 00:01:51.396
+To go back up, click a name in the trail.
 
 V5a-1
-00:02:01.483 --> 00:02:04.351
-The right of the toolbar
-is your work queue.
+00:01:57.316 --> 00:01:59.930
+Before you leave, read the
+number on Push Changes.
 
 V5a-2
-00:02:04.451 --> 00:02:07.906
-Push Changes counts the
-enabled stations whose % Adj.
-
-V5a-3
-00:02:08.006 --> 00:02:13.353
-differs from what Lynx holds, edited or
-not, leaving out any already pushed today.
+00:02:00.030 --> 00:02:01.966
+That is how many changes are pending.
 
 V5b-1
-00:02:13.916 --> 00:02:17.578
-The green counter beside it counts
-stations already pushed today.
-
-V5b-2
-00:02:17.678 --> 00:02:20.496
-When both are quiet,
-there is nothing outstanding.
+00:02:03.116 --> 00:02:06.096
+The green counter beside it
+shows how many went out today.

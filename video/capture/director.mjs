@@ -135,7 +135,7 @@ export function episodeFile(arg) {
 // index (window.__saAct), so the page can only act on an element the director checked.
 export function buildPlan(episode) {
   const targets = [];
-  const ref = (target, name, kind) => { targets.push({ target, name: name ?? null, kind }); return targets.length - 1; };
+  const ref = (target, name, kind, extra = {}) => { targets.push({ target, name: name ?? null, kind, ...extra }); return targets.length - 1; };
   let seconds = LEAD_S;
   const beats = episode.beats.map((b) => {
     let busy = 0;
@@ -147,7 +147,7 @@ export function buildPlan(episode) {
         case 'cue': return { type: 'cue', id: a.id };
         case 'scroll': return { type: 'scroll', i: ref(a.target, null, 'scroll'), dy: a.dy };
         // The caption stays in Node like every target; the page asks for the swap by index.
-        case 'figure': return { type: 'figure', i: ref(a.caption, null, 'figure') };
+        case 'figure': return { type: 'figure', i: ref(a.caption, null, 'figure', a.index === undefined ? {} : { index: a.index }) };
         case 'drag': return { type: 'drag', i: ref(a.target, a.name, 'drag'), dx: a.dx, ms: a.ms ?? DRAG_DEFAULT_MS };
         default: return { type: a.type, i: ref(a.target, a.name, a.type), name: a.name };
       }
@@ -231,7 +231,7 @@ function dryRun({ args, file, episode, source }) {
     for (const a of b.actions) {
       if (a.type === 'wait') log(`    wait ${a.ms} ms`);
       else if (a.type === 'cue') log(`    cue ${a.id}`);
-      else if (a.type === 'figure') log(`    #${a.i} figure: lift "${targets[a.i].target}"`);
+      else if (a.type === 'figure') log(`    #${a.i} figure: lift "${targets[a.i].target}"${targets[a.i].index !== undefined ? ` (index ${targets[a.i].index})` : ''}`);
       else if (a.type === 'drag') log(`    #${a.i} drag ${targets[a.i].target} by ${a.dx} px over ${a.ms} ms`);
       else log(`    #${a.i} ${a.type}${a.name ? ` "${a.name}"` : ''} ${targets[a.i].target}${a.type === 'scroll' ? ` by ${a.dy} px` : ''}`);
     }
@@ -347,8 +347,8 @@ async function capture(ctx) {
         // navigated, clicked or sent. The schema allows the action on recreation episodes only.
         if (source !== 'recreation') return { fatal: true, reason: 'a figure action needs the recreation source' };
         const { liftFigure } = await import('./recreation.mjs');
-        const lifted = await liftFigure(page, t.target, { timeout: 5000 }).catch((err) => ({ error: String(err?.message ?? err).split('\n')[0] }));
-        safety.figures = [...(safety.figures ?? []), { t: since(), figure: t.target, box: lifted.box ?? null, ...(lifted.error ? { error: lifted.error } : {}) }];
+        const lifted = await liftFigure(page, t.target, { timeout: 5000, index: t.index }).catch((err) => ({ error: String(err?.message ?? err).split('\n')[0] }));
+        safety.figures = [...(safety.figures ?? []), { t: since(), figure: t.target, ...(t.index !== undefined ? { index: t.index } : {}), box: lifted.box ?? null, ...(lifted.error ? { error: lifted.error } : {}) }];
         if (lifted.error) { end(EXIT.FAILED, `figure #${req.i}: ${lifted.error}`); return { fatal: true, reason: lifted.error }; }
         return { ok: true };
       }

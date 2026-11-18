@@ -151,22 +151,31 @@ export const FRAME_ATTR = 'data-sa-frame';
 // Lifts the figure whose caption starts with `caption`. Resolves to { box: [x0, y0, x1, y1] } in
 // CSS px, or { error } when no figure, or more than one, matches, or the lifted app does not fill
 // the viewport exactly. The page must already hold the guide (waits up to `timeout` for it).
-export async function liftFigure(page, caption, { timeout = 30000 } = {}) {
+//
+// `index` (optional, 0-based, in page order) picks one figure when several share a caption, as the
+// guide's "Open Layers" and "Choose the stations" steps do. Without it exactly one must match.
+export async function liftFigure(page, caption, { timeout = 30000, index } = {}) {
   if (typeof caption !== 'string' || !caption.trim()) return { error: 'recreationFigure must be the start of a figure caption' };
+  if (index !== undefined && index !== null && !(Number.isInteger(index) && index >= 0)) return { error: 'a figure index must be a whole number, 0 or more' };
   try {
     await page.waitForSelector('figure .sa-app', { state: 'attached', timeout });
   } catch {
     return { error: `no SpatialAdjustApp figure appeared within ${Math.round(timeout / 1000)} s` };
   }
   await page.evaluate(() => document.fonts.ready).catch(() => {});
-  return page.evaluate(({ caption: want, attr }) => {
+  return page.evaluate(({ caption: want, attr, index: nth }) => {
     const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim();
     const figs = [...document.querySelectorAll('figure')].filter((f) => {
       const cap = f.querySelector('figcaption');
       return cap && norm(cap.textContent).startsWith(norm(want)) && f.querySelector('.sa-app');
     });
-    if (figs.length !== 1) return { error: `${figs.length} figures have a caption starting "${norm(want)}"; exactly one must` };
-    const app = figs[0].querySelector('.sa-app');
+    const picked = typeof nth === 'number';
+    if (picked ? nth >= figs.length : figs.length !== 1) {
+      return { error: picked
+        ? `${figs.length} figures have a caption starting "${norm(want)}"; index ${nth} is out of range`
+        : `${figs.length} figures have a caption starting "${norm(want)}"; exactly one must (or set the figure action's "index")` };
+    }
+    const app = figs[picked ? nth : 0].querySelector('.sa-app');
     const wrap = app.parentElement?.parentElement;
     if (!wrap) return { error: 'the figure\'s app has no scaling wrapper' };
     if (!document.getElementById('sa-frame-style')) {
@@ -195,7 +204,7 @@ export async function liftFigure(page, caption, { timeout = 30000 } = {}) {
       return { error: `the lifted app is at ${box.join(', ')}, not 0, 0, 1920, 1080`, box };
     }
     return { box };
-  }, { caption, attr: FRAME_ATTR });
+  }, { caption, attr: FRAME_ATTR, index: Number.isInteger(index) ? index : null });
 }
 
 async function cli(argv) {

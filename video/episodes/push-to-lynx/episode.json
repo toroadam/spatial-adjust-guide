@@ -693,7 +693,13 @@
           "type": "focus",
           "target": "[data-sa-frame] >> text=/All selected changes/",
           "name": "All selected changes successfully pushed to Lynx."
-        }
+        },
+        {"type": "wait", "ms": 2800},
+        {"type": "hover", "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"", "name": "Pushing Changes To Lynx"},
+        {"type": "wait", "ms": 2800},
+        {"type": "hover", "target": "[data-sa-frame] >> text=/All selected changes/", "name": "All selected changes successfully pushed to Lynx."},
+        {"type": "wait", "ms": 2800},
+        {"type": "hover", "target": "[data-sa-frame] >> text=\"Pushing Changes To Lynx\"", "name": "Pushing Changes To Lynx"}
       ]
     }
   ],

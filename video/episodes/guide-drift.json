@@ -35,11 +35,10 @@
       ]
     },
     "suggested-adjustments": {
-      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
+      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md. The soil factor chapter was removed from the film (review row C7: the soil factor is not released); the guide still shows its two steps.",
       "findings": [
-        "suggested-adjustments: 5 chapters != 6 rendered steps",
-        "suggested-adjustments chapter 3: highlight.label 'suggested' is not a bold label of step 3 ('Suggested', 'Option 2', 'Settings', 'Calculation')",
-        "suggested-adjustments chapter 5: highlight.label 'Shift' is not a bold label of step 5 ('Soil Factor (%)', 'Save', 'Settings', 'Option 2')"
+        "suggested-adjustments: 4 chapters != 6 rendered steps",
+        "suggested-adjustments chapter 3: highlight.label 'suggested' is not a bold label of step 3 ('Suggested', 'Option 2', 'Settings', 'Calculation')"
       ]
     },
     "filter-adjustments": {
@@ -141,8 +140,8 @@
     "calculation-methods": {
       "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
       "findings": [
-        "calculation-methods chapter 2: label 'Option 2 — delta plus today’s ET, the default' != step title 'See what Option 1 turns off'",
-        "calculation-methods chapter 3: label 'Option 1 — ratio of target to measured' != step title 'Cancel without saving'",
+        "calculation-methods chapter 2: label 'Option 2: delta plus today’s ET, the default' != step title 'See what Option 1 turns off'",
+        "calculation-methods chapter 3: label 'Option 1: ratio of target to measured' != step title 'Cancel without saving'",
         "calculation-methods chapter 4: label 'The cap is what makes them look different' != step title 'Read the Suggested column'",
         "calculation-methods chapter 5: label 'Switching is a course-wide change' != step title 'Review the column after a switch'",
         "calculation-methods chapter 3: highlight.label 'Option 1' is not a bold label of step 3 ('Cancel', 'Discard changes')"
@@ -189,7 +188,7 @@
         "calculation-questions chapter 1: highlight.label 'same percentage' is not a bold label of step 1 ('Suggested', 'Option 2')",
         "calculation-questions chapter 2: highlight.label 'daily maximum' is not a bold label of step 2 ('Calculation', 'Settings', 'Save Changes', 'Option 2')",
         "calculation-questions chapter 3: highlight.label 'a dash' is not a bold label of step 3 (none)",
-        "calculation-questions chapter 4: highlight.label 'modelled' is not a bold label of step 4 ('Avg. VWC', 'Option 2', 'Option 1')",
+        "calculation-questions chapter 4: highlight.label 'modeled' is not a bold label of step 4 ('Avg. VWC', 'Option 2', 'Option 1')",
         "calculation-questions chapter 5: highlight.label 'diagnostics dialog' is not a bold label of step 5 ('Request latest scan data')"
       ]
     },
@@ -204,50 +203,17 @@
     "target-profiles": {
       "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
       "findings": [
-        "target-profiles: 4 chapters != 7 rendered steps",
-        "target-profiles chapter 1: label 'Open the Target Profiles tab' != step title 'Open Settings'",
-        "target-profiles chapter 2: label 'Read the profile list' != step title 'Open the Target Profiles tab'",
-        "target-profiles chapter 3: label 'Apply and confirm' != step title 'Read the profile list'",
-        "target-profiles chapter 4: label 'Save your current targets into a profile slot' != step title 'Choose the profile'",
-        "target-profiles chapter 1: highlight.label 'Calculation' is not a bold label of step 1 ('Settings', 'Announcements')",
-        "target-profiles chapter 2: highlight.label 'Current' is not a bold label of step 2 ('Target Profiles', 'Minimum Threshold', 'Update from Current', 'Apply Profile')",
-        "target-profiles chapter 3: highlight.label 'Target VWC' is not a bold label of step 3 ('Target Profile')",
-        "target-profiles chapter 4: highlight.label 'Save' is not a bold label of step 4 ('Apply Profile', 'Use Target Profile?', 'Matching Stations', 'Target VWC', 'Suggested')"
-      ]
-    },
-    "creating-profiles": {
-      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
-      "findings": [
-        "creating-profiles: 4 chapters != 6 rendered steps",
-        "creating-profiles chapter 2: label 'Open the Target Profiles tab' != step title 'Open Settings'",
-        "creating-profiles chapter 3: label 'Name it for the condition' != step title 'Open the Target Profiles tab'",
-        "creating-profiles chapter 4: label 'Check the station count' != step title 'Name it for the condition'",
-        "creating-profiles chapter 2: highlight.label 'Target Profiles' is not a bold label of step 2 ('Settings', 'Announcements')",
-        "creating-profiles chapter 3: highlight.label 'Summer Baseline' is not a bold label of step 3 ('Target Profiles', 'Minimum Threshold', 'Update from Current', 'Apply Profile')",
-        "creating-profiles chapter 4: highlight.label 'station count' is not a bold label of step 4 ('Target Profile')"
-      ]
-    },
-    "updating-profiles": {
-      "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
-      "findings": [
-        "updating-profiles: 4 chapters != 7 rendered steps",
-        "updating-profiles chapter 2: label 'Find the profile’s row' != step title 'Open Settings'",
-        "updating-profiles chapter 3: label 'Update this slot or capture into another' != step title 'Open the Target Profiles tab'",
-        "updating-profiles chapter 4: label 'Confirm nothing moved' != step title 'Find the profile’s row'",
-        "updating-profiles chapter 1: highlight.label 'drift' is not a bold label of step 1 (none)",
-        "updating-profiles chapter 2: highlight.label 'Current' is not a bold label of step 2 ('Settings', 'Announcements')",
-        "updating-profiles chapter 3: highlight.label 'Update this slot' is not a bold label of step 3 ('Target Profiles', 'Minimum Threshold', 'Update from Current', 'Apply Profile')",
-        "updating-profiles chapter 4: highlight.label 'Suggested' is not a bold label of step 4 ('Target Profile')"
+        "target-profiles: 4 chapters != 7 rendered steps"
       ]
     },
     "seasonal-profiles": {
       "reason": "Filmed against the guide before its step-by-step rewrite: the chapter cards and highlights are in the picture, the narration is cited to the current claims, and the film is not re-shot for a change of step structure or wording. See docs/review-agenda.md.",
       "findings": [
         "seasonal-profiles: 4 chapters != 7 rendered steps",
+        "seasonal-profiles chapter 2: label 'Confirm the profile' != step title 'Apply the evening before'",
         "seasonal-profiles chapter 3: label 'Read the new suggestions before pushing' != step title 'Confirm the profile'",
         "seasonal-profiles chapter 4: label 'Push once you agree with them' != step title 'Save the change'",
         "seasonal-profiles chapter 1: highlight.label 'five slots' is not a bold label of step 1 ('Target Profile', 'Save Changes')",
-        "seasonal-profiles chapter 2: highlight.label 'Apply' is not a bold label of step 2 ('Apply Profile', 'Use Target Profile?', 'Matching Stations')",
         "seasonal-profiles chapter 3: highlight.label 'Suggested' is not a bold label of step 3 ('Use Target Profile?', 'Confirm', 'Apply Profile', 'Matching Stations')",
         "seasonal-profiles chapter 4: highlight.label 'Push' is not a bold label of step 4 ('Save Changes', 'Unable to save data')"
       ]

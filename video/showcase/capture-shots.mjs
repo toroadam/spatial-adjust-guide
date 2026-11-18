@@ -120,7 +120,7 @@ export function checkCapture(ep) {
       if (!(s.seconds > 0)) p(`${sat}: seconds (its cut length) must be positive`);
       if (!Array.isArray(s.actions)) { p(`${sat}: actions must be a list`); return; }
       for (const a of s.actions) {
-        if (!['wait', 'hover', 'focus', 'scroll', 'click'].includes(a.type)) p(`${sat}: action type "${a.type}" is not allowed in a shot (cues are added from the beat)`);
+        if (!['wait', 'hover', 'focus', 'frame', 'scroll', 'click'].includes(a.type)) p(`${sat}: action type "${a.type}" is not allowed in a shot (cues are added from the beat)`);
         if (a.type === 'click' && !(c.declaredClicks ?? []).some((d) => d.selector === a.target)) p(`${sat}: a click must be a declared click`);
       }
       const focus = s.actions.filter((a) => a.type === 'focus').map((a) => a.target);

@@ -144,6 +144,28 @@ test('liftFigure lifts exactly one captioned figure to fill the viewport, and re
   }
 });
 
+test('liftFigure index picks one of several figures with the same caption; without it the lookup needs exactly one', { timeout: 60000 }, async (t) => {
+  if (chromiumReason) return t.skip(chromiumReason);
+  const { chromium } = await import('playwright');
+  const browser = await chromium.launch();
+  try {
+    const page = await browser.newPage({ viewport: { width: 1920, height: 1080 } });
+    const fig = (cap, n) => `<figure><div><div><div class="sa-app" data-n="${n}" style="width:1920px;height:1080px"></div></div></div><figcaption>${cap}</figcaption></figure>`;
+    await page.setContent(`<body style="margin:0">${fig('Twin.', 0)}${fig('Twin.', 1)}${fig('Solo.', 2)}</body>`);
+    assert.match((await liftFigure(page, 'Twin.', { timeout: 2000 })).error, /2 figures.*exactly one/);
+    assert.deepEqual(await liftFigure(page, 'Twin.', { index: 1, timeout: 2000 }), { box: [0, 0, 1920, 1080] });
+    assert.equal(await page.locator(`[${FRAME_ATTR}]`).getAttribute('data-n'), '1');
+    await liftFigure(page, 'Twin.', { index: 0, timeout: 2000 });
+    assert.equal(await page.locator(`[${FRAME_ATTR}]`).getAttribute('data-n'), '0');
+    assert.equal(await page.locator(`[${FRAME_ATTR}]`).count(), 1);
+    assert.match((await liftFigure(page, 'Twin.', { index: 2, timeout: 2000 })).error, /index 2 is out of range/);
+    assert.match((await liftFigure(page, 'Twin.', { index: -1, timeout: 2000 })).error, /whole number/);
+    assert.deepEqual(await liftFigure(page, 'Solo.', { index: 0, timeout: 2000 }), { box: [0, 0, 1920, 1080] });
+  } finally {
+    await browser.close();
+  }
+});
+
 test('a figure action is allowed on a recreation episode only', async () => {
   const { validateEpisode } = await import('../lib/episode-schema.mjs');
   const base = {

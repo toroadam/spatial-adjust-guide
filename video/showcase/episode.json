@@ -53,7 +53,7 @@
     "understanding-vwc/4/4"
   ],
   "kind": "showcase",
-  "plannedRuntime": 115.2,
+  "plannedRuntime": 119.85,
   "approval": "SC-G1",
   "targetProfiles": { "decision": "omit", "approval": "SC-TP" },
   "endCard": { "approval": "SC-CTA", "config": "video/brand/end-card.json" },
@@ -86,16 +86,16 @@
     { "id": "push", "label": "Push to Lynx" }
   ],
   "vo": [
-    { "id": "vo-b1-hook", "line": "L1", "text": "In IntelliDash, Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station.", "ttsText": "In Intelli-Dash, Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station.", "windowIn": 11.85, "windowOut": 18.9, "claims": ["understand-spatial-adjust/before/1", "understand-spatial-adjust/summary/1", "calculation-methods/2/2"] },
-    { "id": "vo-b2-measure", "line": "L2", "text": "Each station's average VWC comes from a TurfRad moisture scan, dated beside the station name.", "ttsText": "Each station's average V W C comes from a Turf Rad moisture scan, dated beside the station name.", "windowIn": 21.75, "windowOut": 31.2, "claims": ["understand-spatial-adjust/2/2", "understand-spatial-adjust/2/3", "request-scan-data/1/4"] },
-    { "id": "vo-b3-see", "line": "L3", "text": "The map colors stations by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync.", "ttsText": "The map colors stations by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync.", "windowIn": 33.95, "windowOut": 44.2, "claims": ["map-navigation/1/1", "map-navigation/2/1", "map-navigation/3/1", "map-navigation/3/3", "map-navigation/5/1", "map-navigation/5/2"] },
-    { "id": "vo-b4-target", "line": "L4", "text": "You set the target: the moisture you want each station to hold. Every station gets its own.", "ttsText": "You set the target: the moisture you want each station to hold. Every station gets its own.", "windowIn": 47.75, "windowOut": 55.2, "claims": ["understand-spatial-adjust/3/1", "understand-spatial-adjust/3/2", "understanding-vwc/3/3"] },
-    { "id": "vo-b5-calculate", "line": "L5", "text": "The gap between target and measured, today's ET and your calculation settings together become a suggested percent adjust.", "ttsText": "The gap between target and measured, today's E T and your calculation settings together become a suggested percent adjust.", "windowIn": 58.05, "windowOut": 67.6, "claims": ["understand-spatial-adjust/4/2", "understand-spatial-adjust/4/3", "calculation-methods/2/2"] },
-    { "id": "vo-b5-threshold", "line": "L6", "text": "Below a minimum threshold, a suggestion is zeroed or lifted to the threshold when you push.", "ttsText": "Below a minimum threshold, a suggestion is zeroed or lifted to the threshold when you push.", "windowIn": 67.8, "windowOut": 74, "claims": ["minimum-threshold/summary/2", "minimum-threshold/before/3"] },
-    { "id": "vo-b6-review", "line": "L7", "text": "Before you push, override any suggestion, replace or shift targets in bulk, find the outliers at both ends, or take a station or hole out of adjustment.", "ttsText": "Before you push, override any suggestion, replace or shift targets in bulk, find the outliers at both ends, or take a station or hole out of adjustment.", "windowIn": 76.85, "windowOut": 87.9, "claims": ["filter-adjustments/tile/2", "editing-station-targets/4/1", "bulk-adjustments/tile/2", "bulk-adjustments/3/1", "filter-adjustments/4/2", "enable-disable-stations/summary/1"] },
-    { "id": "vo-b7-push", "line": "L8", "text": "Nothing changes until you push. Review the two lists, untick anything you're unsure of, and send. Spatial Adjust writes each station, then reads Lynx back and checks each one.", "ttsText": "Nothing changes until you push. Review the two lists, untick anything you're unsure of, and send. Spatial Adjust writes each station, then reads Links back and checks each one.", "windowIn": 91.45, "windowOut": 104, "claims": ["understand-spatial-adjust/5/4", "push-to-lynx/2/1", "push-to-lynx/2/3", "push-to-lynx/4/1", "push-to-lynx/5/1", "push-to-lynx/5/2"] },
-    { "id": "vo-b7-lynx", "line": "L9", "text": "Lynx itself must be set up to match Spatial Adjust; the push guide lists the settings.", "ttsText": "Links itself must be set up to match Spatial Adjust; the push guide lists the settings.", "windowIn": 104.2, "windowOut": 110.2, "claims": ["reviewing-changes/before/3", "reviewing-changes/before/4"] },
-    { "id": "vo-b8-close", "line": "L10", "text": "Target minus measured, station by station. That is the whole idea.", "ttsText": "Target minus measured, station by station. That is the whole idea.", "windowIn": 110.5, "windowOut": 115.2, "claims": ["understanding-vwc/4/4"] }
+    { "id": "vo-b1-hook", "line": "L1", "text": "A quick overview. In IntelliDash, Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station. The guides and episodes go step by step.", "ttsText": "A quick overview. In Intelli-Dash, Spatial Adjust turns the latest moisture scan into a percent adjustment, station by station. The guides and episodes go step by step.", "windowIn": 11.85, "windowOut": 23.55, "claims": ["understand-spatial-adjust/before/1", "understand-spatial-adjust/summary/1", "calculation-methods/2/2"] },
+    { "id": "vo-b2-measure", "line": "L2", "text": "Each station's average VWC comes from a TurfRad moisture scan, dated beside the station name.", "ttsText": "Each station's average V W C comes from a Turf Rad moisture scan, dated beside the station name.", "windowIn": 26.4, "windowOut": 35.85, "claims": ["understand-spatial-adjust/2/2", "understand-spatial-adjust/2/3", "request-scan-data/1/4"] },
+    { "id": "vo-b3-see", "line": "L3", "text": "The map colors stations by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync.", "ttsText": "The map colors stations by measured moisture. Move the bands, or switch to variance to see each station against its target. Map and table stay in sync.", "windowIn": 38.6, "windowOut": 48.85, "claims": ["map-navigation/1/1", "map-navigation/2/1", "map-navigation/3/1", "map-navigation/3/3", "map-navigation/5/1", "map-navigation/5/2"] },
+    { "id": "vo-b4-target", "line": "L4", "text": "You set the target: the moisture you want each station to hold. Every station gets its own.", "ttsText": "You set the target: the moisture you want each station to hold. Every station gets its own.", "windowIn": 52.4, "windowOut": 59.85, "claims": ["understand-spatial-adjust/3/1", "understand-spatial-adjust/3/2", "understanding-vwc/3/3"] },
+    { "id": "vo-b5-calculate", "line": "L5", "text": "The gap between target and measured, today's ET and your calculation settings together become a suggested percent adjust.", "ttsText": "The gap between target and measured, today's E T and your calculation settings together become a suggested percent adjust.", "windowIn": 62.7, "windowOut": 72.25, "claims": ["understand-spatial-adjust/4/2", "understand-spatial-adjust/4/3", "calculation-methods/2/2"] },
+    { "id": "vo-b5-threshold", "line": "L6", "text": "Below a minimum threshold, a suggestion is zeroed or lifted to the threshold when you push.", "ttsText": "Below a minimum threshold, a suggestion is zeroed or lifted to the threshold when you push.", "windowIn": 72.45, "windowOut": 78.65, "claims": ["minimum-threshold/summary/2", "minimum-threshold/before/3"] },
+    { "id": "vo-b6-review", "line": "L7", "text": "Before you push, override any suggestion, replace or shift targets in bulk, find the outliers at both ends, or take a station or hole out of adjustment.", "ttsText": "Before you push, override any suggestion, replace or shift targets in bulk, find the outliers at both ends, or take a station or hole out of adjustment.", "windowIn": 81.5, "windowOut": 92.55, "claims": ["filter-adjustments/tile/2", "editing-station-targets/4/1", "bulk-adjustments/tile/2", "bulk-adjustments/3/1", "filter-adjustments/4/2", "enable-disable-stations/summary/1"] },
+    { "id": "vo-b7-push", "line": "L8", "text": "Nothing changes until you push. Review the two lists, untick anything you're unsure of, and send. Spatial Adjust writes each station, then reads Lynx back and checks each one.", "ttsText": "Nothing changes until you push. Review the two lists, untick anything you're unsure of, and send. Spatial Adjust writes each station, then reads Links back and checks each one.", "windowIn": 96.1, "windowOut": 108.65, "claims": ["understand-spatial-adjust/5/4", "push-to-lynx/2/1", "push-to-lynx/2/3", "push-to-lynx/4/1", "push-to-lynx/5/1", "push-to-lynx/5/2"] },
+    { "id": "vo-b7-lynx", "line": "L9", "text": "Lynx itself must be set up to match Spatial Adjust; the push guide lists the settings.", "ttsText": "Links itself must be set up to match Spatial Adjust; the push guide lists the settings.", "windowIn": 108.85, "windowOut": 114.85, "claims": ["reviewing-changes/before/3", "reviewing-changes/before/4"] },
+    { "id": "vo-b8-close", "line": "L10", "text": "Target minus measured, station by station. That is the whole idea.", "ttsText": "Target minus measured, station by station. That is the whole idea.", "windowIn": 115.15, "windowOut": 119.85, "claims": ["understanding-vwc/4/4"] }
   ],
   "held": [
     { "id": "held-b7-window", "beat": "b7", "text": "Push between 11 AM and the synchronization time set in Lynx, then synchronize Lynx.", "claims": ["push-to-lynx/5/5", "push-to-lynx/5/6"], "note": "Not narrated: all 12 push-window claims in the ledger are Needs expert. Decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22: the film ships without the line rather than waiting for the ledger, and B7 says the Verified Lynx set-up line (vo-b7-lynx) in its place. Question for the script gate SC-G2 and the review: hold the film until the push window is Verified, or ship without the line? Restore the line, in the ledger's words, when push-to-lynx/5/5 and 5/6 are Verified (the check then prints a NOTE); the same two sentences are in reviewing-changes, verify-results, push-failures, minimum-threshold and one Target Profiles guide." },
@@ -127,11 +127,11 @@
       "label": "Station by station",
       "vo": "vo-b1-hook",
       "voLines": ["vo-b1-hook"],
-      "hold": 7.6,
+      "hold": 12.25,
       "tcIn": 8.2,
-      "tcOut": 18.9,
+      "tcOut": 23.55,
       "card": 3.1,
-      "footage": 7.6,
+      "footage": 12.25,
       "shot": ["type card", "full-window float", "macro push-in"],
       "sources": ["demo"],
       "guideKeys": ["understand-spatial-adjust", "map-navigation", "calculation-methods"],
@@ -145,11 +145,11 @@
         "source": "recreation",
         "why": "Demo Mode needs the owner's hand sign-in to the demo form, the local capture config and the demo data's name maps, none of which an executor can provide, so this cut is captured from the guide site's own recreation (gate SC-G4). Demo Mode could show this read-only view; a Demo Mode take can replace it beat for beat.",
         "route": "/#/map-navigation",
-        "takeSeconds": 9.3,
+        "takeSeconds": 13.95,
         "declaredClicks": [],
         "shots": [
           {
-            "id": "b1-s1", "take": 111, "route": "/#/map-navigation", "seconds": 7.6,
+            "id": "b1-s1", "take": 111, "route": "/#/map-navigation", "seconds": 12.25,
             "figure": "The course, colored by measured moisture.",
             "why": "the dashboard wide, then a push-in on one hole where red, yellow, green and blue stations sit side by side",
             "highlights": ["[data-sa-frame] div[style*=\"translate(-50%, -50%)\"]:text-is(\"15\")"],
@@ -177,8 +177,8 @@
       "vo": "vo-b2-measure",
       "voLines": ["vo-b2-measure"],
       "hold": 10,
-      "tcIn": 18.9,
-      "tcOut": 31.2,
+      "tcIn": 23.55,
+      "tcOut": 35.85,
       "card": 2.3,
       "footage": 10,
       "shot": ["type card", "macro push-in"],
@@ -203,6 +203,7 @@
             "why": "the drill-down: course, area AP, its holes",
             "highlights": ["[data-sa-frame] >> text=\"Avg. VWC\" >> xpath=../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"Avg. VWC\" >> xpath=../..", "name": "Riverbend National / AP Avg. VWC Target VWC Adjustment Current Suggested % Adj. Enable" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"Riverbend National\" >> nth=1", "name": "Riverbend National" },
               { "type": "wait", "ms": 200 },
@@ -217,6 +218,7 @@
             "why": "a station's Avg. VWC and the scan date beside its name",
             "highlights": ["[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../..", "name": "3AP1 08-08-25 27.6% 40 % 100% 125% 125 %" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\"", "name": "3AP1" },
               { "type": "wait", "ms": 250 },
@@ -232,6 +234,7 @@
             "why": "a multi-sprinkler station expanded: each head's own reading",
             "highlights": ["[data-sa-frame] >> text=\"6AP1\" >> xpath=../../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"6AP1\" >> xpath=../../..", "name": "❯ 6AP1 08-08-25 30.9% 31 % 100% 125% 125 %" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"6AP1-1\"", "name": "6AP1-1" },
               { "type": "wait", "ms": 300 },
@@ -251,8 +254,8 @@
       "vo": "vo-b3-see",
       "voLines": ["vo-b3-see"],
       "hold": 10.8,
-      "tcIn": 31.2,
-      "tcOut": 44.2,
+      "tcIn": 35.85,
+      "tcOut": 48.85,
       "card": 2.2,
       "footage": 10.8,
       "shot": ["type card", "full-window float", "macro push-in"],
@@ -309,6 +312,7 @@
             "why": "a station selected in the table, then the cursor on its two sprinklers on the map",
             "highlights": ["[data-sa-frame] >> text=\"6AP1\" >> xpath=../../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"6AP1\" >> xpath=../../..", "name": "❯ 6AP1 08-08-25 30.9% 31 % 100% 125% 125 %" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"6AP1\"", "name": "6AP1" },
               { "type": "wait", "ms": 250 },
@@ -328,8 +332,8 @@
       "vo": "vo-b4-target",
       "voLines": ["vo-b4-target"],
       "hold": 8,
-      "tcIn": 44.2,
-      "tcOut": 55.2,
+      "tcIn": 48.85,
+      "tcOut": 59.85,
       "card": 3,
       "footage": 8,
       "shot": ["type card", "macro push-in"],
@@ -354,6 +358,7 @@
             "why": "the Target VWC field on a station row, beside Avg. VWC",
             "highlights": ["[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../..", "name": "9AP1 08-08-25 23.0% 18 % 100% 121% 121 %" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"9AP1\"", "name": "9AP1" },
               { "type": "wait", "ms": 300 },
@@ -369,6 +374,7 @@
             "why": "the Suggested value following the new target (a write: recreation)",
             "highlights": ["[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../..", "name": "9AP1 08-08-25 23.0% 18 % 100% 121% 121 %" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"9AP1\" >> xpath=../../.. >> text=\"121%\"", "name": "121%" },
               { "type": "wait", "ms": 400 }
@@ -376,10 +382,11 @@
           },
           {
             "id": "b4-s3", "take": 431, "route": "/#/editing-station-targets", "seconds": 3,
-            "figure": "Target VWC on station 3AP1.",
+            "figure": "Target VWC on station 9AP1.",
             "why": "a second station with a target of its own, 40 beside 9AP1's 18",
             "highlights": ["[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../..", "name": "3AP1 08-08-25 27.6% 40 % 100% 125% 125 %" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\"", "name": "3AP1" },
               { "type": "wait", "ms": 300 },
@@ -398,8 +405,8 @@
       "vo": "vo-b5-calculate",
       "voLines": ["vo-b5-calculate", "vo-b5-threshold"],
       "hold": 16.5,
-      "tcIn": 55.2,
-      "tcOut": 74,
+      "tcIn": 59.85,
+      "tcOut": 78.65,
       "card": 2.3,
       "footage": 16.5,
       "shot": ["type card", "macro push-in", "full-window float"],
@@ -424,6 +431,7 @@
             "why": "Current and Suggested under Adjustment, then the day's calculation ET",
             "highlights": ["[data-sa-frame] >> text=\"Adjustment\" >> xpath=.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"Adjustment\" >> xpath=..", "name": "Adjustment Current Suggested" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> text=\"100%\"", "name": "100%" },
               { "type": "wait", "ms": 500 },
@@ -450,6 +458,7 @@
             "why": "the suggested percent adjust: a run of identical, capped suggestions",
             "highlights": ["[data-sa-frame] >> text=\"Suggested\" >> xpath=.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"Suggested\" >> xpath=..", "name": "Current Suggested" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../.. >> text=\"125%\"", "name": "125%" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../.. >> text=\"125%\"", "name": "125%" },
@@ -462,6 +471,7 @@
             "why": "Settings, Minimum Threshold tab: the percentage and what happens below it. Nothing is saved",
             "highlights": ["[data-sa-frame] >> text=\"Minimum Threshold (%)\""],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\" >> xpath=../../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"Minimum Threshold (%)\"", "name": "Minimum Threshold (%)" },
               { "type": "wait", "ms": 300 },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"10\" >> nth=0", "name": "10" },
@@ -483,8 +493,8 @@
       "vo": "vo-b6-review",
       "voLines": ["vo-b6-review"],
       "hold": 11.6,
-      "tcIn": 74,
-      "tcOut": 87.9,
+      "tcIn": 78.65,
+      "tcOut": 92.55,
       "card": 2.3,
       "footage": 11.6,
       "shot": ["type card", "macro push-in"],
@@ -509,6 +519,7 @@
             "why": "% Adj. overridden on one station, with Suggested beside it (a write: recreation)",
             "highlights": ["[data-sa-frame] >> text=\"11AP2\" >> xpath=../../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../..", "name": "11AP2 08-08-25 24.0% 17 % 100% 6% 6 %" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"11AP2\" >> xpath=../../.. >> text=\"6%\"", "name": "6%" },
               { "type": "wait", "ms": 250 },
@@ -546,10 +557,11 @@
             "why": "a station taken out of adjustment: its Enable switch off (a write: recreation)",
             "highlights": ["[data-sa-frame] >> text=\"5AP1\" >> xpath=../../.."],
             "actions": [
+              { "type": "frame", "target": "[data-sa-frame] >> text=\"Enable\" >> xpath=../../.." },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../..", "name": "5AP1 08-08-25 27.9% 30 % 100% 125% 125 %" },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"5AP1\"", "name": "5AP1" },
               { "type": "wait", "ms": 500 },
-              { "type": "hover", "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../.. >> text=\"125\"", "name": "333" },
+              { "type": "hover", "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../.. >> text=\"125\"", "name": "125" },
               { "type": "wait", "ms": 900 }
             ]
           }
@@ -564,8 +576,8 @@
       "vo": "vo-b7-push",
       "voLines": ["vo-b7-push", "vo-b7-lynx"],
       "hold": 19.3,
-      "tcIn": 87.9,
-      "tcOut": 110.2,
+      "tcIn": 92.55,
+      "tcOut": 114.85,
       "card": 3,
       "footage": 19.3,
       "shot": ["type card", "macro push-in", "full-window float"],
@@ -662,8 +674,9 @@
             "why": "Lynx: the connection the push depends on",
             "highlights": ["[data-sa-frame] >> text=\"Lynx Cloud connected\""],
             "actions": [
-              { "type": "wait", "ms": 600 },
+              { "type": "frame", "target": "[data-sa-frame]" },
               { "type": "focus", "target": "[data-sa-frame] >> text=\"Lynx Cloud connected\"", "name": "Lynx Cloud connected" },
+              { "type": "wait", "ms": 600 },
               { "type": "hover", "target": "[data-sa-frame] >> text=\"Lynx Cloud connected\"", "name": "Lynx Cloud connected" },
               { "type": "wait", "ms": 1500 }
             ]
@@ -677,8 +690,8 @@
       "vo": "vo-b8-close",
       "voLines": ["vo-b8-close"],
       "hold": 1,
-      "tcIn": 110.2,
-      "tcOut": 115.2,
+      "tcIn": 114.85,
+      "tcOut": 119.85,
       "shot": ["type card"],
       "sources": ["post"],
       "guideKeys": ["understanding-vwc"],

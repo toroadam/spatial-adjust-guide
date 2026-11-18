@@ -11,7 +11,12 @@
   "recreationPath": "/#/bulk-adjustments",
   "recreationFigure": "Five stations selected",
   "mapPolicy": "restyle",
-  "allowClicks": [],
+  "allowClicks": [
+    "Riverbend National",
+    "AP",
+    "Select hole 6",
+    "6"
+  ],
   "demoWriteClicks": [
     {
       "name": "Apply to all",
@@ -249,12 +254,67 @@
         },
         {
           "type": "wait",
-          "ms": 4085
+          "ms": 150
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"Riverbend National\"]",
+          "name": "Riverbend National"
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"3AP2\" >> xpath=../../div[1]",
-          "name": "✓"
+          "target": "[data-sa-frame] >> [data-sa-tick=\"6\"]",
+          "name": "Select hole 6"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> [data-sa-tick=\"6\"]",
+          "name": "Select hole 6"
+        },
+        {
+          "type": "wait",
+          "ms": 350
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-tick=\"6\"]",
+          "name": "Select hole 6"
+        },
+        {
+          "type": "wait",
+          "ms": 100
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-row=\"6\"]",
+          "name": "6"
+        },
+        {
+          "type": "wait",
+          "ms": 300
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-crumb=\"AP\"]",
+          "name": "AP"
+        },
+        {
+          "type": "wait",
+          "ms": 600
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-tick=\"6\"]",
+          "name": "Select hole 6"
+        },
+        {
+          "type": "wait",
+          "ms": 900
+        },
+        {
+          "type": "click",
+          "target": "[data-sa-frame] >> [data-sa-row=\"6\"]",
+          "name": "6"
         }
       ]
     },
@@ -379,9 +439,59 @@
           "id": "V3a"
         },
         {
+          "type": "wait",
+          "ms": 1000
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"-5 %\"",
+          "name": "-5 %"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"-5 %\"",
+          "name": "-5 %"
+        },
+        {
+          "type": "wait",
+          "ms": 1000
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Replace\"",
+          "name": "Replace"
+        },
+        {
+          "type": "wait",
+          "ms": 500
+        },
+        {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"Shift\"",
           "name": "Shift"
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Shift\"",
+          "name": "Shift"
+        },
+        {
+          "type": "wait",
+          "ms": 1000
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"-5 %\"",
+          "name": "-5 %"
+        },
+        {
+          "type": "wait",
+          "ms": 1250
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Adjust Target VWC %\"",
+          "name": "Adjust Target VWC %"
         }
       ]
     },
@@ -414,9 +524,71 @@
           "id": "V3b"
         },
         {
+          "type": "wait",
+          "ms": 1000
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"5 Stations selected\"",
+          "name": "5 Stations selected"
+        },
+        {
+          "type": "wait",
+          "ms": 1000
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Shift\"",
+          "name": "Shift"
+        },
+        {
+          "type": "wait",
+          "ms": 500
+        },
+        {
           "type": "hover",
           "target": "[data-sa-frame] >> text=\"-5 %\"",
           "name": "-5 %"
+        },
+        {
+          "type": "wait",
+          "ms": 500
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Replace\"",
+          "name": "Replace"
+        },
+        {
+          "type": "wait",
+          "ms": 700
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"5 Stations selected\"",
+          "name": "5 Stations selected"
+        },
+        {
+          "type": "wait",
+          "ms": 700
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Shift\"",
+          "name": "Shift"
+        },
+        {
+          "type": "wait",
+          "ms": 700
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"-5 %\"",
+          "name": "-5 %"
+        },
+        {
+          "type": "wait",
+          "ms": 500
         }
       ]
     },

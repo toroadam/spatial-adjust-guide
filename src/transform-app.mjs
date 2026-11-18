@@ -593,5 +593,352 @@ $1`,
     replace: "this.select('English')",
   });
 
+  // ---- Review 2026-10-22: demo data stays in range, and the legend shows all four bands -------------
+  //
+  // Target VWC accepts 0 to 50 (sa-table-card.component.html:40-47), but two sample rows carried a
+  // target of 54 and 69. Sample suggestions also sat at 333 and its neighbours, which is the
+  // product's ceiling for a 10 mm Daily Max Amount over a 3 mm Lynx Reference Amount
+  // (docs/claims/calculations.md, section 1.4) and frightened every reviewer who saw it.
+  //
+  // The chain the rows follow is the product's Option 2 (SpatialAdjustService.cs:3031-3043):
+  // target minus measured VWC is the deficit, one point of deficit is one millimetre of water, today's
+  // ET is added, the sum is cut to the Daily Max Amount, and that is divided by the Lynx Reference
+  // Amount. The toolbar's "Calculation ET: 0.34 in" is a translated label with the number inside it,
+  // so ET stays put. The Lynx Reference Amount stays 0.12 in as well, which keeps every suggestion that
+  // was already under the new ceiling exactly as it was (9AP1 121, 11AP1 79, 16AP1 52, 11AP2 6,
+  // 11AP3 4 and the zeros), and the threshold and filter figures that use them. The Daily Max Amount
+  // is what moves: 0.39 in becomes 0.15 in, so the ceiling is 0.15 / 0.12 = 125 percent and every
+  // station whose amount reaches the cap shows 125. A run of identical suggestions is the cap at work,
+  // which is what the calculation guides teach. Only rows that were above 125 change.
+  //
+  // The two targets that were out of range become 40 (3AP1, still the largest deficit on its hole) and
+  // 35 (3AP2). Measured readings are untouched.
+  const STATION_ROWS = [
+    ['3AP1', "vwc: 27.6, target: 54, current: 100, suggested: 333, adj: 333", "vwc: 27.6, target: 40, current: 100, suggested: 125, adj: 125"],
+    ['3AP2', "vwc: 30.3, target: 69, current: 100, suggested: 333, adj: 333", "vwc: 30.3, target: 35, current: 100, suggested: 125, adj: 125"],
+    ['4AP1', "vwc: 26.1, target: 30, current: 100, suggested: 333, adj: 333", "vwc: 26.1, target: 30, current: 100, suggested: 125, adj: 125"],
+    ['5AP1', "vwc: 27.9, target: 30, current: 100, suggested: 333, adj: 333", "vwc: 27.9, target: 30, current: 100, suggested: 125, adj: 125"],
+    ['6AP1', "vwc: 30.9, target: 31, current: 100, suggested: 293, adj: 293", "vwc: 30.9, target: 31, current: 100, suggested: 125, adj: 125"],
+    ['7AP1', "vwc: 50.0, target: 50, current: 100, suggested: 288, adj: 288", "vwc: 50.0, target: 50, current: 100, suggested: 125, adj: 125"],
+    ['6AP2', "vwc: 28.5, target: 32, current: 100, suggested: 333, adj: 333", "vwc: 28.5, target: 32, current: 100, suggested: 125, adj: 125"],
+    ['7AP4', "vwc: 27.1, target: 25, current: 100, suggested: 217, adj: 217", "vwc: 27.1, target: 25, current: 100, suggested: 125, adj: 125"],
+    ['16AP2', "vwc: 32.0, target: 28, current: 100, suggested: 154, adj: 154", "vwc: 32.0, target: 28, current: 100, suggested: 125, adj: 125"],
+  ];
+  const escapeRe = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  for (const [name, from, to] of STATION_ROWS) {
+    s = edit(s, {
+      name: `sample data: ${name} target and suggestion stay in range`,
+      pattern: new RegExp(`(\\{ name: '${name}', scan: '[0-9-]+', )${escapeRe(from)}`),
+      replace: `$1${to}`,
+    });
+  }
+
+  // The push dialog repeats the suggestion for the rows it lists: the new arrays carry the figure
+  // twice (current, suggested) and the pushed-today arrays carry it twice as well.
+  s = edit(s, {
+    name: 'sample data: push dialog rows follow the table (to push)',
+    pattern: /\['3AP1', 100, 333\], \['4AP1', 100, 333\]/,
+    replace: "['3AP1', 100, 125], ['4AP1', 100, 125]",
+  });
+  s = edit(s, {
+    name: 'sample data: push dialog rows follow the table (pushed today)',
+    pattern: /\['3AP2', 333, 333\], \['7AP1', 288, 288\], \['16AP1', 52, 52\], \['16AP2', 154, 154\]/,
+    replace: "['3AP2', 125, 125], ['7AP1', 125, 125], ['16AP1', 52, 52], ['16AP2', 125, 125]",
+  });
+
+  // Daily Max Amount: the prop's default and the fallback the dialog renders when no value is passed.
+  s = edit(s, {
+    name: 'sample data: Daily Max Amount default (prop schema)',
+    pattern: /(&quot;maxAmount&quot;:\{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;)0\.39(&quot;)/,
+    replace: (_m, open, close) => `${open}0.15${close}`,
+  });
+  s = edit(s, {
+    name: 'sample data: Daily Max Amount fallback in the settings dialog',
+    pattern: /this\.props\.maxAmount != null \? this\.props\.maxAmount : '0\.39'/,
+    replace: "this.props.maxAmount != null ? this.props.maxAmount : '0.15'",
+  });
+
+  // The moisture legend's colour bar drew three of the four bands (red, yellow, green) and stopped
+  // at 30, so blue, the top band the chips above it name, was missing, and it had no handles at all.
+  // The product's bar has four bands and three draggable boundary handles. The bar now runs 0 to 50,
+  // the range a target can take, with the handles on the 5, 19 and 30 boundaries the chips name. The
+  // handles are drawn, not wired: they carry no text, so no label enters the screen inventory, and the
+  // footage that drags one does it with the director's cursor.
+  // The segment widths and handle positions come from the band boundaries (5, 19 and 30 by default,
+  // on the 0 to 50 bar), so a handle can be dragged in live mode (below) and the bar follows it.
+  const LEGEND_SEGMENTS = [
+    ["pc(lg[0])", '#E11837'], ["pc(lg[1] - lg[0])", '#F3D43B'], ["pc(lg[2] - lg[1])", '#42CE11'], ["pc(50 - lg[2])", '#3079F0'],
+  ].map(([w, c]) => `h('div', { style: { width: ${w}, background: '${c}' } })`).join(', ');
+  const LEGEND_HANDLES = [0, 1, 2]
+    .map((i) => `h('div', Object.assign({ 'data-sa-handle': '${i + 1}', 'aria-hidden': 'true', style: { position: 'absolute', top: '-3px', left: 'calc(' + pc(lg[${i}]) + ' - 10px)', width: '20px', height: '20px', boxSizing: 'border-box', borderRadius: '50%', background: '#fff', border: '2px solid #5F6B72', boxShadow: '0 1px 3px rgba(0,0,0,.35)', cursor: 'ew-resize', touchAction: 'none' } }, this.handleProps(${i})))`).join(', ');
+  s = edit(s, {
+    name: 'map legend: four colour bands and three handles on the bar',
+    pattern: /h\('div', \{ style: \{ width: '280px', height: '14px', marginTop: '6px', borderRadius: '7px', overflow: 'hidden', display: 'flex' \} \},\s*h\('div', \{ style: \{ width: '16\.6%', background: '#E11837' \} \}\), h\('div', \{ style: \{ width: '36\.6%', background: '#F3D43B' \} \}\), h\('div', \{ style: \{ width: '46\.8%', background: '#42CE11' \} \}\)\)/,
+    replace: () => `h('div', { style: { position: 'relative', width: '280px', height: '14px', marginTop: '6px' } },\n`
+      + `            h('div', { style: { width: '100%', height: '100%', borderRadius: '7px', overflow: 'hidden', display: 'flex' } }, ${LEGEND_SEGMENTS}),\n`
+      + `            ${LEGEND_HANDLES})`,
+  });
+  // The chips name the boundaries, so they follow them too (the same text by default).
+  s = edit(s, {
+    name: 'map legend: chip labels follow the band boundaries',
+    pattern: /band\('0-5%', '#E11837', 'a'\), band\('6-19%', '#F3D43B', 'b'\), band\('20-30%', '#42CE11', 'c'\), band\('> 30%', '#3079F0', 'd'\)/,
+    replace: "band('0-' + bd[0] + '%', '#E11837', 'a'), band((bd[0] + 1) + '-' + bd[1] + '%', '#F3D43B', 'b'), band((bd[1] + 1) + '-' + bd[2] + '%', '#42CE11', 'c'), band('> ' + bd[2] + '%', '#3079F0', 'd')",
+  });
+  s = edit(s, {
+    name: 'map legend: boundaries in scope (committed for chips and pins, live for the bar)',
+    pattern: /const open = !!this\.props\.layersOpen;/,
+    replace: "const open = !!this.props.layersOpen;\n"
+      + "    const bd = this.props.bounds || [5, 19, 30];\n"
+      + "    const lg = this.legendBounds();\n"
+      + "    const pc = (n) => (Math.round(n / 50 * 10000) / 100) + '%';",
+  });
+  s = edit(s, {
+    name: 'map pins and chart bars colour by the band boundaries',
+    pattern: /function rangeColor\(v\) \{\n  if \(v <= 5\) return '#E11837';\n  if \(v <= 19\) return '#F3D43B';\n  if \(v <= 30\) return '#42CE11';\n  return '#3079F0';\n\}/,
+    replace: "function rangeColor(v, b) {\n  const bd = b || [5, 19, 30];\n  if (v <= bd[0]) return '#E11837';\n  if (v <= bd[1]) return '#F3D43B';\n  if (v <= bd[2]) return '#42CE11';\n  return '#3079F0';\n}",
+  });
+  s = edit(s, {
+    name: 'map pins: colour by the committed boundaries',
+    pattern: /varianceColor\(m\[2\] - NOMINAL_TARGET\) : rangeColor\(m\[2\]\)/,
+    replace: 'varianceColor(m[2] - NOMINAL_TARGET) : rangeColor(m[2], this.props.bounds)',
+  });
+  s = edit(s, {
+    name: 'chart bars: colour by the committed boundaries',
+    pattern: /background: rangeColor\(b\), borderRadius/,
+    replace: "background: this.props.mapMode === 'variance' ? varianceColor(b - NOMINAL_TARGET) : rangeColor(b, this.props.bounds), borderRadius",
+  });
+
+  // Review 2026-10-22, C8: "the map and the graph don't match". The chart drew 17 hard-coded bars
+  // (33.7, 29.0, 26.1 ...) that were none of the map's readings, so a red or blue pin sat beside a
+  // chart that showed neither. The bars are now the readings of the pins the map draws, in the map's
+  // order and with the map's enabled-station filter, coloured by the same function, so every bar is
+  // its pin's colour (in moisture and in variance view, and after a band handle moves).
+  s = edit(s, {
+    name: 'chart bars: the map\'s readings, so map and chart agree',
+    pattern: /const bars = \[33\.7, 29\.0, 26\.1, 27\.9, 29\.7, 42\.0, 22\.2, 21\.7, 34\.5, 24\.6, 21\.8, 45\.6, 42\.1, 41\.4, 34\.6, 45\.1, 50\.4\];/,
+    replace: "const bars = MARKERS.filter(m => m[3] !== 'off').map(m => m[2]);",
+  });
+
+  // ---- Live mode: the figure answers clicks and drags, but only under the capture director ----------
+  //
+  // The reproduction is a picture driven by props, which is right for the guide. The overview video
+  // needs to show the real gestures: drill from the course to an area, a hole and a station, click a
+  // breadcrumb to go back up, drag a band handle and watch the map recolor when it is let go, and
+  // switch to variance. Those handlers exist only where the director's in-page runtime (window.__sa,
+  // video/capture/director-runtime.js) is present, so a visitor to the guide never gets them and the
+  // guide's figures stay exactly what they were. The director seeds the starting view for a take
+  // through window.__saLiveInit (the episode's "recreationState"); every click then layers a patch
+  // over the props in this.state.lv, and renderVals reads the merged result.
+  s = edit(s, {
+    name: 'live mode: methods on the component',
+    pattern: /class Component extends DCLogic \{\n/,
+    replace: () => `class Component extends DCLogic {
+  live() { return typeof window !== 'undefined' && !!window.__sa; }
+  lv() { return Object.assign({}, window.__saLiveInit || {}, this.state.lv || {}); }
+  // The props as the figure currently draws them (the host resets this.props on every render, so a
+  // handler reads this rather than this.props).
+  ep() { return Object.assign({}, this.props, this.live() ? this.lv() : {}); }
+  setLv(patch) { this.setState({ lv: Object.assign({}, this.state.lv || {}, patch) }); }
+  rowLink(name) {
+    if (!this.live()) return name;
+    return h('span', { 'data-sa-row': name, onClick: () => this.drill(name) }, name);
+  }
+  stationLink(name) {
+    if (!this.live()) return h('span', null, name);
+    return h('span', { 'data-sa-station': name, onClick: () => this.pick(name) }, name);
+  }
+  drill(name) {
+    const site = 'Riverbend National';
+    const level = this.ep().tableLevel || 'station';
+    if (level === 'areas') {
+      this.setLv({ tableLevel: 'holes', crumb: site + ' / ' + name, hole: '', focusRow: '', chartTitle: name, chartAvg: '33.70' });
+    } else if (level === 'holes') {
+      const g = this.holeAgg().find(x => x.name === name);
+      this.setLv({ tableLevel: 'station', crumb: site + ' / ' + this.areaAgg()[0].name + ' / ' + name, hole: name, focusRow: '', chartTitle: name, chartAvg: g ? g.vwc.toFixed(2) : '' });
+    }
+  }
+  pick(name) {
+    const s = STATIONS.find(x => x.name === name);
+    this.setLv({ focusRow: name, chartTitle: name, chartAvg: s ? s.vwc.toFixed(2) : '' });
+  }
+  crumbProps(c, i, crumbs) {
+    if (!this.live()) return {};
+    return { 'data-sa-crumb': c, onClick: () => { if (i < crumbs.length - 1) this.up(i); } };
+  }
+  up(i) {
+    const site = 'Riverbend National';
+    if (i === 0) this.setLv({ tableLevel: 'areas', crumb: site, hole: '', focusRow: '', chartTitle: site, chartAvg: '33.70' });
+    else this.setLv({ tableLevel: 'holes', crumb: site + ' / ' + this.areaAgg()[0].name, hole: '', focusRow: '', chartTitle: this.areaAgg()[0].name, chartAvg: '33.70' });
+  }
+  legendBounds() { return (this.state.drag && this.state.drag.vals) || this.ep().bounds || [5, 19, 30]; }
+  handleProps(i) {
+    if (!this.live()) return {};
+    return { 'aria-label': 'Legend handle ' + (i + 1), onPointerDown: (e) => this.beginDrag(i, e) };
+  }
+  // A handle moves with the pointer along the 280 px bar (0 to 50 percent) and the boundary is
+  // committed on release, which is when the chips and the map take the new bands.
+  beginDrag(i, e) {
+    const base = (this.ep().bounds || [5, 19, 30]).slice();
+    const x0 = e.clientX; const v0 = base[i];
+    const lo = i === 0 ? 1 : base[i - 1] + 1; const hi = i === 2 ? 49 : base[i + 1] - 1;
+    this.setState({ drag: { vals: base } });
+    const move = (ev) => {
+      const v = Math.max(lo, Math.min(hi, Math.round(v0 + (ev.clientX - x0) / 280 * 50)));
+      const vals = base.slice(); vals[i] = v; this.setState({ drag: { vals } });
+    };
+    const up = () => {
+      window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', up);
+      const vals = (this.state.drag && this.state.drag.vals) || base;
+      this.setState({ drag: null });
+      this.setLv({ bounds: vals });
+    };
+    window.addEventListener('pointermove', move); window.addEventListener('pointerup', up);
+  }
+  varianceProps() {
+    if (!this.live()) return {};
+    return { role: 'button', 'aria-label': 'Toggle VWC or Variance View', 'data-sa-variance': '', onClick: () => this.setLv({ mapMode: this.ep().mapMode === 'variance' ? 'moisture' : 'variance' }) };
+  }
+`,
+  });
+  s = edit(s, {
+    name: 'live mode: the variance toggle is a control',
+    pattern: /h\('div', \{ style: \{ margin: '0 10px', padding: '0 14px', borderLeft: '1px solid gray', borderRight: '1px solid gray', display: 'flex', alignItems: 'center' \} \},/,
+    replace: "h('div', Object.assign({ style: { margin: '0 10px', padding: '0 14px', borderLeft: '1px solid gray', borderRight: '1px solid gray', display: 'flex', alignItems: 'center' } }, this.varianceProps()),",
+  });
+  s = edit(s, {
+    name: 'live mode: the row switch carries a label the director can name',
+    pattern: /return h\('div', \{ style: \{ width: '40px', height: '22px', borderRadius: '11px', background: on \? '#007ad9' : '#c8c8c8', position: 'relative' \} \},/,
+    replace: "return h('div', Object.assign({ style: { width: '40px', height: '22px', borderRadius: '11px', background: on ? '#007ad9' : '#c8c8c8', position: 'relative' } }, this.live() ? { role: 'switch', 'aria-label': 'Enable switch' } : {}),",
+  });
+  s = edit(s, {
+    name: 'live mode: area and hole names drill down',
+    pattern: /h\('div', \{ style: \{ flex: 1, fontSize: '14px' \} \}, it\.name\)\),/,
+    replace: "h('div', { style: { flex: 1, fontSize: '14px' } }, this.rowLink(it.name))),",
+  });
+  s = edit(s, {
+    name: 'live mode: station level lists only the drilled hole',
+    pattern: /STATIONS\.forEach\(s => \{\n      const isSel/,
+    replace: "STATIONS.filter(s => !this.props.hole || String(parseInt(s.name, 10)) === String(this.props.hole)).forEach(s => {\n      const isSel",
+  });
+  s = edit(s, {
+    name: 'live mode: a station name selects its row',
+    pattern: /h\('span', null, s\.name\), h\('span', \{ style: \{ fontSize: '12px', color: 'gray' \} \}, s\.scan\)/,
+    replace: "this.stationLink(s.name), h('span', { style: { fontSize: '12px', color: 'gray' } }, s.scan)",
+  });
+  s = edit(s, {
+    name: 'live mode: breadcrumb names go back up',
+    pattern: /h\('span', \{ style: \{ color: last && crumbs\.length > 1 \? '#333' : '#3079F0' \} \}, c\)\);/,
+    replace: "h('span', Object.assign({ style: { color: last && crumbs.length > 1 ? '#333' : '#3079F0' } }, this.crumbProps(c, i, crumbs)), c));",
+  });
+  s = edit(s, {
+    name: 'live mode: renderVals reads the live view',
+    pattern: /renderVals\(\) \{\n    const p = this\.props;/,
+    replace: 'renderVals() {\n    if (this.live()) this.props = Object.assign({}, this.props, this.lv());\n    const p = this.props;',
+  });
+
+  // Review 2026-10-22, C14: the Bulk adjust steps say ticking an area or hole row cascades the
+  // selection to every station beneath it, but the area and hole rows drew an unticked box with no
+  // handler, so no footage could show it. In live mode the box is now a control: one click ticks
+  // every station under the row (all stations for the area row, the stations of that hole for a hole
+  // row), and a click on a fully ticked row unticks them again. The box reads from the same
+  // selectedRows list the station rows and the Bulk Adjust link use, so the station level shows
+  // the cascade after a drill, "N Stations selected" in the dialog counts it, and a row with only
+  // some of its stations ticked draws the dash. Outside live mode the box stays the empty one the
+  // guides' figures always drew. The bulk-adjustments guide's step 1 describes the cascade.
+  s = edit(s, {
+    name: 'live mode: tick methods for area and hole rows',
+    pattern: /  rowLink\(name\) \{\n/,
+    replace: () => `  rowKids(level, name) {
+    return STATIONS.filter(s => level === 'areas' || String(parseInt(s.name, 10)) === String(name)).map(s => s.name);
+  }
+  rowTick(name) {
+    if (!this.live()) return this.triState(false);
+    const level = this.props.tableLevel || 'station';
+    const sel = this.props.selectedRows || [];
+    const kids = this.rowKids(level, name);
+    const n = kids.filter(k => sel.indexOf(k) >= 0).length;
+    const state = n === 0 ? false : n === kids.length ? true : 'partial';
+    return h('span', {
+      role: 'checkbox', 'aria-checked': state === 'partial' ? 'mixed' : String(!!state),
+      'aria-label': 'Select ' + (level === 'areas' ? 'area ' : 'hole ') + name,
+      'data-sa-tick': name, style: { display: 'flex' }, onClick: () => this.tickRow(name),
+    }, this.triState(state));
+  }
+  tickRow(name) {
+    const e = this.ep();
+    const kids = this.rowKids(e.tableLevel || 'station', name);
+    const cur = e.selectedRows || [];
+    const all = kids.every(k => cur.indexOf(k) >= 0);
+    const next = all ? cur.filter(k => kids.indexOf(k) < 0) : STATIONS.map(s => s.name).filter(k => cur.indexOf(k) >= 0 || kids.indexOf(k) >= 0);
+    this.setLv({ selectedRows: next });
+  }
+  rowLink(name) {
+`,
+  });
+  s = edit(s, {
+    name: 'live mode: area and hole rows carry the tick',
+    pattern: /this\.triState\(false\),(\s*)h\('div', \{ style: \{ flex: 1, fontSize: '14px' \} \}, this\.rowLink\(it\.name\)\)\),/,
+    replace: "this.rowTick(it.name),$1h('div', { style: { flex: 1, fontSize: '14px' } }, this.rowLink(it.name))),",
+  });
+
+  // A figure that opens at the station level shows a one-name trail (the course), so its crumb had
+  // nothing to go "up" to. The table under it is the area AP's, so that crumb goes to AP's holes,
+  // which is the level the area and hole ticks live on.
+  s = edit(s, {
+    name: 'live mode: a lone course crumb at the station level goes up to the holes',
+    pattern: /onClick: \(\) => \{ if \(i < crumbs\.length - 1\) this\.up\(i\); \} \};/,
+    replace: "onClick: () => { if (i < crumbs.length - 1) this.up(i); else if (crumbs.length === 1 && (this.ep().tableLevel || 'station') === 'station') this.up(1); } };",
+  });
+
+  // Review 2026-10-22, C8: the chart's header ("AP 33.70 Avg. Moisture", "4 holes selected") was
+  // hard-coded, so its average, its scope and its bars each came from somewhere else than the map.
+  // The map draws every pin, in all four colors; the chart is the chart of 4 selected holes (the
+  // label stays "4 holes selected": it is a translated string, and the dashboard overview names it).
+  // Scope and data are now one thing. The selected holes are CHART_HOLES; a pin belongs to a hole
+  // through the station that carries its reading (the 6AP1 pins are its two sprinklers), and the six
+  // pins that no table row owns (the course has more stations than the table lists) are given a
+  // hole in EXTRA_PIN_HOLE so the selection takes in a red, a yellow, a green and a blue pin, as the
+  // map does. The bars are those pins' readings, in the map's order and with its enabled-station
+  // filter, colored by the same function, and the average in the header is their mean, so the header,
+  // the bars and the map's pins in those holes can never disagree. A guide page or a take can still
+  // pass chartAvg to override the header (the dashboard overview does).
+  s = edit(s, {
+    name: 'chart: scope, average and bars come from the map\'s pins',
+    pattern: /  renderChart\(\) \{\n/,
+    replace: () => `  // The holes the chart's "4 holes selected" list holds, and the hole each unnumbered pin sits on.
+  chartHoles() { return [3, 4, 6, 7]; }
+  pinHole(m) {
+    const EXTRA_PIN_HOLE = { 4.2: 3, 12.8: 4, 15: 7, 19.4: 6, 22.1: 6, 33.4: 4 };
+    const hit = STATIONS.find(s => s.vwc === m[2] || (s.kids || []).some(k => k[0] === m[2]));
+    return hit ? parseInt(hit.name, 10) : EXTRA_PIN_HOLE[m[2]];
+  }
+  chartReadings() {
+    const holes = this.chartHoles();
+    return MARKERS.filter(m => m[3] !== 'off' && holes.indexOf(this.pinHole(m)) >= 0).map(m => m[2]);
+  }
+  chartAvgText() {
+    const r = this.chartReadings();
+    return (r.reduce((a, b) => a + b, 0) / r.length).toFixed(2);
+  }
+  renderChart() {
+`,
+  });
+  s = edit(s, {
+    name: 'chart: bars are the selected holes\' pins',
+    pattern: /const bars = MARKERS\.filter\(m => m\[3\] !== 'off'\)\.map\(m => m\[2\]\);/,
+    replace: 'const bars = this.chartReadings();',
+  });
+  s = edit(s, {
+    name: 'chart: header average is the mean of the bars',
+    pattern: /chartAvg: p\.chartAvg \|\| '33\.70',/,
+    replace: 'chartAvg: p.chartAvg || this.chartAvgText(),',
+  });
+  s = edit(s, {
+    name: 'live mode: drilling back to the course or area shows the same average',
+    pattern: /chartAvg: '33\.70'/g,
+    replace: 'chartAvg: this.chartAvgText()',
+    expected: 3,
+  });
+
   return s;
 }

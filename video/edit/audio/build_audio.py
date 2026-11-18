@@ -184,7 +184,7 @@ def limiter(x, ceiling_db=None, look=0.005, release=0.12):
     """Look-ahead peak limiter driven by the 4x-oversampled (true-peak) envelope: min-filter over +/- look-ahead, moving
     average over the look-ahead (smooth attack that is always <= the needed gain at the peak), then program release."""
     from scipy.ndimage import minimum_filter1d, uniform_filter1d
-    ceiling_db = LOUDNESS['limiter_ceiling_dbtp'] if ceiling_db is None else ceiling_db
+    ceiling_db = float(os.environ.get('SA_LIMITER_CEILING_DBTP', LOUDNESS['limiter_ceiling_dbtp'])) if ceiling_db is None else ceiling_db
     c = 10 ** (ceiling_db / 20)
     up = np.abs(signal.resample_poly(x, 4, 1, axis=0)).max(1)
     pk = np.pad(up, (0, (-len(up)) % 4)).reshape(-1, 4).max(1)[:len(x)]
@@ -204,7 +204,7 @@ def master(x, target=None, ceiling=None):
     """Gain to the target integrated loudness, then the limiter at the ceiling, four times (the limiter lowers the
     loudness a little each pass). Defaults: LOUDNESS integrated_lufs -14 and limiter_ceiling_dbtp -1.85."""
     target = LOUDNESS['integrated_lufs'] if target is None else target
-    ceiling = LOUDNESS['limiter_ceiling_dbtp'] if ceiling is None else ceiling
+    ceiling = float(os.environ.get('SA_LIMITER_CEILING_DBTP', LOUDNESS['limiter_ceiling_dbtp'])) if ceiling is None else ceiling
     for _ in range(4):
         g = target - lufs(x); x = x * 10 ** (g / 20)
         x = limiter(x, ceiling)

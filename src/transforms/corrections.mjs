@@ -240,6 +240,21 @@ export const CORRECTIONS = [
     from: 'The applied profile is marked active in the list.',
     to: 'The dashboard names the applied profile above the table.' },
 
+  // ---- Target Profiles: the merged profile episodes --------------------------------------------
+  // Two Double Click episodes cover the four profile guides: target-profiles (capture and apply) and
+  // seasonal-profiles (update and manage). An episode's title is the rendered guide title (episode
+  // lint check c), so the two guides carry the merged titles on the page and on their catalogue tiles.
+  { ids: 'target-profiles/tile/1',
+    at: 'quoted',
+    from: 'Apply a target profile',
+    to: 'Capture and apply a profile',
+    expected: 2 },
+  { ids: 'seasonal-profiles/tile/1',
+    at: 'quoted',
+    from: 'Managing seasonal profiles',
+    to: 'Update and manage seasonal profiles',
+    expected: 2 },
+
   // ---- Target Profiles: Creating profiles ------------------------------------------------------
   // The guide title and its catalogue tile. Profiles cannot be created: the tab always holds five
   // slots per course, and the guide is about capturing the current targets into one of them.

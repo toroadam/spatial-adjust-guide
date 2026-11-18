@@ -1,8 +1,8 @@
 {
   "id": "seasonal-profiles",
-  "title": "Managing seasonal profiles",
+  "title": "Update and manage seasonal profiles",
   "guide": "seasonal-profiles",
-  "status": "approved",
+  "status": "verified",
   "durationTarget": [
     60,
     180
@@ -15,26 +15,27 @@
   "demoWriteClicks": [],
   "claims": [
     "seasonal-profiles/summary/1",
-    "seasonal-profiles/1/1",
-    "seasonal-profiles/note/1",
+    "seasonal-profiles/1/6",
     "seasonal-profiles/1/7",
+    "updating-profiles/1/6",
+    "updating-profiles/5/2",
+    "updating-profiles/5/7",
+    "updating-profiles/before/2",
+    "updating-profiles/5/6",
     "seasonal-profiles/before/1",
-    "target-profiles/before/3",
     "seasonal-profiles/2/6",
     "seasonal-profiles/2/7",
-    "seasonal-profiles/5/2",
+    "seasonal-profiles/2/8",
+    "seasonal-profiles/2/9",
     "seasonal-profiles/5/5",
-    "seasonal-profiles/5/3",
     "seasonal-profiles/5/6",
-    "seasonal-profiles/6/3",
-    "seasonal-profiles/7/5",
     "seasonal-profiles/7/6",
     "seasonal-profiles/7/7",
     "seasonal-profiles/tile/1",
     "seasonal-profiles/tile/2"
   ],
   "titleCard": {
-    "text": "Double Click: Managing seasonal profiles",
+    "text": "Double Click: Update and manage seasonal profiles",
     "claims": [
       "seasonal-profiles/tile/1",
       "seasonal-profiles/tile/2"
@@ -56,9 +57,9 @@
     {
       "id": "c2",
       "step": 2,
-      "label": "Apply the evening before",
+      "label": "Confirm the profile",
       "highlight": {
-        "label": "Apply",
+        "label": "Apply Profile",
         "selector": "[data-sa-frame] >> text=\"Apply Profile\""
       },
       "source": "recreation",
@@ -83,7 +84,7 @@
       "label": "Push once you agree with them",
       "highlight": {
         "label": "Push",
-        "selector": "[data-sa-frame] >> text=\"Push Changes\""
+        "selector": "[data-sa-frame] >> text=\"Changes\""
       },
       "source": "recreation",
       "sourceReason": "recreation: a Demo Mode take needs the owner's hand sign-in to the demo form and the local capture config and name maps, which this machine does not have; the guide site's recreation of this step's screen stands in, and it draws the production five-slot profile table (decided by the executor under owner direction 2026-10-19; for review in person 2026-10-22)",
@@ -93,100 +94,144 @@
   "vo": [
     {
       "id": "V0",
-      "text": "A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.",
+      "text": "A small set of profiles, one per condition, is easier to run a season with.",
       "claims": [
         "seasonal-profiles/summary/1"
       ],
-      "next_text": "Plan what goes in the five slots. The tab lists five named profile slots for each Lynx course."
+      "next_text": "Name each of the five slots for a condition, not a date."
     },
     {
       "id": "V1a",
       "chapter": "c1",
-      "text": "Plan what goes in the five slots. The tab lists five named profile slots for each Lynx course.",
+      "text": "Name each of the five slots for a condition, not a date.",
       "claims": [
-        "seasonal-profiles/1/1",
-        "seasonal-profiles/note/1"
+        "seasonal-profiles/1/6"
       ],
-      "previous_text": "A small set of profiles, one per condition, is easier to run a season with than a long list of dated snapshots.",
-      "next_text": "A short list stays readable a year later. Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch."
+      "previous_text": "A small set of profiles, one per condition, is easier to run a season with.",
+      "next_text": "A short list stays readable a year later."
     },
     {
       "id": "V1b",
       "chapter": "c1",
-      "text": "A short list stays readable a year later. Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch.",
+      "text": "A short list stays readable a year later.",
       "claims": [
-        "seasonal-profiles/1/7",
-        "seasonal-profiles/before/1"
+        "seasonal-profiles/1/7"
       ],
-      "previous_text": "Plan what goes in the five slots. The tab lists five named profile slots for each Lynx course.",
-      "next_text": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets."
+      "previous_text": "Name each of the five slots for a condition, not a date.",
+      "next_text": "Edits to your targets leave a saved profile out of date."
+    },
+    {
+      "id": "V1c",
+      "chapter": "c1",
+      "text": "Edits to your targets leave a saved profile out of date.",
+      "claims": [
+        "updating-profiles/1/6"
+      ],
+      "previous_text": "A short list stays readable a year later.",
+      "next_text": "To refresh a profile, mark its slot under Update from Current."
+    },
+    {
+      "id": "V1d",
+      "chapter": "c1",
+      "text": "To refresh a profile, mark its slot under Update from Current.",
+      "claims": [
+        "updating-profiles/5/2",
+        "updating-profiles/5/7"
+      ],
+      "previous_text": "Edits to your targets leave a saved profile out of date.",
+      "next_text": "That overwrites its stored targets, but changes no station until you apply it."
+    },
+    {
+      "id": "V1e",
+      "chapter": "c1",
+      "text": "That overwrites its stored targets, but changes no station until you apply it.",
+      "claims": [
+        "updating-profiles/5/7",
+        "updating-profiles/before/2"
+      ],
+      "previous_text": "To refresh a profile, mark its slot under Update from Current.",
+      "next_text": "For a one-off event, capture into a spare slot instead."
+    },
+    {
+      "id": "V1f",
+      "chapter": "c1",
+      "text": "For a one-off event, capture into a spare slot instead.",
+      "claims": [
+        "updating-profiles/5/6"
+      ],
+      "previous_text": "That overwrites its stored targets, but changes no station until you apply it.",
+      "next_text": "Applying a profile recalculates the whole course, so treat it as a planned change."
     },
     {
       "id": "V2a",
       "chapter": "c2",
-      "text": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets.",
+      "text": "Applying a profile recalculates the whole course, so treat it as a planned change.",
       "claims": [
-        "seasonal-profiles/before/1",
-        "target-profiles/before/3"
+        "seasonal-profiles/before/1"
       ],
-      "previous_text": "A short list stays readable a year later. Applying a profile is a course-wide recalculation, so treat it as a planned change rather than a quick switch.",
-      "next_text": "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan. Apply, then review the next morning’s suggestions."
+      "previous_text": "For a one-off event, capture into a spare slot instead.",
+      "next_text": "Apply it the evening before. Next morning, read the new suggestions against a fresh scan."
     },
     {
       "id": "V2b",
       "chapter": "c2",
-      "text": "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan. Apply, then review the next morning’s suggestions.",
+      "text": "Apply it the evening before. Next morning, read the new suggestions against a fresh scan.",
       "claims": [
         "seasonal-profiles/2/6",
-        "seasonal-profiles/2/7",
-        "seasonal-profiles/5/2"
+        "seasonal-profiles/2/7"
       ],
-      "previous_text": "Applying rewrites the target of every station in the profile and recalculates their suggestions; stations not in the profile keep their targets.",
-      "next_text": "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is."
+      "previous_text": "Applying a profile recalculates the whole course, so treat it as a planned change.",
+      "next_text": "A profile matches stations by name. A renamed or renumbered station won't match an old profile."
+    },
+    {
+      "id": "V2c",
+      "chapter": "c2",
+      "text": "A profile matches stations by name. A renamed or renumbered station won't match an old profile.",
+      "claims": [
+        "seasonal-profiles/2/8"
+      ],
+      "previous_text": "Apply it the evening before. Next morning, read the new suggestions against a fresh scan.",
+      "next_text": "Stations added after capture keep their target."
+    },
+    {
+      "id": "V2d",
+      "chapter": "c2",
+      "text": "Stations added after capture keep their target.",
+      "claims": [
+        "seasonal-profiles/2/9"
+      ],
+      "previous_text": "A profile matches stations by name. A renamed or renumbered station won't match an old profile.",
+      "next_text": "A profile changes targets, and targets change deficits."
     },
     {
       "id": "V3a",
       "chapter": "c3",
-      "text": "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.",
+      "text": "A profile changes targets, and targets change deficits.",
       "claims": [
-        "seasonal-profiles/5/5",
-        "seasonal-profiles/5/3",
-        "seasonal-profiles/5/2"
+        "seasonal-profiles/5/5"
       ],
-      "previous_text": "Doing it the evening before leaves you the next morning to read the new suggestions against a fresh scan. Apply, then review the next morning’s suggestions.",
-      "next_text": "New targets, new suggestions — review before pushing."
+      "previous_text": "Stations added after capture keep their target.",
+      "next_text": "New targets, new suggestions. Review them before pushing."
     },
     {
       "id": "V3b",
       "chapter": "c3",
-      "text": "New targets, new suggestions — review before pushing.",
+      "text": "New targets, new suggestions. Review them before pushing.",
       "claims": [
         "seasonal-profiles/5/6"
       ],
-      "previous_text": "A profile changes targets, and targets change deficits. Scan the Suggested column for stations that jumped to the cap — those are the ones where the new target is a long way from where the station actually is.",
-      "next_text": "The push dialog is the same as any other day. The difference is the size of the change set: a profile switch usually queues most of the course at once."
-    },
-    {
-      "id": "V4a",
-      "chapter": "c4",
-      "text": "The push dialog is the same as any other day. The difference is the size of the change set: a profile switch usually queues most of the course at once.",
-      "claims": [
-        "seasonal-profiles/6/3",
-        "seasonal-profiles/7/5",
-        "seasonal-profiles/7/6"
-      ],
-      "previous_text": "New targets, new suggestions — review before pushing.",
+      "previous_text": "A profile changes targets, and targets change deficits.",
       "next_text": "A profile switch queues a large push. Review it as one."
     },
     {
-      "id": "V4b",
+      "id": "V4",
       "chapter": "c4",
       "text": "A profile switch queues a large push. Review it as one.",
       "claims": [
         "seasonal-profiles/7/6",
         "seasonal-profiles/7/7"
       ],
-      "previous_text": "The push dialog is the same as any other day. The difference is the size of the change set: a profile switch usually queues most of the course at once."
+      "previous_text": "New targets, new suggestions. Review them before pushing."
     }
   ],
   "beats": [
@@ -205,8 +250,12 @@
       "id": "b1a",
       "chapter": "c1",
       "vo": "V1a",
-      "hold": 7.42,
+      "hold": 5.44,
       "actions": [
+        {
+          "type": "wait",
+          "ms": 750
+        },
         {
           "type": "cue",
           "id": "c1-in"
@@ -216,36 +265,20 @@
           "ms": 350
         },
         {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
-          "name": "Target Profile Last Updated Stations Update from Current Apply Profile Spring -- -- Summer Baseline 14 Jun 2026 148 Fall -- -- Winter -- -- Tournament Week 02 May 2026 148"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../..",
-          "name": "Target Profile Last Updated Stations Update from Current Apply Profile Spring -- -- Summer Baseline 14 Jun 2026 148 Fall -- -- Winter -- -- Tournament Week 02 May 2026 148"
+          "target": "[data-sa-frame] >> text=\"Target Profile\""
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target Profile\""
         },
         {
           "type": "cue",
           "id": "V1a"
-        },
-        {
-          "type": "wait",
-          "ms": 2519
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Spring\"",
-          "name": "Spring"
-        },
-        {
-          "type": "wait",
-          "ms": 1283
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Tournament Week\"",
-          "name": "Tournament Week"
         }
       ]
     },
@@ -253,30 +286,119 @@
       "id": "b1b",
       "chapter": "c1",
       "vo": "V1b",
-      "hold": 10.29,
+      "hold": 3.19,
       "actions": [
         {
-          "type": "cue",
-          "id": "V1b"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
-          "name": "Summer Baseline 14 Jun 2026 148"
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
-          "name": "Summer Baseline 14 Jun 2026 148"
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
         },
         {
-          "type": "wait",
-          "ms": 5923
+          "type": "cue",
+          "id": "V1b"
+        }
+      ]
+    },
+    {
+      "id": "b1c",
+      "chapter": "c1",
+      "vo": "V1c",
+      "hold": 3.96,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Last Updated\""
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Apply Profile\"",
-          "name": "Apply Profile"
+          "target": "[data-sa-frame] >> text=\"Last Updated\""
+        },
+        {
+          "type": "cue",
+          "id": "V1c"
+        }
+      ]
+    },
+    {
+      "id": "b1d",
+      "chapter": "c1",
+      "vo": "V1d",
+      "hold": 4.75,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Update from Current\""
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Update from Current\""
+        },
+        {
+          "type": "cue",
+          "id": "V1d"
+        }
+      ]
+    },
+    {
+      "id": "b1e",
+      "chapter": "c1",
+      "vo": "V1e",
+      "hold": 5.73,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Stations\""
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Stations\""
+        },
+        {
+          "type": "cue",
+          "id": "V1e"
+        }
+      ]
+    },
+    {
+      "id": "b1f",
+      "chapter": "c1",
+      "vo": "V1f",
+      "hold": 5.0,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Spring\" >> xpath=../.."
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Spring\" >> xpath=../.."
+        },
+        {
+          "type": "cue",
+          "id": "V1f"
         }
       ]
     },
@@ -284,11 +406,11 @@
       "id": "b2a",
       "chapter": "c2",
       "vo": "V2a",
-      "hold": 12.14,
+      "hold": 7.08,
       "actions": [
         {
           "type": "figure",
-          "caption": "Apply, then review the next morning"
+          "caption": "A chosen profile waits for Save Changes."
         },
         {
           "type": "wait",
@@ -303,27 +425,20 @@
           "ms": 350
         },
         {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Apply Profile\"",
-          "name": "Apply Profile"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Apply Profile\"",
-          "name": "Apply Profile"
+          "target": "[data-sa-frame] >> text=\"Apply Profile\""
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Apply Profile\""
         },
         {
           "type": "cue",
           "id": "V2a"
-        },
-        {
-          "type": "wait",
-          "ms": 1714
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../../*[3]",
-          "name": "148"
         }
       ]
     },
@@ -331,30 +446,71 @@
       "id": "b2b",
       "chapter": "c2",
       "vo": "V2b",
-      "hold": 10.55,
+      "hold": 5.84,
       "actions": [
         {
-          "type": "cue",
-          "id": "V2b"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
-          "name": "Summer Baseline 14 Jun 2026 148"
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../.."
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../..",
-          "name": "Summer Baseline 14 Jun 2026 148"
+          "target": "[data-sa-frame] >> text=\"Summer Baseline\" >> xpath=../.."
         },
         {
-          "type": "wait",
-          "ms": 5689
+          "type": "cue",
+          "id": "V2b"
+        }
+      ]
+    },
+    {
+      "id": "b2c",
+      "chapter": "c2",
+      "vo": "V2c",
+      "hold": 7.01,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Target Profile\""
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Apply Profile\"",
-          "name": "Apply Profile"
+          "target": "[data-sa-frame] >> text=\"Target Profile\""
+        },
+        {
+          "type": "cue",
+          "id": "V2c"
+        }
+      ]
+    },
+    {
+      "id": "b2d",
+      "chapter": "c2",
+      "vo": "V2d",
+      "hold": 3.84,
+      "actions": [
+        {
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target Profile\" >> xpath=../.."
+        },
+        {
+          "type": "focus",
+          "target": "[data-sa-frame] >> text=\"Stations\""
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Stations\""
+        },
+        {
+          "type": "cue",
+          "id": "V2d"
         }
       ]
     },
@@ -362,7 +518,7 @@
       "id": "b3a",
       "chapter": "c3",
       "vo": "V3a",
-      "hold": 14.72,
+      "hold": 5.9,
       "actions": [
         {
           "type": "figure",
@@ -381,45 +537,20 @@
           "ms": 350
         },
         {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Suggested\"",
-          "name": "Suggested"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Target VWC\""
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Suggested\"",
-          "name": "Suggested"
+          "target": "[data-sa-frame] >> text=\"Target VWC\""
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Target VWC\""
         },
         {
           "type": "cue",
           "id": "V3a"
-        },
-        {
-          "type": "wait",
-          "ms": 100
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Target VWC\"",
-          "name": "Target VWC"
-        },
-        {
-          "type": "wait",
-          "ms": 2280
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"3AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "125%"
-        },
-        {
-          "type": "wait",
-          "ms": 2048
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"4AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "125%"
         }
       ]
     },
@@ -427,29 +558,31 @@
       "id": "b3b",
       "chapter": "c3",
       "vo": "V3b",
-      "hold": 4.24,
+      "hold": 4.75,
       "actions": [
         {
-          "type": "cue",
-          "id": "V3b"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Suggested\""
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "125%"
+          "target": "[data-sa-frame] >> text=\"Suggested\""
         },
         {
           "type": "hover",
-          "target": "[data-sa-frame] >> text=\"5AP1\" >> xpath=../../../div[2]/div[4]",
-          "name": "125%"
+          "target": "[data-sa-frame] >> text=\"Suggested\""
+        },
+        {
+          "type": "cue",
+          "id": "V3b"
         }
       ]
     },
     {
-      "id": "b4a",
+      "id": "b4",
       "chapter": "c4",
-      "vo": "V4a",
-      "hold": 12.01,
+      "vo": "V4",
+      "hold": 6.38,
       "actions": [
         {
           "type": "figure",
@@ -468,58 +601,20 @@
           "ms": 350
         },
         {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Push Changes\"",
-          "name": "Push Changes"
+          "type": "frame",
+          "target": "[data-sa-frame] >> text=\"Changes\""
         },
         {
           "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Push Changes\"",
-          "name": "Push Changes"
+          "target": "[data-sa-frame] >> text=\"Changes\""
+        },
+        {
+          "type": "hover",
+          "target": "[data-sa-frame] >> text=\"Changes\""
         },
         {
           "type": "cue",
-          "id": "V4a"
-        },
-        {
-          "type": "wait",
-          "ms": 3775
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Changes\"",
-          "name": "Changes"
-        }
-      ]
-    },
-    {
-      "id": "b4b",
-      "chapter": "c4",
-      "vo": "V4b",
-      "hold": 4.9,
-      "actions": [
-        {
-          "type": "cue",
-          "id": "V4b"
-        },
-        {
-          "type": "focus",
-          "target": "[data-sa-frame] >> text=\"Last Push\"",
-          "name": "Last Push"
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Last Push\"",
-          "name": "Last Push"
-        },
-        {
-          "type": "wait",
-          "ms": 1894
-        },
-        {
-          "type": "hover",
-          "target": "[data-sa-frame] >> text=\"Changes\"",
-          "name": "Changes"
+          "id": "V4"
         }
       ]
     }

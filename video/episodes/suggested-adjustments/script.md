@@ -2,7 +2,7 @@
 
 **Episode:** 5 of 26 · **Wave:** 2 (Review & Apply), first of the wave · **Guide:** `#/suggested-adjustments` · **Template:** v1 ([`../RUNBOOK.md`](../RUNBOOK.md)) · **Script version:** v1
 **Voice:** ElevenLabs Brian (`Gubgw9l4dtIoQA9YZHgx`, eleven_multilingual_v2) · **Music:** `sa-bed-v1` · **Map:** restyle (gate G2)
-**Source:** the guide site's recreation (`"source": "recreation"`), one lifted figure per chapter: step 1 "Current and Suggested sit"; step 2 "Station 3AP1 measured"; step 3 "A run of identical"; step 4 "Editing % Adj. queues"; step 5 "Soil Factor Editor, opened"
+**Source:** the guide site's recreation (`"source": "recreation"`), one lifted figure per chapter: step 1 "Current and Suggested sit"; step 2 "Station 3AP1 measured"; step 3 "A run of identical"; step 4 "Editing % Adj. queues"
 
 ## Script
 
@@ -23,14 +23,12 @@ Planned times: the builder measures the real ones from the take and the VO rende
 | 1:00 | 1:12 | 11 Step 3 result | Focus box on `125%`; the cursor settles on `125%` |  | "If most of your course reads identically, the cap is doing the deciding, not the scan. Raise Daily Max Amount in Settings, Calculation, or accept that the course is being deliberately limited." | `suggested-adjustments/3/4`, `suggested-adjustments/3/6` |
 | 1:12 | 1:14 | 12 Chapter 4 | Typed chapter card | OVERRIDE WHERE YOU DISAGREE | — | `suggested-adjustments/4/1` |
 | 1:14 | 1:23 | 13 Step 4 | Lifted figure "Editing % Adj. queues"; **% Adj.** is highlighted; the cursor moves to `% Adj.`, then `125 %` |  | "The percent adjustment column is yours. Type over the suggestion for a station you know behaves differently, and the row is queued for push." | `suggested-adjustments/4/2`, `suggested-adjustments/4/3` |
-| 1:23 | 1:32 | 14 Step 4 result | Focus box on `125 %`; the cursor settles on `125%`, then `125 %`, then `Push 6 Changes` |  | "The suggested value is left untouched underneath. Editing queues the station when the new value differs from what Lynx holds." | `suggested-adjustments/4/4`, `suggested-adjustments/4/5` |
-| 1:32 | 1:33 | 15 Chapter 5 | Typed chapter card | SET A SOIL FACTOR FOR PERSISTENT OFFSETS | — | `suggested-adjustments/5/1` |
-| 1:33 | 1:40 | 16 Step 5 | Lifted figure "Soil Factor Editor, opened"; **Shift** is highlighted; the cursor moves to `Soil Factor Editor`, then `Soil Factor (%)` |  | "The soil factor editor scales a station's calculated amount by 1 to 200 percent, permanently." | `suggested-adjustments/5/3` |
-| 1:40 | 1:44 | 17 Step 5 result | Focus box on `gear`; the cursor settles on `gear` |  | "It is opened with Shift plus Alt on the gear button in the toolbar." | `suggested-adjustments/5/4`, `suggested-adjustments/5/5` |
-| 1:44 | 1:49 | 18 Up next | **Next on Double Click: Filter by % Adj.** | — | — | — |
-| 1:49 | 1:54 | 19 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/suggested-adjustments` goes in the published description | — | — | — |
+| 1:23 | 1:32 | 14 Step 4 result | Focus box on `125 %`; the cursor settles on `125%`, then `125 %` |  | "The suggested value is left untouched underneath. Editing queues the station when the new value differs from what Lynx holds." | `suggested-adjustments/4/4`, `suggested-adjustments/4/5` |
+| 1:32 | 1:38 | 15 Step 4 push | Focus box on `Push 6 Changes`; the cursor rests on it |  | "The push sends your percent adjustment, so your value replaces the suggestion for that station." | `suggested-adjustments/4/5` |
+| 1:38 | 1:43 | 16 Up next | **Next on Double Click: Filter by % Adj.** | — | — | — |
+| 1:43 | 1:48 | 17 Close | End card: the lockup, "Explore the Spatial Adjust Guides", the URL pill; the guide address `https://toroadam.github.io/spatial-adjust-guide/#/suggested-adjustments` goes in the published description | — | — | — |
 
-**VO total:** 230 words in 11 lines, about 83 s spoken (measured). **Running time:** about 1:54 (114 s); the series range is 60-180 s. **Measured:** 2:17 (137.0 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
+**VO total:** 202 words in 10 lines, about 70 s spoken (measured; the soil factor chapter was removed in the 2026-10-22 review pass and its closing line replaced by one on the push). **Running time:** about 1:48 (108 s); the series range is 60-180 s. **Measured:** 2:17 (137.0 s) in the final render, take 1, with the template v1 up-next card and the chapter cards' holds.
 
 **Step text:** The guide has not been rewritten into the step shape yet: on 2026-10-20 no Do, You-should-see or If-not lines render at `#/suggested-adjustments`. Each VO line is cut from its step's body paragraph and figure caption, there is no If-not state to show (`onScreen` is empty), and the episode is re-checked with `npm run test:episodes -- suggested-adjustments` when the rewrite reaches the guide; any changed step title, highlight label or claim is then re-scripted as a new version.
 

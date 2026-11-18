@@ -53,7 +53,8 @@ const Focus = z.looseObject({ type: z.literal('focus'), target: text, name: text
 const Click = z.looseObject({ type: z.literal('click'), target: text, name: text });
 // figure swaps the lifted recreation figure for another figure of the same guide page (the start of
 // its caption), so a chapter can show the state its step's figure shows. Recreation episodes only.
-const Figure = z.looseObject({ type: z.literal('figure'), caption: text });
+// `index` (0-based, in page order) picks one figure when several share the caption; absent, exactly one must match.
+const Figure = z.looseObject({ type: z.literal('figure'), caption: text, index: z.number().int().min(0).optional() });
 // frame widens what the camera keeps in view without drawing a highlight: the target's box joins the
 // focus box the planner fits (the way a focus box does), invisibly. `name` is optional.
 const Frame = z.looseObject({ type: z.literal('frame'), target: text, name: text.optional() });

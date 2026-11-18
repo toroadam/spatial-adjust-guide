@@ -85,7 +85,7 @@
       "step": 4,
       "label": "Gray italics mean modeled",
       "highlight": {
-        "label": "modelled",
+        "label": "modeled",
         "selector": "[data-sa-frame] >> text=\"50.0%\""
       },
       "source": "recreation",
@@ -249,7 +249,7 @@
         },
         {
           "type": "wait",
-          "ms": 350
+          "ms": 550
         },
         {
           "type": "hover",

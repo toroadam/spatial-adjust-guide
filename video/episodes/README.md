@@ -167,36 +167,36 @@ Whether each guide renders the new step shape (a Do, a You-should-see and an If-
 <!-- tracker:start -->
 <!-- Generated from series.json by node scripts/episode-lint.mjs <url> --write-tracker. Edit series.json, not this block. -->
 
-26 episodes: 26 approved.
+26 episodes: 24 approved, 2 retired.
 
 | # | Wave | Key | Title | Status | Runtime | Started | Approved | Expert |
 |---|---|---|---|---|---|---|---|---|
-| 1 | 1 | `dashboard-overview` | Dashboard overview | approved | 2:34 | 2026-10-20 | 2026-10-20 | executor 2026-10-20; experts in person 2026-10-22 |
-| 2 | 1 | `understand-spatial-adjust` | Understand Spatial Adjust | approved | 1:56 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
-| 3 | 1 | `map-navigation` | Map navigation | approved | 2:06 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
-| 4 | 1 | `understanding-vwc` | Understanding VWC | approved | 2:12 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
-| 5 | 2 | `suggested-adjustments` | Understand suggested adjustments | approved | 2:17 | 2026-10-20 | 2026-10-21 | decided by executor 2026-10-21; experts in person 2026-10-22 |
-| 6 | 2 | `filter-adjustments` | Filter by % Adj. | approved | 2:23 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 7 | 2 | `push-to-lynx` | Push changes to Lynx | approved | 2:34 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 8 | 2 | `reviewing-changes` | Reviewing changes | approved | 1:52 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 9 | 2 | `verify-results` | Verify results | approved | 2:09 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 10 | 3 | `editing-station-targets` | Editing station targets | approved | 1:49 | 2026-10-20 | 2026-10-20 | executor 2026-10-20; experts in person 2026-10-22 |
-| 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | approved | 1:46 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 12 | 3 | `enable-disable-stations` | Enable and disable stations | approved | 2:07 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 13 | 3 | `station-details` | Station details | approved | 1:45 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 14 | 4 | `minimum-threshold` | Set a minimum threshold | approved | 2:14 | 2026-10-20 | 2026-10-20 | first of wave 4: decided by executor 2026-10-20; experts in person 2026-10-22 |
-| 15 | 4 | `calculation-settings` | Calculation settings | approved | 2:43 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
-| 16 | 4 | `calculation-methods` | Calculation methods | approved | 2:37 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
-| 17 | 4 | `preferences` | Preferences | approved | 2:20 | 2026-10-20 | 2026-10-20 | spot-check in person 2026-10-22 |
-| 18 | 5 | `station-zero` | Why is this station 0%? | approved | 2:26 | 2026-10-20 | 2026-10-21 | executor 2026-10-21; experts in person 2026-10-22 |
-| 19 | 5 | `request-scan-data` | Get fresh scan data | approved | 2:17 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 20 | 5 | `threshold-questions` | Threshold questions | approved | 2:06 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 21 | 5 | `calculation-questions` | Calculation questions | approved | 2:01 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 22 | 5 | `push-failures` | Push failures | approved | 1:46 | 2026-10-20 | 2026-10-21 | spot-check in person 2026-10-22 |
-| 23 | 6 | `target-profiles` | Apply a target profile | approved | 1:58 | 2026-10-20 | 2026-10-21 | executor 2026-10-21; experts in person 2026-10-22 |
-| 24 | 6 | `creating-profiles` | Capturing profiles | approved | 1:50 | 2026-10-20 | 2026-10-21 | — |
-| 25 | 6 | `updating-profiles` | Updating profiles | approved | 1:48 | 2026-10-20 | 2026-10-21 | — |
-| 26 | 6 | `seasonal-profiles` | Managing seasonal profiles | approved | 1:47 | 2026-10-20 | 2026-10-21 | — |
+| 1 | 1 | `dashboard-overview` | Dashboard overview | approved | 2:18 | 2026-10-20 | 2026-11-18 | executor 2026-10-20; experts in person 2026-10-22 |
+| 2 | 1 | `understand-spatial-adjust` | Understand Spatial Adjust | approved | 1:51 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 3 | 1 | `map-navigation` | Map navigation | approved | 2:09 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 4 | 1 | `understanding-vwc` | Understanding VWC | approved | 1:56 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 5 | 2 | `suggested-adjustments` | Understand suggested adjustments | approved | 2:02 | 2026-10-20 | 2026-11-18 | decided by executor 2026-10-21; experts in person 2026-10-22 |
+| 6 | 2 | `filter-adjustments` | Filter by % Adj. | approved | 2:22 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 7 | 2 | `push-to-lynx` | Push changes to Lynx | approved | 2:33 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 8 | 2 | `reviewing-changes` | Reviewing changes | approved | 1:51 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 9 | 2 | `verify-results` | Verify results | approved | 2:07 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 10 | 3 | `editing-station-targets` | Editing station targets | approved | 1:49 | 2026-10-20 | 2026-11-18 | executor 2026-10-20; experts in person 2026-10-22 |
+| 11 | 3 | `bulk-adjustments` | Apply a bulk adjustment | approved | 1:46 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 12 | 3 | `enable-disable-stations` | Enable and disable stations | approved | 2:06 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 13 | 3 | `station-details` | Station details | approved | 1:45 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 14 | 4 | `minimum-threshold` | Set a minimum threshold | approved | 2:13 | 2026-10-20 | 2026-11-18 | first of wave 4: decided by executor 2026-10-20; experts in person 2026-10-22 |
+| 15 | 4 | `calculation-settings` | Calculation settings | approved | 2:38 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 16 | 4 | `calculation-methods` | Calculation methods | approved | 2:32 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 17 | 4 | `preferences` | Preferences | approved | 2:18 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 18 | 5 | `station-zero` | Why is this station 0%? | approved | 2:24 | 2026-10-20 | 2026-11-18 | executor 2026-10-21; experts in person 2026-10-22 |
+| 19 | 5 | `request-scan-data` | Get fresh scan data | approved | 2:16 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 20 | 5 | `threshold-questions` | Threshold questions | approved | 2:04 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 21 | 5 | `calculation-questions` | Calculation questions | approved | 1:60 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 22 | 5 | `push-failures` | Push failures | approved | 1:45 | 2026-10-20 | 2026-11-18 | spot-check in person 2026-10-22 |
+| 23 | 6 | `target-profiles` | Capture and apply a profile | approved | 1:35 | 2026-10-20 | 2026-11-18 | executor review 2026-11-18 against the 2026-10-22 triage; owner sign-off 2026-11-18 |
+| 24 | 6 | `creating-profiles` | Capturing profiles | retired | — | 2026-10-20 | 2026-10-21 | — |
+| 25 | 6 | `updating-profiles` | Updating profiles | retired | — | 2026-10-20 | 2026-10-21 | — |
+| 26 | 6 | `seasonal-profiles` | Update and manage seasonal profiles | approved | 1:38 | 2026-10-20 | 2026-11-18 | executor review 2026-11-18 against the 2026-10-22 triage; owner sign-off 2026-11-18 |
 
 **Credits per wave** (ElevenLabs credits; estimate from series.json, method under Voice-over credits above; before and after from the account, counts only)
 

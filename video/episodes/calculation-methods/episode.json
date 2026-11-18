@@ -60,7 +60,7 @@
     {
       "id": "c2",
       "step": 2,
-      "label": "Option 2 — delta plus today’s ET, the default",
+      "label": "Option 2: delta plus today’s ET, the default",
       "highlight": {
         "label": "Option 2",
         "selector": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=.."
@@ -72,7 +72,7 @@
     {
       "id": "c3",
       "step": 3,
-      "label": "Option 1 — ratio of target to measured",
+      "label": "Option 1: ratio of target to measured",
       "highlight": {
         "label": "Option 1",
         "selector": "[data-sa-frame] >> text=/^Option [12]$/ >> xpath=.."
@@ -325,11 +325,11 @@
       "id": "b2b",
       "chapter": "c2",
       "vo": "V2b",
-      "hold": 15.13,
+      "hold": 11.45,
       "actions": [
         {
           "type": "figure",
-          "caption": "Every suggestion in this column"
+          "caption": "Runs of identical values"
         },
         {
           "type": "wait",
@@ -346,7 +346,7 @@
         },
         {
           "type": "wait",
-          "ms": 7410
+          "ms": 6540
         },
         {
           "type": "hover",
