@@ -540,7 +540,8 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
     pattern: exact("target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],"),
     replace: () => "target: (TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500],\n"
       + "          targetSrc: (TARGETS[key] && TARGETS[key][i]) ? 'targets' : (s.t ? 'step' : 'default'),\n"
-      + "          targetAttr: ((TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500]).join(','),",
+      + "          targetAttr: ((TARGETS[key] && TARGETS[key][i]) || s.t || [800, 500]).join(','),\n"
+      + "          figFixed: s.figFixed ? 'true' : 'false',",
   });
   s = edit(s, {
     name: 'cursor target: data attributes on the player stage',
@@ -553,7 +554,8 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
     name: 'cursor target: data attributes on each article figure',
     pattern: exact('<figure class="lsa-step-figure" style="margin:28px 0 0">'),
     replace: () => '<figure class="lsa-step-figure" style="margin:28px 0 0" '
-      + 'data-sa-target="{{ step.targetAttr }}" data-sa-target-src="{{ step.targetSrc }}" data-sa-step="{{ step.n }}">',
+      + 'data-sa-target="{{ step.targetAttr }}" data-sa-target-src="{{ step.targetSrc }}" data-sa-step="{{ step.n }}" '
+      + 'data-sa-fig-fixed="{{ step.figFixed }}">',
   });
 
   // --- each article figure frames its step's target --------------------------------
@@ -584,10 +586,24 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
       + '}\n\n'
       + 'function fig(kind, k, target) {\n  const f = saFrame(FIGURES[kind] || FIGURES.full, target);',
   });
+  // A closer crop of the Target Profiles table in the settings dialog: the five slot rows with
+  // their Last Updated, Stations, Update from Current and Apply Profile columns. The steps that
+  // find a row or select its Apply Profile icon use it (src/rewrite/targets.mjs), so they no longer
+  // repeat the whole-dialog picture of the steps around them.
+  s = edit(s, {
+    name: 'figure frame: Target Profiles table crop',
+    pattern: exact("  dlgCascade:{ w: 940, h: 620, s: 1.45,   x: 640,  y: 270 }\n};"),
+    replace: () => "  dlgCascade:{ w: 940, h: 620, s: 1.45,   x: 640,  y: 270 },\n"
+      + "  dlgProfiles:{ w: 940, h: 480, s: 1.55,   x: 800,  y: 410 }\n};",
+  });
+  // A step can set figFixed: true to keep its figure on the authored crop. That is for a step whose
+  // target is the control that opens what the figure shows: "Push changes to Lynx" step 2 points at
+  // the toolbar's Push Changes button while its figure is the dialog that button opens, and panning
+  // toward the toolbar cut the Current column off the dialog its caption describes.
   s = edit(s, {
     name: "figure frame: each step's figure is given its target",
     pattern: exact('const f = fig(s.fig, ratio);'),
-    replace: () => 'const f = fig(s.fig, ratio, (TARGETS[key] && TARGETS[key][i]) || s.t);',
+    replace: () => 'const f = fig(s.fig, ratio, s.figFixed ? null : ((TARGETS[key] && TARGETS[key][i]) || s.t));',
   });
 
   // --- rail chips carry their step number and English title -------------------

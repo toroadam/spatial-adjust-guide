@@ -107,9 +107,13 @@ const TP_TAB = {
   ifNot: 'If the rail has no [[Target Profiles]], your IntelliDash predates it. Change targets in the table instead.',
 };
 
+/** Finding a row and selecting its Apply Profile icon are shown on 'dlgProfiles', a closer crop of
+ *  the five-slot table (added to FIGURES by src/transform-export.mjs). On the full 'dlgWide' crop
+ *  every Target Profiles step showed the same picture of the whole dialog, several in a row. */
 /** A slot's name is an editable box in the Target Profile column; Last Updated and Stations read
  *  -- for an empty slot (sa-settings-dlg.component.html:203-206; ledger target-profiles/2/2, /2/4). */
 const FIND_PROFILE = {
+  fig: 'dlgProfiles',
   do: 'Find the profile in the [[Target Profile]] column.',
   see: 'Its row shows when it was last updated and how many stations it holds.',
 };
@@ -119,6 +123,7 @@ const FIND_PROFILE = {
  *  includes SPATIAL_ADJUST.MATCHING_STATIONS (sa-settings-dlg.component.ts:253-266;
  *  sa-settings-dlg.component.html:213-218, :262-313; ledger target-profiles/3/1). */
 const APPLY_ICON = {
+  fig: 'dlgProfiles',
   do: 'On the profile’s row, select the icon under [[Apply Profile]].',
   see: 'The [[Use Target Profile?]] dialog opens, with a count of [[Matching Stations]].',
   ifNot: 'If nothing opens, you may have cleared an earlier choice on that row. Select the icon again.',

@@ -25,6 +25,10 @@
 //                        end point within 6px. Checked on the stage after each step, and in every
 //                        article figure against that figure's own target.
 //
+// A figure whose step sets figFixed (data-sa-fig-fixed="true") keeps its authored crop on purpose:
+// its target is the control that opens what the figure shows, so the target is outside the crop
+// by design. Those are reported as FIXED-CROP and listed, not failed.
+//
 // Every guide key is visited by URL (#/<key>), from scripts/lib/load-guides.mjs, so a
 // <key>-part-N guide with no catalogue card is checked too.
 //
@@ -103,7 +107,8 @@ const probeFigures = () => page.evaluate((tol) => [...document.querySelectorAll(
   const [tx, ty] = (f.getAttribute('data-sa-target') || '').split(',').map(Number);
   const app = f.querySelector('.sa-app');
   const hl = f.querySelector(':scope > .lsa-hl');
-  const out = { step: Number(f.getAttribute('data-sa-step')), src: f.getAttribute('data-sa-target-src'), target: [tx, ty] };
+  const out = { step: Number(f.getAttribute('data-sa-step')), src: f.getAttribute('data-sa-target-src'), target: [tx, ty],
+    fixed: f.getAttribute('data-sa-fig-fixed') === 'true' };
   if (!app) return { ...out, ring: 'no-app' };
   const ar = app.getBoundingClientRect();
   const k = ar.width / 1920;
@@ -308,7 +313,7 @@ for (const g of guides) {
     await settleRing();
   }
   for (const f of await probeFigures()) {
-    f.verdict = f.src === 'default' ? 'FALLBACK-COORDINATE' : f.contains ? 'HIGHLIGHTED' : 'NO-HIGHLIGHT';
+    f.verdict = f.src === 'default' ? 'FALLBACK-COORDINATE' : f.contains ? 'HIGHLIGHTED' : f.fixed ? 'FIXED-CROP' : 'NO-HIGHLIGHT';
     figures.push({ guide: g, ...f });
   }
 }
@@ -355,7 +360,8 @@ for (const r of rows) r.verdict = verdictOf(r);
 const by = rows.reduce((a, r) => ({ ...a, [r.verdict]: (a[r.verdict] || 0) + 1 }), {});
 
 const HARD = ['OFF-STAGE', 'NOTHING-UNDER-CURSOR', 'FALLBACK-COORDINATE', 'NO-HIGHLIGHT'];
-const figBad = figures.filter((f) => f.verdict !== 'HIGHLIGHTED');
+const figBad = figures.filter((f) => f.verdict !== 'HIGHLIGHTED' && f.verdict !== 'FIXED-CROP');
+const figFixed = figures.filter((f) => f.verdict === 'FIXED-CROP');
 const count = (v) => ({
   stage: rows.filter((r) => r.verdict === v).length,
   figures: figures.filter((f) => f.verdict === v).length,
@@ -369,7 +375,7 @@ const walked = rows.length;
 
 if (asJson) {
   console.log(JSON.stringify({ guides: guides.length, steps: rows.length, expected, by, unreached,
-    fallbackCoordinate: fallback, noHighlight, rows, figures }, null, 2));
+    fallbackCoordinate: fallback, noHighlight, fixedCrop: figFixed.length, rows, figures }, null, 2));
 } else {
   console.log(`CURSOR TARGET  ${guides.length} guide(s) · ${rows.length} of ${expected} step(s) with a cursor · ${figures.length} figure(s)`);
   for (const [k, v] of Object.entries(by).sort()) console.log(`  ${k.padEnd(22)} ${v}`);
@@ -386,6 +392,10 @@ if (asJson) {
     for (const f of figBad) {
       console.log(`  [${f.verdict}] ${f.guide} (figure, step ${f.step})\n      target (${f.target.join(',')}) src ${f.src}, ring ${f.ring}`);
     }
+  }
+  if (figFixed.length) {
+    console.log('\n--- fixed crop, target outside the figure by design (figFixed) ---');
+    for (const f of figFixed) console.log(`  ${f.guide} (figure, step ${f.step}) target (${f.target.join(',')})`);
   }
   const bad = rows.filter((r) => r.verdict === 'OFF-STAGE' || r.verdict === 'NOTHING-UNDER-CURSOR');
   if (bad.length) {

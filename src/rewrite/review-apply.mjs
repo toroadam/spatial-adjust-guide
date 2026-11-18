@@ -234,6 +234,9 @@ function pushToLynx(src, h) {
       + 'first, with everything ticked; Pushed Today follows, unticked. Tick a pushed station only if you '
       + 'genuinely mean to adjust it a second time today.',
     set: {
+      // The target is the toolbar button but the figure is the dialog it opens, so the figure keeps
+      // its crop rather than panning toward the toolbar (see figFixed in src/transform-export.mjs).
+      figFixed: true,
       do: 'Select [[Push Changes]].',
       see: 'The [[Push Changes]] dialog lists Available to Push first, all ticked, then [[Pushed Today]], unticked.',
       ifNot: 'If nothing opens, [[Push Changes]] is grayed out because nothing is waiting.',
