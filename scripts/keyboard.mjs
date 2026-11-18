@@ -8,7 +8,7 @@
 // segment move the player to that step, with the live region and aria-current following, and
 // Space does not start play-all. Attribute presence is not enough — this drives the real thing.
 import { chromium } from 'playwright';
-import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
+import { HIDE_STEP_PLAYER } from './lib/step-player.mjs';
 import { installMediaFixture } from './lib/media-fixture.mjs';
 
 const url = process.argv[2];

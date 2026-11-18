@@ -17,6 +17,10 @@
 // Usage: node scripts/repro-inventory.mjs <url> [--out src/i18n/repro-labels.json]
 import { writeFile, readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { requireStepPlayer } from './lib/step-player.mjs';
+
+// Both walk the step player one step at a time, so they need a build with it shown.
+requireStepPlayer('repro-inventory');
 
 const url = (process.argv[2] || 'http://localhost:8124/').replace(/\/$/, '');
 const oi = process.argv.indexOf('--out');

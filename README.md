@@ -123,6 +123,8 @@ The fingerprint harness verified the original port: output was **identical** bet
 
 `npm test`, `test:routing`, `test:release-modes` and `test:leak` follow `SA_SHOW_BETA` the way the build does: with beta hidden, the smoke test expects only the GA guides' cards and routing expects a beta guide's address to fall back to the catalog. Build and test with the same value. `.github/workflows/release-modes.yml` runs the suite in both modes on every push and pull request; see **Beta content and the customer launch**.
 
+**The step player is hidden by default.** `HIDE_STEP_PLAYER` in `src/transform-export.mjs` hides the middle step player on every guide page. For diagnostics that step through it, build with `SA_SHOW_STEP_PLAYER=1 npm run build` (`0`/`false` or unset keep it hidden; anything else fails the build before `dist/` is touched). The build records the result in `<meta name="sa-step-player">`, and the browser tests read it from `dist/` through `scripts/lib/step-player.mjs`, so they test whichever build is served. `scripts/frames.mjs` and `npm run fidelity:inventory` need the player shown and exit 2 with that instruction when it is hidden. The deploy never sets the variable.
+
 ## Accessibility and responsive behaviour
 
 `src/a11y.css` and `src/a11y.js` are injected by the build and live outside the Core Design export so a re-export can't discard them.

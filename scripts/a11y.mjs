@@ -16,7 +16,7 @@
 // the player mounted and its transcript open. Any violation id there that the plain guide scan does
 // not have, and any violation at all inside the panel itself, is a regression the panel introduced.
 // Those are listed as newViolations and are the only thing that makes this script exit 1.
-import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
+import { HIDE_STEP_PLAYER } from './lib/step-player.mjs';
 import { chromium } from 'playwright';
 import { AxeBuilder } from '@axe-core/playwright';
 import { installMediaFixture } from './lib/media-fixture.mjs';

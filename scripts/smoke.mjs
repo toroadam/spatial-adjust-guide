@@ -20,7 +20,7 @@ import { chromium } from 'playwright';
 import { CAPTION_LOCALES } from '../src/media/captions.mjs';
 import { installMediaFixture } from './lib/media-fixture.mjs';
 import { readFileSync } from 'node:fs';
-import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
+import { HIDE_STEP_PLAYER } from './lib/step-player.mjs';
 import { parseShowBeta, loadRelease, isGuideShipped } from '../src/release.mjs';
 
 const args = process.argv.slice(2);

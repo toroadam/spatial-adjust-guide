@@ -33,7 +33,7 @@
 // <key>-part-N guide with no catalogue card is checked too.
 //
 // Usage: node scripts/cursor-target.mjs <url> [--json] [--only <key>[,<key>...]]
-import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
+import { HIDE_STEP_PLAYER } from './lib/step-player.mjs';
 import { readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 import { loadGuides } from './lib/load-guides.mjs';

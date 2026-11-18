@@ -7,6 +7,10 @@
 // Usage: node scripts/frames.mjs <url> [--out frames.json]
 import { writeFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
+import { requireStepPlayer } from './lib/step-player.mjs';
+
+// Both walk the step player one step at a time, so they need a build with it shown.
+requireStepPlayer('frames');
 
 const url = (process.argv[2] || 'http://localhost:8124/').replace(/\/$/, '');
 const oi = process.argv.indexOf('--out');

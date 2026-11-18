@@ -511,7 +511,7 @@ function glossary(src) {
  *
  * Pure: the same source and options always give the same output, so build.mjs may call it twice.
  */
-export function transformGuide(src, { showBeta = true, release = null } = {}) {
+export function transformGuide(src, { showBeta = true, release = null, showStepPlayer = !HIDE_STEP_PLAYER } = {}) {
   let s = src;
 
   // --- class hooks the responsive layer targets -------------------------------
@@ -1237,7 +1237,7 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
   });
 
   // --- the middle step player: hidden for now (see HIDE_STEP_PLAYER) ---------------
-  if (HIDE_STEP_PLAYER) s = hideStepPlayer(s);
+  if (!showStepPlayer) s = hideStepPlayer(s);
 
 
   // 8. The Target Profiles notes. The export calls the feature "a design concept" whose tab is a
@@ -1520,6 +1520,22 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
  *  scroll-down step guide below it stay. Flip to false and rebuild to bring it back: every edit in
  *  hideStepPlayer() is skipped and the export's original markup and logic are untouched. */
 export const HIDE_STEP_PLAYER = true;
+
+/** SA_SHOW_STEP_PLAYER, for diagnostics only. Unset or empty keeps HIDE_STEP_PLAYER's default;
+ *  "1" or "true" builds with the player shown, "0" or "false" with it hidden. Anything else throws,
+ *  so a typo cannot quietly publish the wrong page. scripts/frames.mjs and
+ *  scripts/repro-inventory.mjs step through the player and need a build with it shown:
+ *    SA_SHOW_STEP_PLAYER=1 npm run build
+ *  The deploy workflow never sets it, so the published site keeps the default. build.mjs records
+ *  the result in <meta name="sa-step-player">, which the test scripts read through
+ *  scripts/lib/step-player.mjs. */
+export function parseShowStepPlayer(raw) {
+  const v = raw === undefined ? '' : String(raw).trim().toLowerCase();
+  if (v === '') return !HIDE_STEP_PLAYER;
+  if (v === '1' || v === 'true') return true;
+  if (v === '0' || v === 'false') return false;
+  throw new Error(`SA_SHOW_STEP_PLAYER must be true, 1, false or 0 (or unset); received "${raw}"`);
+}
 
 /** Hide the walkthrough stage without deleting it. display:none plus [hidden] takes it out of the
  *  tab order and the accessibility tree; the section stays in the DOM so the runtime, the live

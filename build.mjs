@@ -16,7 +16,7 @@
 
 import { readFile, writeFile, mkdir, rm, cp, copyFile, readdir } from 'node:fs/promises';
 import { isAbsolute, join, relative, resolve, sep } from 'node:path';
-import { transformGuide } from './src/transform-export.mjs';
+import { transformGuide, parseShowStepPlayer } from './src/transform-export.mjs';
 import { transformApp } from './src/transform-app.mjs';
 import { parseShowBeta, loadRelease, isGuideShipped } from './src/release.mjs';
 import { evaluateGuideData, catalogueOmissions } from './src/transforms/release-gate.mjs';
@@ -215,6 +215,10 @@ async function main() {
   const rawShowBeta = process.env.SA_SHOW_BETA;
   const showBeta = parseShowBeta(rawShowBeta);
   const { release, file: releaseFile } = loadRelease();
+  // The step player is hidden by default (HIDE_STEP_PLAYER); SA_SHOW_STEP_PLAYER=1 shows it for the
+  // diagnostics that step through it. The deploy never sets it. Parsed here for the same reason.
+  const rawShowStepPlayer = process.env.SA_SHOW_STEP_PLAYER;
+  const showStepPlayer = parseShowStepPlayer(rawShowStepPlayer);
 
   await rm(DIST, { recursive: true, force: true });
   await mkdir(DIST, { recursive: true });
@@ -243,7 +247,7 @@ async function main() {
   // makes re-exports free. Each transform asserts its own anchor, so a shape change fails
   // the build rather than quietly dropping keyboard support.
   const exported = html;
-  html = transformGuide(exported, { showBeta, release });
+  html = transformGuide(exported, { showBeta, release, showStepPlayer });
 
   // With beta content removed, the strings only it used must not ship either: a catalogue is
   // fetched by every reader and would publish the beta prose in English. transformGuide() is pure,
@@ -413,6 +417,7 @@ async function main() {
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="sa-release-mode" content="${showBeta ? 'with-beta' : 'ga-only'}">
+<meta name="sa-step-player" content="${showStepPlayer ? 'shown' : 'hidden'}">
 <style>\n${a11yCss}\n${stepsCss}\n${releaseCss}\n${gateCss}\n${contactCss}\n${feedbackCss}\n${mediaCss}\n${splashCss}\n${playerCss}\n</style>
 <script>\n${gateBoot}\n</script>
 </head>`);
@@ -499,6 +504,8 @@ async function main() {
     + `(SA_SHOW_BETA=${rawShowBeta === undefined ? 'unset' : JSON.stringify(rawShowBeta)}), `
     + `release file ${releaseFile.startsWith(ROOT + sep) ? relative(ROOT, releaseFile) : releaseFile}`
     + (omitted ? `, ${leftOut.size} beta-only catalogue key(s) left out of the locale catalogues` : ''));
+  console.log(`step player: ${showStepPlayer ? 'shown' : 'hidden'} `
+    + `(SA_SHOW_STEP_PLAYER=${rawShowStepPlayer === undefined ? 'unset' : JSON.stringify(rawShowStepPlayer)})`);
 }
 
 await main();

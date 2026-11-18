@@ -6,7 +6,7 @@
 // (scripts/lib/media-fixture.mjs): play, play again, then ended, dispatched as synthetic events on the
 // dashboard-overview video, which src/media.js's capture-phase listeners handle exactly like real
 // playback. That is one playthrough, so exactly one video_played and one video_completed.
-import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
+import { HIDE_STEP_PLAYER } from './lib/step-player.mjs';
 import { chromium } from 'playwright';
 import { installMediaFixture } from './lib/media-fixture.mjs';
 
