@@ -10,7 +10,7 @@
   "source": "recreation",
   "mapPolicy": "restyle",
   "allowClicks": [
-    "Next step"
+    "Language: English"
   ],
   "demoWriteClicks": [],
   "claims": [],
@@ -39,8 +39,8 @@
         },
         {
           "type": "click",
-          "target": "role=button[name=\"Next step\"]",
-          "name": "Next step"
+          "target": "role=button[name=\"Language: English\"]",
+          "name": "Language: English"
         },
         {
           "type": "wait",
