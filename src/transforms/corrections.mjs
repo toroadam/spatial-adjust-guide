@@ -320,6 +320,10 @@ export const CORRECTIONS = [
 // settings dialog lists Target Profiles unconditionally, and the entry is absent from every
 // earlier release branch. docs/text-corrections.md §11 gives the evidence.
 export const NEW_IN_INTELLIDASH = ['target-profiles', 'creating-profiles', 'updating-profiles', 'seasonal-profiles'];
+// The catalogue badge goes on the first of the four tiles only. The four sit side by side in
+// Targets, and the same badge four times over read as noise rather than news. Each guide page
+// still opens with the labelled note.
+export const NEW_BADGE_TILES = ['target-profiles'];
 
 function flagNewInIntelliDash(s) {
   const keys = NEW_IN_INTELLIDASH.join('|');
@@ -334,9 +338,9 @@ function flagNewInIntelliDash(s) {
   // CATEGORIES tiles.
   return edit(s, {
     name: 'new in IntelliDash: tile flags',
-    pattern: new RegExp(`(\\{ key: '(?:${keys})', )`, 'g'),
+    pattern: new RegExp(`(\\{ key: '(?:${NEW_BADGE_TILES.join('|')})', )`, 'g'),
     replace: '$1newInIntelliDash: true, ',
-    expected: NEW_IN_INTELLIDASH.length,
+    expected: NEW_BADGE_TILES.length,
   });
 }
 
