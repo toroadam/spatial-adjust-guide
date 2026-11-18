@@ -1220,6 +1220,9 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
     if (this._applyRoute) window.removeEventListener('popstate', this._applyRoute);`,
   });
 
+  // --- the middle step player: hidden for now (see HIDE_STEP_PLAYER) ---------------
+  if (HIDE_STEP_PLAYER) s = hideStepPlayer(s);
+
 
   // 8. The Target Profiles notes. The export calls the feature "a design concept" whose tab is a
   //    "placeholder … not reachable in the shipping build". An earlier pass replaced that with
@@ -1493,5 +1496,46 @@ export function transformGuide(src, { showBeta = true, release = null } = {}) {
     });
   }
 
+  return s;
+}
+
+/** The middle "step by step" widget (the walkthrough stage: app reproduction, step panel, rail,
+ *  prev/next and Play all). Hidden for now at the owner's request; the video panel above it and the
+ *  scroll-down step guide below it stay. Flip to false and rebuild to bring it back: every edit in
+ *  hideStepPlayer() is skipped and the export's original markup and logic are untouched. */
+export const HIDE_STEP_PLAYER = true;
+
+/** Hide the walkthrough stage without deleting it. display:none plus [hidden] takes it out of the
+ *  tab order and the accessibility tree; the section stays in the DOM so the runtime, the live
+ *  region and the translation catalogues keep working. The things that pointed at it are cut with
+ *  it: the "Walkthrough" entry in "On this page", its scroll-spy slot, and the window key bindings
+ *  (arrows step, Space plays), which would otherwise act on the hidden player and swallow Space. */
+export function hideStepPlayer(s) {
+  s = edit(s, {
+    name: 'step player: hide the walkthrough section',
+    pattern: /<section id="walkthrough" style="margin-top:40px;scroll-margin-top:96px">/,
+    replace: '<section id="walkthrough" class="lsa-step-player" hidden aria-hidden="true" style="display:none;margin-top:40px;scroll-margin-top:96px">',
+  });
+  s = edit(s, {
+    name: 'step player: drop the Walkthrough entry from On this page',
+    pattern: /const tocRaw = \[\{ id: 'walkthrough', num: '', label: 'Walkthrough' \}, \{ id: 'before'/,
+    replace: "const tocRaw = [{ id: 'before'",
+  });
+  s = edit(s, {
+    name: 'step player: scroll-spy skips the walkthrough',
+    pattern: /const ids = \['walkthrough', 'before'\]/,
+    replace: "const ids = ['before']",
+  });
+  s = edit(s, {
+    name: 'step player: first tracked section is Before you start',
+    pattern: /activeToc: 'walkthrough'/g,
+    replace: "activeToc: 'before'",
+    expected: 3,
+  });
+  s = edit(s, {
+    name: 'step player: no step or play keys',
+    pattern: /if \(e\.key === 'ArrowRight'\) \{ e\.preventDefault\(\); this\.setPlayerStep\(Math\.min\(n - 1, this\.state\.playerStep \+ 1\)\); \}\n\s*else if \(e\.key === 'ArrowLeft'\) \{ e\.preventDefault\(\); this\.setPlayerStep\(Math\.max\(0, this\.state\.playerStep - 1\)\); \}\n\s*else if \(e\.key === ' '\) \{ e\.preventDefault\(\); this\.togglePlayAll\(\); \}\n\s*else if \(e\.key === 'Escape'\)/,
+    replace: "if (e.key === 'Escape')",
+  });
   return s;
 }

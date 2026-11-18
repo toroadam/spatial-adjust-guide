@@ -16,6 +16,7 @@
 // the player mounted and its transcript open. Any violation id there that the plain guide scan does
 // not have, and any violation at all inside the panel itself, is a regression the panel introduced.
 // Those are listed as newViolations and are the only thing that makes this script exit 1.
+import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
 import { chromium } from 'playwright';
 import { AxeBuilder } from '@axe-core/playwright';
 import { installMediaFixture } from './lib/media-fixture.mjs';
@@ -48,7 +49,9 @@ const overlayState = (p) => p.evaluate(() => {
   const label = stage && stage.querySelector(':scope > .lsa-chapter');
   const strip = document.querySelector('.lsa-strip');
   const segs = strip ? strip.querySelectorAll('button.lsa-strip-seg') : [];
+  const overlayEls = [...document.querySelectorAll('.lsa-hl, .lsa-chapter, .lsa-strip')];
   return {
+    hiddenOk: overlayEls.filter((e) => e.closest('#walkthrough')).every((e) => e.offsetParent === null),
     ring: !!(hl && hl.getAttribute('data-sa-hl') === 'on' && hl.getBoundingClientRect().width > 0),
     ringTransition: hl ? getComputedStyle(hl).transitionDuration : null,
     chapterLabel: label ? label.textContent.trim() : '',
@@ -57,7 +60,9 @@ const overlayState = (p) => p.evaluate(() => {
   };
 });
 
-const overlayOk = (o) => o.ring && !!o.chapterLabel && !!o.strip && o.strip.role === 'group'
+// With the middle step player hidden (HIDE_STEP_PLAYER) the overlay is never on screen: no visible ring,
+// chapter label or strip in the stage (the written steps' figure rings stay), so none of it can reach a reader or a screen reader.
+const overlayOk = (o) => HIDE_STEP_PLAYER ? o.hiddenOk : o.ring && !!o.chapterLabel && !!o.strip && o.strip.role === 'group'
   && !!o.strip.label && o.strip.segments > 1 && o.strip.current === 1;
 
 const openGuide = async (p) => {
@@ -111,7 +116,7 @@ const overlayReduced = await overlayState(rmPage);
 // Step the player, which pans the camera and moves the ring, then list whatever is still animating
 // inside the guide. src/a11y.css shortens every duration to .001ms under reduced motion, so a
 // running animation longer than a millisecond is motion that escaped it.
-await rmPage.locator('[aria-label="Next step"]').first().click();
+if (!HIDE_STEP_PLAYER) await rmPage.locator('[aria-label="Next step"]').first().click();
 await rmPage.waitForTimeout(150);
 const animatingReduced = await rmPage.evaluate(() => document.getAnimations()
   .filter((a) => a.playState === 'running')
@@ -157,7 +162,7 @@ const newInReduced = guideReduced.rules.filter((id) => !guide.rules.includes(id)
 const pass = overlayOk(overlay) && overlayOk(overlayReduced)
   && guide.onOverlay.length === 0 && guideReduced.onOverlay.length === 0
   && newInReduced.length === 0 && animatingReduced.length === 0
-  && overlayReduced.ringTransition === '0s';
+  && (HIDE_STEP_PLAYER || overlayReduced.ringTransition === '0s');
 
 console.log(JSON.stringify({ catalog, guide, guideReduced, keyboard: kb, player,
   overlay, overlayReduced, newInReduced, animatingReduced, media: { ...media, scan: playerScan, panelScan }, newViolations }, null, 2));

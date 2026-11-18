@@ -8,6 +8,7 @@
 // segment move the player to that step, with the live region and aria-current following, and
 // Space does not start play-all. Attribute presence is not enough — this drives the real thing.
 import { chromium } from 'playwright';
+import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
 import { installMediaFixture } from './lib/media-fixture.mjs';
 
 const url = process.argv[2];
@@ -51,8 +52,11 @@ if (card) {
   await page.keyboard.press('Enter');
   await page.waitForTimeout(2200);
 }
-results.openedGuideViaEnter = await page.evaluate(() =>
-  /Step 1 of/i.test(document.body.innerText || ''));
+// With the middle step player hidden (HIDE_STEP_PLAYER) there is no "Step 1 of n" on screen; the guide
+// is open once its written "Before you start" section is.
+results.openedGuideViaEnter = await page.evaluate((hidden) =>
+  hidden ? !!document.getElementById('before') && /^#\//.test(location.hash) : /Step 1 of/i.test(document.body.innerText || ''),
+HIDE_STEP_PLAYER);
 
 // 4. Tab to "Next step" and activate with Space; confirm the live region changed.
 const before = await page.evaluate(() => document.querySelector('[aria-live]')?.textContent?.trim() || '');
@@ -65,6 +69,24 @@ for (let i = 0; i < 40 && !hitNext; i++) {
 await page.waitForTimeout(900);
 const after = await page.evaluate(() => document.querySelector('[aria-live]')?.textContent?.trim() || '');
 results.advancedStepByKeyboard = { hitNext, before, after, changed: !!before && before !== after };
+if (HIDE_STEP_PLAYER) {
+  // Hidden player: Next step and the chapter strip must not be reachable, the arrow keys must not
+  // step it (they are unbound) and Space must scroll the page rather than being swallowed.
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await page.keyboard.press('ArrowRight');
+  await page.waitForTimeout(300);
+  const y0 = await page.evaluate(() => scrollY);
+  await page.evaluate(() => document.activeElement && document.activeElement.blur());
+  await page.keyboard.press(' ');
+  await page.waitForTimeout(500);
+  const y1 = await page.evaluate(() => scrollY);
+  results.advancedStepByKeyboard = {
+    hitNext,
+    stripSegments: await page.evaluate(() => [...document.querySelectorAll('.lsa-strip-seg')].filter((e) => e.offsetParent !== null).length),
+    spaceScrolled: y1 > y0,
+  };
+  results.advancedStepByKeyboard.changed = !hitNext && results.advancedStepByKeyboard.stripSegments === 0 && results.advancedStepByKeyboard.spaceScrolled;
+}
 
 // 6 (below 5 so the focus check still sees the Next control). The chapter strip.
 const live = () => page.evaluate(() => document.querySelector('[aria-live]')?.textContent?.trim() || '');
@@ -75,6 +97,7 @@ const seg = () => page.evaluate(() => {
 const current = () => page.evaluate(() =>
   Number(document.querySelector('.lsa-strip-seg[aria-current="step"]')?.getAttribute('data-sa-n') || 0));
 async function stripChecks() {
+  if (HIDE_STEP_PLAYER) return { skipped: 'step player hidden', ok: true };
   const out = {};
   out.segments = await page.evaluate(() => document.querySelectorAll('.lsa-strip-seg').length);
   out.group = await page.evaluate(() => {
@@ -125,7 +148,8 @@ async function stripChecks() {
   return out;
 }
 
-// 5. Focus must be visible.
+// 5. Focus must be visible. (Hidden player: focus was blurred above, so Tab to the next control first.)
+if (HIDE_STEP_PLAYER) await page.keyboard.press('Tab');
 results.focusVisible = await page.evaluate(() => {
   const e = document.activeElement;
   if (!e) return false;

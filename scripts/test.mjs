@@ -16,7 +16,7 @@ import { spawn } from 'node:child_process';
 import { createServer } from 'node:http';
 import { staticHandler } from './lib/static-server.mjs';
 
-const server = createServer(staticHandler('dist'));
+const server = createServer(staticHandler(process.env.SA_DIST_DIR || 'dist'));
 
 await new Promise((r) => server.listen(0, r));
 const { port } = server.address();

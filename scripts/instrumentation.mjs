@@ -6,6 +6,7 @@
 // (scripts/lib/media-fixture.mjs): play, play again, then ended, dispatched as synthetic events on the
 // dashboard-overview video, which src/media.js's capture-phase listeners handle exactly like real
 // playback. That is one playthrough, so exactly one video_played and one video_completed.
+import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
 import { chromium } from 'playwright';
 import { installMediaFixture } from './lib/media-fixture.mjs';
 
@@ -201,7 +202,9 @@ const result = {
   errors: [...new Set(errors)],
 };
 
-const required = ['guide_opened', 'step_advanced'];
+// step_advanced comes from the step player's controls; with the player hidden (HIDE_STEP_PLAYER) a reader
+// has no way to produce it, so it is only required while the player is shown.
+const required = HIDE_STEP_PLAYER ? ['guide_opened'] : ['guide_opened', 'step_advanced'];
 const pass =
   required.every((n) => uniq.includes(n)) &&
   report.guidesOpened.length > 0 &&

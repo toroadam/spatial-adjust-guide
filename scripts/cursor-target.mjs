@@ -29,6 +29,7 @@
 // <key>-part-N guide with no catalogue card is checked too.
 //
 // Usage: node scripts/cursor-target.mjs <url> [--json] [--only <key>[,<key>...]]
+import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
 import { readFile } from 'node:fs/promises';
 import { chromium } from 'playwright';
 import { loadGuides } from './lib/load-guides.mjs';
@@ -279,7 +280,9 @@ for (const g of guides) {
   if (!opened) { unreached.push(g); continue; }
   await page.waitForTimeout(900);
   await settleRing();
-  for (let i = 0; i < 40; i++) {
+  // The stage steps are walked with the player's Next control. With the player hidden
+  // (HIDE_STEP_PLAYER) there is no stage on screen to walk, so only the figures are checked.
+  for (let i = 0; i < 40 && !HIDE_STEP_PLAYER; i++) {
     const r = await probe();
     if (r.missing) break;
     rows.push({ guide: g, ...r });
@@ -416,7 +419,8 @@ if (asJson) {
 // a table region rather than a named label is a legitimate thing for a step to do, and failing
 // on it would make the check something people switch off.
 const hard = rows.filter((r) => HARD.includes(r.verdict));
-const pass = hard.length === 0 && figBad.length === 0 && unreached.length === 0 && walked === expected;
-if (walked !== expected) console.log(`\nwalked ${walked} of ${expected} steps`);
+const pass = hard.length === 0 && figBad.length === 0 && unreached.length === 0 && (HIDE_STEP_PLAYER || walked === expected);
+if (HIDE_STEP_PLAYER) console.log('\nstage steps not walked: the step player is hidden (HIDE_STEP_PLAYER); figures only');
+else if (walked !== expected) console.log(`\nwalked ${walked} of ${expected} steps`);
 console.log(`\nCURSOR TARGET: ${pass ? 'PASS' : 'FAIL'}`);
 process.exit(pass ? 0 : 1);

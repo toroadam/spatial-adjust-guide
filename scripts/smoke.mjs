@@ -20,6 +20,7 @@ import { chromium } from 'playwright';
 import { CAPTION_LOCALES } from '../src/media/captions.mjs';
 import { installMediaFixture } from './lib/media-fixture.mjs';
 import { readFileSync } from 'node:fs';
+import { HIDE_STEP_PLAYER } from '../src/transform-export.mjs';
 import { parseShowBeta, loadRelease, isGuideShipped } from '../src/release.mjs';
 
 const args = process.argv.slice(2);
@@ -175,6 +176,20 @@ try {
       stageMounted: !!document.querySelector('.sa-app'),
       steps: (txt.match(/Step \d+/gi) || []).length,
       chars: txt.length,
+      // The middle step player (#walkthrough) and what must survive its being hidden.
+      player: (() => {
+        const w = document.getElementById('walkthrough');
+        const shown = !!w && w.offsetParent !== null && getComputedStyle(w).display !== 'none';
+        return {
+          present: !!w,
+          shown,
+          focusable: w ? [...w.querySelectorAll('a[href],button,input,select,textarea,[tabindex]')].filter((e) => e.offsetParent !== null).length : 0,
+          tocWalkthrough: [...document.querySelectorAll('.lsa-toc a')].some((a) => a.getAttribute('href') === '#walkthrough'),
+          tocLinks: document.querySelectorAll('.lsa-toc a').length,
+          writtenSteps: document.querySelectorAll('[id^="step-"]').length,
+          before: !!document.getElementById('before'),
+        };
+      })(),
     };
   });
 } catch { /* reported as guide: null */ }
@@ -211,6 +226,17 @@ if (mediaFixture) {
     await settle(false);
     expectNone('target-profiles', await panelCount());
   }
+}
+
+// HIDE_STEP_PLAYER (src/transform-export.mjs): the middle step player is hidden, the written steps stay.
+if (guide?.player) {
+  const pl = guide.player;
+  if (!pl.writtenSteps || !pl.before) media.problems.push('the scroll-down step guide is missing');
+  if (HIDE_STEP_PLAYER) {
+    if (pl.shown) media.problems.push('step player: #walkthrough is visible but HIDE_STEP_PLAYER is on');
+    if (pl.focusable) media.problems.push(`step player: ${pl.focusable} focusable control(s) inside the hidden player`);
+    if (pl.tocWalkthrough) media.problems.push('step player: "On this page" still links to #walkthrough');
+  } else if (!pl.shown) media.problems.push('step player: #walkthrough is hidden but HIDE_STEP_PLAYER is off');
 }
 
 const result = {

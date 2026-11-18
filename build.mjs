@@ -30,7 +30,7 @@ import { loadGuidesFromHtml } from './scripts/lib/load-guides.mjs';
 import { checkShape } from './scripts/step-shape.mjs';
 
 const ROOT = import.meta.dirname;
-const DIST = join(ROOT, 'dist');
+const DIST = process.env.SA_DIST_DIR ? resolve(process.env.SA_DIST_DIR) : join(ROOT, 'dist');
 
 const ENTRY = 'Learn Spatial Adjust.dc.html';
 const COMPONENTS = ['SpatialAdjustApp'];
