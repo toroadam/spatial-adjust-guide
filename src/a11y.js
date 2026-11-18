@@ -44,24 +44,35 @@
   }
 
   // 3. Small-screen explanation, shown by CSS only below the tablet breakpoint.
-  //    Placed next to the stage so it appears where the visual walkthrough would be.
+  //    Once per guide, above the first step figure, where the visual walkthrough would start.
+  //    It used to sit before every figure, which repeated the same paragraph six or seven
+  //    times down a phone screen. Anchors inside the hidden step player are skipped, or the
+  //    one note would land somewhere nobody can see it.
   function addSmallScreenNote() {
     var anchors = document.querySelectorAll('.lsa-stage-frame, .lsa-step-figure');
+    var first = null;
     for (var i = 0; i < anchors.length; i++) {
       var a = anchors[i];
       // The stage sits in a flex row beside the step panel. With the stage hidden the row
       // still lays its remaining children out side by side, which squeezes and clips them,
       // so tag the row for the phone breakpoint to stack it.
       if (a.parentElement) a.parentElement.classList.add('lsa-stage-row');
-      if (a.previousElementSibling && a.previousElementSibling.classList.contains('lsa-small-screen-note')) continue;
-      var note = document.createElement('div');
-      note.className = 'lsa-small-screen-note';
-      note.innerHTML =
-        '<strong>The interactive walkthrough needs a wider screen.</strong> ' +
-        'Spatial Adjust itself is desktop and tablet only, so the screen it shows you is too. ' +
-        'The written steps below cover the same ground — open this on a laptop or tablet to follow along visually.';
-      a.parentNode.insertBefore(note, a);
+      if (!first && !(a.closest && a.closest('#walkthrough'))) first = a;
     }
+    var notes = document.querySelectorAll('.lsa-small-screen-note');
+    for (var j = 0; j < notes.length; j++) {
+      if (notes[j].nextElementSibling !== first) notes[j].parentNode.removeChild(notes[j]);
+    }
+    if (!first) return;
+    var prev = first.previousElementSibling;
+    if (prev && prev.classList.contains('lsa-small-screen-note')) return;
+    var note = document.createElement('div');
+    note.className = 'lsa-small-screen-note';
+    note.innerHTML =
+      '<strong>The interactive walkthrough needs a wider screen.</strong> ' +
+      'Spatial Adjust itself is desktop and tablet only, so the screen it shows you is too. ' +
+      'The written steps below cover the same ground — open this on a laptop or tablet to follow along visually.';
+    first.parentNode.insertBefore(note, first);
   }
 
   // 4. The guide body sits in a flex row next to the "On this page" sidebar. At phone

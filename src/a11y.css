@@ -153,6 +153,10 @@
   .lsa, .lsa * { max-width: 100%; }
 }
 
+/* The footer's section links scroll to a catalogue heading; without an offset it lands under
+   the sticky 65px header. */
+.lsa h2 { scroll-margin-top: 80px; }
+
 /* ---------- section tracker ("On this page") ----------
    Pinned just below the sticky 65px header by a transform. A guide has at most 8 steps
    (scripts/step-shape.mjs), but a short window can still be shorter than the list, so cap it
@@ -270,4 +274,19 @@
   /* Anchor the menu to the right so an 11-row list cannot push off-screen. */
   .lsa-lang-menu { left: auto; right: 0; min-width: 190px; }
   .lsa-lang-opt { padding: 11px 12px; }
+
+  /* The search placeholder is longer than the ~200px the field gets here, in every locale, and
+     was cut mid-word. A slightly smaller size fits more of it and the ellipsis says there is more,
+     without a shorter phone-only string that would need ten new translations. */
+  .lsa-hdr input { font-size: 14px !important; text-overflow: ellipsis; }
+
+  /* Each catalogue section heads with its title and blurb side by side, which at phone width
+     squeezed the title onto two lines beside a wrapped blurb. Stack them. The selector is the
+     export's inline style, as for the card grids above. */
+  .lsa [style*="display:flex;align-items:center;gap:16px;margin-bottom:24px"],
+  .lsa [style*="display: flex; align-items: center; gap: 16px; margin-bottom: 24px"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 4px !important;
+  }
 }

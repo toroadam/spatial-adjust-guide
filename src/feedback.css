@@ -106,6 +106,9 @@
   /* Icon only: the label costs ~90px of a 390px screen, over content, on every page. The label is
      visually hidden rather than removed, so the button keeps its accessible name. */
   .lsa-fb-fab { right: 16px; bottom: 16px; padding: 13px; }
+  /* Room below the footer, so the end of every page can scroll clear of the button rather than
+     finishing underneath it. */
+  body { padding-bottom: 72px; }
   .lsa-fb-fab-label {
     position: absolute; width: 1px; height: 1px; overflow: hidden;
     clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
