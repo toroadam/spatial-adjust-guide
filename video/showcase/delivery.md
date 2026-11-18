@@ -95,6 +95,8 @@ Run 2026-10-21 on branch `e195-showcase` (worktree of the guides repository), af
 | Site tests | `npm test` (build, then the full site suite) | pass: SMOKE PASS, 0 failed, 0 errors |
 | Video tests | `npm run test:video`, `npm run test:video:py` (own `SA_MEDIA_ROOT`) | pass: 192 Node tests, 218 Python tests (9 skipped) |
 
+Both history findings above were cleared on 2026-11-18 by rewriting history; the resolved entries in `docs/review-agenda.md` say how. The table is the audit as it stood when it ran.
+
 Two findings are in history that was already on `origin/main`, so this phase did not rewrite it and cannot: removing
 them means rewriting public history (commit messages for the 51 trailers, the two files' diffs for the name) and a force
 push of `main`, which every other worktree and branch would then need rebased. That is the owner's call, and it is on the

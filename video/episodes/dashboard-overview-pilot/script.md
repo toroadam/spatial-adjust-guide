@@ -39,7 +39,7 @@ Every line is backed by a claim in the claims ledger. A line says nothing the ci
 
 ### The claims, as verified
 
-Quoted from the verified claims ledger on `main` at commit e6459ba (`docs/claims/guides/dashboard-overview.json`), where every one of them is `Verified` against IntelliDash production:
+Quoted from the verified claims ledger on `main` at commit fee77e9 (`docs/claims/guides/dashboard-overview.json`), where every one of them is `Verified` against IntelliDash production:
 
 | Claim id | Verified text |
 |---|---|
@@ -49,7 +49,7 @@ Quoted from the verified claims ledger on `main` at commit e6459ba (`docs/claims
 | `dashboard-overview/2/3` | A station scanned today is colored by its measured VWC against the four moisture bands in the legend, and a station last scanned on an earlier day is drawn clear. |
 | `dashboard-overview/2/6` | Map with the moisture legend. |
 
-This branch (`e200-video-pipeline`) was cut from `main` at c37d80e, before the claims audit re-extracted the ledger, so its own `docs/claims/claims.json` still holds the unverified ledger, in which `2/2`, `2/3` and `2/6` name different sentences (`2/2` there is the sentence the audit marked Wrong and corrected). The ids above resolve to the verified text once the branch is merged into `main`. `parseEpisode` passes against both ledgers: the branch's (`node video/lib/episode-schema.mjs`) and `main`'s (the same check with `parseEpisode(file, { ledger })` on `git show main:docs/claims/claims.json`). After the merge, re-run the schema and compare the five texts above with `docs/claims/guides/dashboard-overview.json`; if the audit has renumbered them again, the script needs a new G6 row.
+This branch (`e200-video-pipeline`) was cut from `main` at 229aaef, before the claims audit re-extracted the ledger, so its own `docs/claims/claims.json` still holds the unverified ledger, in which `2/2`, `2/3` and `2/6` name different sentences (`2/2` there is the sentence the audit marked Wrong and corrected). The ids above resolve to the verified text once the branch is merged into `main`. `parseEpisode` passes against both ledgers: the branch's (`node video/lib/episode-schema.mjs`) and `main`'s (the same check with `parseEpisode(file, { ledger })` on `git show main:docs/claims/claims.json`). After the merge, re-run the schema and compare the five texts above with `docs/claims/guides/dashboard-overview.json`; if the audit has renumbered them again, the script needs a new G6 row.
 
 ### What the script leaves out, and why
 

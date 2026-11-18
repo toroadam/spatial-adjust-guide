@@ -57,9 +57,9 @@ except this folder) and the **claims ledger** (`docs/claims/`). Each artifact be
 path and by running the command its README documents. No check rendered VO or spent ElevenLabs
 credits, and none opened a browser on IntelliDash.
 
-**Checked at:** `b6a2d36b0c453e6c9439c7afa1ab663e4370e70b` on the showcase branch, on 2026-10-20.
-That commit contains `main` at `e6459ba4a741f72059e72d6b274cd08c94b96090`, which carries the
-claims ledger, and the video pipeline's branch at `3ea86c0ea8795f26d51a16a3946800a5bd4b34eb`. The
+**Checked at:** `5b6b48a084db0bf920b66a0ba7418e8feab2767e` on the showcase branch, on 2026-10-20.
+That commit contains `main` at `fee77e965561f1f36a2e947210699e2465508141`, which carries the
+claims ledger, and the video pipeline's branch at `2916ffcb3e1e6f13f8102098051b7056815e0428`. The
 pipeline had not reached `main` at that point: it reaches it when the owner merges the pipeline
 branch, and the checks in this table are re-run then.
 
@@ -68,36 +68,36 @@ Commands run from the repository root, with `SA_VIDEO_PYTHON` set to the media-r
 
 | # | Artifact | Path | Owner | Check command | Result | Checked at SHA |
 |---|---|---|---|---|---|---|
-| 1 | Pipeline README and dispatcher | `video/README.md`, `video/bin/sa-video` | video pipeline | `npm run video -- help` | present; exit 0, every subcommand listed as implemented | `b6a2d36` |
-| 2 | Brian VO renderer | `video/vo/render-brian.py`, `video/vo/voice-settings.md`, `video/vo/lexicon.json` | video pipeline | `npm run video -- vo --help`; `python3 video/vo/render-brian.py --episode video/lib/fixtures/episode.valid.json --dry-run` (no network call, key not read, nothing written); header and `VOICE_CONFIG` read for voice and model | present; both exit 0. Voice `Gubgw9l4dtIoQA9YZHgx` (Brian), model `eleven_multilingual_v2`, 1 credit per character | `b6a2d36` |
-| 3 | VO estimate | `video/vo/estimate.py` | video pipeline | `npm run video -- estimate --help` | present; exit 0 | `b6a2d36` |
-| 4 | Compositor: timeline builder | `video/edit/build.py` | video pipeline | `npm run video -- build --help` | present; exit 0. Takes `--episode <path>` | `b6a2d36` |
-| 5 | Compositor: renderer | `video/edit/render.py`, `video/edit/lib/` | video pipeline | `npm run video -- render --help` | present; exit 0. Takes `--timeline <json>` | `b6a2d36` |
-| 6 | Compositor: audio mix and mux | `video/edit/mix.py`, `video/edit/audio/` | video pipeline | `npm run video -- mix --help` | present; exit 0. Takes `--timeline <json>` | `b6a2d36` |
-| 7 | Verify gate | `video/verify/verify.py` | video pipeline | `npm run video -- verify --help` | present; exit 0. Takes `--episode <path>` | `b6a2d36` |
-| 8 | OCR denylist check | `video/verify/ocr_check.py`, `video/verify/ocr.swift` (built to `<media root>/bin/sa-ocr`, present) | video pipeline | `npm run video -- ocr --help` | present; exit 0 | `b6a2d36` |
-| 9 | WebVTT captions | `video/verify/captions.py` | video pipeline | `npm run video -- captions --help` | present; exit 0. Takes `--episode <path>` | `b6a2d36` |
-| 10 | Capture director and its non-`/demo` refusal | `video/capture/director.mjs`, `gates.mjs`, `record.mjs`, `recreation.mjs`, `refusal.test.mjs`, `gates.test.mjs` | video pipeline | `node video/capture/director.mjs --help`; `node --test video/capture/refusal.test.mjs`; the entry-gate test in `gates.test.mjs` ("accepts only https://\<allowed host\>[/\<prefix\>]/spatialadjust/demo, exactly") runs in `npm run test:video` | present; `--help` exit 0, refusal self-test exit 0 (15 of 15 pass), entry-gate test passes. Takes `--episode <id\|file>` | `b6a2d36` |
-| 11 | Fictional course overlay | `video/capture/course-overlay.js` | video pipeline | `node --test video/capture/course-overlay.test.mjs` (in `npm run test:video`) | present; pass | `b6a2d36` |
-| 12 | Demo Mode safety audit | `video/capture/SAFETY.md` | video pipeline | `test -f video/capture/SAFETY.md` | present; exit 0 | `b6a2d36` |
-| 13 | Motion system | `video/brand/motion-system.md`, mirrored by `video/edit/lib/brand.py` | video pipeline | `test -f`; `test_brand.py` in `npm run test:video:py` | present; pass | `b6a2d36` |
-| 14 | Title, chapter and end-card generators | `video/edit/lib/cards.py` (`title_card`, `chapter_card`, `end_card`), `video/edit/gfx/render_gfx.mjs`, `video/brand/end-card.json` | video pipeline | `test_cards.py` and `test_end_card.py` in `npm run test:video:py` | present; pass | `b6a2d36` |
-| 15 | Fictional course identity | `video/brand/course.json` | video pipeline | `course.test.mjs` in `npm run test:video` | present; pass | `b6a2d36` |
-| 16 | Music bed | `video/brand/music.json`; the bed `<media root>/music/sa-bed-v1.wav` | video pipeline | `npm run video -- mix --check-music ~/Documents/SpatialAdjust_MarCom/music/sa-bed-v1.wav` | present; exit 0 (an original work, not an iCentral asset or the refused preview) | `b6a2d36` |
-| 17 | Episode format | `video/episodes/README.md`, `video/lib/episode-schema.mjs` | video pipeline | `node video/lib/episode-schema.mjs video/lib/fixtures/episode.valid.json` | present; exit 0, prints `ok` | `b6a2d36` |
-| 18 | Pilot episode | `video/episodes/dashboard-overview-pilot/` | video pipeline | `ls video/episodes/` | **not landed**: the pilot is the pipeline's last step and had not started. The showcase does not consume it: the field names come from row 17 | `b6a2d36` |
-| 19 | Approvals log | `video/approvals.md` | video pipeline | `grep -E '^\| G[1-7] \|' video/approvals.md` | present; G1 course identity, G2 map approach and map still, G3 style frame, G4 end-card URL and G5 music are each `decided by executor` under the owner's direction; G6 and G7 belong to the pilot and are `pending` | `b6a2d36` |
-| 20 | Media root guard | `video/lib/media-root.mjs`, `video/lib/media_root.py` | video pipeline | `node video/lib/media-root.mjs --check`; `python3 video/lib/media_root.py --check` | present; both exit 0, root `~/Documents/SpatialAdjust_MarCom` | `b6a2d36` |
-| 21 | Repository hygiene | `video/verify/hygiene.mjs` | video pipeline | `npm run video -- hygiene` | present; exit 0, clean (media, key, denylist, attribution) | `b6a2d36` |
-| 22 | Pipeline test suites | `video/**/*.test.mjs`, `video/**/test_*.py` | video pipeline | `npm run test:video`; `npm run test:video:py` | both exit 0. Node: 147 of 147 pass. Python: 176 run, OK, 1 skipped (the numpy parity check under the system `python3`; it passes in the media-root venv, 28 of 28 in `test_render_brian.py`) | `b6a2d36` |
-| 23 | Claims ledger | `docs/claims/claims.json` | claims ledger | `node -e "JSON.parse(require('fs').readFileSync('docs/claims/claims.json','utf8'))"` | present; exit 0. 871 claims in 26 guides: 843 Verified, 28 Needs expert, 0 Wrong, 0 Not shipping, 0 Unverified | `b6a2d36` |
-| 24 | Pinned sources and claim schema | `docs/claims/README.md`, `docs/claims/sources.json` | claims ledger | read | present. Production `1aa4f28622cc3cc9637f0d61a438bf16bcf01924` (confirmed 2026-10-19), develop and beta `bd39f465cf5a7ae0356a59825250b36044085714`. Schema in [Claim record](#claim-record) | `b6a2d36` |
-| 25 | Ledger lint | `scripts/claims-extract.mjs` | claims ledger | `npm run claims:lint` | present; exit 0, 26 shards OK. The plan named `npm run test:claims`, which the ledger never defined (exit 1, "Missing script"); `claims:lint` is the check the ledger documents | `b6a2d36` |
-| 26 | Ledger matches the published text | `scripts/review-pack.mjs` | claims ledger | `npm run review-pack -- --no-pdf --out <a folder outside the repository>` (refuses a stale ledger) | present; exit 0, not stale | `b6a2d36` |
-| 27 | Push window claims | `docs/claims/claims.json` | claims ledger | count of claims whose text is the "Push window." or "Outside that window" sentence | present; 12 claims in 6 guides, **0 Verified**: all 12 are Needs expert, by design, until the experts answer Q1 to Q4 in [`operational-contract.md`](../../docs/claims/operational-contract.md) | `b6a2d36` |
-| 28 | Lynx prerequisite claims | `docs/claims/claims.json` | claims ledger | count of `prerequisite` claims naming Lynx, by status | present; 10 Verified: `push-to-lynx/before/4`, `/6`, `/8`, `calculation-settings/before/3`, `minimum-threshold/before/5`, `push-failures/before/2`, `reviewing-changes/before/3`, `seasonal-profiles/before/2`, `suggested-adjustments/before/3`, `verify-results/before/3` | `b6a2d36` |
-| 29 | Target Profiles claims | `docs/claims/claims.json` | claims ledger | count of claims in `target-profiles`, `creating-profiles`, `updating-profiles`, `seasonal-profiles`, by status | present; 111 claims: 106 Verified, 5 Needs expert, **0 Not shipping**. The plan expected Not shipping; Target Profiles is on production | `b6a2d36` |
-| 30 | Operational contract | `docs/claims/operational-contract.md` | claims ledger | `test -f` | present; the push window and Lynx rules with questions Q1 to Q7 | `b6a2d36` |
+| 1 | Pipeline README and dispatcher | `video/README.md`, `video/bin/sa-video` | video pipeline | `npm run video -- help` | present; exit 0, every subcommand listed as implemented | `5b6b48a` |
+| 2 | Brian VO renderer | `video/vo/render-brian.py`, `video/vo/voice-settings.md`, `video/vo/lexicon.json` | video pipeline | `npm run video -- vo --help`; `python3 video/vo/render-brian.py --episode video/lib/fixtures/episode.valid.json --dry-run` (no network call, key not read, nothing written); header and `VOICE_CONFIG` read for voice and model | present; both exit 0. Voice `Gubgw9l4dtIoQA9YZHgx` (Brian), model `eleven_multilingual_v2`, 1 credit per character | `5b6b48a` |
+| 3 | VO estimate | `video/vo/estimate.py` | video pipeline | `npm run video -- estimate --help` | present; exit 0 | `5b6b48a` |
+| 4 | Compositor: timeline builder | `video/edit/build.py` | video pipeline | `npm run video -- build --help` | present; exit 0. Takes `--episode <path>` | `5b6b48a` |
+| 5 | Compositor: renderer | `video/edit/render.py`, `video/edit/lib/` | video pipeline | `npm run video -- render --help` | present; exit 0. Takes `--timeline <json>` | `5b6b48a` |
+| 6 | Compositor: audio mix and mux | `video/edit/mix.py`, `video/edit/audio/` | video pipeline | `npm run video -- mix --help` | present; exit 0. Takes `--timeline <json>` | `5b6b48a` |
+| 7 | Verify gate | `video/verify/verify.py` | video pipeline | `npm run video -- verify --help` | present; exit 0. Takes `--episode <path>` | `5b6b48a` |
+| 8 | OCR denylist check | `video/verify/ocr_check.py`, `video/verify/ocr.swift` (built to `<media root>/bin/sa-ocr`, present) | video pipeline | `npm run video -- ocr --help` | present; exit 0 | `5b6b48a` |
+| 9 | WebVTT captions | `video/verify/captions.py` | video pipeline | `npm run video -- captions --help` | present; exit 0. Takes `--episode <path>` | `5b6b48a` |
+| 10 | Capture director and its non-`/demo` refusal | `video/capture/director.mjs`, `gates.mjs`, `record.mjs`, `recreation.mjs`, `refusal.test.mjs`, `gates.test.mjs` | video pipeline | `node video/capture/director.mjs --help`; `node --test video/capture/refusal.test.mjs`; the entry-gate test in `gates.test.mjs` ("accepts only https://\<allowed host\>[/\<prefix\>]/spatialadjust/demo, exactly") runs in `npm run test:video` | present; `--help` exit 0, refusal self-test exit 0 (15 of 15 pass), entry-gate test passes. Takes `--episode <id\|file>` | `5b6b48a` |
+| 11 | Fictional course overlay | `video/capture/course-overlay.js` | video pipeline | `node --test video/capture/course-overlay.test.mjs` (in `npm run test:video`) | present; pass | `5b6b48a` |
+| 12 | Demo Mode safety audit | `video/capture/SAFETY.md` | video pipeline | `test -f video/capture/SAFETY.md` | present; exit 0 | `5b6b48a` |
+| 13 | Motion system | `video/brand/motion-system.md`, mirrored by `video/edit/lib/brand.py` | video pipeline | `test -f`; `test_brand.py` in `npm run test:video:py` | present; pass | `5b6b48a` |
+| 14 | Title, chapter and end-card generators | `video/edit/lib/cards.py` (`title_card`, `chapter_card`, `end_card`), `video/edit/gfx/render_gfx.mjs`, `video/brand/end-card.json` | video pipeline | `test_cards.py` and `test_end_card.py` in `npm run test:video:py` | present; pass | `5b6b48a` |
+| 15 | Fictional course identity | `video/brand/course.json` | video pipeline | `course.test.mjs` in `npm run test:video` | present; pass | `5b6b48a` |
+| 16 | Music bed | `video/brand/music.json`; the bed `<media root>/music/sa-bed-v1.wav` | video pipeline | `npm run video -- mix --check-music ~/Documents/SpatialAdjust_MarCom/music/sa-bed-v1.wav` | present; exit 0 (an original work, not an iCentral asset or the refused preview) | `5b6b48a` |
+| 17 | Episode format | `video/episodes/README.md`, `video/lib/episode-schema.mjs` | video pipeline | `node video/lib/episode-schema.mjs video/lib/fixtures/episode.valid.json` | present; exit 0, prints `ok` | `5b6b48a` |
+| 18 | Pilot episode | `video/episodes/dashboard-overview-pilot/` | video pipeline | `ls video/episodes/` | **not landed**: the pilot is the pipeline's last step and had not started. The showcase does not consume it: the field names come from row 17 | `5b6b48a` |
+| 19 | Approvals log | `video/approvals.md` | video pipeline | `grep -E '^\| G[1-7] \|' video/approvals.md` | present; G1 course identity, G2 map approach and map still, G3 style frame, G4 end-card URL and G5 music are each `decided by executor` under the owner's direction; G6 and G7 belong to the pilot and are `pending` | `5b6b48a` |
+| 20 | Media root guard | `video/lib/media-root.mjs`, `video/lib/media_root.py` | video pipeline | `node video/lib/media-root.mjs --check`; `python3 video/lib/media_root.py --check` | present; both exit 0, root `~/Documents/SpatialAdjust_MarCom` | `5b6b48a` |
+| 21 | Repository hygiene | `video/verify/hygiene.mjs` | video pipeline | `npm run video -- hygiene` | present; exit 0, clean (media, key, denylist, attribution) | `5b6b48a` |
+| 22 | Pipeline test suites | `video/**/*.test.mjs`, `video/**/test_*.py` | video pipeline | `npm run test:video`; `npm run test:video:py` | both exit 0. Node: 147 of 147 pass. Python: 176 run, OK, 1 skipped (the numpy parity check under the system `python3`; it passes in the media-root venv, 28 of 28 in `test_render_brian.py`) | `5b6b48a` |
+| 23 | Claims ledger | `docs/claims/claims.json` | claims ledger | `node -e "JSON.parse(require('fs').readFileSync('docs/claims/claims.json','utf8'))"` | present; exit 0. 871 claims in 26 guides: 843 Verified, 28 Needs expert, 0 Wrong, 0 Not shipping, 0 Unverified | `5b6b48a` |
+| 24 | Pinned sources and claim schema | `docs/claims/README.md`, `docs/claims/sources.json` | claims ledger | read | present. Production `1aa4f28622cc3cc9637f0d61a438bf16bcf01924` (confirmed 2026-10-19), develop and beta `bd39f465cf5a7ae0356a59825250b36044085714`. Schema in [Claim record](#claim-record) | `5b6b48a` |
+| 25 | Ledger lint | `scripts/claims-extract.mjs` | claims ledger | `npm run claims:lint` | present; exit 0, 26 shards OK. The plan named `npm run test:claims`, which the ledger never defined (exit 1, "Missing script"); `claims:lint` is the check the ledger documents | `5b6b48a` |
+| 26 | Ledger matches the published text | `scripts/review-pack.mjs` | claims ledger | `npm run review-pack -- --no-pdf --out <a folder outside the repository>` (refuses a stale ledger) | present; exit 0, not stale | `5b6b48a` |
+| 27 | Push window claims | `docs/claims/claims.json` | claims ledger | count of claims whose text is the "Push window." or "Outside that window" sentence | present; 12 claims in 6 guides, **0 Verified**: all 12 are Needs expert, by design, until the experts answer Q1 to Q4 in [`operational-contract.md`](../../docs/claims/operational-contract.md) | `5b6b48a` |
+| 28 | Lynx prerequisite claims | `docs/claims/claims.json` | claims ledger | count of `prerequisite` claims naming Lynx, by status | present; 10 Verified: `push-to-lynx/before/4`, `/6`, `/8`, `calculation-settings/before/3`, `minimum-threshold/before/5`, `push-failures/before/2`, `reviewing-changes/before/3`, `seasonal-profiles/before/2`, `suggested-adjustments/before/3`, `verify-results/before/3` | `5b6b48a` |
+| 29 | Target Profiles claims | `docs/claims/claims.json` | claims ledger | count of claims in `target-profiles`, `creating-profiles`, `updating-profiles`, `seasonal-profiles`, by status | present; 111 claims: 106 Verified, 5 Needs expert, **0 Not shipping**. The plan expected Not shipping; Target Profiles is on production | `5b6b48a` |
+| 30 | Operational contract | `docs/claims/operational-contract.md` | claims ledger | `test -f` | present; the push window and Lynx rules with questions Q1 to Q7 | `5b6b48a` |
 
 ### What the checklist means for the later phases
 
@@ -283,7 +283,7 @@ message is held too, and B8 closes on `understanding-vwc/4/4`. `--strict` finds 
 the end card's legal line. The ledger and the guide prose are not edited here: they belong to the claims ledger's
 owner, and what the film needs from it is raised as a note on the phase 2 feature.
 
-**Runs, 2026-10-20**, against `docs/claims/claims.json` at commit `d264376`:
+**Runs, 2026-10-20**, against `docs/claims/claims.json` at commit `d1be76f`:
 
 | Command | Result |
 |---|---|

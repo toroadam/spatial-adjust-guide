@@ -10,7 +10,7 @@ config, and `node video/showcase/check-claims.mjs` fails while it is stale or wh
 
 **Checked against:**
 
-- the claims ledger, `docs/claims/claims.json`, as last changed by commit `d26437621f0626be97c25f1f8bd6de6134daa473`
+- the claims ledger, `docs/claims/claims.json`, as last changed by commit `d1be76f105ede7693194ff077b33480239823bec`
   (2026-10-19; blob `0778d4218c52e2826a750f71a17d9219fc5808ed`): 871 claims in 26 guides, 843 Verified, 28 Needs
   expert, 0 Wrong, 0 Not shipping, 0 Unverified;
 - IntelliDash production `1aa4f28622cc3cc9637f0d61a438bf16bcf01924` (`origin/Deployments/release/261014_phase_3a`,

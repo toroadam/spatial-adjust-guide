@@ -468,7 +468,7 @@ verdict with the reviewer's role and the date in `docs/claims/signoff.md`.
 - **Published.** The live site, https://toroadam.github.io/spatial-adjust-guide/, carries every
   correction, the changed-surfaces callouts, the "New in Spatial Adjust" banner and tile badges on the
   four Target Profiles guides, and the push window and Lynx prerequisites in all eleven languages.
-  The guide content was last changed by `d264376`, and `bebdde6` was deployed by the
+  The guide content was last changed by `d1be76f`, and `bb18a7d` was deployed by the
   "Build and deploy to Pages" run 39363468912, which passed, as did "Screen fidelity" on the same
   commit.
 - **Pinned sources.** Production `1aa4f28622cc3cc9637f0d61a438bf16bcf01924`
