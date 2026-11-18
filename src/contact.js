@@ -40,7 +40,9 @@
 
   // The six catalogue sections, by their English heading. The headings are already in the
   // catalogues, so these links translate for free rather than needing six new strings.
-  var SECTIONS = ['Getting Started', 'Calculations', 'Target Profiles',
+  // Same names and order as the catalogue headings, since the click handler below scrolls to
+  // the h2 whose text matches.
+  var SECTIONS = ['Getting Started', 'Targets', 'Calculations',
                   'Station Management', 'Review & Apply', 'Troubleshooting'];
 
   var ROOT = 'lsa-contact';
