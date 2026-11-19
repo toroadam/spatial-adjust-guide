@@ -15,7 +15,7 @@ import { mkdir, mkdtemp, open, readFile, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-import { SHOWCASE_KEY, assetsOf, guideKeysFrom, loadManifest, sha256File, upsertItem, validateManifest, verifyItem } from '../src/media/manifest.mjs';
+import { SHOWCASE_KEY, assetsOf, backdropAssets, guideKeysFrom, loadManifest, sha256File, upsertItem, validateManifest, verifyItem } from '../src/media/manifest.mjs';
 import { parseVtt, serializeVtt } from '../src/media/vtt.mjs';
 import {
   CAPTION_LOCALES, TRANSLATED_LOCALES, captionTracks, loadCaptionCatalogues, localizeCues, writeCaptionTracks,
@@ -491,5 +491,25 @@ describe('repository guards', () => {
     assert.deepEqual(lfsLines('*.mp4 filter=lfs diff=lfs merge=lfs -text\n# *.mov filter=lfs\n*.txt text\n'), [
       '*.mp4 filter=lfs diff=lfs merge=lfs -text',
     ]);
+  });
+});
+
+describe('map backdrop', () => {
+  const backdrop = { file: 'map-backdrop.jpg', bytes: 10, sha256: 'a'.repeat(64), width: 2200, height: 1982, release: 'media-map-v1' };
+  const base = { repo: 'owner/name', release: 'media-v1', items: {} };
+
+  test('is optional, and accepted when pinned', () => {
+    validateManifest(base, { guideKeys: [] });
+    validateManifest({ ...base, mapBackdrop: backdrop }, { guideKeys: [] });
+  });
+
+  test('rejects an unknown field or a non-jpg name', () => {
+    assert.throws(() => validateManifest({ ...base, mapBackdrop: { ...backdrop, extra: 1 } }, { guideKeys: [] }), /unknown field/);
+    assert.throws(() => validateManifest({ ...base, mapBackdrop: { ...backdrop, file: 'map.png' } }, { guideKeys: [] }), /\.jpg/);
+  });
+
+  test('is one asset to stage, or none', () => {
+    assert.deepEqual(backdropAssets(base), []);
+    assert.deepEqual(backdropAssets({ ...base, mapBackdrop: backdrop }), [{ role: 'backdrop', name: 'map-backdrop.jpg', bytes: 10, sha256: 'a'.repeat(64) }]);
   });
 });

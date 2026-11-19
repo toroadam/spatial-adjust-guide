@@ -35,7 +35,7 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import { pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import {
-  DEFAULT_MANIFEST, DEFAULT_MEDIA_DIR, assetUrl, assetsOf, loadManifest, sha256File, validateManifest,
+  DEFAULT_MANIFEST, DEFAULT_MEDIA_DIR, assetUrl, assetsOf, backdropAssets, loadManifest, sha256File, validateManifest,
 } from '../src/media/manifest.mjs';
 
 export const ATTEMPTS = 3;
@@ -107,8 +107,11 @@ export async function stageAll(manifest, dir, {
   };
   const result = { fetched: 0, cached: 0, failed: [] };
 
-  for (const [key, item] of Object.entries(manifest.items)) {
-    for (const asset of assetsOf(item)) {
+  // Every item's video and poster, then the map backdrop when the manifest pins one.
+  const groups = Object.entries(manifest.items).map(([key, item]) => [key, item, assetsOf(item)]);
+  if (manifest.mapBackdrop) groups.push(['map-backdrop', manifest.mapBackdrop, backdropAssets(manifest)]);
+  for (const [key, item, assets] of groups) {
+    for (const asset of assets) {
       const path = join(dir, asset.name);
       if (await isStaged(path, asset)) {
         log(`media: ${key} ${asset.name} cached`);

@@ -1,6 +1,8 @@
 // The recreation's map in the product's look, page side. Installed by video/capture/recreation-map.mjs as an init script
-// (after the config), for a recreation take whose episode sets "recreationMap". Capture only: the guide site keeps its drawn
-// aerial, and the imagery never enters the repository (the Node side serves it from the media root).
+// (after the config), for a recreation take whose episode sets "recreationMap"; the Node side serves the imagery from the
+// media root. The guide site also ships this script (build.mjs), with allFigures set and the backdrop staged from a release
+// asset, so its figures match the videos. The imagery never enters the repository either way. In a capture the director's
+// copy runs first and sets __saRecMapInstalled, so the site's copy stands down.
 //
 //   window.__saRecMap = { backdrop, view: { x0, y0, w, h }, zoom, diameter, pins: [{ x, y, name }] }
 //
@@ -165,7 +167,9 @@
     if (!card || done.has(card)) return;
     const r = { width: card.offsetWidth, height: card.offsetHeight };   // layout size: the guide page scales its figures with a transform
     if (r.width < 300) return;                                   // not laid out yet
-    if (!card.closest('[data-sa-frame]')) return;                // only the figure the take lifted: the page's other copies stay as they are (their own 4K layers would cost memory)
+    // In a capture, only the figure the take lifted: the page's other copies stay as they are (their own 4K layers would
+    // cost memory). The guide site sets allFigures, so every figure on the page shows the same map as the videos.
+    if (!cfg.allFigures && !card.closest('[data-sa-frame]')) return;
     done.add(card);
     card.classList.add('sa-rm-card');
     const kids = [...card.children];

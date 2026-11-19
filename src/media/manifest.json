@@ -1,6 +1,14 @@
 {
   "repo": "toroadam/spatial-adjust-guide",
   "release": "media-v1",
+  "mapBackdrop": {
+    "file": "map-backdrop.jpg",
+    "bytes": 1378173,
+    "sha256": "b93cbb5d0b4f55313d588f6a483af38e59b2f1bdc9a90c77873433199ad8c878",
+    "width": 2200,
+    "height": 1982,
+    "release": "media-map-v1"
+  },
   "items": {
     "bulk-adjustments": {
       "kind": "episode",

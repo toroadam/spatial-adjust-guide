@@ -82,9 +82,23 @@ const itemSchema = z.strictObject({
   release: z.string().regex(TAG, 'release must be a tag of letters, digits, ".", "_" or "-"').optional(),
 });
 
+// The satellite backdrop the guide figures draw their map on, the same imagery the videos show
+// (video/capture/recreation-map.js). A release asset like the videos, never a git object: the
+// repository is public and the imagery stays out of it. width and height are the image's pixels,
+// which the page needs to place it without decoding it first.
+const backdropSchema = z.strictObject({
+  file: z.string().regex(/^[a-z0-9-]+\.jpg$/, 'mapBackdrop.file must be a lowercase kebab-case name ending in .jpg'),
+  bytes: byteCount('mapBackdrop.bytes'),
+  sha256: sha('mapBackdrop.sha256'),
+  width: z.number().int().positive(),
+  height: z.number().int().positive(),
+  release: z.string().regex(TAG, 'release must be a tag of letters, digits, ".", "_" or "-"').optional(),
+});
+
 const manifestSchema = z.strictObject({
   repo: z.string().regex(/^[A-Za-z0-9-]+\/[A-Za-z0-9._-]+$/, 'repo must be "owner/name"'),
   release: z.string().regex(TAG, 'release must be a tag of letters, digits, ".", "_" or "-"'),
+  mapBackdrop: backdropSchema.optional(),
   items: z.record(z.string(), z.unknown()),
 });
 
@@ -183,16 +197,22 @@ export function assetsOf(item) {
   ];
 }
 
+/** The map backdrop as a one-asset list (empty when the manifest has none), shaped like assetsOf's. */
+export function backdropAssets(manifest) {
+  const b = manifest && manifest.mapBackdrop;
+  return b ? [{ role: 'backdrop', name: b.file, bytes: b.bytes, sha256: b.sha256 }] : [];
+}
+
 /**
  * Check an item's staged video and poster in `mediaDir`. Byte count first, because it is free;
  * the hash only when the size matches. Returns { ok, missing, mismatched }:
  *   missing     file names that are absent (or are not regular files)
  *   mismatched  [{ name, role, field: 'bytes' | 'sha256', expected, actual }]
  */
-export async function verifyItem(item, mediaDir = DEFAULT_MEDIA_DIR) {
+export async function verifyItem(item, mediaDir = DEFAULT_MEDIA_DIR, assets = assetsOf(item)) {
   const missing = [];
   const mismatched = [];
-  for (const asset of assetsOf(item)) {
+  for (const asset of assets) {
     const path = join(mediaDir, asset.name);
     let info;
     try {

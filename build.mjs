@@ -22,7 +22,7 @@ import { parseShowBeta, loadRelease, isGuideShipped } from './src/release.mjs';
 import { evaluateGuideData, catalogueOmissions } from './src/transforms/release-gate.mjs';
 import {
   DEFAULT_MANIFEST, DEFAULT_MEDIA_DIR, SHOWCASE_KEY,
-  guideKeysFrom, loadManifest, validateManifest, verifyItem,
+  backdropAssets, guideKeysFrom, loadManifest, validateManifest, verifyItem,
 } from './src/media/manifest.mjs';
 import { checkItems, checkSite } from './scripts/media-budget.mjs';
 import { DEFAULT_CAPTIONS_DIR, writeCaptionTracks } from './src/media/captions.mjs';
@@ -206,6 +206,44 @@ async function stageMedia(html, { showBeta, release }) {
   return mediaItems;
 }
 
+/**
+ * The satellite map backdrop (manifest.mapBackdrop): verify the staged copy and ship it to
+ * dist/media/, so the guide figures draw the same aerial map the videos show. Returns the
+ * page-side config for video/capture/recreation-map.js, or null when the manifest pins no
+ * backdrop or it is not staged (and SA_MEDIA_REQUIRED is off): the figures then keep the
+ * drawn map, which is what the tests' fixture builds see.
+ *
+ * The map's placement (zoom, circle size, the 24 pins, the station field) is the
+ * dashboard-overview episode's recreationMap, the one source both the video and the site read.
+ * Its view window is in full-mosaic pixels; the shipped file is already cropped to that window,
+ * so here the view is the whole file.
+ */
+async function stageBackdrop() {
+  const manifest = await loadManifest(resolve(ROOT, process.env.SA_MEDIA_MANIFEST || DEFAULT_MANIFEST));
+  const b = manifest.mapBackdrop;
+  if (!b) return null;
+  const mediaDir = resolve(ROOT, process.env.SA_MEDIA_DIR || DEFAULT_MEDIA_DIR);
+  const { ok, missing, mismatched } = await verifyItem(b, mediaDir, backdropAssets(manifest));
+  if (mismatched.length) throw new Error(`media: ${b.file} does not match its pin in the manifest; delete it from ${mediaDir} and run npm run media:fetch`);
+  if (!ok) {
+    const line = `media: map backdrop missing ${missing.join(', ')} - run npm run media:fetch`;
+    if (mediaRequired(process.env.SA_MEDIA_REQUIRED)) throw new Error(line);
+    console.warn(`warning: ${line}. Figures keep the drawn map.`);
+    return null;
+  }
+  await mkdir(join(DIST, 'media'), { recursive: true });
+  await copyFile(join(mediaDir, b.file), join(DIST, 'media', b.file));
+  const episode = JSON.parse(await readFile(join(ROOT, 'video', 'episodes', 'dashboard-overview', 'episode.json'), 'utf8'));
+  const rm = episode.recreationMap;
+  if (!rm) throw new Error('video/episodes/dashboard-overview/episode.json has no recreationMap for the figures to share');
+  return {
+    zoom: rm.zoom, diameter: rm.diameter, pins: rm.pins, total: rm.total, seed: rm.seed, spots: rm.spots,
+    chains: rm.chains, greens: rm.greens,
+    view: { x0: 0, y0: 0, w: b.width, h: b.height }, imageWidth: b.width, imageHeight: b.height,
+    backdrop: `media/${b.file}`, allFigures: true,
+  };
+}
+
 async function main() {
   // The release switch. SA_SHOW_BETA is the whole contract with whatever host runs the build: GitHub
   // Actions sets it from a repository variable, an Azure pipeline from a pipeline variable, a laptop
@@ -266,6 +304,7 @@ async function main() {
 
   // Run after the transforms, so the catalogue keys include the guides they add.
   const mediaItems = await stageMedia(html, { showBeta, release });
+  const mapConfig = await stageBackdrop();
 
   // Eleven caption tracks per shipped video, dist/media/captions/<key>.<locale>.vtt: the English
   // source and one per translated locale, from the caption catalogues (see src/media/captions.mjs).
@@ -412,6 +451,18 @@ async function main() {
     }
     injectedJs.push(`/* --- src/${name} --- */\n` + src);
   }
+  // The aerial map on every figure, the same script and placement the videos were captured with.
+  // The config only fills the slot when nothing set it first: in a capture the director's own
+  // config and copy of the script are already in place, and this copy stands down.
+  if (mapConfig) {
+    const cfg = JSON.stringify(mapConfig).replace(/</g, '\\u003c');
+    if (cfg.includes('$')) throw new Error('the map config contains "$", which the page splice would corrupt');
+    const mapJs = await readFile(join(ROOT, 'video', 'capture', 'recreation-map.js'), 'utf8');
+    // Template literals are fine; only the sequences a replacement string expands are not.
+    if (/\$[$&`'0-9<]/.test(mapJs)) throw new Error('video/capture/recreation-map.js contains a "$" sequence the page splice would expand');
+    injectedJs.push(`/* --- map backdrop --- */\nif (!window.__saRecMap) window.__saRecMap = ${cfg};\n/* --- video/capture/recreation-map.js --- */\n${mapJs}`);
+  }
+  console.log(`map backdrop: ${mapConfig ? mapConfig.backdrop : 'none (drawn map)'}`);
   const a11yJs = injectedJs.join('\n');
   html = html.replace('</head>', `<title>Spatial Adjust Guides</title>
 <meta name="description" content="Interactive guides for the Spatial Adjust feature in IntelliDash.">
