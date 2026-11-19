@@ -253,14 +253,14 @@
     "showcase": {
       "kind": "showcase",
       "file": "showcase.mp4",
-      "bytes": 37454067,
-      "sha256": "074d65b6ff6a81278b34ba1447936edc6ca6561637504fd9eb03fde607a3c909",
+      "bytes": 37402111,
+      "sha256": "93256560e1adb1624742b86e223d32703406c4401a438d5aaad6a03d0886febf",
       "duration": 118.6,
       "poster": "showcase.jpg",
       "posterBytes": 86545,
       "posterSha256": "5fd14cea3b0fe055af3040eb50a21fa1d863a07c4b21ffde6628208366704350",
       "captions": "src/media/captions/showcase.en-us.vtt",
-      "release": "media-v4"
+      "release": "media-v5"
     },
     "station-details": {
       "kind": "episode",
